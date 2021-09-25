@@ -1,8 +1,6 @@
 # Fair
 
-This project is the engine for running a fair-ground such as 
-[The App Fair](https://www.appfair.net).
-
+This project contains the swift code for running a fair-ground.
 A fair-ground is an independent distribution platform
 for free and open-source native apps written in SwiftUI.
 
@@ -19,7 +17,7 @@ import PackageDescription
 let package = Package(
     name: "App",
     defaultLocalization: "en",
-    platforms: [ .macOS(.v11), .iOS(.v14) ],
+    platforms: [ .macOS(.v12), .iOS(.v15) ],
     products: [ .library(name: "App", targets: ["App"]) ],
     dependencies: [
         .package(name: "Fair", url: "https://appfair.org/Fair.git", .branch("main")),
