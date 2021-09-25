@@ -1003,10 +1003,30 @@ public extension FairCLI {
                             if teData != uteData {
                                 let diff: CollectionDifference<UInt8> = teData.difference(from: uteData)
 
+                                func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
+                                    IndexSet(changeSet.map({
+                                        switch $0 {
+                                        case .insert(let offset, _, _): return offset
+                                        case .remove(let offset, _, _): return offset
+                                        }
+                                    }))
+                                }
+
+                                let insertionRanges = offsets(in: diff.insertions)
+                                let insertionRangeDesc = insertionRanges.rangeView.prefix(10).map({ $0.description })
+
+                                let removalRanges = offsets(in: diff.removals)
+                                let removalRangeDesc = removalRanges.rangeView.prefix(10).map({ $0.description })
+
+
+                                let error = AppError("Trusted and untrusted artifact content mismatch at \(te.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc)")
+
                                 if entryIsAppBinary {
-                                    #warning("TODO: when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds: https://github.com/appfair/Fair/issues/1")
+                                    // #warning("Re-enable binary match")
+                                    // TODO: when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                                    print("WARNING:", error)
                                 } else {
-                                    throw AppError("Trusted and untrusted artifact content mismatch at \(te.path): \(diff.insertions.count) insertions and \(diff.removals.count) deletions")
+                                    throw error
                                 }
                             }
                         }
