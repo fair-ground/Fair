@@ -208,10 +208,10 @@ public extension FairHub {
 
     func validate(org: FairHub.RepositoryQuery.QueryResponse.Organization, licenseSPDXIDs: Set<String> = Set(["AGPL-3.0"])) -> AppOrgValidationFailure {
         let repo = org.repository
-        let isOrigin = org.name == appfairName
+        let isOrigin = org.login == appfairName
         var invalid: AppOrgValidationFailure = []
 
-        if org.name != appfairName {
+        if !isOrigin {
             do {
                 try AppNameValidation.standard.validate(name: org.login)
             } catch {

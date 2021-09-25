@@ -37,7 +37,11 @@ public struct FairCLI {
             self.op = .help
         } else {
             guard let op = firstArg.flatMap(Operation.init(rawValue:)) else {
-                throw Errors.badOperation(firstArg)
+                if firstArg?.hasPrefix("-") == true {
+                    throw Errors.badOperation(nil)
+                } else {
+                    throw Errors.badOperation(firstArg)
+                }
             }
             self.op = op
         }
@@ -1164,7 +1168,7 @@ public extension FairCLI {
             case .missingCommand: return "Missing command"
             case .unknownCommand(let cmd): return "Unknown command \"\(cmd)\""
             case .badArgument(let arg): return "Bad argument: \"\(arg)\""
-            case .badOperation(let op): return "Bad operation: \"\(op ?? "none")\""
+            case .badOperation(let op): return "Bad operation: \"\(op ?? "none")\". Valid operations: \(Operation.allCases.map(\.rawValue).joined(separator: ", "))"
             case .missingSDK: return "Missing SDK"
             case .dumpPackageError: return "Error reading Package.swift"
             case .invalidAppSourceHeader(let url): return "Invalid modification of source header at \(url.lastPathComponent)."
