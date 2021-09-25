@@ -68,8 +68,7 @@ jobs:
 
       - name: Run Tests
         env:
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.APP_FAIR_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         run: xcrun swift test
  
