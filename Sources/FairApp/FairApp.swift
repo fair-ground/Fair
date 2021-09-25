@@ -1,0 +1,376 @@
+/**
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Affero General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Affero General Public License for more details.
+
+ You should have received a copy of the GNU Affero General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+import Swift
+@_exported import FairCore
+import SwiftUI
+import Security
+
+public extension Bundle {
+    /// The org name of the catalog browser app
+    static let catalogBrowserAppOrg = "App-Fair"
+
+    /// Returns the resources bundle for `FairApp`
+    static var fairApp: Bundle { Bundle.module }
+
+    /// The main bundle's identifier, falling back to `app.App-Org`
+    static var mainBundleID: String {
+        Bundle.main.bundleIdentifier ?? "app.App-Org"
+    }
+
+    /// The main bundle's bundleDisplayName, falling back to bundleName then `App Org`
+    static var mainBundleName: String {
+        Bundle.main.bundleDisplayName ?? Bundle.main.bundleName ?? "App Org"
+    }
+
+    /// Whether this is the App Fair catalog browser app itself
+    var isAppFairApp: Bool {
+        bundleIdentifier == "app.\(Self.catalogBrowserAppOrg)"
+    }
+
+    /// Returns the URL for referencing the current app from within the app store
+    static func appFairURL(_ action: String) -> URL? {
+        URL(string: "appfair://\(action)/\(Bundle.mainBundleID)")
+    }
+}
+
+
+#if canImport(SwiftUI)
+/// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
+@available(macOS 12.0, iOS 15.0, *)
+public protocol FairContainer {
+    /// The store for this instance
+    associatedtype AppStore : SceneManager
+
+    associatedtype SceneBody : SwiftUI.Scene
+
+    /// The root scene for new windows
+    @SceneBuilder static func rootScene(store: Self.AppStore) -> Self.SceneBody
+
+    associatedtype SettingsBody : View
+    /// The settings associated with this app
+    @ViewBuilder static func settingsView(store: Self.AppStore) -> Self.SettingsBody
+
+    /// Launch the app, either in GUI or CLI form
+    static func main() throws
+}
+
+
+@available(*, deprecated, renamed: "SceneManager")
+@available(macOS 12.0, iOS 15.0, *)
+public typealias AppStoreObject = SceneManager
+
+#if swift(>=5.5)
+@available(macOS 12.0, iOS 15.0, *)
+@MainActor open class SceneManager: ObservableObject {
+    /// Must have a no-arg initializer
+    public required init() { }
+}
+#else
+@available(macOS 11.0, iOS 14.0, *)
+open class SceneManager: ObservableObject {
+    /// Must have a no-arg initializer
+    public required init() { }
+}
+#endif
+
+#if canImport(Security)
+import Security
+public extension AppEntitlement {
+    #if !os(iOS) // someday
+    /// Returns true if the entitlement is enabled for the current process,
+    /// or `nil` if the entitlement was not set
+    func isEnabled(forTask: SecTask? = nil) -> Bool? {
+        let task = forTask ?? SecTaskCreateFromSelf(nil)!
+        var error: Unmanaged<CFError>? = nil
+        let signid = SecTaskCopySigningIdentifier(task, &error)
+        precondition(error == nil)
+
+        // TODO: optionally check if we are being run as an XPC connection
+        //var tok: audit_token_t? = nil
+        //xpc_connection_get_audit_token(conn, &tok)
+        //let sectask: SecTask = SecTaskCreateWithAuditToken(nil, tok)
+        let value = SecTaskCopyValueForEntitlement(task, self.entitlementKey as CFString, &error)
+
+        // e.g.:  isEnabled: check signid: app.App-Org entitlement: com.apple.security.app-sandbox task: AppFair App[55734]/1#5 LF=0 value: 1 error:
+        dbg("check signid:", signid, "entitlement:", self.entitlementKey, "task:", task, "value:", value, "error:", error?.takeUnretainedValue())
+        precondition(error == nil)
+        //precondition(signid != nil, "code is not signed at all")
+        if signid == nil {
+            dbg("WARNING: code is not signed, and so will behave differently when run in the sandbox")
+        }
+        return value as? NSNumber as? Bool // top-level entitlements should a Bool
+    }
+    #endif // !os(iOS)
+}
+#endif // canImport(Security)
+
+@available(macOS 12.0, iOS 15.0, *)
+extension FairContainer {
+    /// If the first `CommandLine.arguments` is "fairtool", run as CLI,
+    /// otherwise launch as a `SwiftUI.App` app.
+    public static func launch(sourceFile: StaticString = #file) throws {
+        let args = Array(CommandLine.arguments.dropFirst())
+        if args.first == "fairtool" {
+            do {
+                try FairCLI(arguments: args).runCLI()
+            } catch {
+                // we don't want to re-throw the exception here, since it will cause a crash report when run from AppContainer.main
+                // TODO: nicer error formatting; resolution suggestions
+                print("Error:", error.localizedDescription)
+                if let error = error as? LocalizedError {
+                    if let errorDescription = error.errorDescription, errorDescription != error.localizedDescription {
+                        print("   Description:", errorDescription)
+                    }
+                    if let failureReason = error.failureReason {
+                        print("   Reason:", failureReason)
+                    }
+                    if let helpAnchor = error.helpAnchor {
+                        print("   Help:", helpAnchor)
+                    }
+                    if let recoverySuggestion = error.recoverySuggestion {
+                        print("   Suggestion:", recoverySuggestion)
+                    }
+                } else {
+                    print("   Raw:", error)
+                }
+            }
+        } else {
+            if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
+                validateEntitlements()
+                try? verifyAppMain(String(contentsOf: URL(fileURLWithPath: sourceFile.description)))
+            }
+            FairContainerApp<Self>.main()
+        }
+    }
+
+    public static func main() throws {
+        try launch()
+    }
+
+    /// Checks the runtime entitlements to validate that sandboxing is enabled and and ensures that there are corresponding entries in the `FairUsage` section of the `Info.plist`
+    private static func validateEntitlements() {
+        #if !os(iOS) // someday
+        if AppEntitlement.app_sandbox.isEnabled() != true
+            && Bundle.main.isAppFairApp == false {
+            let msg = "App Fair apps are required to be sandboxed"
+            if assertionsEnabled {
+                dbg("WARNING:", msg) // re-running the app without building sometimes doesn't re-sign it, so we permit this when running but note that the sandbox entitlements will not be enforced
+            } else {
+                fatalError(msg) // for a release build, lack of sandboxing is a fatal error
+            }
+        }
+        #endif
+    }
+
+    /// Verifies that the source that launches the app matches one of the available templates and issue a warning that the release build will fail unless the source matches the template.
+    ///
+    /// This only works in DEBUG mode and with the same source layout as the build machine,
+    /// but it is a useful initial check that the app is valid.
+    private static func verifyAppMain(_ source: String) {
+        dbg("Verifying app main:", source.count.localizedByteCount())
+        for template in FairTemplate.allCases {
+            do {
+                try template.compareScaffold(project: source, path: "Sources/App/AppMain.swift")
+            } catch {
+                dbg("Verify failed:", error.localizedDescription)
+                dbg("Break in verifyAppMain to debug")
+            }
+        }
+    }
+}
+
+@available(macOS 12.0, iOS 15.0, *)
+public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
+    @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
+    @Environment(\.openURL) var openURL
+    @StateObject public var store = Container.AppStore()
+
+    public init() {
+    }
+
+    @SceneBuilder public var body: some SwiftUI.Scene {
+        let commands = Group {
+            CommandGroup(replacing: CommandGroupPlacement.help) {
+                linkButton("Help", path: nil)
+                linkButton("Discussions", path: "discussions")
+                linkButton("Issues", path: "issues")
+
+                if let url = Bundle.appFairURL("update") {
+                    Link(destination: url) {
+                        Text("Check for Updates", bundle: .module)
+                    }
+                }
+
+                //linkButton("Wiki", path: "wiki")
+                //linkButton("Pulse", path: "pulse")
+            }
+        }
+
+        Group {
+            Container.rootScene(store: store)
+            #if os(macOS) // on
+            Settings {
+                Container.settingsView(store: store)
+            }
+            #endif
+        }
+        .commands(content: { commands })
+    }
+
+    func openURLAction(action: inout OpenURLAction) {
+        dbg(#function)
+        let parentAction = action
+        action = OpenURLAction { url in
+            parentAction(url) { completed in
+                // TODO: throw up a sheet requesting permission to open the URL (and optionally remember the decision)
+            }
+            return OpenURLAction.Result.handled
+        }
+    }
+
+    func linkButton(_ title: SwiftUI.LocalizedStringKey, path: String? = nil) -> some View {
+        Group {
+            if let url = URL.fairHubURL(path) {
+                Link(destination: url) {
+                    Text(title, bundle: .module)
+                }
+            }
+        }
+    }
+}
+
+public extension URL {
+    /// Returns the URL for this app's hub page
+    static func fairHubURL(_ path: String? = nil) -> URL? {
+        guard let appOrgName = Bundle.main.appOrgName else {
+            return nil
+        }
+
+        guard let baseURL = URL(string: "https://www.github.com/") else {
+            return nil
+        }
+
+        return baseURL
+            .appendingPathComponent(appOrgName)
+            .appendingPathComponent(AppNameValidation.defaultAppName)
+            .appendingPathComponent(path ?? "")
+    }
+}
+
+
+@available(macOS 12.0, iOS 15.0, *)
+private final class AppDelegate: NSObject, UXApplicationDelegate {
+    #if canImport(AppKit)
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        //dbg("applicationWillFinishLaunching")
+    }
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        //dbg("applicationDidFinishLaunching")
+    }
+    #elseif canImport(UIKit)
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        //dbg("willFinishLaunchingWithOptions")
+        return true
+    }
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        //dbg("didFinishLaunchingWithOptions")
+        return true
+    }
+    #endif
+
+}
+
+
+extension String {
+    #if swift(>=5.5)
+    /// Parses the string into an `AttributedString`
+    @available(macOS 12.0, iOS 15.0, *)
+    public func atx(languageCode: String? = nil) throws -> AttributedString {
+        try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: true, interpretedSyntax: .inlineOnly, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
+    }
+    #endif
+}
+
+extension SwiftUI.Text {
+    @available(macOS 12.0, iOS 15.0, *)
+    public init(atx formattedString: String) {
+        if let attributedString = try? formattedString.atx() {
+            self.init(attributedString)
+        } else {
+            self.init(formattedString) // failure to parse will just display the formatted string raw
+        }
+    }
+}
+
+#endif // canImport(SwiftUI)
+
+
+/// A generic error
+public struct AppError : Pure, LocalizedError {
+    /// A localized message describing what error occurred.
+    public let errorDescription: String?
+
+    /// A localized message describing the reason for the failure.
+    public let failureReason: String?
+
+    /// A localized message describing how one might recover from the failure.
+    public let recoverySuggestion: String?
+
+    /// A localized message providing "help" text if the user requests help.
+    public let helpAnchor: String?
+
+    public init(function: StaticString = #function, file: StaticString = #file, line: UInt = #line) {
+        self.init("Error at \(function) in \(file):\(line)")
+    }
+
+    public init(_ errorDescription: String, failureReason: String? = nil, recoverySuggestion: String? = nil, helpAnchor: String? = nil) {
+        self.errorDescription = errorDescription
+        self.failureReason = failureReason
+        self.recoverySuggestion = recoverySuggestion
+        self.helpAnchor = helpAnchor
+    }
+
+    public init(_ error: Error) {
+        self.errorDescription = error.localizedDescription
+        self.failureReason = nil
+        self.recoverySuggestion = nil
+        self.helpAnchor = nil
+    }
+}
+
+
+// MARK: Package-Specific Utilities
+
+/// Returns the localized string for the current module.
+///
+/// - Note: This is boilerplate package-local code that could be copied
+///  to any Swift package with localized strings.
+internal func loc(_ key: String, tableName: String? = nil, comment: String? = nil) -> String {
+    // TODO: use StringLocalizationKey
+    NSLocalizedString(key, tableName: tableName, bundle: .module, comment: comment ?? "")
+}
+
+/// Work-in-Progress marker
+@available(*, deprecated, message: "work in progress")
+internal func wip<T>(_ value: T) -> T { value }
+
+extension String {
+    static func localizedString(for key: String, locale: Locale = .current, comment: StaticString = "") -> String {
+        NSLocalizedString(key, bundle: Bundle.module.path(forResource: locale.languageCode, ofType: "lproj").flatMap(Bundle.init(path:)) ?? Bundle.module, comment: comment.description)
+    }
+}
+
