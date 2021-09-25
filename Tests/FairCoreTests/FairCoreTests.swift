@@ -152,21 +152,21 @@ final class FairCoreTests: XCTestCase {
 
     func testFetchRepositoryQuery() throws {
         let hub = try FairCoreTests.hub()
-        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "App-Fair", name: "App")).get().data
+        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "fairapp", name: "Fair")).get().data
 
         let org = response.organization
         let repo = org.repository
 
         XCTAssertEqual(true, repo.hasIssuesEnabled)
         XCTAssertEqual(true, repo.hasWikiEnabled)
-        XCTAssertEqual(true, repo.isFork)
+        XCTAssertEqual(false, repo.isFork)
         XCTAssertEqual(false, repo.isEmpty)
         XCTAssertEqual(false, repo.isLocked)
         XCTAssertEqual(false, repo.isMirror)
         XCTAssertEqual(false, repo.isPrivate)
         XCTAssertEqual(false, repo.isArchived)
         XCTAssertEqual(false, repo.isDisabled)
-        XCTAssertEqual("https://www.appfair.net", repo.homepageUrl)
+        XCTAssertEqual(nil, repo.homepageUrl)
         XCTAssertEqual(nil, org.email)
         XCTAssertEqual(true, repo.hasIssuesEnabled)
         XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)

@@ -220,7 +220,8 @@ public extension FairHub {
         }
 
         if !org.isVerified {
-            invalid.insert(.notVerified)
+            // invalid.insert(.notVerified)
+            // we do not currently require that organizations be verified
         }
 
         if !org.isOrganization {
