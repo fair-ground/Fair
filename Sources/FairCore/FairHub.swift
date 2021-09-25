@@ -213,7 +213,7 @@ public extension FairHub {
 
         if org.name != appfairName {
             do {
-                try AppNameValidation.standard.validate(name: org.name)
+                try AppNameValidation.standard.validate(name: org.login)
             } catch {
                 invalid.insert(.invalidName)
             }
@@ -695,6 +695,7 @@ public extension FairHub {
               organization(login: "\(owner)") {
                 __typename
                 name
+                login
                 email
                 isVerified
                 websiteUrl
@@ -746,7 +747,8 @@ public extension FairHub {
             public struct Organization : Pure {
                 public enum TypeName : String, Pure { case User, Organization }
                 public let __typename: TypeName
-                public let name: String
+                public let name: String? // the string title, falling back to the login name
+                public let login: String
                 public let email: String?
                 public let isVerified: Bool
                 public let websiteUrl: URL?

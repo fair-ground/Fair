@@ -722,6 +722,7 @@ public extension FairCLI {
         let repo = organization.repository
 
         msg(.debug, "  name:", organization.name)
+        msg(.debug, "  name:", organization.name)
         msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
 
         let invalid = hub.validate(org: organization)
