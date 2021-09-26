@@ -202,6 +202,11 @@ public extension FairCLI {
         flags["-fairseal"]
     }
 
+    /// The flag the matching strategy for enforcing reproducible builds
+    var fairsealMatchFlag: [String]? {
+        flags["-fairseal-match"]
+    }
+
     /// The flag for the output folder or the current director
     var outputDirectoryFlag: String {
         outputFlag ?? fm.currentDirectoryPath
@@ -936,6 +941,9 @@ public extension FairCLI {
     func fairseal(msg: MessageHandler) throws {
         msg(.info, "Fairseal")
 
+        // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
+        let fairsealThreshold = fairsealMatchFlag?.compactMap({ Int($0) }).first
+
         guard let trustedArtifactFlag = trustedArtifactFlag else {
             throw Errors.missingFlag(self.op, "-trusted-artifact")
         }
@@ -1042,13 +1050,16 @@ public extension FairCLI {
                             .prefix(10)
                             .map({ $0.description })
 
-
-                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc)")
+                        let totalChanges = diff.insertions.count + diff.removals.count
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
 
                         if entryIsAppBinary {
-                            // #warning("Re-enable binary match")
-                            // TODO: when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
-                            print("WARNING:", error)
+                            if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
+                                // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                                print("tolerating \(fairsealThreshold) differences for:", error)
+                            } else {
+                                throw error
+                            }
                         } else {
                             throw error
                         }
