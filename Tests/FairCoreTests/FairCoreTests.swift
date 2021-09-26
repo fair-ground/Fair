@@ -222,8 +222,8 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual(resultResults[0].count, resultResults[2].count)
     }
 
-    func testBuildCatalog() throws {
-        let catalog = try FairCoreTests.hub().buildCatalog(requestLimit: nil)
+    func testBuildMacOSCatalog() throws {
+        let catalog = try FairCoreTests.hub().buildCatalog(fairsealCheck: true, artifactExtensions: ["macOS.zip"], requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
         XCTAssertTrue(names.contains("Yankee Swap"))
@@ -231,6 +231,15 @@ final class FairCoreTests: XCTestCase {
         //XCTAssertTrue(names.contains("Tune Out"))
         XCTAssertFalse(names.contains("App"))
         XCTAssertGreaterThanOrEqual(names.count, 10)
+        dbg("created catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+    }
+
+    func testBuildIOSCatalog() throws {
+        let catalog = try FairCoreTests.hub().buildCatalog(fairsealCheck: false, artifactExtensions: ["iOS.ipa"], requestLimit: nil)
+        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+        dbg("catalog", names.sorted())
+        XCTAssertFalse(names.contains("App"))
+        XCTAssertGreaterThanOrEqual(names.count, 0)
         dbg("created catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 

@@ -86,7 +86,7 @@ public struct FairHub : GraphQLEndpointService {
 
 public extension FairHub {
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the appfairbot.
-    func buildCatalog(owner: String = appfairName, requestLimit: Int?) throws -> FairAppCatalog {
+    func buildCatalog(owner: String = appfairName, fairsealCheck: Bool, artifactExtensions: [String], requestLimit: Int?) throws -> FairAppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching hashes")
 
@@ -123,7 +123,7 @@ public extension FairHub {
 
         for fork in forks  {
             dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
-#warning("TODO validation")
+            // #warning("TODO validation")
             //            let invalid = validate(org: fork.owner)
             //            if !invalid.isEmpty {
             //                throw Errors.repoInvalid(invalid, org, fork.name)
@@ -169,10 +169,10 @@ public extension FairHub {
                 let sourceIdentifier: String? = nil
                 let screenshotURLs: [URL]? = [] // TODO: scan assets for screenshots
 
-                for targetOS in ["macOS.zip", "iOS.ipa"] {
-                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionDescription, targetOS)
+                for artifactType in artifactExtensions {
+                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionDescription, "type:", artifactType)
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
-                        node.name.hasSuffix("-" + targetOS)
+                        node.name.hasSuffix(artifactType)
                     }) else {
                         continue
                     }

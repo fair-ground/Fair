@@ -192,6 +192,16 @@ public extension FairCLI {
         (flags["o"] ?? []) + (flags["-output"] ?? [])
     }
 
+    /// The flag for the artifact extensions to filter
+    var artifactExtensionFlag: [String]? {
+        flags["-artifact-extension"]
+    }
+
+    /// The flag for fairseal validation
+    var fairsealFlag: [String]? {
+        flags["-fairseal"]
+    }
+
     /// The flag for the output folder or the current director
     var outputDirectoryFlag: String {
         outputFlag ?? fm.currentDirectoryPath
@@ -970,90 +980,90 @@ public extension FairCLI {
         var coreSize = 0
 
         if trustedEntries != untrustedEntries {
-            for (te, ute) in zip(trustedEntries, untrustedEntries) {
-                if te.path != ute.path {
-                    throw AppError("Trusted and untrusted artifact content paths do not match: \(te.path) vs. \(ute.path)")
+            for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
+                if trustedEntry.path != untrustedEntry.path {
+                    throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
                 }
 
-                if te.path.hasSuffix("Contents/_CodeSignature/CodeSignature") {
+                if trustedEntry.path.hasSuffix("Contents/_CodeSignature/CodeSignature") {
                     // we permit differences in code signatures in order to allow custom signing by the App fork
                     continue
                 }
 
-                if te.path.hasSuffix("Contents/_CodeSignature/CodeResources") {
+                if trustedEntry.path.hasSuffix("Contents/_CodeSignature/CodeResources") {
                     // we permit differences in code resources in order to allow custom signing by the App fork
                     continue
                 }
 
-                if te.path.hasSuffix("Contents/Resources/Assets.car") {
+                if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
                     // assets sometimes get compiled differently
                     continue
                 }
 
-                //msg(.debug, "checking", te.path)
+                //msg(.debug, "checking", trustedEntry.path)
 
-                let entryIsAppBinary = te.path == "\(appName).app/Contents/MacOS/\(appName)" // e.g., Photo Box.app/Contents/MacOS/Photo Box
+                let entryIsAppBinary =
+                    trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+                || trustedEntry.path == "\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
 
 
-                if te.uncompressedSize != ute.uncompressedSize {
-                    throw AppError("Trusted and untrusted artifact content size mismatch at \(te.path): \(te.uncompressedSize) vs. \(ute.uncompressedSize)")
+                if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
+                    throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
                 }
 
-                coreSize = te.uncompressedSize // the "core" size is just the size of the main binary itself
+                coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
 
-                if te.checksum != ute.checksum {
+                if trustedEntry.checksum != untrustedEntry.checksum {
                     // checksum mismatch: check the actual binary contents so we can summarize the differences
-                    _ = try trustedArchive.extract(te) { teData in
-                        _ = try untrustedArchive.extract(ute) { uteData in
-                            if teData != uteData {
-                                let diff: CollectionDifference<UInt8> = teData.difference(from: uteData)
+                    var trustedPayload = Data()
+                    let trustedCRC = try trustedArchive.extract(trustedEntry) { trustedPayload = $0 }
 
-                                func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
-                                    IndexSet(changeSet.map({
-                                        switch $0 {
-                                        case .insert(let offset, _, _): return offset
-                                        case .remove(let offset, _, _): return offset
-                                        }
-                                    }))
+                    var untrustedPayload = Data()
+                    let untrustedCRC = try untrustedArchive.extract(untrustedEntry) { untrustedPayload = $0 }
+
+                    if trustedCRC != untrustedCRC || trustedPayload != untrustedPayload {
+                        let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload)
+
+                        func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
+                            IndexSet(changeSet.map({
+                                switch $0 {
+                                case .insert(let offset, _, _): return offset
+                                case .remove(let offset, _, _): return offset
                                 }
+                            }))
+                        }
 
-                                let insertionRanges = offsets(in: diff.insertions)
-                                let insertionRangeDesc = insertionRanges.rangeView.prefix(10).map({ $0.description })
+                        let insertionRanges = offsets(in: diff.insertions)
+                        let insertionRangeDesc = insertionRanges.rangeView.prefix(10).map({ $0.description })
 
-                                let removalRanges = offsets(in: diff.removals)
-                                let removalRangeDesc = removalRanges
-                                    .rangeView
-                                    .prefix(10)
-                                    .map({ $0.description })
+                        let removalRanges = offsets(in: diff.removals)
+                        let removalRangeDesc = removalRanges
+                            .rangeView
+                            .prefix(10)
+                            .map({ $0.description })
 
 
-                                let error = AppError("Trusted and untrusted artifact content mismatch at \(te.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc)")
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc)")
 
-                                if entryIsAppBinary {
-                                    // #warning("Re-enable binary match")
-                                    // TODO: when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
-                                    print("WARNING:", error)
-                                } else {
-                                    throw error
-                                }
-                            }
+                        if entryIsAppBinary {
+                            // #warning("Re-enable binary match")
+                            // TODO: when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                            print("WARNING:", error)
+                        } else {
+                            throw error
                         }
                     }
                 }
 
-                if te != ute {
-                    //msg(.debug, "entry mismatch:", te.path, ute.path)
+                if trustedEntry != untrustedEntry {
+                    //msg(.debug, "entry mismatch:", trustedEntry.path, untrustedEntry.path)
                 }
             }
-
         }
-
 
         msg(.info, "finishing")
 
         let sha256 = try Data(contentsOf: untrustedArtifactURL, options: .mappedIfSafe).sha256()
-
-
         let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
 
         let entitlements = try checkEntitlements(entitlementsURL: entitlementsURL, app_plist: nil)
@@ -1081,7 +1091,12 @@ public extension FairCLI {
         msg(.info, "Catalog")
 
         let hub = try fairHub()
-        let catalog = try hub.buildCatalog(owner: appfairName, requestLimit: self.requestLimitFlag)
+
+        // whether to enforce a fairseal check before the app will be listed in the catalog
+        let fairsealCheck = fairsealFlag?.contains("skip") != true
+
+        // build the catalog filtering on specific artifact extensions
+        let catalog = try hub.buildCatalog(owner: appfairName, fairsealCheck: fairsealCheck, artifactExtensions: self.artifactExtensionFlag ?? ["-macOS.zip", "-iOS.ipa"], requestLimit: self.requestLimitFlag)
 
         msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {
