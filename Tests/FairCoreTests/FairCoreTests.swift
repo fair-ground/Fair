@@ -152,13 +152,13 @@ final class FairCoreTests: XCTestCase {
 
     func testFetchRepositoryQuery() throws {
         let hub = try FairCoreTests.hub()
-        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "fairapp", name: "Fair")).get().data
+        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "fair-ground", name: "Fair")).get().data
 
         let org = response.organization
         let repo = org.repository
 
         XCTAssertEqual(nil, org.email)
-        XCTAssertEqual("fairapp", org.login)
+        XCTAssertEqual("fair-ground", org.login)
 
         XCTAssertEqual(false, repo.hasIssuesEnabled)
         XCTAssertEqual(false, repo.hasWikiEnabled)
@@ -175,16 +175,14 @@ final class FairCoreTests: XCTestCase {
 
     func testFetchCommitQuery() throws {
         let hub = try FairCoreTests.hub()
-        let response = try hub.requestSync(FairHub.GetCommitQuery(owner: appfairName, name: "App", ref: "feeb3d5974ccb518addb774c3d033fec1615fba5")).get().data
+        let response = try hub.requestSync(FairHub.GetCommitQuery(owner: "fair-ground", name: "Fair", ref: "93d86ba5884772c8ef189bead1ca131bb11b90f2")).get().data
 
         guard let sig = response.repository.object.signature else {
             return XCTFail("no signature in response")
         }
 
-        XCTAssertEqual("fairapps", response.repository.object.author?.name)
-        XCTAssertEqual("fairapps@appfair.net", response.repository.object.author?.email)
-        XCTAssertEqual(nil, sig.signer.name)
-        XCTAssertEqual("fairapps@appfair.net", sig.signer.email)
+        XCTAssertNotNil(response.repository.object.author?.name)
+        XCTAssertNotNil(sig.signer.email)
         XCTAssertEqual("VALID", sig.state)
         XCTAssertEqual(true, sig.isValid)
         XCTAssertEqual(false, sig.wasSignedByGitHub)
