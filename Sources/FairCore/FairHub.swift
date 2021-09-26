@@ -22,12 +22,12 @@ import Foundation
 /// fairseal generation to fail if the rate limit is exhausted
 public let appfairMaxApps = 250_000
 
-/// The organization name of the app fair: `"appfair"`
+/// The organization name of the fair-ground: `"appfair"`
 public let appfairName = "appfair"
 
 public let appfairBot = "appfairbot"
 
-/// The canonical location of the catalog for the App Fair
+/// The canonical location of the catalog for the Fair Ground
 public let appfairCatalogURL = URL(string: "https://www.appfair.net/fairapps.json")
 
 /// A `GraphQL` endpoint

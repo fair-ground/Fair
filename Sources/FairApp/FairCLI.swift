@@ -663,7 +663,7 @@ public extension FairCLI {
         }
 
         if entitlements_dict[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
-            // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the App Fair.app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
+            // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
             if !isCatalogApp {
                 throw Errors.sandboxRequired
             }

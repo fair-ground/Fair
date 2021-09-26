@@ -17,10 +17,10 @@ import Foundation
 
 /// https://developer.apple.com/documentation/bundleresources/information_property_list/bundle_configuration
 public enum InfoPlistKey : String, CaseIterable, Hashable {
-    case CFBundleIdentifier // e.g., "app.App-Fair"
-    case CFBundleExecutable // e.g., "App Fair"
-    case CFBundleName // e.g., "App Fair"
-    case CFBundleDisplayName // e.g., "App Fair"
+    case CFBundleIdentifier // e.g., "app.My-App"
+    case CFBundleExecutable // e.g., "My App"
+    case CFBundleName // e.g., "My App"
+    case CFBundleDisplayName // e.g., "My App"
     case CFBundleVersion // e.g., 699162671
     case CFBundleShortVersionString
 

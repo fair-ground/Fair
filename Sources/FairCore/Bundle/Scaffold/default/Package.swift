@@ -20,7 +20,7 @@ let package = Package(
 // MARK: fair-ground package validation
 
 // The following validations are required in order for 
-// the package to be integrated by the App Fair.
+// the package to be integrated by the fair-ground integrate-release process.
 //
 // These lines can be removed from your project, but the
 // rules will be enforced during the `integrate` phase regardless.

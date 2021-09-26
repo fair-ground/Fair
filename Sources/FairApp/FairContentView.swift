@@ -20,7 +20,7 @@ public enum FairContentType {
     case placeholder
 }
 
-/// The `FairContentView` offers pre-defined functionality for an App Fair App.
+/// The `FairContentView` offers pre-defined functionality for an fair-ground App.
 /// The default `.placeholder` content is the initial content for a new
 /// app, and provides guidance for the developer on how to get started.
 @available(macOS 12.0, iOS 15.0, *)
@@ -47,12 +47,12 @@ public struct FairContentView: View {
 
             ScrollView {
                 Text(LocalizedStringKey(stringLiteral: """
-    This is an *[App Fair](https://www.appfair.net)* app.
+    This is a *[Fair Ground](https://www.appfair.net)* app.
 
     If you are seeing this message, you are probably the developer.
     **Congratulations!** This is your app, ready to go. Now you just need to code it!
 
-    Follow these steps to create a release of this app that can be included in the [App Fair catalog](https://www.appfair.net):
+    Follow these steps to create a release of this app that can be included in the [Fair Ground catalog](https://www.appfair.net):
 
     1. Edit the `Info.plist` *CFBundleName*: `\(Bundle.mainBundleName)`
     2. Edit the `Info.plist` *CFBundleIdentifier*: `\(Bundle.mainBundleID)`

@@ -18,7 +18,7 @@ import SwiftUI
 import Security
 
 public extension Bundle {
-    /// The org name of the catalog browser app
+    /// The org name of the catalog browser app itself
     static let catalogBrowserAppOrg = "App-Fair"
 
     /// Returns the resources bundle for `FairApp`
@@ -34,8 +34,8 @@ public extension Bundle {
         Bundle.main.bundleDisplayName ?? Bundle.main.bundleName ?? "App Org"
     }
 
-    /// Whether this is the App Fair catalog browser app itself
-    var isAppFairApp: Bool {
+    /// Whether this is the fair-ground catalog browser app itself
+    var isCatalogBrowserApp: Bool {
         bundleIdentifier == "app.\(Self.catalogBrowserAppOrg)"
     }
 
@@ -163,8 +163,8 @@ extension FairContainer {
     private static func validateEntitlements() {
         #if !os(iOS) // someday
         if AppEntitlement.app_sandbox.isEnabled() != true
-            && Bundle.main.isAppFairApp == false {
-            let msg = "App Fair apps are required to be sandboxed"
+            && Bundle.main.isCatalogBrowserApp == false {
+            let msg = "fair-ground apps are required to be sandboxed"
             if assertionsEnabled {
                 dbg("WARNING:", msg) // re-running the app without building sometimes doesn't re-sign it, so we permit this when running but note that the sandbox entitlements will not be enforced
             } else {
