@@ -287,9 +287,6 @@ public extension FairCLI {
         flags["-retry-wait"]?.first.flatMap({ TimeInterval($0) }) ?? 30.0
     }
 
-
-
-
     /// The flag for the `fairseal` command indicating the artifact that was created in a trusted environment
     var trustedArtifactFlag: String? {
         flags["-trusted-artifact"]?.first
@@ -1014,7 +1011,12 @@ public extension FairCLI {
             throw AppError("Trusted and untrusted artifact content counts do not match (\(trustedEntries.count) vs. \(untrustedEntries.count))")
         }
 
-        let rootPaths = Set(trustedEntries.compactMap({ $0.path.split(separator: "/").first }))
+        let rootPaths = Set(trustedEntries.compactMap({
+            $0.path.split(separator: "/")
+                .drop(while: { $0 == "Payload" }) // .ipa archives store Payload/App Name.app/Info.plist
+                .first
+
+        }))
 
         let appSuffix = ".app"
 
