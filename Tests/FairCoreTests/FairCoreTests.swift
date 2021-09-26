@@ -237,7 +237,7 @@ final class FairCoreTests: XCTestCase {
     }
 
     func testFetchCatalog() throws {
-        let url = URL(string: "https://www.appfair.net/fairapps.json")!
+        let url = appfairCatalogURL
 
         let (data, response) = try URLSession.shared.fetchSync(URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0))
         XCTAssertEqual(200, (response as? HTTPURLResponse)?.statusCode)

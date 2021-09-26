@@ -930,18 +930,18 @@ public extension FairCLI {
             throw Errors.missingFlag(self.op, "-trusted-artifact")
         }
 
-        let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
+        let trustedArtifactURL = URL(string: trustedArtifactFlag) ?? URL(fileURLWithPath: trustedArtifactFlag)
         guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
-            throw AppError("Error opening trusted archive: \(trustedArtifactURL.path)")
+            throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
         }
 
         guard let untrustedArtifactFlag = untrustedArtifactFlag else {
             throw Errors.missingFlag(self.op, "-untrusted-artifact")
         }
 
-        let untrustedArtifactURL = URL(fileURLWithPath: untrustedArtifactFlag)
+        let untrustedArtifactURL = URL(string: untrustedArtifactFlag) ?? URL(fileURLWithPath: untrustedArtifactFlag)
         guard let untrustedArchive = ZipArchive(url: untrustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
-            throw AppError("Error opening untrusted archive: \(untrustedArtifactURL.path)")
+            throw AppError("Error opening untrusted archive: \(untrustedArtifactURL.absoluteString)")
         }
 
         if untrustedArtifactURL == trustedArtifactURL {
@@ -1060,7 +1060,7 @@ public extension FairCLI {
         msg(.info, "entitlements:", entitlements)
         let permissions: UInt64 = AppEntitlement.bitsetRepresentation(for: entitlements)
 
-        var fairseal = FairHub.FairSeal(url: trustedArtifactURL, sha256: sha256.hex(), permissions: permissions, coreSize: coreSize)
+        var fairseal = FairHub.FairSeal(url: trustedArtifactURL, sha256: sha256.hex(), permissions: permissions, coreSize: coreSize, tint: nil)
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
         try writeOutput(fairseal.debugJSON) // save the file
 

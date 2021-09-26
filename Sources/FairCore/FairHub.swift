@@ -27,6 +27,9 @@ public let appfairName = "appfair"
 
 public let appfairBot = "appfairbot"
 
+/// The canonical location of the catalog for the App Fair
+public let appfairCatalogURL = URL(string: "https://www.appfair.net/fairapps.json")
+
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
     /// The default headers that will be sent with a request
@@ -164,7 +167,6 @@ public extension FairHub {
                 let beta: Bool? = release.isPrerelease
 
                 let sourceIdentifier: String? = nil
-                let tintColor: String? = nil // TODO: export tint color from assets
                 let screenshotURLs: [URL]? = [] // TODO: scan assets for screenshots
 
                 for targetOS in ["macOS.zip", "iOS.ipa"] {
@@ -184,6 +186,7 @@ public extension FairHub {
                         continue
                     }
 
+                    let tintColor: String? = fairseal?.tint
                     let downloadCount = appArtifact.downloadCount
                     let size = appArtifact.size
 
@@ -208,7 +211,7 @@ public extension FairHub {
         // in order to minimize catalog changes, always sort by the bundle name
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
-        let catalog = FairAppCatalog(name: org, identifier: org, apps: apps, news: news)
+        let catalog = FairAppCatalog(name: org, identifier: org, sourceURL: appfairCatalogURL!, apps: apps, news: news)
         return catalog
     }
 
@@ -383,16 +386,23 @@ public extension FairHub {
     /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
     /// and other build-time information
     struct FairSeal : Pure {
+        /// The URL to download the binary artifact
         public var url: URL
+        /// The sha256 checksum of the binary artifact
         public var sha256: String
+        /// The bitset of the permissions options
         public var permissions: UInt64
+        /// The size of the artifact's executable binary
         public var coreSize: Int?
+        /// The tint color as an RGBA hex string
+        public var tint: String?
 
-        public init(url: URL, sha256: String, permissions: UInt64, coreSize: Int) {
+        public init(url: URL, sha256: String, permissions: UInt64, coreSize: Int?, tint: String?) {
             self.url = url
             self.sha256 = sha256
             self.permissions = permissions
             self.coreSize = coreSize
+            self.tint = tint
         }
 
         /// The app org associated with this seal; this will be the first component of the URL's path

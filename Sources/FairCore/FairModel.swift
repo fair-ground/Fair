@@ -21,6 +21,8 @@ public struct FairAppCatalog : Pure {
     public var name: String
     /// The identifier for the catalog (e.g., "app.App-Fair")
     public var identifier: String
+    /// The canonical location of the catalog
+    public var sourceURL: URL
     /// The apps that are currently available
     public var apps: [AppRelease]
     /// Any news items for the catalog
