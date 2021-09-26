@@ -232,7 +232,7 @@ final class FairCoreTests: XCTestCase {
         XCTAssertTrue(names.contains("Cloud Cuckoo"))
         //XCTAssertTrue(names.contains("Tune Out"))
         XCTAssertFalse(names.contains("App"))
-        XCTAssertGreaterThanOrEqual(names.count, 11)
+        XCTAssertGreaterThanOrEqual(names.count, 10)
         dbg("created catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
