@@ -930,7 +930,7 @@ public extension FairCLI {
             throw Errors.missingFlag(self.op, "-trusted-artifact")
         }
 
-        let trustedArtifactURL = URL(string: trustedArtifactFlag) ?? URL(fileURLWithPath: trustedArtifactFlag)
+        let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
         guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
             throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
         }
@@ -939,7 +939,7 @@ public extension FairCLI {
             throw Errors.missingFlag(self.op, "-untrusted-artifact")
         }
 
-        let untrustedArtifactURL = URL(string: untrustedArtifactFlag) ?? URL(fileURLWithPath: untrustedArtifactFlag)
+        let untrustedArtifactURL = URL(fileURLWithPath: untrustedArtifactFlag)
         guard let untrustedArchive = ZipArchive(url: untrustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
             throw AppError("Error opening untrusted archive: \(untrustedArtifactURL.absoluteString)")
         }
