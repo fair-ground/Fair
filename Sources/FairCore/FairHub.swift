@@ -100,7 +100,8 @@ public extension FairHub {
             do {
                 return try FairSeal(json: comment.body.utf8Data)
             } catch {
-                dbg("error decoding fairseal", comment.body.utf8Data)
+                // errors might occur when a seal is corrupted; simply ignore it
+                dbg("error decoding fairseal", comment.body.utf8Data, error)
                 return .none
             }
         }

@@ -277,6 +277,19 @@ public extension FairCLI {
         flags["-requestLimit"]?.first.flatMap({ Int($0) })
     }
 
+    /// The amount of time to continue re-trying downloading a resource
+    var retryDurationFlag: TimeInterval? {
+        flags["-retry-duration"]?.first.flatMap({ TimeInterval($0) })
+    }
+
+    /// The backoff time for waiting to retry; defaults to 30 seconds
+    var retryWaitFlag: TimeInterval {
+        flags["-retry-wait"]?.first.flatMap({ TimeInterval($0) }) ?? 30.0
+    }
+
+
+
+
     /// The flag for the `fairseal` command indicating the artifact that was created in a trusted environment
     var trustedArtifactFlag: String? {
         flags["-trusted-artifact"]?.first
@@ -953,11 +966,39 @@ public extension FairCLI {
             throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
         }
 
-        guard let untrustedArtifactFlag = untrustedArtifactFlag else {
-            throw Errors.missingFlag(self.op, "-untrusted-artifact")
+        func acquireUntrustedArtifact(retryDuration: TimeInterval, retryWait: TimeInterval) throws -> URL {
+            // if we specified the artifact as a local file, just use it directly
+            if let untrustedArtifactFlag = untrustedArtifactFlag {
+                return URL(fileURLWithPath: untrustedArtifactFlag)
+            }
+
+            guard let artifactURLFlag = self.artifactURLFlag,
+                let artifactURL = URL(string: artifactURLFlag) else {
+                throw Errors.missingFlag(self.op, "-artifact-url")
+            }
+
+            let timeoutDate = Date().addingTimeInterval(retryDuration)
+            while true {
+                do {
+                    var request = URLRequest(url: artifactURL)
+                    request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+                    let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
+                    dbg("downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
+                    return downloadedURL
+                } catch {
+                    // we we are timed out, or if we don't want to retry, then simply re-download
+                    if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
+                        throw error
+                    } else {
+                        dbg("retrying in \(retryWait) seconds due to download error:", error)
+                        Thread.sleep(forTimeInterval: retryWait)
+                    }
+                }
+            }
         }
 
-        let untrustedArtifactURL = URL(fileURLWithPath: untrustedArtifactFlag)
+        let untrustedArtifactURL = try acquireUntrustedArtifact(retryDuration: retryDurationFlag ?? 0, retryWait: retryWaitFlag)
+
         guard let untrustedArchive = ZipArchive(url: untrustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
             throw AppError("Error opening untrusted archive: \(untrustedArtifactURL.absoluteString)")
         }
