@@ -157,8 +157,11 @@ final class FairCoreTests: XCTestCase {
         let org = response.organization
         let repo = org.repository
 
-        XCTAssertEqual(true, repo.hasIssuesEnabled)
-        XCTAssertEqual(true, repo.hasWikiEnabled)
+        XCTAssertEqual(nil, org.email)
+        XCTAssertEqual("fairapp", org.login)
+
+        XCTAssertEqual(false, repo.hasIssuesEnabled)
+        XCTAssertEqual(false, repo.hasWikiEnabled)
         XCTAssertEqual(false, repo.isFork)
         XCTAssertEqual(false, repo.isEmpty)
         XCTAssertEqual(false, repo.isLocked)
@@ -167,8 +170,6 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual(false, repo.isArchived)
         XCTAssertEqual(false, repo.isDisabled)
         XCTAssertEqual(nil, repo.homepageUrl)
-        XCTAssertEqual(nil, org.email)
-        XCTAssertEqual(true, repo.hasIssuesEnabled)
         XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)
     }
 

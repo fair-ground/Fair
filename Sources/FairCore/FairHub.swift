@@ -450,6 +450,32 @@ public extension FairHub {
         }
     }
 
+    struct RepositoryOwner : Pure {
+        public enum TypeName : String, Pure { case User, Organization }
+        public let __typename: TypeName
+        public let name: String? // the string title, falling back to the login name
+        public let login: String
+        public let login2: String
+        public let email: String?
+        public let isVerified: Bool
+        public let websiteUrl: URL?
+        public let url: URL?
+        public let description: String?
+        public let createdAt: Date
+        public let hasSponsorsListing: Bool
+
+        public var isOrganization: Bool { __typename == .Organization }
+
+        /// The app name is simply the "Org-Name" without dashes: "Org Name"
+        public var appNameWithSpace: String {
+            login.replacingOccurrences(of: "-", with: " ")
+        }
+
+        /// The app name is simply the "Org-Name"
+        public var appNameWithHyphen: String {
+            login // .replacingOccurrences(of: " ", with: "-")
+        }
+    }
 }
 
 // MARK: GraphQL Request & Response
@@ -826,7 +852,15 @@ public extension FairHub {
                       nameWithOwner
                       owner {
                         __typename
+                        name
                         login
+                        email
+                        isVerified
+                        websiteUrl
+                        url
+                        description
+                        createdAt
+                        hasSponsorsListing
                       }
                       description
                       visibility
@@ -912,17 +946,17 @@ public extension FairHub {
 
             public enum TypeName : String, Pure { case Query }
             public let __typename: TypeName
-            public let repository: Repository
-            public struct Repository : Pure {
+            public let repository: BaseRepository
+            public struct BaseRepository : Pure {
                 public enum TypeName : String, Pure { case Repository }
                 public let __typename: TypeName
-                public let forks: EdgeList<Fork>
-                public struct Fork : Pure {
+                public let forks: EdgeList<Repository>
+                public struct Repository : Pure {
                     public enum TypeName : String, Pure { case Repository }
                     public let __typename: TypeName
                     public let name: String
                     public let nameWithOwner: String
-                    public let owner: Owner
+                    public let owner: RepositoryOwner
                     public let description: String?
                     public let visibility: String // e.g. "PUBLIC"
                     public let shortDescriptionHTML: String
@@ -937,22 +971,6 @@ public extension FairHub {
                     public let homepageUrl: String?
                     public var repositoryTopics: NodeList<RepositoryTopic>
                     public let releases: NodeList<Release>
-
-                    public struct Owner : Pure {
-                        public enum TypeName : String, Pure { case User, Organization }
-                        public let __typename: TypeName
-                        public let login: String
-
-                        /// The app name is simply the "Org-Name" without dashes: "Org Name"
-                        public var appNameWithSpace: String {
-                            login.replacingOccurrences(of: "-", with: " ")
-                        }
-
-                        /// The app name is simply the "Org-Name"
-                        public var appNameWithHyphen: String {
-                            login // .replacingOccurrences(of: " ", with: "-")
-                        }
-                    }
 
                     public struct Release : Pure {
                         public enum TypeName : String, Pure { case Release }
