@@ -1059,7 +1059,7 @@ public extension FairCLI {
 
                 let entryIsAppBinary =
                     trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
-                || trustedEntry.path == "\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+                    || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
 
 
                 if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
