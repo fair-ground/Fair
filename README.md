@@ -18,7 +18,7 @@ fair-ground.
 Quick start:
 
 ```
-git clone https://github.com/fairapp/Fair.git 
+git clone https://github.com/fair-ground/Fair.git 
 cd Fair 
 swift run fairtool welcome
 ```
@@ -38,7 +38,7 @@ let package = Package(
     platforms: [ .macOS(.v12), .iOS(.v15) ],
     products: [ .library(name: "App", targets: ["App"]) ],
     dependencies: [
-        .package(name: "Fair", url: "https://github.com/fairapp/Fair.git", .branch("main")), 
+        .package(name: "Fair", url: "https://github.com/fair-ground/Fair.git", .branch("main")), 
     ],
     targets: [
         .target(name: "App", dependencies: [ .product(name: "FairApp", package: "Fair") ], resources: [.process("Resources"), .copy("Bundle")]),

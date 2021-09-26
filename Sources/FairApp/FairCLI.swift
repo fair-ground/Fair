@@ -590,7 +590,7 @@ public extension FairCLI {
                 let host = hubURL.deletingLastPathComponent().deletingLastPathComponent()
                 //dbg("verifying hub host:", host)
                 for pin in packageResolved.object.pins {
-                    if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://appfair.org/") {
+                    if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
                         throw Errors.badRepository(host.absoluteString, pin.repositoryURL)
                     }
                 }
