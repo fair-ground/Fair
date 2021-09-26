@@ -107,6 +107,9 @@ public extension FairHub {
         //print(wip("hashes"), Set(urlSeals.keys.map(\.lastPathComponent).sorted()))
 
         let forksResponse = try self.requestBatches(FairHub.RepositoryForkQuery(owner: owner, name: "App"), maxBatches: appfairMaxApps / 200)
+        if let error = forksResponse.compactMap(\.result.failureValue).first {
+            throw error
+        }
         let forks = forksResponse
             .compactMap(\.result.successValue)
             .flatMap(\.data.repository.forks.nodes)
@@ -118,10 +121,10 @@ public extension FairHub {
         for fork in forks  {
             dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
 #warning("TODO validation")
-//            let invalid = validate(org: fork.owner)
-//            if !invalid.isEmpty {
-//                throw Errors.repoInvalid(invalid, org, fork.name)
-//            }
+            //            let invalid = validate(org: fork.owner)
+            //            if !invalid.isEmpty {
+            //                throw Errors.repoInvalid(invalid, org, fork.name)
+            //            }
             let appTitle = fork.owner.appNameWithSpace // un-hyphenated name
             let appid = fork.owner.appNameWithHyphen
 
@@ -453,16 +456,7 @@ public extension FairHub {
     struct RepositoryOwner : Pure {
         public enum TypeName : String, Pure { case User, Organization }
         public let __typename: TypeName
-        public let name: String? // the string title, falling back to the login name
-        public let login: String
-        public let login2: String
-        public let email: String?
-        public let isVerified: Bool
-        public let websiteUrl: URL?
-        public let url: URL?
-        public let description: String?
-        public let createdAt: Date
-        public let hasSponsorsListing: Bool
+        public var login: String
 
         public var isOrganization: Bool { __typename == .Organization }
 
@@ -728,7 +722,6 @@ public extension FairHub {
                 url
                 description
                 createdAt
-                hasSponsorsListing
                 repository(name: "\(name)") {
                   __typename
                   visibility
@@ -766,7 +759,7 @@ public extension FairHub {
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-    public struct QueryResponse : Pure {
+        public struct QueryResponse : Pure {
             public enum TypeName : String, Pure { case Query }
             public let __typename: TypeName
             public let organization: Organization
@@ -781,7 +774,6 @@ public extension FairHub {
                 public let url: URL?
                 public let description: String?
                 public let createdAt: Date
-                public let hasSponsorsListing: Bool
 
                 public var isOrganization: Bool { __typename == .Organization }
 
@@ -852,15 +844,7 @@ public extension FairHub {
                       nameWithOwner
                       owner {
                         __typename
-                        name
                         login
-                        email
-                        isVerified
-                        websiteUrl
-                        url
-                        description
-                        createdAt
-                        hasSponsorsListing
                       }
                       description
                       visibility
@@ -1146,20 +1130,20 @@ public extension FairHub {
 
             public enum TypeName : String, Pure { case Query }
             public let __typename: TypeName
-            let user: User
+            var user: User
             struct User : Pure {
-                let login: String
-                let issueComments: EdgeList<Comment>
+                var login: String
+                var issueComments: EdgeList<Comment>
                 struct Comment : Pure {
-                    let body: String
-                    let pullRequest: PullRequest?
+                    var body: String
+                    var pullRequest: PullRequest?
                     struct PullRequest : Pure {
-                        let createdAt: Date?
-                        let headRepository: HeadRepository?
+                        var createdAt: Date?
+                        var headRepository: HeadRepository?
                         struct HeadRepository : Pure {
-                            let nameWithOwner: String
-                            let visibility: String // e.g., "PUBLIC"
-                            let forkingAllowed: Bool
+                            var nameWithOwner: String
+                            var visibility: String // e.g., "PUBLIC"
+                            var forkingAllowed: Bool
                         }
                     }
                 }
@@ -1225,23 +1209,23 @@ public extension FairHub {
 
             public enum TypeName : String, Pure { case Query }
             public let __typename: TypeName
-            public let repository: Repository
+            public var repository: Repository
             public struct Repository : Pure {
                 public enum Repository : String, Pure { case Repository }
                 public let __typename: Repository
-                public let pullRequests: EdgeList<PullRequest>
+                public var pullRequests: EdgeList<PullRequest>
                 public struct PullRequest : Pure {
-                    public let id: OID
-                    public let number: Int
-                    public let url: URL?
-                    public let state: String
-                    public let mergeable: String // e.g., "CONFLICTING" or "UNKNOWN"
-                    public let headRefName: String // e.g., "main"
-                    public let headRepository: HeadRepository?
+                    public var id: OID
+                    public var number: Int
+                    public var url: URL?
+                    public var state: String
+                    public var mergeable: String // e.g., "CONFLICTING" or "UNKNOWN"
+                    public var headRefName: String // e.g., "main"
+                    public var headRepository: HeadRepository?
                     public struct HeadRepository : Pure {
-                        public let nameWithOwner: String
-                        public let visibility: String // e.g., "PUBLIC"
-                        public let forkingAllowed: Bool
+                        public var nameWithOwner: String
+                        public var visibility: String // e.g., "PUBLIC"
+                        public var forkingAllowed: Bool
                     }
                 }
             }
@@ -1250,13 +1234,13 @@ public extension FairHub {
 
     /// An asset returned from an API query
     struct ReleaseAsset : Pure {
-        public let name: String
-        public let size: Int
-        public let contentType: String
-        public let downloadCount: Int
-        public let downloadUrl: URL
-        public let createdAt: Date
-        public let updatedAt: Date
+        public var name: String
+        public var size: Int
+        public var contentType: String
+        public var downloadCount: Int
+        public var downloadUrl: URL
+        public var createdAt: Date
+        public var updatedAt: Date
     }
 
     struct User : Pure {
