@@ -140,16 +140,16 @@ extension FairHub.AppBuildVersion {
         // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
         let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
         guard let buildNumberValue = plist_dict.CFBundleVersion else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as? NSObject, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as NSObject?, plistURL)
         }
 
         guard let buildNumber = UInt(buildNumberValue) else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as? NSObject, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as NSObject?, plistURL)
         }
 
         // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
         guard let buildVersion = plist_dict.CFBundleShortVersionString else {
-            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, nil, plist_dict.CFBundleShortVersionString as? NSObject, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, nil, plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
         }
 
         // a version number needs to be in the form 1.23.456
@@ -720,7 +720,7 @@ public extension FairCLI {
             throw Errors.invalidData(entitlementsURL)
         }
 
-        if entitlements_dict[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
+        if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
             // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
             if !isCatalogApp {
                 throw Errors.sandboxRequired
@@ -741,7 +741,7 @@ public extension FairCLI {
                 let app_plist = app_plist {
                 guard let usageDescription = props.compactMap({
                     // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
-                    (app_plist["FairUsage"] as? Plist)?.rawValue[$0] as? String
+                    (app_plist.rawValue["FairUsage"] as? Plist)?.rawValue[$0] as? String
 
                     // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
                     // app_plist[$0] as? String
