@@ -209,7 +209,7 @@ extension URLSession {
         self.downloadTask(with: request) { url, response, error in
             /// Files are generally placed somewhere like: file:///var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/CFNetworkDownload_q0k6gM.tmp
             do {
-                /// We'll copy it to a temporary replaxcement directory with the base name matching the URL's name
+                /// We'll copy it to a temporary replacement directory with the base name matching the URL's name
                 if let temporaryLocalURL = url,
                    temporaryLocalURL.isFileURL {
                    let tempDir = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: temporaryLocalURL, create: true)

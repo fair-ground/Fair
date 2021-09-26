@@ -72,20 +72,53 @@ public struct FairCLI {
     }
 }
 
-/// A property list, which is simply an NSDictionary
-public typealias Plist = NSDictionary
+/// A property list, which is simply a wrapper around an `NSDictionary` with some conveniences.
+public final class Plist : RawRepresentable {
+    public let rawValue: NSDictionary
 
-extension Plist {
+    @available(*, deprecated, message: "direct subscipt")
+    public subscript(key: String) -> Any? {
+        rawValue[key]
+    }
+
+    public var CFBundleIdentifier: String? {
+        rawValue[InfoPlistKey.CFBundleIdentifier.plistKey] as? String
+    }
+
+    public var CFBundleName: String? {
+        rawValue[InfoPlistKey.CFBundleName.plistKey] as? String
+    }
+
+    public var CFBundleVersion: String? {
+        rawValue[InfoPlistKey.CFBundleVersion.plistKey] as? String
+    }
+
+    public var CFBundleShortVersionString: String? {
+        rawValue[InfoPlistKey.CFBundleShortVersionString.plistKey] as? String
+    }
+
+    public var CFBundleDisplayName: String? {
+        rawValue[InfoPlistKey.CFBundleDisplayName.plistKey] as? String
+    }
+
+    public init() {
+        self.rawValue = NSDictionary()
+    }
+
+    public init(rawValue: NSDictionary) {
+        self.rawValue = rawValue
+    }
+
     /// Attempts to parse the given data as a property list
     /// - Parameters:
     ///   - plistURL: the data to parse
     ///   - format: the format the data is expected to be in, or nil if empty
     public convenience init(propertyListURL: URL) throws {
         let data = try Data(contentsOf: propertyListURL)
-        guard let props = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? Plist else {
+        guard let props = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? NSDictionary else {
             throw Errors.invalidPlist(propertyListURL)
         }
-        self.init(dictionary: props)
+        self.init(rawValue: NSDictionary(dictionary: props))
     }
 
     enum Errors : LocalizedError {
@@ -106,17 +139,17 @@ extension FairHub.AppBuildVersion {
         let plist_dict = try FairCLI.parsePlist(url: plistURL)
         // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
         let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
-        guard let buildNumberValue = plist_dict[buildNumberKey] as? String else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict[buildNumberKey] as? NSObject, plistURL)
+        guard let buildNumberValue = plist_dict.CFBundleVersion else {
+            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as? NSObject, plistURL)
         }
 
         guard let buildNumber = UInt(buildNumberValue) else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict[buildNumberKey] as? NSObject, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as? NSObject, plistURL)
         }
 
         // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
-        guard let buildVersion = plist_dict[InfoPlistKey.CFBundleShortVersionString.plistKey] as? String else {
-            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, nil, plist_dict[InfoPlistKey.CFBundleShortVersionString.plistKey] as? NSObject, plistURL)
+        guard let buildVersion = plist_dict.CFBundleShortVersionString else {
+            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, nil, plist_dict.CFBundleShortVersionString as? NSObject, plistURL)
         }
 
         // a version number needs to be in the form 1.23.456
@@ -512,11 +545,11 @@ public extension FairCLI {
 
         /// Verifies that the given plist contains the specified value
         func check(_ plist: Plist, key: String, is expected: NSObject, empty: Bool = false, url: URL) throws {
-            if plist[key] == nil && empty == true {
+            if plist.rawValue[key] == nil && empty == true {
                 return // permit empty values
             }
 
-            guard let actual = plist[key] as? NSObject else {
+            guard let actual = plist.rawValue[key] as? NSObject else {
                 throw Errors.invalidPlistValue(key, expected, nil, url)
             }
 
@@ -696,7 +729,7 @@ public extension FairCLI {
 
         // Check that the given entitlement is permitted, and that entitlements that require a usage description are specified in the app's Info.plist `FairUsage` dictionary
         func check(_ entitlement: AppEntitlement) throws -> Any? {
-            let entitlementValue = entitlements_dict[entitlement.entitlementKey]
+            let entitlementValue = entitlements_dict.rawValue[entitlement.entitlementKey]
             let value = entitlementValue as? NSNumber
             if value == nil || value == false {
                 // TODO: check for the various string array entitlents, like `application-groups` or `scripting-targets`
@@ -708,7 +741,7 @@ public extension FairCLI {
                 let app_plist = app_plist {
                 guard let usageDescription = props.compactMap({
                     // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
-                    (app_plist["FairUsage"] as? Plist)?[$0] as? String
+                    (app_plist["FairUsage"] as? Plist)?.rawValue[$0] as? String
 
                     // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
                     // app_plist[$0] as? String
@@ -935,11 +968,11 @@ public extension FairCLI {
         let sourceInfo = try Self.parsePlist(url: sourceApp.appendingPathComponent("Contents/Info.plist"))
         let destInfo = try Self.parsePlist(url: destApp.appendingPathComponent("Contents/Info.plist"))
 
-        guard let sourceBundleID = sourceInfo[InfoPlistKey.CFBundleIdentifier.plistKey] as? String else {
+        guard let sourceBundleID = sourceInfo.CFBundleIdentifier else {
             throw Errors.noBundleID(sourceApp)
         }
 
-        guard let destBundleID = destInfo[InfoPlistKey.CFBundleIdentifier.plistKey] as? String else {
+        guard let destBundleID = destInfo.CFBundleIdentifier else {
             throw Errors.noBundleID(destApp)
         }
 
