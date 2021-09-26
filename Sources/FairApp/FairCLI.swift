@@ -715,10 +715,7 @@ public extension FairCLI {
 
     @discardableResult
     func checkEntitlements(entitlementsURL: URL, app_plist: Plist?) throws -> Set<AppEntitlement> {
-        let entitlements_data = try load(url: entitlementsURL)
-        guard let entitlements_dict = try PropertyListSerialization.propertyList(from: entitlements_data, options: [], format: nil) as? Plist else {
-            throw Errors.invalidData(entitlementsURL)
-        }
+        let entitlements_dict = try Plist(propertyListURL: entitlementsURL)
 
         if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
             // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
