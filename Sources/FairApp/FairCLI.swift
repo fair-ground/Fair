@@ -963,7 +963,28 @@ public extension FairCLI {
             throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
         }
 
-        func acquireUntrustedArtifact(retryDuration: TimeInterval, retryWait: TimeInterval) throws -> URL {
+        func fetchArtifact(_ artifactURL: URL, retryDuration: TimeInterval, retryWait: TimeInterval) throws -> URL {
+            let timeoutDate = Date().addingTimeInterval(retryDuration)
+            while true {
+                do {
+                    var request = URLRequest(url: artifactURL)
+                    request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+                    let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
+                    msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
+                    return downloadedURL
+                } catch {
+                    // we we are timed out, or if we don't want to retry, then simply re-download
+                    if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
+                        throw error
+                    } else {
+                        msg(.info, "retrying download in \(retryWait) seconds due to error:", error)
+                        Thread.sleep(forTimeInterval: retryWait)
+                    }
+                }
+            }
+        }
+
+        func fetchUntrustedArtifact() throws -> URL {
             // if we specified the artifact as a local file, just use it directly
             if let untrustedArtifactFlag = untrustedArtifactFlag {
                 return URL(fileURLWithPath: untrustedArtifactFlag)
@@ -974,33 +995,16 @@ public extension FairCLI {
                 throw Errors.missingFlag(self.op, "-artifact-url")
             }
 
-            let timeoutDate = Date().addingTimeInterval(retryDuration)
-            while true {
-                do {
-                    var request = URLRequest(url: artifactURL)
-                    request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-                    let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
-                    dbg("downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
-                    return downloadedURL
-                } catch {
-                    // we we are timed out, or if we don't want to retry, then simply re-download
-                    if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
-                        throw error
-                    } else {
-                        dbg("retrying in \(retryWait) seconds due to download error:", error)
-                        Thread.sleep(forTimeInterval: retryWait)
-                    }
-                }
-            }
+            return try fetchArtifact(artifactURL, retryDuration: retryDurationFlag ?? 0, retryWait: retryWaitFlag)
         }
 
-        let untrustedArtifactURL = try acquireUntrustedArtifact(retryDuration: retryDurationFlag ?? 0, retryWait: retryWaitFlag)
+        let untrustedArtifactLocalURL = try fetchUntrustedArtifact()
 
-        guard let untrustedArchive = ZipArchive(url: untrustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
-            throw AppError("Error opening untrusted archive: \(untrustedArtifactURL.absoluteString)")
+        guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
+            throw AppError("Error opening untrusted archive: \(untrustedArtifactLocalURL.absoluteString)")
         }
 
-        if untrustedArtifactURL == trustedArtifactURL {
+        if untrustedArtifactLocalURL == trustedArtifactURL {
             throw AppError("Trusted and untrusted artifacts may not be the same")
         }
 
@@ -1117,7 +1121,7 @@ public extension FairCLI {
 
         msg(.info, "finishing")
 
-        let sha256 = try Data(contentsOf: untrustedArtifactURL, options: .mappedIfSafe).sha256()
+        let sha256 = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256()
         let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
 
         let entitlements = try checkEntitlements(entitlementsURL: entitlementsURL, app_plist: nil)
