@@ -211,7 +211,7 @@ final class FairCoreTests: XCTestCase {
         let hub = try FairCoreTests.hub()
 
         /// tests that paginated queries work and return consistent results
-        var resultResults: [[FairHub.RepositoryForkQuery.QueryResponse.Repository.Fork]] = []
+        var resultResults: [[FairHub.RepositoryForkQuery.QueryResponse.BaseRepository.Repository]] = []
         for _ in 1...3 {
             let results = try hub.requestBatches(FairHub.RepositoryForkQuery(owner: appfairName, name: "App", count: Int.random(in: 2...22)), maxBatches: 1_000)
             let forks = results
