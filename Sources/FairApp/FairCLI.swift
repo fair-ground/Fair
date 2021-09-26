@@ -27,6 +27,8 @@ public struct FairCLI {
 
     let fm = FileManager.default
 
+    public static let appSuffix = ".app"
+
     public init(arguments args: [String] = CommandLine.arguments, environment: [String: String] = ProcessInfo.processInfo.environment) throws {
         self.environment = environment
         self.flags = [:]
@@ -76,31 +78,6 @@ public struct FairCLI {
 public final class Plist : RawRepresentable {
     public let rawValue: NSDictionary
 
-    @available(*, deprecated, message: "direct subscipt")
-    public subscript(key: String) -> Any? {
-        rawValue[key]
-    }
-
-    public var CFBundleIdentifier: String? {
-        rawValue[InfoPlistKey.CFBundleIdentifier.plistKey] as? String
-    }
-
-    public var CFBundleName: String? {
-        rawValue[InfoPlistKey.CFBundleName.plistKey] as? String
-    }
-
-    public var CFBundleVersion: String? {
-        rawValue[InfoPlistKey.CFBundleVersion.plistKey] as? String
-    }
-
-    public var CFBundleShortVersionString: String? {
-        rawValue[InfoPlistKey.CFBundleShortVersionString.plistKey] as? String
-    }
-
-    public var CFBundleDisplayName: String? {
-        rawValue[InfoPlistKey.CFBundleDisplayName.plistKey] as? String
-    }
-
     public init() {
         self.rawValue = NSDictionary()
     }
@@ -129,6 +106,33 @@ public final class Plist : RawRepresentable {
             case .invalidPlist(let url): return "Invalud plist at \(url.path)"
             }
         }
+    }
+}
+
+public extension Plist {
+    /// The usage description dictionary for the `"FairUsage"` key.
+    var FairUsage: NSDictionary? {
+        rawValue["FairUsage"] as? NSDictionary
+    }
+
+    var CFBundleIdentifier: String? {
+        rawValue[InfoPlistKey.CFBundleIdentifier.plistKey] as? String
+    }
+
+    var CFBundleName: String? {
+        rawValue[InfoPlistKey.CFBundleName.plistKey] as? String
+    }
+
+    var CFBundleVersion: String? {
+        rawValue[InfoPlistKey.CFBundleVersion.plistKey] as? String
+    }
+
+    var CFBundleShortVersionString: String? {
+        rawValue[InfoPlistKey.CFBundleShortVersionString.plistKey] as? String
+    }
+
+    var CFBundleDisplayName: String? {
+        rawValue[InfoPlistKey.CFBundleDisplayName.plistKey] as? String
     }
 }
 
@@ -738,7 +742,7 @@ public extension FairCLI {
                 let app_plist = app_plist {
                 guard let usageDescription = props.compactMap({
                     // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
-                    (app_plist.rawValue["FairUsage"] as? Plist)?.rawValue[$0] as? String
+                    app_plist.FairUsage?[$0] as? String
 
                     // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
                     // app_plist[$0] as? String
@@ -1052,13 +1056,12 @@ public extension FairCLI {
 
         }))
 
-        let appSuffix = ".app"
 
-        guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(appSuffix) else {
+        guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
             throw AppError("Invalid root path in archive: \(rootPaths)")
         }
 
-        let appName = rootPath.dropLast(appSuffix.count)
+        let appName = rootPath.dropLast(Self.appSuffix.count)
 
 
         // the size of the executable itself
