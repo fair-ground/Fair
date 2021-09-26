@@ -311,8 +311,10 @@ public extension FairHub {
 
         let lookupPRsRequest = FairHub.FindPullRequests(owner: owner, name: name)
         let appPR = try self.requestFirstBatch(lookupPRsRequest) { resultIndex, urlResponse, batch in
-            batch.result.successValue?.data.repository.pullRequests.nodes.first { edge in
-                edge.state == "OPEN" && edge.headRepository?.nameWithOwner == (nameWithOwner)
+            try batch.result.get().data.repository.pullRequests.nodes.first { edge in
+                edge.state == "OPEN"
+                //&& edge.mergeable != "CONFLICTING"
+                && edge.headRepository?.nameWithOwner == (nameWithOwner)
             }
         }
 
@@ -535,7 +537,7 @@ public extension GraphQLEndpointService {
 
         // print(wip(postData?.utf8String ?? "")) // for debugging post data
 
-        dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount())
+        dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , postData?.utf8String)
         return req
     }
 }
@@ -1064,7 +1066,7 @@ public extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Pure {
-            public enum TypeName : String, Pure { case Query }
+            public enum TypeName : String, Pure { case Mutation }
             public let __typename: TypeName
             let addComment: AddComment
             struct AddComment : Pure {
@@ -1168,8 +1170,8 @@ public extension FairHub {
 
         public func postData() throws -> Data? {
             try ["query": """
-             __typename
              query \(queryName) {
+             __typename
              repository(owner: "\(owner)", name: "\(name)") {
                 __typename
                pullRequests(states: [\(state ?? "")], orderBy: { field: UPDATED_AT, direction: DESC }, first: \(count), after: \(quotedOrNull(cursor?.rawValue))) {

@@ -1021,7 +1021,10 @@ public extension FairCLI {
                                 let insertionRangeDesc = insertionRanges.rangeView.prefix(10).map({ $0.description })
 
                                 let removalRanges = offsets(in: diff.removals)
-                                let removalRangeDesc = removalRanges.rangeView.prefix(10).map({ $0.description })
+                                let removalRangeDesc = removalRanges
+                                    .rangeView
+                                    .prefix(10)
+                                    .map({ $0.description })
 
 
                                 let error = AppError("Trusted and untrusted artifact content mismatch at \(te.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc)")
