@@ -30,6 +30,10 @@ public let appfairBot = "appfairbot"
 /// The canonical location of the catalog for the Fair Ground
 public let appfairCatalogURL = URL(string: "https://www.appfair.net/fairapps.json")
 
+/// The canonical location of the iOS catalog for the Fair Ground
+public let appfairCatalogIOSURL = URL(string: "https://www.appfair.net/fairapps-iOS.json")
+
+
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
     /// The default headers that will be sent with a request
@@ -212,7 +216,8 @@ public extension FairHub {
         // in order to minimize catalog changes, always sort by the bundle name
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
-        let catalog = FairAppCatalog(name: org, identifier: org, sourceURL: appfairCatalogURL!, apps: apps, news: news)
+        let catalogURL = artifactExtensions.first(where: { $0.hasSuffix("zip") }) != nil ? appfairCatalogURL : appfairCatalogIOSURL
+        let catalog = FairAppCatalog(name: org, identifier: org, sourceURL: catalogURL!, apps: apps, news: news)
         return catalog
     }
 
