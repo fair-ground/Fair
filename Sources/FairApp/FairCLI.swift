@@ -1005,15 +1005,27 @@ public extension FairCLI {
                     request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
                     let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
                     msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
-                    return downloadedURL
-                } catch {
-                    // we we are timed out, or if we don't want to retry, then simply re-download
-                    if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
-                        throw error
+                    if let response = response as? HTTPURLResponse,
+                       (200..<300).contains(response.statusCode) { // e.g., 404
+                        return downloadedURL
                     } else {
-                        msg(.info, "retrying download in \(retryWait) seconds due to error:", error)
-                        Thread.sleep(forTimeInterval: retryWait)
+                        try backoff(error: nil)
                     }
+                } catch {
+                    if try backoff(error: error) == false {
+                        throw error
+                    }
+                }
+            }
+
+            @discardableResult func backoff(error: Error?) throws -> Bool {
+                // we we are timed out, or if we don't want to retry, then simply re-download
+                if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
+                    return false
+                } else {
+                    msg(.info, "retrying download in \(retryWait) seconds due to error:", error)
+                    Thread.sleep(forTimeInterval: retryWait)
+                    return true
                 }
             }
         }
