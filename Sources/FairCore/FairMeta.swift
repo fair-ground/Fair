@@ -14,6 +14,7 @@
  */
 import Swift
 import Foundation
+import QuartzCore
 
 /// https://developer.apple.com/documentation/bundleresources/information_property_list/bundle_configuration
 public enum InfoPlistKey : String, CaseIterable, Hashable {
@@ -265,9 +266,13 @@ public enum AppEntitlement : String, Pure, CaseIterable {
 
     // MARK: Temporary Exceptions
 
+    /// This is an array of paths relative to the user-directory, but must begin with a slash
     case files_home_relative_path_read_only = "temporary-exception.files.home-relative-path.read-only"
+    /// This is an array of paths relative to the user-directory, but must begin with a slash
     case files_home_relative_path_read_write = "temporary-exception.files.home-relative-path.read-write"
+    /// This is an array of absolute paths beginning with a slash
     case files_absolute_path_read_only = "temporary-exception.files.absolute-path.read-only"
+    /// This is an array of absolute paths beginning with a slash
     case files_absolute_path_read_write = "temporary-exception.files.absolute-path.read-write"
 
     case apple_events = "temporary-exception.apple-events"
@@ -565,6 +570,20 @@ public enum AppCategory : String, CaseIterable, Pure {
     case strategygames = "strategy-games"
     case triviagames = "trivia-games"
     case wordgames = "word-games"
+
+    public init?(topic: String) {
+        guard let category = Self.topics[topic] else {
+            return nil
+        }
+        self = category
+    }
+
+    public init?(metadataID: String) {
+        guard let category = Self.metadatas[metadataID] else {
+            return nil
+        }
+        self = category
+    }
 
     /// The identifier for the `Info.plist` metadata in the form: `public.app-category.[rawValue]`
     public var metadataIdentifier: String {

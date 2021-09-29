@@ -124,7 +124,7 @@ public extension FairHub {
 
         dbg("fetched forks:", forks.count)
 
-        var apps: [FairAppCatalog.AppRelease] = []
+        var apps: [AppCatalogItem] = []
 
         for fork in forks  {
             dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
@@ -196,7 +196,7 @@ public extension FairHub {
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
-                    let app = FairAppCatalog.AppRelease(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo ?? "unknown", localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: fairseal?.coreSize, sha256: fairseal?.sha256, permissions: fairseal?.permissions)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo ?? "unknown", localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: fairseal?.coreSize, sha256: fairseal?.sha256, permissions: fairseal?.permissions)
                     apps.append(app)
                     fairsealFound = true
                 }

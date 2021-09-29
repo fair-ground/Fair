@@ -24,103 +24,9 @@ public struct FairAppCatalog : Pure {
     /// The canonical location of the catalog
     public var sourceURL: URL?
     /// The apps that are currently available
-    public var apps: [AppRelease]
+    public var apps: [AppCatalogItem]
     /// Any news items for the catalog
     public var news: [NewsPost]?
-
-    public struct AppRelease : Pure {
-        public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: UInt64?) {
-            self.name = name
-            self.bundleIdentifier = bundleIdentifier
-            self.subtitle = subtitle
-            self.developerName = developerName
-            self.localizedDescription = localizedDescription
-            self.size = size
-            self.version = version
-            self.versionDate = versionDate
-            self.downloadURL = downloadURL
-            self.iconURL = iconURL
-            self.screenshotURLs = screenshotURLs
-            self.versionDescription = versionDescription
-            self.tintColor = tintColor
-            self.beta = beta
-            self.sourceIdentifier = sourceIdentifier
-            self.categories = categories
-            self.downloadCount = downloadCount
-            self.starCount = starCount
-            self.watcherCount = watcherCount
-            self.issueCount = issueCount
-            self.sourceSize = sourceSize
-            self.coreSize = coreSize
-            self.sha256 = sha256
-            self.permissions = permissions
-        }
-
-        /// The name of the app (e.g., "Cloud Cuckoo")
-        public var name: String
-        /// The identifier for the all (e.g., "app.Cloud-Cuckoo")
-        public var bundleIdentifier: String
-        /// A subtitle
-        public var subtitle: String?
-        /// The real name and e-mail address of the developer of the app
-        public var developerName: String
-        /// A localized description of the app, such as markdown
-        public var localizedDescription: String
-        /// The size of the app's primary download url
-        public var size: Int
-        /// The current version of the app
-        public var version: String?
-        /// The date the version was released
-        public var versionDate: Date?
-        /// The primary URL for the app download
-        public var downloadURL: URL
-        /// The URL for the app's icons
-        public var iconURL: URL?
-        /// The primary screenshot URLs for the app
-        public var screenshotURLs: [URL]?
-        /// A summary of the version
-        public var versionDescription: String?
-        /// The custom tint color for the app
-        public var tintColor: String?
-        /// Whether to app is beta or not
-        public var beta: Bool?
-        /// The source identifier of the app
-        public var sourceIdentifier: String?
-
-        /// The categories assigned to this app
-        public var categories: [String]?
-        /// The number of downloads for this asset
-        public var downloadCount: Int?
-        /// The number of stargazers for this project
-        public var starCount: Int?
-        /// The number of followers for this project
-        public var watcherCount: Int?
-        /// The number of forks for this project
-        public var forkCount: Int?
-        /// The number of issues for this project
-        public var issueCount: Int?
-        /// The total size of the source assets for this project
-        public var sourceSize: Int?
-        /// The size of the core code
-        public var coreSize: Int?
-
-        /// The expected hash of the downloadURL
-        public var sha256: String?
-
-        /// The summary of the entitlements that are enabled for this app
-        public var permissions: UInt64?
-
-        /// The entitlements for this app, as calculated by the bitset in `permissions`
-        public var entitlements: Set<AppEntitlement> {
-            get {
-                permissions.flatMap(AppEntitlement.fromBitsetRepresentation(from:)) ?? []
-            }
-
-            set {
-                self.permissions = newValue.isEmpty ? nil : AppEntitlement.bitsetRepresentation(for: newValue)
-            }
-        }
-    }
 
     public struct NewsPost : Pure {
         /// A unique identifer for the news posting
@@ -144,8 +50,102 @@ public struct FairAppCatalog : Pure {
         /// The source identifier
         public var sourceIdentifier: String?
     }
-
 }
+
+public struct AppCatalogItem : Pure {
+    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: UInt64?) {
+        self.name = name
+        self.bundleIdentifier = bundleIdentifier
+        self.subtitle = subtitle
+        self.developerName = developerName
+        self.localizedDescription = localizedDescription
+        self.size = size
+        self.version = version
+        self.versionDate = versionDate
+        self.downloadURL = downloadURL
+        self.iconURL = iconURL
+        self.screenshotURLs = screenshotURLs
+        self.versionDescription = versionDescription
+        self.tintColor = tintColor
+        self.beta = beta
+        self.sourceIdentifier = sourceIdentifier
+        self.categories = categories
+        self.downloadCount = downloadCount
+        self.starCount = starCount
+        self.watcherCount = watcherCount
+        self.issueCount = issueCount
+        self.sourceSize = sourceSize
+        self.coreSize = coreSize
+        self.sha256 = sha256
+        self.permissions = permissions
+    }
+
+    /// The name of the app (e.g., "Cloud Cuckoo")
+    public var name: String
+    /// The identifier for the all (e.g., "app.Cloud-Cuckoo")
+    public var bundleIdentifier: String
+    /// A subtitle
+    public var subtitle: String?
+    /// The real name and e-mail address of the developer of the app
+    public var developerName: String
+    /// A localized description of the app, such as markdown
+    public var localizedDescription: String
+    /// The size of the app's primary download url
+    public var size: Int
+    /// The current version of the app
+    public var version: String?
+    /// The date the version was released
+    public var versionDate: Date?
+    /// The primary URL for the app download
+    public var downloadURL: URL
+    /// The URL for the app's icons
+    public var iconURL: URL?
+    /// The primary screenshot URLs for the app
+    public var screenshotURLs: [URL]?
+    /// A summary of the version
+    public var versionDescription: String?
+    /// The custom tint color for the app
+    public var tintColor: String?
+    /// Whether to app is beta or not
+    public var beta: Bool?
+    /// The source identifier of the app
+    public var sourceIdentifier: String?
+
+    /// The categories assigned to this app
+    public var categories: [String]?
+    /// The number of downloads for this asset
+    public var downloadCount: Int?
+    /// The number of stargazers for this project
+    public var starCount: Int?
+    /// The number of followers for this project
+    public var watcherCount: Int?
+    /// The number of forks for this project
+    public var forkCount: Int?
+    /// The number of issues for this project
+    public var issueCount: Int?
+    /// The total size of the source assets for this project
+    public var sourceSize: Int?
+    /// The size of the core code
+    public var coreSize: Int?
+
+    /// The expected hash of the downloadURL
+    public var sha256: String?
+
+    /// The summary of the entitlements that are enabled for this app
+    public var permissions: UInt64?
+
+    /// The entitlements for this app, as calculated by the bitset in `permissions`
+    public var entitlements: Set<AppEntitlement> {
+        get {
+            permissions.flatMap(AppEntitlement.fromBitsetRepresentation(from:)) ?? []
+        }
+
+        set {
+            self.permissions = newValue.isEmpty ? nil : AppEntitlement.bitsetRepresentation(for: newValue)
+        }
+    }
+}
+
 
 public struct PackageManifest : Pure {
     public var name: String

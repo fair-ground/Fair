@@ -297,22 +297,33 @@ private final class AppDelegate: NSObject, UXApplicationDelegate {
 
 extension String {
     #if swift(>=5.5)
-    /// Parses the string into an `AttributedString`
+    /// Parses the attributed text string into an `AttributedString`
     @available(macOS 12.0, iOS 15.0, *)
-    public func atx(languageCode: String? = nil) throws -> AttributedString {
-        try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: true, interpretedSyntax: .inlineOnly, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
+    public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .full, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
+        try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: allowsExtendedAttributes, interpretedSyntax: interpret, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
     }
     #endif
 }
 
 extension SwiftUI.Text {
+    /// Creates a Text from the given attributed string, falling back to the unformatted string if it fails to parse.
     @available(macOS 12.0, iOS 15.0, *)
-    public init(atx formattedString: String) {
-        if let attributedString = try? formattedString.atx() {
+    public init(atx attributedText: String, languageCode: String? = nil) {
+        if let attributedString = try? attributedText.atx(languageCode: languageCode) {
             self.init(attributedString)
         } else {
-            self.init(formattedString) // failure to parse will just display the formatted string raw
+            self.init(attributedText) // failure to parse will just display the formatted string raw
         }
+    }
+
+    /// Labels the given text with the given system symbol.
+    @available(macOS 12.0, iOS 15.0, *)
+    public func label(symbol symbolName: String? = nil) -> Label<Text, Image?> {
+        Label(title: {
+            self
+        }, icon: {
+            symbolName.flatMap(Image.init(systemName:))
+        })
     }
 }
 
