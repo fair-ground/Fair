@@ -68,12 +68,12 @@ jobs:
           cd docc2html
           git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 
-          mkdir docbuild/
+          mkdir -p docbuild/output
+          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/output/
+          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/output/
 
-          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/
+          cd docbuild/
           swift run docc2html docbuild/Build/Products/Debug/FairCore.doccarchive ../docs/FairCore
-
-          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/
           swift run docc2html docbuild/Build/Products/Debug/FairApp.doccarchive ../docs/FairApp
 
       - name: Update Docs
