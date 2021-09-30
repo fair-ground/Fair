@@ -61,30 +61,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Generate docbuild
-        run: |
-          mkdir -p docs
-          mkdir -p docbuild/output
-
-          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/output/
-          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/output/
-
-          cd docbuild/
-          git clone https://github.com/DoccZz/docc2html.git
-          cd docc2html
-          git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-
-          swift run docc2html --verbose --force ../output/Build/Products/Debug/FairCore.doccarchive ../../docs/
-          swift run docc2html --verbose --force ../output/Build/Products/Debug/FairApp.doccarchive ../../docs/
-
-      - name: Update Docs
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          force_orphan: true
-
       - name: FairTool
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -109,5 +85,29 @@ jobs:
       - name: Build macOS FairApp
         run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "macosx" -destination "platform=macosx"
 
+      - name: Generate docbuild
+        run: |
+          # see: https://fair-ground.github.io/Fair/documentation/faircore/index.html
+          mkdir -p docs
+          mkdir -p docbuild/output
+
+          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/output/
+          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/output/
+
+          cd docbuild/
+          git clone https://github.com/DoccZz/docc2html.git
+          cd docc2html
+          git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+
+          swift run docc2html --verbose --force ../output/Build/Products/Debug/FairCore.doccarchive ../../docs/
+          swift run docc2html --verbose --force ../output/Build/Products/Debug/FairApp.doccarchive ../../docs/
+
+      - name: Update Docs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
 
 
