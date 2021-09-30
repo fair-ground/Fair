@@ -26,7 +26,6 @@ on:
   schedule:
     - cron: '0 0,12 * * *'
 
-
 jobs:
   ci-linux:
     runs-on: ubuntu-latest 
@@ -34,7 +33,7 @@ jobs:
 
     steps:
       - name: Install Swift 5.5
-        uses: marcprux/setup-swift@swift-5.5
+        uses: marcprux/setup-swift@main
         with:
           swift-version: "5.5"
 
