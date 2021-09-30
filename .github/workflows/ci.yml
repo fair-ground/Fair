@@ -63,13 +63,18 @@ jobs:
 
       - name: Generate docbuild
         run: |
-          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath ./DerivedData/
-          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath ./DerivedData/
+          mkdir docs
           git clone https://github.com/DoccZz/docc2html.git
           cd docc2html
           git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-          swift run docc2html ..DerivedData/Build/Products/Debug/FairCore.doccarchive ../docs/FairCore
-          swift run docc2html ..DerivedData/Build/Products/Debug/FairApp.doccarchive ../docs/FairApp
+
+          mkdir docbuild/
+
+          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/
+          swift run docc2html docbuild/Build/Products/Debug/FairCore.doccarchive ../docs/FairCore
+
+          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/
+          swift run docc2html docbuild/Build/Products/Debug/FairApp.doccarchive ../docs/FairApp
 
       - name: Update Docs
         uses: peaceiris/actions-gh-pages@v3
