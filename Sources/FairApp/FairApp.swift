@@ -13,9 +13,11 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
+import Foundation
 @_exported import FairCore
-import SwiftUI
+#if canImport(Security)
 import Security
+#endif 
 
 public extension Bundle {
     /// The org name of the catalog browser app itself

@@ -87,9 +87,14 @@ extension FileManager {
     /// Attempts to place the item at the given URL in the Trash on platforms that support it.
     /// An error will be thrown if the operation fails, and on platforms that support Trash, the return value will be the URL of the trashed item.
     @discardableResult public func trash(url: URL) throws -> URL? {
+	#if canImport(AppKit)
         var trashResult: NSURL? = nil
         try trashItem(at: url, resultingItemURL: &trashResult)
         return trashResult as URL?
+	#else
+	try removeItem(at: url)
+	return nil
+	#endif
     }
 
     /// Returns true if the folder is a directory, false if it is a file,
@@ -112,9 +117,11 @@ public extension Decodable {
     /// Initialized this instance from a JSON string
     init(json: Data, decoder: @autoclosure () -> JSONDecoder = JSONDecoder(), allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws {
         let decoder = decoder()
+	#if !os(Linux) && !os(Windows)
         if #available(macOS 12.0, iOS 15.0, *) {
             decoder.allowsJSON5 = allowsJSON5
         }
+	#endif
 
         if let dateDecodingStrategy = dateDecodingStrategy {
             decoder.dateDecodingStrategy = dateDecodingStrategy

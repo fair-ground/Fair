@@ -15,6 +15,9 @@
 import Swift
 import Foundation
 import FairCore
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public struct FairCLI {
     /// The name of the App & the repository; defaults to "App"
@@ -95,7 +98,7 @@ public final class Plist : RawRepresentable {
         guard let props = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? NSDictionary else {
             throw Errors.invalidPlist(propertyListURL)
         }
-        self.init(rawValue: NSDictionary(dictionary: props))
+        self.init(rawValue: props)
     }
 
     enum Errors : LocalizedError {
@@ -173,10 +176,14 @@ public extension FairCLI {
         case package
         case generate
         case validate
-        case icon
         case merge
         case catalog
+        #if canImport(Compression)
         case fairseal
+        #endif
+        #if canImport(SwiftUI)
+        case icon
+        #endif
 
         var operationSummary: String {
             switch self {
@@ -186,10 +193,14 @@ public extension FairCLI {
             case .welcome: return "perform an interactive guided walk-through"
             case .package: return "package up an app"
             case .validate: return "validate that the project can be successfully released"
-            case .icon: return "create an icon for the given project"
             case .merge: return "merge base fair-ground updates into the project"
             case .catalog: return "build the catalog"
+            #if canImport(Compression)
             case .fairseal: return "generates fairseal from trusted artifact"
+            #endif
+            #if canImport(SwiftUI)
+            case .icon: return "create an icon for the given project"
+            #endif
             }
         }
     }
@@ -395,10 +406,14 @@ public extension FairCLI {
         case .generate: try generate(msg: messenger)
         case .package: try package(msg: messenger)
         case .validate: try validate(msg: messenger)
-        case .icon: try icon(msg: messenger)
         case .merge: try merge(msg: messenger)
         case .catalog: try catalog(msg: messenger)
+        #if canImport(Compression)
         case .fairseal: try fairseal(msg: messenger)
+        #endif
+        #if canImport(SwiftUI)
+        case .icon: try icon(msg: messenger)
+        #endif
         }
     }
 
@@ -442,7 +457,7 @@ public extension FairCLI {
 
                 if forceFlag == true {
                     msg(.debug, "trashing previous path:", url.path)
-                    try fm.trashItem(at: url, resultingItemURL: nil)
+                    try fm.trash(url: url)
                 } else {
                     msg(.error, "cannot overwrite with changed file:", url.path)
                     throw Errors.cannotOverwriteAlteredFile(url)
@@ -902,6 +917,7 @@ public extension FairCLI {
         try appOrgName().replacingOccurrences(of: "-", with: " ")
     }
 
+    #if canImport(SwiftUI)
     func icon(msg: MessageHandler) throws {
         msg(.info, "icon")
 
@@ -963,6 +979,7 @@ public extension FairCLI {
             msg(.info, "output icon to: \(iconFile.path)")
         }
     }
+    #endif
 
     /// Perform update checks before copying the app into the destination
     private func validateUpdate(from sourceApp: URL, to destApp: URL) throws {
@@ -982,6 +999,7 @@ public extension FairCLI {
         }
     }
 
+    #if canImport(Compression)
     func fairseal(msg: MessageHandler) throws {
         msg(.info, "Fairseal")
 
@@ -1189,6 +1207,7 @@ public extension FairCLI {
             }
         }
     }
+    #endif
 
     func catalog(msg: MessageHandler) throws {
         msg(.info, "Catalog")

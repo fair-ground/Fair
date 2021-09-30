@@ -29,7 +29,7 @@ on:
 
 jobs:
   ci-linux:
-    if: false # wait until Swift 5.5 is available
+    if: true # wait until Swift 5.5 is available
     runs-on: ubuntu-latest 
     timeout-minutes: 10
 
@@ -46,6 +46,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: xcrun swift test
 
   ci-macOS:

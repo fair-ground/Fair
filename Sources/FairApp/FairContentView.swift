@@ -14,6 +14,8 @@
  */
 import Swift
 import FairCore
+
+#if canImport(SwiftUI)
 import SwiftUI
 
 public enum FairContentType {
@@ -81,3 +83,5 @@ public struct FairContentView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
+#endif
+

@@ -14,6 +14,7 @@
  */
 import Swift
 import FairCore
+#if canImport(SwiftUI)
 import SwiftUI
 
 public extension Bundle {
@@ -88,4 +89,4 @@ public struct URLImage : View, Equatable {
         }
     }
 }
-
+#endif

@@ -14,6 +14,7 @@
  */
 import Swift
 import XCTest
+#if canImport(SwiftUI)
 import WebKit
 @testable import FairApp
 
@@ -74,3 +75,4 @@ final class FairAppTests: XCTestCase {
         XCTAssertEqual("[object Object]", try wv.eval(js: "[] + {}") as? NSString)
     }
 }
+#endif

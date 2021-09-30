@@ -14,6 +14,9 @@
  */
 import Swift
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// A service that converts actions and parameters into an endpoint URL
 public protocol EndpointService {
@@ -169,6 +172,13 @@ public extension URLSession {
         try sync(request: request, timeout: timeout, createTask: dataTask)
     }
 
+    #if os(Linux) || os(Windows)
+    /// Stub for missing async data support on Linux & Windows
+    func data(for request: URLRequest, delegate: Void?) async throws -> (data: Data, response: URLResponse) {
+        try fetchSync(request)
+    }
+    #endif
+
     /// Downloads the given URL request in the current session
     func downloadSync(_ request: URLRequest, timeout: DispatchTime = .distantFuture) throws -> (url: URL, response: URLResponse) {
         try sync(request: request, timeout: timeout, createTask: downloadTaskCopy)
@@ -205,7 +215,7 @@ extension URLSession {
     /// If the download from `downloadTask` is successful, the completion handler receives a URL indicating the location of the downloaded file on the local filesystem. This storage is temporary. To preserve the file, this will move it from the temporary location before returning from the completion handler.
     /// In practice, macOS seems to be inconsistent in when it ever cleans up these files, so a failure here will manifest itself in occasional missing files.
     /// This is needed for running an async operation that will still have access to the resulting file.
-    @objc func downloadTaskCopy(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+    func downloadTaskCopy(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         self.downloadTask(with: request) { url, response, error in
             /// Files are generally placed somewhere like: file:///var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/CFNetworkDownload_q0k6gM.tmp
             do {

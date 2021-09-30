@@ -14,10 +14,10 @@
  */
 import Swift
 
+#if canImport(SwiftUI)
 #if canImport(WebKit)
 import WebKit
 
-#if canImport(SwiftUI)
 
 @available(macOS 11, iOS 14, *)
 public struct FairBrowser : View {
@@ -162,7 +162,7 @@ private struct UXWebView : UXViewRepresentable {
     }
 }
 
-#endif // canImport(SwiftUI)
 
 #endif // canImport(WebKit)
+#endif // canImport(SwiftUI)
 

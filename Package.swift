@@ -33,7 +33,7 @@ let package = Package(
         .executableTarget(name: "FairTool", dependencies: ["FairApp"]),
         
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"]),
-        .testTarget(name: "FairAppTests", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
-        .testTarget(name: "FairToolTests", dependencies: ["FairTool"])
+        .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources"), .copy("Bundle")]),
+        .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")])
     ]
 )

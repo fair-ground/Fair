@@ -57,6 +57,7 @@ public extension Result {
 
 #if canImport(OSLog)
 import OSLog
+#endif
 
 /// Logs the given items to `os_log` if `DEBUG` is set
 /// - Parameters:
@@ -78,11 +79,14 @@ import OSLog
             ?? fileName.description
 
         let message = "\(filePath):\(lineNumber) \(funcName): \(msg)"
+	#if canImport(OSLog)
         os_log(level == 0 ? .debug : level == 1 ? .default : level == 2 ? .info : level == 3 ? .error : .fault, "%{public}@", message)
+	#else
+        print(level == 0 ? "debug" : level == 1 ? "default" : level == 2 ? "info" : level == 3 ? "error" : "fault", message)
+	#endif
     }
 }
 
-@usableFromInline let signpostLog = OSLog(subsystem: "net.misckit.MiscKit.prf", category: .pointsOfInterest)
 
 @inlinable public func nanos() -> UInt64 {
     DispatchTime.now().uptimeNanoseconds
@@ -98,6 +102,12 @@ import OSLog
     }
 }
 
+#if canImport(OSLog)
+import OSLog
+
+@usableFromInline let signpostLog = OSLog(subsystem: "fair-ground", category: .pointsOfInterest)
+#endif
+
 /// Output a message with the amount of time the given block took to exeucte
 /// - Parameter message: the static message to log
 /// - Parameter messageBlock: the dynamic message to log; the parameter to the closure is the result of the `block`
@@ -112,8 +122,14 @@ import OSLog
 
     let start: UInt64 = nanos()
 
+    #if canImport(OSLog)
     os_signpost(.begin, log: signpostLog, name: functionName)
-    defer { os_signpost(.end, log: signpostLog, name: functionName) }
+    #endif
+    defer { 
+        #if canImport(OSLog)
+        os_signpost(.end, log: signpostLog, name: functionName) 
+        #endif
+    }
 
     let result = try block()
 
@@ -127,7 +143,6 @@ import OSLog
     return result
 }
 
-#endif
 
 
 public extension BinaryInteger {

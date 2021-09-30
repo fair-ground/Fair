@@ -14,6 +14,7 @@
  */
 import Swift
 import XCTest
+#if canImport(SwiftUI)
 import FairApp
 
 final class FairCLITests: XCTestCase {
@@ -149,3 +150,4 @@ final class FairCLITests: XCTestCase {
         //XCTAssertThrowsError(try mkproj(pname)) // try again without overwrite
     }
 }
+#endif

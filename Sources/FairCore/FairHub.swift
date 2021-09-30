@@ -14,6 +14,9 @@
  */
 import Swift
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// We need an upper bound for the number of forks we can process
 /// GitHub defaults to a rate limit of 5,000 requests per hour, so
@@ -1286,7 +1289,7 @@ extension FairHub {
         let (data, response) = try await URLSession.shared.data(for: req, delegate: nil)
 
         let _ = response
-        let catalog = try FairAppCatalog(json: data.gunzip() ?? data, dateDecodingStrategy: .iso8601)
+        let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
 
         return catalog
     }
@@ -1300,7 +1303,7 @@ extension FairHub {
         if let cache = cache { req.cachePolicy = cache }
         let (data, response) = try URLSession.shared.fetchSync(req)
         let _ = response
-        let catalog = try FairAppCatalog(json: data.gunzip() ?? data, dateDecodingStrategy: .iso8601)
+        let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
 
         return catalog
     }

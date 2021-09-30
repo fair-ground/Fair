@@ -13,6 +13,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
+#if canImport(SwiftUI)
 import SwiftUI
 import Combine
 
@@ -63,3 +64,4 @@ struct FairProgressView_Previews: PreviewProvider {
         .previewLayout(.sizeThatFits)
     }
 }
+#endif

@@ -14,12 +14,16 @@
  */
 import Swift
 import FairApp
+#if canImport(Darwin)
 import func Darwin.exit
+#else
+import func Glibc.exit
+#endif
 
 do {
     try FairCLI().runCLI()
 } catch {
     print("fairtool error: \(error.localizedDescription)")
     debugPrint(error)
-    Darwin.exit(1)
+    exit(1)
 }

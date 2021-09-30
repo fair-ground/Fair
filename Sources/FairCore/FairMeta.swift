@@ -14,7 +14,9 @@
  */
 import Swift
 import Foundation
+#if canImport(QuartzCore)
 import QuartzCore
+#endif
 
 /// https://developer.apple.com/documentation/bundleresources/information_property_list/bundle_configuration
 public enum InfoPlistKey : String, CaseIterable, Hashable {
