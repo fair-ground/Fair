@@ -29,7 +29,6 @@ on:
 
 jobs:
   ci-linux:
-    if: true # wait until Swift 5.5 is available
     runs-on: ubuntu-latest 
     timeout-minutes: 10
 
@@ -48,7 +47,7 @@ jobs:
       - name: Run Tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: xcrun swift test
+        run: swift test
 
   ci-macOS:
     # runs-on: linux # TODO: Swift 5.5; maybe dev1an/setup-swift@swift-5.5
