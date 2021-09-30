@@ -37,7 +37,7 @@ jobs:
       - name: Install Swift 5.5
         uses: dev1an/setup-swift@swift-5.5
         with:
-          swift-version: "5.1.0"
+          swift-version: "5.5"
 
       - name: Get swift version
         run: swift --version # Swift 5.5?
