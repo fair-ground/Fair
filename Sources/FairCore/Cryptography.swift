@@ -95,9 +95,13 @@ public struct Crc32: CustomStringConvertible {
     }
 
     private static func loadCrc32fromZLib() -> ZLibCrc32FuncPtr? {
+        #if os(Windows)
+        return nil
+        #else
         guard let libz = dlopen("/usr/lib/libz.dylib", RTLD_NOW) else { return nil }
         guard let fptr = dlsym(libz, "crc32") else { return nil }
         return unsafeBitCast(fptr, to: ZLibCrc32FuncPtr.self)
+        #endif
     }
 
     private func slowCrc32(start: UInt32, data: Data) -> UInt32 {
@@ -179,9 +183,13 @@ public struct Adler32: CustomStringConvertible {
     }
 
     private static func loadAdler32fromZLib() -> ZLibAdler32FuncPtr? {
+        #if os(Windows)
+        return nil
+        #else
         guard let libz = dlopen("/usr/lib/libz.dylib", RTLD_NOW) else { return nil }
         guard let fptr = dlsym(libz, "adler32") else { return nil }
         return unsafeBitCast(fptr, to: ZLibAdler32FuncPtr.self)
+        #endif
     }
 
     private func slowAdler32(start: UInt32, data: Data) -> UInt32 {
