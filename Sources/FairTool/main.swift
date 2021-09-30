@@ -14,10 +14,15 @@
  */
 import Swift
 import FairApp
-#if canImport(Darwin)
+
+#if os(Linux)
+import func Glibc.exit
+#elseif os(Windows)
+import func ucrt.exit
+#elseif canImport(Darwin)
 import func Darwin.exit
 #else
-import func Glibc.exit
+func exit(_ code: Int) -> Never { }
 #endif
 
 do {
