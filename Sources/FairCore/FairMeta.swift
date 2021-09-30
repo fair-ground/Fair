@@ -290,16 +290,27 @@ public enum AppEntitlement : String, Pure, CaseIterable {
         "com.apple.security." + rawValue
     }
 
+    /// The class of entitlement
     public enum Category : String, CaseIterable, Hashable {
-        case assets
-        case readFile
-        case writeFile
-        case network
-        case device
-        case misc
-        case harmless
-        case personal_information
+        /// Required by all apps
         case prerequisite
+        /// Low-risk
+        case harmless
+        /// Access to assets like media
+        case assets
+        /// Reading files
+        case readFile
+        /// Writing files
+        case writeFile
+        /// Network access
+        case network
+        /// Device access
+        case device
+        /// Miscellaneous access
+        case misc
+        /// Personal Information
+        case personal_information
+        /// Low-level system
         case volatile
     }
 
@@ -373,6 +384,87 @@ public enum AppEntitlement : String, Pure, CaseIterable {
         case .shared_preference_read_only: return 47
         case .shared_preference_read_write: return 48
         }
+    }
+
+    /// Returns a value from 0-1 with the relative risk of this property
+    public var relativeRisk: Double {
+        func internalRisk(for entitlement: AppEntitlement) -> Int? {
+            switch entitlement {
+            case .app_sandbox: return nil
+            case .cs_allow_jit: return nil
+
+            case .network_client: return #line
+            case .print: return #line
+            case .device_camera: return #line
+            case .device_microphone: return #line
+            case .device_usb: return #line
+            case .device_bluetooth: return #line
+            case .device_audio_video_bridging: return #line
+            case .device_firewire: return #line
+            case .device_serial: return #line
+            case .device_audio_input: return #line
+
+            case .files_user_selected_read_only: return #line
+            case .files_downloads_read_only: return #line
+
+            case .files_downloads_read_write: return #line
+            case .files_user_selected_read_write: return #line
+
+            case .files_user_selected_executable: return #line
+
+            case .network_server: return #line
+
+            case .personal_information_addressbook: return #line
+            case .personal_information_location: return #line
+            case .personal_information_calendars: return #line
+
+            case .scripting_targets: return #line
+            case .application_groups: return #line
+            case .apple_events: return #line
+
+            case .audio_unit_host: return #line
+            case .iokit_user_client_class: return #line
+
+            case .mach_lookup_global_name: return #line
+            case .mach_register_global_name: return #line
+
+            case .shared_preference_read_only: return #line
+            case .assets_pictures_read_only: return #line
+            case .assets_music_read_only: return #line
+            case .assets_movies_read_only: return #line
+
+            case .shared_preference_read_write: return #line
+
+            case .assets_pictures_read_write: return #line
+            case .assets_music_read_write: return #line
+            case .assets_movies_read_write: return #line
+
+            case .files_bookmarks_app_scope: return #line
+            case .files_bookmarks_document_scope: return #line
+
+            case .files_home_relative_path_read_only: return #line
+            case .files_absolute_path_read_only: return #line
+
+            case .files_home_relative_path_read_write: return #line
+            case .files_absolute_path_read_write: return #line
+
+            case .cs_debugger: return #line
+            case .cs_allow_unsigned_executable_memory: return #line
+            case .cs_allow_dyld_environment_variables: return #line
+            case .cs_disable_library_validation: return #line
+            case .cs_disable_executable_page_protection: return #line
+
+            case .files_all: return #line
+            }
+        }
+
+        let allRisks = Set(AppEntitlement.allCases.compactMap({ internalRisk(for: $0) }))
+        let riskRange = Double(allRisks.min() ?? 0)...Double(allRisks.max() ?? 0)
+
+        // find where in the spectrum of arbitrary risk values (the line number) we lie…
+        let risk = internalRisk(for: self).flatMap(Double.init) ?? riskRange.lowerBound // e.g., sandbox & JIT
+        let riskLevel = (risk-riskRange.lowerBound)/(riskRange.upperBound-riskRange.lowerBound)
+        return riskLevel
     }
 
     public var categories: Set<Category> {

@@ -19,6 +19,7 @@ import SwiftUI
 
 public extension Bundle {
     /// Creates a label with the given localized key and the optional icon
+    @available(*, deprecated)
     func label(_ title: LocalizedStringKey, _ iconSymbol: String? = nil) -> Label<Text, Image?> {
         Label(title: {
             Text(title, bundle: self)
@@ -28,6 +29,7 @@ public extension Bundle {
     }
 
     /// Creates a button with the given localized key and the optional icon
+    @available(*, deprecated)
     func button(_ title: LocalizedStringKey, _ iconSymbol: String? = nil, action: @escaping () -> ()) -> Button<Label<Text, Image?>> {
         Button(action: action, label: { label(title, iconSymbol) })
     }

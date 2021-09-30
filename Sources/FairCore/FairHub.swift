@@ -1309,11 +1309,18 @@ extension FairHub {
     }
 }
 
+extension String {
+    /// `addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)`
+    public var escapedURLTerm: String {
+        addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? self
+    }
+}
+
 fileprivate extension Dictionary {
     func percentEncoded() -> Data? {
         return map { key, value in
-            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            let escapedKey = "\(key)".escapedURLTerm
+            let escapedValue = "\(value)".escapedURLTerm
             return escapedKey + "=" + escapedValue
         }
         .joined(separator: "&")

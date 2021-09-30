@@ -245,9 +245,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     func linkButton(_ title: SwiftUI.LocalizedStringKey, path: String? = nil) -> some View {
         Group {
             if let url = URL.fairHubURL(path) {
-                Link(destination: url) {
-                    Text(title, bundle: .module)
-                }
+                Text(title, bundle: .module).link(to: url)
             }
         }
     }
@@ -301,7 +299,7 @@ extension String {
     #if swift(>=5.5)
     /// Parses the attributed text string into an `AttributedString`
     @available(macOS 12.0, iOS 15.0, *)
-    public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .full, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
+    public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .inlineOnlyPreservingWhitespace, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
         try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: allowsExtendedAttributes, interpretedSyntax: interpret, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
     }
     #endif
@@ -321,11 +319,27 @@ extension SwiftUI.Text {
     /// Labels the given text with the given system symbol.
     @available(macOS 12.0, iOS 15.0, *)
     public func label(symbol symbolName: String? = nil) -> Label<Text, Image?> {
-        Label(title: {
+        label(image: symbolName.flatMap(Image.init(systemName:)))
+    }
+
+    /// Labels the given text with the given optional image.
+    @available(macOS 12.0, iOS 15.0, *)
+    public func label<V: View>(image: V? = nil) -> Label<Text, V?> {
+        Label(title: { self }, icon: { image })
+    }
+
+    /// Creates a `Link` to the given URL.
+    public func link(to destination: URL) -> Link<Text> {
+        Link(destination: destination) {
             self
-        }, icon: {
-            symbolName.flatMap(Image.init(systemName:))
-        })
+        }
+    }
+
+    /// Creates a `Button` with the given `action`.
+    public func button(action: @escaping () -> ()) -> Button<Text> {
+        Button(action: action) {
+            self
+        }
     }
 }
 

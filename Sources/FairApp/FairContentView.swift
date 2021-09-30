@@ -37,12 +37,12 @@ public struct FairContentView: View {
 
     public var body: some View {
         VStack(spacing: 20) {
-            Text("Welcome to \(Bundle.mainBundleName)!", bundle: .module)
+            Text("Welcome to \(Bundle.mainBundleName)!")
                 .font(.largeTitle)
                 .symbolRenderingMode(.multicolor)
             HStack {
-                Text("version \(Bundle.main.bundleVersionString ?? "")", bundle: .module)
-                Text("build \(Bundle.main.bundleVersionCounter ?? 0)", bundle: .module)
+                Text("version \(Bundle.main.bundleVersionString ?? "")")
+                Text("build \(Bundle.main.bundleVersionCounter ?? 0)")
             }
 
             Spacer()
