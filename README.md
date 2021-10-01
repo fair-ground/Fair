@@ -38,7 +38,7 @@ let package = Package(
     platforms: [ .macOS(.v12), .iOS(.v15) ],
     products: [ .library(name: "App", targets: ["App"]) ],
     dependencies: [
-        .package(name: "Fair", url: "https://github.com/fair-ground/Fair.git", .branch("main")), 
+        .package(name: "Fair", url: "https://fair-ground.org/Fair.git", .branch("main")), 
     ],
     targets: [
         .target(name: "App", dependencies: [ .product(name: "FairApp", package: "Fair") ], resources: [.process("Resources"), .copy("Bundle")]),
@@ -47,5 +47,12 @@ let package = Package(
 )
 ```
 
+
+## Documentation
+
+Swift API documentation is avaiulable at:
+
+ - [FairCore](https://fair-ground.github.io/Fair/documentation/faircore/)
+ - [FairApp](https://fair-ground.github.io/Fair/documentation/fairapp/)
 
 
