@@ -92,18 +92,19 @@ jobs:
         run: |
           # see: https://fair-ground.github.io/Fair/documentation/faircore/index.html
           mkdir -p docs
+          touch docs/index.html
           mkdir -p docbuild/output
 
           xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/output/
           xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/output/
 
           cd docbuild/
-          git clone https://github.com/DoccZz/docc2html.git
-          cd docc2html
-          git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+          git clone https://github.com/marcprux/zzdoc.git
+          cd zzdoc
+          #git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 
-          swift run docc2html --verbose --force ../output/Build/Products/Debug/FairCore.doccarchive ../../docs/
-          swift run docc2html --verbose --force ../output/Build/Products/Debug/FairApp.doccarchive ../../docs/
+          swift run zzdoc --verbose --force ../output/Build/Products/Debug/FairCore.doccarchive ../../docs/
+          swift run zzdoc --verbose --force ../output/Build/Products/Debug/FairApp.doccarchive ../../docs/
 
       - name: Update Docs
         uses: peaceiris/actions-gh-pages@v3
