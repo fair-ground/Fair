@@ -17,7 +17,7 @@ import Foundation
 
 /// A catalog of all the available apps on the fairground.
 public struct FairAppCatalog : Pure {
-    /// The name of the catalog (e.g., "App Org")
+    /// The name of the catalog (e.g., "App Name")
     public var name: String
     /// The identifier for the catalog (e.g., "app.App-Name")
     public var identifier: String

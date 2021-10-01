@@ -31,9 +31,9 @@ public extension Bundle {
         Bundle.main.bundleIdentifier ?? "app.App-Name"
     }
 
-    /// The main bundle's bundleDisplayName, falling back to bundleName then `App Org`
+    /// The main bundle's bundleDisplayName, falling back to bundleName then `App Name`
     static var mainBundleName: String {
-        Bundle.main.bundleDisplayName ?? Bundle.main.bundleName ?? "App Org"
+        Bundle.main.bundleDisplayName ?? Bundle.main.bundleName ?? "App Name"
     }
 
     /// Whether this is the fair-ground catalog browser app itself
