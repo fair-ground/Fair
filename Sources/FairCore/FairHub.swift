@@ -28,14 +28,14 @@ public let appfairMaxApps = 250_000
 /// The organization name of the fair-ground: `"appfair"`
 public let appfairName = "appfair"
 
-public let appfairBot = "appfairbot"
-
 /// The canonical location of the catalog for the Fair Ground
 public let appfairCatalogURL = URL(string: "https://www.appfair.net/fairapps.json")
 
 /// The canonical location of the iOS catalog for the Fair Ground
 public let appfairCatalogIOSURL = URL(string: "https://www.appfair.net/fairapps-iOS.json")
 
+/// The GitHub login of the account that is permitted to publish fairseals.
+let appfairBot = "appfairbot"
 
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {

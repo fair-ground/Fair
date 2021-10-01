@@ -26,9 +26,9 @@ public extension Bundle {
     /// Returns the resources bundle for `FairApp`
     static var fairApp: Bundle { Bundle.module }
 
-    /// The main bundle's identifier, falling back to `app.App-Org`
+    /// The main bundle's identifier, falling back to `app.App-Name`
     static var mainBundleID: String {
-        Bundle.main.bundleIdentifier ?? "app.App-Org"
+        Bundle.main.bundleIdentifier ?? "app.App-Name"
     }
 
     /// The main bundle's bundleDisplayName, falling back to bundleName then `App Org`
@@ -105,7 +105,7 @@ public extension AppEntitlement {
         //let sectask: SecTask = SecTaskCreateWithAuditToken(nil, tok)
         let value = SecTaskCopyValueForEntitlement(task, self.entitlementKey as CFString, &error)
 
-        // e.g.:  isEnabled: check signid: app.App-Org entitlement: com.apple.security.app-sandbox task: AppFair App[55734]/1#5 LF=0 value: 1 error:
+        // e.g.:  isEnabled: check signid: app.App-Name entitlement: com.apple.security.app-sandbox task: AppFair App[55734]/1#5 LF=0 value: 1 error:
         dbg("check signid:", signid, "entitlement:", self.entitlementKey, "task:", task, "value:", value, "error:", error?.takeUnretainedValue())
         precondition(error == nil)
         //precondition(signid != nil, "code is not signed at all")

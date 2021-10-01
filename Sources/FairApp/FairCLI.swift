@@ -604,8 +604,8 @@ public extension FairCLI {
             return true
         }
 
-        // the generic term for the base folder is "App-Org"
-        let appOrgName = !isFork ? "App-Org" : orgName
+        // the generic term for the base folder is "App-Name"
+        let appOrgName = !isFork ? "App-Name" : orgName
 
         // 1. Check Info.plist
         let app_plist: Plist
@@ -793,7 +793,7 @@ public extension FairCLI {
 
     func verify(org: String, repo repoName: String, hub: FairHub, msg: MessageHandler) throws {
         // when the app we are validating is the actual hub's root organization, use special validation rules (such as not requiring issues)
-        msg(.info, "Validating App-Org:", org)
+        msg(.info, "Validating App-Name:", org)
 
         let response = try hub.requestSync(FairHub.RepositoryQuery(owner: org, name: repoName)).get().data
         let organization = response.organization

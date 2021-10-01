@@ -19,7 +19,7 @@ import Foundation
 public struct FairAppCatalog : Pure {
     /// The name of the catalog (e.g., "App Org")
     public var name: String
-    /// The identifier for the catalog (e.g., "app.App-Org")
+    /// The identifier for the catalog (e.g., "app.App-Name")
     public var identifier: String
     /// The canonical location of the catalog
     public var sourceURL: URL?

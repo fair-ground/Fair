@@ -25,7 +25,22 @@ public protocol EndpointService {
 
     /// Creates a request for the given `APIRequest`
     func buildRequest<A: APIRequest>(for request: A, cache: URLRequest.CachePolicy?) throws -> URLRequest where A.Service == Self
+}
 
+/// An API request that can be either a REST GET or a POST like GraphQL.
+///
+/// Each request has a specific associated `Response`, which
+/// can be an `Xor` when multiple response types should be expected, such as:
+///
+/// ```
+/// typealias Response = XOr<FailureResponse>.Or<SuccessResponse>
+/// ```
+public protocol APIRequest {
+    associatedtype Response : Pure
+    associatedtype Service : EndpointService
+    func queryURL(for service: Service) -> URL
+    /// Post data if this is a `POST` request, `nil` if it is a `GET`
+    func postData() throws -> Data?
 }
 
 public extension EndpointService {
@@ -114,15 +129,6 @@ extension EndpointService {
         }
         return batches
     }
-}
-
-/// An API request that can be either a REST GET or a POST like GraphQL.
-public protocol APIRequest {
-    associatedtype Response : Pure
-    associatedtype Service : EndpointService
-    func queryURL(for service: Service) -> URL
-    /// Post data if this is a `POST` request, `nil` if it is a `GET`
-    func postData() throws -> Data?
 }
 
 /// A response that returns results in batches with a cursor
