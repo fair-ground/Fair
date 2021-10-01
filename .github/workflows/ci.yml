@@ -75,12 +75,14 @@ jobs:
         run: xcrun swift test
  
       - name: Test iOS FairCore
+        if: false # not configured for testing
         run: xcodebuild test -configuration Debug -scheme "FairCore" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPad (8th generation)" 
 
       - name: Build iOS FairApp
         run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPad (8th generation)" 
 
       - name: Test macOS FairCore
+        if: false # not configured for testing
         run: xcodebuild test -configuration Debug -scheme "FairCore" -sdk "macosx" -destination "platform=macosx"
 
       - name: Build macOS FairApp
