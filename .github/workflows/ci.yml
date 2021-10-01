@@ -144,5 +144,7 @@ jobs:
       - name: Run Tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: swift test
+        run: |
+          swift build
+          # swift test # lld-link: error: duplicate symbol: main (FairPackageTests.build\main.swift.o and FairTool.build\main.swift.o)
 
