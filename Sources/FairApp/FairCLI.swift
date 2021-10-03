@@ -1122,6 +1122,11 @@ public extension FairCLI {
                     continue
                 }
 
+                if trustedEntry.path.hasSuffix(".nib") {
+                    // nibs sometimes get compiled differently
+                    continue
+                }
+
                 //msg(.debug, "checking", trustedEntry.path)
 
                 let entryIsAppBinary =
