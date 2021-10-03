@@ -1127,6 +1127,12 @@ public extension FairCLI {
                     continue
                 }
 
+                if pathParts.dropLast().last?.hasSuffix(".storyboardc") == true {
+                    // Storyboard files sometimes get compiled different (e.g., differences in the date in Info.plist)
+                    continue
+                }
+
+
                 //msg(.debug, "checking", trustedEntry.path)
 
                 let entryIsAppBinary =
