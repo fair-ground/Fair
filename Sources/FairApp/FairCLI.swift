@@ -1103,19 +1103,19 @@ public extension FairCLI {
                     throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
                 }
 
-                if trustedEntry.path.hasSuffix("Contents/_CodeSignature/CodeSignature") {
-                    // we permit differences in code signatures in order to allow custom signing by the App fork
-                    continue
-                }
 
-                if trustedEntry.path.hasSuffix("Contents/_CodeSignature/CodeResources") {
-                    // we permit differences in code resources in order to allow custom signing by the App fork
-                    continue
-                }
+                let pathParts = trustedEntry.path.split(separator: "/")
 
-                if trustedEntry.path.hasSuffix("Contents/_CodeSignature/CodeDirectory") {
-                    // we permit differences in code resources in order to allow custom signing by the App fork
-                    continue
+                if let lastPath = pathParts.last, pathParts.dropLast().last == "_CodeSignature" {
+                    if [
+                        "CodeSignature",
+                        "CodeResources",
+                        "CodeDirectory",
+                        "CodeRequirements-1",
+                    ].contains(lastPath) {
+                        // we permit differences in code signatures in order to allow custom signing by the App fork
+                        continue
+                    }
                 }
 
                 if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
@@ -1129,12 +1129,14 @@ public extension FairCLI {
                     trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
                     || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
 
+                if entryIsAppBinary {
+                    coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
+                }
+
 
                 if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
                     throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
                 }
-
-                coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
 
                 if trustedEntry.checksum != untrustedEntry.checksum {
                     // checksum mismatch: check the actual binary contents so we can summarize the differences
