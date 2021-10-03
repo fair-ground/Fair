@@ -1113,6 +1113,11 @@ public extension FairCLI {
                     continue
                 }
 
+                if trustedEntry.path.hasSuffix("Contents/_CodeSignature/CodeDirectory") {
+                    // we permit differences in code resources in order to allow custom signing by the App fork
+                    continue
+                }
+
                 if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
                     // assets sometimes get compiled differently
                     continue
