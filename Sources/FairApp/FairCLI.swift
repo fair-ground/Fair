@@ -1103,7 +1103,6 @@ public extension FairCLI {
                     throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
                 }
 
-
                 let pathParts = trustedEntry.path.split(separator: "/")
 
                 if let lastPath = pathParts.last, pathParts.dropLast().last == "_CodeSignature" {
