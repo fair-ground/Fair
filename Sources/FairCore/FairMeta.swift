@@ -36,6 +36,8 @@ public enum InfoPlistKey : String, CaseIterable, Hashable {
     case CFBundlePrimaryIcon
     case CFBundleIconFiles
 
+    case NSHumanReadableCopyright
+
     case DTSDKName // e.g., "iphoneos15.0" or "macosx12.0"
     case DTSDKBuild // e.g., 19A5297f
 

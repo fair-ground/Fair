@@ -147,21 +147,21 @@ extension FairHub.AppBuildVersion {
         // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
         let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
         guard let buildNumberValue = plist_dict.CFBundleVersion else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as NSObject?, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
         }
 
         guard let buildNumber = UInt(buildNumberValue) else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, nil, plist_dict.CFBundleVersion as NSObject?, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
         }
 
         // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
         guard let buildVersion = plist_dict.CFBundleShortVersionString else {
-            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, nil, plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
         }
 
         // a version number needs to be in the form 1.23.456
         guard let version = AppVersion(string: buildVersion) else {
-            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, nil, buildVersion as NSString, plistURL)
+            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], buildVersion as NSString, plistURL)
         }
 
         self.init(build: buildNumber, version: version)
@@ -313,6 +313,13 @@ public extension FairCLI {
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
     var integrationTitleFlag: String? {
         flags["-integrationTitle"]?.first
+    }
+
+    /// The flag specifying the permitted license titles that must
+    /// appear in the `NSHumanReadableCopyright` property, such as
+    /// `"GNU Affero General Public License"`
+    var licenseFlag: [String]? {
+        flags["-license"]
     }
 
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
@@ -563,7 +570,7 @@ public extension FairCLI {
         //dbg("isFork", isFork, "hubFlag", hubFlag, "orgName", orgName, "fairHub().org", try! fairHub().org)
 
         /// Verifies that the given plist contains the specified value
-        func check(_ plist: Plist, key: String, is expected: NSObject, empty: Bool = false, url: URL) throws {
+        func check(_ plist: Plist, key: String, in expected: [String], empty: Bool = false, url: URL) throws {
             if plist.rawValue[key] == nil && empty == true {
                 return // permit empty values
             }
@@ -572,7 +579,7 @@ public extension FairCLI {
                 throw Errors.invalidPlistValue(key, expected, nil, url)
             }
 
-            if actual != expected {
+            if !expected.isEmpty && !expected.map({ $0 as NSObject }).contains(actual) {
                 throw Errors.invalidPlistValue(key, expected, actual, url)
             }
         }
@@ -617,22 +624,31 @@ public extension FairCLI {
 
             app_plist = plist_dict
 
-            func checkStr(key: InfoPlistKey, is value: String) throws {
-                try check(plist_dict, key: key.plistKey, is: value as NSString, url: app_plist_url)
+            func checkStr(key: InfoPlistKey, in strings: [String]) throws {
+                try check(plist_dict, key: key.plistKey, in: strings, url: app_plist_url)
             }
 
             // check that the Info.plist contains the correct values for certain keys
 
             let appName = appOrgName.replacingOccurrences(of: "-", with: " ")
+            let appID = "app." + appOrgName
 
             // try checkStr(key: InfoPlistKey.CFBundleName, is: "$(PRODUCT_NAME)")
-            try checkStr(key: InfoPlistKey.CFBundleName, is: appName)
+            try checkStr(key: InfoPlistKey.CFBundleName, in: [appName])
 
-            //try checkStr(key: InfoPlistKey.CFBundleIdentifier, is: "$(PRODUCT_BUNDLE_IDENTIFIER)")
-            try checkStr(key: InfoPlistKey.CFBundleIdentifier, is: "app." + appOrgName)
+            try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: [appID, "$(PRODUCT_BUNDLE_IDENTIFIER)"])
 
-            try checkStr(key: InfoPlistKey.CFBundleExecutable, is: "$(EXECUTABLE_NAME)")
-            try checkStr(key: InfoPlistKey.CFBundlePackageType, is: "$(PRODUCT_BUNDLE_PACKAGE_TYPE)")
+            try checkStr(key: InfoPlistKey.CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
+            try checkStr(key: InfoPlistKey.CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
+
+            if let licenseFlag = self.licenseFlag, !licenseFlag.isEmpty {
+                try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
+            }
+
+            if let expectedIntegrationTitle = self.integrationTitleFlag,
+                expectedIntegrationTitle != appID {
+                throw Errors.invalidIntegrationTitle(expectedIntegrationTitle, appID)
+            }
 
             let buildVersion = try FairHub.AppBuildVersion(plistURL: app_plist_url)
             msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
@@ -1301,7 +1317,7 @@ public extension FairCLI {
         case sameOutputAndProjectPath(_ output: String, _ project: String)
         case cannotOverwriteAlteredFile(_ url: URL)
         case invalidData(_ url: URL)
-        case invalidPlistValue(_ key: String, _ expected: NSObject?, _ actual: NSObject?, _ url: URL)
+        case invalidPlistValue(_ key: String, _ expected: [String], _ actual: NSObject?, _ url: URL)
         case invalidContents(_ scaffoldSource: String?, _ projectSource: String?, _ path: String, _ line: Int)
         case invalidHub(_ host: String?)
         case badRepository(_ expectedHost: String, _ repository: String)
@@ -1319,6 +1335,7 @@ public extension FairCLI {
         case forbiddenEntitlement(_ entitlement: String)
         case missingUsageDescription(_ entitlement: AppEntitlement)
         case missingFlag(_ op: Operation, _ flag: String)
+        case invalidIntegrationTitle(_ integrationName: String, _ bundleID: String)
 
         public var errorDescription: String? {
             switch self {
@@ -1333,7 +1350,7 @@ public extension FairCLI {
             case .sameOutputAndProjectPath(let output, let project): return "The output path specified by -o (\(output)) may not be the same as the project path specified by -p (\(project))."
             case .cannotOverwriteAlteredFile(let url): return "Cannot overwrite path \(url.relativePath) with changed contents."
             case .invalidData(let url): return "The data at \(url.path) is invalid."
-            case .invalidPlistValue(let key, let expected, let actual, let url): return "The key \"\(key)\" at \(url.path) is invalid: expected \"\(expected ?? (actual ?? ("value" as NSString)))\" but found \"\(actual ?? ("nil" as NSString))\"."
+            case .invalidPlistValue(let key, let expected, let actual, let url): return "The key \"\(key)\" at \(url.path) is invalid: expected one of \"\(expected)\" but found \"\(actual ?? ("nil" as NSString))\"."
             case .invalidContents(_, _, let path, let line): return "The contents at \"\(path)\" does not match the contents of the original source starting at line \(line + 1)."
             case .invalidHub(let host): return "The hub (\"\(host ?? "null")\") specified by the -h/--hub flag is invalid"
             case .badRepository(let expectedHost, let repository): return "The pinned repository \"\(repository)\" does not match the hub (\"\(expectedHost)\") specified by the -h/--hub flag"
@@ -1351,6 +1368,7 @@ public extension FairCLI {
             case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
             case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
             case .missingFlag(let op, let flag): return "The operation \(op.rawValue) requires the -\(flag) flag"
+            case .invalidIntegrationTitle(let title, let bundleID): return "The title of the integration pull request \"\(title)\" must match the bundle ID in the Info.plist of the app being built (found: \"\(bundleID)\")"
             }
         }
     }
