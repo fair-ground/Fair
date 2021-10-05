@@ -240,8 +240,6 @@ final class FairCoreTests: XCTestCase {
 
 #endif //os(macOS)
 
-
-
     func testParseXML() throws {
         let parsed = try XMLNode.parse(data: """
         <root>
@@ -260,5 +258,109 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual(1, parsed.elementChildren.first?.elementChildren.count)
         XCTAssertEqual(2, parsed.elementChildren.first?.elementChildren.first?.elementChildren.count)
         XCTAssertEqual("Value", parsed.elementChildren.first?.elementChildren.first?.elementChildren.first?.childContentTrimmed)
+    }
+
+    func testTidyHTML() throws {
+        #if os(iOS) // XMLDocument unavailable on iOS…
+        XCTAssertThrowsError(try tidyHTML()) // …so the `.tidyHTML` flag should throw an error
+        #else
+        try tidyHTML()
+        #endif
+    }
+
+    func tidyHTML() throws {
+        XCTAssertEqual("""
+        <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
+        </h1><p>Body Text
+        </p></body></html>
+        """, try XMLNode.parse(data: """
+        <html>
+            <head>
+                <title>My Page</title>
+            </head>
+            <body>
+                <h1>
+                    Header
+                </h1>
+                <p>
+                    Body Text
+                </p>
+            </body>
+        </html>
+        """.utf8Data, options: [.tidyHTML]).xmlString())
+
+        // tag capitalization mismatch
+        XCTAssertEqual("""
+        <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
+        </h1><p>Body Text
+        </p></body></html>
+        """, try XMLNode.parse(data: """
+        <hTmL>
+            <head>
+                <title>My Page</title>
+            </head>
+            <BODY>
+                <h1>
+                    Header
+                </H1>
+                <p>
+                    Body Text
+                </p>
+            </body>
+        </HTML>
+        """.utf8Data, options: [.tidyHTML]).xmlString())
+
+        // tag mismatch
+        XCTAssertEqual("""
+        <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
+        </h1>Body Text<p></p></body></html>
+        """, try XMLNode.parse(data: """
+        <html>
+            <head>
+                <title>My Page</title>
+            </head>
+            <body>
+                <h1>
+                    Header
+                </h2
+                <p>
+                    Body Text
+                </p>
+            </body>
+        </html>
+        """.utf8Data, options: [.tidyHTML]).xmlString())
+
+        // unclosed tags
+        XCTAssertEqual("""
+        <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
+        </h1><p>Body Text
+        </p></body></html>
+        """, try XMLNode.parse(data: """
+        <html>
+            <head>
+                <title>My Page</title>
+            </head>
+            <body>
+                <h1>
+                    Header
+                <p>
+                    Body Text
+        """.utf8Data, options: [.tidyHTML]).xmlString())
+
+
+
+        XCTAssertEqual("""
+        <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title></title></head><body>Value</body></html>
+        """, try XMLNode.parse(data: """
+        <root>
+            <element attr="value">
+                <child1>
+                    Value
+                </CHILD1>
+                <child2>
+            </element>
+        </root>
+        """.utf8Data, options: [.tidyHTML]).xmlString())
+
     }
 }

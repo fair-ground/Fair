@@ -298,16 +298,16 @@ public extension FairHub {
 
         public var description: String {
             [
-                contains(.isPrivate) ? "isPrivate" : nil,
-                contains(.isArchived) ? "isArchived" : nil,
-                contains(.noIssues) ? "noIssues" : nil,
-                contains(.noDiscussions) ? "noDiscussions" : nil,
-                contains(.invalidLicense) ? "invalidLicense" : nil,
-                contains(.isDisabled) ? "isDisabled" : nil,
-                contains(.notVerified) ? "notVerified" : nil,
-                contains(.invalidEmail) ? "invalidEmail" : nil,
-                contains(.invalidName) ? "invalidName" : nil,
-                contains(.ownerNotOrganization) ? "ownerNotOrganization" : nil,
+                contains(.isPrivate) ? "Repository must be public" : nil,
+                contains(.isArchived) ? "Repository must not be archived" : nil,
+                contains(.noIssues) ? "Repository must have issues enabled" : nil,
+                contains(.noDiscussions) ? "Repository must have discussions enabled" : nil,
+                contains(.invalidLicense) ? "Repository must use an approved license" : nil,
+                contains(.isDisabled) ? "Repository must not be disabled" : nil,
+                contains(.notVerified) ? "Organization must be verified" : nil,
+                contains(.invalidEmail) ? "The e-mail for the organization must be public and match the approved list" : nil,
+                contains(.invalidName) ? "The name of the organization must consist of two words spearated by a hyphen" : nil,
+                contains(.ownerNotOrganization) ? "The owner of the repository must be an organization and not an individual user" : nil,
             ].compactMap({ $0 }).joined(separator: ",")
         }
     }

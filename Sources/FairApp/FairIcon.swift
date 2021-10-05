@@ -16,6 +16,14 @@ import Foundation
 #if canImport(SwiftUI)
 import SwiftUI
 
+public extension String {
+    /// Returns a pseudo-random value from 0.0-1.0 seeded on the word's SHA hash
+    var seededRandom: Double {
+        let i: UInt8 = self.utf8Data.sha256().last ?? 0
+        return Double(i) / Double(UInt8.max)
+    }
+}
+
 /// A view that generates the default icon for a FairApp.
 /// The icon consists of the app name laid out on a circular path.
 public struct FairIconView : View, Equatable {
@@ -26,12 +34,6 @@ public struct FairIconView : View, Equatable {
         let parts = name.components(separatedBy: CharacterSet.letters.inverted)
         self.word1 = parts.first ?? "Invalid"
         self.word2 = parts.last ?? "Name"
-    }
-
-    /// Returns a pseudo-random value from 0-1 seeded on the word's SHA hash
-    static func hue(for word: String) -> Double {
-        let checksum: UInt8 = word.utf8Data.sha256().last ?? 0
-        return Double(checksum) / Double(UInt8.max)
     }
 
     public var body: some View {
@@ -57,8 +59,8 @@ public struct FairIconView : View, Equatable {
         let fontSize2 = fontSize(for: word2)
 
         // create a top-down gradient of the brighter color a
-        let outerColorLight = Color(hue: (Self.hue(for: word1) + Self.hue(for: word2)) / 2.0, saturation: 0.99, brightness: 0.8)
-        let outerColorDark = Color(hue: (Self.hue(for: word1) + Self.hue(for: word2)) / 2.0, saturation: 0.99, brightness: 0.8)
+        let outerColorLight = Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+        let outerColorDark = Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
 
         let fillColor = LinearGradient(colors: [outerColorLight, outerColorDark], startPoint: .top, endPoint: .bottom)
         let textColor = Color.white

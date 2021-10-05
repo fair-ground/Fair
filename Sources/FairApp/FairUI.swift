@@ -91,4 +91,13 @@ public struct URLImage : View, Equatable {
         }
     }
 }
+
+extension ForEach where Content : View {
+    /// Initialize with elements that are identified merely by their index
+    public init<S : Sequence>(enumerated sequence: S, @ViewBuilder content: @escaping (Int, S.Element) -> Content) where ID == Int, Data == Array<EnumeratedSequence<S>.Element> {
+        self = ForEach(Array(sequence.enumerated()), id: \.offset, content: content)
+    }
+}
+
+
 #endif

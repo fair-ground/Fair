@@ -10,6 +10,7 @@ import FoundationXML
 public struct XMLNode : Hashable {
     public enum Errors : Error {
         case unknownParseError
+        case tidyHTMLUnavailable
         case badElementCount(Int)
     }
 
@@ -159,9 +160,10 @@ public struct XMLNode : Hashable {
     public struct Options: OptionSet, Hashable {
         public let rawValue: Int
 
-        public static let resolveExternalEntities  = Self(rawValue: 1 << 0)
-        public static let reportNamespacePrefixes  = Self(rawValue: 1 << 1)
-        public static let processNamespaces        = Self(rawValue: 1 << 2)
+        public static let resolveExternalEntities = Self(rawValue: 1 << 0)
+        public static let reportNamespacePrefixes = Self(rawValue: 1 << 1)
+        public static let processNamespaces = Self(rawValue: 1 << 2)
+        public static let tidyHTML = Self(rawValue: 1 << 3)
 
         public init(rawValue: Int) {
             self.rawValue = rawValue
@@ -170,7 +172,18 @@ public struct XMLNode : Hashable {
 
     /// Parses the given `Data` and returns an `XMLNode`
     @inlinable public static func parse(data: Data, options: Options = [.resolveExternalEntities, .reportNamespacePrefixes, .processNamespaces], entityResolver: ((_ name: String, _ systemID: String?) -> (Data?))? = nil) throws -> XMLNode {
-        let parser = XMLParser(data: data)
+
+        var xmlData = data
+        if options.contains(.tidyHTML) {
+            #if os(iOS) // XMLDocument unavailable on iOS; perhaps try CFXMLInterface?
+            throw Errors.tidyHTMLUnavailable
+            #else
+            // round-trip the tidied document and then re-parse
+            xmlData = try XMLDocument(data: data, options: .documentTidyHTML).xmlData
+            #endif
+        }
+
+        let parser = XMLParser(data: xmlData)
         parser.shouldProcessNamespaces = options.contains(.processNamespaces)
         parser.shouldReportNamespacePrefixes = options.contains(.reportNamespacePrefixes)
         parser.shouldResolveExternalEntities = options.contains(.resolveExternalEntities)
