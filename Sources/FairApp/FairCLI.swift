@@ -1205,7 +1205,7 @@ public extension FairCLI {
                             if entryIsAppBinary {
                                 if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
                                     // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
-                                    print("tolerating \(fairsealThreshold) differences for:", error)
+                                    print("tolerating \(totalChanges) differences for:", error)
                                 } else {
                                     throw error
                                 }
