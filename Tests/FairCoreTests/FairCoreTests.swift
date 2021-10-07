@@ -261,7 +261,7 @@ final class FairCoreTests: XCTestCase {
     }
 
     func testTidyHTML() throws {
-        #if os(iOS) // XMLDocument unavailable on iOS…
+        #if os(iOS) || os(Linux) // XMLDocument unavailable on iOS…
         XCTAssertThrowsError(try tidyHTML()) // …so the `.tidyHTML` flag should throw an error
         #else
         try tidyHTML()
