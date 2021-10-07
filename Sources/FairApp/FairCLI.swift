@@ -1175,8 +1175,9 @@ public extension FairCLI {
                     let untrustedCRC = try untrustedArchive.extract(untrustedEntry) { untrustedPayload = $0 }
 
                     if trustedCRC != untrustedCRC || trustedPayload != untrustedPayload {
-                        let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload)
+                        let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
 
+                        msg(.info, " checking mismached entry: \(trustedEntry.path) CRC1: \(trustedCRC) CRC2: \(untrustedCRC) differences: \(diff.count)")
                         func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
                             IndexSet(changeSet.map({
                                 switch $0 {
