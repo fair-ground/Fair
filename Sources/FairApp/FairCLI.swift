@@ -1194,17 +1194,19 @@ public extension FairCLI {
                             .map({ $0.description })
 
                         let totalChanges = diff.insertions.count + diff.removals.count
-                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
+                        if totalChanges > 0 {
+                            let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
 
-                        if entryIsAppBinary {
-                            if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
-                                // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
-                                print("tolerating \(fairsealThreshold) differences for:", error)
+                            if entryIsAppBinary {
+                                if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
+                                    // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                                    print("tolerating \(fairsealThreshold) differences for:", error)
+                                } else {
+                                    throw error
+                                }
                             } else {
                                 throw error
                             }
-                        } else {
-                            throw error
                         }
                     }
                 }
