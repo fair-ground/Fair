@@ -288,5 +288,56 @@ public extension View {
     }
 }
 
+extension View {
+    /// Configure the navigation title and subtitle for the type of device
+    public func navigation(title: Text, subtitle: Text?) -> some View {
+        #if os(macOS)
+        return Group {
+            if let subtitle = subtitle {
+                navigationTitle(title).navigationSubtitle(subtitle)
+            } else {
+                navigationTitle(title)
+            }
+        }
+        #else
+        return Group {
+            if let subtitle = subtitle {
+                navigationTitle(title + Text(": ") + subtitle)
+            } else {
+                navigationTitle(title)
+            }
+        }
+        #endif
+    }
+}
+
+extension NavigationLink {
+    /// Specifies whether this is a detail link.
+    ///
+    /// This only has an effect on iOS with multi-column navigation.
+    public func detailLink(_ detail: Bool) -> some View {
+        #if os(iOS)
+        isDetailLink(detail)
+        #else
+        self
+        #endif
+    }
+}
+
+extension View {
+    public func windowToolbarUnified(compact: Bool, showsTitle: Bool) -> some View {
+        #if os(macOS)
+        Group {
+            if compact {
+                self.presentedWindowToolbarStyle(.unifiedCompact(showsTitle: showsTitle))
+            } else {
+                self.presentedWindowToolbarStyle(.unified(showsTitle: showsTitle))
+            }
+        }
+        #else
+        self
+        #endif
+    }
+}
 #endif // canImport(SwiftUI)
 

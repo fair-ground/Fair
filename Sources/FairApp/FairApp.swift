@@ -89,6 +89,7 @@ open class SceneManager: ObservableObject {
 
 #if canImport(Security)
 import Security
+import SwiftUI
 public extension AppEntitlement {
     #if !os(iOS) // someday
     /// Returns true if the entitlement is enabled for the current process,
@@ -318,8 +319,8 @@ extension SwiftUI.Text {
 
     /// Labels the given text with the given system symbol.
     @available(macOS 12.0, iOS 15.0, *)
-    public func label(symbol symbolName: String? = nil) -> Label<Text, Image?> {
-        label(image: symbolName.flatMap(Image.init(systemName:)))
+    public func label(symbol symbolName: String? = nil, color: Color? = nil) -> some View { // Label<Text, Image?> {
+        label(image: symbolName.flatMap(Image.init(systemName:))?.foregroundColor(color))
     }
 
     /// Labels the given text with the given optional image.
