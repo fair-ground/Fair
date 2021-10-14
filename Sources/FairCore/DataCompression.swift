@@ -258,9 +258,6 @@ fileprivate func perform(_ config: Config, source: UnsafePointer<UInt8>, sourceS
 
 
 
-
-
-
 // ZipArchive is mostly based on ZIPFoundation with some patches (notably https://github.com/weichsel/ZIPFoundation/pull/187 ), which uses the following license:
 //
 // MIT License
@@ -2172,9 +2169,11 @@ extension FileManager {
     ///   - skipCRC32: Optional flag to skip calculation of the CRC32 checksum to improve performance.
     ///   - progress: A progress object that can be used to track or cancel the unzip operation.
     ///   - preferredEncoding: Encoding for entry paths. Overrides the encoding specified in the archive.
+    ///   - handle: a block to call for each file URL that was written; returning `false` will stop the extraction.
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
-    public func unzipItem(at sourceURL: URL, to destinationURL: URL, skipCRC32: Bool = false,
-                          progress: Progress? = nil, preferredEncoding: String.Encoding? = nil) throws {
+    public func extractContents(from sourceURL: URL, to destinationURL: URL, skipCRC32: Bool = false,
+                                progress: Progress? = nil, preferredEncoding: String.Encoding? = nil,
+                                handler: (URL) throws -> Bool = { _ in true }) throws {
         let fileManager = FileManager()
         guard fileManager.itemExists(at: sourceURL) else {
             throw CocoaError(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: sourceURL.path])
@@ -2197,11 +2196,15 @@ extension FileManager {
                                  userInfo: [NSFilePathErrorKey: destinationEntryURL.path])
             }
             if let progress = progress {
+                if progress.isCancelled { break } // allow progress to cancel the extraction
                 let entryProgress = archive.makeProgressForReading(entry)
                 progress.addChild(entryProgress, withPendingUnitCount: entryProgress.totalUnitCount)
                 _ = try archive.extract(entry, to: destinationEntryURL, skipCRC32: skipCRC32, progress: entryProgress)
             } else {
                 _ = try archive.extract(entry, to: destinationEntryURL, skipCRC32: skipCRC32)
+            }
+            if try handler(destinationEntryURL) == false {
+                break // cancel
             }
         }
     }

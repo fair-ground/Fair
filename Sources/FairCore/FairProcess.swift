@@ -96,7 +96,7 @@ public extension Process {
 
     /// Returns `xattr -d com.apple.quarantine <file>`. Untested.
     @discardableResult static func removeQuarantine(appURL: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/bin/xattr", "-d", "com.apple.quarantine", target: appURL)
+        try exec(cmd: "/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", target: appURL)
     }
 
     /// Returns `spctl --assess --verbose --type execute <file>`. Untested.
