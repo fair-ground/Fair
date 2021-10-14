@@ -296,19 +296,19 @@ private final class AppDelegate: NSObject, UXApplicationDelegate {
 }
 
 
+@available(macOS 12.0, iOS 15.0, *)
 extension String {
     #if swift(>=5.5)
     /// Parses the attributed text string into an `AttributedString`
-    @available(macOS 12.0, iOS 15.0, *)
     public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .inlineOnlyPreservingWhitespace, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
         try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: allowsExtendedAttributes, interpretedSyntax: interpret, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
     }
     #endif
 }
 
+@available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.Text {
     /// Creates a Text from the given attributed string, falling back to the unformatted string if it fails to parse.
-    @available(macOS 12.0, iOS 15.0, *)
     public init(atx attributedText: String, languageCode: String? = nil) {
         if let attributedString = try? attributedText.atx(languageCode: languageCode) {
             self.init(attributedString)
@@ -318,13 +318,11 @@ extension SwiftUI.Text {
     }
 
     /// Labels the given text with the given system symbol.
-    @available(macOS 12.0, iOS 15.0, *)
     public func label(symbol symbolName: String? = nil, color: Color? = nil) -> some View { // Label<Text, Image?> {
         label(image: symbolName.flatMap(Image.init(systemName:))?.foregroundColor(color))
     }
 
     /// Labels the given text with the given optional image.
-    @available(macOS 12.0, iOS 15.0, *)
     public func label<V: View>(image: V? = nil) -> Label<Text, V?> {
         Label(title: { self }, icon: { image })
     }
@@ -336,12 +334,42 @@ extension SwiftUI.Text {
         }
     }
 
+    /// Creates a `Link` to the given URL, or the Text itself if the link is `.none`.
+    public func link(to destination: URL?) -> some View {
+        Group {
+            if let destination = destination {
+                Link(destination: destination) {
+                    self
+                }
+                .help(Text("Open link in browser: ") + Text(destination.absoluteString))
+            } else {
+                self
+            }
+        }
+    }
+
     /// Creates a `Button` with the given `action`.
     public func button(action: @escaping () -> ()) -> Button<Text> {
         Button(action: action) {
             self
         }
     }
+}
+
+@available(macOS 12.0, iOS 15.0, *)
+extension SwiftUI.TextField {
+    /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
+    public func overlink(to destination: URL?, image: Image = Image(systemName: "arrowshape.turn.up.right.circle.fill")) -> some View {
+        self.overlay(alignment: .trailing) {
+            if let destination = destination {
+                Link(destination: destination) {
+                    image
+                }
+                //.padding(.horizontal) // causes a crash
+            }
+        }
+    }
+
 }
 
 #endif // canImport(SwiftUI)
