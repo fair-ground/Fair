@@ -30,15 +30,18 @@ import Swift
 /// let dateOrURLOrDataOrUUID: XOr<Date>.Or<URL>.Or<Data>.Or<UUID>
 /// ```
 ///
-/// - Note: `XOr.Or` adopts `Codable` when its associated types adopt `Codable`.
-///     Decoding is accomplished by trying to decode each encapsulated
-///     type separately and taking the first successful decoded result.
-///     This can be an issue for types that can encode to the same serialized data,
-///     such as `XOr<Double>.Or<Float>`, since encoded the `Float` side will then
-///     be decoded as the `Double` side, which might be unexpected since it will
-///     fail an equality check. To work around this, the encapsulated types
-///     would need a type discriminator field to ensure that both sides
-///     are mutually exclusive for decoding.
+/// `XOr.Or` adopts `Codable` when its associated types adopt `Codable`.
+/// Decoding is accomplished by trying to decode each encapsulated
+/// type separately and accepting the first successfully decoded result.
+///
+/// This can present an issue for types that can encode to the same serialized data,
+/// such as `XOr<Double>.Or<Float>`, since encoded the `Float` side will then
+/// be decoded as the `Double` side, which might be unexpected since it will
+/// fail an equality check. To work around this, the encapsulated types
+/// would need a type discriminator field to ensure that both sides
+/// are mutually exclusive for decoding.
+///
+/// In short: `try XOr<Double>.Or<Float>(Float(1.0)).encoded().decoded() != XOr<Double>.Or<Float>(Float(1.0))`
 public indirect enum XOr<P> : RawRepresentable {
     public typealias Value = P
     case p(P)

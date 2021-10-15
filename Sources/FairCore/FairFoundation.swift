@@ -14,7 +14,6 @@
  */
 import Foundation
 
-
 #if canImport(_Concurrency)
 /// A value whose content can be hashed and serialized, and is concurrent-safe
 public typealias Pure = Hashable & Codable & Sendable

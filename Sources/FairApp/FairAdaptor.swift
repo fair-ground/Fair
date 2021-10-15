@@ -339,5 +339,36 @@ extension View {
         #endif
     }
 }
+
+@available(macOS 12.0, iOS 15.0, *)
+extension View {
+    /// Causes the view to change its `SymbolVariants` when it is hovered.
+    /// The animation only works with `symbolRenderingMode(.hierarchical)`.
+    public func hoverSymbol(activeVariant: SymbolVariants = SymbolVariants.fill, inactiveVariant: SymbolVariants = SymbolVariants.none, animation: Animation? = .default) -> ModifiedContent<Self, HoverSymbolModifier> {
+        modifier(HoverSymbolModifier(activeVariant: activeVariant, inactiveVariant: inactiveVariant, animation: animation))
+    }
+}
+
+/// A modifier that changes the `symbolVariant` based on whether it is hovered over.
+@available(macOS 12.0, iOS 15.0, *)
+public struct HoverSymbolModifier: ViewModifier {
+    @State private var hovered = false
+    internal let activeVariant: SymbolVariants
+    internal let inactiveVariant: SymbolVariants
+    internal let animation: Animation?
+
+    public func body(content: Content) -> some View {
+        content
+            .symbolVariant(hovered ? activeVariant : inactiveVariant)
+            .onHover(perform: { hover in
+                withAnimation(animation) {
+                    hovered = hover
+                }
+            })
+    }
+}
+
+
+
 #endif // canImport(SwiftUI)
 
