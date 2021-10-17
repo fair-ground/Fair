@@ -45,6 +45,25 @@ public protocol FilterableFrame : DataFrameProtocol {
     /// - Parameter columnNames: A comma-separated, or variadic, list of column names.
     /// - Returns: A new data frame.
     func selecting(columnNames: String...) -> Self
+
+    /// Returns a new slice that contains the initial elements of the original slice.
+    ///
+    /// - Parameter length: The number of elements in the new slice.
+    /// The length must be greater than or equal to zero and less than or equal to the number of elements
+    /// in the original slice.
+    ///
+    /// - Returns: A new slice of the underlying data frame.
+    func prefix(_ length: Int) -> DataFrame.Slice
+
+    /// Returns a new slice that contains the final elements of the original slice.
+    ///
+    /// - Parameter length: The number of elements in the new slice.
+    /// The length must be greater than or equal to zero and less than or equal to the number of elements
+    /// in the original slice.
+    ///
+    /// - Returns: A new slice of the underlying data frame.
+    func suffix(_ length: Int) -> DataFrame.Slice
+
 }
 
 @available(macOS 12.0, iOS 15.0, *)
