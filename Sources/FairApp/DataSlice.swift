@@ -71,9 +71,9 @@ extension DataFrame : DataSlice { }
 
 @available(macOS 12.0, iOS 15.0, *)
 extension DataFrame.Slice : DataSlice { }
-#endif
 
 @available(macOS 12.0, iOS 15.0, *)
 @available(*, deprecated, renamed: "DataSlice")
 public typealias FilterableFrame = DataSlice
 
+#endif
