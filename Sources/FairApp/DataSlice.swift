@@ -18,7 +18,7 @@ import TabularData
 
 /// A `DataFrameProtocol` that can filter itself efficiently.
 @available(macOS 12.0, iOS 15.0, *)
-public protocol FilterableFrame : DataFrameProtocol {
+public protocol DataSlice : DataFrameProtocol {
     /// Returns a selection of rows that satisfy a predicate in the columns you select by name.
     /// - Parameters:
     ///   - columnName: The name of a column.
@@ -67,9 +67,13 @@ public protocol FilterableFrame : DataFrameProtocol {
 }
 
 @available(macOS 12.0, iOS 15.0, *)
-extension DataFrame : FilterableFrame { }
+extension DataFrame : DataSlice { }
 
 @available(macOS 12.0, iOS 15.0, *)
-extension DataFrame.Slice : FilterableFrame { }
+extension DataFrame.Slice : DataSlice { }
 #endif
+
+@available(macOS 12.0, iOS 15.0, *)
+@available(*, deprecated, renamed: "DataSlice")
+public typealias FilterableFrame = DataSlice
 

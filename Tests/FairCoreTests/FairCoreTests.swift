@@ -361,6 +361,22 @@ final class FairCoreTests: XCTestCase {
             </element>
         </root>
         """.utf8Data, options: [.tidyHTML]).xmlString())
+    }
 
+    func testSeededRandom() throws {
+        let uuid = try XCTUnwrap(UUID(uuidString: "A2735FD6-9AA2-4D4C-A38C-204032777FB0"))
+        var rnd = SeededRandomNumberGenerator(uuids: uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid)
+        XCTAssertEqual(59, Int.random(in: 0...100, using: &rnd))
+        XCTAssertEqual(3, Int.random(in: 0...100, using: &rnd))
+        XCTAssertEqual(53, Int.random(in: 0...100, using: &rnd))
+        XCTAssertEqual(44, Int.random(in: 0...100, using: &rnd))
+        XCTAssertEqual(7, Int.random(in: 0...100, using: &rnd))
+
+        // ensure that two randomly-seeded generators generate distinct elements
+        var rndA = SeededRandomNumberGenerator()
+        var rndB = SeededRandomNumberGenerator()
+        for _ in 0...999 {
+            XCTAssertNotEqual(Int64.random(in: .min...(.max), using: &rndA), Int64.random(in: .min...(.max), using: &rndB))
+        }
     }
 }

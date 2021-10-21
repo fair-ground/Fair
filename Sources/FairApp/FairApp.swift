@@ -68,11 +68,6 @@ public protocol FairContainer {
     static func main() throws
 }
 
-
-@available(*, deprecated, renamed: "SceneManager")
-@available(macOS 12.0, iOS 15.0, *)
-public typealias AppStoreObject = SceneManager
-
 #if swift(>=5.5)
 @available(macOS 12.0, iOS 15.0, *)
 @MainActor open class SceneManager: ObservableObject {
