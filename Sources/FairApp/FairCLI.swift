@@ -357,6 +357,11 @@ public extension FairCLI {
         flags["-artifact-url"]?.first
     }
 
+    /// The flag for the `fairseal` command indicating the output folder for the casks
+    var caskFolderFlag: String? {
+        flags["-cask-folder"]?.first
+    }
+
     func validateTrailingArguments() throws -> [String] {
         if trailingArguments.isEmpty {
             throw Errors.missingArguments(op)
@@ -1269,6 +1274,50 @@ public extension FairCLI {
         let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
         let success = try writeOutput(json.utf8String)
         msg(.info, success ? "Successfully wrote catalog to" : "Unable to write catalog to", outputFlag, json.utf8String?.count.localizedByteCount())
+
+        if let caskFolderFlag = caskFolderFlag {
+            msg(.info, "Writing casks to: \(caskFolderFlag)")
+            for app in catalog.apps {
+                let appNameHyphen = app.name.replacingOccurrences(of: " ", with: "-")
+
+                guard let version = app.version else {
+                    msg(.info, "no version for app: \(appNameHyphen)")
+                    continue
+                }
+
+                guard let sha256 = app.sha256 else {
+                    msg(.info, "no checksum for app: \(appNameHyphen)")
+                    continue
+                }
+
+                let caskName = appNameHyphen.lowercased()
+
+                let caskPath = caskName + ".rb"
+
+                let installPrefix = appNameHyphen == Bundle.catalogBrowserAppOrg ? "" : "App Fair/"
+
+                var downloadURL = app.downloadURL.absoluteString
+
+                // change the hardcoded version string into a "#{version}" token, which minimizes the number of changes when the app is upgraded
+                downloadURL = downloadURL.replacingOccurrences(of: "/releases/download/\(version)/", with: "/releases/download/#{version}/")
+
+                let caskSpec = """
+cask "\(caskName)" do
+  name "\(app.name)"
+  desc "\(app.name)"
+  homepage "https://github.com/\(appNameHyphen)/App/"
+  app "\(app.name).app", target: "\(installPrefix)\(app.name).app"
+  depends_on macos: ">= :monterey"
+  version "\(version)"
+  url "\(downloadURL)"
+  sha256 "\(sha256)"
+end
+"""
+
+                let caskFile = URL(fileURLWithPath: caskFolderFlag).appendingPathComponent(caskPath)
+                try caskSpec.write(to: caskFile, atomically: false, encoding: .utf8)
+            }
+        }
     }
 
 
