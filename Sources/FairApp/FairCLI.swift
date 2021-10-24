@@ -1043,11 +1043,12 @@ public extension FairCLI {
                     var request = URLRequest(url: artifactURL)
                     request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
                     let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
-                    msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
                     if let response = response as? HTTPURLResponse,
                        (200..<300).contains(response.statusCode) { // e.g., 404
+                        msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
                         return downloadedURL
                     } else {
+                        msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
                         try backoff(error: nil)
                     }
                 } catch {
@@ -1239,13 +1240,13 @@ public extension FairCLI {
 
         var fairseal = FairHub.FairSeal(url: trustedArtifactURL, sha256: sha256.hex(), permissions: permissions, coreSize: coreSize, tint: nil)
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
-        try writeOutput(fairseal.debugJSON) // save the file
+        //try writeOutput(fairseal.debugJSON) // save the file
 
         // if we specify a hub, then attempt to post the fairseal to the first open PR for thay project
         if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
             // assign the remote artifact as the reference URL
             fairseal.url = artifactURL
-            msg(.info, "posting fairseal for artifact:", artifactURL.absoluteString)
+            msg(.info, "posting fairseal for artifact:", artifactURL.absoluteString, "JSON:", fairseal.debugJSON)
             if let postURL = try fairHub().postFairseal(fairseal) {
                 msg(.info, "posted fairseal to:", postURL.absoluteString)
             } else {
