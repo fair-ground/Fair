@@ -56,8 +56,7 @@ jobs:
     # runs-on: linux # TODO: Swift 5.5; maybe dev1an/setup-swift@swift-5.5
     runs-on: macos-11
     env:
-      #DEVELOPER_DIR: /Applications/Xcode_13.0.app/Contents/Developer
-      DEVELOPER_DIR: /Applications/Xcode_13.0_beta.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_13.1.app/Contents/Developer
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     timeout-minutes: 10

@@ -1305,13 +1305,16 @@ public extension FairCLI {
                 let caskSpec = """
 cask "\(caskName)" do
   name "\(app.name)"
+  version "\(version)"
+  sha256 "\(sha256)"
+  url "\(downloadURL)"
   desc "\(app.name)"
   homepage "https://github.com/\(appNameHyphen)/App/"
   app "\(app.name).app", target: "\(installPrefix)\(app.name).app"
   depends_on macos: ">= :monterey"
-  version "\(version)"
-  url "\(downloadURL)"
-  sha256 "\(sha256)"
+  postflight do
+    system "xattr", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
+  end
 end
 """
 
