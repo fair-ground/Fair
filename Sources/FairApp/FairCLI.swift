@@ -1295,7 +1295,11 @@ public extension FairCLI {
 
                 let caskPath = caskName + ".rb"
 
-                let installPrefix = appNameHyphen == Bundle.catalogBrowserAppOrg ? "" : "App Fair/"
+                let isCatalogAppCask = appNameHyphen == Bundle.catalogBrowserAppOrg
+
+                let installPrefix = isCatalogAppCask ? "" : "App Fair/"
+
+                let dependency = isCatalogAppCask ? "depends_on cask: \"app-fair\"" : ""
 
                 var downloadURL = app.downloadURL.absoluteString
 
@@ -1308,12 +1312,13 @@ cask "\(caskName)" do
   version "\(version)"
   sha256 "\(sha256)"
   url "\(downloadURL)"
-  desc "\(app.name)"
+  desc "\(app.subtitle ?? app.name)"
   homepage "https://github.com/\(appNameHyphen)/App/"
   app "\(app.name).app", target: "\(installPrefix)\(app.name).app"
   depends_on macos: ">= :monterey"
+  \(dependency)
   postflight do
-    system "xattr", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
+    system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
   end
 end
 """
