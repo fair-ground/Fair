@@ -1279,7 +1279,10 @@ public extension FairCLI {
         if let caskFolderFlag = caskFolderFlag {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
             for app in catalog.apps {
+                let appNameSpace = app.name
                 let appNameHyphen = app.name.replacingOccurrences(of: " ", with: "-")
+
+                let appBundle = "app." + appNameHyphen
 
                 guard let version = app.version else {
                     msg(.info, "no version for app: \(appNameHyphen)")
@@ -1301,25 +1304,34 @@ public extension FairCLI {
 
                 let dependency = isCatalogAppCask ? "depends_on cask: \"app-fair\"" : ""
 
+                let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
                 var downloadURL = app.downloadURL.absoluteString
 
                 // change the hardcoded version string into a "#{version}" token, which minimizes the number of changes when the app is upgraded
                 downloadURL = downloadURL.replacingOccurrences(of: "/releases/download/\(version)/", with: "/releases/download/#{version}/")
 
                 let caskSpec = """
-cask "\(caskName)" do
-  name "\(app.name)"
-  version "\(version)"
-  sha256 "\(sha256)"
-  url "\(downloadURL)"
-  desc "\(app.subtitle ?? app.name)"
-  homepage "https://github.com/\(appNameHyphen)/App/"
-  app "\(app.name).app", target: "\(installPrefix)\(app.name).app"
-  depends_on macos: ">= :monterey"
+cask '\(caskName)' do
+  version '\(version)'
+  sha256 '\(sha256)'
+
+  url "\(downloadURL)",
+      verified: "github.com/\(appNameHyphen)/"
+  name '\(appNameSpace)'
+  desc '\(appDesc)'
+  homepage 'https://github.com/\(appNameHyphen)/App/'
+
+  depends_on macos: '>= :monterey'
   \(dependency)
+
+  app '\(appNameSpace).app', target: '\(installPrefix)\(appNameSpace).app'
+
   postflight do
     system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
   end
+
+  uninstall quit: '\(appBundle)'
+  zap trash: '~/Library/Containers/\(appBundle)'
 end
 """
 
