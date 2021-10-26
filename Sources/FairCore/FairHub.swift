@@ -140,8 +140,8 @@ public extension FairHub {
             let appid = fork.owner.appNameWithHyphen
 
             let bundleIdentifier = "app." + appid
-            let subtitle: String? = nil
-            let localizedDescription = fork.description ?? ""
+            let subtitle = fork.description ?? ""
+            let localizedDescription = fork.description ?? "" // these should be different; perhaps extract the first paragraph from the README?
 
             let starCount = fork.stargazerCount
             let watcherCount = fork.watchers.totalCount

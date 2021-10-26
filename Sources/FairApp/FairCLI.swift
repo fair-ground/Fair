@@ -1311,27 +1311,33 @@ public extension FairCLI {
                 downloadURL = downloadURL.replacingOccurrences(of: "/releases/download/\(version)/", with: "/releases/download/#{version}/")
 
                 let caskSpec = """
-cask '\(caskName)' do
-  version '\(version)'
-  sha256 '\(sha256)'
+cask "\(caskName)" do
+  version "\(version)"
+  sha256 "\(sha256)"
 
   url "\(downloadURL)",
       verified: "github.com/\(appNameHyphen)/"
-  name '\(appNameSpace)'
-  desc '\(appDesc)'
-  homepage 'https://github.com/\(appNameHyphen)/App/'
+  name "\(appNameSpace)"
+  desc "\(appDesc)"
+  homepage "https://github.com/\(appNameHyphen)/App/"
 
-  depends_on macos: '>= :monterey'
+  depends_on macos: ">= :monterey"
   \(dependency)
 
-  app '\(appNameSpace).app', target: '\(installPrefix)\(appNameSpace).app'
+  app "\(appNameSpace).app", target: "\(installPrefix)\(appNameSpace).app"
 
   postflight do
     system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
   end
 
-  uninstall quit: '\(appBundle)'
-  zap trash: '~/Library/Containers/\(appBundle)'
+  uninstall quit: "\(appBundle)"
+  zap trash: [
+    "~/Library/Caches/\(appBundle)",
+    "~/Library/Containers/\(appBundle)",
+    "~/Library/Preferences/\(appBundle).plist",
+    "~/Library/Application Scripts/\(appBundle)",
+    "~/Library/Saved Application State/\(appBundle).savedState",
+  ]
 end
 """
 
