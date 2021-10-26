@@ -1302,13 +1302,13 @@ public extension FairCLI {
 
                 let installPrefix = isCatalogAppCask ? "" : "App Fair/"
 
-                let dependency = isCatalogAppCask ? "depends_on cask: \"app-fair\"" : ""
+                let dependency = isCatalogAppCask ? "" : "depends_on cask: \"app-fair\""
 
                 let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
                 var downloadURL = app.downloadURL.absoluteString
 
-                // change the hardcoded version string into a "#{version}" token, which minimizes the number of changes when the app is upgraded
-                downloadURL = downloadURL.replacingOccurrences(of: "/releases/download/\(version)/", with: "/releases/download/#{version}/")
+                // change the hardcoded version string into a "#{version}" token, which minimizes the number of source changes when the app is upgraded
+                downloadURL = downloadURL.replacingOccurrences(of: "/\(version)/", with: "/#{version}/")
 
                 let caskSpec = """
 cask "\(caskName)" do
