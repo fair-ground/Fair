@@ -542,7 +542,7 @@ public extension FairCLI {
 
     func initialize(msg: MessageHandler) throws {
         msg(.info, "Initializing new Fair Ground project")
-        try create(msg: msg, overwrite: false)
+        try create(msg: msg, overwrite: true)
     }
 
     func walkthrough(msg: MessageHandler) throws {

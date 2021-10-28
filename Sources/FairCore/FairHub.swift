@@ -297,6 +297,7 @@ public extension FairHub {
         public static let invalidEmail = AppOrgValidationFailure(rawValue: 1 << 7)
         public static let invalidName = AppOrgValidationFailure(rawValue: 1 << 8)
         public static let ownerNotOrganization = AppOrgValidationFailure(rawValue: 1 << 9)
+        public static let mismatchedEmail = AppOrgValidationFailure(rawValue: 1 << 10)
 
         public var description: String {
             [
@@ -310,6 +311,7 @@ public extension FairHub {
                 contains(.invalidEmail) ? "The e-mail for the organization must be public and match the approved list" : nil,
                 contains(.invalidName) ? "The name of the organization must consist of two words spearated by a hyphen" : nil,
                 contains(.ownerNotOrganization) ? "The owner of the repository must be an organization and not an individual user" : nil,
+                contains(.mismatchedEmail) ? "The e-mail for the commit must match the public e-mail of the organization" : nil,
             ].compactMap({ $0 }).joined(separator: ",")
         }
     }
@@ -359,8 +361,13 @@ public extension FairHub {
         guard let name = info.author?.name, !name.isEmpty else {
             throw Errors.noAuthor(commit)
         }
+
         guard let email = info.author?.email, !email.isEmpty else {
             throw Errors.invalidEmail(info.author?.email)
+        }
+
+        if email != info.owner.email {
+            throw Errors.mismatchedEmail(info.author?.email, info.owner.email)
         }
 
         try validateEmailAddress(email)
@@ -390,8 +397,6 @@ public extension FairHub {
                 throw Errors.invalidEmail(email)
             }
         }
-
-
     }
 
     /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
@@ -459,6 +464,7 @@ public extension FairHub {
         case invalidVerification(CommitInfo)
         case noAuthor(CommitInfo)
         case invalidEmail(String?)
+        case mismatchedEmail(String?, String?)
         case invalidSealHash(String?)
         case repoInvalid(_ reasons: FairHub.AppOrgValidationFailure, _ org: String, _ repo: String)
 
@@ -473,6 +479,7 @@ public extension FairHub {
             case .invalidVerification(let info): return "Commit ref must be verified as valid, but was: \"\(info.repository.object.signature?.state ?? "empty")\""
             case .noAuthor(let info): return "The author was empty for the commit: \"\(info.repository.object.oid.rawValue)\""
             case .invalidEmail(let email): return "The email address \"\(email ?? "")\" is not authorized"
+            case .mismatchedEmail(let repoEmail, let orgEmail): return "The email address \"\(repoEmail ?? "")\" for the commit must match the public e-mail for the organization \"\(orgEmail ?? "")\""
             case .invalidSealHash(let hash): return "The fair seal hash has an invalid number of characters: \(hash?.count ?? 0)"
             case .repoInvalid(let reasons, let org, let repo): return "The repository \"\(org)/\(repo)\" is invalid because: \(reasons)"
             }
@@ -483,6 +490,7 @@ public extension FairHub {
         public enum TypeName : String, Pure { case User, Organization }
         public let __typename: TypeName
         public var login: String
+        public var email: String
 
         public var isOrganization: Bool { __typename == .Organization }
 
@@ -699,6 +707,7 @@ public extension FairHub {
                     public let abbreviatedOid: String
                     public let author: Author?
                     public let signature: Signature?
+                    public let owner: RepositoryOwner
 
                     public struct Author : Pure {
                         let name: String?
@@ -871,6 +880,7 @@ public extension FairHub {
                       owner {
                         __typename
                         login
+                        email
                       }
                       description
                       visibility
