@@ -73,7 +73,7 @@ final class FairCLITests: XCTestCase {
 
         @discardableResult func mkproj(_ name: String, build: Bool = true) throws -> URL {
 
-            let scaffold = { try self.extract(kind: .info, self.runTool(op: .generate, $0, $1)) }
+            let scaffold = { try self.extract(kind: .info, self.runTool(op: .initialize, $0, $1)) }
 
             func createProject(named name: String) throws -> URL {
                 let projectDir = folder.appendingPathComponent(name)

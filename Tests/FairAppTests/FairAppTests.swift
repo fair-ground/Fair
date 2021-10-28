@@ -76,18 +76,7 @@ final class FairAppTests: XCTestCase {
     }
 
     func testNameSuggestions() throws {
-        guard let nameURL = Bundle.fairApp.url(forResource: "appnames", withExtension: "json") else {
-            throw CocoaError(.fileNoSuchFile)
-        }
-        let names = try JSONDecoder().decode(Dictionary<String, [String]>.self, from: Data(contentsOf: nameURL))
-
-        for _ in 1...100 {
-            if let noun = names.keys.randomElement() {
-                if let adj = names[noun]?.randomElement() {
-                    print(adj.capitalized + " " + noun.capitalized)
-                }
-            }
-        }
+        print(try AppNameValidation.standard.suggestNames(count: 10))
     }
 }
 #endif

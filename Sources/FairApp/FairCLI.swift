@@ -17,6 +17,7 @@ import Foundation
 import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
+import AppKit
 #endif
 
 public struct FairCLI {
@@ -174,7 +175,7 @@ public extension FairCLI {
         case help
         case welcome
         case package
-        case generate
+        case walkthrough
         case validate
         case merge
         case catalog
@@ -188,7 +189,7 @@ public extension FairCLI {
         var operationSummary: String {
             switch self {
             case .initialize: return "generate a new app scaffold"
-            case .generate: return "generate the app scaffold"
+            case .walkthrough: return "walk-through new project steps"
             case .help: return "display a help message"
             case .welcome: return "perform an interactive guided walk-through"
             case .package: return "package up an app"
@@ -282,12 +283,21 @@ public extension FairCLI {
 
     /// The flag for the allow patterns for integrate PRs
     var allowFrom: [String]? {
-        flags["-allow-from"]
+        flags["-allow-from"].flatMap(splitMultiExpressions)
     }
 
     /// The flag for the disallow patterns for integrate PRs
     var denyFrom: [String]? {
-        flags["-deny-from"]
+        flags["-deny-from"].flatMap(splitMultiExpressions)
+    }
+
+    /// Allow multiple white-space separated elements for a single value, which
+    /// permits us to pass multiple e-mail addresses in a single
+    /// `--allow-from` or `--deny-from` setting.
+    func splitMultiExpressions(_ addresses: [String]) -> [String] {
+        addresses.flatMap {
+            $0.components(separatedBy: .whitespacesAndNewlines)
+        }
     }
 
     /// The flag for the folder into which the `merge` operation should write a version marker file
@@ -362,6 +372,14 @@ public extension FairCLI {
         flags["-cask-folder"]?.first
     }
 
+    var interactiveFlag: Bool {
+        Bool(flags["-interactive"]?.first ?? "true") ?? true
+    }
+
+    var ansiColorsFlag: Bool {
+        Bool(flags["-ansi-colors"]?.first ?? "true") ?? true
+    }
+
     func validateTrailingArguments() throws -> [String] {
         if trailingArguments.isEmpty {
             throw Errors.missingArguments(op)
@@ -415,7 +433,7 @@ public extension FairCLI {
         case .initialize: try initialize(msg: messenger)
         case .help: try help(msg: messenger)
         case .welcome: try welcome(msg: messenger)
-        case .generate: try generate(msg: messenger)
+        case .walkthrough: try walkthrough(msg: messenger)
         case .package: try package(msg: messenger)
         case .validate: try validate(msg: messenger)
         case .merge: try merge(msg: messenger)
@@ -528,9 +546,234 @@ public extension FairCLI {
         try create(msg: msg, overwrite: false)
     }
 
-    func generate(msg: MessageHandler) throws {
-        msg(.info, "Generating Fair Ground project")
-        try create(msg: msg, overwrite: true)
+    func walkthrough(msg: MessageHandler) throws {
+        msg(.info, "Walk-through the creation of a new fairground project")
+
+        func po(_ string: String) {
+            print(string)
+        }
+
+        func read(_ key: String, prompt: String, info: String? = nil, defaultValue: String? = nil, prompSuffix: String = ">", validation: (String) -> (String?) = { _ in nil }) throws -> String {
+            let flagKey = "-walkthrough-" + key
+            var additionalInfo = info
+            while true {
+                if let value = flags[flagKey]?.first {
+                    if let errorMessage = validation(value) {
+                        throw AppError("Invalid value: \"\(flagKey)\" = \"\(value)\": \(errorMessage)")
+                    } else {
+                        return value
+                    }
+                }
+
+                // next we prompt the user
+                if interactiveFlag == false {
+                    throw AppError("Non-interactive mode: key missing for \(flagKey)")
+                }
+
+                if let prefixInfo = additionalInfo {
+                    print(prefixInfo)
+                    print("")
+                    additionalInfo = nil // only show the additional the first time around
+                }
+                print(prompt + prompSuffix + " ", terminator: "")
+                guard let value = readLine(strippingNewline: true), !value.isEmpty else {
+                    if let defaultValue = defaultValue {
+                        return defaultValue
+                    } else {
+                        continue
+                    }
+                }
+
+                if let errorMessage = validation(value) {
+                    print("Error: " + errorMessage)
+                } else {
+                    return value
+                }
+            }
+        }
+
+        po("""
+        Welcome to the fair-ground!
+
+        This tool will guide you through the process of creating
+        and publishing a new app on the App Fair.
+
+        """)
+
+        var appNameSuggestions: [String] = []
+        appNameSuggestions += ["The first step in creating a new App Fair app is to choose a name."]
+        appNameSuggestions += [""]
+        appNameSuggestions += ["The name must be two words separated by a hyphen, such as:"]
+        appNameSuggestions += [""]
+        for suggestion in try AppNameValidation.standard.suggestNames(count: 5) {
+            appNameSuggestions += ["   " + suggestion]
+        }
+
+        let appName = try read("app-name", prompt: "App Name", info: appNameSuggestions.joined(separator: "\n"), validation: { proposedName in
+            do {
+                try AppNameValidation.standard.validate(name: proposedName)
+                return nil
+            } catch {
+                return error.localizedDescription
+            }
+        })
+
+        let appNameSpace = appName.replacingOccurrences(of: "-", with: " ")
+        let appBundleID = "app." + appName
+        let appVersion = "0.0.1"
+
+        po("Your app will be uniquely contained in a GitHub organization.")
+        po("Create a new GitHub organization named: \(appName)")
+
+        func showURL(key: String, url urlString: String) throws {
+            if interactiveFlag == true {
+                #if os(macOS)
+                let response = try read(key, prompt: "Open \(urlString)", defaultValue: "Y", prompSuffix: " [Y/n]?")
+                if response.lowercased().hasPrefix("y") {
+                    if let url = URL(string: urlString) {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
+                #else
+                po("Open URL in browser: \(urlString)")
+                #endif
+            }
+        }
+
+        func ansi(_ string: String, _ code: ANSICode = .bold) -> String {
+            if ansiColorsFlag == false {
+                return string
+            } else {
+                return string.ansi(code)
+            }
+        }
+
+        po("""
+
+        Create a new \(ansi("free")) GitHub organization named: \(appName)
+
+        """)
+        try showURL(key: "create-org", url: "https://github.com/account/organizations/new?plan=free")
+
+        po("""
+
+        Next, we will configure the organization.
+
+        Edit the organization's profile settings and set:
+
+            \(ansi("Public e-mail")): same as your GitHub e-mail
+
+        The e-mail address must be valid and public.
+
+        """)
+        try showURL(key: "set-email", url: "https://github.com/organizations/\(appName)/settings/profile")
+
+        po("""
+
+        Next, we will create your app's repository.
+
+        Fork the base appfair/App repository into the \(appName) organization.
+
+        NOTE: the fork must be in the organization, NOT your personal GitHub account.
+
+        """)
+        try showURL(key: "fork-base", url: "https://github.com/appfair/App/fork")
+
+        po("""
+
+        From the fork, click "About" and enter values for:
+
+          \(ansi("Description")) (e.g., "Tool for ABC and XYZ")
+          \(ansi("Topic")) (e.g., appfair-utilities)
+
+        """)
+        try showURL(key: "configure-project", url: "https://github.com/\(appName)/App")
+
+        po("""
+
+        Edit the settings for the \(appName) fork:
+
+          \(ansi("Enable Issues"))
+          \(ansi("Enable Discussions"))
+
+        """)
+        try showURL(key: "enable-issues", url: "https://github.com/\(appName)/App/settings")
+
+        po("""
+
+        Edit Info.plist and set:
+
+          \(ansi("CFBundleName")): "\(appNameSpace)"
+          \(ansi("CFBundleIdentifier")): "\(appBundleID)"
+          \(ansi("CFBundleShortVersionString")): "\(appVersion)"
+
+        """)
+        try showURL(key: "update-appname", url: "https://github.com/\(appName)/App/edit/main/Info.plist")
+
+        po("""
+
+        Edit your \(ansi("README.md")) to add your project's description and documentation.
+
+        """)
+        try showURL(key: "describe-project", url: "https://github.com/\(appName)/App/edit/main/README.md")
+
+        po("""
+
+        Edit the SwiftUI container and code your app. E.g.,
+
+          Text("Welcome to \(appNameSpace)!").font(.largeTitle)
+
+        """)
+        try showURL(key: "code-app", url: "https://github.com/\(appName)/App/edit/main/Sources/App/AppContainer.swift")
+
+        po("""
+
+        Enable \(ansi("Actions")) for the fork.
+
+        """)
+        try showURL(key: "enable-actions", url: "https://github.com/\(appName)/App/actions")
+
+        po("""
+
+        Draft a new release. Select "Coose a Tag" and specify: \(appVersion)
+        Click "Create new tag: on publish"
+
+        """)
+        try showURL(key: "create-release", url: "https://github.com/\(appName)/App/releases/new")
+
+        po("""
+
+        Wait for Fork-Apply action to complete.
+
+        """)
+        try showURL(key: "watch-actions", url: "https://github.com/\(appName)/App/actions")
+
+        po("""
+
+        View the release artifacts for \(appNameSpace) \(appVersion)
+
+        """)
+        try showURL(key: "view-releases", url: "https://github.com/\(appName)/App/releases/tag/\(appVersion)")
+
+        po("""
+
+        Create a Pull Request from your fork to the base appfair/App.git repository.
+
+        Set the Pull Request title to:
+
+          \(ansi("app.\(appName)"))
+
+        Then select "Create Pull Request"
+        """)
+        try showURL(key: "create-pr", url: "https://github.com/appfair/App/compare/main...\(appName):main")
+
+        po("""
+
+        Open the "Checks" tab of the PR.
+        Once the Integrate-Release checks pass, the app will be available in the App Fair app to install.
+
+        """)
+        try showURL(key: "open-appfair", url: "appfair:\(appBundleID)")
     }
 
     func welcome(msg: MessageHandler) throws {
@@ -1527,3 +1770,136 @@ public enum FairTemplate : String, CaseIterable {
 
 }
 
+
+
+struct ANSICode {
+    let open: String
+    let close: String
+
+    init(_ open: String, _ close: String) {
+        self.open = open
+        self.close = close
+    }
+
+    static let reset = Self("\u{001B}[0m", "")
+    static let dim = Self("\u{001B}[2m", "\u{001B}[22m")
+    static let bold = Self("\u{001B}[1m", "\u{001B}[22m")
+    static let blink = Self("\u{001B}[5m", "\u{001B}[25m")
+    static let hidden = Self("\u{001B}[8m", "\u{001B}[28m")
+    static let italic = Self("\u{001B}[3m", "\u{001B}[23m")
+    static let reverse = Self("\u{001B}[7m", "\u{001B}[27m")
+    static let underline = Self("\u{001B}[4m", "\u{001B}[24m")
+    static let strikethrough = Self("\u{001B}[9m", "\u{001B}[29m")
+
+    static let white = Self("\u{001B}[97m", "\u{001B}[0m")
+    static let black = Self("\u{001B}[30m", "\u{001B}[0m")
+    static let red = Self("\u{001B}[31m", "\u{001B}[0m")
+    static let green = Self("\u{001B}[32m", "\u{001B}[0m")
+    static let yellow = Self("\u{001B}[33m", "\u{001B}[0m")
+    static let blue = Self("\u{001B}[34m", "\u{001B}[0m")
+    static let magenta = Self("\u{001B}[35m", "\u{001B}[0m")
+    static let cyan = Self("\u{001B}[36m", "\u{001B}[0m")
+    static let lightGray = Self("\u{001B}[37m", "\u{001B}[0m")
+    static let darkGray = Self("\u{001B}[90m", "\u{001B}[0m")
+    static let lightRed = Self("\u{001B}[91m", "\u{001B}[0m")
+    static let lightGreen = Self("\u{001B}[92m", "\u{001B}[0m")
+    static let lightYellow = Self("\u{001B}[93m", "\u{001B}[0m")
+    static let lightBlue = Self("\u{001B}[94m", "\u{001B}[0m")
+    static let lightMagenta = Self("\u{001B}[95m", "\u{001B}[0m")
+    static let lightCyan = Self("\u{001B}[96m", "\u{001B}[0m")
+
+    static let whiteOn = Self("\u{001B}[107m", "\u{001B}[0m")
+    static let blackOn = Self("\u{001B}[40m", "\u{001B}[0m")
+    static let redOn = Self("\u{001B}[41m", "\u{001B}[0m")
+    static let greenOn = Self("\u{001B}[42m", "\u{001B}[0m")
+    static let yellowOn = Self("\u{001B}[43m", "\u{001B}[0m")
+    static let blueOn = Self("\u{001B}[44m", "\u{001B}[0m")
+    static let magentaOn = Self("\u{001B}[45m", "\u{001B}[0m")
+    static let cyanOn = Self("\u{001B}[46m", "\u{001B}[0m")
+    static let grayOn = Self("\u{001B}[47m", "\u{001B}[0m")
+    static let darkGrayOn = Self("\u{001B}[100m", "\u{001B}[0m")
+    static let lightRedOn = Self("\u{001B}[101m", "\u{001B}[0m")
+    static let lightGreenOn = Self("\u{001B}[102m", "\u{001B}[0m")
+    static let lightYellowOn = Self("\u{001B}[103m", "\u{001B}[0m")
+    static let lightBlueOn = Self("\u{001B}[104m", "\u{001B}[0m")
+    static let lightMagentaOn = Self("\u{001B}[105m", "\u{001B}[0m")
+    static let lightCyanOn = Self("\u{001B}[106m", "\u{001B}[0m")
+}
+
+extension String {
+    func ansi(_ codeStyle: ANSICode) -> String {
+        codeStyle.open + self.replacingOccurrences(of: ANSICode.reset.open, with: ANSICode.reset.open + codeStyle.open) + ANSICode.reset.open
+    }
+
+    func bold() -> String { ansi(ANSICode.bold) }
+    func dim() -> String { ansi(ANSICode.dim) }
+    func italic() -> String { ansi(ANSICode.italic) }
+    func underline() -> String { ansi(ANSICode.underline) }
+    func blink() -> String { ansi(ANSICode.blink) }
+    func reverse() -> String { ansi(ANSICode.reverse) }
+    func hidden() -> String { ansi(ANSICode.hidden) }
+    func strikethrough() -> String { ansi(ANSICode.strikethrough) }
+    func reset() -> String { "\u{001B}[0m" + self }
+
+    func white() -> String { ansi(ANSICode.white) }
+    func black() -> String { ansi(ANSICode.black) }
+    func red() -> String { ansi(ANSICode.red) }
+    func green() -> String { ansi(ANSICode.green) }
+    func yellow() -> String { ansi(ANSICode.yellow) }
+    func blue() -> String { ansi(ANSICode.blue) }
+    func magenta() -> String { ansi(ANSICode.magenta) }
+    func cyan() -> String { ansi(ANSICode.cyan) }
+    func lightGray() -> String { ansi(ANSICode.lightGray) }
+    func darkGray() -> String { ansi(ANSICode.darkGray) }
+    func lightRed() -> String { ansi(ANSICode.lightRed) }
+    func lightGreen() -> String { ansi(ANSICode.lightGreen) }
+    func lightYellow() -> String { ansi(ANSICode.lightYellow) }
+    func lightBlue() -> String { ansi(ANSICode.lightBlue) }
+    func lightMagenta() -> String { ansi(ANSICode.lightMagenta) }
+    func lightCyan() -> String { ansi(ANSICode.lightCyan) }
+
+    func whiteon() -> String { ansi(ANSICode.whiteOn) }
+    func blackon() -> String { ansi(ANSICode.blackOn) }
+    func redon() -> String { ansi(ANSICode.redOn) }
+    func greenon() -> String { ansi(ANSICode.greenOn) }
+    func yellowon() -> String { ansi(ANSICode.yellowOn) }
+    func blueon() -> String { ansi(ANSICode.blueOn) }
+    func magentaon() -> String { ansi(ANSICode.magentaOn) }
+    func cyanon() -> String { ansi(ANSICode.cyanOn) }
+    func grayon() -> String { ansi(ANSICode.grayOn) }
+    func darkgrayon() -> String { ansi(ANSICode.darkGrayOn) }
+    func lightredon() -> String { ansi(ANSICode.lightRedOn) }
+    func lightgreenon() -> String { ansi(ANSICode.lightGreenOn) }
+    func lightyellowon() -> String { ansi(ANSICode.lightYellowOn) }
+    func lightblueon() -> String { ansi(ANSICode.lightBlueOn) }
+    func lightmagentaon() -> String { ansi(ANSICode.lightMagentaOn) }
+    func lightcyanon() -> String { ansi(ANSICode.lightCyanOn) }
+}
+
+extension AppNameValidation {
+    /// Suggests one or more names for valid App Fair app
+    public func suggestNames(count: Int = 1) throws -> [String] {
+        guard let nameURL = Bundle.fairApp.url(forResource: "appnames", withExtension: "json") else {
+            throw CocoaError(.fileNoSuchFile)
+        }
+        let names = try JSONDecoder().decode(Dictionary<String, [String]>.self, from: Data(contentsOf: nameURL))
+
+        var proposals: [String] = []
+        for _ in 1...count {
+            guard let noun = names.keys.randomElement() else {
+                return proposals
+            }
+
+            guard let adj = names.keys.randomElement() else {
+                return proposals
+            }
+
+            let proposal = adj.capitalized + "-" + noun.capitalized
+            try validate(name: proposal) // make sure it passes
+            proposals.append(proposal)
+        }
+
+        return proposals
+    }
+
+}
