@@ -690,7 +690,6 @@ public extension FairHub {
                 }
               }
             }
-
             """].json()
         }
 
