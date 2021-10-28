@@ -246,10 +246,12 @@ public extension FairHub {
             invalid.insert(.ownerNotOrganization)
         }
 
-        do {
-            try validateEmailAddress(org.email)
-        } catch {
-            invalid.insert(.invalidEmail)
+        if !isOrigin {
+            do {
+                try validateEmailAddress(org.email)
+            } catch {
+                invalid.insert(.invalidEmail)
+            }
         }
 
         if repo.isArchived {

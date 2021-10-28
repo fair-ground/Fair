@@ -17,7 +17,6 @@ import Foundation
 import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
-import AppKit
 #endif
 
 public struct FairCLI {
