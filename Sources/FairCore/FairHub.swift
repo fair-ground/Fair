@@ -366,9 +366,10 @@ public extension FairHub {
             throw Errors.invalidEmail(info.author?.email)
         }
 
-        if email != info.owner.email {
-            throw Errors.mismatchedEmail(info.author?.email, info.owner.email)
-        }
+        // TODO: email isn't sent as part of owner; will need to match org-email and commit-email using a separate request
+//        if email != info.owner.email {
+//            throw Errors.mismatchedEmail(info.author?.email, info.owner.email)
+//        }
 
         try validateEmailAddress(email)
         return name + " <" + email + ">"
@@ -490,7 +491,6 @@ public extension FairHub {
         public enum TypeName : String, Pure { case User, Organization }
         public let __typename: TypeName
         public var login: String
-        public var email: String
 
         public var isOrganization: Bool { __typename == .Organization }
 
@@ -880,7 +880,6 @@ public extension FairHub {
                       owner {
                         __typename
                         login
-                        email
                       }
                       description
                       visibility
