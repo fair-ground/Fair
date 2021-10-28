@@ -706,7 +706,6 @@ public extension FairHub {
                     public let abbreviatedOid: String
                     public let author: Author?
                     public let signature: Signature?
-                    public let owner: RepositoryOwner
 
                     public struct Author : Pure {
                         let name: String?
