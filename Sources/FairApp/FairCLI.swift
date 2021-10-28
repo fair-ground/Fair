@@ -1279,38 +1279,39 @@ public extension FairCLI {
         if let caskFolderFlag = caskFolderFlag {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
             for app in catalog.apps {
-                let appNameSpace = app.name
-                let appNameHyphen = app.name.replacingOccurrences(of: " ", with: "-")
+                try saveCask(app, to: caskFolderFlag, msg: msg)
+            }
+        }
+    }
 
-                let appBundle = "app." + appNameHyphen
+    @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, msg: MessageHandler) throws -> Bool {
+        let appNameSpace = app.name
+        let appNameHyphen = app.name.replacingOccurrences(of: " ", with: "-")
 
-                guard let version = app.version else {
-                    msg(.info, "no version for app: \(appNameHyphen)")
-                    continue
-                }
+        let appBundle = "app." + appNameHyphen
 
-                guard let sha256 = app.sha256 else {
-                    msg(.info, "no checksum for app: \(appNameHyphen)")
-                    continue
-                }
+        guard let version = app.version else {
+            msg(.info, "no version for app: \(appNameHyphen)")
+            return false
+        }
 
-                let caskName = appNameHyphen.lowercased()
+        guard let sha256 = app.sha256 else {
+            msg(.info, "no checksum for app: \(appNameHyphen)")
+            return false
+        }
 
-                let caskPath = caskName + ".rb"
+        let caskName = appNameHyphen.lowercased()
+        let caskPath = caskName + ".rb"
+        let isCatalogAppCask = appNameHyphen == Bundle.catalogBrowserAppOrg
+        let installPrefix = isCatalogAppCask ? "" : "App Fair/"
+        let dependency = isCatalogAppCask ? "" : "depends_on cask: \"app-fair\""
+        let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
+        var downloadURL = app.downloadURL.absoluteString
 
-                let isCatalogAppCask = appNameHyphen == Bundle.catalogBrowserAppOrg
+        // change the hardcoded version string into a "#{version}" token, which minimizes the number of source changes when the app is upgraded
+        downloadURL = downloadURL.replacingOccurrences(of: "/\(version)/", with: "/#{version}/")
 
-                let installPrefix = isCatalogAppCask ? "" : "App Fair/"
-
-                let dependency = isCatalogAppCask ? "" : "depends_on cask: \"app-fair\""
-
-                let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
-                var downloadURL = app.downloadURL.absoluteString
-
-                // change the hardcoded version string into a "#{version}" token, which minimizes the number of source changes when the app is upgraded
-                downloadURL = downloadURL.replacingOccurrences(of: "/\(version)/", with: "/#{version}/")
-
-                let caskSpec = """
+        let caskSpec = """
 cask "\(caskName)" do
   version "\(version)"
   sha256 "\(sha256)"
@@ -1341,10 +1342,9 @@ cask "\(caskName)" do
 end
 """
 
-                let caskFile = URL(fileURLWithPath: caskFolderFlag).appendingPathComponent(caskPath)
-                try caskSpec.write(to: caskFile, atomically: false, encoding: .utf8)
-            }
-        }
+        let caskFile = URL(fileURLWithPath: caskFolderFlag).appendingPathComponent(caskPath)
+        try caskSpec.write(to: caskFile, atomically: false, encoding: .utf8)
+        return true
     }
 
 

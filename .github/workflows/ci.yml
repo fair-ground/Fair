@@ -32,13 +32,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Install Swift 5.5
-        uses: marcprux/setup-swift@main
-        with:
-          swift-version: "5.5"
-
       - name: Get swift version
-        run: swift --version # Swift 5.5?
+        run: swift --version 
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,7 +48,6 @@ jobs:
         run: swift test
 
   ci-macOS:
-    # runs-on: linux # TODO: Swift 5.5; maybe dev1an/setup-swift@swift-5.5
     runs-on: macos-11
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.1.app/Contents/Developer

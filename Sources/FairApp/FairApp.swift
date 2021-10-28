@@ -342,9 +342,12 @@ extension SwiftUI.Text {
             }
         }
     }
+}
 
+@available(macOS 12.0, iOS 15.0, *)
+extension SwiftUI.View {
     /// Creates a `Button` with the given `action`.
-    public func button(action: @escaping () -> ()) -> Button<Text> {
+    public func button(action: @escaping () -> ()) -> Button<Self> {
         Button(action: action) {
             self
         }
