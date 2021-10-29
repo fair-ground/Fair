@@ -413,11 +413,6 @@ public extension FairCLI {
             throw Errors.invalidHub(nil)
         }
 
-        // we need a valid issuer of fairseals in order to query for issued seals
-        guard let fairsealIssuer = fairsealIssuer else {
-            throw Errors.badArgument("fairseal-issuer")
-        }
-
         return try FairHub(hostOrg: hubFlag, authToken: hubToken, fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
     }
 

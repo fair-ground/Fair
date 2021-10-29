@@ -54,7 +54,7 @@ public struct FairHub : GraphQLEndpointService {
     public var authToken: String?
 
     /// The account that is accepted as the issuer of a valid fairseal
-    public var fairsealIssuer: String
+    public var fairsealIssuer: String?
 
     /// The regular expression patterns of allowed app names
     public var allowName: [NSRegularExpression]
@@ -72,7 +72,7 @@ public struct FairHub : GraphQLEndpointService {
     public var allowLicense: [String]
 
     /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
-    public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String, allowName: [String], denyName: [String], allowFrom: [String], denyFrom: [String], allowLicense: [String]) throws {
+    public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String?, allowName: [String], denyName: [String], allowFrom: [String], denyFrom: [String], allowLicense: [String]) throws {
         guard let url = URL(string: "https://api." + hostOrg) else {
             throw Errors.badHostOrg(hostOrg)
         }
@@ -111,7 +111,11 @@ public extension FairHub {
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
     func buildCatalog(owner: String = appfairName, fairsealCheck: Bool, artifactExtensions: [String], requestLimit: Int?) throws -> FairAppCatalog {
         // all the seal hashes we will look up to validate releases
-        dbg("fetching hashes")
+        dbg("fetching fairseals")
+
+        guard let fairsealIssuer = fairsealIssuer else {
+            throw Errors.missingFairsealIssuer
+        }
 
         // get all of the comments posted by the fairsealIssuer and parse them for fairseal content
         let commentResults = try self.requestBatches(FairHub.IssueCommentsQuery(user: fairsealIssuer), maxBatches: appfairMaxApps / 200)
@@ -519,6 +523,7 @@ public extension FairHub {
         case mismatchedEmail(String?, String?)
         case invalidSealHash(String?)
         case repoInvalid(_ reasons: FairHub.AppOrgValidationFailure, _ org: String, _ repo: String)
+        case missingFairsealIssuer
 
         public var errorDescription: String? {
             switch self {
@@ -535,6 +540,7 @@ public extension FairHub {
             case .mismatchedEmail(let repoEmail, let orgEmail): return "The email address \"\(repoEmail ?? "")\" for the commit must match the public e-mail for the organization \"\(orgEmail ?? "")\""
             case .invalidSealHash(let hash): return "The fair seal hash has an invalid number of characters: \(hash?.count ?? 0)"
             case .repoInvalid(let reasons, let org, let repo): return "The repository \"\(org)/\(repo)\" is invalid because: \(reasons)"
+            case .missingFairsealIssuer: return "Missing fairseal-issuer flag"
             }
         }
     }
