@@ -297,6 +297,9 @@ public extension FairCLI {
         addresses.flatMap {
             $0.components(separatedBy: .whitespacesAndNewlines)
         }
+        .map {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
     }
 
     /// The flag for the folder into which the `merge` operation should write a version marker file
@@ -620,6 +623,7 @@ public extension FairCLI {
         let appNameSpace = appName.replacingOccurrences(of: "-", with: " ")
         let appBundleID = "app." + appName
         let appVersion = "0.0.1"
+        let ghrepo = "https://www.github.com/\(appName)/App"
 
         po("Your app will be uniquely contained in a GitHub organization.")
         po("Create a new GitHub organization named: \(appName)")
@@ -686,7 +690,7 @@ public extension FairCLI {
           \(ansi("Topic")) (e.g., appfair-utilities)
 
         """)
-        try showURL(key: "configure-project", url: "https://github.com/\(appName)/App")
+        try showURL(key: "configure-project", url: "\(ghrepo)")
 
         po("""
 
@@ -696,7 +700,7 @@ public extension FairCLI {
           \(ansi("Enable Discussions"))
 
         """)
-        try showURL(key: "enable-issues", url: "https://github.com/\(appName)/App/settings")
+        try showURL(key: "enable-issues", url: "\(ghrepo)/settings")
 
         po("""
 
@@ -707,14 +711,14 @@ public extension FairCLI {
           \(ansi("CFBundleShortVersionString")): "\(appVersion)"
 
         """)
-        try showURL(key: "update-appname", url: "https://github.com/\(appName)/App/edit/main/Info.plist")
+        try showURL(key: "update-appname", url: "\(ghrepo)/edit/main/Info.plist")
 
         po("""
 
         Edit your \(ansi("README.md")) to add your project's description and documentation.
 
         """)
-        try showURL(key: "describe-project", url: "https://github.com/\(appName)/App/edit/main/README.md")
+        try showURL(key: "describe-project", url: "\(ghrepo)/edit/main/README.md")
 
         po("""
 
@@ -723,14 +727,14 @@ public extension FairCLI {
           Text("Welcome to \(appNameSpace)!").font(.largeTitle)
 
         """)
-        try showURL(key: "code-app", url: "https://github.com/\(appName)/App/edit/main/Sources/App/AppContainer.swift")
+        try showURL(key: "code-app", url: "\(ghrepo)/edit/main/Sources/App/AppContainer.swift")
 
         po("""
 
         Enable \(ansi("Actions")) for the fork.
 
         """)
-        try showURL(key: "enable-actions", url: "https://github.com/\(appName)/App/actions")
+        try showURL(key: "enable-actions", url: "\(ghrepo)/actions")
 
         po("""
 
@@ -738,21 +742,21 @@ public extension FairCLI {
         Click "Create new tag: on publish"
 
         """)
-        try showURL(key: "create-release", url: "https://github.com/\(appName)/App/releases/new")
+        try showURL(key: "create-release", url: "\(ghrepo)/releases/new")
 
         po("""
 
         Wait for Fork-Apply action to complete.
 
         """)
-        try showURL(key: "watch-actions", url: "https://github.com/\(appName)/App/actions")
+        try showURL(key: "watch-actions", url: "\(ghrepo)/actions")
 
         po("""
 
         View the release artifacts for \(appNameSpace) \(appVersion)
 
         """)
-        try showURL(key: "view-releases", url: "https://github.com/\(appName)/App/releases/tag/\(appVersion)")
+        try showURL(key: "view-releases", url: "\(ghrepo)/releases/tag/\(appVersion)")
 
         po("""
 
@@ -764,7 +768,7 @@ public extension FairCLI {
 
         Then select "Create Pull Request"
         """)
-        try showURL(key: "create-pr", url: "https://github.com/appfair/App/compare/main...\(appName):main")
+        try showURL(key: "create-pr", url: "\(ghrepo)/compare")
 
         po("""
 

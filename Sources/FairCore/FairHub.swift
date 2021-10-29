@@ -160,8 +160,15 @@ public extension FairHub {
                 }
                 dbg("  checking release:", fork.nameWithOwner, appVersion.versionDescription)
 
-                let developerName = release.tagCommit.signature?.signer.name
                 let developerEmail = release.tagCommit.signature?.signer.email
+                do {
+                    try validateEmailAddress(developerEmail)
+                } catch {
+                    // skip packages whose e-mail addresses are not valid
+                    dbg("invalid email:", error)
+                    continue
+                }
+                let developerName = release.tagCommit.signature?.signer.name
                 let developerInfo = developerName?.isEmpty != false ? developerEmail : ((developerName ?? "") + " <" + (developerEmail ?? "") + ">")
                 let versionDate = release.createdAt
                 let versionDescription = release.description
