@@ -37,6 +37,7 @@ public extension Process {
         do {
             var env = ProcessInfo.processInfo.environment
             env["GITHUB_TOKEN"] = nil
+            env["GH_TOKEN"] = nil
             env["ACCESS_TOKEN"] = nil
             env["OS_ACTIVITY_DT_MODE"] = nil // or else: "Failed to open macho file at /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift for reading: Too many levels of symbolic links"
 

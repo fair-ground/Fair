@@ -25,8 +25,9 @@ final class FairHubTests: XCTestCase {
     static let org = appfairName
 
     override class func setUp() {
-        if ProcessInfo.processInfo.environment["GITHUB_TOKEN"] == nil {
-            XCTFail("Missing GITHUB_TOKEN in environment")
+        if ProcessInfo.processInfo.environment["GITHUB_TOKEN"] == nil
+            && ProcessInfo.processInfo.environment["GH_TOKEN"] == nil {
+            XCTFail("Missing GITHUB_TOKEN and GH_TOKEN in environment")
         }
     }
 
@@ -35,8 +36,8 @@ final class FairHubTests: XCTestCase {
         try FairHub(hostOrg: "github.com/" + org, authToken: authToken, allowFrom: [".*@.*.EDU", ".*@appfair.net"])
     }
 
-    /// if the environment uses the "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
-    static let authToken: String? = ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
+    /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
+    static let authToken: String? = ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
 
     /// Issue a request against the hub for the given request type
     func request<A: APIRequest>(_ request: A) throws -> A.Response? where A.Service == FairHub {
