@@ -1360,7 +1360,7 @@ extension FairHub {
 #if swift(>=5.5)
     /// Fetches the `FairAppCatalog`
     @available(macOS 12.0, iOS 15.0, *)
-    public func fetchCatalog(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) async throws -> FairAppCatalog {
+    public static func fetchCatalog(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) async throws -> FairAppCatalog {
         dbg("fetching async", catalogURL)
 
         var req = URLRequest(url: catalogURL)
@@ -1376,7 +1376,7 @@ extension FairHub {
 
     /// Fetches the `FairAppCatalog`
     @available(macOS 11.0, iOS 14.0, *)
-    public func fetchCatalogSync(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) throws -> FairAppCatalog {
+    public static func fetchCatalogSync(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) throws -> FairAppCatalog {
         dbg("fetching sync", catalogURL)
         var req = URLRequest(url: catalogURL)
         if let cache = cache { req.cachePolicy = cache }
