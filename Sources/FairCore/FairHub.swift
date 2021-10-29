@@ -34,9 +34,6 @@ public let appfairCatalogURL = URL(string: "https://www.appfair.net/fairapps.jso
 /// The canonical location of the iOS catalog for the Fair Ground
 public let appfairCatalogIOSURL = URL(string: "https://www.appfair.net/fairapps-iOS.json")
 
-/// The GitHub login of the account that is permitted to publish fairseals.
-let appfairBot = "appfairbot"
-
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
     /// The default headers that will be sent with a request
@@ -56,14 +53,23 @@ public struct FairHub : GraphQLEndpointService {
     /// The authorization token for this request, if any
     public var authToken: String?
 
+    /// The account that is accepted as the issuer of a valid fairseal
+    public var fairsealIssuer: String
+
+    /// The regular expression patterns of allowed app names
+    public var allowName: [NSRegularExpression]
+
+    /// The regular expression patterns of disallowed app names
+    public var denyName: [NSRegularExpression]
+
     /// The regular expression patterns of allowed e-mail addresses
-    public var allowFrom: [String]
+    public var allowFrom: [NSRegularExpression]
 
     /// The regular expression patterns of disallowed e-mail addresses
-    public var denyFrom: [String]
+    public var denyFrom: [NSRegularExpression]
 
     /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
-    public init(hostOrg: String, authToken: String? = nil, allowFrom: [String] = [], denyFrom: [String] = []) throws {
+    public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String, allowName: [String], denyName: [String], allowFrom: [String], denyFrom: [String]) throws {
         guard let url = URL(string: "https://api." + hostOrg) else {
             throw Errors.badHostOrg(hostOrg)
         }
@@ -71,8 +77,13 @@ public struct FairHub : GraphQLEndpointService {
         self.org = url.lastPathComponent
         self.baseURL = url.deletingLastPathComponent()
         self.authToken = authToken
-        self.allowFrom = allowFrom
-        self.denyFrom = denyFrom
+        self.fairsealIssuer = fairsealIssuer
+        
+        let regexs = { try NSRegularExpression(pattern: $0, options: [.caseInsensitive]) }
+        self.allowFrom = try allowFrom.map(regexs)
+        self.denyFrom = try denyFrom.map(regexs)
+        self.allowName = try allowName.map(regexs)
+        self.denyName = try denyName.map(regexs)
 
         if org.isEmpty {
             throw Errors.emptyOrganization(url)
@@ -92,13 +103,13 @@ public struct FairHub : GraphQLEndpointService {
 }
 
 public extension FairHub {
-    /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the appfairbot.
+    /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
     func buildCatalog(owner: String = appfairName, fairsealCheck: Bool, artifactExtensions: [String], requestLimit: Int?) throws -> FairAppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching hashes")
 
-        // get all of the comments posted by the appfairbot and parse them for fairseal content
-        let commentResults = try self.requestBatches(FairHub.IssueCommentsQuery(user: appfairBot), maxBatches: appfairMaxApps / 200)
+        // get all of the comments posted by the fairsealIssuer and parse them for fairseal content
+        let commentResults = try self.requestBatches(FairHub.IssueCommentsQuery(user: fairsealIssuer), maxBatches: appfairMaxApps / 200)
         let commentNodes = commentResults
             .compactMap(\.result.successValue)
             .flatMap(\.data.user.issueComments.nodes)
@@ -243,7 +254,8 @@ public extension FairHub {
 
         if !isOrigin {
             do {
-                try AppNameValidation.standard.validate(name: org.login)
+                try AppNameValidation.standard.validate(name: org.login) 
+                try validateAppName(org.login)
             } catch {
                 invalid.insert(.invalidName)
             }
@@ -387,27 +399,52 @@ public extension FairHub {
         return name + " <" + email + ">"
     }
 
-    /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list.
+    /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
     func validateEmailAddress(_ email: String?) throws {
         guard let email = email else {
             throw Errors.invalidEmail(email)
         }
 
-        func matches(pattern: String) throws -> Bool {
-            try NSRegularExpression(pattern: pattern, options: [.caseInsensitive]).firstMatch(in: email, options: [], range: NSRange(email.startIndex..<email.endIndex, in: email)) != nil
+        func matches(pattern: NSRegularExpression) -> Bool {
+            pattern.firstMatch(in: email, options: [], range: NSRange(email.startIndex..<email.endIndex, in: email)) != nil
         }
 
         // if we specified an allow list, then at least one of the patterns must match the email
         if !allowFrom.isEmpty {
-            guard let _ = try allowFrom.first(where: matches) else {
+            guard let _ = allowFrom.first(where: matches) else {
                 throw Errors.invalidEmail(email)
             }
         }
 
         // conversely, if we specified a deny list, then all the addresses must not match
         if !denyFrom.isEmpty {
-            if let _ = try denyFrom.first(where: matches) {
+            if let _ = denyFrom.first(where: matches) {
                 throw Errors.invalidEmail(email)
+            }
+        }
+    }
+
+    /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
+    func validateAppName(_ name: String?) throws {
+        guard let name = name else {
+            throw Errors.invalidName(name)
+        }
+
+        func matches(pattern: NSRegularExpression) -> Bool {
+            pattern.firstMatch(in: name, options: [], range: NSRange(name.startIndex..<name.endIndex, in: name)) != nil
+        }
+
+        // if we specified an allow list, then at least one of the patterns must match the name
+        if !allowName.isEmpty {
+            guard let _ = allowName.first(where: matches) else {
+                throw Errors.invalidName(name)
+            }
+        }
+
+        // conversely, if we specified a deny list, then all the addresses must not match
+        if !denyName.isEmpty {
+            if let _ = denyName.first(where: matches) {
+                throw Errors.invalidName(name)
             }
         }
     }
@@ -477,6 +514,7 @@ public extension FairHub {
         case invalidVerification(CommitInfo)
         case noAuthor(CommitInfo)
         case invalidEmail(String?)
+        case invalidName(String?)
         case mismatchedEmail(String?, String?)
         case invalidSealHash(String?)
         case repoInvalid(_ reasons: FairHub.AppOrgValidationFailure, _ org: String, _ repo: String)
@@ -491,7 +529,8 @@ public extension FairHub {
             case .noVerification(let info): return "No verification information for commit ref: \"\(info.repository.object.oid.rawValue)\""
             case .invalidVerification(let info): return "Commit ref must be verified as valid, but was: \"\(info.repository.object.signature?.state ?? "empty")\""
             case .noAuthor(let info): return "The author was empty for the commit: \"\(info.repository.object.oid.rawValue)\""
-            case .invalidEmail(let email): return "The email address \"\(email ?? "")\" is not authorized"
+            case .invalidEmail(let email): return "The email address \"\(email ?? "")\" is not accepted"
+            case .invalidName(let name): return "The app name \"\(name ?? "")\" is not accepted"
             case .mismatchedEmail(let repoEmail, let orgEmail): return "The email address \"\(repoEmail ?? "")\" for the commit must match the public e-mail for the organization \"\(orgEmail ?? "")\""
             case .invalidSealHash(let hash): return "The fair seal hash has an invalid number of characters: \(hash?.count ?? 0)"
             case .repoInvalid(let reasons, let org, let repo): return "The repository \"\(org)/\(repo)\" is invalid because: \(reasons)"

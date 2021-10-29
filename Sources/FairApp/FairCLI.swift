@@ -280,6 +280,21 @@ public extension FairCLI {
         flags["-ref"]?.first
     }
 
+    /// The flag for the name of the login that issues the fairseal
+    var fairsealIssuer: String? {
+        flags["-fairseal-issuer"]?.first
+    }
+
+    /// The flag for the allow patterns for integrate PRs
+    var allowName: [String]? {
+        flags["-allow-name"].flatMap(splitMultiExpressions)
+    }
+
+    /// The flag for the disallow patterns for integrate PRs
+    var denyName: [String]? {
+        flags["-deny-name"].flatMap(splitMultiExpressions)
+    }
+
     /// The flag for the allow patterns for integrate PRs
     var allowFrom: [String]? {
         flags["-allow-from"].flatMap(splitMultiExpressions)
@@ -398,7 +413,12 @@ public extension FairCLI {
             throw Errors.invalidHub(nil)
         }
 
-        return try FairHub(hostOrg: hubFlag, authToken: hubToken, allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [])
+        // we need a valid issuer of fairseals in order to query for issued seals
+        guard let fairsealIssuer = fairsealIssuer else {
+            throw Errors.badArgument("fairseal-issuer")
+        }
+
+        return try FairHub(hostOrg: hubFlag, authToken: hubToken, fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [])
     }
 
     /// Loads the data for the output file at the given relative path
