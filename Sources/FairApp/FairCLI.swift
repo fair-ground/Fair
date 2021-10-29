@@ -305,19 +305,14 @@ public extension FairCLI {
         flags["-deny-from"].flatMap(splitMultiExpressions)
     }
 
-    /// Allow multiple white-space separated elements for a single value, which
+    /// Allow multiple newline separated elements for a single value, which
     /// permits us to pass multiple e-mail addresses in a single
     /// `--allow-from` or `--deny-from` setting.
     func splitMultiExpressions(_ addresses: [String]) -> [String] {
-        addresses.flatMap {
-            $0.components(separatedBy: .whitespacesAndNewlines)
-        }
-        .map {
-            $0.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        .filter {
-            !$0.isEmpty
-        }
+        addresses
+            .flatMap { $0.components(separatedBy: .newlines) }
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
     }
 
     /// The flag for the folder into which the `merge` operation should write a version marker file
