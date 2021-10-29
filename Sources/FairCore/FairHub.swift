@@ -160,7 +160,13 @@ public extension FairHub {
                 }
                 dbg("  checking release:", fork.nameWithOwner, appVersion.versionDescription)
 
-                let developerEmail = release.tagCommit.signature?.signer.email
+                // commite in the web will be "GitHub Web Flow" and either empty e-mail or "noreply@github.com"
+                //let developerEmail = release.tagCommit.signature?.signer.email
+                //let developerName = release.tagCommit.signature?.signer.name
+
+                let developerEmail = release.tagCommit.author?.email
+                let developerName = release.tagCommit.author?.name
+
                 do {
                     try validateEmailAddress(developerEmail)
                 } catch {
@@ -168,7 +174,6 @@ public extension FairHub {
                     dbg("invalid email:", error)
                     continue
                 }
-                let developerName = release.tagCommit.signature?.signer.name
                 let developerInfo = developerName?.isEmpty != false ? developerEmail : ((developerName ?? "") + " <" + (developerEmail ?? "") + ">")
                 let versionDate = release.createdAt
                 let versionDescription = release.description
@@ -937,6 +942,11 @@ public extension FairHub {
                           tagCommit {
                             __typename
                             authoredByCommitter
+                            author {
+                              name
+                              email
+                              date
+                            }
                             signature {
                               __typename
                               isValid
@@ -1017,7 +1027,14 @@ public extension FairHub {
                             public enum TypeName : String, Pure { case Commit }
                             public let __typename: TypeName
                             public let authoredByCommitter: Bool
+                            public let author: Author?
                             public let signature: Signature?
+
+                            public struct Author : Pure {
+                                let name: String?
+                                let email: String?
+                                let date: Date
+                            }
 
                             public struct Signature : Pure {
                                 public enum TypeName : String, Pure { case Signature, GpgSignature }
