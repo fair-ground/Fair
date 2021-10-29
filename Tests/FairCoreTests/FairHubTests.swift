@@ -33,7 +33,7 @@ final class FairHubTests: XCTestCase {
 
     /// The hub that we use for testing, the so-called "git"-hub.
     static func hub() throws -> FairHub {
-        try FairHub(hostOrg: "github.com/" + org, authToken: authToken, allowFrom: [".*@.*.EDU", ".*@appfair.net"])
+        try FairHub(hostOrg: "github.com/" + org, authToken: authToken, fairsealIssuer: "appfairbot", allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [])
     }
 
     /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
@@ -46,7 +46,7 @@ final class FairHubTests: XCTestCase {
 
     func testFetchIssueCommentsQuery() throws {
         let hub = try Self.hub()
-        let response = try hub.requestBatches(FairHub.IssueCommentsQuery(user: appfairBot, count: Int.random(in: 30...99)), maxBatches: Int.random(in: 101...999))
+        let response = try hub.requestBatches(FairHub.IssueCommentsQuery(user: "appfairbot", count: Int.random(in: 30...99)), maxBatches: Int.random(in: 101...999))
 
         let comments = response
             .compactMap(\.result.successValue)
