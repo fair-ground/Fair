@@ -68,8 +68,11 @@ public struct FairHub : GraphQLEndpointService {
     /// The regular expression patterns of disallowed e-mail addresses
     public var denyFrom: [NSRegularExpression]
 
+    /// The license (SPDX IDs) of permitted licenses, such as: "AGPL-3.0"
+    public var allowLicense: [String]
+
     /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
-    public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String, allowName: [String], denyName: [String], allowFrom: [String], denyFrom: [String]) throws {
+    public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String, allowName: [String], denyName: [String], allowFrom: [String], denyFrom: [String], allowLicense: [String]) throws {
         guard let url = URL(string: "https://api." + hostOrg) else {
             throw Errors.badHostOrg(hostOrg)
         }
@@ -78,12 +81,14 @@ public struct FairHub : GraphQLEndpointService {
         self.baseURL = url.deletingLastPathComponent()
         self.authToken = authToken
         self.fairsealIssuer = fairsealIssuer
-        
+
         let regexs = { try NSRegularExpression(pattern: $0, options: [.caseInsensitive]) }
         self.allowFrom = try allowFrom.map(regexs)
         self.denyFrom = try denyFrom.map(regexs)
         self.allowName = try allowName.map(regexs)
         self.denyName = try denyName.map(regexs)
+
+        self.allowLicense = allowLicense
 
         if org.isEmpty {
             throw Errors.emptyOrganization(url)
@@ -247,7 +252,7 @@ public extension FairHub {
         return catalog
     }
 
-    func validate(org: FairHub.RepositoryQuery.QueryResponse.Organization, licenseSPDXIDs: Set<String> = Set(["AGPL-3.0"])) -> AppOrgValidationFailure {
+    func validate(org: FairHub.RepositoryQuery.QueryResponse.Organization) -> AppOrgValidationFailure {
         let repo = org.repository
         let isOrigin = org.login == appfairName
         var invalid: AppOrgValidationFailure = []
@@ -299,8 +304,8 @@ public extension FairHub {
         //   invalid.insert(.noDiscussions)
         // }
 
-        if !licenseSPDXIDs.contains(repo.licenseInfo.spdxId ?? "none") {
-            //dbg(licenseSPDXIDs)
+        if !allowLicense.isEmpty && !allowLicense.contains(repo.licenseInfo.spdxId ?? "none") {
+            //dbg(allowLicense)
             invalid.insert(.invalidLicense)
         }
 

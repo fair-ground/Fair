@@ -287,28 +287,33 @@ public extension FairCLI {
 
     /// The flag for the allow patterns for integrate PRs
     var allowName: [String]? {
-        flags["-allow-name"].flatMap(splitMultiExpressions)
+        flags["-allow-name"].flatMap(joinWhitespaceSeparated)
     }
 
     /// The flag for the disallow patterns for integrate PRs
     var denyName: [String]? {
-        flags["-deny-name"].flatMap(splitMultiExpressions)
+        flags["-deny-name"].flatMap(joinWhitespaceSeparated)
     }
 
     /// The flag for the allow patterns for integrate PRs
     var allowFrom: [String]? {
-        flags["-allow-from"].flatMap(splitMultiExpressions)
+        flags["-allow-from"].flatMap(joinWhitespaceSeparated)
     }
 
     /// The flag for the disallow patterns for integrate PRs
     var denyFrom: [String]? {
-        flags["-deny-from"].flatMap(splitMultiExpressions)
+        flags["-deny-from"].flatMap(joinWhitespaceSeparated)
+    }
+
+    /// The flag for the permitted license IDs
+    var allowLicense: [String]? {
+        flags["-allow-license"].flatMap(joinWhitespaceSeparated)
     }
 
     /// Allow multiple newline separated elements for a single value, which
     /// permits us to pass multiple e-mail addresses in a single
     /// `--allow-from` or `--deny-from` setting.
-    func splitMultiExpressions(_ addresses: [String]) -> [String] {
+    func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
         addresses
             .flatMap { $0.components(separatedBy: .newlines) }
             .map { $0.trimmingCharacters(in: .whitespaces) }
@@ -413,7 +418,7 @@ public extension FairCLI {
             throw Errors.badArgument("fairseal-issuer")
         }
 
-        return try FairHub(hostOrg: hubFlag, authToken: hubToken, fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [])
+        return try FairHub(hostOrg: hubFlag, authToken: hubToken, fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
     }
 
     /// Loads the data for the output file at the given relative path
