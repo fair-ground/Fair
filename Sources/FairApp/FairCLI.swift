@@ -1291,7 +1291,9 @@ public extension FairCLI {
                         return downloadedURL
                     } else {
                         msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                        try backoff(error: nil)
+                        if try Date() >= timeoutDate || backoff(error: nil) == false {
+                            throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+                        }
                     }
                 } catch {
                     if try backoff(error: error) == false {
@@ -1300,6 +1302,7 @@ public extension FairCLI {
                 }
             }
 
+            /// Backs off until the given timeout date
             @discardableResult func backoff(error: Error?) throws -> Bool {
                 // we we are timed out, or if we don't want to retry, then simply re-download
                 if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
