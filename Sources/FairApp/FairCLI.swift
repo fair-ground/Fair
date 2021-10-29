@@ -1572,16 +1572,31 @@ public extension FairCLI {
             return false
         }
 
+        let fairground = Bundle.catalogBrowserAppOrg // e.g., App-Fair
+        let fairgroundCask = fairground.lowercased() // e.g., app-fair
+
+        let isCatalogAppCask = appNameHyphen == fairground
+
         let caskName = appNameHyphen.lowercased()
         let caskPath = caskName + ".rb"
-        let isCatalogAppCask = appNameHyphen == Bundle.catalogBrowserAppOrg
-        let installPrefix = isCatalogAppCask ? "" : "App Fair/"
-        let dependency = isCatalogAppCask ? "" : "depends_on cask: \"app-fair\""
+
+        // apps other than "Catalog Name.app" are installed att "/Applications/Catalog Name/App Name.app"
+        let installPrefix = isCatalogAppCask ? "" : (fairground.replacingOccurrences(of: "-", with: " ") + "/")
+
+        let dependency = isCatalogAppCask ? "" : "depends_on cask: \"\(fairgroundCask)\""
         let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
         var downloadURL = app.downloadURL.absoluteString
 
-        // change the hardcoded version string into a "#{version}" token, which minimizes the number of source changes when the app is upgraded
+        // all apps other than the catalog browser are
+        let appStanza = "app \"\(appNameSpace).app\", target: \"\(installPrefix)\(appNameSpace).app\""
+
+        // this helper stanza will make an executable symlink from the app binary to the cask name
+        let helper = !isCatalogAppCask ? "" : "binary \"\(installPrefix)\(appNameSpace).app/Contents/MacOS/\(appNameSpace)\", target: \"\(caskName)\""
+
+        // change the hardcoded version string to a "#{version}" token, which minimizes the number of source changes when the app is upgraded
         downloadURL = downloadURL.replacingOccurrences(of: "/\(version)/", with: "/#{version}/")
+
+        let repobase = "github.com/\(appNameHyphen)/"
 
         let caskSpec = """
 cask "\(caskName)" do
@@ -1589,15 +1604,16 @@ cask "\(caskName)" do
   sha256 "\(sha256)"
 
   url "\(downloadURL)",
-      verified: "github.com/\(appNameHyphen)/"
+      verified: "\(repobase)"
   name "\(appNameSpace)"
   desc "\(appDesc)"
-  homepage "https://github.com/\(appNameHyphen)/App/"
+  homepage "https://\(repobase)App/"
 
   depends_on macos: ">= :monterey"
   \(dependency)
 
-  app "\(appNameSpace).app", target: "\(installPrefix)\(appNameSpace).app"
+  \(appStanza)
+  \(helper)
 
   postflight do
     system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
