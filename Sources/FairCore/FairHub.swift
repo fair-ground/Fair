@@ -190,6 +190,16 @@ public extension FairHub {
                     dbg("invalid email:", error)
                     continue
                 }
+
+                do {
+                    try validateAppName(fork.owner.login)
+                } catch {
+                    // skip packages whose names are not valid
+                    dbg("invalid app name:", error)
+                    continue
+                }
+
+
                 let developerInfo = developerName?.isEmpty != false ? developerEmail : ((developerName ?? "") + " <" + (developerEmail ?? "") + ">")
                 let versionDate = release.createdAt
                 let versionDescription = release.description
@@ -404,53 +414,39 @@ public extension FairHub {
         return name + " <" + email + ">"
     }
 
-    /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
-    func validateEmailAddress(_ email: String?) throws {
-        guard let email = email else {
-            throw Errors.invalidEmail(email)
-        }
-
+    private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) -> Bool {
         func matches(pattern: NSRegularExpression) -> Bool {
-            pattern.firstMatch(in: email, options: [], range: NSRange(email.startIndex..<email.endIndex, in: email)) != nil
+            pattern.firstMatch(in: value, options: [], range: NSRange(value.startIndex..<value.endIndex, in: value)) != nil
         }
 
         // if we specified an allow list, then at least one of the patterns must match the email
-        if !allowFrom.isEmpty {
-            guard let _ = allowFrom.first(where: matches) else {
-                throw Errors.invalidEmail(email)
+        if !allow.isEmpty {
+            guard let _ = allow.first(where: matches) else {
+                return false
             }
         }
 
         // conversely, if we specified a deny list, then all the addresses must not match
-        if !denyFrom.isEmpty {
-            if let _ = denyFrom.first(where: matches) {
-                throw Errors.invalidEmail(email)
+        if !deny.isEmpty {
+            if let _ = deny.first(where: matches) {
+                return false
             }
+        }
+
+        return true
+    }
+
+    /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
+    func validateEmailAddress(_ email: String?) throws {
+        guard let email = email, permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
+            throw Errors.invalidEmail(email)
         }
     }
 
     /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
     func validateAppName(_ name: String?) throws {
-        guard let name = name else {
+        guard let name = name, permitted(value: name, allow: allowName, deny: denyName) == true else {
             throw Errors.invalidName(name)
-        }
-
-        func matches(pattern: NSRegularExpression) -> Bool {
-            pattern.firstMatch(in: name, options: [], range: NSRange(name.startIndex..<name.endIndex, in: name)) != nil
-        }
-
-        // if we specified an allow list, then at least one of the patterns must match the name
-        if !allowName.isEmpty {
-            guard let _ = allowName.first(where: matches) else {
-                throw Errors.invalidName(name)
-            }
-        }
-
-        // conversely, if we specified a deny list, then all the addresses must not match
-        if !denyName.isEmpty {
-            if let _ = denyName.first(where: matches) {
-                throw Errors.invalidName(name)
-            }
         }
     }
 
