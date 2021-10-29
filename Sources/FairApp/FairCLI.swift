@@ -979,12 +979,6 @@ public extension FairCLI {
 
             // diffs only work against text
             // try compareContents(of: "Assets.xcassets/AppIcon.appiconset/AppIcon-512.png", partial: false)
-
-
-            // also try to build the catalog if we have the output flag set
-            if let _ = outputFlag {
-                try catalog(msg: msg)
-            }
         }
 
 
