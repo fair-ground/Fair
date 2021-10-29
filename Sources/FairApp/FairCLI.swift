@@ -300,6 +300,9 @@ public extension FairCLI {
         .map {
             $0.trimmingCharacters(in: .whitespacesAndNewlines)
         }
+        .filter {
+            !$0.isEmpty
+        }
     }
 
     /// The flag for the folder into which the `merge` operation should write a version marker file

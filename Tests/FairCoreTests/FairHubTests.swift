@@ -32,7 +32,7 @@ final class FairHubTests: XCTestCase {
 
     /// The hub that we use for testing, the so-called "git"-hub.
     static func hub() throws -> FairHub {
-        try FairHub(hostOrg: "github.com/" + org, authToken: authToken, allowFrom: [".*EDU"])
+        try FairHub(hostOrg: "github.com/" + org, authToken: authToken, allowFrom: [".*@.*.EDU", ".*@appfair.net"])
     }
 
     /// if the environment uses the "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
