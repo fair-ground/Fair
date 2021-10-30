@@ -189,8 +189,9 @@ extension FairContainer {
 
     private static func dumpProcessInfo<O: TextOutputStream>(_ out: inout O) {
         func infoValue<T>(_ key: InfoPlistKey) -> T? {
-            (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
-                ?? (Bundle.main.infoDictionary?[key.plistKey] as? T)
+            //(Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
+            //    ??
+            (Bundle.main.infoDictionary?[key.plistKey] as? T)
         }
 
         print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? ""), to: &out)
