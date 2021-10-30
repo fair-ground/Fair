@@ -1581,7 +1581,7 @@ public extension FairCLI {
 
         // this helper stanza will make an executable symlink from the app binary to the cask name
         // it will allow the running of "Super App.app" CLI with /usr/local/bin/super-app
-        let appHelper = /* !isCatalogAppCask ? "" : */ "binary \"\(installPrefix)\(appNameSpace).app/Contents/MacOS/\(appNameSpace)\", target: \"\(caskName)\""
+        let appHelper = /* !isCatalogAppCask ? "" : */ "binary \"#{appdir}/\(installPrefix)\(appNameSpace).app/Contents/MacOS/\(appNameSpace)\", target: \"\(caskName)\""
 
         // change the hardcoded version string to a "#{version}" token, which minimizes the number of source changes when the app is upgraded
         downloadURL = downloadURL.replacingOccurrences(of: "/\(version)/", with: "/#{version}/")
