@@ -120,7 +120,16 @@ extension FairContainer {
     /// otherwise launch as a `SwiftUI.App` app.
     public static func launch(sourceFile: StaticString = #file) throws {
         let args = Array(CommandLine.arguments.dropFirst())
-        if args.first == "fairtool" {
+        if args.first == "version" {
+            let info = Bundle.main.localizedInfoDictionary ?? Bundle.main.infoDictionary ?? [:]
+            func infoValue<T>(_ key: InfoPlistKey) -> T? { info[key.plistKey] as? T }
+
+            print("App Info:", infoValue(.CFBundleDisplayName) as String? ?? "")
+            print("  App Name:", infoValue(.CFBundleName) as String? ?? "")
+            print("  Bundle ID:", infoValue(.CFBundleIdentifier) as String? ?? "")
+            print("  Version:", infoValue(.CFBundleShortVersionString) as String? ?? "")
+            print("  Build:", infoValue(.DTPlatformBuild) as String? ?? "")
+        } else if args.first == "fairtool" {
             do {
                 try FairCLI(arguments: args).runCLI()
             } catch {

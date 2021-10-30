@@ -27,7 +27,7 @@ final class FairAppTests: XCTestCase {
 
     @available(macOS 11, iOS 14, *)
     func testCLICatalog() throws {
-        try FairCLI(arguments: ["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--output", "/tmp/fairapps-\(UUID().uuidString).json"], environment: [:]).runCLI(operation: .catalog)
+        try FairCLI(arguments: ["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"] ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"], environment: [:]).runCLI(operation: .catalog)
     }
 
     @available(macOS 11, iOS 14, *)

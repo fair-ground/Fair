@@ -184,14 +184,35 @@ public extension FairHub {
                 //let developerEmail = release.tagCommit.signature?.signer.email
                 //let developerName = release.tagCommit.signature?.signer.name
 
-                let developerEmail = release.tagCommit.author?.email
-                let developerName = release.tagCommit.author?.name
+                let devName = release.tagCommit.author?.name
+
+                guard let devEmail = release.tagCommit.author?.email else {
+                    dbg(fork.nameWithOwner, "no email for commit")
+                    continue
+                }
 
                 do {
-                    try validateEmailAddress(developerEmail)
+                    try validateEmailAddress(devEmail)
                 } catch {
                     // skip packages whose e-mail addresses are not valid
-                    dbg("invalid email:", error)
+                    dbg(fork.nameWithOwner, "invalid committer email:", error)
+                    continue
+                }
+
+                guard let orgEmail = fork.owner.email else {
+                    dbg(fork.nameWithOwner, "missing org email")
+                    continue
+                }
+                do {
+                    try validateEmailAddress(orgEmail)
+                } catch {
+                    // skip packages whose e-mail addresses are not valid
+                    dbg(fork.nameWithOwner, "invalid owner email:", error)
+                    continue
+                }
+
+                if orgEmail != devEmail {
+                    dbg(fork.nameWithOwner, "org email must match commit email")
                     continue
                 }
 
@@ -199,12 +220,17 @@ public extension FairHub {
                     try validateAppName(fork.owner.login)
                 } catch {
                     // skip packages whose names are not valid
-                    dbg("invalid app name:", error)
+                    dbg(fork.nameWithOwner, "invalid app name:", error)
                     continue
                 }
 
+                let developerInfo: String
 
-                let developerInfo = developerName?.isEmpty != false ? developerEmail : ((developerName ?? "") + " <" + (developerEmail ?? "") + ">")
+                if let devName = devName, !devName.isEmpty {
+                    developerInfo = "\(devName) <\(devEmail)>"
+                } else {
+                    developerInfo = devEmail
+                }
                 let versionDate = release.createdAt
                 let versionDescription = release.description
                 let sourceSize = release.releaseAssets.nodes.first { asset in
@@ -241,7 +267,7 @@ public extension FairHub {
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo ?? "unknown", localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: fairseal?.coreSize, sha256: fairseal?.sha256, permissions: fairseal?.permissions)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: fairseal?.coreSize, sha256: fairseal?.sha256, permissions: fairseal?.permissions)
                     apps.append(app)
                     fairsealFound = true
                 }
@@ -549,6 +575,11 @@ public extension FairHub {
         public enum TypeName : String, Pure { case User, Organization }
         public let __typename: TypeName
         public var login: String
+        public let description: String?
+        public let email: String?
+        public let isVerified: Bool
+        public let websiteUrl: URL?
+        public let createdAt: Date
 
         public var isOrganization: Bool { __typename == .Organization }
 
@@ -936,6 +967,13 @@ public extension FairHub {
                       owner {
                         __typename
                         login
+                        ... on Organization {
+                          description
+                          email
+                          isVerified
+                          websiteUrl
+                          createdAt
+                        }
                       }
                       description
                       visibility

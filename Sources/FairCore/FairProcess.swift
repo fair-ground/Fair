@@ -21,7 +21,7 @@ public extension Process {
     typealias CommandResult = (stdout: [String], stderr: [String])
 
     /// Invokes a tool with the given arguments
-    @discardableResult static func execute(command executablePath: URL, _ args: [String], expectSuccess: Bool = true) throws -> CommandResult {
+    @discardableResult static func execute(command executablePath: URL, environment: [String: String] = [:], _ args: [String], expectSuccess: Bool = true) throws -> CommandResult {
         // Some of the APIs that we use below are available in macOS 10.13 and above.
         guard #available(macOS 10.13, *) else { return ([], []) }
 
@@ -36,11 +36,9 @@ public extension Process {
 
         do {
             var env = ProcessInfo.processInfo.environment
-            env["GITHUB_TOKEN"] = nil
-            env["GH_TOKEN"] = nil
-            env["ACCESS_TOKEN"] = nil
-            env["OS_ACTIVITY_DT_MODE"] = nil // or else: "Failed to open macho file at /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift for reading: Too many levels of symbolic links"
-
+            for (key, value) in environment {
+                env[key] = value
+            }
             process.environment = env
         }
 
