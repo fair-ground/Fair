@@ -188,15 +188,17 @@ extension FairContainer {
     }
 
     private static func dumpProcessInfo<O: TextOutputStream>(_ out: inout O) {
-        let info = Bundle.main.localizedInfoDictionary ?? Bundle.main.infoDictionary ?? [:]
-        func infoValue<T>(_ key: InfoPlistKey) -> T? { info[key.plistKey] as? T }
+        func infoValue<T>(_ key: InfoPlistKey) -> T? {
+            (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
+                ?? (Bundle.main.infoDictionary?[key.plistKey] as? T)
+        }
 
         print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? ""), to: &out)
-        print("     App Name: " + (infoValue(.CFBundleName) as String? ?? ""))
-        print("    Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""))
-        print("      Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""))
-        print("        Build: " + (infoValue(.CFBundleVersion) as String? ?? ""))
-        print("     Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""))
+        print("    App Name: " + (infoValue(.CFBundleName) as String? ?? ""))
+        print("   Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""))
+        print("     Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""))
+        print("       Build: " + (infoValue(.CFBundleVersion) as String? ?? ""))
+        print("    Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""))
 
         let presentation: String
         switch infoValue(.LSUIPresentationMode) as NSNumber? {
@@ -206,17 +208,17 @@ extension FairContainer {
         case 4: presentation = "All Suppressed"
         case 0, _: presentation = "Normal"
         }
-        print(" Presentation: " + presentation)
-        print("   Background: " + (infoValue(.LSBackgroundOnly) as Bool? ?? false).description, to: &out)
-        print("        Agent: " + (infoValue(.LSUIElement) as Bool? ?? false).description, to: &out)
-        print("   OS Version: " + (infoValue(.LSMinimumSystemVersion) as String? ?? "").description, to: &out)
+        print("Presentation: " + presentation)
+        print("  Background: " + (infoValue(.LSBackgroundOnly) as Bool? ?? false).description, to: &out)
+        print("       Agent: " + (infoValue(.LSUIElement) as Bool? ?? false).description, to: &out)
+        print("  OS Version: " + (infoValue(.LSMinimumSystemVersion) as String? ?? "").description, to: &out)
 
         #if os(macOS)
-        print("      Sandbox: " + (AppEntitlement.app_sandbox.isEnabled() ?? false).description, to: &out)
+        print("     Sandbox: " + (AppEntitlement.app_sandbox.isEnabled() ?? false).description, to: &out)
         for entitlement in AppEntitlement.allCases {
             if entitlement != AppEntitlement.app_sandbox {
                 if let entitlementValue = entitlement.entitlementValue(), entitlementValue != false as NSNumber {
-                    print("  Entitlement: " + entitlement.rawValue + "=" + entitlementValue.description, to: &out)
+                    print(" Entitlement: " + entitlement.rawValue + "=" + entitlementValue.description, to: &out)
                 }
             }
         }
