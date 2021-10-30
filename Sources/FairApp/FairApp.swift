@@ -66,6 +66,17 @@ public protocol FairContainer {
 
     /// Launch the app, either in GUI or CLI form
     static func main() throws
+
+    /// Invokes the command-line form of the application; returning false will proceed to launch the app itself
+    static func cli(args: [String]) throws -> Bool
+}
+
+@available(macOS 12.0, iOS 15.0, *)
+public extension FairContainer {
+    /// The default app does not support any command line flags
+    static func cli(args: [String]) throws -> Bool {
+        return false
+    }
 }
 
 #if swift(>=5.5)
@@ -90,6 +101,11 @@ public extension AppEntitlement {
     /// Returns true if the entitlement is enabled for the current process,
     /// or `nil` if the entitlement was not set
     func isEnabled(forTask: SecTask? = nil) -> Bool? {
+        entitlementValue(forTask: forTask) as? NSNumber as? Bool // top-level entitlements should a Bool
+    }
+
+    /// Returns the value of the given entitlement for the specified task (defaulting to the current process)
+    func entitlementValue(forTask: SecTask? = nil) -> NSObject? {
         let task = forTask ?? SecTaskCreateFromSelf(nil)!
         var error: Unmanaged<CFError>? = nil
         let signid = SecTaskCopySigningIdentifier(task, &error)
@@ -102,13 +118,13 @@ public extension AppEntitlement {
         let value = SecTaskCopyValueForEntitlement(task, self.entitlementKey as CFString, &error)
 
         // e.g.:  isEnabled: check signid: app.App-Name entitlement: com.apple.security.app-sandbox task: AppFair App[55734]/1#5 LF=0 value: 1 error:
-        dbg("check signid:", signid, "entitlement:", self.entitlementKey, "task:", task, "value:", value, "error:", error?.takeUnretainedValue())
+        // dbg("check signid:", signid, "entitlement:", self.entitlementKey, "task:", task, "value:", value, "error:", error?.takeUnretainedValue())
         precondition(error == nil)
         //precondition(signid != nil, "code is not signed at all")
         if signid == nil {
             dbg("WARNING: code is not signed, and so will behave differently when run in the sandbox")
         }
-        return value as? NSNumber as? Bool // top-level entitlements should a Bool
+        return value as? NSObject // CFTypeRef conversion
     }
     #endif // !os(iOS)
 }
@@ -116,54 +132,82 @@ public extension AppEntitlement {
 
 @available(macOS 12.0, iOS 15.0, *)
 extension FairContainer {
-    /// If the first `CommandLine.arguments` is "fairtool", run as CLI,
-    /// otherwise launch as a `SwiftUI.App` app.
+    /// Check for CLI flags then launch as a `SwiftUI.App` app.
     public static func launch(sourceFile: StaticString = #file) throws {
         let args = Array(CommandLine.arguments.dropFirst())
-        if args.first == "version" {
+        if args.first == "info" {
             let info = Bundle.main.localizedInfoDictionary ?? Bundle.main.infoDictionary ?? [:]
             func infoValue<T>(_ key: InfoPlistKey) -> T? { info[key.plistKey] as? T }
 
             print("App Info:", infoValue(.CFBundleDisplayName) as String? ?? "")
-            print("  App Name:", infoValue(.CFBundleName) as String? ?? "")
-            print("  Bundle ID:", infoValue(.CFBundleIdentifier) as String? ?? "")
-            print("  Version:", infoValue(.CFBundleShortVersionString) as String? ?? "")
-            print("  Build:", infoValue(.DTPlatformBuild) as String? ?? "")
-        } else if args.first == "fairtool" {
-            do {
-                try FairCLI(arguments: args).runCLI()
-            } catch {
-                // we don't want to re-throw the exception here, since it will cause a crash report when run from AppContainer.main
-                // TODO: nicer error formatting; resolution suggestions
-                print("Error:", error.localizedDescription)
-                if let error = error as? LocalizedError {
-                    if let errorDescription = error.errorDescription, errorDescription != error.localizedDescription {
-                        print("   Description:", errorDescription)
-                    }
-                    if let failureReason = error.failureReason {
-                        print("   Reason:", failureReason)
-                    }
-                    if let helpAnchor = error.helpAnchor {
-                        print("   Help:", helpAnchor)
-                    }
-                    if let recoverySuggestion = error.recoverySuggestion {
-                        print("   Suggestion:", recoverySuggestion)
-                    }
-                } else {
-                    print("   Raw:", error)
+            print("     App Name:", infoValue(.CFBundleName) as String? ?? "")
+            print("    Bundle ID:", infoValue(.CFBundleIdentifier) as String? ?? "")
+            print("      Version:", infoValue(.CFBundleShortVersionString) as String? ?? "")
+            print("        Build:", infoValue(.CFBundleVersion) as String? ?? "")
+            print("     Category:", infoValue(.LSApplicationCategoryType) as String? ?? "")
+            let presentation: String
+            switch infoValue(.LSUIPresentationMode) as NSNumber? {
+            case 1: presentation = "Content Suppressed"
+            case 2: presentation = "Content Hidden"
+            case 3: presentation = "All Hidden"
+            case 4: presentation = "All Suppressed"
+            case 0, _: presentation = "Normal"
+            }
+            print(" Presentation:", presentation)
+            print("   Background:", infoValue(.LSBackgroundOnly) as Bool? ?? false)
+            print("        Agent:", infoValue(.LSUIElement) as Bool? ?? "")
+            print("   OS Version:", infoValue(.LSMinimumSystemVersion) as String? ?? "")
+
+            #if os(macOS)
+            print("Sandbox:", AppEntitlement.app_sandbox.isEnabled() ?? false)
+            for entitlement in AppEntitlement.allCases {
+                if entitlement != AppEntitlement.app_sandbox {
+                    print("  " + entitlement.rawValue + ": " + (entitlement.entitlementValue() ?? NSNull()).description)
                 }
             }
+            #endif
+        } else if args.first == "fairtool" {
+            try FairCLI(arguments: args).runCLI()
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
                 validateEntitlements()
                 try? verifyAppMain(String(contentsOf: URL(fileURLWithPath: sourceFile.description)))
             }
-            FairContainerApp<Self>.main()
+
+            // first check whether the FairContainer wants to handle the command-line form
+            if try cli(args: CommandLine.arguments) == false {
+                // if the CLI was handled, launch the full app
+                FairContainerApp<Self>.main()
+            }
         }
     }
 
     public static func main() throws {
-        try launch()
+        do {
+            try launch()
+        } catch {
+            // we don't want to re-throw the exception here, since it will cause a crash report when run from AppContainer.main
+            // TODO: nicer error formatting; resolution suggestions
+            print("Error:", error.localizedDescription)
+            if let error = error as? LocalizedError {
+                if let errorDescription = error.errorDescription, errorDescription != error.localizedDescription {
+                    print("   Description:", errorDescription)
+                }
+                if let failureReason = error.failureReason {
+                    print("   Reason:", failureReason)
+                }
+                if let helpAnchor = error.helpAnchor {
+                    print("   Help:", helpAnchor)
+                }
+                if let recoverySuggestion = error.recoverySuggestion {
+                    print("   Suggestion:", recoverySuggestion)
+                }
+            } else {
+                print("   Raw:", error)
+            }
+
+            throw error // re-throw
+        }
     }
 
     /// Checks the runtime entitlements to validate that sandboxing is enabled and and ensures that there are corresponding entries in the `FairUsage` section of the `Info.plist`

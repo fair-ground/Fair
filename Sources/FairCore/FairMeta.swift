@@ -50,6 +50,12 @@ public enum InfoPlistKey : String, CaseIterable, Hashable {
     case DTXcodeBuild // e.g., "13A5192j"
 
     case LSMinimumSystemVersion
+    case LSApplicationCategoryType
+    case LSFileQuarantineEnabled
+    case LSBackgroundOnly
+    case LSUIElement
+    case LSUIPresentationMode
+
     case MinimumOSVersion
     case BuildMachineOSBuild // e.g., 20G71
 
