@@ -149,8 +149,6 @@ extension FairContainer {
                 try? verifyAppMain(String(contentsOf: URL(fileURLWithPath: sourceFile.description)))
             }
 
-            print("#### ISCLI:", isCLI, fileno(stdin), isatty(fileno(stdin)))
-
             if isCLI == false { // launch the app itself
                 FairContainerApp<Self>.main()
             } else { // invoke the command-line interface to the app
