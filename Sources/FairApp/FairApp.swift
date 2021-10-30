@@ -136,7 +136,7 @@ extension FairContainer {
     public static func launch(sourceFile: StaticString = #file) throws {
         var stdout = HandleStream(stream: .standardOutput)
         //var stderr = HandleStream(stream: .standardError)
-        let isCLI = isatty(fileno(stdin)) == 0
+        let isCLI = isatty(fileno(stdin)) == 1
 
         let args = Array(CommandLine.arguments.dropFirst())
         if args.first == "info" && isCLI {
@@ -148,6 +148,8 @@ extension FairContainer {
                 validateEntitlements()
                 try? verifyAppMain(String(contentsOf: URL(fileURLWithPath: sourceFile.description)))
             }
+
+            print("#### ISCLI:", isCLI, fileno(stdin), isatty(fileno(stdin)))
 
             if isCLI == false { // launch the app itself
                 FairContainerApp<Self>.main()
@@ -192,11 +194,11 @@ extension FairContainer {
         func infoValue<T>(_ key: InfoPlistKey) -> T? { info[key.plistKey] as? T }
 
         print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? ""), to: &out)
-        print("    App Name: " + (infoValue(.CFBundleName) as String? ?? ""))
-        print("   Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""))
-        print("     Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""))
-        print("       Build: " + (infoValue(.CFBundleVersion) as String? ?? ""))
-        print("    Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""))
+        print("     App Name: " + (infoValue(.CFBundleName) as String? ?? ""))
+        print("    Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""))
+        print("      Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""))
+        print("        Build: " + (infoValue(.CFBundleVersion) as String? ?? ""))
+        print("     Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""))
 
         let presentation: String
         switch infoValue(.LSUIPresentationMode) as NSNumber? {
@@ -206,16 +208,18 @@ extension FairContainer {
         case 4: presentation = "All Suppressed"
         case 0, _: presentation = "Normal"
         }
-        out.write(" Presentation: " + presentation)
-        out.write("   Background: " + (infoValue(.LSBackgroundOnly) as Bool? ?? false).description)
-        out.write("        Agent: " + (infoValue(.LSUIElement) as Bool? ?? false).description)
-        out.write("   OS Version: " + (infoValue(.LSMinimumSystemVersion) as String? ?? "").description)
+        print(" Presentation: " + presentation)
+        print("   Background: " + (infoValue(.LSBackgroundOnly) as Bool? ?? false).description, to: &out)
+        print("        Agent: " + (infoValue(.LSUIElement) as Bool? ?? false).description, to: &out)
+        print("   OS Version: " + (infoValue(.LSMinimumSystemVersion) as String? ?? "").description, to: &out)
 
         #if os(macOS)
-        out.write("Sandbox: " + (AppEntitlement.app_sandbox.isEnabled() ?? false).description)
+        print("      Sandbox: " + (AppEntitlement.app_sandbox.isEnabled() ?? false).description, to: &out)
         for entitlement in AppEntitlement.allCases {
             if entitlement != AppEntitlement.app_sandbox {
-                out.write("  " + entitlement.rawValue + ": " + (entitlement.entitlementValue() ?? NSNull()).description)
+                if let entitlementValue = entitlement.entitlementValue(), entitlementValue != false as NSNumber {
+                    print("  Entitlement: " + entitlement.rawValue + "=" + entitlementValue.description, to: &out)
+                }
             }
         }
         #endif
