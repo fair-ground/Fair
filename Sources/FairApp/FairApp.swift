@@ -67,15 +67,15 @@ public protocol FairContainer {
     /// Launch the app, either in GUI or CLI form
     static func main() throws
 
-    /// Invokes the command-line form of the application; returning false will proceed to launch the app itself
+    /// Invokes the command-line form of the application when the app is run from a terminal
     static func cli(args: [String]) throws -> Bool
 }
 
 @available(macOS 12.0, iOS 15.0, *)
 public extension FairContainer {
-    /// The default app does not support any command line flags
+    /// The default cli is a no-op
     static func cli(args: [String]) throws -> Bool {
-        return false
+        false
     }
 }
 
@@ -134,39 +134,14 @@ public extension AppEntitlement {
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
     public static func launch(sourceFile: StaticString = #file) throws {
+        var stdout = HandleStream(stream: .standardOutput)
+        //var stderr = HandleStream(stream: .standardError)
+        let isCLI = isatty(fileno(stdin)) == 0
+
         let args = Array(CommandLine.arguments.dropFirst())
-        if args.first == "info" {
-            let info = Bundle.main.localizedInfoDictionary ?? Bundle.main.infoDictionary ?? [:]
-            func infoValue<T>(_ key: InfoPlistKey) -> T? { info[key.plistKey] as? T }
-
-            print("App Info:", infoValue(.CFBundleDisplayName) as String? ?? "")
-            print("     App Name:", infoValue(.CFBundleName) as String? ?? "")
-            print("    Bundle ID:", infoValue(.CFBundleIdentifier) as String? ?? "")
-            print("      Version:", infoValue(.CFBundleShortVersionString) as String? ?? "")
-            print("        Build:", infoValue(.CFBundleVersion) as String? ?? "")
-            print("     Category:", infoValue(.LSApplicationCategoryType) as String? ?? "")
-            let presentation: String
-            switch infoValue(.LSUIPresentationMode) as NSNumber? {
-            case 1: presentation = "Content Suppressed"
-            case 2: presentation = "Content Hidden"
-            case 3: presentation = "All Hidden"
-            case 4: presentation = "All Suppressed"
-            case 0, _: presentation = "Normal"
-            }
-            print(" Presentation:", presentation)
-            print("   Background:", infoValue(.LSBackgroundOnly) as Bool? ?? false)
-            print("        Agent:", infoValue(.LSUIElement) as Bool? ?? "")
-            print("   OS Version:", infoValue(.LSMinimumSystemVersion) as String? ?? "")
-
-            #if os(macOS)
-            print("Sandbox:", AppEntitlement.app_sandbox.isEnabled() ?? false)
-            for entitlement in AppEntitlement.allCases {
-                if entitlement != AppEntitlement.app_sandbox {
-                    print("  " + entitlement.rawValue + ": " + (entitlement.entitlementValue() ?? NSNull()).description)
-                }
-            }
-            #endif
-        } else if args.first == "fairtool" {
+        if args.first == "info" && isCLI {
+            dumpProcessInfo(&stdout)
+        } else if args.first == "fairtool" && isCLI {
             try FairCLI(arguments: args).runCLI()
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
@@ -174,10 +149,12 @@ extension FairContainer {
                 try? verifyAppMain(String(contentsOf: URL(fileURLWithPath: sourceFile.description)))
             }
 
-            // first check whether the FairContainer wants to handle the command-line form
-            if try cli(args: CommandLine.arguments) == false {
-                // if the CLI was handled, launch the full app
+            if isCLI == false { // launch the app itself
                 FairContainerApp<Self>.main()
+            } else { // invoke the command-line interface to the app
+                if try Self.cli(args: CommandLine.arguments) == false {
+                    dumpProcessInfo(&stdout) // if the command-line interface fails, show the process info
+                }
             }
         }
     }
@@ -210,6 +187,40 @@ extension FairContainer {
         }
     }
 
+    private static func dumpProcessInfo<O: TextOutputStream>(_ out: inout O) {
+        let info = Bundle.main.localizedInfoDictionary ?? Bundle.main.infoDictionary ?? [:]
+        func infoValue<T>(_ key: InfoPlistKey) -> T? { info[key.plistKey] as? T }
+
+        print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? ""), to: &out)
+        print("    App Name: " + (infoValue(.CFBundleName) as String? ?? ""))
+        print("   Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""))
+        print("     Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""))
+        print("       Build: " + (infoValue(.CFBundleVersion) as String? ?? ""))
+        print("    Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""))
+
+        let presentation: String
+        switch infoValue(.LSUIPresentationMode) as NSNumber? {
+        case 1: presentation = "Content Suppressed"
+        case 2: presentation = "Content Hidden"
+        case 3: presentation = "All Hidden"
+        case 4: presentation = "All Suppressed"
+        case 0, _: presentation = "Normal"
+        }
+        out.write(" Presentation: " + presentation)
+        out.write("   Background: " + (infoValue(.LSBackgroundOnly) as Bool? ?? false).description)
+        out.write("        Agent: " + (infoValue(.LSUIElement) as Bool? ?? false).description)
+        out.write("   OS Version: " + (infoValue(.LSMinimumSystemVersion) as String? ?? "").description)
+
+        #if os(macOS)
+        out.write("Sandbox: " + (AppEntitlement.app_sandbox.isEnabled() ?? false).description)
+        for entitlement in AppEntitlement.allCases {
+            if entitlement != AppEntitlement.app_sandbox {
+                out.write("  " + entitlement.rawValue + ": " + (entitlement.entitlementValue() ?? NSNull()).description)
+            }
+        }
+        #endif
+    }
+
     /// Checks the runtime entitlements to validate that sandboxing is enabled and and ensures that there are corresponding entries in the `FairUsage` section of the `Info.plist`
     private static func validateEntitlements() {
         #if !os(iOS) // someday
@@ -238,6 +249,17 @@ extension FairContainer {
                 dbg("Verify failed:", error.localizedDescription)
                 dbg("Break in verifyAppMain to debug")
             }
+        }
+    }
+}
+
+/// A simple pass-through from `FileHandle` to `TextOutputStream`
+struct HandleStream: TextOutputStream {
+    let stream: FileHandle
+
+    func write(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            stream.write(data)
         }
     }
 }

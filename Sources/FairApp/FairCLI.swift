@@ -19,7 +19,7 @@ import FairCore
 import FoundationNetworking
 #endif
 
-public struct FairCLI {
+public class FairCLI {
     /// The name of the App & the repository; defaults to "App"
     public let appName = AppNameValidation.defaultAppName
 
@@ -448,7 +448,7 @@ public extension FairCLI {
 
     /// Invokes the tool with the command-line interface
     func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) throws {
-        let messenger = msg ?? { printMessage(kind: $0, $1) }
+        let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
         switch operation ?? op {
         case .initialize: try initialize(msg: messenger)
         case .help: try help(msg: messenger)
@@ -1132,7 +1132,7 @@ public extension FairCLI {
 
             // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: FairTemplate.packageValidationLine)
 
-            guard let packageURL = templateFlag.resourceURL(for: "Package.swift") else {
+            guard let packageURL = self.templateFlag.resourceURL(for: "Package.swift") else {
                 throw CocoaError(.fileReadNoSuchFile)
             }
 
