@@ -44,19 +44,6 @@ final class FairHubTests: XCTestCase {
         try Self.hub().requestSync(request)
     }
 
-    func testFetchIssueCommentsQuery() throws {
-        let hub = try Self.hub()
-        let response = try hub.requestBatches(FairHub.IssueCommentsQuery(user: "appfairbot", count: Int.random(in: 30...99)), maxBatches: Int.random(in: 101...999))
-
-        let comments = response
-            .compactMap(\.result.successValue)
-            .flatMap(\.data.user.issueComments.nodes)
-
-
-        // make sure we got at least one batch
-        XCTAssertGreaterThan(comments.count, 3, "should have gone past the end of the batch")
-    }
-
     func testQueryError() throws {
         let hub = try Self.hub()
         do {
@@ -89,6 +76,7 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(false, repo.isArchived)
         XCTAssertEqual(false, repo.isDisabled)
         XCTAssertEqual(nil, repo.homepageUrl)
+
         XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)
     }
 
@@ -124,13 +112,13 @@ final class FairHubTests: XCTestCase {
         }
     }
 
-    func testRepositoryForkQuery() throws {
+    func testCatalogQuery() throws {
         let hub = try Self.hub()
 
         /// tests that paginated queries work and return consistent results
-        var resultResults: [[FairHub.RepositoryForkQuery.QueryResponse.BaseRepository.Repository]] = []
+        var resultResults: [[FairHub.CatalogQuery.QueryResponse.BaseRepository.Repository]] = []
         for _ in 1...3 {
-            let results = try hub.requestBatches(FairHub.RepositoryForkQuery(owner: appfairName, name: "App", count: Int.random(in: 2...22)), maxBatches: 1_000)
+            let results = try hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 2...22)), maxBatches: 1_000)
             let forks = results
                 .compactMap(\.result.successValue)
                 .flatMap(\.data.repository.forks.nodes)
@@ -148,7 +136,7 @@ final class FairHubTests: XCTestCase {
 
         XCTAssertFalse(names.contains("App"))
 
-        XCTAssertTrue(names.contains("Cloud Cuckoo"))
+        XCTAssertTrue(names.contains("App Fair"))
         XCTAssertTrue(names.contains("Tune Out"))
         XCTAssertGreaterThanOrEqual(names.count, 3)
 
@@ -162,7 +150,7 @@ final class FairHubTests: XCTestCase {
 
         XCTAssertFalse(names.contains("App"))
 
-        XCTAssertTrue(names.contains("Cloud Cuckoo"))
+        XCTAssertTrue(names.contains("App Fair"))
         XCTAssertTrue(names.contains("Tune Out"))
         XCTAssertGreaterThanOrEqual(names.count, 3)
 

@@ -117,27 +117,7 @@ public extension FairHub {
             throw Errors.missingFairsealIssuer
         }
 
-        // get all of the comments posted by the fairsealIssuer and parse them for fairseal content
-        let commentResults = try self.requestBatches(FairHub.IssueCommentsQuery(user: fairsealIssuer), maxBatches: appfairMaxApps / 200)
-        let commentNodes = commentResults
-            .compactMap(\.result.successValue)
-            .flatMap(\.data.user.issueComments.nodes)
-
-        let allSeals: [FairSeal] = commentNodes.compactMap { comment in
-            do {
-                return try FairSeal(json: comment.body.utf8Data)
-            } catch {
-                // errors might occur when a seal is corrupted; simply ignore it
-                dbg("error decoding fairseal", comment.body.utf8Data, error)
-                return .none
-            }
-        }
-
-        let urlSeals = Dictionary(grouping: allSeals, by: \.url).compactMapValues(\.first)
-
-        //print(wip("hashes"), Set(urlSeals.keys.map(\.lastPathComponent).sorted()))
-
-        let forksResponse = try self.requestBatches(FairHub.RepositoryForkQuery(owner: owner, name: "App"), maxBatches: appfairMaxApps / 200)
+        let forksResponse = try self.requestBatches(FairHub.CatalogQuery(owner: owner, name: "App"), maxBatches: appfairMaxApps / 200)
         if let error = forksResponse.compactMap(\.result.failureValue).first {
             throw error
         }
@@ -253,9 +233,25 @@ public extension FairHub {
                         continue
                     }
 
-                    let url = appArtifact.downloadUrl
+                    // scan the comments for the base ref for the matching url seal
+                    var urlSeals: [URL: FairSeal] = [:]
+                    let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
+                    for comment in comments.joined() {
+                        dbg("checking comment body:", comment.bodyText)
+                        if comment.author.login == fairsealIssuer {
+                            do {
+                                let seal = try FairSeal(json: comment.bodyText.utf8Data)
+                                urlSeals[seal.url] = seal
+                            } catch {
+                                // comments can be anything, so we tolerate failures
+                                dbg("error parsing seal:", error)
+                            }
+                        }
+                    }
 
+                    let url = appArtifact.downloadUrl
                     let fairseal = urlSeals[url]
+                    dbg("urlSeals:", urlSeals)
                     dbg("checking url:", url.absoluteString, "fairseal:", fairseal ?? "none")
 
                     if fairseal == nil {
@@ -933,15 +929,26 @@ public extension FairHub {
         }
     }
 
-    struct RepositoryForkQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "RepositoryForkQuery"
+    /// The query to generate a fair-ground catalog
+    struct CatalogQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        public let queryName: String = "CatalogQuery"
         public typealias Service = FairHub
 
         public var owner: String
         public var name: String
+
+        /// the number of forks to query per batch
         public var count: Int = 100
+
+        /// the number of releases to scan
         public var releaseCount: Int = 5
+        /// the number of release assets to process
         public var assetCount: Int = 50
+        /// the number of recent PRs to scan for a fairseal
+        public var prCount: Int = 5
+        /// the number of initial comments to scan for a fairseal
+        public var commentCount: Int = 5
+        
         public var cursor: Cursor? = nil
 
         public func postData() throws -> Data? {
@@ -1043,6 +1050,41 @@ public extension FairHub {
                           }
                         }
                       }
+
+                      defaultBranchRef {
+                        __typename
+                        associatedPullRequests(states: [CLOSED], last: \(prCount)) {
+                          nodes {
+                            __typename
+                            author {
+                              __typename
+                              login
+                              ... on User {
+                                name
+                                email
+                              }
+                            }
+                            baseRef {
+                              __typename
+                              name
+                              repository {
+                                nameWithOwner
+                              }
+                            }
+                            # scan the first few PR comments for the fairseal issuer's signature
+                            comments(first: \(commentCount)) {
+                              totalCount
+                              nodes {
+                                __typename
+                                author {
+                                  login
+                                }
+                                bodyText # fairseal JSON
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1089,6 +1131,47 @@ public extension FairHub {
                     public let homepageUrl: String?
                     public var repositoryTopics: NodeList<RepositoryTopic>
                     public let releases: NodeList<Release>
+                    public let defaultBranchRef: Ref
+
+                    public struct Ref : Pure {
+                        public enum TypeName : String, Pure { case Ref }
+                        public let __typename: TypeName
+                        public let associatedPullRequests: NodeList<PullRequest>
+
+                        public struct PullRequest : Pure {
+                            public enum TypeName : String, Pure { case PullRequest }
+                            public let __typename: TypeName
+                            public let author: Author
+                            public let baseRef: Ref
+                            public let comments: NodeList<IssueComment>
+
+                            public struct Author : Pure {
+                                public let login: String
+                                public let name: String?
+                                public let email: String?
+                            }
+
+                            public struct Ref : Pure {
+                                public enum TypeName : String, Pure { case Ref }
+                                public let name: String?
+                                public let repository: Repository
+
+                                public struct Repository : Pure {
+                                    public let nameWithOwner: String
+                                }
+                            }
+
+                            public struct IssueComment : Pure {
+                                public enum TypeName : String, Pure { case IssueComment }
+                                public let __typename: TypeName
+                                public let bodyText: String
+                                public let author: Author
+                                public struct Author : Pure {
+                                    public let login: String
+                                }
+                            }
+                        }
+                    }
 
                     public struct Release : Pure {
                         public enum TypeName : String, Pure { case Release }
@@ -1212,80 +1295,6 @@ public extension FairHub {
                     struct Node : Pure {
                         let body: String
                         let url: URL
-                    }
-                }
-            }
-        }
-    }
-
-    /// Request to fetch recent fairseals encoded in the comments on a PR.
-    struct IssueCommentsQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        let queryName: String = "IssueCommentsQuery"
-        let user: String
-        public var count: Int = 100
-        public var cursor: Cursor? = nil
-
-        public func postData() throws -> Data? {
-            try ["query": """
-             query \(queryName) {
-              __typename
-              user(login: "\(user)") {
-                login
-                issueComments(orderBy: {field: UPDATED_AT, direction: DESC}, first: \(count), after: \(quotedOrNull(cursor?.rawValue))) {
-                  totalCount
-                  pageInfo {
-                    endCursor
-                    hasNextPage
-                    hasPreviousPage
-                    startCursor
-                  }
-                  edges {
-                    node {
-                      body
-                      pullRequest {
-                        createdAt
-                        headRepository {
-                          nameWithOwner
-                          visibility
-                          forkingAllowed
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            """].json()
-        }
-
-        public typealias Response = GraphQLResponse<QueryResponse>
-
-        public struct QueryResponse : Pure, CursoredAPIResponse {
-            public var endCursor: Cursor? {
-                user.issueComments.pageInfo?.endCursor
-            }
-
-            public var elementCount: Int {
-                user.issueComments.nodes.count
-            }
-
-            public enum TypeName : String, Pure { case Query }
-            public let __typename: TypeName
-            var user: User
-            struct User : Pure {
-                var login: String
-                var issueComments: EdgeList<Comment>
-                struct Comment : Pure {
-                    var body: String
-                    var pullRequest: PullRequest?
-                    struct PullRequest : Pure {
-                        var createdAt: Date?
-                        var headRepository: HeadRepository?
-                        struct HeadRepository : Pure {
-                            var nameWithOwner: String
-                            var visibility: String // e.g., "PUBLIC"
-                            var forkingAllowed: Bool
-                        }
                     }
                 }
             }
