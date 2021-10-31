@@ -134,7 +134,7 @@ public extension AppEntitlement {
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
     public static func launch(sourceFile: StaticString = #file) throws {
-        // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally srt to permit launching in Xcode debugger
+        // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally srt to permit launching in Xcode debugger (where stdin is set)
         let isCLI = isatty(fileno(stdin)) == 1 && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
 
         //var stderr = HandleStream(stream: .standardError)
@@ -190,10 +190,11 @@ extension FairContainer {
     }
 
     private static func dumpProcessInfo<O: TextOutputStream>(_ out: inout O) {
+        print("### Bundle.main.localizedInfoDictionary:", Bundle.main.localizedInfoDictionary, to: &out)
+        print("### Bundle.main.infoDictionary:", Bundle.main.infoDictionary, to: &out)
         func infoValue<T>(_ key: InfoPlistKey) -> T? {
-            //(Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
-            //    ??
-            (Bundle.main.infoDictionary?[key.plistKey] as? T)
+            (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
+                ?? (Bundle.main.infoDictionary?[key.plistKey] as? T)
         }
 
         print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? ""), to: &out)
