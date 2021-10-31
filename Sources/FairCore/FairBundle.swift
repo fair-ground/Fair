@@ -57,6 +57,14 @@ extension Bundle {
 
     /// Loads the resource with the given name
     public func loadResource(named name: String, options: Data.ReadingOptions = .mappedIfSafe) throws -> Data {
+        guard let url = url(forResource: name, withExtension: nil, subdirectory: nil) else {
+            throw CocoaError(.fileReadNoSuchFile)
+        }
+        return try Data(contentsOf: url, options: options)
+    }
+
+    /// Loads the resource with the given name from the `Bundle` resource path, which can be used to store non-flattened resource hierarchies
+    public func loadBundleResource(named name: String, options: Data.ReadingOptions = .mappedIfSafe) throws -> Data {
         guard let url = url(forResource: name, withExtension: nil, subdirectory: "Bundle") else {
             throw CocoaError(.fileReadNoSuchFile)
         }

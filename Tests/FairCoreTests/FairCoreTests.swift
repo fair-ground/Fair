@@ -21,7 +21,7 @@ import FoundationNetworking
 
 final class FairCoreTests: XCTestCase {
     func testFairBundle() throws {
-        let readme = try Bundle.fairCore.loadResource(named: "README.md")
+        let readme = try Bundle.fairCore.loadBundleResource(named: "README.md")
         XCTAssertGreaterThan(readme.count, 50)
     }
 
