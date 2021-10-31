@@ -311,6 +311,10 @@ public extension FairHub {
             invalid.insert(.ownerNotOrganization)
         }
 
+        if !repo.isInOrganization {
+            invalid.insert(.ownerNotOrganization)
+        }
+
         if !isOrigin {
             do {
                 try validateEmailAddress(org.email)
@@ -336,7 +340,7 @@ public extension FairHub {
         }
 
         // there's no "hasDiscussionsEnabled" key, but the count of categories will be zero if discussions are not enabled
-        if repo.discussionCategories.totalCount <= 0 {
+        if !isOrigin && repo.discussionCategories.totalCount <= 0 {
            invalid.insert(.noDiscussions)
         }
 
@@ -857,6 +861,7 @@ public extension FairHub {
                   forkCount
                   stargazerCount
                   watchers { totalCount }
+                  isInOrganization
                   hasWikiEnabled
                   hasProjectsEnabled
                   hasIssuesEnabled
@@ -908,6 +913,7 @@ public extension FairHub {
                     public let isPrivate: Bool
                     public let isArchived: Bool
                     public let isDisabled: Bool
+                    public let isInOrganization: Bool
                     public let hasWikiEnabled: Bool
                     public let hasProjectsEnabled: Bool
                     public let hasIssuesEnabled: Bool
@@ -989,6 +995,7 @@ public extension FairHub {
                       issues { totalCount }
                       stargazers { totalCount }
                       watchers { totalCount }
+                      isInOrganization
                       hasWikiEnabled
                       hasProjectsEnabled
                       homepageUrl
@@ -1125,6 +1132,7 @@ public extension FairHub {
                     public let issues: NodeCount
                     public let stargazers: NodeCount
                     public let watchers: NodeCount
+                    public let isInOrganization: Bool
                     public let hasWikiEnabled: Bool
                     public let hasProjectsEnabled: Bool
                     public let homepageUrl: String?

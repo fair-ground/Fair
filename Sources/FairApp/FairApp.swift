@@ -26,6 +26,12 @@ public extension Bundle {
     /// Returns the resources bundle for `FairApp`
     static var fairApp: Bundle { Bundle.module }
 
+    /// The bundle for the app module itself. Note that since all the code resides in the App Swift Module,
+    /// runtime resources will be included in the Bundle rather tha in `Bundle.main`.
+    static var appBundle: Bundle? {
+        Bundle.allFrameworks.first(where: { $0.bundleName == "App_App" })
+    }
+
     /// The main bundle's identifier, falling back to `app.App-Name`
     static var mainBundleID: String {
         Bundle.main.bundleIdentifier ?? "app.App-Name"
@@ -133,7 +139,7 @@ public extension AppEntitlement {
 @available(macOS 12.0, iOS 15.0, *)
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
-    public static func launch(sourceFile: StaticString = #file) throws {
+    public static func launch(bundle: Bundle, sourceFile: StaticString = #file) throws {
         // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally srt to permit launching in Xcode debugger (where stdin is set)
         let isCLI = isatty(fileno(stdin)) == 1 && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
 
@@ -142,7 +148,7 @@ extension FairContainer {
 
         let args = Array(CommandLine.arguments.dropFirst())
         if args.first == "info" && isCLI {
-            dumpProcessInfo(&stdout)
+            dumpProcessInfo(bundle: bundle, &stdout)
         } else if args.first == "fairtool" && isCLI {
             try FairCLI(arguments: args).runCLI()
         } else {
@@ -152,11 +158,11 @@ extension FairContainer {
             }
 
             if isCLI == false { // launch the app itself
-                dumpProcessInfo(&stdout) // always log the app info
+                dumpProcessInfo(bundle: bundle, &stdout) // always log the app info
                 FairContainerApp<Self>.main()
             } else { // invoke the command-line interface to the app
                 if try Self.cli(args: CommandLine.arguments) == false {
-                    dumpProcessInfo(&stdout) // if the command-line interface fails, show the process info
+                    dumpProcessInfo(bundle: bundle, &stdout) // if the command-line interface fails, show the process info
                 }
             }
         }
@@ -164,7 +170,7 @@ extension FairContainer {
 
     public static func main() throws {
         do {
-            try launch()
+            try launch(bundle: Bundle.module)
         } catch {
             // we don't want to re-throw the exception here, since it will cause a crash report when run from AppContainer.main
             // TODO: nicer error formatting; resolution suggestions
@@ -190,7 +196,7 @@ extension FairContainer {
         }
     }
 
-    private static func dumpProcessInfo<O: TextOutputStream>(_ out: inout O) {
+    private static func dumpProcessInfo<O: TextOutputStream>(bundle: Bundle, _ out: inout O) {
         func infoValue<T>(_ key: InfoPlistKey) -> T? {
             (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
                 ?? (Bundle.main.infoDictionary?[key.plistKey] as? T)
@@ -230,7 +236,7 @@ extension FairContainer {
         #endif
 
         do {
-            let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: Bundle.main.loadResource(named: "Package.resolved"))
+            let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: bundle.loadResource(named: "Package.resolved"))
             for dep in packageResolved.object.pins {
                 let packageVersion = dep.state.version ?? dep.state.branch ?? "none"
                 print("  Dependency: " + dep.package + " " + packageVersion + " " + (dep.state.revision ?? ""), to: &out)

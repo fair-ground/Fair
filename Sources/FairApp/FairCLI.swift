@@ -1079,6 +1079,7 @@ public extension FairCLI {
         let repo = organization.repository
 
         msg(.debug, "  name:", organization.name)
+        msg(.debug, "  isInOrganization:", repo.isInOrganization)
         msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
         msg(.debug, "  discussion categories:", repo.discussionCategories.totalCount)
 
