@@ -228,6 +228,16 @@ extension FairContainer {
             }
         }
         #endif
+
+        do {
+            let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: Bundle.main.loadResource(named: "Package.resolved"))
+            for dep in packageResolved.object.pins {
+                let packageVersion = dep.state.version ?? dep.state.branch ?? "none"
+                print("  Dependency: " + dep.package + " " + packageVersion + " " + (dep.state.revision ?? ""), to: &out)
+            }
+        } catch {
+            print("  Dependency: " + error.localizedDescription, to: &out)
+        }
     }
 
     /// Checks the runtime entitlements to validate that sandboxing is enabled and and ensures that there are corresponding entries in the `FairUsage` section of the `Info.plist`

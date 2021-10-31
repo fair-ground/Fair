@@ -58,14 +58,15 @@ final class FairHubTests: XCTestCase {
 
     func testFetchRepositoryQuery() throws {
         let hub = try Self.hub()
-        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "fair-ground", name: "Fair")).get().data
+        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "appfair", name: "App")).get().data
 
         let org = response.organization
         let repo = org.repository
 
         XCTAssertEqual(nil, org.email)
-        XCTAssertEqual("fair-ground", org.login)
+        XCTAssertEqual("appfair", org.login)
 
+        XCTAssertEqual(0, repo.discussionCategories.totalCount)
         XCTAssertEqual(false, repo.hasIssuesEnabled)
         XCTAssertEqual(false, repo.hasWikiEnabled)
         XCTAssertEqual(false, repo.isFork)
@@ -75,7 +76,6 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(false, repo.isPrivate)
         XCTAssertEqual(false, repo.isArchived)
         XCTAssertEqual(false, repo.isDisabled)
-        XCTAssertEqual(nil, repo.homepageUrl)
 
         XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)
     }

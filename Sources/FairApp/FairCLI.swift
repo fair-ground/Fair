@@ -315,7 +315,7 @@ public extension FairCLI {
     /// `--allow-from` or `--deny-from` setting.
     func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
         addresses
-            .flatMap { $0.components(separatedBy: .newlines) }
+            .flatMap { $0.components(separatedBy: .whitespacesAndNewlines) }
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
     }
@@ -1079,8 +1079,8 @@ public extension FairCLI {
         let repo = organization.repository
 
         msg(.debug, "  name:", organization.name)
-        msg(.debug, "  name:", organization.name)
         msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
+        msg(.debug, "  discussion categories:", repo.discussionCategories.totalCount)
 
         let invalid = hub.validate(org: organization)
         if !invalid.isEmpty {
@@ -1922,11 +1922,11 @@ extension AppNameValidation {
         var proposals: [String] = []
         for _ in 1...count {
             guard let noun = names.keys.randomElement() else {
-                return proposals
+                continue
             }
 
-            guard let adj = names.keys.randomElement() else {
-                return proposals
+            guard let adj = names[noun]?.randomElement() else {
+                continue
             }
 
             let proposal = adj.capitalized + "-" + noun.capitalized

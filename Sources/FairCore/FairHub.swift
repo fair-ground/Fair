@@ -237,7 +237,7 @@ public extension FairHub {
                     var urlSeals: [URL: FairSeal] = [:]
                     let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
                     for comment in comments.joined() {
-                        dbg("checking comment body:", comment.bodyText)
+                        //dbg("checking comment body:", comment.bodyText)
                         if comment.author.login == fairsealIssuer {
                             do {
                                 let seal = try FairSeal(json: comment.bodyText.utf8Data)
@@ -251,7 +251,7 @@ public extension FairHub {
 
                     let url = appArtifact.downloadUrl
                     let fairseal = urlSeals[url]
-                    dbg("urlSeals:", urlSeals)
+                    //dbg("urlSeals:", urlSeals)
                     dbg("checking url:", url.absoluteString, "fairseal:", fairseal ?? "none")
 
                     if fairseal == nil {
@@ -335,10 +335,10 @@ public extension FairHub {
             invalid.insert(.noIssues)
         }
 
-        // currently no API to check for existence of discussions
-        // if !repo.has_discussions {
-        //   invalid.insert(.noDiscussions)
-        // }
+        // there's no "hasDiscussionsEnabled" key, but the count of categories will be zero if discussions are not enabled
+        if repo.discussionCategories.totalCount <= 0 {
+           invalid.insert(.noDiscussions)
+        }
 
         if !allowLicense.isEmpty && !allowLicense.contains(repo.licenseInfo.spdxId ?? "none") {
             //dbg(allowLicense)
@@ -856,15 +856,12 @@ public extension FairHub {
                   isDisabled
                   forkCount
                   stargazerCount
-                  watchers {
-                    totalCount
-                  }
+                  watchers { totalCount }
                   hasWikiEnabled
                   hasProjectsEnabled
                   hasIssuesEnabled
-                  issues {
-                    totalCount
-                  }
+                  discussionCategories { totalCount }
+                  issues { totalCount }
                   licenseInfo {
                     __typename
                     spdxId
@@ -914,7 +911,7 @@ public extension FairHub {
                     public let hasWikiEnabled: Bool
                     public let hasProjectsEnabled: Bool
                     public let hasIssuesEnabled: Bool
-                    //public let hasDiscussionsEnabled: Bool // no way in GraphQL?
+                    public let discussionCategories: NodeCount
                     public let forkCount: Int
                     public let stargazerCount: Int
                     public let issues: NodeCount
@@ -948,7 +945,7 @@ public extension FairHub {
         public var prCount: Int = 5
         /// the number of initial comments to scan for a fairseal
         public var commentCount: Int = 5
-        
+
         public var cursor: Cursor? = nil
 
         public func postData() throws -> Data? {
@@ -988,6 +985,7 @@ public extension FairHub {
                       forkCount
                       stargazerCount
                       hasIssuesEnabled
+                      discussionCategories { totalCount }
                       issues { totalCount }
                       stargazers { totalCount }
                       watchers { totalCount }
@@ -1123,6 +1121,7 @@ public extension FairHub {
                     public let forkCount: Int
                     public let stargazerCount: Int
                     public let hasIssuesEnabled: Bool
+                    public let discussionCategories: NodeCount
                     public let issues: NodeCount
                     public let stargazers: NodeCount
                     public let watchers: NodeCount
