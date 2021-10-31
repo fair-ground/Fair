@@ -152,6 +152,7 @@ extension FairContainer {
             }
 
             if isCLI == false { // launch the app itself
+                dumpProcessInfo(&stdout) // always log the app info
                 FairContainerApp<Self>.main()
             } else { // invoke the command-line interface to the app
                 if try Self.cli(args: CommandLine.arguments) == false {
@@ -190,19 +191,18 @@ extension FairContainer {
     }
 
     private static func dumpProcessInfo<O: TextOutputStream>(_ out: inout O) {
-        print("### Bundle.main.localizedInfoDictionary:", Bundle.main.localizedInfoDictionary, to: &out)
-        print("### Bundle.main.infoDictionary:", Bundle.main.infoDictionary, to: &out)
         func infoValue<T>(_ key: InfoPlistKey) -> T? {
             (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
                 ?? (Bundle.main.infoDictionary?[key.plistKey] as? T)
         }
 
-        print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? ""), to: &out)
-        print("    App Name: " + (infoValue(.CFBundleName) as String? ?? ""))
-        print("   Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""))
-        print("     Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""))
-        print("       Build: " + (infoValue(.CFBundleVersion) as String? ?? ""))
-        print("    Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""))
+        print("App Fair App: " + (infoValue(.CFBundleDisplayName) as String? ?? infoValue(.CFBundleName) as String? ?? ""), to: &out)
+        print("    App Name: " + (infoValue(.CFBundleName) as String? ?? ""), to: &out)
+        print("   Bundle ID: " + (infoValue(.CFBundleIdentifier) as String? ?? ""), to: &out)
+        print("     Version: " + (infoValue(.CFBundleShortVersionString) as String? ?? ""), to: &out)
+        print("       Build: " + (infoValue(.CFBundleVersion) as String? ?? ""), to: &out)
+        print("     License: " + (infoValue(.NSHumanReadableCopyright) as String? ?? ""), to: &out)
+        print("    Category: " + (infoValue(.LSApplicationCategoryType) as String? ?? ""), to: &out)
 
         let presentation: String
         switch infoValue(.LSUIPresentationMode) as NSNumber? {
@@ -212,6 +212,7 @@ extension FairContainer {
         case 4: presentation = "All Suppressed"
         case 0, _: presentation = "Normal"
         }
+
         print("Presentation: " + presentation)
         print("  Background: " + (infoValue(.LSBackgroundOnly) as Bool? ?? false).description, to: &out)
         print("       Agent: " + (infoValue(.LSUIElement) as Bool? ?? false).description, to: &out)

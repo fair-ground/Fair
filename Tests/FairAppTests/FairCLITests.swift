@@ -79,7 +79,6 @@ final class FairCLITests: XCTestCase {
                 let projectDir = folder.appendingPathComponent(name)
                 try mkdir(projectDir)
                 let output = try scaffold("-o", projectDir.path)
-                // dbg("### output:", output.joined(separator: "\n###   "))
                 let _ = output
                 return projectDir
             }
