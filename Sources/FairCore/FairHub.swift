@@ -489,7 +489,7 @@ public extension FairHub {
         }
 
         /// The version of the fairseal JSON
-        public private(set) var fairsealVersion = Version.allCases.last!
+        public private(set) var fairsealVersion: Version? = Version.allCases.last
         /// The sha256 checksum of the binary artifact
         public var sha256: String
         /// The bitset of the permissions options
