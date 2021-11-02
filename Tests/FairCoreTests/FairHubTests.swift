@@ -95,23 +95,6 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(false, sig.wasSignedByGitHub)
     }
 
-    func testPostFairsealPRComment() throws {
-        let hub = try Self.hub()
-        let fairseal = FairHub.FairSeal(url: URL(string: "https://github.com/Fair-Skies/App/releases/download/0.0.0/Fair-Skies-macOS.zip")!, sha256: "b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c", permissions: AppEntitlement.bitsetRepresentation(for: Set(AppEntitlement.allCases)), coreSize: 0, tint: "aabbcc")
-
-        if ({ true })() { // only execute this manually
-            throw XCTSkip("skipping demo fairseal posting")
-        } else {
-            let commentURL = try hub.postFairseal(fairseal)
-
-            // XCTAssertEqual("/appfair/App/pull/\(appPR.number)", postResponse.data.addComment.commentEdge.node.url.path)
-
-            // let seal = try FairHub.FairSeal(json: postResponse.data.addComment.commentEdge.node.body.utf8Data)
-            // XCTAssertEqual(body, seal)
-            XCTAssertNotNil(commentURL)
-        }
-    }
-
     func testCatalogQuery() throws {
         let hub = try Self.hub()
 

@@ -16,7 +16,6 @@ import Swift
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
-import Compression
 #endif
 
 /// We need an upper bound for the number of forks we can process
