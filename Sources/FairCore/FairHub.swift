@@ -484,7 +484,7 @@ public extension FairHub {
     /// and other build-time information
     struct FairSeal : Pure {
         public enum Version : Int, Pure, CaseIterable {
-            case v1
+            case v1 = 1
         }
 
         /// The version of the fairseal JSON
