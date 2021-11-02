@@ -488,7 +488,7 @@ public extension FairHub {
         }
 
         /// The version of the fairseal JSON
-        public private(set) var fairsealVersion: Version? = Version.allCases.last
+        public private(set) var fairsealVersion: Version?
         /// The sha256 checksum of the binary artifact
         public var sha256: String
         /// The bitset of the permissions options
@@ -506,6 +506,7 @@ public extension FairHub {
             self.permissions = permissions
             self.coreSize = coreSize
             self.tint = tint
+            self.fairsealVersion = Version.allCases.last
         }
 
         /// The app org associated with this seal; this will be the first component of the URL's path

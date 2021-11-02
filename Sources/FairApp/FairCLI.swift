@@ -1377,115 +1377,109 @@ public extension FairCLI {
 
         let appName = rootPath.dropLast(Self.appSuffix.count)
 
+        var coreSize = 0 // the size of the executable itself
 
-        // the size of the executable itself
-        var coreSize = 0
+        for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
+            if trustedEntry.path != untrustedEntry.path {
+                throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
+            }
 
-        if trustedEntries != untrustedEntries {
-            for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
-                if trustedEntry.path != untrustedEntry.path {
-                    throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
+            let entryIsAppBinary =
+                trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+                || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+
+            if entryIsAppBinary {
+                coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
+            }
+
+            if trustedEntry.checksum == untrustedEntry.checksum {
+                continue
+            }
+
+            // checksum mismatch: check the actual binary contents so we can summarize the differences
+            msg(.info, "checking mismached entry: \(trustedEntry.path)")
+
+            let pathParts = trustedEntry.path.split(separator: "/")
+
+            if let lastPath = pathParts.last, pathParts.dropLast().last == "_CodeSignature" {
+                if [
+                    "CodeSignature",
+                    "CodeResources",
+                    "CodeDirectory",
+                    "CodeRequirements-1",
+                ].contains(lastPath) {
+                    // we permit differences in code signatures in order to allow custom signing by the App fork
+                    continue
+                }
+            }
+
+            if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
+                // assets sometimes get compiled differently; we let these pass
+                continue
+            }
+
+            if trustedEntry.path.hasSuffix(".nib") {
+                // nibs sometimes get compiled differently as well
+                continue
+            }
+
+            if pathParts.dropLast().last?.hasSuffix(".storyboardc") == true {
+                // Storyboard files sometimes get compiled differently (e.g., differences in the date in Info.plist)
+                continue
+            }
+
+
+            //msg(.debug, "checking", trustedEntry.path)
+
+            if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
+                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
+            }
+
+            var trustedPayload = Data()
+            let _ = try trustedArchive.extract(trustedEntry) { trustedPayload = $0 }
+
+            var untrustedPayload = Data()
+            let _ = try untrustedArchive.extract(untrustedEntry) { untrustedPayload = $0 }
+
+            if trustedPayload != untrustedPayload {
+                let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
+
+                msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex()) differences: \(diff.count)")
+                func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
+                    IndexSet(changeSet.map({
+                        switch $0 {
+                        case .insert(let offset, _, _): return offset
+                        case .remove(let offset, _, _): return offset
+                        }
+                    }))
                 }
 
-                let entryIsAppBinary =
-                    trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
-                    || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+                let insertionRanges = offsets(in: diff.insertions)
+                let insertionRangeDesc = insertionRanges
+                    .rangeView
+                    .prefix(10)
+                    .map({ $0.description })
 
-                if entryIsAppBinary {
-                    coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
-                }
+                let removalRanges = offsets(in: diff.removals)
+                let removalRangeDesc = removalRanges
+                    .rangeView
+                    .prefix(10)
+                    .map({ $0.description })
 
-                if trustedEntry.checksum != untrustedEntry.checksum {
-                    // checksum mismatch: check the actual binary contents so we can summarize the differences
-                    msg(.info, "checking mismached entry: \(trustedEntry.path)")
+                let totalChanges = diff.insertions.count + diff.removals.count
+                if totalChanges > 0 {
+                    let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
 
-                    let pathParts = trustedEntry.path.split(separator: "/")
-
-                    if let lastPath = pathParts.last, pathParts.dropLast().last == "_CodeSignature" {
-                        if [
-                            "CodeSignature",
-                            "CodeResources",
-                            "CodeDirectory",
-                            "CodeRequirements-1",
-                        ].contains(lastPath) {
-                            // we permit differences in code signatures in order to allow custom signing by the App fork
-                            continue
+                    if entryIsAppBinary {
+                        if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
+                            // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                            print("tolerating \(totalChanges) differences for:", error)
+                        } else {
+                            throw error
                         }
+                    } else {
+                        throw error
                     }
-
-                    if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
-                        // assets sometimes get compiled differently; we let these pass
-                        continue
-                    }
-
-                    if trustedEntry.path.hasSuffix(".nib") {
-                        // nibs sometimes get compiled differently as well
-                        continue
-                    }
-
-                    if pathParts.dropLast().last?.hasSuffix(".storyboardc") == true {
-                        // Storyboard files sometimes get compiled differently (e.g., differences in the date in Info.plist)
-                        continue
-                    }
-
-
-                    //msg(.debug, "checking", trustedEntry.path)
-
-                    if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
-                        throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
-                    }
-
-                    var trustedPayload = Data()
-                    let _ = try trustedArchive.extract(trustedEntry) { trustedPayload = $0 }
-
-                    var untrustedPayload = Data()
-                    let _ = try untrustedArchive.extract(untrustedEntry) { untrustedPayload = $0 }
-
-                    if trustedPayload != untrustedPayload {
-                        let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
-
-                        msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex()) differences: \(diff.count)")
-                        func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
-                            IndexSet(changeSet.map({
-                                switch $0 {
-                                case .insert(let offset, _, _): return offset
-                                case .remove(let offset, _, _): return offset
-                                }
-                            }))
-                        }
-
-                        let insertionRanges = offsets(in: diff.insertions)
-                        let insertionRangeDesc = insertionRanges
-                            .rangeView
-                            .prefix(10)
-                            .map({ $0.description })
-
-                        let removalRanges = offsets(in: diff.removals)
-                        let removalRangeDesc = removalRanges
-                            .rangeView
-                            .prefix(10)
-                            .map({ $0.description })
-
-                        let totalChanges = diff.insertions.count + diff.removals.count
-                        if totalChanges > 0 {
-                            let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
-
-                            if entryIsAppBinary {
-                                if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
-                                    // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
-                                    print("tolerating \(totalChanges) differences for:", error)
-                                } else {
-                                    throw error
-                                }
-                            } else {
-                                throw error
-                            }
-                        }
-                    }
-                }
-
-                if trustedEntry != untrustedEntry {
-                    //msg(.debug, "entry mismatch:", trustedEntry.path, untrustedEntry.path)
                 }
             }
         }
