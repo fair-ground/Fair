@@ -147,9 +147,7 @@ extension FairContainer {
         var stdout = HandleStream(stream: .standardOutput)
 
         let args = Array(CommandLine.arguments.dropFirst())
-        if args.first == "info" && isCLI {
-            dumpProcessInfo(bundle: bundle, &stdout)
-        } else if args.first == "fairtool" && isCLI {
+        if args.first == "fairtool" && isCLI {
             try FairCLI(arguments: args).runCLI()
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
@@ -162,7 +160,8 @@ extension FairContainer {
                 FairContainerApp<Self>.main()
             } else { // invoke the command-line interface to the app
                 if try Self.cli(args: CommandLine.arguments) == false {
-                    dumpProcessInfo(bundle: bundle, &stdout) // if the command-line interface fails, show the process info
+                    // if the command-line interface fails, show the process info
+                    dumpProcessInfo(bundle: bundle, &stdout)
                 }
             }
         }
@@ -192,13 +191,14 @@ extension FairContainer {
                 print("   Raw:", error)
             }
 
-            throw error // re-throw
+            // don't re-throw the error, since from the console this will result in:
+            // throw error // re-throw
         }
     }
 
     private static func dumpProcessInfo<O: TextOutputStream>(bundle: Bundle, _ out: inout O) {
-        print("main.infoDictionary:", Bundle.main.infoDictionary)
-        print("bundle.infoDictionary:", bundle.infoDictionary)
+        //print("main.infoDictionary:", Bundle.main.infoDictionary)
+        //print("bundle.infoDictionary:", bundle.infoDictionary)
 
         func infoValue<T>(_ key: InfoPlistKey) -> T? {
             (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)

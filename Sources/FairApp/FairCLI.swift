@@ -1387,6 +1387,14 @@ public extension FairCLI {
                     throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
                 }
 
+                let entryIsAppBinary =
+                    trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+                    || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+
+                if entryIsAppBinary {
+                    coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
+                }
+
                 if trustedEntry.checksum != untrustedEntry.checksum {
                     // checksum mismatch: check the actual binary contents so we can summarize the differences
                     msg(.info, "checking mismached entry: \(trustedEntry.path)")
@@ -1406,31 +1414,22 @@ public extension FairCLI {
                     }
 
                     if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
-                        // assets sometimes get compiled differently
+                        // assets sometimes get compiled differently; we let these pass
                         continue
                     }
 
                     if trustedEntry.path.hasSuffix(".nib") {
-                        // nibs sometimes get compiled differently
+                        // nibs sometimes get compiled differently as well
                         continue
                     }
 
                     if pathParts.dropLast().last?.hasSuffix(".storyboardc") == true {
-                        // Storyboard files sometimes get compiled different (e.g., differences in the date in Info.plist)
+                        // Storyboard files sometimes get compiled differently (e.g., differences in the date in Info.plist)
                         continue
                     }
 
 
                     //msg(.debug, "checking", trustedEntry.path)
-
-                    let entryIsAppBinary =
-                        trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
-                        || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
-
-                    if entryIsAppBinary {
-                        coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
-                    }
-
 
                     if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
                         throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")

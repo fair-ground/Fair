@@ -16,6 +16,7 @@ import Swift
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
+import Compression
 #endif
 
 /// We need an upper bound for the number of forks we can process
@@ -483,8 +484,12 @@ public extension FairHub {
     /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
     /// and other build-time information
     struct FairSeal : Pure {
-        /// The URL to download the binary artifact
-        public var url: URL
+        public enum Version : Int, Pure, CaseIterable {
+            case v1
+        }
+
+        /// The version of the fairseal JSON
+        public private(set) var fairsealVersion = Version.allCases.last!
         /// The sha256 checksum of the binary artifact
         public var sha256: String
         /// The bitset of the permissions options
@@ -493,6 +498,8 @@ public extension FairHub {
         public var coreSize: Int?
         /// The tint color as an RGBA hex string
         public var tint: String?
+        /// The URL to download the binary artifact
+        public var url: URL
 
         public init(url: URL, sha256: String, permissions: UInt64, coreSize: Int?, tint: String?) {
             self.url = url
