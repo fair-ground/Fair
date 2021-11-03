@@ -83,6 +83,7 @@ jobs:
 
       - name: Generate docbuild
         if: false # broken: https://github.com/DoccZz/docc2html/issues/15
+
         run: |
           # see: https://fair-ground.github.io/Fair/documentation/faircore/index.html
           mkdir -p docs
