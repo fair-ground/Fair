@@ -99,6 +99,11 @@ public final class Plist : RawRepresentable {
         }
         self.init(rawValue: props)
     }
+
+    /// Serialize this property list to data
+    public func serialize(as format: PropertyListSerialization.PropertyListFormat) throws -> Data {
+        try PropertyListSerialization.data(fromPropertyList: rawValue, format: format, options: 0)
+    }
 }
 
 public extension Plist {
@@ -1511,12 +1516,14 @@ public extension FairCLI {
         }
 
         let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
-        msg(.info, "permissions:", permissions)
+        for permission in permissions {
+            msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
+        }
 
         // publish the hash for the plist metadata
         if let infoURLFlag = self.infoURLFlag, let infoURL = URL(string: infoURLFlag) {
             // the hash is the XML serialization of the property list, which we expect to be published as a release asset
-            let infoHash = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0).sha256().hex()
+            let infoHash = try plist.serialize(as: .xml).sha256().hex()
             assets.append(FairSeal.Asset(url: infoURL, sha256: infoHash))
         }
 
