@@ -1025,6 +1025,10 @@ public extension FairCLI {
                 return nil // no entitlement set
             }
 
+            if entitlement.categories == [.harmless] {
+                return nil // harmless entitlements don't need a description
+            }
+
             if (entitlementValue as? NSNumber) == false {
                 return nil // false entitlements are treated as unset
             }
