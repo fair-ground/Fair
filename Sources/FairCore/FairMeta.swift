@@ -607,15 +607,6 @@ public enum AppEntitlement : String, Pure, CaseIterable {
         switch self {
         case .files_all:
             return nil // never allowed; use files_user_selected_read_write instead
-        case .files_home_relative_path_read_only:
-            return nil // never allowed; use files_user_selected_read_write instead
-        case .files_home_relative_path_read_write:
-            return nil // never allowed; use files_user_selected_read_write instead
-        case .files_absolute_path_read_only:
-            return nil // never allowed; use files_user_selected_read_write instead
-        case .files_absolute_path_read_write:
-            return nil // never allowed; use files_user_selected_read_write instead
-
         case .cs_allow_unsigned_executable_memory:
             return nil // never allowed
         case .cs_allow_dyld_environment_variables:

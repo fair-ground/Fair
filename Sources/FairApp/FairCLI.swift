@@ -1025,17 +1025,21 @@ public extension FairCLI {
                 return nil // no entitlement set
             }
 
-            if entitlement.categories == [.harmless] {
-                return nil // harmless entitlements don't need a description
-            }
-
             if (entitlementValue as? NSNumber) == false {
                 return nil // false entitlements are treated as unset
             }
 
-            guard let props = entitlement.usageDescriptionProperties,
-                  !props.isEmpty,
-                  let usageDescription = props.compactMap({
+            // a nil usage description means the property is explicitely forbidden (e.g., "files-all")
+            guard let props = entitlement.usageDescriptionProperties else {
+                throw Errors.forbiddenEntitlement(entitlement.entitlementKey)
+            }
+
+            // on the other hand, an empty array means we don't require any explanation for the entitlemnent's usage (e.g., enabling JIT)
+            if props.isEmpty {
+                return nil
+            }
+
+            guard let usageDescription = props.compactMap({
                 // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
                 infoProperties.FairUsage?[$0] as? String
 
