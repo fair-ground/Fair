@@ -1404,7 +1404,7 @@ public extension FairCLI {
 
             if entryIsInfo {
                 let trustedInfo = try trustedArchive.extractData(from: trustedEntry)
-                // the published plist is converted from the binary format to XML in the workflow – we do the same her to get a consistent checksum
+                // the published plist is converted from the binary format to XML in the workflow – we do the same here to produce a consistent hash
                 let plist = try PropertyListSerialization.propertyList(from: trustedInfo, options: [], format: nil)
                 let xml = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
                 infoHash = xml.sha256().hex()
@@ -1574,7 +1574,7 @@ public extension FairCLI {
         }
 
         guard let sha256 = app.sha256 else {
-            msg(.info, "no checksum for app: \(appNameHyphen)")
+            msg(.info, "no hash for app: \(appNameHyphen)")
             return false
         }
 
