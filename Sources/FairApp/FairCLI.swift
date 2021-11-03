@@ -387,6 +387,11 @@ public extension FairCLI {
         flags["-artifact-url"]?.first
     }
 
+    /// The flag for the `fairseal` command indicating the online resource for the artifact metadata
+    var infoURLFlag: String? {
+        flags["-info-url"]?.first
+    }
+
     /// The flag for the `fairseal` command indicating the output folder for the casks
     var caskFolderFlag: String? {
         flags["-cask-folder"]?.first
@@ -1279,6 +1284,57 @@ public extension FairCLI {
         }
     }
 
+    private func fetchArtifact(msg: MessageHandler, url artifactURL: URL, retryDuration: TimeInterval, retryWait: TimeInterval) throws -> URL {
+        let timeoutDate = Date().addingTimeInterval(retryDuration)
+        while true {
+            do {
+                var request = URLRequest(url: artifactURL)
+                request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+                let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
+                if let response = response as? HTTPURLResponse,
+                   (200..<300).contains(response.statusCode) { // e.g., 404
+                    msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
+                    return downloadedURL
+                } else {
+                    msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
+                    if try Date() >= timeoutDate || backoff(error: nil) == false {
+                        throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+                    }
+                }
+            } catch {
+                if try backoff(error: error) == false {
+                    throw error
+                }
+            }
+        }
+
+        /// Backs off until the given timeout date
+        @discardableResult func backoff(error: Error?) throws -> Bool {
+            // we we are timed out, or if we don't want to retry, then simply re-download
+            if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
+                return false
+            } else {
+                msg(.info, "retrying download in \(retryWait) seconds due to error:", error)
+                Thread.sleep(forTimeInterval: retryWait)
+                return true
+            }
+        }
+    }
+
+    private func fetchUntrustedArtifact(msg: MessageHandler) throws -> URL {
+        // if we specified the artifact as a local file, just use it directly
+        if let untrustedArtifactFlag = untrustedArtifactFlag {
+            return URL(fileURLWithPath: untrustedArtifactFlag)
+        }
+
+        guard let artifactURLFlag = self.artifactURLFlag,
+            let artifactURL = URL(string: artifactURLFlag) else {
+            throw Errors.missingFlag(self.op, "-artifact-url")
+        }
+
+        return try fetchArtifact(msg: msg, url: artifactURL, retryDuration: retryDurationFlag ?? 0, retryWait: retryWaitFlag)
+    }
+
     #if canImport(Compression)
     func fairseal(msg: MessageHandler) throws {
         msg(.info, "Fairseal")
@@ -1295,58 +1351,7 @@ public extension FairCLI {
             throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
         }
 
-        func fetchArtifact(_ artifactURL: URL, retryDuration: TimeInterval, retryWait: TimeInterval) throws -> URL {
-            let timeoutDate = Date().addingTimeInterval(retryDuration)
-            while true {
-                do {
-                    var request = URLRequest(url: artifactURL)
-                    request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-                    let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
-                    if let response = response as? HTTPURLResponse,
-                       (200..<300).contains(response.statusCode) { // e.g., 404
-                        msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
-                        return downloadedURL
-                    } else {
-                        msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                        if try Date() >= timeoutDate || backoff(error: nil) == false {
-                            throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
-                        }
-                    }
-                } catch {
-                    if try backoff(error: error) == false {
-                        throw error
-                    }
-                }
-            }
-
-            /// Backs off until the given timeout date
-            @discardableResult func backoff(error: Error?) throws -> Bool {
-                // we we are timed out, or if we don't want to retry, then simply re-download
-                if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
-                    return false
-                } else {
-                    msg(.info, "retrying download in \(retryWait) seconds due to error:", error)
-                    Thread.sleep(forTimeInterval: retryWait)
-                    return true
-                }
-            }
-        }
-
-        func fetchUntrustedArtifact() throws -> URL {
-            // if we specified the artifact as a local file, just use it directly
-            if let untrustedArtifactFlag = untrustedArtifactFlag {
-                return URL(fileURLWithPath: untrustedArtifactFlag)
-            }
-
-            guard let artifactURLFlag = self.artifactURLFlag,
-                let artifactURL = URL(string: artifactURLFlag) else {
-                throw Errors.missingFlag(self.op, "-artifact-url")
-            }
-
-            return try fetchArtifact(artifactURL, retryDuration: retryDurationFlag ?? 0, retryWait: retryWaitFlag)
-        }
-
-        let untrustedArtifactLocalURL = try fetchUntrustedArtifact()
+        let untrustedArtifactLocalURL = try fetchUntrustedArtifact(msg: msg)
 
         guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
             throw AppError("Error opening untrusted archive: \(untrustedArtifactLocalURL.absoluteString)")
@@ -1367,15 +1372,21 @@ public extension FairCLI {
             $0.path.split(separator: "/")
                 .drop(while: { $0 == "Payload" }) // .ipa archives store Payload/App Name.app/Info.plist
                 .first
-
         }))
-
 
         guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
             throw AppError("Invalid root path in archive: \(rootPaths)")
         }
 
         let appName = rootPath.dropLast(Self.appSuffix.count)
+
+        let macOSExecutable = "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+        let macOSInfo = "\(appName).app/Contents/Info.plist" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+
+        let iOSExecutable = "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+        let iOSInfo = "Payload/\(appName).app/Info.plist"
+
+        var infoHash: String? = nil
 
         var coreSize = 0 // the size of the executable itself
 
@@ -1384,12 +1395,19 @@ public extension FairCLI {
                 throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
             }
 
-            let entryIsAppBinary =
-                trustedEntry.path == "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
-                || trustedEntry.path == "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+            let entryIsAppBinary = trustedEntry.path == macOSExecutable || trustedEntry.path == iOSExecutable
+            let entryIsInfo = trustedEntry.path == macOSInfo || trustedEntry.path == iOSInfo
 
             if entryIsAppBinary {
                 coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
+            }
+
+            if entryIsInfo {
+                let trustedInfo = try trustedArchive.extractData(from: trustedEntry)
+                // the published plist is converted from the binary format to XML in the workflow – we do the same her to get a consistent checksum
+                let plist = try PropertyListSerialization.propertyList(from: trustedInfo, options: [], format: nil)
+                let xml = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
+                infoHash = xml.sha256().hex()
             }
 
             if trustedEntry.checksum == untrustedEntry.checksum {
@@ -1435,11 +1453,8 @@ public extension FairCLI {
                 throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
             }
 
-            var trustedPayload = Data()
-            let _ = try trustedArchive.extract(trustedEntry) { trustedPayload = $0 }
-
-            var untrustedPayload = Data()
-            let _ = try untrustedArchive.extract(untrustedEntry) { untrustedPayload = $0 }
+            let trustedPayload = try trustedArchive.extractData(from: trustedEntry)
+            let untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
 
             if trustedPayload != untrustedPayload {
                 let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
@@ -1493,20 +1508,28 @@ public extension FairCLI {
         msg(.info, "entitlements:", entitlements)
         let permissions: UInt64 = AppEntitlement.bitsetRepresentation(for: entitlements)
 
-        var fairseal = FairHub.FairSeal(url: trustedArtifactURL, sha256: sha256.hex(), permissions: permissions, coreSize: coreSize, tint: nil)
+        var assets: [FairSeal.Asset] = []
+
+        // publish the hash for the artifact binary URL
+        if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
+            assets.append(FairSeal.Asset(url: artifactURL, sha256: sha256.hex()))
+        }
+
+        // publish the hash for the plist metadata
+        if let infoHash = infoHash, let infoURLFlag = self.infoURLFlag, let infoURL = URL(string: infoURLFlag) {
+            assets.append(FairSeal.Asset(url: infoURL, sha256: infoHash))
+        }
+
+        let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: coreSize, tint: nil)
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
         //try writeOutput(fairseal.debugJSON) // save the file
 
         // if we specify a hub, then attempt to post the fairseal to the first open PR for thay project
-        if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
-            // assign the remote artifact as the reference URL
-            fairseal.url = artifactURL
-            msg(.info, "posting fairseal for artifact:", artifactURL.absoluteString, "JSON:", fairseal.debugJSON)
-            if let postURL = try fairHub().postFairseal(fairseal) {
-                msg(.info, "posted fairseal to:", postURL.absoluteString)
-            } else {
-                msg(.warn, "unable to post fairseal")
-            }
+        msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
+        if let postURL = try fairHub().postFairseal(fairseal) {
+            msg(.info, "posted fairseal to:", postURL.absoluteString)
+        } else {
+            msg(.warn, "unable to post fairseal")
         }
     }
     #endif

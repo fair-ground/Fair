@@ -622,7 +622,6 @@ extension ZipArchive.EndOfCentralDirectoryRecord {
     }
 }
 
-
 extension ZipArchive {
     /// The number of the work units that have to be performed when
     /// removing `entry` from the receiver.
@@ -765,6 +764,57 @@ extension ZipArchive {
 }
 
 extension ZipArchive {
+    /// Extracts the given entry's data
+    public func extractData(from entry: ZipArchive.Entry) throws -> Data {
+        var data = Data()
+        let _ = try extract(entry) { data = $0 }
+        return data
+    }
+
+    /// Read a ZIP `Entry` from the receiver and forward its contents to a `Consumer` closure.
+    ///
+    /// - Parameters:
+    ///   - entry: The ZIP `Entry` to read.
+    ///   - bufferSize: The maximum size of the read buffer and the decompression buffer (if needed).
+    ///   - skipCRC32: Optional flag to skip calculation of the CRC32 checksum to improve performance.
+    ///   - progress: A progress object that can be used to track or cancel the extract operation.
+    ///   - consumer: A closure that consumes contents of `Entry` as `Data` chunks.
+    /// - Returns: The checksum of the processed content or 0 if the `skipCRC32` flag was set to `true`..
+    /// - Throws: An error if the destination file cannot be written or the entry contains malformed content.
+    public func extract(_ entry: Entry, bufferSize: UInt32 = defaultReadChunkSize, skipCRC32: Bool = false,
+                        progress: Progress? = nil, consumer: Consumer) throws -> CRC32 {
+        guard bufferSize > 0 else {
+            throw ZipArchiveError.invalidBufferSize
+        }
+        var checksum = CRC32(0)
+        let localFileHeader = entry.localFileHeader
+        fseek(self.archiveFile, entry.dataOffset, SEEK_SET)
+        progress?.totalUnitCount = self.totalUnitCountForReading(entry)
+        switch entry.type {
+        case .file:
+            guard let compressionMethod = CompressionMethod(rawValue: localFileHeader.compressionMethod) else {
+                throw ZipArchiveError.invalidCompressionMethod
+            }
+            switch compressionMethod {
+            case .none: checksum = try self.readUncompressed(entry: entry, bufferSize: bufferSize,
+                                                             skipCRC32: skipCRC32, progress: progress, with: consumer)
+            case .deflate: checksum = try self.readCompressed(entry: entry, bufferSize: bufferSize,
+                                                              skipCRC32: skipCRC32, progress: progress, with: consumer)
+            }
+        case .directory:
+            try consumer(Data())
+            progress?.completedUnitCount = self.totalUnitCountForReading(entry)
+        case .symlink:
+            let localFileHeader = entry.localFileHeader
+            let size = Int(localFileHeader.compressedSize)
+            let data = try Data.readChunk(of: size, from: self.archiveFile)
+            checksum = data.crc32(checksum: 0)
+            try consumer(data)
+            progress?.completedUnitCount = self.totalUnitCountForReading(entry)
+        }
+        return checksum
+    }
+
     /// Read a ZIP `Entry` from the receiver and write it to `url`.
     ///
     /// - Parameters:
@@ -819,51 +869,6 @@ extension ZipArchive {
         return checksum
     }
 
-    /// Read a ZIP `Entry` from the receiver and forward its contents to a `Consumer` closure.
-    ///
-    /// - Parameters:
-    ///   - entry: The ZIP `Entry` to read.
-    ///   - bufferSize: The maximum size of the read buffer and the decompression buffer (if needed).
-    ///   - skipCRC32: Optional flag to skip calculation of the CRC32 checksum to improve performance.
-    ///   - progress: A progress object that can be used to track or cancel the extract operation.
-    ///   - consumer: A closure that consumes contents of `Entry` as `Data` chunks.
-    /// - Returns: The checksum of the processed content or 0 if the `skipCRC32` flag was set to `true`..
-    /// - Throws: An error if the destination file cannot be written or the entry contains malformed content.
-    public func extract(_ entry: Entry, bufferSize: UInt32 = defaultReadChunkSize, skipCRC32: Bool = false,
-                        progress: Progress? = nil, consumer: Consumer) throws -> CRC32 {
-        guard bufferSize > 0 else {
-            throw ZipArchiveError.invalidBufferSize
-        }
-        var checksum = CRC32(0)
-        let localFileHeader = entry.localFileHeader
-        fseek(self.archiveFile, entry.dataOffset, SEEK_SET)
-        progress?.totalUnitCount = self.totalUnitCountForReading(entry)
-        switch entry.type {
-        case .file:
-            guard let compressionMethod = CompressionMethod(rawValue: localFileHeader.compressionMethod) else {
-                throw ZipArchiveError.invalidCompressionMethod
-            }
-            switch compressionMethod {
-            case .none: checksum = try self.readUncompressed(entry: entry, bufferSize: bufferSize,
-                                                             skipCRC32: skipCRC32, progress: progress, with: consumer)
-            case .deflate: checksum = try self.readCompressed(entry: entry, bufferSize: bufferSize,
-                                                              skipCRC32: skipCRC32, progress: progress, with: consumer)
-            }
-        case .directory:
-            try consumer(Data())
-            progress?.completedUnitCount = self.totalUnitCountForReading(entry)
-        case .symlink:
-            let localFileHeader = entry.localFileHeader
-            let size = Int(localFileHeader.compressedSize)
-            let data = try Data.readChunk(of: size, from: self.archiveFile)
-            checksum = data.crc32(checksum: 0)
-            try consumer(data)
-            progress?.completedUnitCount = self.totalUnitCountForReading(entry)
-        }
-        return checksum
-    }
-
-    // MARK: - Helpers
     private func readUncompressed(entry: Entry, bufferSize: UInt32, skipCRC32: Bool,
                                   progress: Progress? = nil, with consumer: Consumer) throws -> CRC32 {
         let size = Int(entry.centralDirectoryStructure.uncompressedSize)

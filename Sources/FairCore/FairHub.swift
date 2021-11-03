@@ -233,15 +233,19 @@ public extension FairHub {
                         continue
                     }
 
+                    var seal: FairSeal? = nil
+
                     // scan the comments for the base ref for the matching url seal
-                    var urlSeals: [URL: FairSeal] = [:]
+                    var urlSeals: [URL: Set<String>] = [:]
                     let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
                     for comment in comments.joined() {
                         //dbg("checking comment body:", comment.bodyText)
                         if comment.author.login == fairsealIssuer {
                             do {
-                                let seal = try FairSeal(json: comment.bodyText.utf8Data)
-                                urlSeals[seal.url] = seal
+                                seal = try FairSeal(json: comment.bodyText.utf8Data)
+                                for asset in seal?.assets ?? [] {
+                                    urlSeals[asset.url, default: []].insert(asset.sha256)
+                                }
                             } catch {
                                 // comments can be anything, so we tolerate failures
                                 dbg("error parsing seal:", error)
@@ -250,20 +254,19 @@ public extension FairHub {
                     }
 
                     let url = appArtifact.downloadUrl
-                    let fairseal = urlSeals[url]
+                    let checksums = urlSeals[url]
                     //dbg("urlSeals:", urlSeals)
-                    dbg("checking url:", url.absoluteString, "fairseal:", fairseal ?? "none")
+                    dbg("checking url:", url.absoluteString, "fairseal:", checksums)
 
-                    if fairseal == nil {
+                    if checksums?.isEmpty != false {
                         continue
                     }
 
-                    let tintColor: String? = fairseal?.tint
                     let downloadCount = appArtifact.downloadCount
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: fairseal?.coreSize, sha256: fairseal?.sha256, permissions: fairseal?.permissions)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: checksums?.first, permissions: seal?.permissions)
                     apps.append(app)
                     fairsealFound = true
                 }
@@ -386,7 +389,7 @@ public extension FairHub {
     }
 
     /// Posts the fairseal to the most recent open PR that matches the download URL's appOrg
-    func postFairseal(_ fairseal: FairHub.FairSeal, owner: String = appfairName, name: String = "App") throws -> URL? {
+    func postFairseal(_ fairseal: FairSeal, owner: String = appfairName, name: String = "App") throws -> URL? {
         guard let appOrg = fairseal.appOrg else {
             dbg("no app org for seal:", fairseal)
             return nil
@@ -408,10 +411,10 @@ public extension FairHub {
             return nil
         }
 
-        let postResponse = try self.requestSync(FairHub.PostCommentMutation(id: appPR.id, comment: fairseal.debugJSON)).get()
+        let postResponse = try self.requestSync(FairHub.PostCommentQuery(id: appPR.id, comment: fairseal.debugJSON)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
 
-        dbg("posted fairseal for:", fairseal.url.absoluteString, "to:", sealCommentURL.absoluteString)
+        dbg("posted fairseal for:", fairseal.assets.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)
 
         return sealCommentURL
     }
@@ -480,40 +483,6 @@ public extension FairHub {
         }
     }
 
-    /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
-    /// and other build-time information
-    struct FairSeal : Pure {
-        public enum Version : Int, Pure, CaseIterable {
-            case v1 = 1
-        }
-
-        /// The version of the fairseal JSON
-        public private(set) var fairsealVersion: Version?
-        /// The sha256 checksum of the binary artifact
-        public var sha256: String
-        /// The bitset of the permissions options
-        public var permissions: UInt64
-        /// The size of the artifact's executable binary
-        public var coreSize: Int?
-        /// The tint color as an RGBA hex string
-        public var tint: String?
-        /// The URL to download the binary artifact
-        public var url: URL
-
-        public init(url: URL, sha256: String, permissions: UInt64, coreSize: Int?, tint: String?) {
-            self.url = url
-            self.sha256 = sha256
-            self.permissions = permissions
-            self.coreSize = coreSize
-            self.tint = tint
-            self.fairsealVersion = Version.allCases.last
-        }
-
-        /// The app org associated with this seal; this will be the first component of the URL's path
-        public var appOrg: String? {
-            url.path.split(separator: "/").first?.description
-        }
-    }
 
     struct AppBuildVersion : Pure {
         public var build: UInt
@@ -599,6 +568,50 @@ public extension FairHub {
         public var appNameWithHyphen: String {
             login // .replacingOccurrences(of: " ", with: "-")
         }
+    }
+}
+
+/// The seal of the given URL, summarizing its cryptographic hash, entitlements,
+/// and other build-time information
+public struct FairSeal : Pure {
+    public enum Version : Int, Pure, CaseIterable {
+        case v1 = 1
+    }
+
+    /// The version of the fairseal JSON
+    public private(set) var fairsealVersion: Version?
+    /// The bitset of the permissions options
+    public var permissions: UInt64
+    /// The size of the artifact's executable binary
+    public var coreSize: Int?
+    /// The tint color as an RGBA hex string
+    public var tint: String?
+    /// The sealed assets
+    public var assets: [Asset]
+
+    public struct Asset : Pure {
+        /// The asset's URL
+        public var url: URL
+        /// The validated sha256 checksum for the asset contents
+        public var sha256: String
+
+        public init(url: URL, sha256: String) {
+            self.url = url
+            self.sha256 = sha256
+        }
+    }
+
+    public init(assets: [Asset], permissions: UInt64, coreSize: Int?, tint: String?) {
+        self.assets = assets
+        self.permissions = permissions
+        self.coreSize = coreSize
+        self.tint = tint
+        self.fairsealVersion = Version.allCases.last
+    }
+
+    /// The app org associated with this seal; this will be the first component of the first URL's path
+    public var appOrg: String? {
+        assets.first?.url.path.split(separator: "/").first?.description
     }
 }
 
@@ -1274,7 +1287,7 @@ public extension FairHub {
         }
     }
 
-    struct PostCommentMutation : GraphQLAPIRequest {
+    struct PostCommentQuery : GraphQLAPIRequest {
         let mutationName: String = "AddComment"
         /// The issue or pull request ID
         let id: OID
