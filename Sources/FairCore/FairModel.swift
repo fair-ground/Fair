@@ -26,30 +26,30 @@ public struct FairAppCatalog : Pure {
     /// The apps that are currently available
     public var apps: [AppCatalogItem]
     /// Any news items for the catalog
-    public var news: [NewsPost]?
+    public var news: [AppNewsPost]?
+}
 
-    public struct NewsPost : Pure {
-        /// A unique identifer for the news posting
-        public var identifier: String
-        /// The date of the news
-        public var date: Date
-        /// The title for the news
-        public var title: String
-        /// A news caption
-        public var caption: String
-        /// Whether the news item should trigger a notification by default
-        public var notify: Bool?
-        /// The tint color for the news item
-        public var tintColor: String?
-        /// A URL with more details
-        public var url: URL?
-        /// An image summarizing the news item
-        public var imageURL: URL?
-        /// An app-id to which the news item refers
-        public var appID: String?
-        /// The source identifier
-        public var sourceIdentifier: String?
-    }
+public struct AppNewsPost : Pure {
+    /// A unique identifer for the news posting
+    public var identifier: String
+    /// The date of the news
+    public var date: Date
+    /// The title for the news
+    public var title: String
+    /// A news caption
+    public var caption: String
+    /// Whether the news item should trigger a notification by default
+    public var notify: Bool?
+    /// The tint color for the news item
+    public var tintColor: String?
+    /// A URL with more details
+    public var url: URL?
+    /// An image summarizing the news item
+    public var imageURL: URL?
+    /// An app-id to which the news item refers
+    public var appID: String?
+    /// The source identifier
+    public var sourceIdentifier: String?
 }
 
 public struct AppCatalogItem : Pure {

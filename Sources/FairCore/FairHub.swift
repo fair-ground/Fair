@@ -294,7 +294,7 @@ public extension FairHub {
             }
         }
 
-        let news: [FairAppCatalog.NewsPost]? = nil
+        let news: [AppNewsPost]? = nil
 
         // in order to minimize catalog changes, always sort by the bundle name
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
