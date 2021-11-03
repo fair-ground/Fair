@@ -126,6 +126,18 @@ public struct AppVersion : Pure, Comparable {
     }
 }
 
+/// A permission is a specific entitlement coupled with a description of its usage
+public struct AppPermission : Pure {
+    /// The type of the permission, which maps to an entitement key
+    public var type: AppEntitlement
+    /// A description of the reason for needing the permission
+    public var usageDescription: String
+
+    public init(type: AppEntitlement, usageDescription: String) {
+        self.type = type
+        self.usageDescription = usageDescription
+    }
+}
 
 public enum AppEntitlement : String, Pure, CaseIterable {
     // MARK: Essentials

@@ -91,24 +91,13 @@ public final class Plist : RawRepresentable {
 
     /// Attempts to parse the given data as a property list
     /// - Parameters:
-    ///   - plistURL: the data to parse
+    ///   - data: the property list data to parse
     ///   - format: the format the data is expected to be in, or nil if empty
-    public convenience init(propertyListURL: URL) throws {
-        let data = try Data(contentsOf: propertyListURL)
+    public convenience init(data: Data) throws {
         guard let props = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? NSDictionary else {
-            throw Errors.invalidPlist(propertyListURL)
+            throw AppError("Invalid property list")
         }
         self.init(rawValue: props)
-    }
-
-    enum Errors : LocalizedError {
-        case invalidPlist(URL)
-
-        public var errorDescription: String? {
-            switch self {
-            case .invalidPlist(let url): return "Invalud plist at \(url.path)"
-            }
-        }
     }
 }
 
@@ -827,7 +816,7 @@ public extension FairCLI {
 
     /// Loads the given data as a Property List
     static func parsePlist(url: URL) throws -> Plist {
-        try Plist(propertyListURL: url)
+        try Plist(data: Data(contentsOf: url))
     }
 
     func validate(msg: MessageHandler) throws {
@@ -889,17 +878,17 @@ public extension FairCLI {
         let appOrgName = !isFork ? "App-Name" : orgName
 
         // 1. Check Info.plist
-        let app_plist: Plist
+        let infoProperties: Plist
         do {
             let path = "Info.plist"
             msg(.debug, "comparing metadata:", path)
-            let app_plist_url = projectPathURL(path: path)
-            let plist_dict = try Self.parsePlist(url: app_plist_url)
+            let infoPlistURL = projectPathURL(path: path)
+            let plist_dict = try Self.parsePlist(url: infoPlistURL)
 
-            app_plist = plist_dict
+            infoProperties = plist_dict
 
             func checkStr(key: InfoPlistKey, in strings: [String]) throws {
-                try check(plist_dict, key: key.plistKey, in: strings, url: app_plist_url)
+                try check(plist_dict, key: key.plistKey, in: strings, url: infoPlistURL)
             }
 
             // check that the Info.plist contains the correct values for certain keys
@@ -924,7 +913,7 @@ public extension FairCLI {
                 throw Errors.invalidIntegrationTitle(expectedIntegrationTitle, appID)
             }
 
-            let buildVersion = try FairHub.AppBuildVersion(plistURL: app_plist_url)
+            let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
             msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
         }
 
@@ -933,7 +922,7 @@ public extension FairCLI {
             let path = "Sandbox.entitlements"
             msg(.debug, "comparing entitlements:", path)
             let entitlementsURL = projectPathURL(path: path)
-            try checkEntitlements(entitlementsURL: entitlementsURL, app_plist: app_plist)
+            try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
         }
 
         // 3. Check LICENSE.txt
@@ -1016,9 +1005,10 @@ public extension FairCLI {
         }
     }
 
+    /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
     @discardableResult
-    func checkEntitlements(entitlementsURL: URL, app_plist: Plist?) throws -> Set<AppEntitlement> {
-        let entitlements_dict = try Plist(propertyListURL: entitlementsURL)
+    func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppPermission> {
+        let entitlements_dict = try Plist(data: Data(contentsOf: entitlementsURL))
 
         if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
             // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
@@ -1027,45 +1017,44 @@ public extension FairCLI {
             }
         }
 
+        var permissions: [AppPermission] = []
+
         // Check that the given entitlement is permitted, and that entitlements that require a usage description are specified in the app's Info.plist `FairUsage` dictionary
-        func check(_ entitlement: AppEntitlement) throws -> Any? {
-            let entitlementValue = entitlements_dict.rawValue[entitlement.entitlementKey]
-            let value = entitlementValue as? NSNumber
-            if value == nil || value == false {
-                // TODO: check for the various string array entitlents, like `application-groups` or `scripting-targets`
-                return entitlementValue // false entitlements are always permitted
+        func check(_ entitlement: AppEntitlement) throws -> (usage: String, value: Any)? {
+            guard let entitlementValue = entitlements_dict.rawValue[entitlement.entitlementKey] else {
+                return nil // no entitlement set
             }
 
-            if let props = entitlement.usageDescriptionProperties,
-                !props.isEmpty,
-                let app_plist = app_plist {
-                guard let usageDescription = props.compactMap({
-                    // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
-                    app_plist.FairUsage?[$0] as? String
-
-                    // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
-                    // app_plist[$0] as? String
-                }).first else {
-                    throw Errors.missingUsageDescription(entitlement)
-                }
-
-                if usageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    throw Errors.missingUsageDescription(entitlement)
-                }
+            if (entitlementValue as? NSNumber) == false {
+                return nil // false entitlements are treated as unset
             }
 
-            return entitlementValue
+            guard let props = entitlement.usageDescriptionProperties,
+                  !props.isEmpty,
+                  let usageDescription = props.compactMap({
+                // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
+                infoProperties.FairUsage?[$0] as? String
+
+                // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
+                // ?? infoProperties[$0] as? String
+            }).first else {
+                throw Errors.missingUsageDescription(entitlement)
+            }
+
+            if usageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                throw Errors.missingUsageDescription(entitlement)
+            }
+
+            return (usageDescription, entitlementValue)
         }
 
-        var entitlements: Set<AppEntitlement> = []
         for entitlement in AppEntitlement.allCases {
-            let entitlementSetting = try check(entitlement)
-            if entitlementSetting != nil && (entitlementSetting as? Bool) != false {
-                entitlements.insert(entitlement)
+            if let (usage, _) = try check(entitlement) {
+                permissions.append(AppPermission(type: entitlement, usageDescription: usage))
             }
         }
 
-        return entitlements
+        return permissions
     }
 
     func validateCommit(ref: String, hub: FairHub, msg: MessageHandler) throws {
@@ -1386,7 +1375,7 @@ public extension FairCLI {
         let iOSExecutable = "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
         let iOSInfo = "Payload/\(appName).app/Info.plist"
 
-        var infoHash: String? = nil
+        var infoPlist: Plist? = nil
 
         var coreSize = 0 // the size of the executable itself
 
@@ -1403,11 +1392,8 @@ public extension FairCLI {
             }
 
             if entryIsInfo {
-                let trustedInfo = try trustedArchive.extractData(from: trustedEntry)
-                // the published plist is converted from the binary format to XML in the workflow – we do the same here to produce a consistent hash
-                let plist = try PropertyListSerialization.propertyList(from: trustedInfo, options: [], format: nil)
-                let xml = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
-                infoHash = xml.sha256().hex()
+                // parse the compiled Info.plist for processing
+                infoPlist = try Plist(data: trustedArchive.extractData(from: trustedEntry))
             }
 
             if trustedEntry.checksum == untrustedEntry.checksum {
@@ -1504,9 +1490,6 @@ public extension FairCLI {
         let sha256 = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256()
         let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
 
-        let entitlements = try checkEntitlements(entitlementsURL: entitlementsURL, app_plist: nil)
-        msg(.info, "entitlements:", entitlements)
-        let permissions: UInt64 = AppEntitlement.bitsetRepresentation(for: entitlements)
 
         var assets: [FairSeal.Asset] = []
 
@@ -1515,8 +1498,17 @@ public extension FairCLI {
             assets.append(FairSeal.Asset(url: artifactURL, sha256: sha256.hex()))
         }
 
+        guard let plist = infoPlist else {
+            throw AppError("Missing property list")
+        }
+
+        let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
+        msg(.info, "permissions:", permissions)
+
         // publish the hash for the plist metadata
-        if let infoHash = infoHash, let infoURLFlag = self.infoURLFlag, let infoURL = URL(string: infoURLFlag) {
+        if let infoURLFlag = self.infoURLFlag, let infoURL = URL(string: infoURLFlag) {
+            // the hash is the XML serialization of the property list, which we expect to be published as a release asset
+            let infoHash = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0).sha256().hex()
             assets.append(FairSeal.Asset(url: infoURL, sha256: infoHash))
         }
 

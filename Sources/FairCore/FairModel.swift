@@ -105,7 +105,7 @@ public struct AppCatalogItem : Pure {
     public var sha256: String?
 
     /// The summary of the entitlements that are enabled for this app
-    public var permissions: UInt64?
+    public var permissions: [AppPermission]?
 
     /// The URL for the app's metadata
     public var metadataURL: URL?
@@ -113,18 +113,7 @@ public struct AppCatalogItem : Pure {
     /// The SHA256 checksum of the validated metadata
     public var sha256Metadata: String?
 
-    /// The entitlements for this app, as calculated by the bitset in `permissions`
-    public var entitlements: Set<AppEntitlement> {
-        get {
-            permissions.flatMap(AppEntitlement.fromBitsetRepresentation(from:)) ?? []
-        }
-
-        set {
-            self.permissions = newValue.isEmpty ? nil : AppEntitlement.bitsetRepresentation(for: newValue)
-        }
-    }
-
-    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: UInt64?, metadataURL: URL?, sha256Metadata: String?) {
+    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, sha256Metadata: String?) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle

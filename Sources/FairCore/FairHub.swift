@@ -593,8 +593,8 @@ public struct FairSeal : Pure {
 
     /// The version of the fairseal JSON
     public private(set) var fairsealVersion: Version?
-    /// The bitset of the permissions options
-    public var permissions: UInt64
+    /// The permission for this app
+    public var permissions: [AppPermission]
     /// The size of the artifact's executable binary
     public var coreSize: Int?
     /// The tint color as an RGBA hex string
@@ -614,7 +614,7 @@ public struct FairSeal : Pure {
         }
     }
 
-    public init(assets: [Asset], permissions: UInt64, coreSize: Int?, tint: String?) {
+    public init(assets: [Asset], permissions: [AppPermission], coreSize: Int?, tint: String?) {
         self.assets = assets
         self.permissions = permissions
         self.coreSize = coreSize
