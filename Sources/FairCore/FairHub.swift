@@ -230,6 +230,17 @@ public extension FairHub {
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(artifactType)
                     }) else {
+                        dbg("missing app artifact from release")
+                        continue
+                    }
+
+                    // convert "Cloud-Cuckoo-macOS.zip" into "Cloud-Cuckoo-macOS.plist"
+                    let metadataFileName = appArtifact.downloadUrl.deletingPathExtension().appendingPathExtension("plist")
+
+                    guard let appMetadata = release.releaseAssets.nodes.first(where: { node in
+                        node.name.hasSuffix(metadataFileName.lastPathComponent)
+                    }) else {
+                        dbg("missing app artifact from release")
                         continue
                     }
 
@@ -238,27 +249,29 @@ public extension FairHub {
                     // scan the comments for the base ref for the matching url seal
                     var urlSeals: [URL: Set<String>] = [:]
                     let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
-                    for comment in comments.joined() {
-                        //dbg("checking comment body:", comment.bodyText)
-                        if comment.author.login == fairsealIssuer {
-                            do {
-                                seal = try FairSeal(json: comment.bodyText.utf8Data)
-                                for asset in seal?.assets ?? [] {
-                                    urlSeals[asset.url, default: []].insert(asset.sha256)
-                                }
-                            } catch {
-                                // comments can be anything, so we tolerate failures
-                                dbg("error parsing seal:", error)
+                    let fairsealComments = comments.joined().filter({ $0.author.login == fairsealIssuer })
+                    for comment in fairsealComments {
+                        do {
+                            seal = try FairSeal(json: comment.bodyText.utf8Data)
+                            for asset in seal?.assets ?? [] {
+                                urlSeals[asset.url, default: []].insert(asset.sha256)
                             }
+                        } catch {
+                            // comments can be anything, so tolerate JSON decoding failures
+                            dbg("error parsing seal:", error)
                         }
                     }
 
-                    let url = appArtifact.downloadUrl
-                    let checksums = urlSeals[url]
-                    //dbg("urlSeals:", urlSeals)
-                    dbg("checking url:", url.absoluteString, "fairseal:", checksums)
+                    let artifactURL = appArtifact.downloadUrl
+                    guard let artifactChecksum = urlSeals[artifactURL]?.first else {
+                        dbg("missing checksum for artifact url:", artifactURL.absoluteString)
+                        continue
+                    }
+                    dbg("checking artifact url:", artifactURL.absoluteString, "fairseal:", artifactChecksum)
 
-                    if checksums?.isEmpty != false {
+                    let metadataURL = appMetadata.downloadUrl
+                    guard let metadataChecksum = urlSeals[metadataURL]?.first else {
+                        dbg("missing checksum for metadata url:", metadataURL.absoluteString)
                         continue
                     }
 
@@ -266,7 +279,7 @@ public extension FairHub {
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: url, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: checksums?.first, permissions: seal?.permissions)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL, sha256Metadata: metadataChecksum)
                     apps.append(app)
                     fairsealFound = true
                 }

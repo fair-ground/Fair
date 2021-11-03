@@ -53,33 +53,6 @@ public struct FairAppCatalog : Pure {
 }
 
 public struct AppCatalogItem : Pure {
-    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: UInt64?) {
-        self.name = name
-        self.bundleIdentifier = bundleIdentifier
-        self.subtitle = subtitle
-        self.developerName = developerName
-        self.localizedDescription = localizedDescription
-        self.size = size
-        self.version = version
-        self.versionDate = versionDate
-        self.downloadURL = downloadURL
-        self.iconURL = iconURL
-        self.screenshotURLs = screenshotURLs
-        self.versionDescription = versionDescription
-        self.tintColor = tintColor
-        self.beta = beta
-        self.sourceIdentifier = sourceIdentifier
-        self.categories = categories
-        self.downloadCount = downloadCount
-        self.starCount = starCount
-        self.watcherCount = watcherCount
-        self.issueCount = issueCount
-        self.sourceSize = sourceSize
-        self.coreSize = coreSize
-        self.sha256 = sha256
-        self.permissions = permissions
-    }
-
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
     /// The identifier for the all (e.g., "app.Cloud-Cuckoo")
@@ -134,6 +107,12 @@ public struct AppCatalogItem : Pure {
     /// The summary of the entitlements that are enabled for this app
     public var permissions: UInt64?
 
+    /// The URL for the app's metadata
+    public var metadataURL: URL?
+
+    /// The SHA256 checksum of the validated metadata
+    public var sha256Metadata: String?
+
     /// The entitlements for this app, as calculated by the bitset in `permissions`
     public var entitlements: Set<AppEntitlement> {
         get {
@@ -144,8 +123,36 @@ public struct AppCatalogItem : Pure {
             self.permissions = newValue.isEmpty ? nil : AppEntitlement.bitsetRepresentation(for: newValue)
         }
     }
-}
 
+    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: UInt64?, metadataURL: URL?, sha256Metadata: String?) {
+        self.name = name
+        self.bundleIdentifier = bundleIdentifier
+        self.subtitle = subtitle
+        self.developerName = developerName
+        self.localizedDescription = localizedDescription
+        self.size = size
+        self.version = version
+        self.versionDate = versionDate
+        self.downloadURL = downloadURL
+        self.iconURL = iconURL
+        self.screenshotURLs = screenshotURLs
+        self.versionDescription = versionDescription
+        self.tintColor = tintColor
+        self.beta = beta
+        self.sourceIdentifier = sourceIdentifier
+        self.categories = categories
+        self.downloadCount = downloadCount
+        self.starCount = starCount
+        self.watcherCount = watcherCount
+        self.issueCount = issueCount
+        self.sourceSize = sourceSize
+        self.coreSize = coreSize
+        self.sha256 = sha256
+        self.permissions = permissions
+        self.metadataURL = metadataURL
+        self.sha256Metadata = sha256Metadata
+    }
+}
 
 public struct PackageManifest : Pure {
     public var name: String
