@@ -303,7 +303,68 @@ public extension URL {
     }
 }
 
+/// Performs the given block and, if an error occurs, enhances the error description with the given value.
+/// The string should be the name of the action that was being taken, and will be prefixed with "Error".
+///
+/// For example:
+///
+/// ```
+/// let data = try withErrorContext("opening URL: \(url.absoluteString)") { try Data(contentsOf: url) }
+/// ```
+public func withErrorContext<T>(_ info: @autoclosure () -> String, key: String = NSLocalizedFailureReasonErrorKey, block: () throws -> T) throws -> T {
+    do {
+        return try block()
+    } catch {
+        throw error.withInfo(for: key, "Error " + info(), prefix: true)
+    }
+}
 
+public extension Error {
+    /// Insert the given info into the user info dictionary key, pre-pending it to an existing message if it already exists.
+    /// Note that this will lose the existing error type and wrap it in an `NSError`.
+    func withInfo(for key: String, _ info: @autoclosure () -> String, prefix: Bool? = true) -> Error {
+        let nserr = (self as NSError)
+        var errorDic = nserr.userInfo
+
+        errorDic[key] = [
+            prefix == true ? info() : nil,
+            prefix == nil ? nil : errorDic[key] as? String,
+            prefix != true ? info() : nil,
+        ].compactMap({ $0 }).joined(separator: ". ")
+
+        let nserr2 = NSError(domain: nserr.domain, code: nserr.code, userInfo: errorDic)
+        return nserr2
+    }
+
+    func dumpError() {
+        var out = HandleStream(stream: .standardOutput)
+        dumpError(out: &out)
+    }
+
+    func dumpError<O: TextOutputStream>(out: inout O) {
+        print("Error:", self.localizedDescription, to: &out)
+        let localizedError = self as NSError // handles LocalizedError
+
+        if let errorDescription = localizedError.errorDescription,
+            errorDescription != localizedError.localizedDescription {
+            print("   Description:", errorDescription, to: &out)
+        }
+        if let failureReason = localizedError.localizedFailureReason {
+            print("   Reason:", failureReason, to: &out)
+        }
+        if let recoverySuggestion = localizedError.localizedRecoverySuggestion {
+            print("   Suggestion:", recoverySuggestion, to: &out)
+        }
+        if let helpAnchor = localizedError.helpAnchor {
+            print("   Help:", helpAnchor, to: &out)
+        }
+        print("Raw:", localizedError.debugDescription, to: &out)
+    }
+}
+
+extension NSError : LocalizedError {
+
+}
 /// `true` if assertions are enabled for the current build
 public let assertionsEnabled: Bool = {
     var enabled = false

@@ -767,7 +767,7 @@ extension ZipArchive {
     /// Extracts the given entry's data
     public func extractData(from entry: ZipArchive.Entry) throws -> Data {
         var data = Data()
-        let _ = try extract(entry) { data = $0 }
+        let _ = try extract(entry) { data.append($0) }
         return data
     }
 

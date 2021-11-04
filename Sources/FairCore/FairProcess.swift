@@ -15,6 +15,22 @@
 import Swift
 import Foundation
 
+
+/// A simple pass-through from `FileHandle` to `TextOutputStream`
+open class HandleStream: TextOutputStream {
+    public let stream: FileHandle
+
+    public init(stream: FileHandle) {
+        self.stream = stream
+    }
+
+    public func write(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            stream.write(data)
+        }
+    }
+}
+
 #if os(macOS)
 public extension Process {
     /// The output of `execute`

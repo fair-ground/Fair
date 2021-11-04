@@ -172,26 +172,9 @@ extension FairContainer {
             try launch(bundle: Bundle.module)
         } catch {
             // we don't want to re-throw the exception here, since it will cause a crash report when run from AppContainer.main
-            // TODO: nicer error formatting; resolution suggestions
-            print("Error:", error.localizedDescription)
-            if let error = error as? LocalizedError {
-                if let errorDescription = error.errorDescription, errorDescription != error.localizedDescription {
-                    print("   Description:", errorDescription)
-                }
-                if let failureReason = error.failureReason {
-                    print("   Reason:", failureReason)
-                }
-                if let helpAnchor = error.helpAnchor {
-                    print("   Help:", helpAnchor)
-                }
-                if let recoverySuggestion = error.recoverySuggestion {
-                    print("   Suggestion:", recoverySuggestion)
-                }
-            } else {
-                print("   Raw:", error)
-            }
+            error.dumpError()
 
-            // don't re-throw the error, since from the console this will result in:
+            // don't re-throw the error, since from the console since it can result in a confusing hardware fault message
             // throw error // re-throw
         }
     }
@@ -279,17 +262,6 @@ extension FairContainer {
                 dbg("Verify failed:", error.localizedDescription)
                 dbg("Break in verifyAppMain to debug")
             }
-        }
-    }
-}
-
-/// A simple pass-through from `FileHandle` to `TextOutputStream`
-struct HandleStream: TextOutputStream {
-    let stream: FileHandle
-
-    func write(_ string: String) {
-        if let data = string.data(using: .utf8) {
-            stream.write(data)
         }
     }
 }
@@ -479,7 +451,7 @@ extension SwiftUI.TextField {
 
 
 /// A generic error
-public struct AppError : Pure, LocalizedError {
+public struct AppError : LocalizedError {
     /// A localized message describing what error occurred.
     public let errorDescription: String?
 

@@ -100,6 +100,15 @@ public final class Plist : RawRepresentable {
         self.init(rawValue: props)
     }
 
+    public convenience init(url: URL) throws {
+        do {
+            let data = try Data(contentsOf: url)
+            try self.init(data: data)
+        } catch {
+            throw error.withInfo(for: NSLocalizedFailureReasonErrorKey, "Error loading from: \(url.absoluteString)")
+        }
+    }
+
     /// Serialize this property list to data
     public func serialize(as format: PropertyListSerialization.PropertyListFormat) throws -> Data {
         try PropertyListSerialization.data(fromPropertyList: rawValue, format: format, options: 0)
@@ -137,7 +146,7 @@ extension FairHub.AppBuildVersion {
     /// Extracts and validates the `CFBundleVersion` and `CFBundleShortVersionString`
     /// from the given `Info.plist` URL
     init(plistURL: URL) throws {
-        let plist_dict = try FairCLI.parsePlist(url: plistURL)
+        let plist_dict = try Plist(url: plistURL)
         // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
         let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
         guard let buildNumberValue = plist_dict.CFBundleVersion else {
@@ -819,11 +828,6 @@ public extension FairCLI {
         msg(.info, helpMsg)
     }
 
-    /// Loads the given data as a Property List
-    static func parsePlist(url: URL) throws -> Plist {
-        try Plist(data: Data(contentsOf: url))
-    }
-
     func validate(msg: MessageHandler) throws {
         msg(.info, "Validating project:", projectPathURL(path: "").path)
         //msg(.debug, "flags:", flags)
@@ -888,7 +892,7 @@ public extension FairCLI {
             let path = "Info.plist"
             msg(.debug, "comparing metadata:", path)
             let infoPlistURL = projectPathURL(path: path)
-            let plist_dict = try Self.parsePlist(url: infoPlistURL)
+            let plist_dict = try Plist(url: infoPlistURL)
 
             infoProperties = plist_dict
 
@@ -1013,7 +1017,7 @@ public extension FairCLI {
     /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
     @discardableResult
     func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppPermission> {
-        let entitlements_dict = try Plist(data: Data(contentsOf: entitlementsURL))
+        let entitlements_dict = try Plist(url: entitlementsURL)
 
         if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
             // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
@@ -1270,8 +1274,8 @@ public extension FairCLI {
 
     /// Perform update checks before copying the app into the destination
     private func validateUpdate(from sourceApp: URL, to destApp: URL) throws {
-        let sourceInfo = try Self.parsePlist(url: sourceApp.appendingPathComponent("Contents/Info.plist"))
-        let destInfo = try Self.parsePlist(url: destApp.appendingPathComponent("Contents/Info.plist"))
+        let sourceInfo = try Plist(url: sourceApp.appendingPathComponent("Contents/Info.plist"))
+        let destInfo = try Plist(url: destApp.appendingPathComponent("Contents/Info.plist"))
 
         guard let sourceBundleID = sourceInfo.CFBundleIdentifier else {
             throw Errors.noBundleID(sourceApp)
@@ -1406,7 +1410,9 @@ public extension FairCLI {
 
             if entryIsInfo {
                 // parse the compiled Info.plist for processing
-                infoPlist = try Plist(data: trustedArchive.extractData(from: trustedEntry))
+                infoPlist = try withErrorContext("parsing plist entry: \(trustedEntry.path)") {
+                    try Plist(data: trustedArchive.extractData(from: trustedEntry))
+                }
             }
 
             if trustedEntry.checksum == untrustedEntry.checksum {

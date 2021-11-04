@@ -17,18 +17,21 @@ import FairApp
 
 #if os(Linux)
 import func Glibc.exit
+let fairwell = Glibc.exit
 #elseif os(Windows)
 import func ucrt.exit
+let fairwell = ucrt.exit
 #elseif canImport(Darwin)
 import func Darwin.exit
+let fairwell = Darwin.exit
 #else
-func exit(_ code: Int) -> Never { }
+func fairwell(_ code: Int) -> Never { }
 #endif
 
 do {
     try FairCLI().runCLI()
 } catch {
     print("fairtool error: \(error.localizedDescription)")
-    debugPrint(error)
-    exit(1)
+    error.dumpError()
+    fairwell(1)
 }
