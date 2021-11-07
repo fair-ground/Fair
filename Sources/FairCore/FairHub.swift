@@ -223,10 +223,14 @@ public extension FairHub {
                 let beta: Bool? = release.isPrerelease
 
                 let sourceIdentifier: String? = nil
-                let screenshotURLs: [URL]? = [] // TODO: scan assets for screenshots
+
+                let screenshotURLs = release.releaseAssets.nodes.filter { node in
+                    node.name.hasPrefix("screen") && node.name.hasSuffix(".png")
+                }
+                .map(\.downloadUrl)
 
                 for artifactType in artifactExtensions {
-                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionDescription, "type:", artifactType)
+                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionDescription, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(artifactType)
                     }) else {
@@ -235,7 +239,9 @@ public extension FairHub {
                     }
 
                     // convert "Cloud-Cuckoo-macOS.zip" into "Cloud-Cuckoo-macOS.plist"
-                    let metadataFileName = appArtifact.downloadUrl.deletingPathExtension().appendingPathExtension("plist")
+                    let metadataFileName = appArtifact.downloadUrl
+                        .deletingLastPathComponent().appendingPathComponent("Info.plist")
+                        //.deletingPathExtension().appendingPathExtension("plist")
 
                     guard let appMetadata = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(metadataFileName.lastPathComponent)
