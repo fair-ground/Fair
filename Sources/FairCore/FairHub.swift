@@ -605,11 +605,14 @@ public struct FairSeal : Pure {
     public struct Asset : Pure {
         /// The asset's URL
         public var url: URL
+        /// The asset's size in bytes
+        public var size: Int
         /// The validated sha256 checksum for the asset contents
         public var sha256: String
 
-        public init(url: URL, sha256: String) {
+        public init(url: URL, size: Int, sha256: String) {
             self.url = url
+            self.size = size
             self.sha256 = sha256
         }
     }

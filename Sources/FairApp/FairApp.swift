@@ -398,9 +398,12 @@ extension SwiftUI.Text {
     public func label<V: View>(image: V? = nil) -> Label<Text, V?> {
         Label(title: { self }, icon: { image })
     }
+}
 
+@available(macOS 12.0, iOS 15.0, *)
+extension SwiftUI.View {
     /// Creates a `Link` to the given URL.
-    public func link(to destination: URL) -> Link<Text> {
+    public func link(to destination: URL) -> Link<Self> {
         Link(destination: destination) {
             self
         }
@@ -419,10 +422,7 @@ extension SwiftUI.Text {
             }
         }
     }
-}
 
-@available(macOS 12.0, iOS 15.0, *)
-extension SwiftUI.View {
     /// Creates a `Button` with the given `action`.
     public func button(action: @escaping () -> ()) -> Button<Self> {
         Button(action: action) {

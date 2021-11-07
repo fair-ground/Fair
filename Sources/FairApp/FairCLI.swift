@@ -243,6 +243,11 @@ public extension FairCLI {
         (flags["o"] ?? []) + (flags["-output"] ?? [])
     }
 
+    /// The flag for the `fairseal` command indicating the online resource for the artifact metadata
+    var artifactStagingFolders: [String] {
+        flags["-artifact-staging"] ?? []
+    }
+
     /// The flag for the artifact extensions to filter
     var artifactExtensionFlag: [String]? {
         flags["-artifact-extension"]
@@ -388,11 +393,6 @@ public extension FairCLI {
     /// The flag for the `fairseal` command indicating the online resource for the artifact that will be generated
     var artifactURLFlag: String? {
         flags["-artifact-url"]?.first
-    }
-
-    /// The flag for the `fairseal` command indicating the online resource for the artifact metadata
-    var infoURLFlag: String? {
-        flags["-info-url"]?.first
     }
 
     /// The flag for the `fairseal` command indicating the output folder for the casks
@@ -1514,7 +1514,22 @@ public extension FairCLI {
 
         // publish the hash for the artifact binary URL
         if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
-            assets.append(FairSeal.Asset(url: artifactURL, sha256: sha256.hex()))
+
+            // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
+            for stagingFolder in artifactStagingFolders {
+                for localURL in try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsSubdirectoryDescendants, .skipsSubdirectoryDescendants, .skipsPackageDescendants]) {
+                    guard let assetSize = try localURL.fileSize() else {
+                        continue
+                    }
+
+                    // the local hash of the asset URL
+                    let assetHash = try Data(contentsOf: localURL).sha256().hex()
+
+                    // the published asset URL is the name of the local path relative to the download URL for the artifact
+                    let assetURL = artifactURL.deletingLastPathComponent().appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
+                    assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
+                }
+            }
         }
 
         guard let plist = infoPlist else {
@@ -1524,13 +1539,6 @@ public extension FairCLI {
         let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
         for permission in permissions {
             msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
-        }
-
-        // publish the hash for the plist metadata
-        if let infoURLFlag = self.infoURLFlag, let infoURL = URL(string: infoURLFlag) {
-            // the hash is the XML serialization of the property list, which we expect to be published as a release asset
-            let infoHash = try plist.serialize(as: .xml).sha256().hex()
-            assets.append(FairSeal.Asset(url: infoURL, sha256: infoHash))
         }
 
         let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: coreSize, tint: nil)
