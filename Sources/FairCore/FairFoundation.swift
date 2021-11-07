@@ -54,6 +54,13 @@ public extension Result {
 }
 
 public extension Sequence {
+    /// Returns this sequence sorted by the given keypath of the element, either forwards (the default) or backwards.
+    @inlinable func sorting<T: Comparable>(by keyPath: KeyPath<Element, T>, forward: Bool = true) -> [Element] {
+        sorted(by: { forward ? ($0[keyPath: keyPath] < $1[keyPath: keyPath]) : ($0[keyPath: keyPath] > $1[keyPath: keyPath]) })
+    }
+}
+
+public extension Sequence {
     /// Wraps this sequence in a new `Array`
     @inlinable func array() -> Array<Element> {
         Array(self)
