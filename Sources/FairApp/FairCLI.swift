@@ -1505,11 +1505,6 @@ public extension FairCLI {
         }
 
         msg(.info, "finishing")
-
-        let sha256 = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256()
-        let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
-
-
         var assets: [FairSeal.Asset] = []
 
         // publish the hash for the artifact binary URL
@@ -1522,12 +1517,17 @@ public extension FairCLI {
                         continue
                     }
 
-                    // the local hash of the asset URL
-                    let assetHash = try Data(contentsOf: localURL).sha256().hex()
-
                     // the published asset URL is the name of the local path relative to the download URL for the artifact
                     let assetURL = artifactURL.deletingLastPathComponent().appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
-                    assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
+                    if assetURL.lastPathComponent == untrustedArtifactLocalURL.lastPathComponent {
+                        let assetHash = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256().hex()
+                        // the primary asset has special handing for the hash
+                        assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: untrustedArtifactSHA256))
+                    } else {
+                        let assetHash = try Data(contentsOf: localURL).sha256().hex()
+                        // all other artifacts are hashed directly from their local counterparts
+                        assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
+                    }
                 }
             }
         }
@@ -1536,6 +1536,7 @@ public extension FairCLI {
             throw AppError("Missing property list")
         }
 
+        let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
         let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
         for permission in permissions {
             msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
