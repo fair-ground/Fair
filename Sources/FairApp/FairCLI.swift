@@ -1497,9 +1497,9 @@ public extension FairCLI {
 
                     // the published asset URL is the name of the local path relative to the download URL for the artifact
                     let assetURL = artifactURL.deletingLastPathComponent().appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
-                    if assetURL.lastPathComponent == untrustedArtifactLocalURL.lastPathComponent {
-                        let assetHash = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256().hex()
-                        // the primary asset has special handing for the hash
+                    if assetURL.lastPathComponent == artifactURL.lastPathComponent {
+                        let assetHash = try Data(contentsOf: untrustedArtifactLocalURL).sha256().hex()
+                        // the primary asset uses the special hash handling
                         assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
                     } else {
                         let assetHash = try Data(contentsOf: localURL).sha256().hex()
