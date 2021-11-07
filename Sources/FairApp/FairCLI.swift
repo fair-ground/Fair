@@ -1522,7 +1522,7 @@ public extension FairCLI {
                     if assetURL.lastPathComponent == untrustedArtifactLocalURL.lastPathComponent {
                         let assetHash = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256().hex()
                         // the primary asset has special handing for the hash
-                        assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: untrustedArtifactSHA256))
+                        assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
                     } else {
                         let assetHash = try Data(contentsOf: localURL).sha256().hex()
                         // all other artifacts are hashed directly from their local counterparts
