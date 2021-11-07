@@ -1482,7 +1482,6 @@ public extension FairCLI {
             }
         }
 
-        msg(.info, "finishing")
         var assets: [FairSeal.Asset] = []
 
         // publish the hash for the artifact binary URL
@@ -1490,7 +1489,11 @@ public extension FairCLI {
 
             // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
             for stagingFolder in artifactStagingFolders {
-                for localURL in try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsSubdirectoryDescendants, .skipsSubdirectoryDescendants, .skipsPackageDescendants]).sorting(by: \.lastPathComponent) {
+                let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsSubdirectoryDescendants, .skipsSubdirectoryDescendants, .skipsPackageDescendants, .producesRelativePathURLs])
+                    .sorting(by: \.lastPathComponent)
+                msg(.info, "scanning assets:", artifactAssets.map(\.relativePath))
+
+                for localURL in artifactAssets {
                     guard let assetSize = try localURL.fileSize() else {
                         continue
                     }
@@ -1500,6 +1503,7 @@ public extension FairCLI {
                     if assetURL.lastPathComponent == artifactURL.lastPathComponent {
                         let assetHash = try Data(contentsOf: untrustedArtifactLocalURL).sha256().hex()
                         // the primary asset uses the special hash handling
+                        msg(.info, "hash for artifact:", assetURL.lastPathComponent, assetHash)
                         assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
                     } else {
                         let assetHash = try Data(contentsOf: localURL).sha256().hex()
