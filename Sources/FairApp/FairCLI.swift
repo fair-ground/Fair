@@ -1153,11 +1153,11 @@ public extension FairCLI {
             return (str1 + str2).utf8Data
         }
 
-        // copy the user's asset catalogs
+        // copy up the assets, sources, and other metadata
         try pull("Assets.xcassets")
-
         try pull("Sources")
         try pull("Tests")
+        try pull("Info.plist")
     }
 
     func unzip(from sourceURL: URL, to destURL: URL) throws {
