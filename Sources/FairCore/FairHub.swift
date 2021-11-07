@@ -252,7 +252,9 @@ public extension FairHub {
                     let fairsealComments = comments.joined().filter({ $0.author.login == fairsealIssuer })
                     for comment in fairsealComments {
                         do {
-                            seal = try FairSeal(json: comment.bodyText.utf8Data)
+                            let body = comment.bodyText
+                                .trimmed(CharacterSet(charactersIn: "`").union(.whitespacesAndNewlines))
+                            seal = try FairSeal(json: body.utf8Data)
                             for asset in seal?.assets ?? [] {
                                 urlSeals[asset.url, default: []].insert(asset.sha256)
                             }
@@ -424,7 +426,9 @@ public extension FairHub {
             return nil
         }
 
-        let postResponse = try self.requestSync(FairHub.PostCommentQuery(id: appPR.id, comment: fairseal.debugJSON)).get()
+        let sealJSON = try fairseal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
+        let sealComment = "```\n" + (sealJSON.utf8String ?? "") + "\n```"
+        let postResponse = try self.requestSync(FairHub.PostCommentQuery(id: appPR.id, comment: sealComment)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
 
         dbg("posted fairseal for:", fairseal.assets.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)

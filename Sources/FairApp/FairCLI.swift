@@ -328,11 +328,6 @@ public extension FairCLI {
             .filter { !$0.isEmpty }
     }
 
-    /// The flag for the folder into which the `merge` operation should write a version marker file
-    var versionMarkerDirFlag: String? {
-        flags["-version-marker-dir"]?.first
-    }
-
     /// The flag whether to force the current operation
     var forceFlag: Bool {
         Bool(flags["f"]?.first ?? flags["-force"]?.first ?? "false") ?? false
@@ -1163,23 +1158,6 @@ public extension FairCLI {
 
         try pull("Sources")
         try pull("Tests")
-
-        let plistURL = try pull("Info.plist")
-        let version = try FairHub.AppBuildVersion(plistURL: plistURL)
-
-        // create a version file if we have specified to do so;
-        // this will output a file like: staging/version-1.2.3-456
-        // this is used to communicate the version number to the catalog process
-        // by including it in the metadata as a release asset name
-        if let versionDir = versionMarkerDirFlag {
-            let filePath = URL(fileURLWithPath: version.versionMarker, relativeTo: URL(fileURLWithPath: versionDir, isDirectory: true))
-            // the file needs some content, so simply copy over the pre-processed Info.plist contents, which might be useful since the other plists that are included in the releases are the per-platform post-compiled lists
-            try FileManager.default.copyItem(at: plistURL, to: filePath)
-        }
-
-        // we do not use the PR's project files; only the base fork's project files will be used
-        // try pull(appName + ".xcodeproj")
-        // try pull(appName + ".xcworkspace")
     }
 
     func unzip(from sourceURL: URL, to destURL: URL) throws {
