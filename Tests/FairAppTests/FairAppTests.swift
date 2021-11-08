@@ -78,5 +78,151 @@ final class FairAppTests: XCTestCase {
     func testNameSuggestions() throws {
         print(try AppNameValidation.standard.suggestNames(count: 10))
     }
+
+    /// Ensure that all the variants of `Assets.xcassets/AccentColor.colorset/Contents.json` can be parsed into the same color value
+    func testColorParsing() throws {
+        let contentsSystemGreen = """
+{
+  "colors" : [
+    {
+      "color" : {
+        "platform" : "universal",
+        "reference" : "systemGreenColor"
+      },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
 }
+"""
+
+        let contentsFloatingPoint = """
+{
+  "colors" : [
+    {
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "0.351",
+          "green" : "0.782",
+          "red" : "0.206"
+        }
+      },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
+"""
+
+        let contents8BitInteger = """
+{
+  "colors" : [
+    {
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "89",
+          "green" : "199",
+          "red" : "52"
+        }
+      },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
+"""
+
+        let contents8BitHex = """
+{
+  "colors" : [
+    {
+      "color" : {
+        "color-space" : "srgb",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "0x59",
+          "green" : "0xC7",
+          "red" : "0x34"
+        }
+      },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
+"""
+
+        var colorValues: Array<String> = []
+
+        for contents in [
+            contentsSystemGreen,
+            contentsFloatingPoint,
+            contents8BitInteger,
+            contents8BitHex
+        ] {
+            let colorList = try AccentColorList(json: contents.utf8Data)
+            guard let colorValue = colorList.firstRGBHex else {
+                return XCTFail("could not parse color list")
+            }
+            colorValues.append(colorValue)
+        }
+
+        XCTAssertEqual(4, colorValues.count)
+        XCTAssertEqual(1, Set(colorValues).count, "color values should have all been the same value: \(colorValues)")
+
+    }
+}
+
 #endif

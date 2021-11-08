@@ -1259,7 +1259,7 @@ public extension FairCLI {
         if let accentColorFlag = accentColorFlag {
             let accentColorPath = projectPathURL(path: accentColorFlag)
             if let rgba = try parseColorContents(url: accentColorPath) {
-                return Color(.sRGB, red: rgba.red, green: rgba.green, blue: rgba.blue, opacity: rgba.alpha)
+                return Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
             }
         }
 
@@ -1561,7 +1561,7 @@ public extension FairCLI {
         if let accentColorFlag = accentColorFlag {
             let accentColorPath = projectPathURL(path: accentColorFlag)
             if let rgba = try parseColorContents(url: accentColorPath) {
-                let tintColor = String(format:"%02X%02X%02X", Int(rgba.red * 255), Int(rgba.green * 255), Int(rgba.blue * 255))
+                let tintColor = String(format:"%02X%02X%02X", Int(rgba.r * 255), Int(rgba.g * 255), Int(rgba.b * 255))
                 dbg("parsed tint color: \(rgba): \(tintColor)")
                 return tintColor
             }
@@ -1572,27 +1572,8 @@ public extension FairCLI {
 
 
     /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
-    func parseColorContents(url: URL) throws -> (space: String, red: Double, green: Double, blue: Double, alpha: Double)? {
-        if let dict = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? NSDictionary {
-            if let colorArray = dict["colors"] as? NSArray {
-                if let colorArrayFirst = colorArray.firstObject as? NSDictionary {
-                    if let colorItem = colorArrayFirst["color"] as? NSDictionary {
-                        if let colorSpace = colorItem["color-space"] as? NSString {
-                            if let components = colorItem["components"] as? NSDictionary {
-                                if let alphaElement = components["alpha"] as? String, let alphaValue = Double(alphaElement),
-                                   let redElement = components["red"] as? String, let redValue = Double(redElement),
-                                   let greenElement = components["green"] as? String, let greenValue = Double(greenElement),
-                                   let blueElement = components["blue"] as? String, let blueValue = Double(blueElement) {
-                                    return (colorSpace as String, redValue, greenValue, blueValue, alphaValue)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return nil
+    func parseColorContents(url: URL) throws -> (r: Double, g: Double, b: Double, a: Double)? {
+        try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
     }
 
     func catalog(msg: MessageHandler) throws {
@@ -1937,6 +1918,105 @@ struct ANSICode {
     static let lightBlueOn = Self("\u{001B}[104m", "\u{001B}[0m")
     static let lightMagentaOn = Self("\u{001B}[105m", "\u{001B}[0m")
     static let lightCyanOn = Self("\u{001B}[106m", "\u{001B}[0m")
+}
+
+/// The contents of an accent color definition.
+/// Handles parsing the known variants of the `Assets.xcassets/AccentColor.colorset/Contents.json` file.
+struct AccentColorList : Decodable {
+    var info: Info
+    var colors: [ColorEntry]
+
+    struct Info: Decodable {
+        var author: String
+        var version: Int
+    }
+
+    struct ColorEntry: Decodable {
+        var idiom: String
+        var color: ColorItem?
+        var appearances: [Appearance]?
+    }
+
+    struct Appearance : Decodable {
+        var appearance: String // e.g., "luminosity"
+        var value: String? // e.g., "dark"
+    }
+
+    struct ColorItem : Decodable {
+        var platform: String? // e.g., "universal"
+        var reference: String? // e.g., "systemGreenColor"
+        var colorspace: String?
+        var components: ColorComponents?
+
+        var rgba: (r: Double, g: Double, b: Double, a: Double)? {
+            func coerce(_ numberString: String) -> Double? {
+                if numberString.hasPrefix("0x") && numberString.count == 4 {
+                    guard let hexInteger = Int(numberString.dropFirst(2), radix: 16) else {
+                        return nil
+                    }
+                    return Double(hexInteger) / 255.0
+                } else if numberString.contains(".") {
+                    return Double(numberString) // 0.0-1.0
+                } else { // otherwise it is just an integer
+                    guard let numInteger = Int(numberString) else {
+                        return nil
+                    }
+                    return Double(numInteger) / 255.0
+                }
+            }
+
+            func parseColor(_ r: String, _ g: String, _ b: String, _ a: String = "0xFF") -> (Double, Double, Double, Double) {
+                (coerce(r) ?? 0.5, coerce(g) ?? 0.5, coerce(b) ?? 0.5, coerce(a) ?? 1.0)
+            }
+
+            switch reference {
+            case "systemBlueColor": return parseColor("0x00", "0x7A", "0xFF")
+            case "systemBrownColor": return parseColor("0xA2", "0x84", "0x5E")
+            case "systemCyanColor": return parseColor("0x32", "0xAD", "0xE6")
+            case "systemGrayColor": return parseColor("0x8E", "0x8E", "0x93")
+            case "systemGreenColor": return parseColor("0x34", "0xC7", "0x59")
+            case "systemIndigoColor": return parseColor("0x58", "0x56", "0xD6")
+            case "systemMintColor": return parseColor("0x00", "0xC7", "0xBE")
+            case "systemOrangeColor": return parseColor("0xFF", "0x95", "0x00")
+            case "systemPinkColor": return parseColor("0xFF", "0x2D", "0x55")
+            case "systemPurpleColor": return parseColor("0xAF", "0x52", "0xDE")
+            case "systemRedColor": return parseColor("0xFF", "0x3B", "0x30")
+            case "systemTealColor": return parseColor("0x30", "0xB0", "0xC7")
+            case "systemYellowColor": return parseColor("0xFF", "0xCC", "0x00")
+            default: break
+            }
+
+            if let components = components {
+                return parseColor(components.red, components.green, components.blue, components.alpha)
+            }
+
+            return nil // no color constant or value found
+        }
+
+        enum CodingKeys : String, CodingKey {
+            case platform
+            case reference
+            case colorspace = "color-space"
+            case components
+        }
+    }
+
+    struct ColorComponents : Decodable {
+        var alpha: String // e.g. "1.000"
+        var red: String // e.g., "0x34"
+        var green: String // e.g., "0xC7"
+        var blue: String // e.g. "0x59"
+    }
+
+    var firstRGBHex: String? {
+        firstRGBAColor.flatMap { rgba in
+            String(format:"%02X%02X%02X", Int(rgba.r * 255.0), Int(rgba.g * 255.0), Int(rgba.b * 255.0))
+        }
+    }
+
+    var firstRGBAColor: (r: Double, g: Double, b: Double, a: Double)? {
+        colors.compactMap(\.color?.rgba).first
+    }
 }
 
 extension String {
