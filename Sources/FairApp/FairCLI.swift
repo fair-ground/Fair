@@ -1206,7 +1206,8 @@ public extension FairCLI {
         }
 
         let appName = try appNameSpace()
-        let iconView = FairIconView(appName).environment(\.displayScale, 1.0) // force 1.0 resolution so the output size doesn't change
+        let iconColor = try parseTintIconColor()
+        let iconView = FairIconView(appName, iconColor: iconColor).environment(\.displayScale, 1.0) // force 1.0 resolution so the output size doesn't change
 
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
@@ -1252,6 +1253,17 @@ public extension FairCLI {
             try pngData.write(to: iconFile)
             msg(.info, "output icon to: \(iconFile.path)")
         }
+    }
+
+    func parseTintIconColor() throws -> Color? {
+        if let accentColorFlag = accentColorFlag {
+            let accentColorPath = projectPathURL(path: accentColorFlag)
+            if let rgba = try parseColorContents(url: accentColorPath) {
+                return Color(.sRGB, red: rgba.red, green: rgba.green, blue: rgba.blue, opacity: rgba.alpha)
+            }
+        }
+
+        return nil
     }
     #endif
 
@@ -1529,21 +1541,9 @@ public extension FairCLI {
             msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
         }
 
-        var tint: String? = nil
-        if let accentColorFlag = accentColorFlag {
-            do {
-                let accentColorPath = projectPathURL(path: accentColorFlag)
-                if let rgba = try parseColorContents(url: accentColorPath) {
-                    let tintColor = String(format:"%02X%02X%02X", Int(rgba.red), Int(rgba.green), Int(rgba.blue))
-                    msg(.warn, "  parsed tint color: \(rgba): \(tintColor)")
-                    tint = tintColor
-                }
-            } catch {
-                msg(.warn, "  error parsing colors: \(error)")
-            }
-        }
-
+        let tint = try? parseTintColor()
         let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: coreSize, tint: tint)
+        
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
         //try writeOutput(fairseal.debugJSON) // save the file
 
@@ -1556,6 +1556,20 @@ public extension FairCLI {
         }
     }
     #endif
+
+    func parseTintColor() throws -> String? {
+        if let accentColorFlag = accentColorFlag {
+            let accentColorPath = projectPathURL(path: accentColorFlag)
+            if let rgba = try parseColorContents(url: accentColorPath) {
+                let tintColor = String(format:"%02X%02X%02X", Int(rgba.red), Int(rgba.green), Int(rgba.blue))
+                dbg("parsed tint color: \(rgba): \(tintColor)")
+                return tintColor
+            }
+        }
+
+        return nil
+    }
+
 
     /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
     func parseColorContents(url: URL) throws -> (space: String, red: Double, green: Double, blue: Double, alpha: Double)? {

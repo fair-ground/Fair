@@ -29,11 +29,13 @@ public extension String {
 public struct FairIconView : View, Equatable {
     var word1: String
     var word2: String
+    let iconColor: Color?
 
-    public init(_ name: String) {
+    public init(_ name: String, iconColor: Color? = nil) {
         let parts = name.components(separatedBy: CharacterSet.letters.inverted)
         self.word1 = parts.first ?? "Invalid"
         self.word2 = parts.last ?? "Name"
+        self.iconColor = iconColor
     }
 
     public var body: some View {
@@ -59,8 +61,9 @@ public struct FairIconView : View, Equatable {
         let fontSize2 = fontSize(for: word2)
 
         // create a top-down gradient of the brighter color a
-        let outerColorLight = Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
-        let outerColorDark = Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+        let outerColorLight = iconColor ?? Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+        
+        let outerColorDark = outerColorLight // Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
 
         let fillColor = LinearGradient(colors: [outerColorLight, outerColorDark], startPoint: .top, endPoint: .bottom)
         let textColor = Color.white
