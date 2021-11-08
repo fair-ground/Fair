@@ -243,6 +243,11 @@ public extension FairCLI {
         (flags["o"] ?? []) + (flags["-output"] ?? [])
     }
 
+    /// The flag for the `fairseal` command indicating the accent color JSON
+    var accentColorFlag: String? {
+        flags["-accent-color"]?.first
+    }
+
     /// The flag for the `fairseal` command indicating the online resource for the artifact metadata
     var artifactStagingFolders: [String] {
         flags["-artifact-staging"] ?? []
@@ -1524,11 +1529,25 @@ public extension FairCLI {
             msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
         }
 
-        let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: coreSize, tint: nil)
+        var tint: String? = nil
+        if let accentColorFlag = accentColorFlag {
+            do {
+                let accentColorPath = projectPathURL(path: accentColorFlag)
+                if let rgba = try parseColorContents(url: accentColorPath) {
+                    let tintColor = String(format:"%02X%02X%02X", Int(rgba.red), Int(rgba.green), Int(rgba.blue))
+                    msg(.warn, "  parsed tint color: \(rgba): \(tintColor)")
+                    tint = tintColor
+                }
+            } catch {
+                msg(.warn, "  error parsing colors: \(error)")
+            }
+        }
+
+        let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: coreSize, tint: tint)
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
         //try writeOutput(fairseal.debugJSON) // save the file
 
-        // if we specify a hub, then attempt to post the fairseal to the first open PR for thay project
+        // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
         msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
         if let postURL = try fairHub().postFairseal(fairseal) {
             msg(.info, "posted fairseal to:", postURL.absoluteString)
@@ -1537,6 +1556,30 @@ public extension FairCLI {
         }
     }
     #endif
+
+    /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
+    func parseColorContents(url: URL) throws -> (space: String, red: Double, green: Double, blue: Double, alpha: Double)? {
+        if let dict = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? NSDictionary {
+            if let colorArray = dict["colors"] as? NSArray {
+                if let colorArrayFirst = colorArray.firstObject as? NSDictionary {
+                    if let colorItem = colorArrayFirst["color"] as? NSDictionary {
+                        if let colorSpace = colorItem["color-space"] as? NSString {
+                            if let components = colorItem["components"] as? NSDictionary {
+                                if let alphaElement = components["alpha"] as? String, let alphaValue = Double(alphaElement),
+                                   let redElement = components["red"] as? String, let redValue = Double(redElement),
+                                   let greenElement = components["green"] as? String, let greenValue = Double(greenElement),
+                                   let blueElement = components["blue"] as? String, let blueValue = Double(blueElement) {
+                                    return (colorSpace as String, redValue, greenValue, blueValue, alphaValue)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return nil
+    }
 
     func catalog(msg: MessageHandler) throws {
         msg(.info, "Catalog")
