@@ -1561,7 +1561,7 @@ public extension FairCLI {
         if let accentColorFlag = accentColorFlag {
             let accentColorPath = projectPathURL(path: accentColorFlag)
             if let rgba = try parseColorContents(url: accentColorPath) {
-                let tintColor = String(format:"%02X%02X%02X", Int(rgba.red), Int(rgba.green), Int(rgba.blue))
+                let tintColor = String(format:"%02X%02X%02X", Int(rgba.red * 255), Int(rgba.green * 255), Int(rgba.blue * 255))
                 dbg("parsed tint color: \(rgba): \(tintColor)")
                 return tintColor
             }
