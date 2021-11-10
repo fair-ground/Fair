@@ -142,34 +142,34 @@ public extension Plist {
     }
 }
 
-extension FairHub.AppBuildVersion {
-    /// Extracts and validates the `CFBundleVersion` and `CFBundleShortVersionString`
-    /// from the given `Info.plist` URL
-    init(plistURL: URL) throws {
-        let plist_dict = try Plist(url: plistURL)
-        // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
-        let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
-        guard let buildNumberValue = plist_dict.CFBundleVersion else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
-        }
-
-        guard let buildNumber = UInt(buildNumberValue) else {
-            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
-        }
-
-        // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
-        guard let buildVersion = plist_dict.CFBundleShortVersionString else {
-            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
-        }
-
-        // a version number needs to be in the form 1.23.456
-        guard let version = AppVersion(string: buildVersion) else {
-            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], buildVersion as NSString, plistURL)
-        }
-
-        self.init(build: buildNumber, version: version)
-    }
-}
+//extension FairHub.AppVersion {
+//    /// Extracts and validates the `CFBundleVersion` and `CFBundleShortVersionString`
+//    /// from the given `Info.plist` URL
+//    init(plistURL: URL) throws {
+//        let plist_dict = try Plist(url: plistURL)
+//        // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
+//        let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
+//        guard let buildNumberValue = plist_dict.CFBundleVersion else {
+//            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
+//        }
+//
+//        guard let buildNumber = UInt(buildNumberValue) else {
+//            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
+//        }
+//
+//        // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
+//        guard let buildVersion = plist_dict.CFBundleShortVersionString else {
+//            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
+//        }
+//
+//        // a version number needs to be in the form 1.23.456
+//        guard let version = AppVersion(string: buildVersion) else {
+//            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], buildVersion as NSString, plistURL)
+//        }
+//
+//        self.init(build: buildNumber, version: version)
+//    }
+//}
 
 public extension FairCLI {
     enum Operation: String, CaseIterable {
@@ -922,8 +922,8 @@ public extension FairCLI {
                 throw Errors.invalidIntegrationTitle(expectedIntegrationTitle, appID)
             }
 
-            let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
-            msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
+            //let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
+            //msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
         }
 
         // 2. Check Sandbox.entitlements

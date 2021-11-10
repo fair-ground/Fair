@@ -70,22 +70,24 @@ public enum InfoPlistKey : String, CaseIterable, Hashable {
 }
 
 /// A version of an app with a `major`, `minor`, and `patch` component.
-public struct AppVersion : Pure, Comparable {
+public struct AppVersion : Hashable, Comparable {
     /// The lowest possible version that can exist
-    public static let min = AppVersion(major: .min, minor: .min, patch: .min)
+    public static let min = AppVersion(major: .min, minor: .min, patch: .min, prerelease: true)
     /// The highest possible version that can exist
-    public static let max = AppVersion(major: .max, minor: .max, patch: .max)
+    public static let max = AppVersion(major: .max, minor: .max, patch: .max, prerelease: false)
 
     public let major, minor, patch: UInt
+    public let prerelease: Bool
 
-    public init(major: UInt, minor: UInt, patch: UInt) {
+    public init(major: UInt, minor: UInt, patch: UInt, prerelease: Bool) {
         self.major = major
         self.minor = minor
         self.patch = patch
+        self.prerelease = prerelease
     }
 
     /// Initialize the version by parsing the string
-    public init?(string versionString: String) {
+    public init?(string versionString: String, prerelease: Bool) {
         let versionElements = versionString.split(separator: ".", omittingEmptySubsequences: false).map({ UInt(String($0)) })
         if versionElements.count != 3 { return nil }
         let versionNumbers = versionElements.compactMap({ $0 })
@@ -94,6 +96,7 @@ public struct AppVersion : Pure, Comparable {
         self.major = versionNumbers[0]
         self.minor = versionNumbers[1]
         self.patch = versionNumbers[2]
+        self.prerelease = prerelease
 
         // this is what prevents us from successfully parsing ".1.2.3"
         if !versionString.hasPrefix("\(self.major)") { return nil }
@@ -104,25 +107,13 @@ public struct AppVersion : Pure, Comparable {
         lhs.major < rhs.major
             || (lhs.major == rhs.major && lhs.minor < rhs.minor)
             || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch < rhs.patch)
+        || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && (lhs.prerelease ? 0 : 1) < (rhs.prerelease ? 0 : 1))
+
     }
 
     /// The version string in the form `major`.`minor`.`patch`
     public var versionDescription: String {
-        "\(major).\(minor).\(patch)"
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(versionDescription)
-    }
-
-    public init(from decoder: Decoder) throws {
-        let string = try decoder.singleValueContainer().decode(String.self)
-        guard let version = Self(string: string) else {
-            struct BadAppVersionString : Error { let string: String }
-            throw BadAppVersionString(string: string)
-        }
-        self = version
+        "\(major).\(minor).\(patch)\(prerelease == true ? "β" : "")"
     }
 }
 

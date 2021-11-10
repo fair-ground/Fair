@@ -157,7 +157,7 @@ final class FairCoreTests: XCTestCase {
         // TODO: test semantic version sorting
         // https://semver.org/#spec-item-11
 
-        let parse = { AppVersion(string: $0)?.versionDescription }
+        let parse = { AppVersion(string: $0, prerelease: false)?.versionDescription }
 
         XCTAssertEqual(nil, parse(""))
         XCTAssertEqual(nil, parse(" "))

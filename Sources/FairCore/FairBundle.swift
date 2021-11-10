@@ -28,8 +28,8 @@ public extension Bundle {
     /// The bundle's `CFBundleShortVersionString` semantic version string
     var bundleVersionString: String? { self[info: .CFBundleShortVersionString] }
 
-    /// The `CFBundleShortVersionString` converted to an AppVersion
-    var bundleVersion: AppVersion? { bundleVersionString.flatMap(AppVersion.init) }
+    /// The `CFBundleShortVersionString` converted to an AppVersion. Note that these are always considered non-prerelease since the prerelease flag is an ephemeral part of the hub's release, and is not indicated in the app's plist in any way
+    var bundleVersion: AppVersion? { bundleVersionString.flatMap({ AppVersion(string: $0, prerelease: false) }) }
 
     /// The name of the package's app/org, which is the bundle's name with hyphens for spaces
     var appOrgName: String? {

@@ -165,7 +165,7 @@ public extension FairHub {
             var fairsealBetaFound = false
             var fairsealFound = false
             for release in (fork.releases.nodes ?? []) {
-                guard let appVersion = AppVersion(string: release.tag.name) else {
+                guard let appVersion = AppVersion(string: release.tag.name, prerelease: release.isPrerelease) else {
                     dbg("invalid release tag:", release.tag.name)
                     continue
                 }
@@ -549,34 +549,6 @@ public extension FairHub {
     func validateAppName(_ name: String?) throws {
         guard let name = name, permitted(value: name, allow: allowName, deny: denyName) == true else {
             throw Errors.invalidName(name)
-        }
-    }
-
-
-    struct AppBuildVersion : Pure {
-        public var build: UInt
-        public var version: AppVersion
-
-        public static let prefix = "version-"
-
-        public init(build: UInt, version: AppVersion) {
-            self.build = build
-            self.version = version
-        }
-
-        public init?(versionMarker: String) {
-            if !versionMarker.hasPrefix(Self.prefix) { return nil }
-            let parts = versionMarker.split(separator: "-", omittingEmptySubsequences: false)
-            if parts.count != 3 { return nil }
-            guard let version = AppVersion(string: String(parts[1])) else { return nil }
-            guard let build = UInt(String(parts[2])) else { return nil }
-            self.version = version
-            self.build = build
-        }
-
-        /// Returns the file name of the version marker: `version-[X.Y.Z]-[BUILD]`
-        public var versionMarker: String {
-            Self.prefix + version.versionDescription + "-" + build.description
         }
     }
 
