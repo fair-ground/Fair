@@ -74,6 +74,15 @@ public extension Sequence where Element : Hashable {
     }
 }
 
+extension Sequence {
+    /// Groups the sequence by the given hash key
+    ///
+    /// This merely invokes `Dictionary.init(grouping:by:)`
+    @inlinable func grouping<T: Hashable>(by key: (Element) -> T) -> Dictionary<T, [Element]> {
+        Dictionary(grouping: self, by: key)
+    }
+}
+
 public extension UUID {
     /// Creates a UUID with the given random number generator.
     init<R: RandomNumberGenerator>(rnd: inout R) {
