@@ -110,10 +110,10 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's metadata
     public var metadataURL: URL?
 
-    /// The SHA256 checksum of the validated metadata
-    public var sha256Metadata: String?
+    /// The URL for the app's README
+    public var readmeURL: URL?
 
-    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, sha256Metadata: String?) {
+    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -139,7 +139,7 @@ public struct AppCatalogItem : Pure {
         self.sha256 = sha256
         self.permissions = permissions
         self.metadataURL = metadataURL
-        self.sha256Metadata = sha256Metadata
+        self.readmeURL = readmeURL
     }
 }
 

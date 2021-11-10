@@ -113,7 +113,8 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildMacOSCatalog() throws {
-        let catalog = try Self.hub().buildCatalog(fairsealCheck: true, artifactExtensions: ["macOS.zip"], requestLimit: nil)
+        let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
+        let catalog = try Self.hub().buildCatalog(fairsealCheck: true, artifactTarget: target, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
@@ -127,7 +128,8 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildIOSCatalog() throws {
-        let catalog = try Self.hub().buildCatalog(fairsealCheck: false, artifactExtensions: ["iOS.ipa"], requestLimit: nil)
+        let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
+        let catalog = try Self.hub().buildCatalog(fairsealCheck: false, artifactTarget: target, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 

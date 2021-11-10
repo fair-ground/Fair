@@ -1584,8 +1584,16 @@ public extension FairCLI {
         // whether to enforce a fairseal check before the app will be listed in the catalog
         let fairsealCheck = fairsealFlag?.contains("skip") != true
 
+        let artifactTarget: ArtifactTarget
+        switch artifactExtensionFlag?.first ?? "zip" {
+        case "ipa":
+            artifactTarget = ArtifactTarget(artifactType: "ipa", devices: ["iphone", "ipad"])
+        case "zip", _:
+            artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
+        }
+
         // build the catalog filtering on specific artifact extensions
-        let catalog = try hub.buildCatalog(owner: appfairName, fairsealCheck: fairsealCheck, artifactExtensions: self.artifactExtensionFlag ?? ["-macOS.zip", "-iOS.ipa"], requestLimit: self.requestLimitFlag)
+        let catalog = try hub.buildCatalog(owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
 
         msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {

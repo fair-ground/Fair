@@ -107,9 +107,19 @@ public struct FairHub : GraphQLEndpointService {
     }
 }
 
+public struct ArtifactTarget : Pure {
+    public let artifactType: String
+    public let devices: Array<String>
+
+    public init(artifactType: String, devices: Array<String>) {
+        self.artifactType = artifactType
+        self.devices = devices
+    }
+}
+
 public extension FairHub {
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(owner: String = appfairName, fairsealCheck: Bool, artifactExtensions: [String], requestLimit: Int?) throws -> FairAppCatalog {
+    func buildCatalog(owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, requestLimit: Int?) throws -> FairAppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
@@ -225,12 +235,14 @@ public extension FairHub {
 
                 let sourceIdentifier: String? = nil
 
-                let screenshotURLs = release.releaseAssets.nodes.filter { node in
-                    node.name.hasPrefix("screen") && node.name.hasSuffix(".png")
+                func releaseAsset(named name: String) -> ReleaseAsset? {
+                    release.releaseAssets.nodes.first(where: { node in
+                        node.name == name
+                    })
                 }
-                .map(\.downloadUrl)
 
-                for artifactType in artifactExtensions {
+                for artifactTarget in [artifactTarget] {
+                    let artifactType = artifactTarget.artifactType
                     dbg("checking target:", fork.owner.login, fork.name, appVersion.versionDescription, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(artifactType)
@@ -244,10 +256,13 @@ public extension FairHub {
                         .deletingLastPathComponent().appendingPathComponent("Info.plist")
                         //.deletingPathExtension().appendingPathExtension("plist")
 
-                    guard let appMetadata = release.releaseAssets.nodes.first(where: { node in
-                        node.name.hasSuffix(metadataFileName.lastPathComponent)
-                    }) else {
+                    guard let appMetadata = releaseAsset(named: "Info.plist") else {
                         dbg("missing app artifact from release")
+                        continue
+                    }
+
+                    guard let appREADME = releaseAsset(named: "README.md") else {
+                        dbg("missing app metadata from release")
                         continue
                     }
 
@@ -284,12 +299,28 @@ public extension FairHub {
                         continue
                     }
 
+                    let readmeURL = appREADME.downloadUrl
+                    guard let readmeChecksum = urlSeals[readmeURL]?.first else {
+                        dbg("missing checksum for readme url:", readmeURL.absoluteString)
+                        continue
+                    }
+
+                    let screenshotURLs = release.releaseAssets.nodes.filter { node in
+                        if !node.name.hasSuffix(".png") { return false }
+                        return artifactTarget.devices.contains { device in
+                            node.name.hasPrefix("screenshot-" + device + "-")
+                        }
+                    }
+                    .compactMap { node in
+                        node.downloadUrl.appendingHash(urlSeals[node.downloadUrl]?.first)
+                    }
+
                     let downloadCount = appArtifact.downloadCount
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL, sha256Metadata: metadataChecksum)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum))
 
 
                     if beta == true {
@@ -322,7 +353,7 @@ public extension FairHub {
         // in order to minimize catalog changes, always sort by the bundle name
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
-        let catalogURL = artifactExtensions.first(where: { $0.hasSuffix("zip") }) != nil ? appfairCatalogURL : appfairCatalogIOSURL
+        let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURL : appfairCatalogIOSURL
         let catalog = FairAppCatalog(name: org, identifier: org, sourceURL: catalogURL!, apps: apps, news: news)
         return catalog
     }
@@ -653,6 +684,14 @@ public struct FairSeal : Pure {
     /// The app org associated with this seal; this will be the first component of the first URL's path
     public var appOrg: String? {
         assets.first?.url.path.split(separator: "/").first?.description
+    }
+}
+
+extension URL {
+    /// Adds a hash with the given string to the end of the URL
+    func appendingHash(_ hashString: String?) -> URL {
+        guard let hashString = hashString else { return self }
+        return URL(string: self.absoluteString + "#" + hashString) ?? self
     }
 }
 
