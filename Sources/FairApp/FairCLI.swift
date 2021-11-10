@@ -370,6 +370,11 @@ public extension FairCLI {
         flags["-requestLimit"]?.first.flatMap({ Int($0) })
     }
 
+    /// The title of the generated catalog
+    var catalogTitleFlag: String? {
+        flags["-catalog-title"]?.first
+    }
+
     /// The amount of time to continue re-trying downloading a resource
     var retryDurationFlag: TimeInterval? {
         flags["-retry-duration"]?.first.flatMap({ TimeInterval($0) })
@@ -1593,7 +1598,7 @@ public extension FairCLI {
         }
 
         // build the catalog filtering on specific artifact extensions
-        let catalog = try hub.buildCatalog(owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
+        let catalog = try hub.buildCatalog(title: catalogTitleFlag ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
 
         msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {
