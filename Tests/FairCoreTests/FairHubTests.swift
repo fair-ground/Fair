@@ -151,7 +151,7 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(200, (response as? HTTPURLResponse)?.statusCode)
 
         let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
-        XCTAssertEqual(appfairName, catalog.name)
+        XCTAssertEqual("The App Fair", catalog.name)
         dbg("loaded catalog apps:", catalog.apps.count)
     }
 

@@ -1202,7 +1202,7 @@ public extension FairCLI {
 
         // the list of hashes that represent the default AppIcon-1024.png; this is used to determine whether we should overwrite an existing default icon instead of leaving it untouched; this lets us auto-generate an icon when none has been set, but won't clobber a custom icon
         let defaultIconHashes = [
-            "95b2a057f561c49c58cf52a26b75a9711ca3022c5353aab68480809db56370b9", // new default icon
+            "657cdaeedd9ba48753084d1901de48269f1cc6e3a22b2262622f19a4f3f7dd2b", // new default icon
             "09e146883b712e71b3c5b904f72e09efb66e1137981b12083cd15c2fe8160810", // old default icon
         ]
 
