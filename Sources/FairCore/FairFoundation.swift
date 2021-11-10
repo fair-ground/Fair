@@ -74,7 +74,7 @@ public extension Sequence where Element : Hashable {
     }
 }
 
-extension Sequence {
+public extension Sequence {
     /// Groups the sequence by the given hash key
     ///
     /// This merely invokes `Dictionary.init(grouping:by:)`
