@@ -152,6 +152,7 @@ public extension FairHub {
                 AppCategory.topics[$0]?.metadataIdentifier
             })
 
+            var fairsealBetaFound = false
             var fairsealFound = false
             for release in (fork.releases.nodes ?? []) {
                 guard let appVersion = AppVersion(string: release.tag.name) else {
@@ -220,7 +221,7 @@ public extension FairHub {
                     asset.name == "\(appid).png" // e.g. "Fair-Skies.png"
                 }?.downloadUrl
 
-                let beta: Bool? = release.isPrerelease
+                let beta: Bool = release.isPrerelease
 
                 let sourceIdentifier: String? = nil
 
@@ -287,13 +288,27 @@ public extension FairHub {
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
+
                     let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL, sha256Metadata: metadataChecksum)
-                    apps.append(app)
-                    fairsealFound = true
+
+
+                    if beta == true {
+                        if !fairsealBetaFound {
+                            apps.append(app)
+                        }
+                        fairsealBetaFound = true
+                    } else {
+                        if !fairsealFound {
+                            apps.append(app)
+                        }
+                        fairsealFound = true
+                    }
                 }
 
                 if fairsealFound {
-                    break // only add the single most recent valid release for any given fork
+                    // only add the single most recent valid release for any given fork
+                    // this will also ignore any betas earlier than the most recent non-prerelease
+                    break
                 }
             }
 

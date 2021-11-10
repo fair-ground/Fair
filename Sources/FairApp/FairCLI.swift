@@ -1599,7 +1599,9 @@ public extension FairCLI {
         if let caskFolderFlag = caskFolderFlag {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
             for app in catalog.apps {
-                try saveCask(app, to: caskFolderFlag, msg: msg)
+                if app.beta != false { // only save non-beta releases
+                    try saveCask(app, to: caskFolderFlag, msg: msg)
+                }
             }
         }
     }
