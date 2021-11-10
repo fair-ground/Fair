@@ -54,10 +54,30 @@ public extension Result {
 }
 
 public extension Sequence {
-    /// Returns this sequence sorted by the given keypath of the element, either forwards (the default) or backwards.
-    @inlinable func sorting<T: Comparable>(by keyPath: KeyPath<Element, T>, forward: Bool = true) -> [Element] {
-        sorted(by: { forward ? ($0[keyPath: keyPath] < $1[keyPath: keyPath]) : ($0[keyPath: keyPath] > $1[keyPath: keyPath]) })
+    /// Returns this sequence sorted by the given keypath of the element, either ascending (the default) or descending.
+    @inlinable func sorting<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) -> [Element] {
+        sorted(by: { ascending ? ($0[keyPath: keyPath] < $1[keyPath: keyPath]) : ($1[keyPath: keyPath] < $0[keyPath: keyPath]) })
     }
+
+    /// Returns this sequence sorted by the given optional keypath of the element, either ascending (the default) or descending
+    /// with `Optional.none` elements sorted in the specified order.
+    ///
+    /// - Parameter by: the block or keyPath to use for accessing a comparable
+    /// - Parameter ascending: whether to sort in ascending (`true`) or descending (`false`) order
+    /// - Parameter noneFirst: whether `Optional.none` elements should be sorted at the beginning of the list (the default) or the end.
+    ///
+    /// - Returns: the sorted elements
+    @inlinable func sorting<T: Comparable>(by keyPath: KeyPath<Element, T?>, ascending: Bool = true, noneFirst: Bool = true) -> [Element] {
+        sorted(by: {
+            switch ($0[keyPath: keyPath], $1[keyPath: keyPath]) {
+            case (.none, .none): return noneFirst
+            case (.some(let lhs), .some(let rhs)): return ascending ? lhs < rhs : rhs < lhs
+            case (.none, .some): return noneFirst == ascending
+            case (.some, .none): return noneFirst != ascending
+            }
+        })
+    }
+
 }
 
 public extension Sequence {

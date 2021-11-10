@@ -251,11 +251,6 @@ public extension FairHub {
                         continue
                     }
 
-                    // convert "Cloud-Cuckoo-macOS.zip" into "Cloud-Cuckoo-macOS.plist"
-                    let metadataFileName = appArtifact.downloadUrl
-                        .deletingLastPathComponent().appendingPathComponent("Info.plist")
-                        //.deletingPathExtension().appendingPathExtension("plist")
-
                     guard let appMetadata = releaseAsset(named: "Info.plist") else {
                         dbg("missing app artifact from release")
                         continue

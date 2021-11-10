@@ -173,6 +173,11 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual("1.2.3", parse("1.2.3"))
         XCTAssertEqual("0.2.3", parse("0.2.3"))
         XCTAssertEqual("999.9999.99999", parse("999.9999.99999"))
+
+        XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), "a pre-release should be sorted below a non-pre-release version with the same numbers")
+        XCTAssertLessThan(AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), "a pre-release should be sorted below a non-pre-release version with the same numbers")
+        XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 1, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), "a pre-release should be sorted above other non-prerelease lower versions")
+        XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 1, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), "a pre-release should be sorted above other lower versions")
     }
 
     func testParsePackageResolved() throws {
@@ -377,6 +382,37 @@ final class FairCoreTests: XCTestCase {
         var rndB = SeededRandomNumberGenerator()
         for _ in 0...999 {
             XCTAssertNotEqual(Int64.random(in: .min...(.max), using: &rndA), Int64.random(in: .min...(.max), using: &rndB))
+        }
+    }
+
+    func testSorting() {
+        do {
+            let ints = [0, 1, 2, 3]
+            XCTAssertEqual(ints, ints.sorting(by: \.self, ascending: true))
+            XCTAssertEqual(ints.reversed(), ints.sorting(by: \.self, ascending: false))
+        }
+
+        do {
+            let ints = [0, 1, 2, 2, 3]
+            XCTAssertEqual(ints, ints.sorting(by: \.self, ascending: true))
+            XCTAssertEqual(ints.reversed(), ints.sorting(by: \.self, ascending: false))
+        }
+
+        do {
+            let intsNoneFirst = [Optional.none, 0, 1, 2, 2, 2, 3]
+            let intsNoneLast = [0, 1, 2, 2, 2, 3, Optional.none]
+
+            XCTAssertEqual(intsNoneFirst, intsNoneFirst.sorting(by: \.self))
+            XCTAssertEqual(intsNoneFirst, intsNoneFirst.sorting(by: \.self, ascending: true))
+            XCTAssertEqual(intsNoneFirst, intsNoneFirst.sorting(by: \.self, ascending: true, noneFirst: true))
+
+            XCTAssertEqual(intsNoneLast, intsNoneFirst.sorting(by: \.self, noneFirst: false))
+            XCTAssertEqual(intsNoneLast, intsNoneFirst.sorting(by: \.self, ascending: true, noneFirst: false))
+            XCTAssertEqual(intsNoneLast.reversed(), intsNoneFirst.sorting(by: \.self, ascending: false, noneFirst: false))
+
+            XCTAssertEqual(intsNoneFirst, intsNoneFirst.sorting(by: \.self, noneFirst: true))
+            XCTAssertEqual(intsNoneFirst, intsNoneFirst.sorting(by: \.self, ascending: true, noneFirst: true))
+            XCTAssertEqual(intsNoneFirst.reversed(), intsNoneFirst.sorting(by: \.self, ascending: false, noneFirst: true))
         }
     }
 }

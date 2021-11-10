@@ -113,7 +113,12 @@ public struct AppVersion : Hashable, Comparable {
 
     /// The version string in the form `major`.`minor`.`patch`
     public var versionDescription: String {
-        "\(major).\(minor).\(patch)\(prerelease == true ? "β" : "")"
+        "\(major).\(minor).\(patch)"
+    }
+
+    /// The version string in the form `major`.`minor`.`patch` with a "β" character appended if this is a pre-release
+    public var versionDescriptionExtended: String {
+        versionDescription + (prerelease == true ? "β" : "")
     }
 }
 
