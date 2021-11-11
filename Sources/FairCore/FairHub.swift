@@ -511,7 +511,7 @@ public extension FairHub {
         return name + " <" + email + ">"
     }
 
-    private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) -> Bool {
+    private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) throws -> Bool {
         func matches(pattern: NSRegularExpression) -> Bool {
             pattern.firstMatch(in: value, options: [], range: NSRange(value.startIndex..<value.endIndex, in: value)) != nil
         }
@@ -519,14 +519,14 @@ public extension FairHub {
         // if we specified an allow list, then at least one of the patterns must match the email
         if !allow.isEmpty {
             guard let _ = allow.first(where: matches) else {
-                return false
+                throw Errors.valueNotAllowed(value)
             }
         }
 
         // conversely, if we specified a deny list, then all the addresses must not match
         if !deny.isEmpty {
             if let _ = deny.first(where: matches) {
-                return false
+                throw Errors.valueDenied(value)
             }
         }
 
@@ -535,14 +535,14 @@ public extension FairHub {
 
     /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
     func validateEmailAddress(_ email: String?) throws {
-        guard let email = email, permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
+        guard let email = email, try permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
             throw Errors.invalidEmail(email)
         }
     }
 
     /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
     func validateAppName(_ name: String?) throws {
-        guard let name = name, permitted(value: name, allow: allowName, deny: denyName) == true else {
+        guard let name = name, try permitted(value: name, allow: allowName, deny: denyName) == true else {
             throw Errors.invalidName(name)
         }
     }
@@ -558,6 +558,8 @@ public extension FairHub {
         case noAuthor(CommitInfo)
         case invalidEmail(String?)
         case invalidName(String?)
+        case valueNotAllowed(String?)
+        case valueDenied(String?)
         case mismatchedEmail(String?, String?)
         case invalidSealHash(String?)
         case repoInvalid(_ reasons: FairHub.AppOrgValidationFailure, _ org: String, _ repo: String)
@@ -575,6 +577,8 @@ public extension FairHub {
             case .noAuthor(let info): return "The author was empty for the commit: \"\(info.repository.object.oid.rawValue)\""
             case .invalidEmail(let email): return "The email address \"\(email ?? "")\" is not accepted"
             case .invalidName(let name): return "The app name \"\(name ?? "")\" is not accepted"
+            case .valueNotAllowed(let value): return "The value \"\(value ?? "")\" is not allowed"
+            case .valueDenied(let value): return "The value \"\(value ?? "")\" is not permitted"
             case .mismatchedEmail(let repoEmail, let orgEmail): return "The email address \"\(repoEmail ?? "")\" for the commit must match the public e-mail for the organization \"\(orgEmail ?? "")\""
             case .invalidSealHash(let hash): return "The fair seal hash has an invalid number of characters: \(hash?.count ?? 0)"
             case .repoInvalid(let reasons, let org, let repo): return "The repository \"\(org)/\(repo)\" is invalid because: \(reasons)"
