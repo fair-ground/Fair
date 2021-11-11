@@ -28,6 +28,21 @@ name: "Integrate Release"
 
 on:
   workflow_call:
+    secrets:
+      token:
+        required: true
+      GITHUB_TOKEN:
+        required: true
+      APP_FAIR_BOT_TOKEN:
+        required: true
+      APP_FAIR_ALLOW_NAME:
+        required: true
+      APP_FAIR_DENY_NAME:
+        required: true
+      APP_FAIR_ALLOW_FROM:
+        required: true
+      APP_FAIR_DENY_FROM:
+        required: true
 
 jobs:
   # The Integrate-Release phases run in the trusted base fairground.
