@@ -39,7 +39,7 @@ jobs:
   fork_apply:
     name: "Fork Apply"
     if: github.event_name == 'push'
-    runs-on: macos-latest
+    runs-on: macos-11
     timeout-minutes: 45
 
     env:
