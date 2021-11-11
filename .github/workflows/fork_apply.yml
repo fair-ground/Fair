@@ -28,6 +28,33 @@ name: "Fork Apply"
 
 on:
   workflow_call:
+    inputs:
+      # the name of the fairground organization (e.g., "appfair")
+      fairground:
+        type: string
+        required: true
+      target_macos:
+        type: boolean
+        required: true
+      target_ios:
+        type: boolean
+        required: true
+      target_tvos:
+        type: boolean
+        required: false
+        default: false
+      target_watchos:
+        type: boolean
+        required: false
+        default: false
+      target_linux:
+        type: boolean
+        required: false
+        default: false
+      target_windows:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   # The Fork-Apply phases run in the /App.git fork's repository.
@@ -73,7 +100,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Validate App Organization: ${{ env.ORGNAME }}"
-        run: xcrun swift run -- fairtool validate --verbose true --hub github.com/appfair --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
+        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
 
       - name: "Generate Icon"
         run: xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png || true # tolerate failure
@@ -87,32 +114,8 @@ jobs:
           swift package resolve
           cp Package.resolved Sources/App/Resources/
 
-      # this should be unnecessary, but for some reason we need to build twice
-      # in order to guarantee that a reproducible artifact is produced
-      - name: "Pre-build iOS App"
-        env:
-          FAIR_PLATFORM_IOS: ${{ secrets.FAIR_PLATFORM_IOS }}
-        if: ${{ env.FAIR_PLATFORM_IOS }} != 'disable'
-        run: |
-          xcodebuild archive \
-            -workspace "App.xcworkspace" \
-            -configuration Release \
-            -scheme "AppFairApp" \
-            -sdk "iphoneos" \
-            -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
-            FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
-
       - name: "Build iOS App"
-        env:
-          FAIR_PLATFORM_IOS: ${{ secrets.FAIR_PLATFORM_IOS }}
-        if: ${{ env.FAIR_PLATFORM_IOS }} != 'disable'
-        # there's no way to export iOS archives without re-signing with a teamID, 
-        # so just build the .ipa manually; it needs to be in staging/ first
+        if: ${{ inputs.target_ios }}
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
@@ -120,8 +123,8 @@ jobs:
             -scheme "AppFairApp" \
             -sdk "iphoneos" \
             -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=YES \
+            CODE_SIGNING_ALLOWED=YES \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
@@ -130,45 +133,27 @@ jobs:
           cp -a "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive/Products/Applications" "staging/Payload"
           ditto -c -k --sequesterRsrc --keepParent "staging/Payload" "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
 
-      # pre-build should be unnecessary, but for some reason we need to build 
-      # twice in order to guarantee that a reproducible artifact is produced
-      - name: "Pre-build macOS App"
-        env:
-          FAIR_PLATFORM_MACOS: ${{ secrets.FAIR_PLATFORM_MACOS }}
-        if: ${{ env.FAIR_PLATFORM_MACOS }} != 'disable'
-        run: |
-          xcodebuild archive \
-            -workspace "App.xcworkspace" \
-            -configuration Release \
-            -scheme "AppFairApp" \
-            -sdk "macosx" \
-            -destination 'platform=macOS' \
-            -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=YES \
-            CODE_SIGNING_ALLOWED=YES \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
-            FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
-
       - name: "Build macOS App"
-        env:
-          FAIR_PLATFORM_MACOS: ${{ secrets.FAIR_PLATFORM_MACOS }}
-        if: ${{ env.FAIR_PLATFORM_MACOS }} != 'disable'
+        if: ${{ inputs.target_macos }}
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
             -configuration Release \
             -scheme "AppFairApp" \
             -sdk "macosx" \
-            -destination 'platform=macOS' \
+            -destination "platform=macOS" \
             -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive" \
             CODE_SIGNING_REQUIRED=YES \
             CODE_SIGNING_ALLOWED=YES \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
+            DEVELOPMENT_TEAM="" \
+            CODE_SIGN_IDENTITY="-" \
+            OTHER_CODE_SIGNING_FLAGS="--timestamp=none" \
+            OTHER_LIBTOOLFLAGS="-D" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
+          shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
 
           echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>mac-application</string><key>signingStyle</key><string>automatic</string><key>uploadBitcode</key><false/><key>compileBitcode</key><false/><key>uploadSymbols</key><false/></dict></plist>' > "staging/.exportOptions.plist"
 

@@ -28,12 +28,37 @@ name: "Integrate Release"
 on:
   workflow_call:
     inputs:
+      # the name of the fairground organization (e.g., "appfair")
       fairground:
         required: true
         type: string
       fairseal_issuer:
         required: true
         type: string
+      target_macos:
+        type: boolean
+        required: false
+        default: true
+      target_ios:
+        type: boolean
+        required: false
+        default: true
+      target_tvos:
+        type: boolean
+        required: false
+        default: false
+      target_watchos:
+        type: boolean
+        required: false
+        default: false
+      target_linux:
+        type: boolean
+        required: false
+        default: false
+      target_windows:
+        type: boolean
+        required: false
+        default: false
     secrets:
       token:
         required: true
@@ -143,25 +168,8 @@ jobs:
           cat Package.resolved # useful for the log
           cp Package.resolved Sources/App/Resources/ # embed in the app
 
-      - name: "Pre-build iOS App: ${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
-        # this should be unnecessary, but for some reason we need to build twice
-        # in order to guarantee that a reproducible artifact is produced
-        if: true
-        run: |
-          xcodebuild archive \
-            -workspace "App.xcworkspace" \
-            -configuration Release \
-            -scheme "AppFairApp" \
-            -sdk "iphoneos" \
-            -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
-            FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
-
-      - name: "Build iOS App: ${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
+      - name: "Build iOS App"
+        if: ${{ inputs.target_ios }}
         # there's no way to export iOS archives without re-signing with a teamID, 
         # so just build the .ipa manually; it needs to be in Staging/ first
         run: |
@@ -171,8 +179,8 @@ jobs:
             -scheme "AppFairApp" \
             -sdk "iphoneos" \
             -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=YES \
+            CODE_SIGNING_ALLOWED=YES \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
@@ -181,10 +189,8 @@ jobs:
           cp -a "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive/Products/Applications" "staging/Payload"
           ditto -c -k --sequesterRsrc --keepParent "staging/Payload" "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
 
-      - name: "Pre-build macOS App: ${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
-        # this should be unnecessary, but for some reason we need to build twice
-        # in order to guarantee that a reproducible artifact is produced
-        if: true
+      - name: "Build macOS App"
+        if: ${{ inputs.target_macos }}
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
@@ -198,23 +204,10 @@ jobs:
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
-            FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
-          shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
-
-      - name: "Build macOS App: ${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
-        run: |
-          xcodebuild archive \
-            -workspace "App.xcworkspace" \
-            -configuration Release \
-            -scheme "AppFairApp" \
-            -sdk "macosx" \
-            -destination "platform=macOS" \
-            -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=YES \
-            CODE_SIGNING_ALLOWED=YES \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            DEVELOPMENT_TEAM="" \
             CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
+            OTHER_CODE_SIGNING_FLAGS="--timestamp=none" \
+            OTHER_LIBTOOLFLAGS="-D" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
           shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
 
@@ -249,6 +242,7 @@ jobs:
       # compare the contents of the PR's un-trusted artifacts with
       # the contents of the base fair-ground's trusted artifacts
       - name: "Generate macOS fairseal"
+        if: ${{ inputs.target_macos }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
         run: |
@@ -287,6 +281,7 @@ jobs:
           diffoscope --html staging/diffoscope-macOS.html /tmp/checkartifact.zip "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" || true # tolerate changes while developing reproducible builds
 
       - name: "Generate iOS fairseal"
+        if: ${{ inputs.target_ios }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
         run: |
