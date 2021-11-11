@@ -247,6 +247,7 @@ jobs:
           xcrun swift run -- fairtool fairseal \
             --verbose true \
             --hub github.com/appfair \
+            --token "${{ secrets.APP_FAIR_BOT_TOKEN }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" \
@@ -281,6 +282,7 @@ jobs:
           xcrun swift run -- fairtool fairseal \
             --verbose true \
             --hub github.com/appfair \
+            --token "${{ secrets.APP_FAIR_BOT_TOKEN }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
