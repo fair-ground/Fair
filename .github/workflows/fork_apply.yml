@@ -224,6 +224,8 @@ jobs:
           # upload staging assets to the existing GitHub release
           gh release upload "${GITHUB_REF#refs/tags/}" -- staging/*.*
           # create a PR with the correct bundle info
+          git stash || true
+          git checkout main
           git status
           gh pr create --no-maintainer-edit --repo "${{ inputs.fairground }}/App" --title "${{ env.BUNDLE_ID }} ${GITHUB_REF#refs/tags/}" --body "${{ env.BUNDLE_ID }} release ${GITHUB_REF#refs/tags/}"
 
