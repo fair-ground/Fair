@@ -15,33 +15,37 @@
 #
 ##############################################################################
 
-# This workflow runs in both the trusted base repository at
-# https://www.github.com/appfair/App/actions as well as in
+# This workflow runs in both the trusted base repository
 # and forks that have enabled actions. The latter workflow
 # will build the app and create a release in the fork's repository,
 # while the workflow in the base repository will
 # build the app a second time in a trusted environment and,
 # if the two binaries match, publish a `fairseal` hash of
-# the release artifacts for verification by the App Fair catalog
+# the release artifacts for verification by the catalog
 # browser app. See https://www.appfair.net for more details.
 name: "Integrate Release"
 
 on:
   workflow_call:
+    inputs:
+      fairground:
+        required: true
+        type: string
+      fairseal_issuer:
+        required: true
+        type: string
     secrets:
       token:
         required: true
-      GITHUB_TOKEN:
+      bot_token:
         required: true
-      APP_FAIR_BOT_TOKEN:
+      allow_name:
         required: true
-      APP_FAIR_ALLOW_NAME:
+      deny_name:
         required: true
-      APP_FAIR_DENY_NAME:
+      allow_from:
         required: true
-      APP_FAIR_ALLOW_FROM:
-        required: true
-      APP_FAIR_DENY_FROM:
+      deny_from:
         required: true
 
 jobs:
@@ -51,7 +55,7 @@ jobs:
   # required for inclusion in the catalog.  
   integrate_release:
     name: "Integrate Release"
-    if: github.event_name == 'pull_request_target' && github.repository == 'appfair/App'
+    if: github.event_name == 'pull_request_target' && github.repository == '${{ inputs.fairground }}/App'
 
     runs-on: macos-11
     timeout-minutes: 45
@@ -101,17 +105,17 @@ jobs:
         run: |
           xcrun swift run -- fairtool validate \
             --project ReleasePR \
-            --hub github.com/appfair \
-            --token "${{ secrets.GITHUB_TOKEN }}" \
+            --hub github.com/${{ inputs.fairground }} \
+            --token "${{ secrets.token }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --integrationTitle "${{ env.PRTITLE }}" \
-            --fairseal-issuer "appfairbot" \
+            --fairseal-issuer "${{ inputs.fairseal_issuer }}" \
             --allow-license "AGPL-3.0" \
-            --allow-name "${{ secrets.APP_FAIR_ALLOW_NAME }}" \
-            --deny-name "${{ secrets.APP_FAIR_DENY_NAME }}" \
-            --allow-from "${{ secrets.APP_FAIR_ALLOW_FROM }}" \
-            --deny-from "${{ secrets.APP_FAIR_DENY_FROM }}" \
+            --allow-name "${{ inputs.allow_name }}" \
+            --deny-name "${{ inputs.deny_name }}" \
+            --allow-from "${{ inputs.allow_from }}" \
+            --deny-from "${{ inputs.deny_from }}" \
             --maxsize $[100 * 1024 * 1024] \
             --verbose true \
             --output -
@@ -121,15 +125,15 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          xcrun swift run -- fairtool merge --verbose true --hub github.com/appfair --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project ReleasePR --output .
+          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project ReleasePR --output .
 
-          xcrun swift run -- fairtool validate --hub github.com/appfair --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project .
+          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project .
 
           # next generate a default icon, if one doesn't yet exist
           xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png || true # tolerate failure
           file Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png
         
-          #xcrun swift run -- fairtool edit --project . --hub github.com/appfair --bundle-id "${{ env.BUNDLE_ID }}" --display-name "${{ env.PRODUCT_NAME }}"
+          #xcrun swift run -- fairtool edit --project . --hub "github.com/${{ inputs.fairground }}" --bundle-id "${{ env.BUNDLE_ID }}" --display-name "${{ env.PRODUCT_NAME }}"
 
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
@@ -244,7 +248,7 @@ jobs:
       # the contents of the base fair-ground's trusted artifacts
       - name: "Generate macOS fairseal"
         env:
-          GITHUB_TOKEN: ${{ secrets.APP_FAIR_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.bot_token }}
         run: |
           # build the URL for the GitHub download artifact
           ZIPURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" 
@@ -261,8 +265,8 @@ jobs:
           # artifact that was created in the trusted environment
           xcrun swift run -- fairtool fairseal \
             --verbose true \
-            --hub github.com/appfair \
-            --token "${{ secrets.APP_FAIR_BOT_TOKEN }}" \
+            --hub "github.com/${{ inputs.fairground }}" \
+            --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" \
@@ -282,7 +286,7 @@ jobs:
 
       - name: "Generate iOS fairseal"
         env:
-          GITHUB_TOKEN: ${{ secrets.APP_FAIR_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.bot_token }}
         run: |
           # build the URL for the GitHub download artifact
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
@@ -296,8 +300,8 @@ jobs:
           # so we accept a diff tolerance of 1,000,000 bytes for fairseal-match
           xcrun swift run -- fairtool fairseal \
             --verbose true \
-            --hub github.com/appfair \
-            --token "${{ secrets.APP_FAIR_BOT_TOKEN }}" \
+            --hub "github.com/${{ inputs.fairground }}" \
+            --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
@@ -321,12 +325,11 @@ jobs:
         with:
           path: staging
 
-      - name: "Publish App Fair Catalog"
+      - name: "Publish Catalog"
         env:
-          GITHUB_TOKEN: ${{ secrets.APP_FAIR_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.bot_token }}
         run: |
-          # https://github.com/appfair/appfair.github.io/actions
-          gh workflow --repo appfair/appfair.github.io run "catalog.yml"
+          gh workflow --repo "${{ inputs.fairground }}/${{ inputs.fairground }}.github.io" run "catalog.yml"
 
       - name: "Close Pull Request"
         # Pull Requests are always closed after the integrate-release phases.
