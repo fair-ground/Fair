@@ -112,10 +112,10 @@ jobs:
             --integrationTitle "${{ env.PRTITLE }}" \
             --fairseal-issuer "${{ inputs.fairseal_issuer }}" \
             --allow-license "AGPL-3.0" \
-            --allow-name "${{ inputs.allow_name }}" \
-            --deny-name "${{ inputs.deny_name }}" \
-            --allow-from "${{ inputs.allow_from }}" \
-            --deny-from "${{ inputs.deny_from }}" \
+            --allow-name "${{ secrets.allow_name }}" \
+            --deny-name "${{ secrets.deny_name }}" \
+            --allow-from "${{ secrets.allow_from }}" \
+            --deny-from "${{ secrets.deny_from }}" \
             --maxsize $[100 * 1024 * 1024] \
             --verbose true \
             --output -
@@ -199,6 +199,7 @@ jobs:
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
+          shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
 
       - name: "Build macOS App: ${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
         run: |
@@ -215,6 +216,7 @@ jobs:
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
+          shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
 
           echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>mac-application</string><key>signingStyle</key><string>automatic</string></dict></plist>' > "staging/exportOptions.plist"
 
