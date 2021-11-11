@@ -32,29 +32,41 @@ on:
       fairground:
         required: true
         type: string
+      # the license that fairground projects must adhere to
+      license:
+        required: false
+        type: string
+        default: AGPL-3.0
+      # the name of the bot that posts fairseals to PRs that pass integration
       fairseal_issuer:
         required: true
         type: string
+      # whether to create macOS products
       target_macos:
         type: boolean
         required: false
         default: true
+      # whether to create iOS products
       target_ios:
         type: boolean
         required: false
         default: true
+      # whether to create tvOS products
       target_tvos:
         type: boolean
         required: false
         default: false
+      # whether to create watchOS products
       target_watchos:
         type: boolean
         required: false
         default: false
+      # whether to create linux products
       target_linux:
         type: boolean
         required: false
         default: false
+      # whether to create windows products
       target_windows:
         type: boolean
         required: false
@@ -136,7 +148,7 @@ jobs:
             --ref "${{ env.COMMITHASH }}" \
             --integrationTitle "${{ env.PRTITLE }}" \
             --fairseal-issuer "${{ inputs.fairseal_issuer }}" \
-            --allow-license "AGPL-3.0" \
+            --allow-license "${{ inputs.license }}" \
             --allow-name "${{ secrets.allow_name }}" \
             --deny-name "${{ secrets.deny_name }}" \
             --allow-from "${{ secrets.allow_from }}" \
