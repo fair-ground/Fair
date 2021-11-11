@@ -124,6 +124,11 @@ public extension Process {
         try exec(cmd: "/usr/bin/codesign", "-vv", "-d", target: appURL)
     }
 
+    /// Returns `codesign --remove-signature <file>`. Untested.
+    @discardableResult static func codesignStrip(url: URL) throws -> CommandResult {
+        try exec(cmd: "/usr/bin/codesign", "--remove-signature", target: url)
+    }
+
     /// Returns `xip --expand <file>`. Untested.
     @discardableResult static func unxip(url: URL) throws -> CommandResult {
         try exec(cmd: "/usr/bin/xip", "--expand", target: url)

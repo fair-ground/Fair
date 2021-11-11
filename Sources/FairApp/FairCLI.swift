@@ -1438,7 +1438,7 @@ public extension FairCLI {
             }
 
             if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
-                // assets sometimes get compiled differently; we let these pass
+                // assets are not deterministically compiled; we let these pass
                 continue
             }
 
@@ -1459,8 +1459,21 @@ public extension FairCLI {
                 throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
             }
 
-            let trustedPayload = try trustedArchive.extractData(from: trustedEntry)
-            let untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
+            var trustedPayload = try trustedArchive.extractData(from: trustedEntry)
+            var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
+
+            // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
+            if entryIsAppBinary && trustedPayload != untrustedPayload {
+                func stripSignature(from data: Data) throws -> Data {
+                    let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
+                    try data.write(to: tmpFile)
+                    try Process.codesignStrip(url: tmpFile)
+                    return try Data(contentsOf: tmpFile) // read it back in
+                }
+
+                trustedPayload = try stripSignature(from: trustedPayload)
+                untrustedPayload = try stripSignature(from: untrustedPayload)
+            }
 
             if trustedPayload != untrustedPayload {
                 let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
