@@ -1463,6 +1463,7 @@ public extension FairCLI {
             var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
 
             // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
+            #if os(macOS) // we can only launch `codesign` on macOS
             if entryIsAppBinary && trustedPayload != untrustedPayload {
                 func stripSignature(from data: Data) throws -> Data {
                     let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
@@ -1474,6 +1475,7 @@ public extension FairCLI {
                 trustedPayload = try stripSignature(from: trustedPayload)
                 untrustedPayload = try stripSignature(from: untrustedPayload)
             }
+            #endif
 
             if trustedPayload != untrustedPayload {
                 let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
