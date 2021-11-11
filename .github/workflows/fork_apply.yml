@@ -123,8 +123,8 @@ jobs:
             -scheme "AppFairApp" \
             -sdk "iphoneos" \
             -archivePath "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive" \
-            CODE_SIGNING_REQUIRED=YES \
-            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
