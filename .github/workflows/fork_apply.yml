@@ -269,7 +269,7 @@ jobs:
           xcrun notarytool submit --wait --progress --apple-id "${{ secrets.NOTARY_USERID }}" --password "${{ secrets.NOTARY_PASSWORD }}" --team-id "${{ secrets.NOTARY_TEAMID }}" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
           # staple the notarization ticket to the app
-          xcrun stapler staple "$staging/${{ env.PRODUCT_NAME }}.app"
+          xcrun stapler staple "staging/${{ env.PRODUCT_NAME }}.app"
 
           # re-create the archive with the signed & stapled artifact
           ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
