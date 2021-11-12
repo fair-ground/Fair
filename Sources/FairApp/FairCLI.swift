@@ -1455,10 +1455,6 @@ public extension FairCLI {
 
             //msg(.debug, "checking", trustedEntry.path)
 
-            if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
-                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
-            }
-
             var trustedPayload = try trustedArchive.extractData(from: trustedEntry)
             var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
 
@@ -1476,6 +1472,11 @@ public extension FairCLI {
                 untrustedPayload = try stripSignature(from: untrustedPayload)
             }
             #endif
+
+            // the signature can change the binary size
+//            if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
+//                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
+//            }
 
             if trustedPayload != untrustedPayload {
                 let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
