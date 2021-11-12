@@ -245,10 +245,11 @@ jobs:
         env:
             NOTARY_TEAMID: ${{ secrets.NOTARY_TEAMID }}
         if: "${{ env.NOTARY_TEAMID != '' }}"
+        # transfer the secret to an env variable so it can be checked with `if`
         run: echo "::set-output name=defined::true"
 
       - name: "Notarize macOS App"
-        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && steps.notarization_setup.outputs.teamid == 'true'
+        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && steps.notarization_setup.outputs.defined == 'true'
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
