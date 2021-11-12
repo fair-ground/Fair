@@ -296,7 +296,8 @@ jobs:
           cp README.md LICENSE.txt Info.plist Sandbox.entitlements Package.resolved screenshots/screenshot-[a-z]*-[0-9][0-9]-[0-9]*x[0-9]*.png staging/
           ls -la staging/
 
-          find staging/ -type d -maxdepth 1 -exec rm -rf {} \; # remove directories from staging
+          rm -rf staging/*.app # need to cleanup app
+          # find staging/ -type d -maxdepth 1 -exec rm -rf {} \; # remove directories from staging
 
           # log the checksum for each of the staging elements
           openssl sha256 staging/*.*
