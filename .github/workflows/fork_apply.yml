@@ -170,34 +170,102 @@ jobs:
           # create the zip file
           ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
-          # show the binary checksum
-          openssl sha256 "staging/${{ env.PRODUCT_NAME }}.app/Contents/MacOS/"*
-          openssl sha256 "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
-
-          rm -rf "staging/${{ env.PRODUCT_NAME }}.app" # cleanup
-
       # Notarization is not required for the App Fair, but a developer
       # can opt to notarize their own build which will allow them to 
       # distribute the app outside of the App Fair without having to
       # make a separate notarized release.
       #
-      # The App Fair's app validation does not take into account the
+      # The fairground's app validation does not take into account the
       # notarization or signing status of the zip when it validates
       # the release artifacts, nor does it have access to the signing
       # secrets for the fork's repository, and so the app can be signed
-      # with any certificate the developer likes. 
+      # with any certificate without affecting
+      # the integration-release validation. 
       #
-      # Custom signing would need to happen
-      # before the exporting of the binary (above), and is left
-      # as an exercise for the enterprising developer (who may use a
-      # tool like devbotsxyz/xcode-import-certificate for importing the
-      # certificate).
+      # To enable signing an notarization, the fork's secrets will
+      # need to be setup to include the following keys:
+      #
+      # NOTARY_USERID: The Apple ID for developer ID
+      # NOTARY_PASSWORD: An app-specific password for the developer
+      # NOTARY_TEAMID: The Team ID associated with the developer
+      # NOTARY_CERTKEY_P12_BASE64: The exported certificate and key (see below)
+      # NOTARY_CERTKEY_PASSWORD: The password for the exported certificate
+      #
+      # To obtain the NOTARY_CERTKEY_P12_BASE64 value,
+      # you'll need to request a certificate from Apple, 
+      # import it into the Keychain, and then export is as a .p12
+      # file, which will be base64 encoded and saved into the GitHub secret.
+      #
+      # First get a Developer ID certificate by logging into your 
+      # developer account and selecting Certificates IDs & Profiles,
+      # then create a new Developer ID Application certificate.
+      #
+      # To get a CSR Keychain Access and going to
+      # Certificate Assistant -> Request a Certificate from a Certificate Authority
+      # and ensure the "CA Email Address" matches the developer e-mail,
+      # then save to disk.
+      # Then upload the CSR request file to the portal and it will
+      # create a new certificate for you. 
+      # Download it and add it to your Keychain Access by opening it. 
+      # The certificate should be added to one of your default keychains 
+      # and not to the system keychain;
+      # otherwise you might later have troubles exporting it.
+      #
+      # The signing data can then be exported from Keychain Access.app by 
+      # going to the "Certificates" tab and finding the 
+      # "Developer ID Application: DEVNAME (DEVID)" entry that has a single
+      # child private key named "Mac Developer ID Application: DEVNAME".
+      #
+      # Select **BOTH** items and right-click select "Export 2 Items…".
+      # Export to "Certificates.p12" and select a password.
+      # Create a GitHub Org secret called 
+      # "NOTARIZATION_SIGNING_PASSWORD" with the value of that password.
+      #
+      # Next copy the "NOTARY_CERTKEY_P12_BASE64" to the clipboard with:
+      #
+      #   `base64 Certificates.p12 | pbcopy`
+      #
+      # In your GitHub organization Secrets settings, paste the value
+      # into a "NOTARY_CERTKEY_P12_BASE64" key.
+      #
+      # Reference: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: "Notarize macOS App"
-        env:
-          FAIR_NOTARIZATION_TEAMID: ${{ secrets.FAIR_NOTARIZATION_TEAMID }}
-        if: ${{ env.FAIR_NOTARIZATION_TEAMID }}
+        if: ${{ secrets.NOTARY_CERTKEY_P12_BASE64 }}
+        run: |
+          rmbk .notarization || true
+          mkdir -p .notarization
 
-        run: xcrun notarytool submit "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" --password "${{ secrets.FAIR_NOTARIZATION_PASSWORD }}" --apple-id "${{ secrets.FAIR_NOTARIZATION_USERNAME }}" --team-id "${{ secrets.FAIR_NOTARIZATION_TEAMID }}" --progress --wait
+          security delete-keychain fairsign.keychain || true
+
+          security create-keychain -p "${{ secrets.NOTARY_CERTKEY_PASSWORD }}" fairsign.keychain
+          security default-keychain -s fairsign.keychain
+          security list-keychains -s fairsign.keychain
+
+          # import certificate
+          echo "${{ secrets.NOTARY_CERTKEY_P12_BASE64 }}" | base64 -d -o .notarization/fairsign.p12
+          security import .notarization/fairsign.p12 -k fairsign.keychain -P "${{ secrets.NOTARY_CERTKEY_PASSWORD }}" -A
+          rm -f .notarization/fairsign.p12
+
+          security set-key-partition-list -S "apple-tool:,apple:,codesign:" -s -k "${{ secrets.NOTARY_CERTKEY_PASSWORD }}" fairsign.keychain
+
+          # show valid identities
+          security find-identity -v
+
+          signinfo "staging/${{ env.PRODUCT_NAME }}.app"
+
+          # re-sign the app with the imported certificate and the identity
+          /usr/bin/codesign --force -v --options runtime --entitlements "Sandbox.entitlements" -s "`security find-identity -v | cut -f 4 -d ' ' | head -n 1`" "staging/${{ env.PRODUCT_NAME }}.app"
+
+          # re-create the archive with the signed app for submission
+          ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
+
+          # perform notarization and wait for success
+          xcrun notarytool submit --wait --progress --apple-id "${{ secrets.NOTARY_USERID }}" --password "${{ secrets.NOTARY_PASSWORD }}" --team-id "${{ secrets.NOTARY_TEAMID }}" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
+          # staple the notarization ticket to the app
+          xcrun stapler staple "$staging/${{ env.PRODUCT_NAME }}.app"
+
+          # re-create the archive with the signed & stapled artifact
+          ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
       - name: "Stage Release Metadata"
         if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push'
@@ -205,9 +273,16 @@ jobs:
         # the same post-processed metadata that the app will use.
         # And convert to XML for ease of integration.
         run: |
+          # show the binary checksum
+          openssl sha256 "staging/${{ env.PRODUCT_NAME }}.app/Contents/MacOS/"*
+          openssl sha256 "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
+
           cp Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
           cp README.md LICENSE.txt Info.plist Sandbox.entitlements Package.resolved screenshots/screenshot-[a-z]*-[0-9][0-9]-[0-9]*x[0-9]*.png staging/
           ls -la staging/
+
+          find staging/ -type d -maxdepth 1 -exec rm -rf {} \; # remove directories from staging
+
           # log the checksum for each of the staging elements
           openssl sha256 staging/*.*
 
