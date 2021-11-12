@@ -1372,11 +1372,11 @@ public extension FairCLI {
         func readEntries(_ archive: ZipArchive) -> [ZipArchive.Entry] {
             Array(archive.makeIterator())
                 .filter { entry in
-                    !entry.path.hasSuffix("CodeSignature")
-                    && !entry.path.hasSuffix("_CodeSignature/CodeSignature")
-                    && !entry.path.hasSuffix("_CodeSignature/CodeResources")
-                    && !entry.path.hasSuffix("_CodeSignature/CodeDirectory")
-                    && !entry.path.hasSuffix("_CodeSignature/CodeRequirements-1")
+                    // these can be in either _CodeSignature or Contents
+                    !entry.path.hasSuffix("/CodeSignature")
+                    && !entry.path.hasSuffix("/CodeResources")
+                    && !entry.path.hasSuffix("/CodeDirectory")
+                    && !entry.path.hasSuffix("/CodeRequirements-1")
                 }
         }
 
