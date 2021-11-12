@@ -241,7 +241,7 @@ jobs:
       #
       # Reference: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: "Notarize macOS App"
-        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && "${{ secrets.NOTARY_TEAMID }}" != ''
+        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && secrets.NOTARY_TEAMID != ''
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
