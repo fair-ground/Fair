@@ -1628,14 +1628,12 @@ public extension FairCLI {
         if let caskFolderFlag = caskFolderFlag {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
             for app in catalog.apps {
-                if app.beta != false { // only save non-beta releases
-                    try saveCask(app, to: caskFolderFlag, msg: msg)
-                }
+                try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease", msg: msg)
             }
         }
     }
 
-    @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, msg: MessageHandler) throws -> Bool {
+    @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?, msg: MessageHandler) throws -> Bool {
         let appNameSpace = app.name
         let appNameHyphen = app.name.replacingOccurrences(of: " ", with: "-")
 
@@ -1657,7 +1655,17 @@ public extension FairCLI {
         let isCatalogAppCask = appNameHyphen == fairground
 
         let caskName = appNameHyphen.lowercased()
-        let caskPath = caskName + ".rb"
+
+        let caskPath: String
+
+        if app.beta == true {
+            guard let prereleaseSuffix = prereleaseSuffix else {
+                return false // we've speficied not to generate casks for pre-releases
+            }
+            caskPath = caskName + prereleaseSuffix + ".rb"
+        } else {
+            caskPath = caskName + ".rb"
+        }
 
         // apps other than "Catalog Name.app" are installed att "/Applications/Catalog Name/App Name.app"
         let installPrefix = isCatalogAppCask ? "" : (fairground.replacingOccurrences(of: "-", with: " ") + "/")
