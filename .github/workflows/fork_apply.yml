@@ -33,11 +33,6 @@ on:
       fairground:
         type: string
         required: true
-      # whether to notarize the macOS build
-      notarize_macos:
-        type: boolean
-        required: false
-        default: false
       target_macos:
         type: boolean
         required: true
@@ -246,7 +241,7 @@ jobs:
       #
       # Reference: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: "Notarize macOS App"
-        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && ${{ inputs.notarize_macos }} == true
+        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && "${{ secrets.NOTARY_TEAMID }}" != ''
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
