@@ -55,6 +55,17 @@ on:
         type: boolean
         required: false
         default: false
+    secrets:
+      NOTARY_TEAMID:
+        required: false
+      NOTARY_USERID:
+        required: false
+      NOTARY_PASSWORD:
+        required: false
+      NOTARY_CERTKEY_P12_BASE64:
+        required: false
+      NOTARY_CERTKEY_PASSWORD:
+        required: false
 
 jobs:
   # The Fork-Apply phases run in the /App.git fork's repository.
