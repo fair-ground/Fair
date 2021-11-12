@@ -1368,8 +1368,20 @@ public extension FairCLI {
             throw AppError("Trusted and untrusted artifacts may not be the same")
         }
 
-        let trustedEntries = Array(trustedArchive.makeIterator())
-        let untrustedEntries = Array(untrustedArchive.makeIterator())
+        // Load the zip entries, skipping over signature entries we are exlcuding from the comparison
+        func readEntries(_ archive: ZipArchive) -> [ZipArchive.Entry] {
+            Array(archive.makeIterator())
+                .filter { entry in
+                    !entry.path.hasSuffix("CodeSignature")
+                    && !entry.path.hasSuffix("_CodeSignature/CodeSignature")
+                    && !entry.path.hasSuffix("_CodeSignature/CodeResources")
+                    && !entry.path.hasSuffix("_CodeSignature/CodeDirectory")
+                    && !entry.path.hasSuffix("_CodeSignature/CodeRequirements-1")
+                }
+        }
+
+        let trustedEntries = readEntries(trustedArchive)
+        let untrustedEntries = readEntries(untrustedArchive)
 
         if trustedEntries.count != untrustedEntries.count {
             throw AppError("Trusted and untrusted artifact content counts do not match (\(trustedEntries.count) vs. \(untrustedEntries.count))")
@@ -1424,18 +1436,6 @@ public extension FairCLI {
             msg(.info, "checking mismached entry: \(trustedEntry.path)")
 
             let pathParts = trustedEntry.path.split(separator: "/")
-
-            if let lastPath = pathParts.last, pathParts.dropLast().last == "_CodeSignature" {
-                if [
-                    "CodeSignature",
-                    "CodeResources",
-                    "CodeDirectory",
-                    "CodeRequirements-1",
-                ].contains(lastPath) {
-                    // we permit differences in code signatures in order to allow custom signing by the App fork
-                    continue
-                }
-            }
 
             if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
                 // assets are not deterministically compiled; we let these pass
