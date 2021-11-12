@@ -241,7 +241,7 @@ jobs:
       #
       # Reference: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: "Notarize macOS App"
-        if: ${{ secrets.NOTARY_CERTKEY_P12_BASE64 }}
+        if: "${{ secrets.NOTARY_CERTKEY_P12_BASE64 }}"
         run: |
           rmbk .notarization || true
           mkdir -p .notarization
