@@ -246,13 +246,10 @@ jobs:
       #
       # Reference: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: "Notarize macOS App"
-        if: ${{ inputs.notarize_macos }} == true
+        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && ${{ inputs.notarize_macos }} == true
         run: |
-          rmbk .notarization || true
           mkdir -p .notarization
-
           security delete-keychain fairsign.keychain || true
-
           security create-keychain -p "${{ secrets.NOTARY_CERTKEY_PASSWORD }}" fairsign.keychain
           security default-keychain -s fairsign.keychain
           security list-keychains -s fairsign.keychain
@@ -268,13 +265,14 @@ jobs:
           security find-identity -v
 
           # re-sign the app with the imported certificate and the identity
-          /usr/bin/codesign --force -v --options runtime --entitlements "Sandbox.entitlements" -s "`security find-identity -v | cut -f 4 -d ' ' | head -n 1`" "staging/${{ env.PRODUCT_NAME }}.app"
+          codesign --force -v --options runtime --entitlements "Sandbox.entitlements" -s "`security find-identity -v | cut -f 4 -d ' ' | head -n 1`" "staging/${{ env.PRODUCT_NAME }}.app"
 
           # re-create the archive with the signed app for submission
           ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
           # perform notarization and wait for success
           xcrun notarytool submit --wait --progress --apple-id "${{ secrets.NOTARY_USERID }}" --password "${{ secrets.NOTARY_PASSWORD }}" --team-id "${{ secrets.NOTARY_TEAMID }}" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
+
           # staple the notarization ticket to the app
           xcrun stapler staple "$staging/${{ env.PRODUCT_NAME }}.app"
 
