@@ -131,7 +131,7 @@ jobs:
           cp Package.resolved Sources/App/Resources/
 
       - name: "Build iOS App"
-        if: ${{ inputs.target_ios }}
+        if: ${{ inputs.target_ios }} == true
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
@@ -150,7 +150,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent "staging/Payload" "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
 
       - name: "Build macOS App"
-        if: ${{ inputs.target_macos }}
+        if: ${{ inputs.target_macos }} == true
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
@@ -246,7 +246,7 @@ jobs:
       #
       # Reference: https://localazy.com/blog/how-to-automatically-sign-macos-apps-using-github-actions
       - name: "Notarize macOS App"
-        if: ${{ inputs.notarize_macos }}
+        if: ${{ inputs.notarize_macos }} == true
         run: |
           rmbk .notarization || true
           mkdir -p .notarization
@@ -266,8 +266,6 @@ jobs:
 
           # show valid identities
           security find-identity -v
-
-          signinfo "staging/${{ env.PRODUCT_NAME }}.app"
 
           # re-sign the app with the imported certificate and the identity
           /usr/bin/codesign --force -v --options runtime --entitlements "Sandbox.entitlements" -s "`security find-identity -v | cut -f 4 -d ' ' | head -n 1`" "staging/${{ env.PRODUCT_NAME }}.app"
