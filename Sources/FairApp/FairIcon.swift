@@ -44,6 +44,19 @@ public struct FairIconView : View, Equatable {
         }
     }
 
+    /// Returns the default icon color for the given app name, separated into two parts
+    public static func iconColor(name: String) -> Color {
+        let parts = name.components(separatedBy: CharacterSet.letters.inverted)
+        let word1 = parts.first ?? "Invalid"
+        let word2 = parts.last ?? "Name"
+        return iconColor(word1: word1, word2: word2)
+    }
+    
+    /// The default icon color for the two parts
+    static func iconColor(word1: String, word2: String) -> Color {
+        Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+    }
+    
     func iconFont(size: CGFloat) -> Font {
         return Font.system(size: size, weight: .heavy, design: Font.Design.rounded).smallCaps()
     }
@@ -61,7 +74,7 @@ public struct FairIconView : View, Equatable {
         let fontSize2 = fontSize(for: word2)
 
         // create a top-down gradient of the brighter color a
-        let outerColorLight = iconColor ?? Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+        let outerColorLight = iconColor ?? Self.iconColor(word1: word1, word2: word2)
         
         let outerColorDark = outerColorLight // Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
 

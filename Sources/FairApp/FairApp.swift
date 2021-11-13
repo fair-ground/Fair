@@ -140,9 +140,13 @@ public extension AppEntitlement {
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
     public static func launch(bundle: Bundle, sourceFile: StaticString = #file) throws {
-        // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally srt to permit launching in Xcode debugger (where stdin is set)
-        let isCLI = isatty(fileno(stdin)) == 1 && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
+        // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally set to permit launching in Xcode debugger (where stdin is set)
+        let isCLI = isatty(fileno(stdin)) == 1
+            && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
+            && ProcessInfo.processInfo.environment["OS_ACTIVITY_DT_MODE"] != "YES"
 
+        print("#### ProcessInfo.processInfo.environment", ProcessInfo.processInfo.environment)
+        
         //var stderr = HandleStream(stream: .standardError)
         var stdout = HandleStream(stream: .standardOutput)
 
