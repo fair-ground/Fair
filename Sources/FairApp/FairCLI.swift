@@ -1655,18 +1655,16 @@ public extension FairCLI {
 
         let isCatalogAppCask = appNameHyphen == fairground
 
-        let caskName = appNameHyphen.lowercased()
-
-        let caskPath: String
+        var caskName = appNameHyphen.lowercased()
 
         if app.beta == true {
             guard let prereleaseSuffix = prereleaseSuffix else {
                 return false // we've speficied not to generate casks for pre-releases
             }
-            caskPath = caskName + prereleaseSuffix + ".rb"
-        } else {
-            caskPath = caskName + ".rb"
+            caskName = caskName + prereleaseSuffix
         }
+
+        let caskPath = caskName + ".rb"
 
         // apps other than "Catalog Name.app" are installed att "/Applications/Catalog Name/App Name.app"
         let installPrefix = isCatalogAppCask ? "" : (fairground.replacingOccurrences(of: "-", with: " ") + "/")
