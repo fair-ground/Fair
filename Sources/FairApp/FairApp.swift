@@ -70,6 +70,7 @@ public protocol FairContainer {
     /// The settings associated with this app
     @ViewBuilder static func settingsView(store: Self.AppStore) -> Self.SettingsBody
 
+    
     /// Launch the app, either in GUI or CLI form
     static func main() throws
 
@@ -90,14 +91,37 @@ public extension FairContainer {
 @MainActor open class SceneManager: ObservableObject {
     /// Must have a no-arg initializer
     public required init() { }
+    
+    /// The actions available globally to this scene
+    open var quickActions: [QuickAction] = []
 }
 #else
 @available(macOS 11.0, iOS 14.0, *)
 open class SceneManager: ObservableObject {
     /// Must have a no-arg initializer
     public required init() { }
+
+    /// The actions available globally to this scene
+    open var quickActions: [QuickAction] = []
 }
 #endif
+
+/// A action that is available from an app's icon, either the dock icon in macOS or the app's icon in iOS
+public final class QuickAction: Identifiable {
+    public let id: String
+    public let localizedTitle: String
+    public let localizedSubtitle: String?
+    public let iconSymbol: String?
+    public let block: (_ callback: @escaping (Bool) -> Void) -> ()
+
+    public init(id: String, localizedTitle: String, localizedSubtitle: String? = nil, iconSymbol: String? = nil, block: @escaping (_ callback: @escaping (Bool) -> Void) -> ()) {
+        self.id = id
+        self.localizedTitle = localizedTitle
+        self.localizedSubtitle = localizedSubtitle
+        self.iconSymbol = iconSymbol
+        self.block = block
+    }
+}
 
 #if canImport(Security)
 import Security
@@ -272,6 +296,7 @@ extension FairContainer {
 public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
     @Environment(\.openURL) var openURL
+    @Environment(\.scenePhase) var scenePhase
     @StateObject public var store = Container.AppStore()
 
     public init() {
@@ -297,6 +322,23 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
 
         Group {
             Container.rootScene(store: store)
+                .onChange(of: scenePhase) { phase in
+                    // update the app delegate's quick actions if needed
+                    AppDelegate.installQuickActions {
+                        store.quickActions
+                    }
+                    
+                    switch phase {
+                    case .background:
+                        break;
+                    case .inactive:
+                        break;
+                    case .active:
+                        break;
+                    @unknown default:
+                        break;
+                    }
+                }
             #if os(macOS) // on
             Settings {
                 Container.settingsView(store: store)
@@ -344,10 +386,60 @@ public extension URL {
     }
 }
 
-
 @available(macOS 12.0, iOS 15.0, *)
 private final class AppDelegate: NSObject, UXApplicationDelegate {
+    /// The global quick actions installed on the app
+    fileprivate static var quickActions: [QuickAction]? = nil
+    
+    /// Adds the given `[QuickAction]` array to the list of available actions.
+    static func installQuickActions(actions: () -> [QuickAction]) {
+        if quickActions != nil {
+            return
+        }
+        
+        let acts = actions()
+        self.quickActions = acts
+        
+        #if canImport(UIKit)
+        // on iOS, quick actions are added as
+        let items = acts.map { action in
+            UIApplicationShortcutItem(type: action.id, localizedTitle: action.localizedTitle, localizedSubtitle: action.localizedSubtitle, icon: action.iconSymbol.flatMap(UIApplicationShortcutIcon.init(systemImageName:)), userInfo: [:])
+        }
+
+        UIApplication.shared.shortcutItems = items
+        #endif
+        
+        #if canImport(AppKit)
+        for action in acts {
+            let menuItem = NSMenuItem(title: action.localizedTitle, action: #selector(performQuickAction), keyEquivalent: "")
+            // the action's identifier is stored as the menu item's identifier
+            menuItem.identifier = .init(rawValue: action.id)
+            
+            // the dock menu seems to ignore both the image and tooltip for items, so this doesn't seem to do anything
+            if let symbol = action.iconSymbol {
+                menuItem.image = NSImage(systemSymbolName: symbol, accessibilityDescription: action.localizedTitle)
+            }
+            if let subtitle = action.localizedSubtitle {
+                menuItem.toolTip = subtitle
+            }
+            dockMenu.addItem(menuItem)
+        }
+        #endif
+    }
+    
     #if canImport(AppKit)
+    @objc func performQuickAction(_ sender: Any?) {
+        dbg(sender)
+        if let sender = sender as? NSMenuItem {
+            guard let id = sender.identifier?.rawValue else {
+                return dbg("no identifier for sender:", sender)
+            }
+            Self.invokeQuickAction(id: id) { success in
+                dbg("invoked action \(id) with success:", success)
+            }
+        }
+    }
+    
     func applicationWillFinishLaunching(_ notification: Notification) {
         //dbg("applicationWillFinishLaunching")
     }
@@ -355,6 +447,13 @@ private final class AppDelegate: NSObject, UXApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         //dbg("applicationDidFinishLaunching")
     }
+    
+    fileprivate static let dockMenu = NSMenu()
+    
+    func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
+        Self.dockMenu
+    }
+    
     #elseif canImport(UIKit)
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         //dbg("willFinishLaunchingWithOptions")
@@ -365,20 +464,40 @@ private final class AppDelegate: NSObject, UXApplicationDelegate {
         //dbg("didFinishLaunchingWithOptions")
         return true
     }
-    #endif
+            
+    fileprivate static var shortcutItem: UIApplicationShortcutItem?
 
-}
-
-
-@available(macOS 12.0, iOS 15.0, *)
-extension String {
-    #if swift(>=5.5)
-    /// Parses the attributed text string into an `AttributedString`
-    public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .inlineOnlyPreservingWhitespace, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
-        try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: allowsExtendedAttributes, interpretedSyntax: interpret, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        if let shortcutItem = options.shortcutItem {
+            AppDelegate.shortcutItem = shortcutItem
+        }
+        
+        let sceneConfiguration = UISceneConfiguration(name: "Scene Configuration", sessionRole: connectingSceneSession.role)
+        
+        sceneConfiguration.delegateClass = SceneDelegate.self
+        
+        return sceneConfiguration
     }
     #endif
+    
+    static func invokeQuickAction(id: String, completionHandler: @escaping (Bool) -> Void) {
+        guard let action = AppDelegate.quickActions?.first(where: { $0.id == id }) else {
+            dbg("no QuickAction found for shortcutItem:", id)
+            return completionHandler(false)
+        }
+        
+        action.block(completionHandler)
+    }
 }
+
+#if canImport(UIKit)
+@available(iOS 15.0, *)
+private final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        AppDelegate.invokeQuickAction(id: shortcutItem.type, completionHandler: completionHandler)
+    }
+}
+#endif
 
 @available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.Text {

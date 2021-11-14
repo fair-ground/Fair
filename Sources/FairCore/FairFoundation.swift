@@ -282,6 +282,16 @@ public extension String {
     }
 }
 
+@available(macOS 12.0, iOS 15.0, *)
+extension String {
+    #if swift(>=5.5)
+    /// Parses the attributed text string into an `AttributedString`
+    public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .inlineOnlyPreservingWhitespace, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
+        try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: allowsExtendedAttributes, interpretedSyntax: interpret, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
+    }
+    #endif
+}
+
 public extension Data {
     /// The UTF8-encoded String for this data
     @inlinable var utf8String: String? {

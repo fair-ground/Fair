@@ -164,8 +164,8 @@ public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResp
 
 public extension URLRequest {
     #if swift(>=5.5)
-    /// Downloads the URL and verifies the HTTP code and, optionally, a SHA-256 hash
-    /// included as the URL's fragment.
+    /// Downloads the URL and verifies the HTTP success code and, optionally, the validity of the
+    /// SHA-256 hash included as the URL's fragment.
     ///
     /// - Parameters:
     ///   - session: the URLSession to use, defaulting to `URLSession.shared`
