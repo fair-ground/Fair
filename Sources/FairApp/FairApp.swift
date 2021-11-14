@@ -144,8 +144,6 @@ extension FairContainer {
         let isCLI = isatty(fileno(stdin)) == 1
             && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
             && ProcessInfo.processInfo.environment["OS_ACTIVITY_DT_MODE"] != "YES"
-
-        print("#### ProcessInfo.processInfo.environment", ProcessInfo.processInfo.environment)
         
         //var stderr = HandleStream(stream: .standardError)
         var stdout = HandleStream(stream: .standardOutput)

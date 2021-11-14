@@ -513,7 +513,7 @@ public extension FairHub {
 
     private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) throws -> Bool {
         func matches(pattern: NSRegularExpression) -> Bool {
-            pattern.firstMatch(in: value, options: [], range: NSRange(value.startIndex..<value.endIndex, in: value)) != nil
+            pattern.firstMatch(in: value, options: [], range: value.span) != nil
         }
 
         // if we specified an allow list, then at least one of the patterns must match the email

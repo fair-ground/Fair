@@ -162,6 +162,39 @@ public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResp
     var cursor: CursorType? { get set }
 }
 
+public extension URLRequest {
+    #if swift(>=5.5)
+    /// Downloads the URL and verifies the HTTP code and, optionally, a SHA-256 hash
+    /// included as the URL's fragment.
+    ///
+    /// - Parameters:
+    ///   - session: the URLSession to use, defaulting to `URLSession.shared`
+    ///   - validateFragmentHash: if `true`, validate that the contents of the data match a SHA256 hash in the URL
+    /// - Returns: the `Data` if it downloaded and validated
+    @available(macOS 12.0, iOS 15.0, *)
+    func fetch(session: URLSession = .shared, validateFragmentHash: Bool = false) async throws -> Data {
+        let (data, response) = try await session.data(for: self, delegate: nil)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw Bundle.module.error("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
+        }
+        
+        if !(200..<300).contains(httpResponse.statusCode) {
+            throw Bundle.module.error("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
+        }
+        
+        if validateFragmentHash == true,
+            let fragmentHash = self.url?.fragment {
+            let dataHash = data.sha256().hex()
+            if dataHash != fragmentHash {
+                throw Bundle.module.error("Hash mismatch for \(self.url?.absoluteString ?? ""): \(fragmentHash) vs. \(dataHash)")
+            }
+        }
+
+        return data
+    }
+    #endif
+}
+
 // TODO: @available(*, deprecated, message: "migrate to async")
 public extension URLSession {
     /// Synchronously fetches the given URL

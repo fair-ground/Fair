@@ -70,6 +70,11 @@ extension Bundle {
         }
         return try Data(contentsOf: url, options: options)
     }
+    
+    // TODO: use StringLocalizationKey for the message
+    public func error(_ message: String, code: Int = 0) -> some Error {
+        NSError(domain: "Fair", code: code, userInfo: [NSLocalizedFailureReasonErrorKey: NSLocalizedString(message, tableName: nil, bundle: self, comment: "")])
+    }
 }
 
 extension FileManager {

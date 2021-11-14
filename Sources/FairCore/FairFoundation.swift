@@ -275,6 +275,11 @@ public extension String {
     func trimmed(_ characters: CharacterSet = .whitespacesAndNewlines) -> String {
         trimmingCharacters(in: characters)
     }
+    
+    /// The total span of this string expressed as an NSRange
+    var span: NSRange {
+        NSRange(startIndex..<endIndex, in: self)
+    }
 }
 
 public extension Data {
@@ -401,6 +406,45 @@ public extension Error {
 extension NSError : LocalizedError {
 
 }
+
+/// A property list, which is simply a wrapper around an `NSDictionary` with some conveniences.
+public final class Plist : RawRepresentable, Hashable {
+    public let rawValue: NSDictionary
+
+    public init() {
+        self.rawValue = NSDictionary()
+    }
+
+    public init(rawValue: NSDictionary) {
+        self.rawValue = rawValue
+    }
+
+    /// Attempts to parse the given data as a property list
+    /// - Parameters:
+    ///   - data: the property list data to parse
+    ///   - format: the format the data is expected to be in, or nil if empty
+    public convenience init(data: Data) throws {
+        guard let props = try PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? NSDictionary else {
+            throw CocoaError(.coderInvalidValue)
+        }
+        self.init(rawValue: props)
+    }
+
+    public convenience init(url: URL) throws {
+        do {
+            let data = try Data(contentsOf: url)
+            try self.init(data: data)
+        } catch {
+            throw error.withInfo(for: NSLocalizedFailureReasonErrorKey, "Error loading from: \(url.absoluteString)")
+        }
+    }
+
+    /// Serialize this property list to data
+    public func serialize(as format: PropertyListSerialization.PropertyListFormat) throws -> Data {
+        try PropertyListSerialization.data(fromPropertyList: rawValue, format: format, options: 0)
+    }
+}
+
 /// `true` if assertions are enabled for the current build
 public let assertionsEnabled: Bool = {
     var enabled = false
