@@ -282,6 +282,7 @@ public extension String {
     }
 }
 
+#if os(macOS) || os(iOS)
 @available(macOS 12.0, iOS 15.0, *)
 extension String {
     #if swift(>=5.5)
@@ -291,6 +292,7 @@ extension String {
     }
     #endif
 }
+#endif
 
 public extension Data {
     /// The UTF8-encoded String for this data
