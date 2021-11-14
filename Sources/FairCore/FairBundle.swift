@@ -72,7 +72,7 @@ extension Bundle {
     }
     
     // TODO: use StringLocalizationKey for the message
-    public func error(_ message: String, code: Int = 0) -> some Error {
+    public func error(_ message: String, code: Int = 0) -> Error {
         NSError(domain: "Fair", code: code, userInfo: [NSLocalizedFailureReasonErrorKey: NSLocalizedString(message, tableName: nil, bundle: self, comment: "")])
     }
 }

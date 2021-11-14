@@ -177,11 +177,12 @@ public extension URLRequest {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw Bundle.module.error("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
         }
-        
+
         if !(200..<300).contains(httpResponse.statusCode) {
             throw Bundle.module.error("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
         }
-        
+
+        #if canImport(CommonCrypto)
         if validateFragmentHash == true,
             let fragmentHash = self.url?.fragment {
             let dataHash = data.sha256().hex()
@@ -189,6 +190,7 @@ public extension URLRequest {
                 throw Bundle.module.error("Hash mismatch for \(self.url?.absoluteString ?? ""): \(fragmentHash) vs. \(dataHash)")
             }
         }
+        #endif
 
         return data
     }
