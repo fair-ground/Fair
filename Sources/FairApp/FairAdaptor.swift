@@ -169,6 +169,26 @@ public extension SwiftUI.Image {
     }
 }
 
+public extension UXApplication {
+    /// Sets the badge of the dock/icon for this app.
+    ///
+    /// - Parameter number: the number to set; 0 will hide the badge
+    func setBadge(_ number: Int) {
+        #if canImport(AppKit)
+        NSApp.dockTile.badgeLabel = number <= 0 ? nil : "\(number)"
+        #endif
+        #if canImport(UIKit)
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge]) { success, error in
+            if success == true && error == nil {
+                DispatchQueue.main.async {
+                    self.applicationIconBadgeNumber = number
+                }
+            }
+        }
+        #endif
+    }
+}
+
 public extension UXViewRepresentable {
 
     #if canImport(UIKit)
