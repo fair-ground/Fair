@@ -57,7 +57,7 @@ public extension Bundle {
 #if canImport(SwiftUI)
 /// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
 @available(macOS 12.0, iOS 15.0, *)
-public protocol FairContainer {
+@MainActor public protocol FairContainer {
     /// The store for this instance
     associatedtype AppStore : SceneManager
 
