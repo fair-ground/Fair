@@ -169,7 +169,7 @@ public extension FairHub {
                     dbg("invalid release tag:", release.tag.name)
                     continue
                 }
-                dbg("  checking release:", fork.nameWithOwner, appVersion.versionDescription)
+                dbg("  checking release:", fork.nameWithOwner, appVersion.versionString)
 
                 // commite in the web will be "GitHub Web Flow" and either empty e-mail or "noreply@github.com"
                 //let developerEmail = release.tagCommit.signature?.signer.email
@@ -243,7 +243,7 @@ public extension FairHub {
 
                 for artifactTarget in [artifactTarget] {
                     let artifactType = artifactTarget.artifactType
-                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionDescription, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
+                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionString, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(artifactType)
                     }) else {
@@ -315,7 +315,7 @@ public extension FairHub {
 
                     // walk through the recent releases until we find one that has a fairseal on it
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionDescription, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum))
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum))
 
 
                     if beta == true {

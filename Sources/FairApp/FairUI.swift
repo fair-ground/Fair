@@ -47,6 +47,8 @@ public struct URLImage : View, Equatable {
     public let resizable: ContentMode?
     /// Whether a progress placeholder should be used
     public let showProgress: Bool
+    /// The recommended size of the image, as encoded with the image ending in `"-widthxheight"`
+    public let suggestedSize: CGSize?
 
     public init(sync: Bool = false, url: URL, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showProgress: Bool = false) {
         self.sync = sync
@@ -54,6 +56,16 @@ public struct URLImage : View, Equatable {
         self.scale = scale
         self.resizable = resizable
         self.showProgress = showProgress
+        if let lastPart = url.deletingPathExtension()
+            .lastPathComponent.split(separator: "-").last,
+           let sizeParts = Optional.some(lastPart)?.split(separator: "x"),
+           sizeParts.count == 2,
+           let width = Int(sizeParts[0]),
+           let height = Int(sizeParts[1]) {
+            self.suggestedSize = CGSize(width: width, height: height)
+        } else {
+            self.suggestedSize = nil
+        }
     }
 
     public var body: some View {
@@ -71,9 +83,15 @@ public struct URLImage : View, Equatable {
                     Label(error.localizedDescription, systemImage: "xmark.octagon")
                 } else if showProgress == true {
                     ProgressView().progressViewStyle(.automatic)
-                    //Color.gray.opacity(0.5)
+                } else if let suggestedSize = suggestedSize {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.4))
+                    // TODO: need to resize; maybe generate an image?
+                        //.frame(width: suggestedSize.width, height: suggestedSize.height)
+                        .hidden()
                 } else {
-                    ProgressView().progressViewStyle(.automatic).hidden()
+                    Circle().hidden()
+                    // Color.gray.opacity(0.5)
                 }
             }
         } else { // load the image synchronously
