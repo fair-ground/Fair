@@ -24,7 +24,6 @@ name: "App Fair Release"
 
 on:
   workflow_call:
-    runs-on: macos-11
     inputs:
       # the name of the fairground organization (e.g., "appfair")
       fairground:
