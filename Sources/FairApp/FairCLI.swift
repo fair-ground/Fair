@@ -1201,7 +1201,7 @@ public extension FairCLI {
             }
 
             var sizePart = parts[1]
-            var scale = CGFloat(1.0)
+            var scale = CGFloat(2.0) // default scale seems to vary depending on whether we are headless or not; GH actions machines seem to be 1x, but a laptop is 2x
             let scaleParts = sizePart.split(separator: "@")
             if scaleParts.count == 2,
                scaleParts[1].hasSuffix("x"),
