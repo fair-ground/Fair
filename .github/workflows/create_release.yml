@@ -1,0 +1,64 @@
+##############################################################################
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+# This workflow is run in a fork of https://www.github.com/appfair/App.git
+# It will create a new release with the specified version by tagging it
+# with the specified semantic release. It will also attempt to
+# open a new PR against the base fairground in order to
+# initiate the integrate_release workflow.
+name: "Create Release"
+
+on:
+  workflow_call:
+    runs-on: macos-11
+    inputs:
+      # the name of the fairground organization (e.g., "appfair")
+      fairground:
+        type: string
+        required: true
+      # the semver tag to use to create the release
+      version:
+        type: string
+        required: true
+
+    steps:
+      - name: "Initialize fair-ground"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+          echo "ORGNAME=${{ github.repository_owner }}" >> $GITHUB_ENV
+          echo "COMMITHASH=${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: "Configure Release: ${{ env.ORGNAME }}"
+        run: |
+          echo "FAIR_APP_ARTIFACT=${{ env.ORGNAME }}" >> $GITHUB_ENV
+          echo "PRODUCT_NAME=$(echo ${{ env.ORGNAME }} | tr '-' ' ')" >> $GITHUB_ENV
+          echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
+          echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: "Release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
+        run: |
+          echo "Creating release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
+
+
