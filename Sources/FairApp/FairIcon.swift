@@ -122,18 +122,20 @@ public struct FairIconView : View, Equatable {
                 .mask(borderMask().fill(style: FillStyle(eoFill: true)))
                 .shadow(color: Color.black.opacity(1.0), radius: span * 0.010, x: 0, y: 0) // double interior shadow for raised effect
 
-            VStack {
-                Text(monogram)
-                    .font(iconFont(size: span * 0.5))
-                if let subtitle = subtitle {
-                    Text(subtitle)
-                        .font(Font.system(size: span * 0.16, weight: .semibold, design: .rounded))
+            if !monogram.isEmpty {
+                VStack {
+                    Text(monogram)
+                        .font(iconFont(size: span * 0.5))
+                    if let subtitle = subtitle {
+                        Text(subtitle)
+                            .font(Font.system(size: span * 0.16, weight: .semibold, design: .rounded))
+                    }
                 }
+                .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: 1)
+                .foregroundColor(textColor)
+                .lineLimit(1)
+                .multilineTextAlignment(.center)
             }
-            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: 1)
-            .foregroundColor(textColor)
-            .lineLimit(1)
-            .multilineTextAlignment(.center)
         }
     }
 }
@@ -141,107 +143,6 @@ public struct FairIconView : View, Equatable {
 extension LinearGradient {
     init(_ colors: Color...) {
         self.init(gradient: Gradient(colors: colors), startPoint: .topLeading, endPoint: .bottomTrailing)
-    }
-}
-
-public struct CircularTextView: View {
-    public var text: String
-    public var radius: CGFloat
-    public var reverse: Bool = false
-    internal var textModifier: (Text) -> Text = { $0 }
-    internal var spacing: CGFloat = 0
-    @State private var sizes: [CGSize] = []
-
-    private func textRadius(at index: Int) -> CGFloat {
-        radius - size(at: index).height / 2
-    }
-
-    public var body: some View {
-
-        return VStack {
-            ZStack {
-                ForEach(textAsCharacters()) { item in
-                    PropagateSize {
-                        self.charView(char: item)
-                    }
-                    .frame(width: self.size(at: item.index).width,
-                           height: self.size(at: item.index).height)
-                    .offset(x: 0,
-                            y: -self.textRadius(at: item.index))
-                    .rotationEffect(self.angle(at: item.index))
-                }
-            }
-            .frame(width: radius * 2, height: radius * 2)
-            .onPreferenceChange(CharSeqSizeKey.self) { sizes in
-                self.sizes = sizes
-            }
-        }
-        .accessibility(label: Text(text))
-    }
-
-    private func textAsCharacters() -> [IndexedChar] {
-        String(reverse ? Array(text) : text.reversed()).enumerated().map(IndexedChar.init)
-    }
-
-    private func charView(char: IndexedChar) -> some View {
-        textModifier(Text(char.string))
-            .rotationEffect(.degrees(reverse ? 0 : 180), anchor: .center)
-    }
-
-    private func size(at index: Int) -> CGSize {
-        index < sizes.count ? sizes[index] : CGSize(width: 1000000, height: 0)
-    }
-
-    private func angle(at index: Int) -> Angle {
-        let arcSpace = Double(spacing / radius)
-        let charWidths = sizes.map { $0.width }
-        let prevWidth =
-            index < charWidths.count ?
-        charWidths.dropLast(charWidths.count - index).reduce(0, +) :
-            0
-
-        let prevArcWidth = Double(prevWidth / radius)
-        let totalArcWidth = Double(charWidths.reduce(0, +) / radius)
-        let prevArcSpaceWidth = arcSpace * Double(index)
-
-        let arcSpaceOffset = -arcSpace * Double(charWidths.count - 1) / 2
-        let charWidth = index < charWidths.count ? charWidths[index] : 0
-        let charOffset = Double(charWidth / 2 / radius)
-
-        let arcCenterOffset = -totalArcWidth / 2
-        let charArcOffset = prevArcWidth + charOffset + arcCenterOffset + arcSpaceOffset + prevArcSpaceWidth
-
-        return Angle(radians: charArcOffset)
-    }
-}
-
-extension CircularTextView {
-    public func kerning(_ kerning: CGFloat) -> CircularTextView {
-        var copy = self
-        copy.spacing = kerning
-        return copy
-    }
-
-    public func italic() -> CircularTextView {
-        var copy = self
-        copy.textModifier = {
-            self.textModifier($0)
-                .italic()
-        }
-        return copy
-    }
-
-    public func bold() -> CircularTextView {
-        fontWeight(.bold)
-    }
-
-    public func fontWeight(_ weight: Font.Weight?) -> CircularTextView {
-        var copy = self
-        copy.textModifier = {
-            self.textModifier($0)
-                .fontWeight(weight)
-        }
-        return copy
     }
 }
 
