@@ -33,6 +33,11 @@ on:
       fairground:
         type: string
         required: true
+      # if a semver tag is specified, create a tag and a release
+      # this is called from the manual create_release.yml workflow
+      release_version:
+        type: string
+        required: false
       target_macos:
         type: boolean
         required: true
@@ -261,7 +266,7 @@ jobs:
         run: echo "::set-output name=defined::true"
 
       - name: "Notarize macOS App"
-        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push' && steps.notarization_setup.outputs.defined == 'true'
+        if: (startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version }}) && steps.notarization_setup.outputs.defined == 'true'
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
@@ -317,7 +322,7 @@ jobs:
       # create and upload the release artifacts, which will be
       # vaidates in the base fair-ground by integrate_release
       - name: "Release App"
-        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push'
+        if: startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
