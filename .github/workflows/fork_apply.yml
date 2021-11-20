@@ -128,13 +128,13 @@ jobs:
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png \
               || true # tolerate failure
 
-      - name: "Tag ${{env.BUNDLE_ID}} ${{ inputs.version }}"
-        if: "${{ inputs.version != '' }}"
+      - name: "Tag ${{env.BUNDLE_ID}} ${{ inputs.release_version }}"
+        if: "${{ inputs.release_version != '' }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # update the Info.plist with the new version
-          plutil -replace CFBundleShortVersionString -string "${{ inputs.version }}" Info.plist
+          plutil -replace CFBundleShortVersionString -string "${{ inputs.release_version }}" Info.plist
 
           # ensure the Info.plist has the correct name and bundle ID values
           plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
@@ -142,8 +142,8 @@ jobs:
 
           # Commit, push, and tag the release 
           git add Info.plist
-          git commit -m "Release version ${{ inputs.version }}"
-          git tag -a "${{ inputs.version }}" -m "Release version ${{ inputs.version }}"
+          git commit -m "Release version ${{ inputs.release_version }}"
+          git tag -a "${{ inputs.release_version }}" -m "Release version ${{ inputs.release_version }}"
           git push --follow-tags
 
       - name: "Resolve Swift Packages"
