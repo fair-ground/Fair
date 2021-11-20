@@ -1175,7 +1175,7 @@ public extension FairCLI {
 
         let appName = try appNameSpace()
         let iconColor = try parseTintIconColor()
-        let iconView = FairIconView(appName, iconColor: iconColor).environment(\.displayScale, 1.0) // force 1.0 resolution so the output size doesn't change
+        let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", iconColor: iconColor).environment(\.displayScale, 1.0) // force 1.0 resolution so the output size doesn't change
 
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
@@ -1969,6 +1969,10 @@ struct AccentColorList : Decodable {
                 (coerce(r) ?? 0.5, coerce(g) ?? 0.5, coerce(b) ?? 0.5, coerce(a) ?? 1.0)
             }
 
+            #if canImport(SwiftUI)
+            // these system colors are (or, at least, can be) context-dependent and may change between OS verisons; we could try to grab the equivalent SwiftUI color and extract its RGB values here
+            #endif
+
             switch reference {
             case "systemBlueColor": return parseColor("0x00", "0x7A", "0xFF")
             case "systemBrownColor": return parseColor("0xA2", "0x84", "0x5E")
@@ -2070,20 +2074,31 @@ extension String {
 }
 
 extension AppNameValidation {
+    private static let appnames: Result<Dictionary<String, [String]>, Error> = {
+        Result {
+            guard let nameURL = Bundle.fairApp.url(forResource: "appnames", withExtension: "json") else {
+                throw CocoaError(.fileNoSuchFile)
+            }
+            return try JSONDecoder().decode(Dictionary<String, [String]>.self, from: Data(contentsOf: nameURL))
+        }
+    }()
+
     /// Suggests one or more names for valid App Fair app
     public func suggestNames(count: Int = 1) throws -> [String] {
-        guard let nameURL = Bundle.fairApp.url(forResource: "appnames", withExtension: "json") else {
-            throw CocoaError(.fileNoSuchFile)
-        }
-        let names = try JSONDecoder().decode(Dictionary<String, [String]>.self, from: Data(contentsOf: nameURL))
+        var rnd = SystemRandomNumberGenerator()
+        return try suggestNames(count: count, rnd: &rnd)
+    }
 
+    /// Suggests one or more names for valid App Fair app
+    public func suggestNames<R: RandomNumberGenerator>(count: Int, rnd: inout R) throws -> [String] {
+        let names = try Self.appnames.get()
         var proposals: [String] = []
         for _ in 1...count {
-            guard let noun = names.keys.randomElement() else {
+            guard let noun = names.keys.sorted().randomElement(using: &rnd) else {
                 continue
             }
 
-            guard let adj = names[noun]?.randomElement() else {
+            guard let adj = names[noun]?.sorted().randomElement(using: &rnd) else {
                 continue
             }
 

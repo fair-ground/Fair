@@ -86,8 +86,8 @@ public struct URLImage : View, Equatable {
                 } else if let suggestedSize = suggestedSize {
                     Rectangle()
                         .fill(Color.gray.opacity(0.4))
-                    // TODO: need to resize; maybe generate an image?
-                        //.frame(width: suggestedSize.width, height: suggestedSize.height)
+                        // TODO: need to resize; maybe generate an image?
+                        .frame(width: suggestedSize.width, height: suggestedSize.height)
                         .hidden()
                 } else {
                     Circle().hidden()

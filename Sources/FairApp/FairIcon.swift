@@ -15,26 +15,21 @@
 import Foundation
 #if canImport(SwiftUI)
 import SwiftUI
-
-public extension String {
-    /// Returns a pseudo-random value from 0.0-1.0 seeded on the word's SHA hash
-    var seededRandom: Double {
-        let i: UInt8 = self.utf8Data.sha256().last ?? 0
-        return Double(i) / Double(UInt8.max)
-    }
-}
+import FairCore
 
 /// A view that generates the default icon for a FairApp.
 /// The icon consists of the app name laid out on a circular path.
 public struct FairIconView : View, Equatable {
     var word1: String
     var word2: String
+    let subtitle: String?
     let iconColor: Color?
 
-    public init(_ name: String, iconColor: Color? = nil) {
+    public init(_ name: String, subtitle: String?, iconColor: Color? = nil) {
         let parts = name.components(separatedBy: CharacterSet.letters.inverted)
         self.word1 = parts.first ?? "Invalid"
         self.word2 = parts.last ?? "Name"
+        self.subtitle = subtitle
         self.iconColor = iconColor
     }
 
@@ -49,62 +44,94 @@ public struct FairIconView : View, Equatable {
         let parts = name.components(separatedBy: CharacterSet.letters.inverted)
         let word1 = parts.first ?? "Invalid"
         let word2 = parts.last ?? "Name"
-        return iconColor(word1: word1, word2: word2)
+        return renderColor(word1: word1, word2: word2)
     }
     
     /// The default icon color for the two parts
-    static func iconColor(word1: String, word2: String) -> Color {
-        Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+    /// - Parameters:
+    ///   - word1: the first word
+    ///   - word2: the second word
+    ///   - saturation: the color saturation
+    ///   - brightness: the color brightness
+    ///   - base: a base color to use rather than the word's seeded random
+    /// - Returns: the color to use for rendering
+    static func renderColor(word1: String, word2: String, saturation: CGFloat = 0.99, brightness: CGFloat = 0.8, base: Color? = nil) -> Color {
+        let wordHue = (word1.derivedComponent + word2.derivedComponent) / 2.0
+        var hue = wordHue
+        if let base = base {
+            let color = UXColor(base)
+            hue = color.hueComponent
+        }
+        let color = Color(hue: hue, saturation: saturation, brightness: brightness)
+        return color
     }
     
     func iconFont(size: CGFloat) -> Font {
-        return Font.system(size: size, weight: .heavy, design: Font.Design.rounded).smallCaps()
+        Font.system(size: size, design: Font.Design.rounded)
+            .weight(.bold)
+//            .smallCaps()
+        //Font.system(size: size).smallCaps()
     }
 
     func iconView(for span: CGFloat) -> some View {
-        let kernFactor: CGFloat = 1
-        //let lineWidth: CGFloat = span/40
+        let monogram = String([word1.first, word2.first].compacted()).uppercased()
 
-        let radius: CGFloat = span / 2
-        func fontSize(for word: String) -> CGFloat {
-            (CGFloat(span) / ((word.count < 8 ? 5.0 : CGFloat(word.count) * 0.6)))
+        // create a top-down gradient of the brighter color
+        func clr(s: CGFloat, b: CGFloat) -> Color {
+            Self.renderColor(word1: word1, word2: word2, saturation: s, brightness: b, base: iconColor)
         }
 
-        let fontSize1 = fontSize(for: word1)
-        let fontSize2 = fontSize(for: word2)
+        let c1 = clr(s: 0.5, b: 0.9)
+        let c2 = clr(s: 0.9, b: 0.5)
+        let c3 = clr(s: 0.7, b: 0.75)
 
-        // create a top-down gradient of the brighter color a
-        let outerColorLight = iconColor ?? Self.iconColor(word1: word1, word2: word2)
-        
-        let outerColorDark = outerColorLight // Color(hue: (word1.seededRandom + word2.seededRandom) / 2.0, saturation: 0.99, brightness: 0.8)
+        let gradient = Gradient(colors: [c1, c2])
 
-        let fillColor = LinearGradient(colors: [outerColorLight, outerColorDark], startPoint: .top, endPoint: .bottom)
+        let fillStyle = LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom)
+        //let fillStyle = RadialGradient(gradient: gradient, center: .center, startRadius: 0, endRadius: span*0.6)
+
         let textColor = Color.white
 
         let rect = CGRect(origin: .zero, size: CGSize(width: span, height: span))
-        func maskPath() -> some Shape {
-            var shape = Circle().path(in: rect)
-            shape.addPath(Circle().inset(by: span*0.28).path(in: rect))
-            return shape
 
+        let squircle = RoundedRectangle(cornerRadius: span / 4.3, style: .continuous)
+        func maskPath() -> some Shape {
+            //var shape = Circle().path(in: rect)
+            var shape = Rectangle().path(in: rect)
+            shape.addPath(Circle().inset(by: span * 0.24).path(in: rect))
+            return shape
+        }
+
+        func borderMask() -> some Shape {
+            //var shape = Circle().path(in: rect)
+            var shape = squircle.path(in: rect)
+            shape.addPath(squircle.inset(by: span * 0.04).path(in: rect))
+            return shape
         }
 
         return ZStack(alignment: .center) {
-            Circle()
-                .fill(fillColor)
+            squircle
+                .fill(fillStyle)
                 .frame(width: span, height: span, alignment: .center)
-                .mask(maskPath().fill(style: FillStyle(eoFill: true)))
+                //.mask(maskPath().fill(style: FillStyle(eoFill: true)))
 
-            CircularTextView(text: word1, radius: radius, reverse: true)
-                .kerning((fontSize1/3) + (.init(word1.count) * kernFactor))
-                .foregroundColor(textColor)
-                .font(iconFont(size: fontSize1))
+            squircle
+                .fill(c3)
+                //.mask(RoundedRectangle(cornerRadius: span / 4.3, style: .continuous).path(in: rect).fill(style: FillStyle(eoFill: true)))
+                .mask(borderMask().fill(style: FillStyle(eoFill: true)))
 
-            CircularTextView(text: word2, radius: radius - (fontSize2 / 10))
-                .kerning((fontSize2/3) + (.init(word2.count) * kernFactor))
-                .rotationEffect(.degrees(180))
-                .foregroundColor(textColor)
-                .font(iconFont(size: fontSize2))
+            VStack {
+                Text(monogram)
+                    .font(iconFont(size: span * 0.5))
+                    .shadow(color: Color.black.opacity(0.7), radius: 1, x: 1, y: 1)
+                if let subtitle = subtitle {
+                    Text(subtitle)
+                        .font(Font.system(size: span * 0.15, weight: .semibold, design: .default))
+                }
+            }
+            .foregroundColor(textColor)
+            .lineLimit(1)
+            .multilineTextAlignment(.center)
         }
     }
 }
@@ -216,6 +243,13 @@ extension CircularTextView {
     }
 }
 
+private extension String {
+    /// Returns a pseudo-random value from 0.0-1.0 based on the word's SHA hash
+    var derivedComponent: Double {
+        let i: UInt8 = self.utf8Data.sha256().last ?? 0
+        return Double(i) / Double(UInt8.max)
+    }
+}
 
 private struct CharSeqSizeKey: PreferenceKey {
     static var defaultValue: [CGSize] { [] }
@@ -243,25 +277,22 @@ private struct IndexedChar: Hashable, Identifiable {
     var string: String { "\(character)" }
 }
 
-struct CircularTextView_Previews: PreviewProvider {
+struct FairIconView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(alignment: .center) {
-            ForEach([
-                "Encyclopedia Galactica",
-//                "Application Fair",
-//                "Fine Dining",
-                "Yankee Swap",
-//                "Angry Birds",
-//                "Tidal Pool",
-                "Running Bear",
-                "The Happening",
-                "Creative Sovereign",
-//                "The App",
-            ], id: \.self) { appName in
-                FairIconView(appName)
-                    .frame(height: CGFloat.random(in: 20...300))
+        var rndgen = SeededRandomNumberGenerator(uuids: UUID(uuidString: "C3C3FF68-AF95-4BF4-BE53-EC88EE097552")!)
+
+        return LazyHGrid(rows: [
+            GridItem(.adaptive(minimum: 80, maximum: 80)),
+            //GridItem(.adaptive(minimum: 100, maximum: 200)),
+        ]) {
+            ForEach(
+                try! AppNameValidation.standard.suggestNames(count: 24, rnd: &rndgen),
+                id: \.self) { appName in
+                FairIconView(appName, subtitle: "App Fair")
+                    .frame(width: 80, height: 80)
             }
         }
+        .frame(width: 400, height: 600)
         .previewLayout(.sizeThatFits)
     }
 }

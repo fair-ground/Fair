@@ -77,13 +77,17 @@ public extension Sequence {
             }
         })
     }
-
 }
 
 public extension Sequence {
     /// Wraps this sequence in a new `Array`
     @inlinable func array() -> Array<Element> {
         Array(self)
+    }
+
+    /// Filters out empty elements
+    @inlinable func compacted<T>() -> Array<T> where Element == Optional<T> {
+        compactMap({ $0 })
     }
 }
 
