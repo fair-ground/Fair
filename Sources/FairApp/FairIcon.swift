@@ -124,12 +124,12 @@ public struct FairIconView : View, Equatable {
             VStack {
                 Text(monogram)
                     .font(iconFont(size: span * 0.5))
-                    .shadow(color: Color.black.opacity(0.7), radius: 1, x: 1, y: 1)
                 if let subtitle = subtitle {
                     Text(subtitle)
-                        .font(Font.system(size: span * 0.15, weight: .semibold, design: .default))
+                        .font(Font.system(size: span * 0.16, weight: .semibold, design: .rounded))
                 }
             }
+            .shadow(color: Color.black.opacity(0.7), radius: span * 0.015, x: 0, y: 0)
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)
@@ -280,17 +280,18 @@ private struct IndexedChar: Hashable, Identifiable {
 
 struct FairIconView_Previews: PreviewProvider {
     static var previews: some View {
+        let span: CGFloat = 80
         var rndgen = SeededRandomNumberGenerator(uuids: UUID(uuidString: "C3C3FF68-AF95-4BF4-BE53-EC88EE097552")!)
 
         return LazyHGrid(rows: [
-            GridItem(.adaptive(minimum: 80, maximum: 80)),
+            GridItem(.adaptive(minimum: span, maximum: span)),
             //GridItem(.adaptive(minimum: 100, maximum: 200)),
         ]) {
             ForEach(
                 try! AppNameValidation.standard.suggestNames(count: 24, rnd: &rndgen),
                 id: \.self) { appName in
                 FairIconView(appName, subtitle: "App Fair")
-                    .frame(width: 80, height: 80)
+                    .frame(width: span, height: span)
             }
         }
         .frame(width: 400, height: 600)
