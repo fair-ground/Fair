@@ -110,21 +110,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: "Generate Icon"
-        run: |
-          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" \
-            --accent-color Assets.xcassets/AccentColor.colorset/Contents.json \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-32.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-76.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-120.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-180.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-152.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-167.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-256.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png \
-              || true # tolerate failure
-
       - name: "Update ${{env.BUNDLE_ID}} to version ${{ inputs.release_version }}"
         if: "${{ inputs.release_version != '' }}"
         env:
@@ -140,11 +125,25 @@ jobs:
       - name: "Validate App Organization: ${{ env.ORGNAME }}"
         run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
 
-
       - name: "Resolve Swift Packages"
         run: |
           swift package resolve
           cp Package.resolved Sources/App/Resources/
+
+      - name: "Check Icon"
+        run: |
+          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" \
+            --accent-color Assets.xcassets/AccentColor.colorset/Contents.json \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-32.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-76.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-120.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-180.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-152.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-167.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-256.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png \
+              || true # tolerate failure
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios }} == true
@@ -269,8 +268,8 @@ jobs:
         # transfer the secret to an env variable so it can be checked with `if`
         run: echo "::set-output name=defined::true"
 
-      - name: "Notarize macOS App"
-        if: (startsWith(github.ref, 'refs/tags/') || "${{ inputs.release_version != '' }}") && steps.notarization_setup.outputs.defined == 'true'
+      - name: "Notarize App"
+        if: steps.notarization_setup.outputs.defined == 'true'
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
@@ -304,7 +303,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
       - name: "Stage Release Metadata"
-        if: startsWith(github.ref, 'refs/tags/') && github.event_name == 'push'
+        if: startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version != '' }}
         # Extract the Info.plist from the archives themselves, since they contain
         # the same post-processed metadata that the app will use.
         # And convert to XML for ease of integration.
