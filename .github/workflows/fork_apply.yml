@@ -110,9 +110,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: "Validate App Organization: ${{ env.ORGNAME }}"
-        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
-
       - name: "Generate Icon"
         run: |
           xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" \
@@ -128,7 +125,7 @@ jobs:
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png \
               || true # tolerate failure
 
-      - name: "Tag ${{env.BUNDLE_ID}} ${{ inputs.release_version }}"
+      - name: "Update ${{env.BUNDLE_ID}} to version ${{ inputs.release_version }}"
         if: "${{ inputs.release_version != '' }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -140,11 +137,9 @@ jobs:
           plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
           plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
 
-          # Commit, push, and tag the release 
-          git add Info.plist
-          git commit -m "Release version ${{ inputs.release_version }}"
-          git tag -a "${{ inputs.release_version }}" -m "Release version ${{ inputs.release_version }}"
-          git push --follow-tags
+      - name: "Validate App Organization: ${{ env.ORGNAME }}"
+        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
+
 
       - name: "Resolve Swift Packages"
         run: |
@@ -328,17 +323,35 @@ jobs:
           # log the checksum for each of the staging elements
           openssl sha256 staging/*.*
 
+      # When run from create_workflow.yml, this will the the release
+      - name: "Tag ${{env.BUNDLE_ID}} ${{ inputs.release_version }}"
+        if: "${{ inputs.release_version != '' }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Commit, push, and tag the release 
+          git add Info.plist
+          git commit -m "Release version ${{ inputs.release_version }}"
+          git tag -a "${{ inputs.release_version }}" -m "Release version ${{ inputs.release_version }}"
+          git push --follow-tags
+
+          echo "Uploading release assets: ${GITHUB_REF#refs/tags/}"
+
+          # create a pre-release 
+          gh release create "${{ inputs.release_version }}" --prerelease --notes 'Release ${{ inputs.release_version }}'
+
+          # upload staging assets to the existing GitHub release
+          gh release upload "${{ inputs.release_version }}" -- staging/*.*
+
       # create and upload the release artifacts, which will be
       # vaidates in the base fair-ground by integrate_release
       - name: "Release App"
-        if: startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version }}
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Uploading release assets: ${GITHUB_REF#refs/tags/}"
           # create a pre-release if it doesn't already exist 
-          # TODO: --prerelease ?
-          gh release create "${GITHUB_REF#refs/tags/}" || true
+          gh release create "${GITHUB_REF#refs/tags/}" --prerelease --notes 'Release ${GITHUB_REF#refs/tags/}' || true
 
           # upload staging assets to the existing GitHub release
           gh release upload "${GITHUB_REF#refs/tags/}" -- staging/*.*
