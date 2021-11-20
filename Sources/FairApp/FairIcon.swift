@@ -120,6 +120,7 @@ public struct FairIconView : View, Equatable {
                 .fill(c3)
                 //.mask(RoundedRectangle(cornerRadius: span / 4.3, style: .continuous).path(in: rect).fill(style: FillStyle(eoFill: true)))
                 .mask(borderMask().fill(style: FillStyle(eoFill: true)))
+                .shadow(color: Color.black.opacity(1.0), radius: span * 0.010, x: 0, y: 0) // double interior shadow for raised effect
 
             VStack {
                 Text(monogram)
@@ -129,7 +130,7 @@ public struct FairIconView : View, Equatable {
                         .font(Font.system(size: span * 0.16, weight: .semibold, design: .rounded))
                 }
             }
-            .shadow(color: Color.black.opacity(0.7), radius: span * 0.015, x: 0, y: 0)
+            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: 1)
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)

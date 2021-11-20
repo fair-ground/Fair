@@ -1299,7 +1299,7 @@ public extension FairCLI {
             if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
                 return false
             } else {
-                msg(.info, "retrying download in \(retryWait) seconds due to error:", error)
+                msg(.info, "retrying download in \(retryWait) seconds from \(Date()) due to error:", error)
                 Thread.sleep(forTimeInterval: retryWait)
                 return true
             }
