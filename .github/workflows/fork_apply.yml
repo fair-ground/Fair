@@ -329,6 +329,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Commit, push, and tag the release 
+        run: |
           git add Info.plist
           git commit -m "Release version ${{ inputs.release_version }}"
           git tag -a "${{ inputs.release_version }}" -m "Release version ${{ inputs.release_version }}"
