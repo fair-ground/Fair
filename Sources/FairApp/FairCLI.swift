@@ -1163,9 +1163,21 @@ public extension FairCLI {
         msg(.info, "icon")
 
         // the list of hashes that represent the default AppIcon-1024.png; this is used to determine whether we should overwrite an existing default icon instead of leaving it untouched; this lets us auto-generate an icon when none has been set, but won't clobber a custom icon
+
+        // generated with: shasum -a 256 Assets.xcassets/AppIcon.appiconset/*.png
+
+        // icons were generated from a blank catalog:
+        // fairtool icon --org "" --catalog-title "" --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-120.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-180.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-76.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-152.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-32.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-256.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-167.png
         let defaultIconHashes = [
-            "657cdaeedd9ba48753084d1901de48269f1cc6e3a22b2262622f19a4f3f7dd2b", // new default icon
-            "09e146883b712e71b3c5b904f72e09efb66e1137981b12083cd15c2fe8160810", // old default icon
+            "eacbd62803a2a5f70bc6b0c17991aead3f1dce985fc9a8e0eedae60a13faa055", // AppIcon-1024.png
+            "2db38a64a3247dcfcdd9861f046ba5a3fa53f8ac79ba4dd1b528b4489e2f729d", // AppIcon-120.png
+            "6f88f83e1536946834b3cf04bd7b6582eea6b1c272ac20095ccbf01a30557797", // AppIcon-152.png
+            "396888dfedcce8d71abd5ee09fb12284aef56c6b9a5463a6ffa10b80318eef78", // AppIcon-167.png
+            "fac3229e099b366c6eb2950fab4fb285d836c86c2d7c0797c1dafd7354af92ad", // AppIcon-180.png
+            "c78729c0e0ed022b01e8e4025e1e56bf424957c143da435763c868467b1d9ad2", // AppIcon-256.png
+            "90175dff67e0ba84eb4bd75242366ceae7f2b297d9a2a006fd0e25e477b36526", // AppIcon-32.png
+            "70f4daa690360130d6fa1f0545119a5cd38bea62d9ed9ca6b8e7b3105ee4af3f", // AppIcon-512.png
+            "d95141ad03bcb6b1bb349630eb7244c7bd0e1de6a201c251a19c5254d6ec0dce", // AppIcon-76.png
         ]
 
         let outputFiles = outputFlags
