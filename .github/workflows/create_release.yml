@@ -20,7 +20,7 @@
 # with the specified semantic release. It will also attempt to
 # open a new PR against the base fairground in order to
 # initiate the integrate_release workflow.
-name: "Create Release"
+name: "App Fair Release"
 
 on:
   workflow_call:
@@ -35,6 +35,9 @@ on:
         type: string
         required: true
 
+jobs:
+    name: "Create Release"
+    runs-on: macos-11
     steps:
       - name: "Initialize fair-ground"
         env:
