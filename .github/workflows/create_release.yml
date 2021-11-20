@@ -67,4 +67,6 @@ jobs:
           git tag -a "${{ inputs.version }}" -m "Release version ${{ inputs.version }}"
           git push --follow-tags
 
+          gh pr create --title "${{ env.BUNDLE_ID }}" --body "${{ env.BUNDLE_ID }} release ${{ inputs.version }}"
+
 
