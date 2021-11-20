@@ -283,7 +283,7 @@ jobs:
         run: echo "::set-output name=defined::true"
 
       - name: "Notarize macOS App"
-        if: (startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version }}) && steps.notarization_setup.outputs.defined == 'true'
+        if: (startsWith(github.ref, 'refs/tags/') || "${{ inputs.release_version != '' }}") && steps.notarization_setup.outputs.defined == 'true'
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
