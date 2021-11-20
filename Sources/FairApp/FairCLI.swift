@@ -1668,7 +1668,6 @@ cask "\(caskName)" do
     system "xattr", "-r", "-d", "com.apple.quarantine", "#{appdir}/\(installPrefix)\(app.name).app"
   end
 
-  uninstall quit: "\(appBundle)"
   zap trash: [
     "~/Library/Caches/\(appBundle)",
     "~/Library/Containers/\(appBundle)",

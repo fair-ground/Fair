@@ -58,9 +58,10 @@ public struct FairIconView : View, Equatable {
     static func renderColor(word1: String, word2: String, saturation: CGFloat = 0.99, brightness: CGFloat = 0.8, base: Color? = nil) -> Color {
         let wordHue = (word1.derivedComponent + word2.derivedComponent) / 2.0
         var hue = wordHue
+
+        // if we have specified a base color, use the hue as the basis for our app
         if let base = base {
-            let color = UXColor(base)
-            hue = color.hueComponent
+            UXColor(base).getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
         }
         let color = Color(hue: hue, saturation: saturation, brightness: brightness)
         return color
@@ -245,9 +246,9 @@ extension CircularTextView {
 
 private extension String {
     /// Returns a pseudo-random value from 0.0-1.0 based on the word's SHA hash
-    var derivedComponent: Double {
+    var derivedComponent: CGFloat {
         let i: UInt8 = self.utf8Data.sha256().last ?? 0
-        return Double(i) / Double(UInt8.max)
+        return CGFloat(i) / CGFloat(UInt8.max)
     }
 }
 
