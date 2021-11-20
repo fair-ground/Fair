@@ -1175,7 +1175,7 @@ public extension FairCLI {
 
         let appName = try appNameSpace()
         let iconColor = try parseTintIconColor()
-        let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", iconColor: iconColor).environment(\.displayScale, 1.0) // force 1.0 resolution so the output size doesn't change
+        let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", iconColor: iconColor)
 
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
@@ -1190,9 +1190,13 @@ public extension FairCLI {
 
             var sizePart = parts[1]
             var scale = CGFloat(1.0)
-            if sizePart.hasSuffix("x2") {
-                sizePart = String(sizePart.dropLast().dropLast())
-                scale = 2.0
+            let scaleParts = sizePart.split(separator: "@")
+            if scaleParts.count == 2,
+               scaleParts[1].hasSuffix("x"),
+               let sizeNumber = Int(String(scaleParts[0])),
+               let scaleNumber = Int(String(scaleParts[1].dropLast())) {
+                sizePart = String(sizeNumber)
+                scale = CGFloat(scaleNumber)
             }
 
             guard let size = Int(sizePart) else {
@@ -1202,7 +1206,7 @@ public extension FairCLI {
             let iconFile = URL(fileURLWithPath: path)
 
 
-            let span = CGFloat(size) * CGFloat(scale)
+            let span = CGFloat(size) * CGFloat(scale) / 2.0 // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
 
             guard let pngData = iconView.png(bounds: bounds), pngData.count > 1024 else {
