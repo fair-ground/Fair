@@ -46,15 +46,11 @@ jobs:
           echo "$GITHUB_CONTEXT"
           echo "ORGNAME=${{ github.repository_owner }}" >> $GITHUB_ENV
           echo "COMMITHASH=${{ github.sha }}" >> $GITHUB_ENV
-
-      - name: "Configure Release: ${{ env.ORGNAME }}"
-        run: |
           echo "FAIR_APP_ARTIFACT=${{ env.ORGNAME }}" >> $GITHUB_ENV
           echo "PRODUCT_NAME=$(echo ${{ env.ORGNAME }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
-          echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
 
-      - name: Checkout
+      - name: "Checkout ${{ env.PRODUCT_NAME }}"
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -63,5 +59,12 @@ jobs:
       - name: "Release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
         run: |
           echo "Creating release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
+          plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
+          plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
+          plutil -replace CFBundleShortVersionString -string "${{ inputs.version }}" Info.plist
+          git add Info.plist
+          git commit -m "Release version ${{ inputs.version }}"
+          git tag -s -a "${{ inputs.version }}" -m "Release version ${{ inputs.version }}"
+          git push --follow-tags
 
 
