@@ -81,7 +81,6 @@ jobs:
   # and a fairseal is published.
   fork_apply:
     name: "Fork Apply"
-    if: github.event_name == 'push'
     runs-on: macos-11
     timeout-minutes: 45
 
