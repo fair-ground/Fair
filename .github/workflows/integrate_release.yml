@@ -169,15 +169,20 @@ jobs:
           # next generate a default icon, if one doesn't yet exist
           xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" \
             --accent-color Assets.xcassets/AccentColor.colorset/Contents.json \
+            --icon-inset 0.03 \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-256.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png \
+            --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png \
+              || true # tolerate failure
+
+          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" \
+            --accent-color Assets.xcassets/AccentColor.colorset/Contents.json \
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-32.png \
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-76.png \
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-120.png \
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-180.png \
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-152.png \
             --output Assets.xcassets/AppIcon.appiconset/AppIcon-167.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-256.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png \
-            --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png \
               || true # tolerate failure
 
           file Assets.xcassets/AppIcon.appiconset/*.*

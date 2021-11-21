@@ -260,6 +260,11 @@ public extension FairCLI {
         flags["-fairseal-issuer"]?.first
     }
 
+    /// The percentage inset for genetated icons
+    var iconInset: Double? {
+        flags["-icon-inset"]?.first.flatMap(Double.init)
+    }
+
     /// The flag for the allow patterns for integrate PRs
     var allowName: [String]? {
         flags["-allow-name"].flatMap(joinWhitespaceSeparated)
@@ -1188,7 +1193,6 @@ public extension FairCLI {
         let appName = try appNameSpace()
         let iconColor = try parseTintIconColor()
         let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", iconColor: iconColor)
-
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
             if outputURL.pathExtension != "png" {
@@ -1220,8 +1224,7 @@ public extension FairCLI {
 
             let span = CGFloat(size) * CGFloat(scale) / 2.0 // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
-
-            guard let pngData = iconView.png(bounds: bounds), pngData.count > 1024 else {
+            guard let pngData = iconView.padding(span * (iconInset ?? 0.0)).png(bounds: bounds), pngData.count > 1024 else {
                 throw AppError("Unable to generate PNG data")
             }
 
