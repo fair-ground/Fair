@@ -1650,7 +1650,9 @@ public extension FairCLI {
         // apps other than "Catalog Name.app" are installed att "/Applications/Catalog Name/App Name.app"
         let installPrefix = isCatalogAppCask ? "" : (fairground.replacingOccurrences(of: "-", with: " ") + "/")
 
-        let dependency = isCatalogAppCask ? "" : "depends_on cask: \"\(fairgroundCask)\""
+        // depending on the fair-ground's catalog app becomes difficult when the catalog app updates itself; homebrew won't overwrite the self-updated app even with the force flag, which means that a user may need to manually delete and re-install the app;
+        let dependency = "" // isCatalogAppCask ? "" : "depends_on cask: \"\(fairgroundCask)\""
+
         let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
         var downloadURL = app.downloadURL.absoluteString
 
