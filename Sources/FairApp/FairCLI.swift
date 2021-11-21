@@ -17,7 +17,6 @@ import Foundation
 import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
-import FairAppTests
 #endif
 
 public class FairCLI {
@@ -82,6 +81,16 @@ public extension Plist {
     /// The usage description dictionary for the `"FairUsage"` key.
     var FairUsage: NSDictionary? {
         rawValue["FairUsage"] as? NSDictionary
+    }
+
+    /// The tint color for the app's representation, specified as an RGB hex string
+    var FairTint: String? {
+        rawValue["FairTint"] as? String
+    }
+
+    /// The system symbol name for a symbol to emboss over the app icon
+    var FairSymbol: String? {
+        rawValue["FairSymbol"] as? String
     }
 
     var CFBundleIdentifier: String? {
@@ -204,6 +213,11 @@ public extension FairCLI {
     /// The flag for the output folders or files
     var outputFlags: [String] {
         (flags["o"] ?? []) + (flags["-output"] ?? [])
+    }
+
+    /// The path to the `Info.plist` that contains customizations for the `FairTint` and `FairSymbol` flags
+    var fairPropertiesFlag: String? {
+        flags["-fair-properties"]?.first
     }
 
     /// The flag for the `fairseal` command indicating the accent color JSON
@@ -1180,7 +1194,15 @@ public extension FairCLI {
 
         let appName = try appNameSpace()
         let iconColor = try parseTintIconColor()
-        let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", symbolNames: iconSymbols ?? [], iconColor: iconColor)
+
+        var symbolNames = iconSymbols ?? []
+        if let fairProperties = self.fairPropertiesFlag {
+            if let symbolName = try Plist(url: projectPathURL(path: fairProperties)).FairSymbol {
+                symbolNames.append(symbolName)
+            }
+        }
+
+        let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
             if outputURL.pathExtension != "png" {
@@ -1209,6 +1231,15 @@ public extension FairCLI {
     }
 
     func parseTintIconColor() throws -> Color? {
+        if let fairProperties = fairPropertiesFlag {
+            if let tint = try Plist(url: projectPathURL(path: fairProperties)).FairTint {
+                if let hexColor = HexColor(hexString: tint) {
+                    return hexColor.sRGBColor()
+                }
+            }
+        }
+
+        // fall back to the asset catalog, if specified
         if let accentColorFlag = accentColorFlag {
             let accentColorPath = projectPathURL(path: accentColorFlag)
             if let rgba = try parseColorContents(url: accentColorPath) {
@@ -1527,6 +1558,16 @@ public extension FairCLI {
     #endif
 
     func parseTintColor() throws -> String? {
+        // first check the Info.plist for customization
+        if let fairProperties = fairPropertiesFlag {
+            if let tint = try Plist(url: projectPathURL(path: fairProperties)).FairTint {
+                if let hexColor = HexColor(hexString: tint) {
+                    return hexColor.colorString(hashPrefix: false)
+                }
+            }
+        }
+
+        // fall back to the asset catalog, if any
         if let accentColorFlag = accentColorFlag {
             let accentColorPath = projectPathURL(path: accentColorFlag)
             if let rgba = try parseColorContents(url: accentColorPath) {
@@ -1906,6 +1947,71 @@ struct ANSICode {
     static let lightCyanOn = Self("\u{001B}[106m", "\u{001B}[0m")
 }
 
+struct HexColor : Hashable {
+    let r, g, b: Int
+    let a: Int?
+}
+
+extension HexColor {
+    init?(hexString: String) {
+        var str = hexString.dropFirst(0)
+        if str.hasPrefix("#") {
+            str = str.dropFirst()
+        }
+
+        let chars = Array(str)
+
+        if str.count != 6 && str.count != 8 {
+            return nil
+        }
+
+        guard let red = Int(String([chars[0], chars[1]]), radix: 16) else {
+            return nil
+        }
+        self.r = red
+
+        guard let green = Int(String([chars[2], chars[3]]), radix: 16) else {
+            return nil
+        }
+        self.g = green
+
+        guard let blue = Int(String([chars[4], chars[5]]), radix: 16) else {
+            return nil
+        }
+        self.b = blue
+
+        if str.count == 8 {
+            guard let alpha = Int(String([chars[6], chars[7]]), radix: 16) else {
+                return nil
+            }
+            self.a = alpha
+        } else {
+            self.a = nil
+        }
+    }
+
+    func colorString(hashPrefix: Bool) -> String {
+        let h = hashPrefix ? "#" : ""
+        if let a = a {
+            return h + String(format: "%02X%02X%02X%02X", r, g, b, a)
+        } else {
+            return h + String(format: "%02X%02X%02X", r, g, b)
+        }
+    }
+}
+
+#if canImport(SwiftUI)
+extension HexColor {
+    func sRGBColor() -> Color {
+        if let alpha = self.a {
+            return Color(.sRGB, red: Double(self.r) / 255.0, green: Double(self.g) / 255.0, blue: Double(self.b) / 255.0, opacity: Double(alpha) / 255.0)
+        } else {
+            return Color(.sRGB, red: Double(self.r) / 255.0, green: Double(self.g) / 255.0, blue: Double(self.b) / 255.0)
+        }
+    }
+}
+#endif
+
 /// The contents of an accent color definition.
 /// Handles parsing the known variants of the `Assets.xcassets/AccentColor.colorset/Contents.json` file.
 struct AccentColorList : Decodable {
@@ -2000,7 +2106,7 @@ struct AccentColorList : Decodable {
 
     var firstRGBHex: String? {
         firstRGBAColor.flatMap { rgba in
-            String(format:"%02X%02X%02X", Int(rgba.r * 255.0), Int(rgba.g * 255.0), Int(rgba.b * 255.0))
+            String(format: "%02X%02X%02X", Int(rgba.r * 255.0), Int(rgba.g * 255.0), Int(rgba.b * 255.0))
         }
     }
 
