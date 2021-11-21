@@ -85,32 +85,44 @@ public extension Plist {
 
     /// The tint color for the app's representation, specified as an RGB hex string
     var FairTint: String? {
-        rawValue["FairTint"] as? String
+        nonEmptyString("FairTint")
     }
 
     /// The system symbol name for a symbol to emboss over the app icon
     var FairSymbol: String? {
-        rawValue["FairSymbol"] as? String
+        nonEmptyString("FairSymbol")
     }
 
     var CFBundleIdentifier: String? {
-        rawValue[InfoPlistKey.CFBundleIdentifier.plistKey] as? String
+        nonEmptyString(InfoPlistKey.CFBundleIdentifier.plistKey)
     }
 
     var CFBundleName: String? {
-        rawValue[InfoPlistKey.CFBundleName.plistKey] as? String
+        nonEmptyString(InfoPlistKey.CFBundleName.plistKey)
     }
 
     var CFBundleVersion: String? {
-        rawValue[InfoPlistKey.CFBundleVersion.plistKey] as? String
+        nonEmptyString(InfoPlistKey.CFBundleVersion.plistKey)
     }
 
     var CFBundleShortVersionString: String? {
-        rawValue[InfoPlistKey.CFBundleShortVersionString.plistKey] as? String
+        nonEmptyString(InfoPlistKey.CFBundleShortVersionString.plistKey)
     }
 
     var CFBundleDisplayName: String? {
-        rawValue[InfoPlistKey.CFBundleDisplayName.plistKey] as? String
+        nonEmptyString(InfoPlistKey.CFBundleDisplayName.plistKey)
+    }
+
+    private func nonEmptyString(_ key: String) -> String? {
+        guard let value = rawValue[key] as? String else {
+            return nil
+        }
+
+        if value.isEmpty {
+            return nil
+        }
+
+        return value
     }
 }
 

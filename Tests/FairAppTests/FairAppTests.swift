@@ -254,6 +254,22 @@ final class FairAppTests: XCTestCase {
         XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024x1024x@1x.png"))
         XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024xx1024@1x.pngxxx"))
     }
+
+    func testHexColor() throws {
+        XCTAssertEqual(HexColor(hexString: "ABCDEF"), HexColor(r: 0xAB, g: 0xCD, b: 0xEF, a: nil))
+        XCTAssertEqual(HexColor(hexString: "ABCDEF00"), HexColor(r: 0xAB, g: 0xCD, b: 0xEF, a: 0))
+        XCTAssertEqual(HexColor(hexString: "ABCDEFFF"), HexColor(r: 0xAB, g: 0xCD, b: 0xEF, a: 255))
+
+        XCTAssertEqual(HexColor(hexString: "#ABCDEF"), HexColor(r: 0xAB, g: 0xCD, b: 0xEF, a: nil))
+        XCTAssertEqual(HexColor(hexString: "#ABCDEF00"), HexColor(r: 0xAB, g: 0xCD, b: 0xEF, a: 0))
+        XCTAssertEqual(HexColor(hexString: "#ABCDEFFF"), HexColor(r: 0xAB, g: 0xCD, b: 0xEF, a: 255))
+
+        XCTAssertEqual(HexColor(hexString: "ABCDEF")?.colorString(hashPrefix: true), "#ABCDEF")
+        XCTAssertEqual(HexColor(hexString: "ABCDEF00")?.colorString(hashPrefix: true), "#ABCDEF00")
+        XCTAssertEqual(HexColor(hexString: "ABCDEF99")?.colorString(hashPrefix: false), "ABCDEF99")
+
+    }
+
 }
 
 #endif
