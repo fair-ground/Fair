@@ -1203,7 +1203,6 @@ public extension FairCLI {
         }
 
         let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
-            .environment(\.displayScale, 1.0) // headless rendering on GH machines seems to differ from manually running on macOS
 
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
@@ -1217,7 +1216,7 @@ public extension FairCLI {
             let size = max(assetName.width, assetName.height)
             let scale = Double(assetName.scale ?? 1)
 
-            let span = CGFloat(size) * CGFloat(scale) / 2.0 // default content scale
+            let span = CGFloat(size) * CGFloat(scale) // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
             guard let pngData = iconView.padding(span * (iconInset ?? 0.0)).png(bounds: bounds), pngData.count > 1024 else {
                 throw AppError("Unable to generate PNG data")
