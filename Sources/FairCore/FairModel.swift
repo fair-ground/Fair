@@ -263,6 +263,35 @@ public struct AppNameValidation {
     }
 }
 
+/// An asset name is a convention for naming files based on the contents of the image file.
+///
+/// e.g.: `preview-iphone-800x600.mp4`
+/// e.g.: `appicon-ipad-83.5x83.5@2x.png`
+/// e.g.: `screenshot-mac-dark-1024x777.png`
+public struct AssetName : Hashable {
+    /// The base name of the application
+    public let base: String
+    /// The idiom of the image, which is context-dependent
+    public let idiom: String?
+    /// The width specified by the asset name
+    public let width: Double
+    /// The height specified by the asset name
+    public let height: Double
+    /// The scale, if specified in the asset name
+    public let scale: Int?
+    /// The file-type extension of the asset
+    public let ext: String
+
+    public init(base: String, idiom: String?, width: Double, height: Double, scale: Int?, ext: String) {
+        self.base = base
+        self.idiom = idiom
+        self.width = width
+        self.height = height
+        self.scale = scale
+        self.ext = ext
+    }
+}
+
 /// The contents of a `Package.resolved` file
 public struct ResolvedPackage: Codable, Equatable {
     public var object: Pins

@@ -17,6 +17,7 @@ import Foundation
 import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
+import FairAppTests
 #endif
 
 public class FairCLI {
@@ -263,6 +264,11 @@ public extension FairCLI {
     /// The percentage inset for genetated icons
     var iconInset: Double? {
         flags["-icon-inset"]?.first.flatMap(Double.init)
+    }
+
+    /// Symbols to emboss over the icon
+    var iconSymbols: [String]? {
+        flags["-icon-symbol"]
     }
 
     /// The flag for the allow patterns for integrate PRs
@@ -1167,24 +1173,6 @@ public extension FairCLI {
     func icon(msg: MessageHandler) throws {
         msg(.info, "icon")
 
-        // the list of hashes that represent the default AppIcon-1024.png; this is used to determine whether we should overwrite an existing default icon instead of leaving it untouched; this lets us auto-generate an icon when none has been set, but won't clobber a custom icon
-
-        // generated with: shasum -a 256 Assets.xcassets/AppIcon.appiconset/*.png
-
-        // icons were generated from a blank catalog:
-        // fairtool icon --org "" --catalog-title "" --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" --output Assets.xcassets/AppIcon.appiconset/AppIcon-1024.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-120.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-180.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-76.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-152.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-32.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-256.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-512.png --output Assets.xcassets/AppIcon.appiconset/AppIcon-167.png
-        let defaultIconHashes = [
-            "eacbd62803a2a5f70bc6b0c17991aead3f1dce985fc9a8e0eedae60a13faa055", // AppIcon-1024.png
-            "2db38a64a3247dcfcdd9861f046ba5a3fa53f8ac79ba4dd1b528b4489e2f729d", // AppIcon-120.png
-            "6f88f83e1536946834b3cf04bd7b6582eea6b1c272ac20095ccbf01a30557797", // AppIcon-152.png
-            "396888dfedcce8d71abd5ee09fb12284aef56c6b9a5463a6ffa10b80318eef78", // AppIcon-167.png
-            "fac3229e099b366c6eb2950fab4fb285d836c86c2d7c0797c1dafd7354af92ad", // AppIcon-180.png
-            "c78729c0e0ed022b01e8e4025e1e56bf424957c143da435763c868467b1d9ad2", // AppIcon-256.png
-            "90175dff67e0ba84eb4bd75242366ceae7f2b297d9a2a006fd0e25e477b36526", // AppIcon-32.png
-            "70f4daa690360130d6fa1f0545119a5cd38bea62d9ed9ca6b8e7b3105ee4af3f", // AppIcon-512.png
-            "d95141ad03bcb6b1bb349630eb7244c7bd0e1de6a201c251a19c5254d6ec0dce", // AppIcon-76.png
-        ]
-
         let outputFiles = outputFlags
         guard !outputFiles.isEmpty else {
             throw Errors.missingFlag(self.op, "-output")
@@ -1192,35 +1180,18 @@ public extension FairCLI {
 
         let appName = try appNameSpace()
         let iconColor = try parseTintIconColor()
-        let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", iconColor: iconColor)
+        let iconView = FairIconView(appName, subtitle: catalogTitleFlag ?? "App Fair", symbolNames: iconSymbols ?? [], iconColor: iconColor)
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
             if outputURL.pathExtension != "png" {
                 throw AppError("output path was not a png: \(path)")
             }
 
-            let parts = outputURL.deletingPathExtension().lastPathComponent.components(separatedBy: "-")
-            if parts.count != 2 || parts[0] != "AppIcon" {
-                throw AppError("output path must be named AppIcon-size.png, but was: \(path)")
-            }
-
-            var sizePart = parts[1]
-            var scale = CGFloat(2.0) // default scale seems to vary depending on whether we are headless or not; GH actions machines seem to be 1x, but a laptop is 2x
-            let scaleParts = sizePart.split(separator: "@")
-            if scaleParts.count == 2,
-               scaleParts[1].hasSuffix("x"),
-               let sizeNumber = Int(String(scaleParts[0])),
-               let scaleNumber = Int(String(scaleParts[1].dropLast())) {
-                sizePart = String(sizeNumber)
-                scale = CGFloat(scaleNumber)
-            }
-
-            guard let size = Int(sizePart) else {
-                throw AppError("output path must be named AppIcon-size.png, but was: \(path)")
-            }
-
+            let assetName = try AssetName(string: outputURL.lastPathComponent)
             let iconFile = URL(fileURLWithPath: path)
 
+            let size = max(assetName.width, assetName.height)
+            let scale = Double(assetName.scale ?? 1)
 
             let span = CGFloat(size) * CGFloat(scale) / 2.0 // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
@@ -1229,16 +1200,11 @@ public extension FairCLI {
             }
 
             if let existingFile = try? Data(contentsOf: iconFile), existingFile != pngData {
-                let sha256 = existingFile.sha256().hex()
-                msg(.info, "sha256 for icon: \(sha256)")
-                if !defaultIconHashes.contains(sha256) {
-                    msg(.error, "cannot overwrite with unknown hash:", sha256)
-                    throw Errors.cannotOverwriteAlteredFile(iconFile)
-                }
+                msg(.warn, "skipping overwrite of existing path:", iconFile.lastPathComponent, existingFile.count)
+            } else {
+                try pngData.write(to: iconFile)
+                msg(.info, "output icon to: \(iconFile.path)")
             }
-
-            try pngData.write(to: iconFile)
-            msg(.info, "output icon to: \(iconFile.path)")
         }
     }
 
@@ -1632,7 +1598,6 @@ public extension FairCLI {
         }
 
         let fairground = Bundle.catalogBrowserAppOrg // e.g., App-Fair
-        let fairgroundCask = fairground.lowercased() // e.g., app-fair
 
         let isCatalogAppCask = appNameHyphen == fairground
 
@@ -1651,6 +1616,7 @@ public extension FairCLI {
         let installPrefix = isCatalogAppCask ? "" : (fairground.replacingOccurrences(of: "-", with: " ") + "/")
 
         // depending on the fair-ground's catalog app becomes difficult when the catalog app updates itself; homebrew won't overwrite the self-updated app even with the force flag, which means that a user may need to manually delete and re-install the app;
+        // let fairgroundCask = fairground.lowercased() // e.g., app-fair
         let dependency = "" // isCatalogAppCask ? "" : "depends_on cask: \"\(fairgroundCask)\""
 
         let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
@@ -2131,3 +2097,54 @@ extension AppNameValidation {
     }
 
 }
+
+extension AssetName {
+    /// Initialized this asset name by parsing a string in the expected form.
+    /// - Parameter string: the asset path name to interpret
+    public init(string: String) throws {
+        var str = string
+
+        let fail = {
+            AppError("Unable to parse asset name in the expected format: image_name-IDIOM-WxH@SCALEx.EXT")
+        }
+
+        func consume(segment char: Character, after: Bool = true) throws -> String {
+            let parts = str.split(separator: char)
+            guard let part = (after ? parts.last : parts.first), parts.count > 1 else {
+                throw AppError("Unable to parse character “\(char)” for asset name: “\(string)”")
+            }
+            str = String(after ? str.dropLast(part.count + 1) : str.dropFirst(part.count + 1))
+            return String(part)
+        }
+
+        let ext = try consume(segment: ".")
+        if !(3...4).contains(ext.count) {
+            throw fail() // extensions must be 3 or 4 characters
+        }
+
+        let scale: Int?
+        // if it ends in "@
+        if let trailing = try? consume(segment: "@") {
+            guard let s = Int(trailing.dropLast(1)), s > 0, s <= 3 else {
+                throw fail()
+            }
+            scale = s
+        } else {
+            scale = nil
+        }
+
+        guard let height = try Double(consume(segment: "x")) else {
+            throw fail()
+        }
+        guard let width = try Double(consume(segment: "-")) else {
+            throw fail()
+        }
+
+        if let imgname = try? String(consume(segment: "-", after: false)) {
+            self.init(base: imgname, idiom: str, width: width, height: height, scale: scale, ext: ext)
+        } else {
+            self.init(base: str, idiom: nil, width: width, height: height, scale: scale, ext: ext)
+        }
+    }
+}
+

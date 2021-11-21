@@ -223,6 +223,37 @@ final class FairAppTests: XCTestCase {
         XCTAssertEqual(1, Set(colorValues).count, "color values should have all been the same value: \(colorValues)")
 
     }
+
+    func testAssetNames() throws {
+        try XCTAssertEqual(AssetName(string: "ani_gif-10x20.gif"), AssetName(base: "ani_gif", idiom: nil, width: 10, height: 20, scale: nil, ext: "gif"))
+
+        try XCTAssertEqual(AssetName(string: "appicon-ipad-83.5x83.5@2x.png"), AssetName(base: "appicon", idiom: "ipad", width: 83.5, height: 83.5, scale: 2, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-ipad-83.5x83.5.png"), AssetName(base: "appicon", idiom: "ipad", width: 83.5, height: 83.5, scale: nil, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-iphone-60x60@2x.png"), AssetName(base: "appicon", idiom: "iphone", width: 60, height: 60, scale: 2, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-iphone-60x60@3x.png"), AssetName(base: "appicon", idiom: "iphone", width: 60, height: 60, scale: 3, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-ipad-76x76@1x.png"), AssetName(base: "appicon", idiom: "ipad", width: 76, height: 76, scale: 1, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-ipad-76x76@2x.png"), AssetName(base: "appicon", idiom: "ipad", width: 76, height: 76, scale: 2, ext: "png"))
+
+        try XCTAssertEqual(AssetName(string: "appicon-mac-16x16@2x.png"), AssetName(base: "appicon", idiom: "mac", width: 16, height: 16, scale: 2, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-mac-128x128@2x.png"), AssetName(base: "appicon", idiom: "mac", width: 128, height: 128, scale: 2, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-mac-256x256@2x.png"), AssetName(base: "appicon", idiom: "mac", width: 256, height: 256, scale: 2, ext: "png"))
+        try XCTAssertEqual(AssetName(string: "appicon-mac-512x512@2x.png"), AssetName(base: "appicon", idiom: "mac", width: 512, height: 512, scale: 2, ext: "png"))
+
+        try XCTAssertEqual(AssetName(string: "appicon-ios-marketing-1024x1024@1x.png"), AssetName(base: "appicon", idiom: "ios-marketing", width: 1024, height: 1024, scale: 1, ext: "png"))
+
+        XCTAssertNoThrow(try AssetName(string: "XXX-YYY-1024x1024@1x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024x1024@1.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024x1024@-3x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024x1024@5x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-ZZZx1024@1x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024xZZZ@1x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-ZZZx1024.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024xZZZ.png"))
+
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024x1024x@1x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024x1024x@1x.png"))
+        XCTAssertThrowsError(try AssetName(string: "XXX-YYY-1024xx1024@1x.pngxxx"))
+    }
 }
 
 #endif
