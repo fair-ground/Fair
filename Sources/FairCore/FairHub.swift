@@ -1015,7 +1015,7 @@ public extension FairHub {
         public var count: Int = 100
 
         /// the number of releases to scan
-        public var releaseCount: Int = 5
+        public var releaseCount: Int = 25
         /// the number of release assets to process
         public var assetCount: Int = 50
         /// the number of recent PRs to scan for a fairseal
