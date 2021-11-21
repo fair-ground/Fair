@@ -1203,6 +1203,8 @@ public extension FairCLI {
         }
 
         let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
+            .environment(\.displayScale, 2.0) // headless rendering on GH machines seems to different from manually running on macOS
+
         for path in outputFiles {
             let outputURL = URL(fileURLWithPath: path)
             if outputURL.pathExtension != "png" {
