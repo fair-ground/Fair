@@ -270,6 +270,185 @@ final class FairAppTests: XCTestCase {
 
     }
 
+    /// Ensure that all the variants of `Assets.xcassets/AppIcon.appiconset/Contents.json` can be parsed into the same color value
+    func testAssetIconSetParsing() throws {
+        let contents = """
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "20x20"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "20x20"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "29x29"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "appicon-iphone-60x60@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "appicon-iphone-60x60@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "20x20"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "20x20"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "29x29"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "40x40"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "appicon-ipad-76x76@1x.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "76x76"
+    },
+    {
+      "filename" : "appicon-ipad-76x76@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "76x76"
+    },
+    {
+      "filename" : "appicon-ipad-83.5x83.5@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "83.5x83.5"
+    },
+    {
+      "filename" : "appicon-ios-marketing-1024x1024@1x.png",
+      "idiom" : "ios-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "16x16"
+    },
+    {
+      "filename" : "appicon-mac-16x16@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "16x16"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "32x32"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "32x32"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "128x128"
+    },
+    {
+      "filename" : "appicon-mac-128x128@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "128x128"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "256x256"
+    },
+    {
+      "filename" : "appicon-mac-256x256@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "256x256"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "512x512"
+    },
+    {
+      "filename" : "appicon-mac-512x512@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "512x512"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
+"""
+
+        let iconSet = try AppIconSet(json: contents.utf8Data)
+        let json = try iconSet.json(outputFormatting: [.prettyPrinted, .sortedKeys]).utf8String
+        XCTAssertEqual(contents, json)
+
+        XCTAssertEqual("appicon-iphone-60x60@2x.png", iconSet.images(idiom: "iphone", scale: "2x", size: "60x60").first?.filename)
+        XCTAssertEqual("appicon-iphone-60x60@3x.png", iconSet.images(idiom: "iphone", scale: "3x", size: "60x60").first?.filename)
+        XCTAssertEqual("appicon-ipad-76x76@1x.png", iconSet.images(idiom: "ipad", scale: "1x", size: "76x76").first?.filename)
+        XCTAssertEqual("appicon-ipad-76x76@2x.png", iconSet.images(idiom: "ipad", scale: "2x", size: "76x76").first?.filename)
+        XCTAssertEqual("appicon-ipad-83.5x83.5@2x.png", iconSet.images(idiom: "ipad", scale: "2x", size: "83.5x83.5").first?.filename)
+        XCTAssertEqual("appicon-ios-marketing-1024x1024@1x.png", iconSet.images(idiom: "ios-marketing", scale: "1x", size: "1024x1024").first?.filename)
+        XCTAssertEqual("appicon-mac-16x16@2x.png", iconSet.images(idiom: "mac", scale: "2x", size: "16x16").first?.filename)
+        XCTAssertEqual("appicon-mac-128x128@2x.png", iconSet.images(idiom: "mac", scale: "2x", size: "128x128").first?.filename)
+        XCTAssertEqual("appicon-mac-256x256@2x.png", iconSet.images(idiom: "mac", scale: "2x", size: "256x256").first?.filename)
+        XCTAssertEqual("appicon-mac-512x512@2x.png", iconSet.images(idiom: "mac", scale: "2x", size: "512x512").first?.filename)
+
+    }
 }
 
 #endif

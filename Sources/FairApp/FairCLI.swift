@@ -2128,6 +2128,39 @@ struct AccentColorList : Decodable {
     }
 }
 
+/// The contents of an icon set.
+///
+/// Handles parsing the known variants of the `Assets.xcassets/AppIcon.appiconset/Contents.json` file.
+struct AppIconSet : Codable {
+    var info: Info
+    var images: [ImageEntry]
+
+    struct Info: Codable {
+        var author: String
+        var version: Int
+    }
+
+    struct ImageEntry: Codable {
+        var idiom: String? // e.g., "watch"
+        var scale: String? // e.g., "2x"
+        var role: String? // e.g., "quickLook"
+        var size: String? // e.g., "50x50"
+        var subtype: String? // e.g. "38mm"
+        var filename: String? // e.g. "172.png"
+    }
+}
+
+extension AppIconSet {
+    /// Images with the matching properties
+    func images(idiom: String? = nil, scale: String? = nil, size: String? = nil) -> [ImageEntry] {
+        images.filter { imageEntry in
+            (idiom == nil || imageEntry.idiom == idiom)
+            && (scale == nil || imageEntry.scale == scale)
+            && (size == nil || imageEntry.size == size)
+        }
+    }
+}
+
 extension String {
     func ansi(_ codeStyle: ANSICode) -> String {
         codeStyle.open + self.replacingOccurrences(of: ANSICode.reset.open, with: ANSICode.reset.open + codeStyle.open) + ANSICode.reset.open
