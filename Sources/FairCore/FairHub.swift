@@ -303,7 +303,7 @@ public extension FairHub {
                     let screenshotURLs = release.releaseAssets.nodes.filter { node in
                         if !node.name.hasSuffix(".png") { return false }
                         return artifactTarget.devices.contains { device in
-                            node.name.hasPrefix("screenshot-" + device + "-")
+                            node.name.hasPrefix("screenshot") && node.name.contains("-" + device + "-")
                         }
                     }
                     .compactMap { node in
