@@ -1,3 +1,4 @@
+import Foundation
 
 /// A symbol that can be interpreted graphically by the host system.
 public enum FairSymbol : String, CaseIterable {
