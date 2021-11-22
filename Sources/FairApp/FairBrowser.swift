@@ -47,14 +47,14 @@ public struct FairBrowser : View {
 
                 ToolbarItemGroup(placement: .automatic) {
                     Button(action: goBack) {
-                        Image(systemName: "chevron.left")
+                        FairSymbol.chevron_left
                             .imageScale(.large)
                             .aspectRatio(contentMode: .fit)
                     }
                     .disabled(!web.canGoBack)
                     .keyboardShortcut("[")
                     Button(action: goForward) {
-                        Image(systemName: "chevron.right")
+                        FairSymbol.chevron_right
                             .imageScale(.large)
                             .aspectRatio(contentMode: .fit)
                     }

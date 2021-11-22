@@ -555,7 +555,7 @@ extension SwiftUI.View {
 @available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.TextField {
     /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
-    public func overlink(to destination: URL?, image: Image = Image(systemName: "arrowshape.turn.up.right.circle.fill")) -> some View {
+    public func overlink(to destination: URL?, image: Image = FairSymbol.arrowshape_turn_up_right_circle_fill.image) -> some View {
         self.overlay(alignment: .trailing) {
             if let destination = destination {
                 Link(destination: destination) {
