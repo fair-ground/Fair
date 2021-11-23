@@ -166,6 +166,10 @@ jobs:
 
           xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project .
 
+          # ensure the Info.plist has the correct name and bundle ID values
+          plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
+          plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
+
           xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties Info.plist --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
 
           file Assets.xcassets/AppIcon.appiconset/*.*

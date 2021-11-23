@@ -110,7 +110,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: "Update ${{env.BUNDLE_ID}} to version ${{ inputs.release_version }}"
+      - name: "Update metadata"
         if: "${{ inputs.release_version != '' }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
