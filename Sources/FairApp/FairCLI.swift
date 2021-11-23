@@ -287,14 +287,14 @@ public extension FairCLI {
         flags["-fairseal-issuer"]?.first
     }
 
-    /// The percentage inset for genetated icons
-    var iconInset: Double? {
-        flags["-icon-inset"]?.first.flatMap(Double.init)
-    }
-
     /// Symbols to emboss over the icon
     var iconSymbols: [String]? {
         flags["-icon-symbol"]
+    }
+
+    /// The path to `Assets.xcassets/AppIcon.appiconset/Contents.json`
+    var appIconPath: String? {
+        flags["-app-icon"]?.first
     }
 
     /// The flag for the allow patterns for integrate PRs
@@ -1199,10 +1199,14 @@ public extension FairCLI {
     func icon(msg: MessageHandler) throws {
         msg(.info, "icon")
 
-        let outputFiles = outputFlags
-        guard !outputFiles.isEmpty else {
-            throw Errors.missingFlag(self.op, "-output")
+        guard let appIconPath = self.appIconPath else {
+            throw Errors.missingFlag(self.op, "-app-icon")
         }
+
+        let appIconURL = projectPathURL(path: appIconPath)
+
+        // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
+        let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
 
         let appName = try appNameSpace()
         let iconColor = try parseTintIconColor()
@@ -1216,30 +1220,64 @@ public extension FairCLI {
 
         let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
 
-        for path in outputFiles {
-            let outputURL = URL(fileURLWithPath: path)
-            if outputURL.pathExtension != "png" {
-                throw AppError("output path was not a png: \(path)")
+        // the minimal required icons for macOS + iOS
+        let icons = [
+            iconSet.images(idiom: "mac", scale: "2x", size: "16x16"),
+            iconSet.images(idiom: "mac", scale: "2x", size: "128x128"),
+            iconSet.images(idiom: "mac", scale: "2x", size: "256x256"),
+            iconSet.images(idiom: "mac", scale: "2x", size: "512x512"),
+            iconSet.images(idiom: "iphone", scale: "2x", size: "60x60"),
+            iconSet.images(idiom: "iphone", scale: "3x", size: "60x60"),
+            iconSet.images(idiom: "ipad", scale: "1x", size: "76x76"),
+            iconSet.images(idiom: "ipad", scale: "2x", size: "76x76"),
+            iconSet.images(idiom: "ipad", scale: "2x", size: "83.5x83.5"),
+            iconSet.images(idiom: "ios-marketing", scale: "1x", size: "1024x1024"),
+        ].joined()
+
+        var appIconSet = iconSet
+
+        for imageSet in icons {
+            if imageSet.filename != nil {
+                continue // skip any elements that have a file path specified already
             }
 
-            let assetName = try AssetName(string: outputURL.lastPathComponent)
-            let iconFile = URL(fileURLWithPath: path)
+            // an un-specified filename will be filled in with the default app icon
+
+            let iconFile = URL(fileURLWithPath: "appicon-" + imageSet.standardPath + ".png", relativeTo: appIconURL)
+
+            let assetName = try AssetName(string: iconFile.lastPathComponent)
 
             let size = max(assetName.width, assetName.height)
             let scale = Double(assetName.scale ?? 1)
 
             let span = CGFloat(size) * CGFloat(scale) // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
-            guard let pngData = iconView.padding(span * (iconInset ?? 0.0)).png(bounds: bounds), pngData.count > 1024 else {
+            let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%
+
+            guard let pngData = iconView.padding(span * iconInset).png(bounds: bounds), pngData.count > 1024 else {
                 throw AppError("Unable to generate PNG data")
             }
+            try pngData.write(to: iconFile)
+            msg(.info, "output icon to: \(iconFile.path)")
 
-            if let existingFile = try? Data(contentsOf: iconFile), existingFile != pngData {
-                msg(.warn, "skipping overwrite of existing path:", iconFile.lastPathComponent, existingFile.count)
-            } else {
-                try pngData.write(to: iconFile)
-                msg(.info, "output icon to: \(iconFile.path)")
+            appIconSet.images = appIconSet.images.map { image in
+                var img = image
+                if img.idiom == imageSet.idiom
+                    && img.size == imageSet.size
+                    && img.scale == imageSet.scale
+                    && img.role == imageSet.role
+                    && img.subtype == imageSet.subtype
+                    && img.filename == nil {
+                    img.filename = iconFile.lastPathComponent // update the image to have the given file name
+                }
+                return img
             }
+        }
+
+        if appIconSet != iconSet {
+            // when we have changed the icon set from the origional, save it back to the asset catalog
+            msg(.info, "saving changed assets to: \(appIconURL.path)")
+            try appIconSet.json(outputFormatting: [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]).write(to: appIconURL)
         }
     }
 
@@ -2131,22 +2169,41 @@ struct AccentColorList : Decodable {
 /// The contents of an icon set.
 ///
 /// Handles parsing the known variants of the `Assets.xcassets/AppIcon.appiconset/Contents.json` file.
-struct AppIconSet : Codable {
+struct AppIconSet : Equatable, Codable {
     var info: Info
     var images: [ImageEntry]
 
-    struct Info: Codable {
+    struct Info: Equatable, Codable {
         var author: String
         var version: Int
     }
 
-    struct ImageEntry: Codable {
+    struct ImageEntry: Equatable, Codable {
         var idiom: String? // e.g., "watch"
         var scale: String? // e.g., "2x"
         var role: String? // e.g., "quickLook"
         var size: String? // e.g., "50x50"
         var subtype: String? // e.g. "38mm"
         var filename: String? // e.g. "172.png"
+
+        /// The path for the image, of the form: `idiom-size@scale`
+        var standardPath: String {
+            var path = ""
+            if let idiom = idiom {
+                path += idiom + "-"
+            }
+
+            if let size = size {
+                path += size
+            }
+
+            if let scale = scale {
+                path += "@" + scale
+            }
+
+
+            return path
+        }
     }
 }
 

@@ -166,8 +166,7 @@ jobs:
 
           xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project .
 
-          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --icon-inset 0.10 --fair-properties Info.plist --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --output Assets.xcassets/AppIcon.appiconset/appicon-mac-16x16@2x.png --output Assets.xcassets/AppIcon.appiconset/appicon-mac-128x128@2x.png --output Assets.xcassets/AppIcon.appiconset/appicon-mac-256x256@2x.png --output Assets.xcassets/AppIcon.appiconset/appicon-mac-512x512@2x.png
-          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties Info.plist --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --output Assets.xcassets/AppIcon.appiconset/appicon-ipad-83.5x83.5@2x.png --output Assets.xcassets/AppIcon.appiconset/appicon-ipad-76x76@1x.png --output Assets.xcassets/AppIcon.appiconset/appicon-ipad-76x76@2x.png --output Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@2x.png --output Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png  --output Assets.xcassets/AppIcon.appiconset/appicon-ios-marketing-1024x1024@1x.png
+          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties Info.plist --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
