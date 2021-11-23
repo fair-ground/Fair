@@ -29,7 +29,6 @@ on:
 jobs:
   ci-linux:
     runs-on: ubuntu-latest 
-    timeout-minutes: 10
 
     steps:
       - name: Get swift version
@@ -52,8 +51,6 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.1.app/Contents/Developer
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    timeout-minutes: 10
 
     steps:
       - name: Checkout
@@ -111,7 +108,6 @@ jobs:
 
   ci-windows:
     runs-on: windows-latest
-    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
