@@ -367,7 +367,7 @@ public extension FairHub {
             }
         }
 
-        if !org.isVerified {
+        if org.isVerified != true {
             // invalid.insert(.notVerified)
             // we do not currently require that organizations be verified
         }
@@ -591,11 +591,21 @@ public extension FairHub {
         public enum TypeName : String, Pure { case User, Organization }
         public let __typename: TypeName
         public var login: String
-        public let description: String?
+
+        // these can all be null for an app forked by a user due to the `... on Organization { }` clause
+
+        ///  The organization's public email.
         public let email: String?
-        public let isVerified: Bool
+        /// Whether the organization has verified its profile email and website.
+        public let isVerified: Bool?
+        /// The organization's public profile URL.
         public let websiteUrl: URL?
-        public let createdAt: Date
+        /// Identifies the date and time when the object was created.
+        public let createdAt: Date?
+        /// True if this user/organization has a GitHub Sponsors listing.
+        public let hasSponsorsListing: Bool?
+        /// The estimated monthly GitHub Sponsors income for this user/organization in cents (USD).
+        public let monthlyEstimatedSponsorsIncomeInCents: Double?
 
         public var isOrganization: Bool { __typename == .Organization }
 
@@ -724,7 +734,8 @@ public extension GraphQLEndpointService {
             req.cachePolicy = cache
         }
 
-        // print(wip(postData?.utf8String ?? "")) // for debugging post data
+        // un-comment to view raw GraphQL for running in https://docs.github.com/en/graphql/overview/explorer
+        // print(wip(postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\", with: "")) // for debugging post data
 
         dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , postData?.utf8String)
         return req
@@ -913,7 +924,6 @@ public extension FairHub {
                 isVerified
                 websiteUrl
                 url
-                description
                 createdAt
                 repository(name: "\(name)") {
                   __typename
@@ -960,11 +970,10 @@ public extension FairHub {
                 public let name: String? // the string title, falling back to the login name
                 public let login: String
                 public let email: String?
-                public let isVerified: Bool
+                public let isVerified: Bool?
                 public let websiteUrl: URL?
                 public let url: URL?
-                public let description: String?
-                public let createdAt: Date
+                public let createdAt: Date?
 
                 public var isOrganization: Bool { __typename == .Organization }
 
@@ -1049,7 +1058,6 @@ public extension FairHub {
                         __typename
                         login
                         ... on Organization {
-                          description
                           email
                           isVerified
                           websiteUrl

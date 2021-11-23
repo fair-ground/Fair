@@ -910,9 +910,9 @@ public extension FairCLI {
             let appID = "app." + appOrgName
 
             // try checkStr(key: InfoPlistKey.CFBundleName, is: "$(PRODUCT_NAME)")
-            try checkStr(key: InfoPlistKey.CFBundleName, in: [appName])
-
-            try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: [appID, "$(PRODUCT_BUNDLE_IDENTIFIER)"])
+            // accept either the actual appname, or the default "App Name", or else the Xcode-filled-in $(PRODUCT_NAME)
+            try checkStr(key: InfoPlistKey.CFBundleName, in: [appName, "$(PRODUCT_NAME)", "App Name"])
+            try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: [appID, "$(PRODUCT_BUNDLE_IDENTIFIER)", "app.App-Name"])
 
             try checkStr(key: InfoPlistKey.CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
             try checkStr(key: InfoPlistKey.CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
