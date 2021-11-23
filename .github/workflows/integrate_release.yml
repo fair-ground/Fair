@@ -164,8 +164,6 @@ jobs:
 
           xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project ReleasePR --output .
 
-          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project .
-
           # ensure the Info.plist has the correct name and bundle ID values
           plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
           plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
@@ -174,7 +172,7 @@ jobs:
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
-          #xcrun swift run -- fairtool edit --project . --hub "github.com/${{ inputs.fairground }}" --bundle-id "${{ env.BUNDLE_ID }}" --display-name "${{ env.PRODUCT_NAME }}"
+          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project .
 
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
