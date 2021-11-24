@@ -111,7 +111,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Update metadata"
-        if: startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version != '' }}
+        if: ${{ env.ORGNAME != 'appfair' }} && (startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version != '' }})
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
