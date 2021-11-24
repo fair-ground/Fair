@@ -111,13 +111,10 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Update metadata"
-        if: ${{ env.ORGNAME != 'appfair' }} && (startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version != '' }})
+        if: ${{ env.ORGNAME != 'appfair' }} && startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # update the Info.plist with the new version
-          plutil -replace CFBundleShortVersionString -string "${{ inputs.release_version }}" Info.plist
-
           # ensure the Info.plist has the correct name and bundle ID values
           plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
           plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
