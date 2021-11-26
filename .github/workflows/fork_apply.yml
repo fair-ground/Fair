@@ -289,7 +289,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
       - name: "Stage Release Metadata"
-        if: startsWith(github.ref, 'refs/tags/') || ${{ inputs.release_version != '' }}
+        if: startsWith(github.ref, 'refs/tags/')
         # Extract the Info.plist from the archives themselves, since they contain
         # the same post-processed metadata that the app will use.
         # And convert to XML for ease of integration.
@@ -307,26 +307,6 @@ jobs:
 
           # log the checksum for each of the staging elements
           openssl sha256 staging/*.*
-
-      # When run from create_workflow.yml, this will the the release
-      - name: "Tag ${{env.BUNDLE_ID}} ${{ inputs.release_version }}"
-        if: "${{ inputs.release_version != '' }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Commit, push, and tag the release 
-        run: |
-          git add Info.plist
-          git commit -m "Release version ${{ inputs.release_version }}"
-          git tag -a "${{ inputs.release_version }}" -m "Release version ${{ inputs.release_version }}"
-          git push --follow-tags
-
-          echo "Uploading release assets: ${GITHUB_REF#refs/tags/}"
-
-          # create a pre-release 
-          gh release create "${{ inputs.release_version }}" --prerelease --notes 'Release ${{ inputs.release_version }}'
-
-          # upload staging assets to the existing GitHub release
-          gh release upload "${{ inputs.release_version }}" -- staging/*.*
 
       # create and upload the release artifacts, which will be
       # vaidates in the base fair-ground by integrate_release
