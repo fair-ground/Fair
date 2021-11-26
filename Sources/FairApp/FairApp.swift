@@ -515,8 +515,8 @@ extension SwiftUI.Text {
         label(image: symbolName.flatMap(Image.init(systemName:))?.foregroundColor(color))
     }
 
-    /// Labels the given text with the given optional image.
-    public func label<V: View>(image: V? = nil) -> Label<Text, V?> {
+    /// Labels the given text with the given image.
+    public func label<V: View>(image: V) -> Label<Text, V> {
         Label(title: { self }, icon: { image })
     }
 }
