@@ -30,7 +30,7 @@ final class FairIconTests: XCTestCase {
                 .offset(x: width/2, y: height/2)
                 .previewLayout(.sizeThatFits)
                 .png(bounds: CGRect(x: 0, y: 0, width: width, height: height))?
-                .write(to: URL(fileURLWithPath: "FairIcon_\(i).png", relativeTo: NSURL(fileURLWithPath: NSTemporaryDirectory())))
+                .write(to: URL(fileURLWithPath: "FairIcon_\(i).png", relativeTo: URL(fileURLWithPath: NSTemporaryDirectory())))
         }
     }
 }
