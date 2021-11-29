@@ -17,32 +17,36 @@ import Swift
 import SwiftUI
 import Combine
 
+/// Observable progress
+public final class ObservableProgress: ObservableObject {
+    public let progress: Progress
+    private var cancellable: AnyCancellable!
+
+    public init(progress: Progress) {
+        self.progress = progress
+        self.cancellable = progress.publisher(for: \.fractionCompleted)
+            .combineLatest(progress.publisher(for: \.localizedAdditionalDescription))
+            .throttle(for: 0.05, scheduler: DispatchQueue.main, latest: true)
+            .sink { [weak self] _ in
+                dbg("progress:", self?.progress.fractionCompleted)
+                self?.objectWillChange.send()
+            }
+    }
+}
+
 @available(iOS 14.0, macOS 11.0, *)
-public struct FairProgressView: View {
-    @StateObject private var progress: ProgressObserver
+private struct FairProgressView: View {
+    @StateObject private var progress: ObservableProgress
 
-    public init(_ progress: Progress) {
-        _progress = StateObject(wrappedValue: ProgressObserver(progress: progress))
+    init(_ progress: Progress) {
+        _progress = StateObject(wrappedValue: ObservableProgress(progress: progress))
     }
 
-    /// An observable pass-through for a progress bar
-    private final class ProgressObserver: ObservableObject {
-        var progress: Progress
-        var cancellable: AnyCancellable!
-
-        init(progress: Progress) {
-            self.progress = progress
-            self.cancellable = progress.publisher(for: \.fractionCompleted)
-                .combineLatest(progress.publisher(for: \.localizedAdditionalDescription))
-                .throttle(for: 0.1, scheduler: DispatchQueue.main, latest: true)
-                .sink { [weak self] _ in self?.objectWillChange.send() }
-        }
-    }
-
-    public var body: some View {
+    var body: some View {
         ProgressView(progress.progress)
     }
 }
+
 
 @available(iOS 14.0, macOS 11.0, *)
 struct FairProgressView_Previews: PreviewProvider {
