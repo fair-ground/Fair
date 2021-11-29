@@ -146,13 +146,13 @@ jobs:
           plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
           plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
 
-      - name: "Validate App Organization: ${{ env.ORGNAME }}"
-        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
-
       - name: "Resolve Swift Packages"
         run: |
           swift package resolve
           cp Package.resolved Sources/App/Resources/
+
+      - name: "Validate App Organization: ${{ env.ORGNAME }}"
+        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
 
       - name: "Check Icon"
         run: |
