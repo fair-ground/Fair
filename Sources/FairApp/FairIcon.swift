@@ -201,26 +201,37 @@ private struct IndexedChar: Hashable, Identifiable {
     var string: String { "\(character)" }
 }
 
+@available(macOS 12.0, iOS 15.0, *)
 struct FairIconView_Previews: PreviewProvider {
     static var previews: some View {
-        let span: CGFloat = 80
-        var rndgen = SeededRandomNumberGenerator(uuids: UUID())
+        preview(count: 56, span: 50)
+            .frame(width: 450, height: 500, alignment: .center)
+            .previewLayout(.sizeThatFits)
+    }
 
-        let symbolNames = FairSymbol.allCases.shuffled(using: &rndgen).map(\.symbolName)
-        let appNames = try! AppNameValidation.standard.suggestNames(count: 16, rnd: &rndgen)
+    static func preview(seed: UUID = UUID(), count: Int, span: CGFloat, borderRatio: CGFloat = 0.0) -> some View {
+        var rndgen = SeededRandomNumberGenerator(uuids: seed)
+
+        let symbolNames = FairSymbol.allCases
+            .filter({ !$0.rawValue.hasPrefix("N") })
+            .shuffled(using: &rndgen).map(\.symbolName)
+        let appNames = AppNameValidation.standard.suggestNames(count: count, rnd: &rndgen)
         let appSymbols: [(appName: String, symbolName: String)] = Array(zip(appNames, symbolNames))
 
-        return LazyHGrid(rows: [
+        let grid = LazyHGrid(rows: [
             GridItem(.adaptive(minimum: span, maximum: span)),
             //GridItem(.adaptive(minimum: 100, maximum: 200)),
         ]) {
             ForEach(appSymbols, id: \.appName) { appName, symbolName in
-                FairIconView(appName, subtitle: "", symbolNames: [symbolName])
+                FairIconView(appName, subtitle: "", symbolNames: [symbolName], borderRatio: borderRatio)
+                    .symbolVariant(.none)
                     .frame(width: span, height: span)
             }
         }
-        .frame(width: 400, height: 400)
-        .previewLayout(.sizeThatFits)
+
+        // try? grid.png(bounds: nil)?.write(to: URL(fileURLWithPath: ("~/Desktop/previews.png" as NSString).expandingTildeInPath))
+
+        return grid
     }
 }
 

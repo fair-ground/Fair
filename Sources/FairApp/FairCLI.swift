@@ -2279,27 +2279,32 @@ extension AppNameValidation {
     }()
 
     /// Suggests one or more names for valid App Fair app
-    public func suggestNames(count: Int = 1) throws -> [String] {
+    public func suggestNames(count: Int = 1) throws -> Set<String> {
         var rnd = SystemRandomNumberGenerator()
-        return try suggestNames(count: count, rnd: &rnd)
+        return suggestNames(count: count, rnd: &rnd)
+    }
+
+    public func randomName<R: RandomNumberGenerator>(rnd: inout R) throws -> String {
+        let names = try Self.appnames.get()
+        guard let noun = names.keys.sorted().randomElement(using: &rnd) else {
+            throw AppError("No noun")
+        }
+        guard let adj = names[noun]?.sorted().randomElement(using: &rnd) else {
+            throw AppError("No adjective")
+        }
+
+        let proposal = adj.capitalized + "-" + noun.capitalized
+        try validate(name: proposal) // make sure it passes validation
+        return proposal
     }
 
     /// Suggests one or more names for valid App Fair app
-    public func suggestNames<R: RandomNumberGenerator>(count: Int, rnd: inout R) throws -> [String] {
-        let names = try Self.appnames.get()
-        var proposals: [String] = []
-        for _ in 1...count {
-            guard let noun = names.keys.sorted().randomElement(using: &rnd) else {
-                continue
+    public func suggestNames<R: RandomNumberGenerator>(count: Int, rnd: inout R) -> Set<String> {
+        var proposals: Set<String> = []
+        while proposals.count < count {
+            if let proposal = try? randomName(rnd: &rnd) {
+                proposals.insert(proposal)
             }
-
-            guard let adj = names[noun]?.sorted().randomElement(using: &rnd) else {
-                continue
-            }
-
-            let proposal = adj.capitalized + "-" + noun.capitalized
-            try validate(name: proposal) // make sure it passes
-            proposals.append(proposal)
         }
 
         return proposals
