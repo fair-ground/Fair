@@ -18,7 +18,7 @@ import XCTest
 import WebKit
 @testable import FairApp
 
-final class FairIoncTests: XCTestCase {
+final class FairIconTests: XCTestCase {
     @available(macOS 12.0, iOS 15.0, *)
     func testFairIcons() throws {
         let width = 1600.0, height = 400.0
@@ -30,7 +30,7 @@ final class FairIoncTests: XCTestCase {
                 .previewLayout(.sizeThatFits)
                 .png(bounds: CGRect(x: 0, y: 0, width: width, height: height))?
                 //.write(to: URL(fileURLWithPath: ("~/Desktop/Banners/previews_\(i).png" as NSString).expandingTildeInPath))
-                .write(to: URL(fileURLWithPath: ("/tmp/previews_\(i).png" as NSString).expandingTildeInPath))
+                .write(to: URL(fileURLWithPath: ("/tmp/FairIcon_\(i).png" as NSString).expandingTildeInPath))
         }
     }
 }
