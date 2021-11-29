@@ -29,7 +29,8 @@ final class FairIoncTests: XCTestCase {
                 .offset(x: width/2, y: height/2)
                 .previewLayout(.sizeThatFits)
                 .png(bounds: CGRect(x: 0, y: 0, width: width, height: height))?
-                .write(to: URL(fileURLWithPath: ("~/Desktop/Banners/previews_\(i).png" as NSString).expandingTildeInPath))
+                //.write(to: URL(fileURLWithPath: ("~/Desktop/Banners/previews_\(i).png" as NSString).expandingTildeInPath))
+                .write(to: URL(fileURLWithPath: ("/tmp/previews_\(i).png" as NSString).expandingTildeInPath))
         }
     }
 }
