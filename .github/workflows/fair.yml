@@ -108,7 +108,7 @@ jobs:
   # and a fairseal is published.
   fork_apply:
     name: "Fork Apply"
-    if: ${{ github.event_name != 'pull_request_target' }}
+    if: ${{ inputs.fairseal_issuer == '' }}
     runs-on: macos-11
     timeout-minutes: 45
 
@@ -385,7 +385,7 @@ jobs:
   # required for inclusion in the catalog.  
   integrate_release:
     name: "Integrate Release"
-    if: ${{ github.event_name == 'pull_request_target' && github.repository == '${{ inputs.fairground }}/App' }}
+    if: ${{ inputs.fairseal_issuer != '' }}
     runs-on: macos-11
     timeout-minutes: 45
 
