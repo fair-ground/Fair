@@ -141,9 +141,9 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(/usr/libexec/PlistBuddy -c "Print LSUIPresentationMode" Info.plist 2>&1 /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(/usr/libexec/PlistBuddy -c "Print UISupportedInterfaceOrientations" Info.plist 2>&1 /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=XXXOS::$(/usr/libexec/PlistBuddy -c "Print XXXOS" Info.plist 2>&1 /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=macos::$(/usr/libexec/PlistBuddy -c 'Print LSUIPresentationMode' Info.plist 2>&1 /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(/usr/libexec/PlistBuddy -c 'Print UISupportedInterfaceOrientations' Info.plist 2>&1 /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=XXXOS::$(/usr/libexec/PlistBuddy -c 'Print XXXOS' Info.plist 2>&1 /dev/null && echo enabled || echo disabled)"
 
       - name: check the value
         run: |
