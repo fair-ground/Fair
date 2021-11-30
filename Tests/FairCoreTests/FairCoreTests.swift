@@ -232,8 +232,9 @@ final class FairCoreTests: XCTestCase {
 
 #if os(macOS)
     func testCodesignVerify() throws {
-        let textEdit = "/System/Applications/TextEdit.app"
-        let (stdout, stderr) = try Process.codesignVerify(appURL: URL(fileURLWithPath: textEdit))
+        let appFile = URL(fileURLWithPath: "TextEdit.app", relativeTo: try? FileManager.default.url(for: .applicationDirectory, in: .systemDomainMask, appropriateFor: nil, create: false))
+        
+        let (stdout, stderr) = try Process.codesignVerify(appURL: appFile)
         let verified = stdout + stderr
 
         // ["Executable=/System/Applications/TextEdit.app/Contents/MacOS/TextEdit", "Identifier=com.apple.TextEdit", "Format=app bundle with Mach-O universal (x86_64 arm64e)", "CodeDirectory v=20400 size=1899 flags=0x0(none) hashes=49+7 location=embedded", "Platform identifier=13", "Signature size=4442", "Authority=Software Signing", "Authority=Apple Code Signing Certification Authority", "Authority=Apple Root CA", "Signed Time=Jul 31, 2021 at 08:16:31", "Info.plist entries=34", "TeamIdentifier=not set", "Sealed Resources version=2 rules=2 files=0", "Internal requirements count=1 size=68"]
