@@ -141,15 +141,15 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=ios::$(plutil -extract UISupportedInterfaceOrientations raw Info.plist)"
-          echo "::set-output name=macos::$(plutil -extract LSUIPresentationMode raw Info.plist)"
-          echo "::set-output name=xxxos::$(plutil -extract XXXXX raw Info.plist)"
+          echo "::set-output name=macos::$(/usr/libexec/PlistBuddy -c "Print LSUIPresentationMode" Info.plist >>&| /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(/usr/libexec/PlistBuddy -c "Print UISupportedInterfaceOrientations" Info.plist >>&| /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=XXXOS::$(/usr/libexec/PlistBuddy -c "Print XXXOS" Info.plist >>&| /dev/null && echo enabled || echo disabled)"
 
       - name: check the value
         run: |
           echo ios: ${{ steps.platforms.outputs.ios }}
           echo macos: ${{ steps.platforms.outputs.macos }}
-          echo xxxos: ${{ steps.platforms.outputs.xxxos }}
+          echo XXXOS: ${{ steps.platforms.outputs.XXXOS }}
 
       - name: "Update metadata"
         if: ${{ env.ORGNAME != 'appfair' }} && startsWith(github.ref, 'refs/tags/')
