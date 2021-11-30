@@ -385,7 +385,7 @@ jobs:
   # required for inclusion in the catalog.  
   integrate_release:
     name: "Integrate Release"
-    if: ${{ github.event_name == 'pull_request_target' && github.repository == '${{ inputs.fairground }}/App' && secrets.bot_token != '' }}
+    if: ${{ github.event_name == 'pull_request_target' && github.repository == '${{ inputs.fairground }}/App' }}
     runs-on: macos-11
     timeout-minutes: 45
 
