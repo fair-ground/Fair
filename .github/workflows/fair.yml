@@ -147,9 +147,9 @@ jobs:
 
       - name: check the value
         run: |
-          echo ${${{ steps.platforms.outputs.ios }}} 
-          echo ${${{ steps.platforms.outputs.macos }}} 
-          echo ${${{ steps.platforms.outputs.xxxos }}} 
+          echo ios: ${{ steps.platforms.outputs.ios }}
+          echo macos: ${{ steps.platforms.outputs.macos }}
+          echo xxxos: ${{ steps.platforms.outputs.xxxos }}
 
       - name: "Update metadata"
         if: ${{ env.ORGNAME != 'appfair' }} && startsWith(github.ref, 'refs/tags/')
