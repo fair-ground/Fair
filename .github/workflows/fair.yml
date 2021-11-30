@@ -580,7 +580,7 @@ jobs:
           echo "Generating fairseal for: $ZIPURL"
 
           mkdir -p staging/.artifact_stash
-          mv -f staging/*.ipa staging/.artifact_stash/ # don't seal the ipa when sealing macOS
+          mv -f staging/*.ipa staging/.artifact_stash/ || true # don't seal the ipa when sealing macOS
 
           # if the seals match, we indicate success by publishing
           # the SHA256 for the release's pull request;
@@ -602,7 +602,7 @@ jobs:
             --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
-          mv -f staging/.artifact_stash/* staging/ # restore stash
+          mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
       - name: "Generate iOS fairseal"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
@@ -615,7 +615,7 @@ jobs:
           echo "Generating fairseal for: $IPAURL"
 
           mkdir -p staging/.artifact_stash
-          mv -f staging/*.zip staging/.artifact_stash/ # don't seal the macOS zip for iOS seal
+          mv -f staging/*.zip staging/.artifact_stash/ || true # don't seal the macOS zip for iOS seal
 
           # Builds on iOS are currently not reproducible (help wanted!),
           # so we accept a diff tolerance of 1,000,000 bytes for fairseal-match
@@ -634,7 +634,7 @@ jobs:
             --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
-          mv -f staging/.artifact_stash/* staging/ # restore stash
+          mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
       - name: "Upload Build Artifacts"
         # upload the trusted artifacts for each build for reproducible-builds
