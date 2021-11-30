@@ -141,8 +141,8 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(plutil -extract LSUIPresentationMode raw Info.plist)"
-          echo "::set-output name=ios::$(plutil -extract UISupportedInterfaceOrientations raw Info.plist)"
+          echo "::set-output name=macos::$(cat Info.plist | plutil -extract 'LSUIPresentationMode' xml1 - 2>&1 > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(cat Info.plist | plutil -extract 'UISupportedInterfaceOrientations' xml1 - 2>&1 > /dev/null && echo enabled || echo disabled)"
 
       - name: check the value
         run: |
