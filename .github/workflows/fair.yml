@@ -108,7 +108,7 @@ jobs:
   # and a fairseal is published.
   fork_apply:
     name: "Fork Apply"
-    if: github.event_name != 'pull_request_target'
+    if: ${{ github.event_name != 'pull_request_target' }}
     runs-on: macos-11
     timeout-minutes: 45
 
@@ -277,12 +277,12 @@ jobs:
         id: notarization_setup
         env:
             NOTARY_TEAMID: ${{ secrets.NOTARY_TEAMID }}
-        if: "${{ env.NOTARY_TEAMID != '' }}"
+        if: ${{ env.NOTARY_TEAMID != '' }}
         # transfer the secret to an env variable so it can be checked with `if`
         run: echo "::set-output name=defined::true"
 
       - name: "Notarize App"
-        if: steps.notarization_setup.outputs.defined == 'true'
+        if: ${{ steps.notarization_setup.outputs.defined == 'true' }}
         run: |
           mkdir -p .notarization
           security delete-keychain fairsign.keychain || true
@@ -385,7 +385,7 @@ jobs:
   # required for inclusion in the catalog.  
   integrate_release:
     name: "Integrate Release"
-    if: github.event_name == 'pull_request_target' && github.repository == '${{ inputs.fairground }}/App' && secrets.bot_token != ''
+    if: ${{ github.event_name == 'pull_request_target' && github.repository == '${{ inputs.fairground }}/App' && secrets.bot_token != '' }}
     runs-on: macos-11
     timeout-minutes: 45
 
