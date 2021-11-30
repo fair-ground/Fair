@@ -141,8 +141,13 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(cat Info.plist | plutil -extract 'LSUIPresentationMode' xml1 - 2>&1 > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(cat Info.plist | plutil -extract 'UISupportedInterfaceOrientations' xml1 - 2>&1 > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=macos::$(plutil -extract 'LSUIPresentationMode' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(plutil -extract 'UISupportedInterfaceOrientations' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
+
+      - name: "Show Platforms"
+        run: |
+          echo macos: ${{ steps.platforms.outputs.macos }}
+          echo ios: ${{ steps.platforms.outputs.ios }}
 
       - name: "Update metadata"
         if: ${{ env.ORGNAME != 'appfair' }} && startsWith(github.ref, 'refs/tags/')
@@ -484,8 +489,12 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(cat Info.plist | plutil -extract 'LSUIPresentationMode' xml1 - 2>&1 > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(cat Info.plist | plutil -extract 'UISupportedInterfaceOrientations' xml1 - 2>&1 > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=macos::$(plutil -extract 'LSUIPresentationMode' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(plutil -extract 'UISupportedInterfaceOrientations' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
+      - name: "Show Platforms"
+        run: |
+          echo macos: ${{ steps.platforms.outputs.macos }}
+          echo ios: ${{ steps.platforms.outputs.ios }}
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true }} && ${{ steps.platforms.outputs.ios == 'enabled' }}
