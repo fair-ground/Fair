@@ -439,8 +439,8 @@ jobs:
         run: |
           brew install clamav
           date
-          mkdir -p /usr/local/Cellar/clamav
-          echo 'DatabaseMirror database.clamav.net' > /usr/local/Cellar/clamav/freshclam.conf
+          mkdir -p /usr/local/etc/clamav
+          echo 'DatabaseMirror database.clamav.net' > /usr/local/etc/clamav/freshclam.conf
           date
           freshclam -v
           date
