@@ -136,7 +136,7 @@ final class FairHubTests: XCTestCase {
 
         XCTAssertFalse(names.contains("App"))
 
-        XCTAssertTrue(names.contains("App Fair"))
+        XCTAssertFalse(names.contains("App Fair")) // App Fair should not be in iOS cataloa
         XCTAssertTrue(names.contains("Tune Out"))
         XCTAssertGreaterThanOrEqual(names.count, 3)
 
