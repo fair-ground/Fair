@@ -19,18 +19,22 @@ import Combine
 
 /// Observable progress
 public final class ObservableProgress: ObservableObject {
-    public let progress: Progress
+    public var progress: Progress {
+        didSet {
+            self.cancellable = progress.publisher(for: \.fractionCompleted)
+                .combineLatest(progress.publisher(for: \.localizedAdditionalDescription))
+                .throttle(for: 0.005, scheduler: DispatchQueue.main, latest: true)
+                .sink { [weak self] _ in
+                    // dbg("progress:", self?.progress.fractionCompleted)
+                    // assert((self?.progress.fractionCompleted ?? 0.0) <= wip(1.0))
+                    self?.objectWillChange.send()
+                }
+        }
+    }
     private var cancellable: AnyCancellable!
 
-    public init(progress: Progress) {
+    public init(progress: Progress = Progress()) {
         self.progress = progress
-        self.cancellable = progress.publisher(for: \.fractionCompleted)
-            .combineLatest(progress.publisher(for: \.localizedAdditionalDescription))
-            .throttle(for: 0.05, scheduler: DispatchQueue.main, latest: true)
-            .sink { [weak self] _ in
-                dbg("progress:", self?.progress.fractionCompleted)
-                self?.objectWillChange.send()
-            }
     }
 }
 

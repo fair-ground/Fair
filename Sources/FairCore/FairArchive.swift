@@ -2178,7 +2178,7 @@ extension FileManager {
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
     public func extractContents(from sourceURL: URL, to destinationURL: URL, skipCRC32: Bool = false,
                                 progress: Progress? = nil, preferredEncoding: String.Encoding? = nil,
-                                handler: (URL) throws -> Bool = { _ in true }) throws {
+                                handler: (URL) throws -> Bool = { _ in true }) throws -> [ZipArchive.Entry] {
         let fileManager = FileManager()
         guard fileManager.itemExists(at: sourceURL) else {
             throw CocoaError(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: sourceURL.path])
@@ -2212,6 +2212,8 @@ extension FileManager {
                 break // cancel
             }
         }
+
+        return sortedEntries
     }
 
     // MARK: - Helpers

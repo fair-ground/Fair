@@ -233,7 +233,7 @@ final class FairCoreTests: XCTestCase {
 #if os(macOS)
     func testCodesignVerify() throws {
         let appFile = URL(fileURLWithPath: "TextEdit.app", relativeTo: try? FileManager.default.url(for: .applicationDirectory, in: .systemDomainMask, appropriateFor: nil, create: false))
-        
+
         let (stdout, stderr) = try Process.codesignVerify(appURL: appFile)
         let verified = stdout + stderr
 
