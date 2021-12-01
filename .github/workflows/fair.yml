@@ -438,8 +438,8 @@ jobs:
           brew install clamav
           ls /usr/local/etc/clamav/
           date
-          cp /usr/local/etc/clamav/clamd.conf.sample cp /usr/local/etc/clamav/clamd.conf
-          cp /usr/local/etc/clamav/freshclam.conf.sample cp /usr/local/etc/freshclam/clamd.conf
+          cp /usr/local/etc/clamav/clamd.conf.sample /usr/local/etc/clamav/clamd.conf
+          cp /usr/local/etc/clamav/freshclam.conf.sample /usr/local/etc/freshclam/clamd.conf
           date
           freshclam -v
           date
