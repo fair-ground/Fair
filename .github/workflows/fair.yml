@@ -573,6 +573,8 @@ jobs:
         if: ${{ inputs.target_macos == true && steps.platforms.outputs.macos == 'enabled' }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
+          CLAMDB_DIR: "/usr/local/Cellar/clamav"
+
         run: |
           # build the URL for the GitHub download artifact
           ZIPURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" 
@@ -613,6 +615,7 @@ jobs:
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
+          CLAMDB_DIR: "/usr/local/Cellar/clamav"
         run: |
           # build the URL for the GitHub download artifact
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
