@@ -138,6 +138,13 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
+      - name: Setup Virus/Malware Scanner
+        run: |
+          brew install clamav
+          freshclam -v
+          clamscan /etc/hosts
+
+
       - name: "Check platforms"
         id: platforms
         run: |
@@ -573,7 +580,6 @@ jobs:
         if: ${{ inputs.target_macos == true && steps.platforms.outputs.macos == 'enabled' }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
-          CLAMDB_DIR: "/usr/local/Cellar/clamav"
 
         run: |
           # build the URL for the GitHub download artifact
@@ -581,9 +587,8 @@ jobs:
 
           # virus/malware scan
           mkdir -p staging/.artifact_stash
-          brew install clamav
           curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.zip "${ZIPURL}"
-          clamscan --heuristic-scan-precedence=yes --recursive --infected staging/.artifact_stash/untrusted.zip
+          clamscan staging/.artifact_stash/untrusted.zip
 
           echo "Generating fairseal for: $ZIPURL"
 
@@ -622,9 +627,8 @@ jobs:
 
           # virus/malware scan
           mkdir -p staging/.artifact_stash
-          brew install clamav
           curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.ipa "${IPAURL}"
-          clamscan --heuristic-scan-precedence=yes --recursive --infected staging/.artifact_stash/untrusted.ipa
+          clamscan staging/.artifact_stash/untrusted.ipa
 
           echo "Generating fairseal for: $IPAURL"
 
