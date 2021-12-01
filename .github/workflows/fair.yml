@@ -138,14 +138,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: Setup Virus/Malware Scanner
-        run: |
-          brew install clamav
-          echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/clamd.conf
-          freshclam -v
-          clamscan /etc/hosts
-
-
       - name: "Check platforms"
         id: platforms
         run: |
@@ -440,6 +432,13 @@ jobs:
           ref: ${{ env.COMMITHASH }}
           fetch-depth: 0
           submodules: false
+
+      - name: Configure Virus & Malware Scanner
+        run: |
+          brew install clamav
+          echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/clamd.conf
+          freshclam -v
+          clamscan /etc/hosts
 
       - name: Verify workflow integrity
         # the workflows must be identical; fetch & merge upstream if this fails
