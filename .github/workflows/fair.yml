@@ -436,13 +436,8 @@ jobs:
       - name: Configure Virus & Malware Scanner
         run: |
           brew install clamav
-          ls /usr/local/etc/clamav/
-          date
-          cp /usr/local/etc/clamav/clamd.conf.sample /usr/local/etc/clamav/clamd.conf
-          cp /usr/local/etc/clamav/freshclam.conf.sample /usr/local/etc/freshclam/clamd.conf
-          date
+          echo 'DatabaseMirror database.clamav.net' > /opt/homebrew/etc/clamav/freshclam.conf
           freshclam -v
-          date
           clamscan /etc/hosts
 
       - name: Verify workflow integrity
