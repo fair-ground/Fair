@@ -434,11 +434,13 @@ jobs:
           submodules: false
 
       - name: Configure Virus & Malware Scanner
+        env:
+          CLAMDB_DIR: "/usr/local/Cellar/clamav"
         run: |
           brew install clamav
           date
-          mkdir -p /opt/homebrew/etc/clamav/
-          echo 'DatabaseMirror database.clamav.net' > /opt/homebrew/etc/clamav/freshclam.conf
+          mkdir -p /usr/local/Cellar/clamav
+          echo 'DatabaseMirror database.clamav.net' > /usr/local/Cellar/clamav/freshclam.conf
           date
           freshclam -v
           date
