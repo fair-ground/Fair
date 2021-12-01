@@ -577,9 +577,14 @@ jobs:
           # build the URL for the GitHub download artifact
           ZIPURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" 
 
+          # virus/malware scan
+          mkdir -p staging/.artifact_stash
+          brew install clamav
+          curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.zip "${ZIPURL}"
+          clamscan --heuristic-scan-precedence=yes --recursive --infected staging/.artifact_stash/untrusted.zip
+
           echo "Generating fairseal for: $ZIPURL"
 
-          mkdir -p staging/.artifact_stash
           mv -f staging/*.ipa staging/.artifact_stash/ || true # don't seal the ipa when sealing macOS
 
           # if the seals match, we indicate success by publishing
@@ -612,9 +617,14 @@ jobs:
           # build the URL for the GitHub download artifact
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
 
+          # virus/malware scan
+          mkdir -p staging/.artifact_stash
+          brew install clamav
+          curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.ipa "${IPAURL}"
+          clamscan --heuristic-scan-precedence=yes --recursive --infected staging/.artifact_stash/untrusted.ipa
+
           echo "Generating fairseal for: $IPAURL"
 
-          mkdir -p staging/.artifact_stash
           mv -f staging/*.zip staging/.artifact_stash/ || true # don't seal the macOS zip for iOS seal
 
           # Builds on iOS are currently not reproducible (help wanted!),
