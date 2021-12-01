@@ -437,9 +437,12 @@ jobs:
         run: |
           brew install clamav
           ls /usr/local/etc/clamav/
-          echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/clamd.conf
-          echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/freshclam.conf
+          date
+          cp /usr/local/etc/clamav/clamd.conf.sample cp /usr/local/etc/clamav/clamd.conf
+          cp /usr/local/etc/clamav/freshclam.conf.sample cp /usr/local/etc/freshclam/clamd.conf
+          date
           freshclam -v
+          date
           clamscan /etc/hosts
 
       - name: Verify workflow integrity
