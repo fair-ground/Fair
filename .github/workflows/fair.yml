@@ -436,7 +436,9 @@ jobs:
       - name: Configure Virus & Malware Scanner
         run: |
           brew install clamav
+          ls /usr/local/etc/clamav/
           echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/clamd.conf
+          echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/freshclam.conf
           freshclam -v
           clamscan /etc/hosts
 
