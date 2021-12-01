@@ -141,6 +141,7 @@ jobs:
       - name: Setup Virus/Malware Scanner
         run: |
           brew install clamav
+          echo 'DatabaseMirror database.clamav.net' >> /usr/local/etc/clamd.conf
           freshclam -v
           clamscan /etc/hosts
 
