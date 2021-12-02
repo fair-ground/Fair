@@ -589,9 +589,12 @@ jobs:
           ZIPURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" 
 
           # virus/malware scan
-          mkdir -p staging/.artifact_stash
-          curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.zip "${ZIPURL}"
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes staging/.artifact_stash/untrusted.zip
+          mkdir -p staging/.artifact_scan
+          cd staging/.artifact_scan
+          curl --retry 100 --retry-max-time 180 -o untrusted.zip "${ZIPURL}"
+          unzip untrusted.zip
+          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes -r .
+          cd -
 
           echo "Generating fairseal for: $ZIPURL"
 
@@ -629,9 +632,12 @@ jobs:
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
 
           # virus/malware scan
-          mkdir -p staging/.artifact_stash
-          curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.ipa "${IPAURL}"
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes staging/.artifact_stash/untrusted.ipa
+          mkdir -p staging/.artifact_scan
+          cd staging/.artifact_scan
+          curl --retry 100 --retry-max-time 180 -o untrusted.ipa "${IPAURL}"
+          unzip untrusted.ipa
+          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes -r .
+          cd -
 
           echo "Generating fairseal for: $IPAURL"
 
