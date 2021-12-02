@@ -573,7 +573,7 @@ jobs:
         run: |
           brew install clamav
           mkdir -p /usr/local/etc/clamav
-          echo 'DatabaseMirror database.clamav.net' > /usr/local/etc/clamav/freshclam.conf
+          grep -v '^Example$' /usr/local/etc/clamav/freshclam.conf.sample >> /usr/local/etc/clamav/freshclam.conf
           freshclam -v
           clamscan --scan-archive=yes /etc/hosts
 
