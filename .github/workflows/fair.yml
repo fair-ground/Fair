@@ -433,20 +433,6 @@ jobs:
           fetch-depth: 0
           submodules: false
 
-      - name: Configure Virus & Malware Scanner
-        env:
-          CLAMDB_DIR: "/usr/local/Cellar/clamav"
-        run: |
-          brew install clamav
-          date
-          mkdir -p /usr/local/etc/clamav
-          echo 'DatabaseMirror database.clamav.net' > /usr/local/etc/clamav/freshclam.conf
-          date
-          freshclam -v
-          date
-          clamscan /etc/hosts
-          date
-
       - name: Verify workflow integrity
         # the workflows must be identical; fetch & merge upstream if this fails
         run: diff -r .github/workflows/ ReleasePR/.github/workflows/
@@ -581,6 +567,16 @@ jobs:
           # log the checksum for each of the staging elements
           shasum -a 256 staging/*.*
 
+      - name: Configure Virus & Malware Scanner
+        env:
+          CLAMDB_DIR: "/usr/local/Cellar/clamav"
+        run: |
+          brew install clamav
+          mkdir -p /usr/local/etc/clamav
+          echo 'DatabaseMirror database.clamav.net' > /usr/local/etc/clamav/freshclam.conf
+          freshclam -v
+          clamscan --scan-archive=yes /etc/hosts
+
       # compare the contents of the PR's un-trusted artifacts with
       # the contents of the base fair-ground's trusted artifacts
       - name: "Generate macOS fairseal"
@@ -595,7 +591,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_stash
           curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.zip "${ZIPURL}"
-          clamscan staging/.artifact_stash/untrusted.zip
+          clamscan --scan-archive=yes staging/.artifact_stash/untrusted.zip
 
           echo "Generating fairseal for: $ZIPURL"
 
@@ -635,7 +631,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_stash
           curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.ipa "${IPAURL}"
-          clamscan staging/.artifact_stash/untrusted.ipa
+          clamscan --scan-archive=yes staging/.artifact_stash/untrusted.ipa
 
           echo "Generating fairseal for: $IPAURL"
 
