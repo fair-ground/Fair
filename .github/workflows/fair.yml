@@ -568,14 +568,12 @@ jobs:
           shasum -a 256 staging/*.*
 
       - name: Configure Virus & Malware Scanner
-        env:
-          CLAMDB_DIR: "/usr/local/Cellar/clamav"
         run: |
           brew install clamav
           mkdir -p /usr/local/etc/clamav
           grep -v '^Example$' /usr/local/etc/clamav/freshclam.conf.sample >> /usr/local/etc/clamav/freshclam.conf
           freshclam -v
-          clamscan --scan-archive=yes /etc/hosts
+          clamscan /etc/hosts
 
       # compare the contents of the PR's un-trusted artifacts with
       # the contents of the base fair-ground's trusted artifacts
@@ -592,8 +590,7 @@ jobs:
           mkdir -p staging/.artifact_scan
           cd staging/.artifact_scan
           curl -fsSL --retry 100 --retry-max-time 180 -o untrusted.zip "${ZIPURL}"
-          unzip untrusted.zip
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes -r .
+          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.zip
           cd -
 
           echo "Generating fairseal for: $ZIPURL"
@@ -627,7 +624,6 @@ jobs:
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
-          CLAMDB_DIR: "/usr/local/Cellar/clamav"
         run: |
           # build the URL for the GitHub download artifact
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
@@ -636,8 +632,7 @@ jobs:
           mkdir -p staging/.artifact_scan
           cd staging/.artifact_scan
           curl -fsSL --retry 100 --retry-max-time 180 -o untrusted.ipa "${IPAURL}"
-          unzip untrusted.ipa
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes -r .
+          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.ipa
           cd -
 
           echo "Generating fairseal for: $IPAURL"
