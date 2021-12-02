@@ -591,7 +591,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_stash
           curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.zip "${ZIPURL}"
-          clamscan --scan-archive=yes staging/.artifact_stash/untrusted.zip
+          clamscan --heuristic-scan-precedence=yes --scan-archive=yes staging/.artifact_stash/untrusted.zip
 
           echo "Generating fairseal for: $ZIPURL"
 
@@ -631,7 +631,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_stash
           curl --retry 100 --retry-max-time 180 -o staging/.artifact_stash/untrusted.ipa "${IPAURL}"
-          clamscan --scan-archive=yes staging/.artifact_stash/untrusted.ipa
+          clamscan --heuristic-scan-precedence=yes --scan-archive=yes staging/.artifact_stash/untrusted.ipa
 
           echo "Generating fairseal for: $IPAURL"
 
