@@ -425,7 +425,7 @@ jobs:
 
       - name: Get version tag
         id: get_semver_tag
-        run: echo ::set-output name=semver_tag::$(xcodebuild -workspace ReleasePR/App.xcworkspace -showBuildSettings -json -scheme AppFairApp archive  | jq '.[].buildSettings.MARKETING_VERSION')
+        run: echo ::set-output name=semver_tag::$(xcodebuild -quiet -workspace ReleasePR/App.xcworkspace -showBuildSettings -json -scheme AppFairApp archive 2> /dev/null | jq '.[].buildSettings.MARKETING_VERSION' | cut -f 2 -d '"')
 
       - name: "Validate App-Name: ${{ env.ORGNAME }}"
         run: |
