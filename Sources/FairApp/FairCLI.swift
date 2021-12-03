@@ -777,7 +777,7 @@ public extension FairCLI {
 
         /// Validates that the given project source matches the given scaffold source
         func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
-            msg(.debug, "checking:", path, "against base path:", basePathFlag, "for projectSource:", projectSource)
+            msg(.debug, "checking:", path, "against base path:", basePathFlag)
             guard let scaffoldURL = basePathURL(path: path) else {
                 throw CocoaError(.fileReadNoSuchFile)
             }
@@ -1136,7 +1136,7 @@ public extension FairCLI {
                 scale /= screen.backingScaleFactor
             }
             #endif
-            
+
             let span = CGFloat(size) * CGFloat(scale) // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
             let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%

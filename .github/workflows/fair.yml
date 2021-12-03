@@ -150,7 +150,7 @@ jobs:
           cp Package.resolved Sources/App/Resources/
 
       - name: "Validate App Organization: ${{ env.ORGNAME }}"
-        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
+        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --output -
 
       - name: "Generate Icon"
         run: |
@@ -430,6 +430,7 @@ jobs:
       - name: "Validate App-Name: ${{ env.ORGNAME }}"
         run: |
           xcrun swift run -- fairtool validate \
+            --base . \
             --project ReleasePR \
             --hub github.com/${{ inputs.fairground }} \
             --token "${{ secrets.token }}" \
@@ -451,11 +452,11 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project ReleasePR --base . --output .
+          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
-          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project .
+          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project .
 
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
