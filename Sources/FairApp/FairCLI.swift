@@ -775,6 +775,31 @@ public extension FairCLI {
             return true
         }
 
+        /// Validates that the given project source matches the given scaffold source
+        func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
+            msg(.debug, "checking:", path, "against base path:", basePathFlag, "for projectSource:", projectSource)
+            guard let scaffoldURL = basePathURL(path: path) else {
+                throw CocoaError(.fileReadNoSuchFile)
+            }
+
+            let scaffoldSource = try String(contentsOf: scaffoldURL, encoding: .utf8)
+
+            if scaffoldSource != projectSource {
+                // check for partial matches, which means that we only compare the header parts of the files
+                if let guardLine = guardLine {
+                    let scaffoldParts = scaffoldSource.components(separatedBy: guardLine)
+                    let projectParts = projectSource.components(separatedBy: guardLine)
+                    if scaffoldParts.count < 2
+                        || projectParts.count < 2
+                        || scaffoldParts.last != projectParts.last {
+                        throw FairCLI.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
+                    }
+                } else {
+                    throw FairCLI.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
+                }
+            }
+        }
+
         // the generic term for the base folder is "App-Name"
         let appOrgName = !isFork ? "App-Name" : orgName
 
@@ -1105,11 +1130,13 @@ public extension FairCLI {
 
             let size = max(assetName.width, assetName.height)
             var scale = Double(assetName.scale ?? 1)
+            #if os(macOS)
             if let screen = NSScreen.main, screen.backingScaleFactor > 0.0 {
                 // there should be a better way to do this, but rendering a view seems to use the main screens scale, which on the build host seems to be 1.0 and on a macBook is 2.0; we need to alter the scale in order to generate the correctly-sized images on each host
                 scale /= screen.backingScaleFactor
             }
-
+            #endif
+            
             let span = CGFloat(size) * CGFloat(scale) // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
             let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%
@@ -1728,30 +1755,6 @@ end
     }
 
     static let packageValidationLine = "// MARK: fair-ground package validation"
-
-    /// Validates that the given project source matches the given scaffold source
-    func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
-        guard let scaffoldURL = basePathURL(path: path) else {
-            throw CocoaError(.fileReadNoSuchFile)
-        }
-
-        let scaffoldSource = try String(contentsOf: scaffoldURL, encoding: .utf8)
-
-        if scaffoldSource != projectSource {
-            // check for partial matches, which means that we only compare the header parts of the files
-            if let guardLine = guardLine {
-                let scaffoldParts = scaffoldSource.components(separatedBy: guardLine)
-                let projectParts = projectSource.components(separatedBy: guardLine)
-                if scaffoldParts.count < 2
-                    || projectParts.count < 2
-                    || scaffoldParts.last != projectParts.last {
-                    throw FairCLI.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
-                }
-            } else {
-                throw FairCLI.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
-            }
-        }
-    }
 
     /// Splits the two strings by newlines and returns the first non-matching line
     static func firstDifferentLine(_ source1: String, _ source2: String) -> Int {
