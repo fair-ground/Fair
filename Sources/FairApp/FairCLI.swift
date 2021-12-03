@@ -1001,15 +1001,19 @@ public extension FairCLI {
         @discardableResult func pull(_ path: String, transform: ((Data) throws -> Data)? = nil) throws -> URL {
             msg(.info, "copying", path, "from", projectURL.path, "to", outputURL.path)
             let outputSrc = outputURL.appendingPathComponent(path)
+            msg(.debug, "outputSrc", outputSrc)
             if fm.isDirectory(url: outputSrc) != nil {
                 try fm.trash(url: outputSrc) // clobber the existing path if it exists
             }
 
             let projectSrc = projectURL.appendingPathComponent(path)
             if let transform = transform { // only peform the transform if the closure is specified…
+                msg(.debug, "reading from:", projectSrc)
                 let sourceData = try Data(contentsOf: projectSrc)
+                msg(.debug, "writing to outputSrc", outputSrc)
                 try transform(sourceData).write(to: outputSrc) // transform the data and write it back out
             } else { // …otherwise simply copy the resource
+                msg(.debug, "copying to outputSrc", outputSrc)
                 try fm.copyItem(at: projectSrc, to: outputSrc)
             }
 
@@ -1018,6 +1022,14 @@ public extension FairCLI {
 
         // if validation passes, we can copy up the output sources
         try pull("Sandbox.entitlements")
+
+        // copy up the assets, sources, and other metadata
+        try pull("AppFairApp.xcconfig")
+        try pull("Info.plist")
+        try pull("Assets.xcassets")
+        try pull("README.md")
+        try pull("Sources")
+        try pull("Tests")
 
         try pull("Package.swift") { data in
             // We manually copy over the package validations so that we do not require that the user always keep the validations current
@@ -1038,13 +1050,6 @@ public extension FairCLI {
             return (str1 + str2).utf8Data
         }
 
-        // copy up the assets, sources, and other metadata
-        try pull("AppFairApp.xcconfig")
-        try pull("Info.plist")
-        try pull("Assets.xcassets")
-        try pull("README.md")
-        try pull("Sources")
-        try pull("Tests")
     }
 
     func unzip(from sourceURL: URL, to destURL: URL) throws {
