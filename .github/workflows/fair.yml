@@ -141,22 +141,8 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(plutil -extract 'LSUIPresentationMode' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(plutil -extract 'UISupportedInterfaceOrientations' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
-
-      - name: "Show Platforms"
-        run: |
-          echo macos: ${{ steps.platforms.outputs.macos }}
-          echo ios: ${{ steps.platforms.outputs.ios }}
-
-      - name: "Update metadata"
-        if: ${{ env.ORGNAME != 'appfair' }} && startsWith(github.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # ensure the Info.plist has the correct name and bundle ID values
-          plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
-          plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
+          echo "::set-output name=macos::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Resolve Swift Packages"
         run: |
@@ -166,9 +152,9 @@ jobs:
       - name: "Validate App Organization: ${{ env.ORGNAME }}"
         run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --project . --output -
 
-      - name: "Check Icon"
+      - name: "Generate Icon"
         run: |
-          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties Info.plist --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
@@ -184,7 +170,7 @@ jobs:
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
-            FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
+            PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
 
           cp -a "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive/Products/Applications" "staging/Payload"
           ditto -c -k --sequesterRsrc --keepParent "staging/Payload" "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
@@ -203,13 +189,12 @@ jobs:
             CODE_SIGNING_ALLOWED=YES \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             DEVELOPMENT_TEAM="" \
             CODE_SIGN_IDENTITY="-" \
             OTHER_CODE_SIGNING_FLAGS="--timestamp=none" \
             OTHER_LIBTOOLFLAGS="-D" \
-            FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
-          shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
+            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
+            PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
 
           echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>mac-application</string><key>signingStyle</key><string>automatic</string><key>uploadBitcode</key><false/><key>compileBitcode</key><false/><key>uploadSymbols</key><false/></dict></plist>' > "staging/.exportOptions.plist"
 
@@ -238,7 +223,7 @@ jobs:
       # with any certificate without affecting
       # the integration-release validation. 
       #
-      # To enable signing an notarization, the fork's secrets will
+      # To enable signing and notarization, the fork's secrets will
       # need to be setup to include the following keys:
       #
       # NOTARY_USERID: The Apple ID for developer ID
@@ -440,7 +425,7 @@ jobs:
 
       - name: Get version tag
         id: get_semver_tag
-        run: echo ::set-output name=semver_tag::$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' ReleasePR/Info.plist)
+        run: echo ::set-output name=semver_tag::$(xcodebuild -workspace ReleasePR/App.xcworkspace -showBuildSettings -json -scheme AppFairApp archive  | jq '.[].buildSettings.MARKETING_VERSION')
 
       - name: "Validate App-Name: ${{ env.ORGNAME }}"
         run: |
@@ -466,13 +451,7 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project ReleasePR --output .
-
-          # ensure the Info.plist has the correct name and bundle ID values
-          plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
-          plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
-
-          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties Info.plist --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --project ReleasePR --base . --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
@@ -489,17 +468,11 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(plutil -extract 'LSUIPresentationMode' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(plutil -extract 'UISupportedInterfaceOrientations' xml1 Info.plist -o - 2>&1 > /dev/null && echo enabled || echo disabled)"
-      - name: "Show Platforms"
-        run: |
-          echo macos: ${{ steps.platforms.outputs.macos }}
-          echo ios: ${{ steps.platforms.outputs.ios }}
+          echo "::set-output name=macos::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
-        # there's no way to export iOS archives without re-signing with a teamID, 
-        # so just build the .ipa manually; it needs to be in Staging/ first
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \

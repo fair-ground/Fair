@@ -83,16 +83,6 @@ public extension Plist {
         rawValue["FairUsage"] as? NSDictionary
     }
 
-    /// The tint color for the app's representation, specified as an RGB hex string
-    var FairTint: String? {
-        nonEmptyString("FairTint")
-    }
-
-    /// The system symbol name for a symbol to emboss over the app icon
-    var FairSymbol: String? {
-        nonEmptyString("FairSymbol")
-    }
-
     var CFBundleIdentifier: String? {
         nonEmptyString(InfoPlistKey.CFBundleIdentifier.plistKey)
     }
@@ -157,7 +147,6 @@ public extension Plist {
 
 public extension FairCLI {
     enum Operation: String, CaseIterable {
-        case initialize = "init"
         case help
         case welcome
         case package
@@ -174,7 +163,6 @@ public extension FairCLI {
 
         var operationSummary: String {
             switch self {
-            case .initialize: return "generate a new app scaffold"
             case .walkthrough: return "walk-through new project steps"
             case .help: return "display a help message"
             case .welcome: return "perform an interactive guided walk-through"
@@ -198,16 +186,6 @@ public extension FairCLI {
     }
 
     /// The flag for the project folder
-    var templateFlag: FairTemplate {
-        FairTemplate(rawValue: flags["t"]?.first ?? flags["-template"]?.first ?? FairTemplate.default.rawValue) ?? FairTemplate.default
-    }
-
-    /// Shows the data for the project file at the given relative path
-    func scaffoldURL(path: String? = nil) throws -> URL? {
-        templateFlag.resourceURL(for: path)
-    }
-
-    /// The flag for the project folder
     var projectPathFlag: String {
         flags["p"]?.first ?? flags["-project"]?.first ?? fm.currentDirectoryPath
     }
@@ -215,6 +193,17 @@ public extension FairCLI {
     /// Loads the data for the project file at the given relative path
     func projectPathURL(path: String) -> URL {
         URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: projectPathFlag, isDirectory: true))
+    }
+
+    /// The flag for the base path for merges and comparisons
+    var basePathFlag: String? {
+        flags["b"]?.first ?? flags["-base"]?.first
+    }
+
+    /// Loads the data for the project file at the given relative path
+    func basePathURL(path: String) -> URL? {
+        guard let basePathFlag = basePathFlag else { return nil }
+        return URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: basePathFlag, isDirectory: true))
     }
 
     /// The flag for the output folder or file
@@ -227,7 +216,7 @@ public extension FairCLI {
         (flags["o"] ?? []) + (flags["-output"] ?? [])
     }
 
-    /// The path to the `Info.plist` that contains customizations for the `FairTint` and `FairSymbol` flags
+    /// The path to the `AppFairApp.xcconfig` that contains customizations for the `ICON_TINT` and `ICON_SYMBOL` flags
     var fairPropertiesFlag: String? {
         flags["-fair-properties"]?.first
     }
@@ -340,11 +329,6 @@ public extension FairCLI {
     /// The flag whether to display verbose messages
     var verboseFlag: Bool {
         Bool(flags["v"]?.first ?? flags["-verbose"]?.first ?? "false") ?? false
-    }
-
-    /// The flag whether validation should strictly check that the project exactly matches the template
-    var strictFlag: Bool {
-        Bool(flags["-strict"]?.first ?? "false") ?? false
     }
 
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
@@ -462,7 +446,6 @@ public extension FairCLI {
     func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) throws {
         let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
         switch operation ?? op {
-        case .initialize: try initialize(msg: messenger)
         case .help: try help(msg: messenger)
         case .welcome: try welcome(msg: messenger)
         case .walkthrough: try walkthrough(msg: messenger)
@@ -479,103 +462,8 @@ public extension FairCLI {
         }
     }
 
-    func create(msg: MessageHandler, template: FairTemplate = .default, overwrite: Bool) throws {
-        func validateFolder(url: URL) throws -> URL {
-            msg(.info, "initializing project at:", url.path)
-            let contents = try fm.contentsOfDirectory(atPath: url.path)
-            if overwrite == false && contents.isEmpty == false {
-                throw Errors.cannotInitNonEmptyFolder(url)
-            }
-            let folderName = url.lastPathComponent
-            if folderName != AppNameValidation.defaultAppName {
-                try AppNameValidation.standard.validate(name: folderName)
-            }
-            let _ = folderName
-            return url
-        }
-
-        let url = try validateFolder(url: URL(fileURLWithPath: outputDirectoryFlag))
-        if fm.isDirectory(url: url) != true {
-            throw CocoaError(.fileReadNoSuchFile)
-        }
-
-        if !fm.isWritableFile(atPath: url.path) {
-            throw CocoaError(.fileWriteNoPermission)
-        }
-
-        func write(to path: String, _ source: String) throws {
-            let url = url.appendingPathComponent(path)
-            msg(.debug, "comparing path:", url.path)
-
-            try fm.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
-            if fm.fileExists(atPath: url.path) {
-                // file already exists: verify that the contents are as expected, and overwrite if needed
-                let contents = try String(contentsOf: url, encoding: .utf8)
-                if contents == source {
-                    // same contents; don't overwrite
-                    msg(.debug, "identical contents at:", url.path)
-                    return
-                }
-
-                if forceFlag == true {
-                    msg(.debug, "trashing previous path:", url.path)
-                    try fm.trash(url: url)
-                } else {
-                    msg(.error, "cannot overwrite with changed file:", url.path)
-                    throw Errors.cannotOverwriteAlteredFile(url)
-                }
-            }
-
-            try source.write(to: url, atomically: true, encoding: .utf8)
-        }
-
-        //let appNameParts = url.lastPathComponent.split(separator: "-")
-
-        //let appNameDash = appNameParts.joined(separator: "-").description
-        //let appNameCompact = appNameParts.joined(separator: "").description
-        //let appNameSpace = appNameParts.joined(separator: " ").description
-
-        // Fixed the name of the app
-        func replaceAppName(in contents: String) -> String {
-            // TODO: add an option for injecting an app name
-            contents
-                //.replacingOccurrences(of: "APPNAME", with: appNameCompact)
-                //.replacingOccurrences(of: "APP-NAME", with: appNameDash)
-                //.replacingOccurrences(of: "APP NAME", with: appNameSpace)
-        }
-
-        // copy over the contents of the FairTemplate into the folder, replacing any existing template patterns
-        for templateFile in try template.templatePaths() {
-            let relpath = replaceAppName(in: templateFile.relativePath)
-
-            if relpath.hasSuffix(".swp") {
-                continue
-            }
-
-            if relpath.hasSuffix(".DS_Store") {
-                continue
-            }
-
-            if relpath.hasSuffix(".png") {
-                // we permit copying PNGs without replacing strings
-                let dest = url.appendingPathComponent(relpath)
-                try? fm.createDirectory(at: dest.deletingLastPathComponent(), withIntermediateDirectories: true)
-                try? fm.copyItem(at: templateFile, to: dest)
-            } else {
-                // everything else needs to be a string we can replace
-                let contents = replaceAppName(in: try String(contentsOf: templateFile, encoding: .utf8))
-                try write(to: relpath, contents)
-            }
-        }
-    }
-
     func package(msg: MessageHandler) throws {
         msg(.info, "package")
-    }
-
-    func initialize(msg: MessageHandler) throws {
-        msg(.info, "Initializing new Fair Ground project")
-        try create(msg: msg, overwrite: true)
     }
 
     func walkthrough(msg: MessageHandler) throws {
@@ -875,7 +763,7 @@ public extension FairCLI {
 
             // when this is not a fork (i.e., it is the root fairground), we always validate
             do {
-                try templateFlag.compareScaffold(project: projectSource, path: path, afterLine: !isFork ? nil : partial ? guardLine : nil)
+                try compareScaffold(project: projectSource, path: path, afterLine: !isFork ? nil : partial ? guardLine : nil)
             } catch {
                 if warn {
                     msg(.warn, "  failed \(partial ? "partial" : "exact") match:", path)
@@ -906,16 +794,17 @@ public extension FairCLI {
 
             // check that the Info.plist contains the correct values for certain keys
 
-            let appName = appOrgName.replacingOccurrences(of: "-", with: " ")
+            //let appName = appOrgName.replacingOccurrences(of: "-", with: " ")
             let appID = "app." + appOrgName
 
-            // try checkStr(key: InfoPlistKey.CFBundleName, is: "$(PRODUCT_NAME)")
-            // accept either the actual appname, or the default "App Name", or else the Xcode-filled-in $(PRODUCT_NAME)
-            try checkStr(key: InfoPlistKey.CFBundleName, in: [appName, "$(PRODUCT_NAME)", "App Name"])
-            try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: [appID, "$(PRODUCT_BUNDLE_IDENTIFIER)", "app.App-Name"])
-
+            // ensure the Info.plist uses the correct constants
+            try checkStr(key: InfoPlistKey.CFBundleName, in: ["$(PRODUCT_NAME)"])
+            try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: ["$(PRODUCT_BUNDLE_IDENTIFIER)"])
             try checkStr(key: InfoPlistKey.CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
             try checkStr(key: InfoPlistKey.CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
+            try checkStr(key: InfoPlistKey.CFBundleVersion, in: ["$(CURRENT_PROJECT_VERSION)"])
+            try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
+            try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
 
             if let licenseFlag = self.licenseFlag, !licenseFlag.isEmpty {
                 try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
@@ -942,7 +831,7 @@ public extension FairCLI {
         try compareContents(of: "LICENSE.txt", partial: false)
 
         // 4. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
-        try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: FairTemplate.packageValidationLine)
+        try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
 
         // 5. Check Sources/
         try compareContents(of: "Sources/App/AppMain.swift", partial: false)
@@ -961,44 +850,6 @@ public extension FairCLI {
                 for pin in packageResolved.object.pins {
                     if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
                         throw Errors.badRepository(host.absoluteString, pin.repositoryURL)
-                    }
-                }
-            }
-        }
-
-        // the non-forked fairground origin also validates the other project files
-        if !isFork {
-            try compareContents(of: "Package.swift", partial: false)
-            try compareContents(of: "Info.plist", partial: false)
-            try compareContents(of: "Sources/App/AppMain.swift", partial: false)
-            try compareContents(of: "Sources/App/AppContainer.swift", partial: false)
-            try compareContents(of: "Tests/AppTests/AppTests.swift", partial: false)
-            try compareContents(of: "App.xcworkspace/contents.xcworkspacedata", partial: false)
-            try compareContents(of: "project.xcodeproj/project.pbxproj", partial: false)
-
-            try compareContents(of: "README.md", partial: false)
-            // try compareContents(of: ".gitignore", partial: false) // allow users to customize their own ignore file 
-            try compareContents(of: "Sandbox.entitlements", partial: false)
-
-            try compareContents(of: "Assets.xcassets/AppIcon.appiconset/Contents.json", partial: false)
-            try compareContents(of: "Assets.xcassets/AccentColor.colorset/Contents.json", partial: false)
-            try compareContents(of: "Assets.xcassets/Contents.json", partial: false)
-
-            // diffs only work against text
-            // try compareContents(of: "Assets.xcassets/AppIcon.appiconset/AppIcon-512.png", partial: false)
-        }
-
-
-        // for strict validation, we check to ensure that this project exactly matches each file in the template (although additional files are tolerated). This is useful for validating that a template project is up-to-date, and could someday be used to migrate projects from older versions to newer
-        if strictFlag {
-            for scaffoldURL in try templateFlag.templatePaths() {
-                let projectURL = projectPathURL(path: scaffoldURL.relativePath)
-                if fm.isReadableFile(atPath: projectURL.path) { // we permit missing files (for now)
-                    msg(.debug, "  strict check of:", scaffoldURL.relativePath, "vs:", projectURL.relativePath)
-                    let scaffoldData = try String(contentsOf: scaffoldURL)
-                    let projectData = try String(contentsOf: projectURL)
-                    if projectData != scaffoldData {
-                        throw Errors.invalidContents(scaffoldData, projectData, projectURL.path, FairTemplate.firstDifferentLine(scaffoldData, projectData))
                     }
                 }
             }
@@ -1148,11 +999,11 @@ public extension FairCLI {
 
             // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: FairTemplate.packageValidationLine)
 
-            guard let packageURL = self.templateFlag.resourceURL(for: "Package.swift") else {
+            guard let packageURL = self.basePathURL(path: "Package.swift") else {
                 throw CocoaError(.fileReadNoSuchFile)
             }
 
-            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: FairTemplate.packageValidationLine)
+            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
             if packageTemplate.count != 2 {
                 throw CocoaError(.fileReadNoSuchFile)
             }
@@ -1163,10 +1014,12 @@ public extension FairCLI {
         }
 
         // copy up the assets, sources, and other metadata
+        try pull("AppFairApp.xcconfig")
+        try pull("Info.plist")
         try pull("Assets.xcassets")
+        try pull("README.md")
         try pull("Sources")
         try pull("Tests")
-        try pull("Info.plist")
     }
 
     func unzip(from sourceURL: URL, to destURL: URL) throws {
@@ -1195,6 +1048,12 @@ public extension FairCLI {
         try appOrgName().replacingOccurrences(of: "-", with: " ")
     }
 
+    /// If the `--fair-properties` flag was specified, tries to parse the build settings
+    func buildSettings() throws -> BuildSettings? {
+        guard let fairProperties = self.fairPropertiesFlag else { return nil }
+        return try BuildSettings(url: projectPathURL(path: fairProperties))
+    }
+
     #if canImport(SwiftUI)
     func icon(msg: MessageHandler) throws {
         msg(.info, "icon")
@@ -1212,13 +1071,9 @@ public extension FairCLI {
         let iconColor = try parseTintIconColor()
 
         var symbolNames = iconSymbols ?? []
-        if let fairProperties = self.fairPropertiesFlag {
-            if let symbolName = try Plist(url: projectPathURL(path: fairProperties)).FairSymbol {
-                symbolNames.append(symbolName)
-            }
+        if let symbolName = try self.buildSettings()?["ICON_SYMBOL"] {
+            symbolNames.append(symbolName)
         }
-
-        let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
 
         // the minimal required icons for macOS + iOS
         let icons = [
@@ -1236,6 +1091,7 @@ public extension FairCLI {
 
         var appIconSet = iconSet
 
+        let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
         for imageSet in icons {
             if imageSet.filename != nil {
                 continue // skip any elements that have a file path specified already
@@ -1248,7 +1104,11 @@ public extension FairCLI {
             let assetName = try AssetName(string: iconFile.lastPathComponent)
 
             let size = max(assetName.width, assetName.height)
-            let scale = Double(assetName.scale ?? 1)
+            var scale = Double(assetName.scale ?? 1)
+            if let screen = NSScreen.main, screen.backingScaleFactor > 0.0 {
+                // there should be a better way to do this, but rendering a view seems to use the main screens scale, which on the build host seems to be 1.0 and on a macBook is 2.0; we need to alter the scale in order to generate the correctly-sized images on each host
+                scale /= screen.backingScaleFactor
+            }
 
             let span = CGFloat(size) * CGFloat(scale) // default content scale
             let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
@@ -1282,11 +1142,9 @@ public extension FairCLI {
     }
 
     func parseTintIconColor() throws -> Color? {
-        if let fairProperties = fairPropertiesFlag {
-            if let tint = try Plist(url: projectPathURL(path: fairProperties)).FairTint {
-                if let hexColor = HexColor(hexString: tint) {
-                    return hexColor.sRGBColor()
-                }
+        if let tint = try self.buildSettings()?["ICON_TINT"] {
+            if let hexColor = HexColor(hexString: tint) {
+                return hexColor.sRGBColor()
             }
         }
 
@@ -1609,12 +1467,10 @@ public extension FairCLI {
     #endif
 
     func parseTintColor() throws -> String? {
-        // first check the Info.plist for customization
-        if let fairProperties = fairPropertiesFlag {
-            if let tint = try Plist(url: projectPathURL(path: fairProperties)).FairTint {
-                if let hexColor = HexColor(hexString: tint) {
-                    return hexColor.colorString(hashPrefix: false)
-                }
+        // first check the `AppFairApp.xcconfig` file for customization
+        if let tint = try self.buildSettings()?["ICON_TINT"] {
+            if let hexColor = HexColor(hexString: tint) {
+                return hexColor.colorString(hashPrefix: false)
             }
         }
 
@@ -1630,7 +1486,6 @@ public extension FairCLI {
 
         return nil
     }
-
 
     /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
     func parseColorContents(url: URL) throws -> (r: Double, g: Double, b: Double, a: Double)? {
@@ -1871,40 +1726,12 @@ end
             }
         }
     }
-}
-
-public enum FairTemplate : String, CaseIterable {
-    case `default`
 
     static let packageValidationLine = "// MARK: fair-ground package validation"
 
-    /// the line that divides the package template from the validation section
-    public static let packageParts = Result { try Self.default.resource(named: "Package.swift").components(separatedBy: packageValidationLine) }
-
-    /// Returns the base URL for the given template name
-    public func resourceURL(for name: String?) -> URL? {
-        if name == nil {
-            return Bundle.fairCore.url(forResource: self.rawValue, withExtension: nil, subdirectory: "Bundle/Scaffold")
-        } else {
-            return Bundle.fairCore.url(forResource: name, withExtension: nil, subdirectory: "Bundle/Scaffold/" + self.rawValue)
-        }
-    }
-
-    public func resource(named name: String) throws -> String {
-        guard let url = resourceURL(for: name) else {
-            throw CocoaError(.fileReadNoSuchFile)
-        }
-
-        return try String(contentsOf: url, encoding: .utf8)
-    }
-
-    public func templatePaths() throws -> [URL] {
-        try Bundle.fairCore.bundlePaths(in: "Scaffold/" + self.rawValue, includeFolders: false)
-    }
-
     /// Validates that the given project source matches the given scaffold source
-    public func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
-        guard let scaffoldURL = resourceURL(for: path) else {
+    func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
+        guard let scaffoldURL = basePathURL(path: path) else {
             throw CocoaError(.fileReadNoSuchFile)
         }
 
@@ -1927,7 +1754,7 @@ public enum FairTemplate : String, CaseIterable {
     }
 
     /// Splits the two strings by newlines and returns the first non-matching line
-    public static func firstDifferentLine(_ source1: String, _ source2: String) -> Int {
+    static func firstDifferentLine(_ source1: String, _ source2: String) -> Int {
         func split(_ source: String) -> [Substring] {
             source.split(separator: "\n", omittingEmptySubsequences: false)
         }
@@ -1938,10 +1765,57 @@ public enum FairTemplate : String, CaseIterable {
         }
         return -1
     }
-
-
 }
 
+/// A build settings file, used to parse `AppFairApp.xcconfig`
+public struct BuildSettings : RawRepresentable, Hashable {
+    public var rawValue: [String: String]
+
+    public init(rawValue: [String : String]) {
+        self.rawValue = rawValue
+    }
+
+    public init() {
+        self.rawValue = [:]
+    }
+
+    public init(data: Data) throws {
+        guard let string = String(data: data, encoding: .utf8) else {
+            throw CocoaError(.coderInvalidValue)
+        }
+
+        self.rawValue = [:]
+        for (index, line) in string.split(separator: "\n").enumerated() {
+            let nocomment = (line.components(separatedBy: "//").first ?? .init(line)).trimmed()
+            if nocomment.isEmpty { continue } // blank & comment-only lines are permitted
+
+            let parts = nocomment.components(separatedBy: " = ")
+            if parts.count != 2 {
+                throw AppError("Error parsing line \(index): key value pairs must be separated by ' = '")
+            }
+            guard let key = parts.first?.trimmed(), !key.isEmpty else {
+                throw AppError("Error parsing line \(index): no key")
+            }
+            guard let value = parts.last?.trimmed(), !key.isEmpty else {
+                throw AppError("Error parsing line \(index): no value")
+            }
+            self.rawValue[key] = value
+        }
+    }
+
+    public init(url: URL) throws {
+//        do {
+            let data = try Data(contentsOf: url)
+            try self.init(data: data)
+//        } catch {
+//            throw error.withInfo(for: NSLocalizedFailureReasonErrorKey, "Error loading from: \(url.absoluteString)")
+//        }
+    }
+
+    public subscript(path: String) -> String? {
+        rawValue[path]
+    }
+}
 
 
 struct ANSICode {

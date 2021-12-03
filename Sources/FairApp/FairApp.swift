@@ -178,7 +178,6 @@ extension FairContainer {
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
                 validateEntitlements()
-                try? verifyAppMain(String(contentsOf: URL(fileURLWithPath: sourceFile.description)))
             }
 
             if isCLI == false { // launch the app itself
@@ -273,22 +272,6 @@ extension FairContainer {
             }
         }
         #endif
-    }
-
-    /// Verifies that the source that launches the app matches one of the available templates and issue a warning that the release build will fail unless the source matches the template.
-    ///
-    /// This only works in DEBUG mode and with the same source layout as the build machine,
-    /// but it is a useful initial check that the app is valid.
-    private static func verifyAppMain(_ source: String) {
-        dbg("Verifying app main:", source.count.localizedByteCount())
-        for template in FairTemplate.allCases {
-            do {
-                try template.compareScaffold(project: source, path: "Sources/App/AppMain.swift")
-            } catch {
-                dbg("Verify failed:", error.localizedDescription)
-                dbg("Break in verifyAppMain to debug")
-            }
-        }
     }
 }
 
