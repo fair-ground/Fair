@@ -1008,12 +1008,9 @@ public extension FairCLI {
 
             let projectSrc = projectURL.appendingPathComponent(path)
             if let transform = transform { // only peform the transform if the closure is specified…
-                msg(.debug, "reading from:", projectSrc)
                 let sourceData = try Data(contentsOf: projectSrc)
-                msg(.debug, "writing to outputSrc", outputSrc)
                 try transform(sourceData).write(to: outputSrc) // transform the data and write it back out
             } else { // …otherwise simply copy the resource
-                msg(.debug, "copying to outputSrc", outputSrc)
                 try fm.copyItem(at: projectSrc, to: outputSrc)
             }
 
@@ -1034,20 +1031,22 @@ public extension FairCLI {
         try pull("Package.swift") { data in
             // We manually copy over the package validations so that we do not require that the user always keep the validations current
 
-            // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: FairTemplate.packageValidationLine)
+            // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
 
-            guard let packageURL = self.basePathURL(path: "Package.swift") else {
-                throw CocoaError(.fileReadNoSuchFile)
-            }
+//            guard let packageURL = self.basePathURL(path: "Package.swift") else {
+//                throw CocoaError(.fileReadNoSuchFile)
+//            }
+//
+//            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
+//            if packageTemplate.count != 2 {
+//                throw CocoaError(.fileReadNoSuchFile)
+//            }
+//
+//            let str1 = String(data: data, encoding: .utf8) ?? ""
+//            let str2 = packageTemplate[1]
+//            return (str1 + str2).utf8Data
 
-            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
-            if packageTemplate.count != 2 {
-                throw CocoaError(.fileReadNoSuchFile)
-            }
-
-            let str1 = String(data: data, encoding: .utf8) ?? ""
-            let str2 = packageTemplate[1]
-            return (str1 + str2).utf8Data
+            return data
         }
 
     }
