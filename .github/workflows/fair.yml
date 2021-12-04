@@ -123,14 +123,14 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
           echo "ORGNAME=${{ github.repository_owner }}" >> $GITHUB_ENV
+          echo "APPNAME=$(echo ${{ github.repository_owner }} | sed 's;^appfair$;App-Name;g')" >> $GITHUB_ENV
           echo "COMMITHASH=${{ github.sha }}" >> $GITHUB_ENV
 
-      - name: "Configure Fork: ${{ env.ORGNAME }}"
+      - name: "Configure Fork: ${{ env.APPNAME }}"
         run: |
-          echo "FAIR_APP_ARTIFACT=${{ env.ORGNAME }}" >> $GITHUB_ENV
-          echo "PRODUCT_NAME=$(echo ${{ env.ORGNAME }} | tr '-' ' ')" >> $GITHUB_ENV
-          echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
-          echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
+          echo "PRODUCT_NAME=$(echo ${{ env.APPNAME }} | tr '-' ' ')" >> $GITHUB_ENV
+          echo "FAIR_APP_ARTIFACT=${{ env.APPNAME }}" >> $GITHUB_ENV
+          echo "BUNDLE_ID=app.$(echo ${{ env.APPNAME }})" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -543,7 +543,7 @@ jobs:
           # log the checksum for each of the staging elements
           shasum -a 256 staging/*.*
 
-      - name: Configure Virus & Malware Scanner
+      - name: Configure Artifact Scanner
         run: |
           brew install clamav
           mkdir -p /usr/local/etc/clamav
