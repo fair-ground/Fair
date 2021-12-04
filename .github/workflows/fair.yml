@@ -318,10 +318,6 @@ jobs:
         # the same post-processed metadata that the app will use.
         # And convert to XML for ease of integration.
         run: |
-          # show the binary checksum
-          openssl sha256 "staging/${{ env.PRODUCT_NAME }}.app/Contents/MacOS/"*
-          openssl sha256 "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
-
           cp Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
           cp README.md LICENSE.txt Info.plist Sandbox.entitlements Package.resolved staging/
           cp screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
