@@ -463,6 +463,10 @@ jobs:
           cat Package.resolved # useful for the log
           cp Package.resolved Sources/App/Resources/ # embed in the app
 
+      - name: "Generate Icon"
+        run: |
+          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+
       - name: "Check platforms"
         id: platforms
         run: |
@@ -532,7 +536,7 @@ jobs:
       - name: Stage Release Metadata
         # copy over the un-processed assets from the ReleasePR/
         run: |
-          #cp Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
+          cp Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
           cp LICENSE.txt Package.resolved ReleasePR/README.md ReleasePR/Info.plist ReleasePR/Sandbox.entitlements staging/
           cp ReleasePR/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
           ls -la staging/
