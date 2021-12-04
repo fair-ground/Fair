@@ -323,7 +323,8 @@ jobs:
           openssl sha256 "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
           cp Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
-          cp README.md LICENSE.txt Info.plist Sandbox.entitlements Package.resolved screenshots/screenshot*-[0-9]*x[0-9]*.png staging/
+          cp README.md LICENSE.txt Info.plist Sandbox.entitlements Package.resolved staging/
+          cp screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
           ls -la staging/
 
           rm -rf staging/*.app # need to cleanup app
@@ -536,7 +537,8 @@ jobs:
         # copy over the un-processed assets from the ReleasePR/
         run: |
           #cp Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
-          cp LICENSE.txt Package.resolved ReleasePR/README.md ReleasePR/Info.plist ReleasePR/Sandbox.entitlements ReleasePR/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/
+          cp LICENSE.txt Package.resolved ReleasePR/README.md ReleasePR/Info.plist ReleasePR/Sandbox.entitlements staging/
+          cp ReleasePR/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
           ls -la staging/
           # log the checksum for each of the staging elements
           shasum -a 256 staging/*.*
