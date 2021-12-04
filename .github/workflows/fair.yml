@@ -176,7 +176,7 @@ jobs:
           ditto -c -k --sequesterRsrc --keepParent "staging/Payload" "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa"
 
       - name: "Build macOS App"
-        if: ${{ inputs.target_macos == true }} && ${{ steps.platforms.outputs.macos == 'enabled' }}
+        if: ${{ inputs.target_macos == true && steps.platforms.outputs.macos == 'enabled' }}
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
