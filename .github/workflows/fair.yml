@@ -563,7 +563,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_scan
           cd staging/.artifact_scan
-          curl -fsSL --retry 100 --retry-max-time 180 -o untrusted.zip "${ZIPURL}"
+          curl -fsSL --retry 100 --retry-max-time 180 --retry-all-errors -o untrusted.zip "${ZIPURL}"
           clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.zip
           cd -
 
