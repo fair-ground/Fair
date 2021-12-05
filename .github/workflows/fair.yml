@@ -477,7 +477,7 @@ jobs:
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         run: |
           xcodebuild archive \
-            -workspace "App.xcworkspace" \
+            -workspace "ReleasePR/App.xcworkspace" \
             -configuration Release \
             -scheme "AppFairApp" \
             -sdk "iphoneos" \
@@ -496,7 +496,7 @@ jobs:
         if: ${{ inputs.target_macos == true && steps.platforms.outputs.macos == 'enabled' }}
         run: |
           xcodebuild archive \
-            -workspace "App.xcworkspace" \
+            -workspace "ReleasePR/App.xcworkspace" \
             -configuration Release \
             -scheme "AppFairApp" \
             -sdk "macosx" \
