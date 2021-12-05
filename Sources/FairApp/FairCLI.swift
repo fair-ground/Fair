@@ -1323,6 +1323,11 @@ public extension FairCLI {
         let iOSExecutable = "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
         let iOSInfo = "Payload/\(appName).app/Info.plist"
 
+        let executablePaths = [
+            macOSExecutable,
+            iOSExecutable,
+        ]
+
         var infoPlist: Plist? = nil
 
         var coreSize = 0 // the size of the executable itself
@@ -1332,7 +1337,7 @@ public extension FairCLI {
                 throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
             }
 
-            let entryIsAppBinary = trustedEntry.path == macOSExecutable || trustedEntry.path == iOSExecutable
+            let entryIsAppBinary = executablePaths.contains(trustedEntry.path)
             let entryIsInfo = trustedEntry.path == macOSInfo || trustedEntry.path == iOSInfo
 
             if entryIsAppBinary {
@@ -1378,7 +1383,15 @@ public extension FairCLI {
 
             // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
             #if os(macOS) // we can only launch `codesign` on macOS
-            if entryIsAppBinary && trustedPayload != untrustedPayload {
+            // 0xfeedface for 32-bit
+            // 0xfeedfacf for 64-bit
+            // 0xcafebabe for universal
+            let isMachOBinary = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce])
+                || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf])
+                || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe])
+
+            // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
+            if (entryIsAppBinary || isMachOBinary) && trustedPayload != untrustedPayload {
                 func stripSignature(from data: Data) throws -> Data {
                     let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
                     try data.write(to: tmpFile)
