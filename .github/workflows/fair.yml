@@ -453,7 +453,7 @@ jobs:
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
-          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project .
+          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR/
 
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
@@ -586,7 +586,7 @@ jobs:
             --retry-duration 600 \
             --artifact-url "$ZIPURL" \
             --artifact-staging "staging/" \
-            --fair-properties "Info.plist" \
+            --fair-properties "ReleasePR/AppFairApp.xcconfig" \
             --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
@@ -625,7 +625,7 @@ jobs:
             --retry-duration 600 \
             --artifact-url "$IPAURL" \
             --artifact-staging "staging/" \
-            --fair-properties "Info.plist" \
+            --fair-properties "ReleasePR/AppFairApp.xcconfig" \
             --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
