@@ -1337,10 +1337,10 @@ public extension FairCLI {
                 throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
             }
 
-            let entryIsAppBinary = executablePaths.contains(trustedEntry.path)
+            let entryIsMainBinary = executablePaths.contains(trustedEntry.path)
             let entryIsInfo = trustedEntry.path == macOSInfo || trustedEntry.path == iOSInfo
 
-            if entryIsAppBinary {
+            if entryIsMainBinary {
                 coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
             }
 
@@ -1381,17 +1381,16 @@ public extension FairCLI {
             var trustedPayload = try trustedArchive.extractData(from: trustedEntry)
             var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
 
+            let isMachOBinary = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
+                || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf]) // 64-bit magic
+                || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe]) // universal magic
+
+            let isAppBinary = entryIsMainBinary || isMachOBinary
+
             // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
             #if os(macOS) // we can only launch `codesign` on macOS
-            // 0xfeedface for 32-bit
-            // 0xfeedfacf for 64-bit
-            // 0xcafebabe for universal
-            let isMachOBinary = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce])
-                || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf])
-                || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe])
-
             // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
-            if (entryIsAppBinary || isMachOBinary) && trustedPayload != untrustedPayload {
+            if isAppBinary && trustedPayload != untrustedPayload {
                 func stripSignature(from data: Data) throws -> Data {
                     let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
                     try data.write(to: tmpFile)
@@ -1399,6 +1398,7 @@ public extension FairCLI {
                     return try Data(contentsOf: tmpFile) // read it back in
                 }
 
+                msg(.info, "stripping code signatures: \(trustedEntry.path)")
                 trustedPayload = try stripSignature(from: trustedPayload)
                 untrustedPayload = try stripSignature(from: untrustedPayload)
             }
@@ -1438,7 +1438,7 @@ public extension FairCLI {
                 if totalChanges > 0 {
                     let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
 
-                    if entryIsAppBinary {
+                    if isAppBinary {
                         if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
                             // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
                             print("tolerating \(totalChanges) differences for:", error)
