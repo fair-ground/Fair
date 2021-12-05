@@ -587,7 +587,7 @@ jobs:
             --artifact-url "$ZIPURL" \
             --artifact-staging "staging/" \
             --fair-properties "ReleasePR/AppFairApp.xcconfig" \
-            --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" \
+            --accent-color "ReleasePR/Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
@@ -626,7 +626,7 @@ jobs:
             --artifact-url "$IPAURL" \
             --artifact-staging "staging/" \
             --fair-properties "ReleasePR/AppFairApp.xcconfig" \
-            --accent-color "Assets.xcassets/AccentColor.colorset/Contents.json" \
+            --accent-color "ReleasePR/Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
