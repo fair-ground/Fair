@@ -459,9 +459,11 @@ jobs:
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
           rm -rf Dependencies
 
+          cd ReleasePR/
           xcrun swift package resolve
           cat Package.resolved # useful for the log
           cp Package.resolved Sources/App/Resources/ # embed in the app
+          cd -
 
       - name: "Generate Icon"
         run: |
@@ -472,8 +474,8 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=macos::$(xcodebuild -workspace ReleasePR/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(xcodebuild -workspace ReleasePR/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
