@@ -576,7 +576,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_scan
           cd staging/.artifact_scan
-          curl -fsSL -o untrusted.zip "${ZIPURL}"
+          curl --retry-max-time 300 --retry 25 --retry-all-errors -fsSL -o untrusted.zip "${ZIPURL}"
           clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.zip
           cd -
 
@@ -619,7 +619,7 @@ jobs:
           # virus/malware scan
           mkdir -p staging/.artifact_scan
           cd staging/.artifact_scan
-          curl -fsSL -o untrusted.ipa "${IPAURL}"
+          curl --retry-max-time 300 --retry 25 --retry-all-errors -fsSL -o untrusted.ipa "${IPAURL}"
           clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.ipa
           cd -
 
