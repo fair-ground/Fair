@@ -572,6 +572,15 @@ jobs:
         run: |
           # build the URL for the GitHub download artifact
           ZIPURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" 
+
+          # virus/malware scan
+          mkdir -p staging/.artifact_scan
+          cd staging/.artifact_scan
+          curl -fsSL -o untrusted.zip "${ZIPURL}"
+          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.zip
+          cd -
+
+
           echo "Generating fairseal for: $ZIPURL"
 
           mkdir -p staging/.artifact_stash/
@@ -589,7 +598,7 @@ jobs:
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" \
-            --fairseal-match 1000000 \
+            --fairseal-match 0 \
             --retry-duration 600 \
             --artifact-url "$ZIPURL" \
             --artifact-staging "staging/" \
@@ -599,14 +608,6 @@ jobs:
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
-          # virus/malware scan
-          mkdir -p staging/.artifact_scan
-          cd staging/.artifact_scan
-          curl -fsSL -o untrusted.zip "${ZIPURL}"
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.zip
-          cd -
-
-
       - name: "Generate iOS fairseal"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         env:
@@ -614,6 +615,14 @@ jobs:
         run: |
           # build the URL for the GitHub download artifact
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
+
+          # virus/malware scan
+          mkdir -p staging/.artifact_scan
+          cd staging/.artifact_scan
+          curl -fsSL -o untrusted.ipa "${IPAURL}"
+          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.ipa
+          cd -
+
           echo "Generating fairseal for: $IPAURL"
 
           mkdir -p staging/.artifact_stash/
@@ -637,14 +646,6 @@ jobs:
             --project . -o -
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
-
-          # virus/malware scan
-          mkdir -p staging/.artifact_scan
-          cd staging/.artifact_scan
-          curl -fsSL -o untrusted.ipa "${IPAURL}"
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.ipa
-          cd -
-
 
       - name: "Upload Build Artifacts"
         # upload the trusted artifacts for each build for reproducible-builds
