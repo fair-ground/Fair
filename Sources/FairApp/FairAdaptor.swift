@@ -59,7 +59,7 @@ public typealias UXViewRepresentableContext = UIViewRepresentableContext
 /// Cross-platorm alias for `UIHostingController` and `NSHostingController`
 public typealias UXHostingController = UIHostingController
 /// Cross-platorm alias for `UIHostingView` and `NSHostingView`
-//public typealias UXHostingView = UIHostingView
+//public typealias UXHostingView = UIHostingView // does not exist in UIKit
 /// Cross-platorm alias for `UIPasteboard` and `NSPasteboard`
 public typealias UXPasteboard = UIPasteboard
 
@@ -118,7 +118,7 @@ public typealias UXViewRepresentableContext = NSViewRepresentableContext
 /// Cross-platorm alias for `UIHostingController` and `NSHostingController`
 public typealias UXHostingController = NSHostingController
 /// Cross-platorm alias for `UIHostingView` and `NSHostingView`
-public typealias UXHostingView = NSHostingView
+//public typealias UXHostingView = NSHostingView // does not exist in UIKit
 /// Cross-platorm alias for `NSPasteboard` and `UIPasteboard`
 public typealias UXPasteboard = NSPasteboard
 #endif

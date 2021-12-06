@@ -141,8 +141,8 @@ jobs:
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(xcodebuild -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=macos::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Resolve Swift Packages"
         run: |
@@ -392,6 +392,13 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
+
+          # The target folder for I-R; setting to the current folder
+          # uses the sanitized project.xcodeproj, and setting it to
+          # ReleasePR/ uses the raw PR build settings
+          echo "IR_TARGET=." >> $GITHUB_ENV
+          #echo "IR_TARGET=ReleasePR" >> $GITHUB_ENV
+
           echo "PRTITLE=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
           echo "ORGNAME=${{ github.event.pull_request.head.user.login }}" >> $GITHUB_ENV
           echo "COMMITHASH=${{ github.event.pull_request.head.sha }}" >> $GITHUB_ENV
@@ -453,13 +460,13 @@ jobs:
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
-          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR/
+          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}"
 
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
           rm -rf Dependencies
 
-          cd ReleasePR/
+          cd "${{ env.IR_TARGET }}"
           xcrun swift package resolve
           cat Package.resolved # useful for the log
           cp Package.resolved Sources/App/Resources/ # embed in the app
@@ -467,21 +474,21 @@ jobs:
 
       - name: "Generate Icon"
         run: |
-          cd ReleasePR/
+          cd "${{ env.IR_TARGET }}"
           xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
           cd -
 
       - name: "Check platforms"
         id: platforms
         run: |
-          echo "::set-output name=macos::$(xcodebuild -workspace ReleasePR/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
-          echo "::set-output name=ios::$(xcodebuild -workspace ReleasePR/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=macos::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
+          echo "::set-output name=ios::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         run: |
           xcodebuild archive \
-            -workspace "ReleasePR/App.xcworkspace" \
+            -workspace "${{ env.IR_TARGET }}/App.xcworkspace" \
             -configuration Release \
             -scheme "AppFairApp" \
             -sdk "iphoneos" \
@@ -500,7 +507,7 @@ jobs:
         if: ${{ inputs.target_macos == true && steps.platforms.outputs.macos == 'enabled' }}
         run: |
           xcodebuild archive \
-            -workspace "ReleasePR/App.xcworkspace" \
+            -workspace "${{ env.IR_TARGET }}/App.xcworkspace" \
             -configuration Release \
             -scheme "AppFairApp" \
             -sdk "macosx" \
@@ -540,9 +547,9 @@ jobs:
       - name: Stage Release Metadata
         # copy over the un-processed assets from the ReleasePR/
         run: |
-          cp ReleasePR/Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
-          cp ReleasePR/LICENSE.txt ReleasePR/Package.resolved ReleasePR/README.md ReleasePR/Info.plist ReleasePR/Sandbox.entitlements staging/
-          cp ReleasePR/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
+          cp "${{ env.IR_TARGET }}"/Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
+          cp "${{ env.IR_TARGET }}"/LICENSE.txt "${{ env.IR_TARGET }}"/Package.resolved "${{ env.IR_TARGET }}"/README.md "${{ env.IR_TARGET }}"/Info.plist "${{ env.IR_TARGET }}"/Sandbox.entitlements staging/
+          cp "${{ env.IR_TARGET }}"/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
           ls -la staging/
           # log the checksum for each of the staging elements
           shasum -a 256 staging/*.*
@@ -586,8 +593,8 @@ jobs:
             --retry-duration 600 \
             --artifact-url "$ZIPURL" \
             --artifact-staging "staging/" \
-            --fair-properties "ReleasePR/AppFairApp.xcconfig" \
-            --accent-color "ReleasePR/Assets.xcassets/AccentColor.colorset/Contents.json" \
+            --fair-properties "${{ env.IR_TARGET }}/AppFairApp.xcconfig" \
+            --accent-color "${{ env.IR_TARGET }}/Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
@@ -625,8 +632,8 @@ jobs:
             --retry-duration 600 \
             --artifact-url "$IPAURL" \
             --artifact-staging "staging/" \
-            --fair-properties "ReleasePR/AppFairApp.xcconfig" \
-            --accent-color "ReleasePR/Assets.xcassets/AccentColor.colorset/Contents.json" \
+            --fair-properties "${{ env.IR_TARGET }}/AppFairApp.xcconfig" \
+            --accent-color "${{ env.IR_TARGET }}/Assets.xcassets/AccentColor.colorset/Contents.json" \
             --project . -o -
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
