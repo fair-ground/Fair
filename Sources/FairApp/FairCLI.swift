@@ -1410,7 +1410,8 @@ public extension FairCLI {
 //            }
 
             if trustedPayload != untrustedPayload {
-                let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload).inferringMoves()
+                msg(.info, " scanning payload differences")
+                let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload) // .inferringMoves()
 
                 msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex()) differences: \(diff.count)")
                 func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
