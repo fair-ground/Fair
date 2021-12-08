@@ -217,11 +217,11 @@ public struct AppNameValidation {
 
         if let wordLengths = wordLengths {
             if words.count != wordLengths.count {
-                throw Errors.badWordCount(name, words.count, wordLengths.count)
+                //throw Errors.badWordCount(name, words.count, wordLengths.count)
             }
 
             if Set(words).count != words.count {
-                throw Errors.nonUniqueWords(name)
+                //throw Errors.nonUniqueWords(name)
             }
 
             for (word, lengthRange) in zip(words, wordLengths) {
