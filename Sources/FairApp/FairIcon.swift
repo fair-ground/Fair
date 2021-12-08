@@ -21,9 +21,7 @@ import FairCore
 /// The icon consists of the app name laid out on a circular path.
 public struct FairIconView : View, Equatable {
     /// The first word of the app's name
-    var word1: String
-    /// The second word of the app's name
-    var word2: String
+    var name: String
     /// A string to appear below the monogram
     let subtitle: String?
     /// System symbol names to emboss behind the monogram
@@ -34,9 +32,7 @@ public struct FairIconView : View, Equatable {
     let borderRatio: CGFloat
 
     public init(_ name: String, subtitle: String?, symbolNames: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00) {
-        let parts = name.components(separatedBy: CharacterSet.letters.inverted)
-        self.word1 = parts.first ?? "Invalid"
-        self.word2 = parts.last ?? "Name"
+        self.name = name
         self.subtitle = subtitle
         self.symbolNames = symbolNames
         self.iconColor = iconColor
@@ -51,10 +47,7 @@ public struct FairIconView : View, Equatable {
 
     /// Returns the default icon color for the given app name, separated into two parts
     public static func iconColor(name: String) -> Color {
-        let parts = name.components(separatedBy: CharacterSet.letters.inverted)
-        let word1 = parts.first ?? "Invalid"
-        let word2 = parts.last ?? "Name"
-        return renderColor(word1: word1, word2: word2)
+        return renderColor(name: name)
     }
     
     /// The default icon color for the two parts
@@ -65,8 +58,8 @@ public struct FairIconView : View, Equatable {
     ///   - brightness: the color brightness
     ///   - base: a base color to use rather than the word's seeded random
     /// - Returns: the color to use for rendering
-    static func renderColor(word1: String, word2: String, saturation: CGFloat = 0.99, brightness: CGFloat = 0.8, base: Color? = nil) -> Color {
-        let wordHue = (word1.derivedComponent + word2.derivedComponent) / 2.0
+    static func renderColor(name: String, saturation: CGFloat = 0.99, brightness: CGFloat = 0.8, base: Color? = nil) -> Color {
+        let wordHue = name.derivedComponent
         var hue = wordHue
 
         // if we have specified a base color, use the hue as the basis for our app
@@ -85,11 +78,12 @@ public struct FairIconView : View, Equatable {
     }
 
     func iconView(for span: CGFloat) -> some View {
-        let monogram = String([word1.first, word2.first].compacted()).uppercased()
+        let parts = name.components(separatedBy: CharacterSet.alphanumerics.inverted)
+        let monogram = String(parts.map(\.first).compacted()).uppercased()
 
         // create a top-down gradient of the brighter color
         func clr(s: CGFloat, b: CGFloat) -> Color {
-            Self.renderColor(word1: word1, word2: word2, saturation: s, brightness: b, base: iconColor)
+            Self.renderColor(name: name, saturation: s, brightness: b, base: iconColor)
         }
 
         let c1 = clr(s: 0.5, b: 0.9)
