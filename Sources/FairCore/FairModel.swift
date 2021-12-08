@@ -209,15 +209,15 @@ public struct AppNameValidation {
     public var permittedCharacters: CharacterSet? = CharacterSet.alphanumerics.subtracting(CharacterSet.decimalDigits)
 
     /// The lengths of the words that are permitted
-    public var wordLengths: [ClosedRange<Int>]? = [3...12, 3...12]
+    public var wordLengths: [ClosedRange<Int>]? = [3...12, 3...12, 3...12, 3...12]
 
     /// Validates that the given name satisfies the name validation algorithm
     public func validate(name: String) throws {
         let words = name.split(separator: "-", omittingEmptySubsequences: false)
 
         if let wordLengths = wordLengths {
-            if words.count != wordLengths.count {
-                //throw Errors.badWordCount(name, words.count, wordLengths.count)
+            if words.count > wordLengths.count {
+                throw Errors.badWordCount(name, words.count, wordLengths.count)
             }
 
             if Set(words).count != words.count {

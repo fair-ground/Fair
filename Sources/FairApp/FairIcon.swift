@@ -129,16 +129,17 @@ public struct FairIconView : View, Equatable {
                 }
                 if self.symbolNames.isEmpty {
                     VStack {
+                        let baseFontSize = (span * 0.75) / .init(max(1, parts.count))
                         Text(monogram)
-                            .font(iconFont(size: span * 0.5))
+                            .font(iconFont(size: baseFontSize))
                         if let subtitle = subtitle {
                             Text(subtitle)
-                                .font(Font.system(size: span * 0.16, weight: .semibold, design: .rounded))
+                                .font(Font.system(size: baseFontSize / 2, weight: .semibold, design: .rounded))
                         }
                     }
                 }
             }
-            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: 1)
+            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)
