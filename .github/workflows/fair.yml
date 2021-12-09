@@ -485,7 +485,7 @@ jobs:
           echo "::set-output name=ios::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Build iOS App"
-        if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'XXXenabled' }}
+        if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         run: |
           xcodebuild archive \
             -workspace "${{ env.IR_TARGET }}/App.xcworkspace" \
