@@ -609,7 +609,7 @@ jobs:
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
       - name: "Generate iOS fairseal"
-        if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
+        if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'XXXenabled' }}
         env:
           GITHUB_TOKEN: ${{ secrets.bot_token }}
         run: |
