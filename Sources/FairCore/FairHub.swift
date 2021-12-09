@@ -446,7 +446,7 @@ public extension FairHub {
                 contains(.invalidName) ? "The name of the organization is not valid" : nil,
                 contains(.ownerNotOrganization) ? "The owner of the repository must be an organization and not an individual user" : nil,
                 contains(.mismatchedEmail) ? "The e-mail for the commit must match the public e-mail of the organization" : nil,
-            ].compactMap({ $0 }).joined(separator: ",")
+            ].compactMap({ $0 }).joined(separator: ", ")
         }
     }
 

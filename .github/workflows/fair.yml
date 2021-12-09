@@ -157,7 +157,7 @@ jobs:
           xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
 
       - name: "Build iOS App"
-        if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'XXXenabled' }}
+        if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         run: |
           xcodebuild archive \
             -workspace "App.xcworkspace" \
