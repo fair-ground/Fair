@@ -24,17 +24,17 @@ public struct FairIconView : View, Equatable {
     var name: String
     /// A string to appear below the monogram
     let subtitle: String?
-    /// System symbol names to emboss behind the monogram
-    let symbolNames: [String]
+    /// System symbol names or SVG paths to emboss behind the monogram
+    let paths: [String]
     /// The base color for the icon
     let iconColor: Color?
     /// Whether a raised border should be rendered
     let borderRatio: CGFloat
 
-    public init(_ name: String, subtitle: String?, symbolNames: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00) {
+    public init(_ name: String, subtitle: String?, paths: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00) {
         self.name = name
         self.subtitle = subtitle
-        self.symbolNames = symbolNames
+        self.paths = paths
         self.iconColor = iconColor
         self.borderRatio = borderRatio
     }
@@ -121,13 +121,19 @@ public struct FairIconView : View, Equatable {
                 //.mask(maskPath().fill(style: FillStyle(eoFill: true)))
 
             ZStack {
-                ForEach(self.symbolNames, id: \.self) { symbolName in
-                    Text(Image(systemName: symbolName))
-                        .font(iconFont(size: span * 0.5))
-                        .opacity(0.95)
-                        //.opacity(monogram.isEmpty ? 1.0 : 0.5)
+                ForEach(self.paths, id: \.self) { path in
+                    if FairSymbol.allNames.contains(path) {
+                        Text(Image(systemName: path))
+                            .font(iconFont(size: span * 0.5))
+                            .opacity(0.95)
+                            //.opacity(monogram.isEmpty ? 1.0 : 0.5)
+                    } else {
+                        // render as an SVG Path
+                        try? SVGPath(path)
+                            .inset(by: span / 5)
+                    }
                 }
-                if self.symbolNames.isEmpty {
+                if self.paths.isEmpty {
                     VStack {
                         let baseFontSize = (span * 0.75) / .init(max(1, parts.count))
                         Text(monogram)
@@ -207,9 +213,13 @@ struct FairIconView_Previews: PreviewProvider {
     static func preview(seed: UUID = UUID(), count: Int, span: CGFloat, borderRatio: CGFloat = 0.0) -> some View {
         var rndgen = SeededRandomNumberGenerator(uuids: seed)
 
-        let symbolNames = FairSymbol.allCases
+        var symbolNames = FairSymbol.allCases
             .filter({ !$0.rawValue.hasPrefix("N") })
             .shuffled(using: &rndgen).map(\.symbolName)
+
+        // the first icon should be a 1/2 circle
+        symbolNames.insert("M 0 0 A 25 25 0 1 0 0 50Z", at: 0)
+
         let appNames = AppNameValidation.standard.suggestNames(count: count, rnd: &rndgen)
         let appSymbols: [(appName: String, symbolName: String)] = Array(zip(appNames, symbolNames))
 
@@ -217,8 +227,8 @@ struct FairIconView_Previews: PreviewProvider {
             GridItem(.adaptive(minimum: span, maximum: span)),
             //GridItem(.adaptive(minimum: 100, maximum: 200)),
         ]) {
-            ForEach(appSymbols, id: \.appName) { appName, symbolName in
-                FairIconView(appName, subtitle: "", symbolNames: [symbolName], borderRatio: borderRatio)
+            ForEach(appSymbols, id: \.appName) { appName, path in
+                FairIconView(appName, subtitle: "", paths: [path], borderRatio: borderRatio)
                     .symbolVariant(.none)
                     .frame(width: span, height: span)
             }

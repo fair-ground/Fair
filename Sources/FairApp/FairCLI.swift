@@ -1120,7 +1120,7 @@ public extension FairCLI {
 
         var appIconSet = iconSet
 
-        let iconView = FairIconView(appName, subtitle: catalogTitleFlag, symbolNames: symbolNames, iconColor: iconColor)
+        let iconView = FairIconView(appName, subtitle: catalogTitleFlag, paths: symbolNames, iconColor: iconColor)
         for imageSet in icons {
             if imageSet.filename != nil {
                 continue // skip any elements that have a file path specified already

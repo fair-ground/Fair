@@ -14,7 +14,7 @@ public struct SVGPath : Hashable, Sendable {
     /// The parsed tokens of the path
     private let tokens: [PathToken]
     /// The amount to inset the drawn path by
-    private var inset: CGFloat = 0.0
+    private var inset: Double = 0.0
 
     /// Initialize this view with the given SVG path.
     /// An error will be thrown if the path cannot be parsed.
