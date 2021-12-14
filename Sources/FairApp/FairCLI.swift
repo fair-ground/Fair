@@ -1317,6 +1317,8 @@ public extension FairCLI {
 
         let appName = rootPath.dropLast(Self.appSuffix.count)
 
+        // TODO: we should instead check the `CFBundleExecutable` key for the executable name
+
         let macOSExecutable = "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
         let macOSInfo = "\(appName).app/Contents/Info.plist" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
 

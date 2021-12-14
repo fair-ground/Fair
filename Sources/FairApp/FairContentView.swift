@@ -85,3 +85,37 @@ public struct FairContentView: View {
 }
 #endif
 
+#if canImport(SwiftUI)
+import SwiftUI
+
+@available(macOS 12.0, iOS 15.0, *)
+struct SVGPathView_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack(alignment: .center) {
+            Circle()
+                .fill(Color.red)
+
+            // 200x400
+            try! SVGPath("M0 0 L-200 200 L200 200 Z")
+                .fill(Color.blue.opacity(0.50))
+
+            // 200x200
+            try! SVGPath("M200 0 L100 200 L300 200 Z")
+                .inset(by: 70)
+                .fill(Color.yellow.opacity(0.50))
+
+            // 100x600
+            try! SVGPath("M100 0 L0 600 L200 600 Z")
+                .inset(by: 99)
+                .fill(Color.green.opacity(0.50))
+
+            //try? SVGPath("M 0 0 A 25 25 0 1 0 0 50Z")
+                //.offset(x: 300, y: 0)
+                //.inset(by: 100)
+                //.offset(x: 100, y: 0)
+                //.fill(Color.red.opacity(0.50))
+        }
+        .previewLayout(PreviewLayout.fixed(width: 300, height: 220))
+    }
+}
+#endif

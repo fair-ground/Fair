@@ -25,15 +25,18 @@ final class FairHubTests: XCTestCase {
     static let org = appfairName
 
     override class func setUp() {
-        if ProcessInfo.processInfo.environment["GITHUB_TOKEN"] == nil
-            && ProcessInfo.processInfo.environment["GH_TOKEN"] == nil {
+        if authToken == nil {
             XCTFail("Missing GITHUB_TOKEN and GH_TOKEN in environment")
         }
     }
 
     /// The hub that we use for testing, the so-called "git"-hub.
-    static func hub() throws -> FairHub {
-        try FairHub(hostOrg: "github.com/" + org, authToken: authToken, fairsealIssuer: "appfairbot", allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+    static func hub(skipNoAuth: Bool = false) throws -> FairHub {
+        if skipNoAuth == true && Self.authToken == nil {
+            throw XCTSkip("cannot run API tests without a token")
+        }
+
+        return try FairHub(hostOrg: "github.com/" + org, authToken: authToken, fairsealIssuer: "appfairbot", allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
     }
 
     /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
@@ -45,7 +48,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testQueryError() throws {
-        let hub = try Self.hub()
+        let hub = try Self.hub(skipNoAuth: true)
         do {
             let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
             XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", response.result.failureValue?.infer()?.errors.first?.message)
@@ -57,7 +60,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testFetchRepositoryQuery() throws {
-        let hub = try Self.hub()
+        let hub = try Self.hub(skipNoAuth: true)
         let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "appfair", name: "App")).get().data
 
         let org = response.organization
@@ -81,7 +84,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testFetchCommitQuery() throws {
-        let hub = try Self.hub()
+        let hub = try Self.hub(skipNoAuth: true)
         let response = try hub.requestSync(FairHub.GetCommitQuery(owner: "fair-ground", name: "Fair", ref: "93d86ba5884772c8ef189bead1ca131bb11b90f2")).get().data
 
         guard let sig = response.repository.object.signature else {
@@ -96,7 +99,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testCatalogQuery() throws {
-        let hub = try Self.hub()
+        let hub = try Self.hub(skipNoAuth: true)
 
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
@@ -115,7 +118,7 @@ final class FairHubTests: XCTestCase {
 
     func testBuildMacOSCatalog() throws {
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-        let catalog = try Self.hub().buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
+        let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
@@ -130,7 +133,7 @@ final class FairHubTests: XCTestCase {
 
     func testBuildIOSCatalog() throws {
         let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
-        let catalog = try Self.hub().buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
+        let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
