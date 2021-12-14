@@ -64,7 +64,7 @@ public struct FairIconView : View, Equatable {
 
         // if we have specified a base color, use the hue as the basis for our app
         if let base = base, let cgColor = base.cgColor {
-            if let rgbColor = cgColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil), let uxColor = UXColor(cgColor: rgbColor) {
+            if let rgbColor = cgColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil), let uxColor = (UXColor(cgColor: rgbColor) as UXColor?) {
                 uxColor.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
             }
         }
