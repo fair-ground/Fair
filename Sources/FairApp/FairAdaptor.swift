@@ -285,8 +285,7 @@ public extension View {
     ///   - normalize: whether to normalize to 0,0 origin
     /// - Returns: the PNG data for the view
     func png(bounds viewBounds: CGRect?, normalize: Bool = true) -> Data? {
-        let controller = UXHostingController(rootView: self.frame(width: viewBounds?.width, height: viewBounds?.height))
-        let view: UXView = controller.view
+        let view = self.frame(width: viewBounds?.width, height: viewBounds?.height).viewWrapper()
         var bounds = viewBounds ?? CGRect(origin: .zero, size: view.intrinsicContentSize)
         if normalize {
             bounds = bounds.offsetBy(dx: -bounds.minX, dy: -bounds.minY) // normalize to 0,0
@@ -333,6 +332,11 @@ extension View {
             Self._printChanges()
         }
         #endif
+    }
+
+    /// Derives a native view from this SwiftUI view
+    public func viewWrapper() -> UXView {
+        UXHostingController(rootView: self).view
     }
 }
 
