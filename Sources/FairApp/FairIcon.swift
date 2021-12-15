@@ -132,7 +132,7 @@ public struct FairIconView : View, Equatable {
                     } else {
                         // render as an SVG Path
                         try? SVGPath(path)
-                            .inset(by: span / 5)
+                            .inset(by: span / 7)
                     }
                 }
                 if self.paths.isEmpty {
