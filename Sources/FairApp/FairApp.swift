@@ -295,11 +295,9 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                 if let url = Bundle.appFairURL("update") {
                     Link(destination: url) {
                         Text("Check for Updates", bundle: .module)
+                            .help(Text("Check for updates on the App Fair"))
                     }
                 }
-
-                //linkButton("Wiki", path: "wiki")
-                //linkButton("Pulse", path: "pulse")
             }
         }
 
