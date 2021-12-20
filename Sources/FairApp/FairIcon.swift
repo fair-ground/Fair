@@ -128,11 +128,13 @@ public struct FairIconView : View, Equatable {
                         Text(Image(systemName: path))
                             .font(iconFont(size: span * 0.5))
                             .opacity(0.95)
+                            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
                             //.opacity(monogram.isEmpty ? 1.0 : 0.5)
                     } else {
                         // render as an SVG Path
                         try? SVGPath(path)
                             .inset(by: span / 7)
+                            .shadow(color: Color.black.opacity(0.9), radius: -1 * span * 0.010, x: 0, y: span / 75.0) // custom paths seem to have flipped shadows for some reason; leaving out the -1 will cause SVG paths to have the shadow above rather than below
                     }
                 }
                 if self.paths.isEmpty {
@@ -140,6 +142,7 @@ public struct FairIconView : View, Equatable {
                         let baseFontSize = (span * 0.75) / .init(max(1, parts.count))
                         Text(monogram)
                             .font(iconFont(size: baseFontSize))
+                            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
                         if let subtitle = subtitle {
                             Text(subtitle)
                                 .font(Font.system(size: baseFontSize / 2, weight: .semibold, design: .rounded))
@@ -147,7 +150,6 @@ public struct FairIconView : View, Equatable {
                     }
                 }
             }
-            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)
