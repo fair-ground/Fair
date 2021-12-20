@@ -14,7 +14,6 @@
  */
 import Foundation
 
-#if canImport(_Concurrency)
 /// A value whose content can be hashed and serialized, and is concurrent-safe
 public typealias Pure = Hashable & Codable & Sendable
 
@@ -30,10 +29,6 @@ extension Foundation.URL : UnsafeSendable { }
 
 @available(*, deprecated)
 extension Foundation.UUID : UnsafeSendable { }
-#else
-/// A value whose content can be hashed and serialized
-public typealias Pure = Hashable & Codable
-#endif
 
 public extension Result {
     /// Returns the successful value, or nil if unset

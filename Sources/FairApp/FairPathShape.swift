@@ -131,11 +131,6 @@ extension CGPath {
     }
 }
 
-
-extension CGPath {
-
-}
-
 #if canImport(SwiftUI)
 import SwiftUI
 

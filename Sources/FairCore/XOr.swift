@@ -145,10 +145,8 @@ extension XOr.Or : Decodable where P : Decodable, Q : Decodable {
 extension XOr : Error where P : Error { }
 extension XOr.Or : Error where P : Error, Q : Error { }
 
-#if canImport(_Concurrency)
 extension XOr : Sendable where P : Sendable { }
 extension XOr.Or : Sendable where P : Sendable, Q : Sendable { }
-#endif
 
 /// An `XResult` is similar to a `Foundation.Result` except it uses `XOr` arity and can adopy `Pure`
 public typealias XResult<Success, Failure: Error> = XOr<Failure>.Or<Success>

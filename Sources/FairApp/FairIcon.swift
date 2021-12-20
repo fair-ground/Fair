@@ -116,6 +116,10 @@ public struct FairIconView : View, Equatable {
             return shape
         }
 
+        let iconPath = paths.first
+        let isSymbolPath = iconPath.flatMap(FairSymbol.allNames.contains)
+        let svgPath = iconPath.flatMap { try? SVGPath($0) }
+
         return ZStack(alignment: .center) {
             squircle
                 .fill(fillStyle)
@@ -123,19 +127,17 @@ public struct FairIconView : View, Equatable {
                 //.mask(maskPath().fill(style: FillStyle(eoFill: true)))
 
             ZStack {
-                ForEach(self.paths, id: \.self) { path in
-                    if FairSymbol.allNames.contains(path) {
-                        Text(Image(systemName: path))
+                if let iconPath = iconPath {
+                    if isSymbolPath == false, let svgPath = svgPath {
+                        svgPath
+                            .inset(by: span / 7)
+                    } else {
+                        Text(Image(systemName: iconPath))
                             .font(iconFont(size: span * 0.5))
                             .opacity(0.95)
                             //.opacity(monogram.isEmpty ? 1.0 : 0.5)
-                    } else {
-                        // render as an SVG Path
-                        try? SVGPath(path)
-                            .inset(by: span / 7)
                     }
-                }
-                if self.paths.isEmpty {
+                } else {
                     VStack {
                         let baseFontSize = (span * 0.75) / .init(max(1, parts.count))
                         Text(monogram)
@@ -150,7 +152,7 @@ public struct FairIconView : View, Equatable {
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)
-            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
+            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: (isSymbolPath == false ? -1.0 : 1.0) * span / 75.0) // for some reason, path shadows are rendered above instead of below
 
             if borderRatio > 0.0 {
                 squircle
