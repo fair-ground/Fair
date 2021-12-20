@@ -94,6 +94,14 @@ public extension Sequence where Element : Hashable {
 }
 
 public extension Sequence {
+    /// Crrates a dictionary keying on the given `key`.
+    @inlinable func dictionary<Key: Hashable>(latterPrecedence: Bool = true, keyedBy key: (Element) -> Key) -> Dictionary<Key, Element> {
+        Dictionary(self.map({ element in (key(element), element) }), uniquingKeysWith: { key0, key1 in latterPrecedence ? key1 : key0 })
+    }
+}
+
+
+public extension Sequence {
     /// Groups the sequence by the given hash key
     ///
     /// This merely invokes `Dictionary.init(grouping:by:)`

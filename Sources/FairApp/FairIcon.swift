@@ -117,7 +117,7 @@ public struct FairIconView : View, Equatable {
         }
 
         let iconPath = paths.first
-        let isSymbolPath = iconPath.flatMap(FairSymbol.allNames.contains)
+        let isSymbolPath = iconPath.flatMap(FairSymbol.allNames.keys.contains)
         let svgPath = iconPath.flatMap { try? SVGPath($0) }
 
         return ZStack(alignment: .center) {
