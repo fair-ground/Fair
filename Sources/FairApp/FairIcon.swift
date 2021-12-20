@@ -131,6 +131,7 @@ public struct FairIconView : View, Equatable {
                     if isSymbolPath == false, let svgPath = svgPath {
                         svgPath
                             .inset(by: span / 7)
+                            .aspectRatio(contentMode: .fit)
                     } else {
                         Text(Image(systemName: iconPath))
                             .font(iconFont(size: span * 0.5))
@@ -152,7 +153,7 @@ public struct FairIconView : View, Equatable {
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)
-            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: (isSymbolPath == false ? -1.0 : 1.0) * span / 75.0) // for some reason, path shadows are rendered above instead of below
+            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: (isSymbolPath == false ? -1.0 : 1.0) * span / 75.0) // for some reason, path shadows are rendered above instead of below (see https://stackoverflow.com/a/58470832)
 
             if borderRatio > 0.0 {
                 squircle

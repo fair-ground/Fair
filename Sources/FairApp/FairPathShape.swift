@@ -55,7 +55,7 @@ extension CGPath {
     ///
     /// - Parameter options: whether to use absolute (vs. relative) coordinates and spaces (vs. commas) when generating the path data.
     /// - Returns: the SVG path data
-    func svgPath(_ options: SVGPathOptions = []) -> String {
+    public func svgPath(_ options: SVGPathOptions = []) -> String {
         enum PathCmd {
             case moveTo(CGPoint)
             case lineTo(CGPoint)
@@ -109,7 +109,7 @@ extension CGPath {
             case .addCurveToPoint: cmds.append(.curveTo(points[0], points[1], points[2]))
             case .addQuadCurveToPoint: cmds.append(.quadCurveTo(points[0], points[1]))
             case .closeSubpath: cmds.append(.closePath)
-            @unknown default: cmds.append(.closePath)
+            @unknown default: break
             }
         }
 
