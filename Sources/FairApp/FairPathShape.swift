@@ -143,7 +143,7 @@ import SwiftUI
 @available(macOS 11.0, iOS 14.0, *)
 extension SVGPath : View, InsettableShape {
     public func path(in rect: CGRect) -> Path {
-        Path(cgPath.fitting(rect: rect, inset: inset))
+        Path(cgPath.fitting(rect: rect, inset: inset) ?? CGMutablePath())
     }
 
     /// Returns `self` inset by `amount`.
@@ -164,6 +164,49 @@ public extension Path {
         self.init(cgPath)
     }
 }
+
+public extension CGPath {
+    /// Transform this `CGPath` to fit int the given rectangle
+    ///
+    /// - Parameters:
+    ///   - sourceRect: the rectangle in which to fir the path
+    ///   - sourceInset: how much to inset the path by
+    ///   - stretch: whether to stretch vs. preserve the aspect-ratio
+    ///   - includeControlPoints: whether the include points that define the curves
+    ///
+    /// - Returns: the path adjusted to fit within the `sourceRect` parameter, or `nil` if the transform could not be applied
+    func fitting(rect sourceRect: CGRect, inset sourceInset: CGFloat = 0.0, stretch: Bool = false, includeControlPoints: Bool = true) -> CGPath? {
+        let (containerWidth, containerHeight) = (sourceRect.width, sourceRect.height)
+
+        let bbox = includeControlPoints ? self.boundingBox : self.boundingBoxOfPath // whether we use the control points for fitting the path
+        let (pathWidth, pathHeight) = (bbox.width, bbox.height)
+        guard containerWidth >= 0 && containerHeight >= 0 && !bbox.isEmpty && !bbox.isInfinite && !bbox.isNull && pathWidth > 0 && pathHeight > 0 else {
+            return nil
+        }
+
+        let inset = sourceInset
+        let rect = sourceRect.insetBy(dx: inset, dy: inset)
+        let scaleX = rect.width / pathWidth
+        let scaleY = rect.height / pathHeight
+        let scale = min(scaleX, scaleY)
+
+        let scaledPathWidth = pathWidth * scale
+        let scaledPathHeight = pathHeight * scale
+
+        if scale < 0 { return nil }
+        if scaledPathWidth - (inset * scale) <= 0 { return nil }
+        if scaledPathHeight - (inset * scale) <= 0 { return nil }
+
+        var transform = CGAffineTransform.identity
+            .translatedBy(x: (inset / 2) - (rect.minX / 2), y: (inset / 2) - (rect.minY / 2))
+            .translatedBy(x: (containerWidth/2.0) - (scaledPathWidth/2.0), y: (containerHeight/2.0) - (scaledPathHeight/2.0))
+            .scaledBy(x: stretch ? scaleX : scale, y: stretch ? scaleY : scale)
+            .translatedBy(x: -bbox.minX, y: -bbox.minY)
+
+        return self.copy(using: &transform)
+    }
+}
+
 
 #endif
 
@@ -190,62 +233,6 @@ public extension Path {
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
-@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-public extension CGPath
-{
-    /// Transform this CGPath to fit int the given rectangle
-    func fitting(rect sourceRect: CGRect, inset sourceInset: CGFloat = 0.0, stretch: Bool = false) -> CGPath
-    {
-        let (containerWidth, containerHeight) = (sourceRect.width, sourceRect.height)
-
-        let bbox = self.boundingBoxOfPath
-        let (pathWidth, pathHeight) = (bbox.width, bbox.height)
-        guard containerWidth >= 0 && containerHeight >= 0 && !bbox.isEmpty && !bbox.isInfinite && !bbox.isNull && pathWidth > 0 && pathHeight > 0 else
-        {
-            return self
-        }
-
-
-        let inset = sourceInset
-        let rect = sourceRect.insetBy(dx: inset, dy: inset)
-        let scaleX = rect.width / pathWidth
-        let scaleY = rect.height / pathHeight
-        let scale = min(scaleX, scaleY)
-
-        //dbg("fitting sourceRect:", sourceRect, "inset rect:", rect, "bbox:", bbox, "scaleX:", scaleX, "scaleY:", scaleY)
-
-        let scaledPathWidth = pathWidth * scale
-        let scaledPathHeight = pathHeight * scale
-
-        if scale < 0 {
-            return CGMutablePath()
-        }
-        
-        if scaledPathWidth - (inset * scale) <= 0 {
-            return CGMutablePath()
-        }
-
-        if scaledPathHeight - (inset * scale) <= 0 {
-            return CGMutablePath()
-        }
-
-        var requiredTransform = CGAffineTransform.identity
-//            .translatedBy(x: rect.minX, y: rect.minY)
-//            .translatedBy(x: centerX, y: centerY)
-//            .translatedBy(x: pathWidth/2.0, y: pathHeight/2.0)
-//            .translatedBy(x: (containerWidth / 2.0), y: 0.0)
-            .translatedBy(x: (inset / 2) - (rect.minX / 2), y: (inset / 2) - (rect.minY / 2))
-            .translatedBy(x: (containerWidth/2.0) - (scaledPathWidth/2.0), y: (containerHeight/2.0) - (scaledPathHeight/2.0))
-            .scaledBy(x: stretch ? scaleX : scale, y: stretch ? scaleY : scale)
-            .translatedBy(x: -bbox.minX, y: -bbox.minY)
-//            .translatedBy(x: scale != scaleX ? (containerWidth / 2.0) : 0.0, y: 0.0)
-//            .translatedBy(x: inset, y: inset)
-//            .translatedBy(x: (containerWidth/2.0) - (containerWidth - pathWidth)/2.0, y: (containerHeight/2.0) - (containerHeight - pathHeight)/2.0)
-
-        return self.copy(using: &requiredTransform) ?? self
-    }
-}
 
 private struct Vector2D
 {

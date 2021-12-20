@@ -109,7 +109,7 @@ public struct FairIconView : View, Equatable {
             return shape
         }
 
-        func borderMask() -> some Shape {
+        func borderMask(borderRatio: CGFloat) -> some Shape {
             //var shape = Circle().path(in: rect)
             var shape = squircle.path(in: rect)
             shape.addPath(squircle.inset(by: span * borderRatio).path(in: rect))
@@ -128,13 +128,11 @@ public struct FairIconView : View, Equatable {
                         Text(Image(systemName: path))
                             .font(iconFont(size: span * 0.5))
                             .opacity(0.95)
-                            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
                             //.opacity(monogram.isEmpty ? 1.0 : 0.5)
                     } else {
                         // render as an SVG Path
                         try? SVGPath(path)
                             .inset(by: span / 7)
-                            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
                     }
                 }
                 if self.paths.isEmpty {
@@ -142,7 +140,6 @@ public struct FairIconView : View, Equatable {
                         let baseFontSize = (span * 0.75) / .init(max(1, parts.count))
                         Text(monogram)
                             .font(iconFont(size: baseFontSize))
-                            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
                         if let subtitle = subtitle {
                             Text(subtitle)
                                 .font(Font.system(size: baseFontSize / 2, weight: .semibold, design: .rounded))
@@ -153,12 +150,12 @@ public struct FairIconView : View, Equatable {
             .foregroundColor(textColor)
             .lineLimit(1)
             .multilineTextAlignment(.center)
+            .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: span / 75.0)
 
             if borderRatio > 0.0 {
                 squircle
                     .fill(c3)
-                    //.mask(RoundedRectangle(cornerRadius: span / 4.3, style: .continuous).path(in: rect).fill(style: FillStyle(eoFill: true)))
-                    .mask(borderMask().fill(style: FillStyle(eoFill: true)))
+                    .mask(borderMask(borderRatio: borderRatio).fill(style: FillStyle(eoFill: true)))
                     .shadow(color: Color.black.opacity(1.0), radius: span * 0.01, x: 0, y: 0) // double interior shadow for raised effect
             }
 
@@ -214,7 +211,7 @@ struct FairIconView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 
-    static func preview(seed: UUID = UUID(), count: Int, span: CGFloat, borderRatio: CGFloat = 0.0) -> some View {
+    static func preview(seed: UUID = UUID(), count: Int, span: CGFloat, borderRatio: CGFloat = 0.06) -> some View {
         var rndgen = SeededRandomNumberGenerator(uuids: seed)
 
         var symbolNames = FairSymbol.allCases
