@@ -1495,13 +1495,15 @@ extension FairHub {
     @available(macOS 12.0, iOS 15.0, *)
     public static func fetchCatalog(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) async throws -> FairAppCatalog {
         dbg("fetching async", catalogURL)
+        let start = CFAbsoluteTimeGetCurrent()
 
         var req = URLRequest(url: catalogURL)
         if let cache = cache { req.cachePolicy = cache }
         let (data, response) = try await URLSession.shared.data(for: req, delegate: nil)
-
-        let _ = response
         let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
+
+        let end = CFAbsoluteTimeGetCurrent()
+        dbg("fetched catalog:", catalog.apps.count, "in:", (end - start), (response as? HTTPURLResponse)?.statusCode)
 
         return catalog
     }
