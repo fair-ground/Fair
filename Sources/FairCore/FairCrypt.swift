@@ -60,7 +60,42 @@ extension Data {
         _ = withUnsafeBytes { CC_SHA512($0.baseAddress, CC_LONG(self.count), &digest) }
         return Data(digest)
     }
+}
 
+/// An actor that can keep a running hash of a stream of bytes.
+public final actor SHA256Hasher {
+    private var context: CC_SHA256_CTX
+
+    public init() {
+        var ctx = CC_SHA256_CTX()
+        CC_SHA256_Init(&ctx)
+        self.context = ctx
+    }
+
+    /// Updates the hash with the given array
+    public func update(bytes: [UInt8]) {
+        CC_SHA256_Update(&context, bytes, CC_LONG(bytes.count))
+    }
+
+    /// Updates the hash with the given data
+    public func update(data: Data) {
+        data.withUnsafeBytes { bytes in
+            _ = CC_SHA256_Update(&context, bytes.baseAddress, CC_LONG(bytes.count))
+        }
+    }
+
+    /// Complete the hash and return the digest data
+    public func final() -> Data {
+        var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        CC_SHA256_Final(&digest, &context)
+        CC_SHA256_Init(&context)
+        return Data(digest)
+    }
+
+    /// Clear the current hash buffer and ready it for re-use
+    public func reset() {
+        CC_SHA256_Init(&context)
+    }
 }
 
 #endif

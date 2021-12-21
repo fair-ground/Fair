@@ -1332,7 +1332,7 @@ public extension FairCLI {
 
         var infoPlist: Plist? = nil
 
-        var coreSize = 0 // the size of the executable itself
+        var coreSize: UInt64 = 0 // the size of the executable itself
 
         for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
             if trustedEntry.path != untrustedEntry.path {
@@ -1498,7 +1498,7 @@ public extension FairCLI {
         }
 
         let tint = try? parseTintColor()
-        let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: coreSize, tint: tint)
+        let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: Int(coreSize), tint: tint)
         
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
         //try writeOutput(fairseal.debugJSON) // save the file
