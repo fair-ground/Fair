@@ -119,6 +119,28 @@ extension FileManager {
         }
         return isDir.boolValue
     }
+
+    /// Removes any quarantine properties from the given URL
+    public func clearQuarantine(at url: URL) throws {
+#if macOS
+        // try to clear the quarantine flag
+        var resourceValues = URLResourceValues()
+        resourceValues.quarantineProperties = nil // this should clear the quarantine flag
+        do {
+            try url.setResourceValues(resourceValues) // note: “Attempts to set a read-only resource property or to set a resource property not supported by the resource are ignored and are not considered errors. This method is currently applicable only to URLs for file system resources.”
+        } catch {
+            dbg("unable to clear quarantine flag for:", url.path)
+        }
+
+        // check to ensure we have cleared the props
+        let qtprops2 = try (url as NSURL).resourceValues(forKeys: [URLResourceKey.quarantinePropertiesKey])
+        if !qtprops2.isEmpty {
+            dbg("found quarantine xattr for:", url.path, "keys:", qtprops2)
+            throw AppError("Quarantined App", failureReason: "The app was quarantined by the system and cannot be installed.")
+        }
+#endif
+    }
+
 }
 
 public extension URL {
