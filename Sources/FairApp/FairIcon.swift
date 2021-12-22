@@ -224,7 +224,7 @@ struct FairIconView_Previews: PreviewProvider {
         // the first icon should be a 1/2 circle
         symbolNames.insert("M 0 0 A 25 25 0 1 0 0 50Z", at: 0)
 
-        let appNames = AppNameValidation.standard.suggestNames(count: count, rnd: &rndgen)
+        let appNames = (1...count).map { _ in UUID().uuidString }
         let appSymbols: [(appName: String, symbolName: String)] = Array(zip(appNames, symbolNames))
 
         let grid = LazyHGrid(rows: [

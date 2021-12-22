@@ -522,12 +522,6 @@ public extension FairCLI {
 
         var appNameSuggestions: [String] = []
         appNameSuggestions += ["The first step in creating a new App Fair app is to choose a name."]
-        appNameSuggestions += [""]
-        appNameSuggestions += ["The name must be two words separated by a hyphen, such as:"]
-        appNameSuggestions += [""]
-        for suggestion in try AppNameValidation.standard.suggestNames(count: 5) {
-            appNameSuggestions += ["   " + suggestion]
-        }
 
         let appName = try read("app-name", prompt: "App Name", info: appNameSuggestions.joined(separator: "\n"), validation: { proposedName in
             do {
@@ -2163,50 +2157,6 @@ extension String {
     func lightblueon() -> String { ansi(ANSICode.lightBlueOn) }
     func lightmagentaon() -> String { ansi(ANSICode.lightMagentaOn) }
     func lightcyanon() -> String { ansi(ANSICode.lightCyanOn) }
-}
-
-extension AppNameValidation {
-    private static let appnames: Result<Dictionary<String, [String]>, Error> = {
-        Result {
-            guard let nameURL = Bundle.fairApp.url(forResource: "appnames", withExtension: "json") else {
-                throw CocoaError(.fileNoSuchFile)
-            }
-            return try JSONDecoder().decode(Dictionary<String, [String]>.self, from: Data(contentsOf: nameURL))
-        }
-    }()
-
-    /// Suggests one or more names for valid App Fair app
-    public func suggestNames(count: Int = 1) throws -> Set<String> {
-        var rnd = SystemRandomNumberGenerator()
-        return suggestNames(count: count, rnd: &rnd)
-    }
-
-    public func randomName<R: RandomNumberGenerator>(rnd: inout R) throws -> String {
-        let names = try Self.appnames.get()
-        guard let noun = names.keys.sorted().randomElement(using: &rnd) else {
-            throw AppError("No noun")
-        }
-        guard let adj = names[noun]?.sorted().randomElement(using: &rnd) else {
-            throw AppError("No adjective")
-        }
-
-        let proposal = adj.capitalized + "-" + noun.capitalized
-        try validate(name: proposal) // make sure it passes validation
-        return proposal
-    }
-
-    /// Suggests one or more names for valid App Fair app
-    public func suggestNames<R: RandomNumberGenerator>(count: Int, rnd: inout R) -> Set<String> {
-        var proposals: Set<String> = []
-        while proposals.count < count {
-            if let proposal = try? randomName(rnd: &rnd) {
-                proposals.insert(proposal)
-            }
-        }
-
-        return proposals
-    }
-
 }
 
 extension AssetName {
