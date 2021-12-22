@@ -225,6 +225,7 @@ extension Encodable {
     }
 }
 
+#if !os(Linux) && !os(Windows)
 /// A watcher for changes to a folder
 public actor FileSystemObserver {
     private let fileDescriptor: CInt
@@ -244,4 +245,4 @@ public actor FileSystemObserver {
         close(fileDescriptor)
     }
 }
-
+#endif

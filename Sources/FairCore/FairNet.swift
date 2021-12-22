@@ -382,20 +382,20 @@ extension URLSession {
 
 /// A DownloadDelegate that updates a progress.
 /// Note: note currently working, perhaps due to un-implemented async/await support: https://stackoverflow.com/questions/68276940/how-to-get-the-download-progress-with-the-new-try-await-urlsession-shared-downlo
-@objc final class DownloadDelegate : NSObject, URLSessionDelegate, URLSessionDownloadDelegate {
+final class DownloadDelegate : NSObject, URLSessionDelegate, URLSessionDownloadDelegate {
     let progress: Progress
 
     init(progress: Progress) {
         self.progress = progress
     }
 
-    @objc func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest) async -> URLRequest? {
+    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest) async -> URLRequest? {
         // e.g.: https://github-releases.githubusercontent.com/420526657/7773060d-16b7-40b1-bdbe-03c0da4753f2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20211201%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211201T011008Z&X-Amz-Expires=300&X-Amz-Signature=5f1184f9fe71e5fb3724ea7bd96f2d8a3215056d4323afedf9fc56b4aa2a8114&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=420526657&response-content-disposition=attachment%3B%20filename%3DBon-Mot-macOS.zip&response-content-type=application%2Foctet-stream
         dbg("willPerformHTTPRedirection:", request.description)
         return request // allow all redirections
     }
 
-    @objc func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         dbg("didWriteData:", bytesWritten, "total", totalBytesWritten, "/", totalBytesExpectedToWrite)
         progress.totalUnitCount = totalBytesExpectedToWrite
         progress.completedUnitCount = totalBytesWritten
@@ -404,33 +404,33 @@ extension URLSession {
         // progress.throughput = …
     }
 
-    @objc func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         // progress.completedUnitCount = progress.totalUnitCount
         progress.totalUnitCount = 0
         progress.completedUnitCount = 0
     }
 
-    @objc func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         progress.totalUnitCount = 0
         progress.completedUnitCount = 0
     }
 
-    @objc func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
         dbg(metrics)
     }
 
-    @objc func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
     }
 
-    @objc func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-
-    }
-
-    @objc func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
 
     }
 
-    @objc func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
+
+    }
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
 
     }
 }
