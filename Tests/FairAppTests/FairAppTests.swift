@@ -79,10 +79,6 @@ final class FairAppTests: XCTestCase {
         XCTAssertEqual("[object Object]", try wv.eval(js: "[] + {}") as? NSString)
     }
 
-    func testNameSuggestions() throws {
-        print(try AppNameValidation.standard.suggestNames(count: 10))
-    }
-
     /// Ensure that all the variants of `Assets.xcassets/AccentColor.colorset/Contents.json` can be parsed into the same color value
     func testColorParsing() throws {
         let contentsSystemGreen = """
