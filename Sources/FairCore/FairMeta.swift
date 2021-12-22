@@ -408,6 +408,7 @@ public enum AppEntitlement : String, Pure, CaseIterable {
             switch entitlement {
             case .app_sandbox: return nil
             case .cs_allow_jit: return nil
+            case .cs_disable_library_validation: return nil
 
             case .network_client: return #line
             case .print: return #line
@@ -467,7 +468,6 @@ public enum AppEntitlement : String, Pure, CaseIterable {
             case .cs_debugger: return #line
             case .cs_allow_unsigned_executable_memory: return #line
             case .cs_allow_dyld_environment_variables: return #line
-            case .cs_disable_library_validation: return #line
             case .cs_disable_executable_page_protection: return #line
 
             case .files_all: return #line
@@ -607,8 +607,6 @@ public enum AppEntitlement : String, Pure, CaseIterable {
             return nil // never allowed
         case .cs_allow_dyld_environment_variables:
             return nil // never allowed
-        case .cs_disable_library_validation:
-            return nil // never allowed
         case .cs_disable_executable_page_protection:
             return nil // never allowed
 
@@ -616,6 +614,9 @@ public enum AppEntitlement : String, Pure, CaseIterable {
             return [] // no description required; ["CSAllowJITUsageDescription"]
 
         case .cs_allow_jit:
+            return [] // permitted, with no description required
+
+        case .cs_disable_library_validation:
             return [] // permitted, with no description required
 
         default:
