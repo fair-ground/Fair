@@ -2559,7 +2559,11 @@ extension ZipArchive {
                                         progress: progress, consumer: consumer)
         }
         let attributes = FileManager.attributes(from: entry)
-        try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
+
+        if entry.type != .symlink {
+            // symlinks seem to throw errors when setting attributes
+            try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
+        }
         return checksum
     }
 
