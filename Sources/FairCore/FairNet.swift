@@ -258,6 +258,7 @@ extension URLSession {
     /// the number of progress segments for the download part; the remainder will be the zip decompression
     public static let progressUnitCount: Int64 = 4
 
+    #if !os(Linux) && !os(Windows)
     /// Downloads the given request to a cached file location.
     ///
     /// - Parameters:
@@ -274,10 +275,11 @@ extension URLSession {
     @available(macOS 12.0, iOS 15.0, *)
     public func download(request: URLRequest, memoryBufferSize: Int = 1024 * 64, consumer: DataConsumer? = nil, parentProgress: Progress? = nil, responseVerifier: (URLResponse) throws -> Bool = { (200..<300).contains(($0 as? HTTPURLResponse)?.statusCode ?? 200) }) async throws -> (URL, URLResponse) {
         let downloadedArtifact: URL
-        let response: URLResponse
-
-        let (asyncBytes, asyncResponse) = try await self.bytes(for: request)
-        let length = asyncResponse.expectedContentLength
+        let (asyncBytes, response) = try await self.bytes(for: request)
+        if try responseVerifier(response) == false {
+            throw CocoaError(.fileNoSuchFile)
+        }
+        let length = response.expectedContentLength
         let progress1 = Progress(totalUnitCount: length)
         parentProgress?.addChild(progress1, withPendingUnitCount: Self.progressUnitCount - 1)
 
@@ -303,38 +305,38 @@ extension URLSession {
 
         var bytes = Data()
         bytes.reserveCapacity(memoryBufferSize)
-        var bytesCount: Int64 = 0
 
-        @MainActor func flushBuffer() async throws {
+        func flushBuffer(_ bytesCount: Int64) async throws {
             try Task.checkCancellation()
-            if parentProgress?.isCancelled == true {
-                throw CocoaError(.userCancelled)
-            }
 
             try fh.write(contentsOf: bytes) // write out the buffer
             await consumer?.update(data: bytes) // update the running hash
             bytes.removeAll(keepingCapacity: true) // clear the buffer
 
-            progress1.completedUnitCount = bytesCount
+            if let parentProgress = parentProgress {
+                if parentProgress.isCancelled == true {
+                    throw CocoaError(.userCancelled)
+                }
+                progress1.completedUnitCount = bytesCount
+            }
         }
 
+        var bytesCount: Int64 = 0
         for try await byte in asyncBytes {
             bytesCount += 1
             bytes.append(byte)
             if bytes.count == memoryBufferSize {
-                try await flushBuffer()
+                try await flushBuffer(bytesCount)
             }
         }
         if !bytes.isEmpty {
-            try await flushBuffer()
+            try await flushBuffer(bytesCount)
         }
 
-        response = asyncResponse
-
         try fh.close()
-
         return (downloadedArtifact, response)
     }
+    #endif // !os(Linux) && !os(Windows)
 
     /// If the download from `downloadTask` is successful, the completion handler receives a URL indicating the location of the downloaded file on the local filesystem. This storage is temporary. To preserve the file, this will move it from the temporary location before returning from the completion handler.
     /// In practice, macOS seems to be inconsistent in when it ever cleans up these files, so a failure here will manifest itself in occasional missing files.
