@@ -37,6 +37,10 @@ public extension Data {
     }
 }
 
+/// An actor that consumera data, such as a hashing function
+public protocol DataConsumer : Actor {
+    func update(data: Data)
+}
 
 #if canImport(CommonCrypto)
 import CommonCrypto
@@ -60,11 +64,6 @@ extension Data {
         _ = withUnsafeBytes { CC_SHA512($0.baseAddress, CC_LONG(self.count), &digest) }
         return Data(digest)
     }
-}
-
-/// An actor that consumera data, such as a hashing function
-public protocol DataConsumer : Actor {
-    func update(data: Data)
 }
 
 /// An actor that can keep a running hash of a stream of bytes.
