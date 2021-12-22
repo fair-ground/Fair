@@ -224,3 +224,24 @@ extension Encodable {
         (try? String(data: json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes]), encoding: .utf8) ?? "{}") ?? "{}"
     }
 }
+
+/// A watcher for changes to a folder
+public actor FileSystemObserver {
+    private let fileDescriptor: CInt
+    private let source: DispatchSourceProtocol
+
+    public init(URL: URL, queue: DispatchQueue = .global(), block: @escaping () -> Void) {
+        self.fileDescriptor = open(URL.path, O_EVTONLY)
+        self.source = DispatchSource.makeFileSystemObjectSource(fileDescriptor: self.fileDescriptor, eventMask: .all, queue: queue)
+        self.source.setEventHandler {
+            block()
+        }
+        self.source.resume()
+    }
+
+    deinit {
+        self.source.cancel()
+        close(fileDescriptor)
+    }
+}
+

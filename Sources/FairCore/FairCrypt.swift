@@ -62,8 +62,13 @@ extension Data {
     }
 }
 
+/// An actor that consumera data, such as a hashing function
+public protocol DataConsumer : Actor {
+    func update(data: Data)
+}
+
 /// An actor that can keep a running hash of a stream of bytes.
-public final actor SHA256Hasher {
+public final actor SHA256Hasher : DataConsumer {
     @usableFromInline var context: CC_SHA256_CTX
 
     public init() {

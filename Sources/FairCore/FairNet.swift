@@ -253,6 +253,105 @@ public extension URLSession {
 }
 
 extension URLSession {
+
+    /// the number of progress segments for the download part; the remainder will be the zip decompression
+    public static let progressUnitCount: Int64 = 4
+
+    /// Downloads the given request to a cached file location.
+    ///
+    /// - Parameters:
+    ///   - request: the request containing the URL to download
+    ///   - memoryBufferSize: the buffer size
+    ///   - consumer: a consumer for the data, such as  to update a hashing function
+    ///   - parentProgress: the progress to attach to
+    ///
+    /// - Returns: the downloaded file URL along with the request's response
+    ///
+    /// Note: this operaiton downloads directly into memory instead of the potentially-more-efficient download task.
+    /// We would like to use a download task to save directly to a file and have progress callbacks go through DownloadDelegate, but it is not working with async/await (see https://stackoverflow.com/questions/68276940/how-to-get-the-download-progress-with-the-new-try-await-urlsession-shared-downlo)
+    /// However, an advantage of using streaming bytes is that we can maintain a running sha256 hash for the download without have to load the whole data chunk into memory after the download has completed
+    @available(macOS 12.0, iOS 15.0, *)
+    public func download(request: URLRequest, memoryBufferSize: Int?, consumer: DataConsumer? = nil, parentProgress: Progress? = nil) async throws -> (URL, URLResponse) {
+        let downloadedArtifact: URL
+        let response: URLResponse
+
+        if let memoryBufferSize = memoryBufferSize { // use the streaming AsyncBytes method
+            let (asyncBytes, asyncResponse) = try await self.bytes(for: request)
+            let length = asyncResponse.expectedContentLength
+            let progress1 = Progress(totalUnitCount: length)
+            parentProgress?.addChild(progress1, withPendingUnitCount: Self.progressUnitCount - 1)
+
+            try Task.checkCancellation()
+
+            // create a temporary zip file in the caches directory from which we will extract the data
+            downloadedArtifact = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                .appendingPathComponent(UUID().uuidString)
+                .appendingPathComponent(request.url?.lastPathComponent ?? "download")
+
+            dbg("downloading to temporary path:", downloadedArtifact.path)
+
+            // ensure parent path exists
+            try FileManager.default.createDirectory(at: downloadedArtifact.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+
+            try Task.checkCancellation()
+
+            // the file must exist before we can open the file handle
+            FileManager.default.createFile(atPath: downloadedArtifact.path, contents: nil, attributes: nil)
+
+            let fh = try FileHandle(forWritingTo: downloadedArtifact)
+            defer { try? fh.close() }
+
+            var bytes = Data()
+            bytes.reserveCapacity(memoryBufferSize)
+            var bytesCount: Int64 = 0
+
+            @MainActor func flushBuffer() async throws {
+                try Task.checkCancellation()
+                if parentProgress?.isCancelled == true {
+                    throw CocoaError(.userCancelled)
+                }
+
+                try fh.write(contentsOf: bytes) // write out the buffer
+                await consumer?.update(data: bytes) // update the running hash
+                bytes.removeAll(keepingCapacity: true) // clear the buffer
+
+                progress1.completedUnitCount = bytesCount
+            }
+
+            for try await byte in asyncBytes {
+                bytesCount += 1
+                bytes.append(byte)
+                if bytes.count == memoryBufferSize {
+                    try await flushBuffer()
+                }
+            }
+            if !bytes.isEmpty {
+                try await flushBuffer()
+            }
+
+            response = asyncResponse
+
+            try fh.close()
+
+            // ensure the running hash matches the contents of the file
+            // let fileChecksum = try Data(contentsOf: downloadedArtifact).sha256().hex()
+            // assert(fileChecksum == sha256, "fileChecksum \(fileChecksum) != sha256 \(sha256)")
+        } else {
+            let progress1 = Progress(totalUnitCount: 1)
+            parentProgress?.addChild(progress1, withPendingUnitCount: Self.progressUnitCount - 1)
+
+            let delegate: URLSessionDownloadDelegate = DownloadDelegate(progress: progress1)
+            (downloadedArtifact, response) = try await self.download(for: request, delegate: delegate)
+
+            if let consumer = consumer {
+                // load a single shot
+                await consumer.update(data: try Data(contentsOf: downloadedArtifact, options: .alwaysMapped))
+            }
+        }
+
+        return (downloadedArtifact, response)
+    }
+
     /// If the download from `downloadTask` is successful, the completion handler receives a URL indicating the location of the downloaded file on the local filesystem. This storage is temporary. To preserve the file, this will move it from the temporary location before returning from the completion handler.
     /// In practice, macOS seems to be inconsistent in when it ever cleans up these files, so a failure here will manifest itself in occasional missing files.
     /// This is needed for running an async operation that will still have access to the resulting file.
@@ -277,5 +376,61 @@ extension URLSession {
             // fall-back to the completion handler
             return completionHandler(url, response, error)
         }
+    }
+}
+
+
+/// A DownloadDelegate that updates a progress.
+/// Note: note currently working, perhaps due to un-implemented async/await support: https://stackoverflow.com/questions/68276940/how-to-get-the-download-progress-with-the-new-try-await-urlsession-shared-downlo
+@objc final class DownloadDelegate : NSObject, URLSessionDelegate, URLSessionDownloadDelegate {
+    let progress: Progress
+
+    init(progress: Progress) {
+        self.progress = progress
+    }
+
+    @objc func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest) async -> URLRequest? {
+        // e.g.: https://github-releases.githubusercontent.com/420526657/7773060d-16b7-40b1-bdbe-03c0da4753f2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20211201%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211201T011008Z&X-Amz-Expires=300&X-Amz-Signature=5f1184f9fe71e5fb3724ea7bd96f2d8a3215056d4323afedf9fc56b4aa2a8114&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=420526657&response-content-disposition=attachment%3B%20filename%3DBon-Mot-macOS.zip&response-content-type=application%2Foctet-stream
+        dbg("willPerformHTTPRedirection:", request.description)
+        return request // allow all redirections
+    }
+
+    @objc func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        dbg("didWriteData:", bytesWritten, "total", totalBytesWritten, "/", totalBytesExpectedToWrite)
+        progress.totalUnitCount = totalBytesExpectedToWrite
+        progress.completedUnitCount = totalBytesWritten
+        // TODO:
+        // progress.estimatedTimeRemaining = …
+        // progress.throughput = …
+    }
+
+    @objc func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        // progress.completedUnitCount = progress.totalUnitCount
+        progress.totalUnitCount = 0
+        progress.completedUnitCount = 0
+    }
+
+    @objc func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        progress.totalUnitCount = 0
+        progress.completedUnitCount = 0
+    }
+
+    @objc func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
+        dbg(metrics)
+    }
+
+    @objc func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
+    }
+
+    @objc func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+
+    }
+
+    @objc func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
+
+    }
+
+    @objc func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+
     }
 }
