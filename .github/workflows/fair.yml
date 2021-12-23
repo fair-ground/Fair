@@ -191,7 +191,7 @@ jobs:
             CODE_SIGN_IDENTITY="-" \
             DEVELOPMENT_TEAM="" \
             CODE_SIGN_IDENTITY="-" \
-            OTHER_CODE_SIGNING_FLAGS="--timestamp=none" \
+            OTHER_CODE_SIGN_FLAGS="--deep --timestamp=none" \
             OTHER_LIBTOOLFLAGS="-D" \
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
@@ -520,7 +520,7 @@ jobs:
             PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             DEVELOPMENT_TEAM="" \
             CODE_SIGN_IDENTITY="-" \
-            OTHER_CODE_SIGNING_FLAGS="--timestamp=none" \
+            OTHER_CODE_SIGN_FLAGS="--deep --timestamp=none" \
             OTHER_LIBTOOLFLAGS="-D" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
           shasum -a 256 "staging/.${{ env.FAIR_APP_ARTIFACT }}-macOS.xcarchive/Products/Applications"/*.app/Contents/MacOS/*
