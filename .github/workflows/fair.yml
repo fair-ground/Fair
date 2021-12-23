@@ -307,9 +307,7 @@ jobs:
           xcrun notarytool submit --wait --progress --apple-id "${{ secrets.NOTARY_USERID }}" --password "${{ secrets.NOTARY_PASSWORD }}" --team-id "${{ secrets.NOTARY_TEAMID }}" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
 
           # staple the notarization ticket to the app
-          # permit failure since stapling is not essential
-          # (also works around the error: CloudKit query for App Name.app failed due to "Record not found".)
-          xcrun stapler staple "staging/${{ env.PRODUCT_NAME }}.app" || true
+          xcrun stapler staple "staging/${{ env.PRODUCT_NAME }}.app"
 
           # re-create the archive with the signed & stapled artifact
           ditto -c -k --sequesterRsrc --keepParent "staging/${{ env.PRODUCT_NAME }}.app" "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip"
