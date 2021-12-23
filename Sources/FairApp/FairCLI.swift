@@ -1377,6 +1377,7 @@ public extension FairCLI {
             var trustedPayload = try trustedArchive.extractData(from: trustedEntry)
             var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
 
+            // handles the dynamic library at: Payload/App Name.app/Frameworks/App.framework/App
             let isMachOBinary = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
                 || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf]) // 64-bit magic
                 || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe]) // universal magic
