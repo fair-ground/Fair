@@ -1378,12 +1378,12 @@ public extension FairCLI {
             var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
 
             // handles the dynamic library at: Payload/App Name.app/Frameworks/App.framework/App
-            let isMachOBinary = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
+            let isExecutable = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
                 || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf]) // 64-bit magic
                 || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe]) // universal magic
-                || trustedPayload.starts(with: [0xcf, 0xfa, 0xed, 0xfe, 0x0c]) // iOS?
+                || trustedPayload.starts(with: [0xcf, 0xfa, 0xed, 0xfe, 0x0c, 0x00, 0x00, 0x01]) // dylib
 
-            let isAppBinary = entryIsMainBinary || isMachOBinary
+            let isAppBinary = entryIsMainBinary || isExecutable
 
             // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
             #if os(macOS) // we can only launch `codesign` on macOS
