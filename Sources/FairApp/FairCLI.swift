@@ -1381,6 +1381,7 @@ public extension FairCLI {
             let isMachOBinary = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
                 || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf]) // 64-bit magic
                 || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe]) // universal magic
+                || trustedPayload.starts(with: [0xcf, 0xfa, 0xed, 0xfe, 0x0c]) // iOS?
 
             let isAppBinary = entryIsMainBinary || isMachOBinary
 
