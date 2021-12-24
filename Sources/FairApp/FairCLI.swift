@@ -1114,8 +1114,9 @@ public extension FairCLI {
 
         var appIconSet = iconSet
 
-        let iconView = FairIconView(appName, subtitle: catalogTitleFlag, paths: symbolNames, iconColor: iconColor)
         for imageSet in icons {
+            let iconView = FairIconView(appName, subtitle: catalogTitleFlag, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
+
             if imageSet.filename != nil {
                 continue // skip any elements that have a file path specified already
             }

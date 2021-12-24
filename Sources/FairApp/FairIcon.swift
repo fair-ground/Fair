@@ -30,13 +30,16 @@ public struct FairIconView : View, Equatable {
     let iconColor: Color?
     /// Whether a raised border should be rendered
     let borderRatio: CGFloat
+    /// The span factor for the corner radius
+    let cornerRadiusFactor: CGFloat
 
-    public init(_ name: String, subtitle: String?, paths: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00) {
+    public init(_ name: String, subtitle: String?, paths: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00, cornerRadiusFactor: CGFloat? = nil) {
         self.name = name
         self.subtitle = subtitle
         self.paths = paths
         self.iconColor = iconColor
         self.borderRatio = borderRatio
+        self.cornerRadiusFactor = cornerRadiusFactor ?? 4.3
     }
 
     public var body: some View {
@@ -101,7 +104,7 @@ public struct FairIconView : View, Equatable {
 
         let rect = CGRect(origin: .zero, size: CGSize(width: span, height: span))
 
-        let squircle = RoundedRectangle(cornerRadius: span / 4.3, style: .continuous)
+        let squircle = RoundedRectangle(cornerRadius: cornerRadiusFactor == 0.0 ? 0 : (span / cornerRadiusFactor), style: .continuous)
         func maskPath() -> some Shape {
             //var shape = Circle().path(in: rect)
             var shape = Rectangle().path(in: rect)
