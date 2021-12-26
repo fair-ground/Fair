@@ -69,4 +69,46 @@ public struct TriptychView<Outline: View, ListSelection: View, TableSelection: V
     }
 }
 
+@available(macOS 12.0, iOS 15.0, *)
+public struct DisplayModePicker: View {
+    @Binding var mode: TriptychOrient
+
+    public init(mode: Binding<TriptychOrient>) {
+        self._mode = mode
+    }
+    
+    public var body: some View {
+        // only display the picker if there is more than one element (i.e., on macOS)
+        if TriptychOrient.allCases.count > 1 {
+            Picker(selection: $mode) {
+                ForEach(TriptychOrient.allCases) { viewMode in
+                    viewMode.label
+                }
+            } label: {
+                Text("Display Mode")
+            }
+            .pickerStyle(SegmentedPickerStyle())
+        }
+    }
+}
+
+@available(macOS 12.0, iOS 15.0, *)
+public extension TriptychOrient {
+    var labelContent: (name: LocalizedStringKey, systemImage: String) {
+        switch self {
+        case .list:
+            return ("List", "list.bullet.rectangle")
+        #if os(macOS)
+        case .table:
+            return ("Table", "tablecells")
+        #endif
+        }
+    }
+
+    var label: some View {
+        Label(labelContent.name, systemImage: labelContent.systemImage)
+    }
+}
+
+
 #endif
