@@ -371,6 +371,23 @@ jobs:
           # git checkout main # ensure we are on main
           # git status
           # gh pr create --no-maintainer-edit --repo "${{ inputs.fairground }}/App" --title "${{ env.BUNDLE_ID }} ${GITHUB_REF#refs/tags/}" --body "${{ env.BUNDLE_ID }} release ${GITHUB_REF#refs/tags/}"
+   
+      # See: Creating API Keys for App Store Connect API
+      # https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api
+      # "Generate API Key" Name: "App Store Connect" Access: "Admin"
+      - name: "Check TestFlight keys"
+        id: testflight_setup
+        env:
+            TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
+        if: ${{ env.TESTFLIGHT_TEAMID != '' }}
+        # transfer the secret to an env variable so it can be checked with `if`
+        run: echo "::set-output name=defined::true"
+
+      - name: "Create TestFlight App"
+        if: ${{ steps.testflight_setup.outputs.defined == 'true' }}
+        run: |
+          mkdir -p .testflight
+          brew install fastlane
 
 
   # The Integrate-Release phases run in the trusted base fairground.

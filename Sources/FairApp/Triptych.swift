@@ -76,7 +76,7 @@ public struct DisplayModePicker: View {
     public init(mode: Binding<TriptychOrient>) {
         self._mode = mode
     }
-    
+
     public var body: some View {
         // only display the picker if there is more than one element (i.e., on macOS)
         if TriptychOrient.allCases.count > 1 {
