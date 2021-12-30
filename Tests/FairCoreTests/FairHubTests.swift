@@ -104,8 +104,8 @@ final class FairHubTests: XCTestCase {
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.CatalogQuery.QueryResponse.BaseRepository.Repository]] = []
-        for _ in 1...3 {
-            let results = try hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 2...22)), maxBatches: 1_000)
+        for _ in 1...1 {
+            let results = try hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 10...80)), maxBatches: 1_000)
             let forks = results
                 .compactMap(\.result.successValue)
                 .flatMap(\.data.repository.forks.nodes)
