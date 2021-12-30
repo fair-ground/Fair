@@ -23,6 +23,9 @@ public extension Bundle {
     /// The org name of the catalog browser app itself
     static let catalogBrowserAppOrg = "App-Fair"
 
+    /// e.g: `appfair://update/app.Abc-Xyz`
+    static let catalogBrowserAppScheme = catalogBrowserAppOrg.replacingOccurrences(of: "-", with: "").lowercased()
+
     /// Returns the resources bundle for `FairApp`
     static var fairApp: Bundle { Bundle.module }
 
@@ -49,10 +52,13 @@ public extension Bundle {
 
     /// Returns the URL for referencing the current app from within the app store
     static func appFairURL(_ action: String) -> URL? {
-        URL(string: "appfair://\(action)/\(Bundle.mainBundleID)")
+        URL(string: "\(catalogBrowserAppScheme)://\(action)/\(Bundle.mainBundleID)")
+    }
+
+    static func isAppFairInstalled() -> Bool {
+        appFairURL("update")?.canLaunchScheme() == true
     }
 }
-
 
 #if canImport(SwiftUI)
 /// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
@@ -287,17 +293,19 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
 
     @SceneBuilder public var body: some SwiftUI.Scene {
         let commands = Group {
-            CommandGroup(replacing: CommandGroupPlacement.help) {
-                linkButton("Help", path: nil)
-                linkButton("Discussions", path: "discussions")
-                linkButton("Issues", path: "issues")
-
-                if let url = Bundle.appFairURL("update") {
+            CommandGroup(after: CommandGroupPlacement.appSettings) {
+                if let url = Bundle.appFairURL("update"), url.canLaunchScheme() == true {
                     Link(destination: url) {
                         Text("Check for Updates", bundle: .module)
                             .help(Text("Check for updates on the App Fair"))
                     }
                 }
+            }
+
+            CommandGroup(replacing: CommandGroupPlacement.help) {
+                linkButton("Help", path: nil)
+                linkButton("Discussions", path: "discussions")
+                linkButton("Issues", path: "issues")
             }
         }
 
@@ -350,6 +358,23 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
 }
 
 public extension URL {
+    /// Returns true if the given URL scheme can be opened on the current system
+    ///
+    /// Note: on iOS, the app's Info.plist must contain the requested scheme in the key: [LSApplicationQueriesSchemes](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/plist/info/LSApplicationQueriesSchemes)
+    func canLaunchScheme() -> Bool {
+        #if os(macOS)
+        if #available(macOS 12.0, *) {
+            return !NSWorkspace.shared.urlsForApplications(toOpen: self).isEmpty
+        } else {
+            return false // could use `LSCopyApplicationURLsForURL`
+        }
+        #elseif os(iOS)
+        return UIApplication.shared.canOpenURL(self)
+        #else
+        return false
+        #endif
+    }
+
     /// Returns the URL for this app's hub page
     static func fairHubURL(_ path: String? = nil) -> URL? {
         guard let appOrgName = Bundle.main.appOrgName else {
