@@ -60,6 +60,42 @@ public extension Bundle {
     }
 }
 
+
+public extension URL {
+    /// Returns true if the given URL scheme can be opened on the current system
+    ///
+    /// Note: on iOS, the app's Info.plist must contain the requested scheme in the key: [LSApplicationQueriesSchemes](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/plist/info/LSApplicationQueriesSchemes)
+    func canLaunchScheme() -> Bool {
+        #if os(macOS)
+        if #available(macOS 12.0, *) {
+            return !NSWorkspace.shared.urlsForApplications(toOpen: self).isEmpty
+        } else {
+            return false // could use `LSCopyApplicationURLsForURL`
+        }
+        #elseif os(iOS)
+        return UIApplication.shared.canOpenURL(self)
+        #else
+        return false
+        #endif
+    }
+
+    /// Returns the URL for this app's hub page
+    static func fairHubURL(_ path: String? = nil) -> URL? {
+        guard let appOrgName = Bundle.main.appOrgName else {
+            return nil
+        }
+
+        guard let baseURL = URL(string: "https://www.github.com/") else {
+            return nil
+        }
+
+        return baseURL
+            .appendingPathComponent(appOrgName)
+            .appendingPathComponent(AppNameValidation.defaultAppName)
+            .appendingPathComponent(path ?? "")
+    }
+}
+
 #if canImport(SwiftUI)
 /// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
 @available(macOS 12.0, iOS 15.0, *)
@@ -354,41 +390,6 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                 Text(title, bundle: .module).link(to: url)
             }
         }
-    }
-}
-
-public extension URL {
-    /// Returns true if the given URL scheme can be opened on the current system
-    ///
-    /// Note: on iOS, the app's Info.plist must contain the requested scheme in the key: [LSApplicationQueriesSchemes](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/plist/info/LSApplicationQueriesSchemes)
-    func canLaunchScheme() -> Bool {
-        #if os(macOS)
-        if #available(macOS 12.0, *) {
-            return !NSWorkspace.shared.urlsForApplications(toOpen: self).isEmpty
-        } else {
-            return false // could use `LSCopyApplicationURLsForURL`
-        }
-        #elseif os(iOS)
-        return UIApplication.shared.canOpenURL(self)
-        #else
-        return false
-        #endif
-    }
-
-    /// Returns the URL for this app's hub page
-    static func fairHubURL(_ path: String? = nil) -> URL? {
-        guard let appOrgName = Bundle.main.appOrgName else {
-            return nil
-        }
-
-        guard let baseURL = URL(string: "https://www.github.com/") else {
-            return nil
-        }
-
-        return baseURL
-            .appendingPathComponent(appOrgName)
-            .appendingPathComponent(AppNameValidation.defaultAppName)
-            .appendingPathComponent(path ?? "")
     }
 }
 
