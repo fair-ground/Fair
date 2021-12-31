@@ -637,6 +637,9 @@ public struct AppError : LocalizedError {
     }
 }
 
+/// Work-in-Progress marker
+@available(*, deprecated, message: "work in progress")
+@inlinable public func wip<T>(_ value: T) -> T { value }
 
 // MARK: Package-Specific Utilities
 
@@ -648,14 +651,3 @@ internal func loc(_ key: String, tableName: String? = nil, comment: String? = ni
     // TODO: use StringLocalizationKey
     NSLocalizedString(key, tableName: tableName, bundle: .module, comment: comment ?? "")
 }
-
-/// Work-in-Progress marker
-@available(*, deprecated, message: "work in progress")
-internal func wip<T>(_ value: T) -> T { value }
-
-extension String {
-    static func localizedString(for key: String, locale: Locale = .current, comment: StaticString = "") -> String {
-        NSLocalizedString(key, bundle: Bundle.module.path(forResource: locale.languageCode, ofType: "lproj").flatMap(Bundle.init(path:)) ?? Bundle.module, comment: comment.description)
-    }
-}
-
