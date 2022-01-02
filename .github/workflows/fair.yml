@@ -131,8 +131,7 @@ jobs:
           echo "PRODUCT_NAME=$(echo ${{ env.APPNAME }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "FAIR_APP_ARTIFACT=${{ env.APPNAME }}" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ env.APPNAME }})" >> $GITHUB_ENV
-          # enable git-lfs for xcode
-          ln -s /usr/local/bin/git-lfs $(xcode-select -p)/usr/bin/git-lfs
+          git lfs install --skip-smudge
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -429,8 +428,7 @@ jobs:
           echo "PRODUCT_NAME=$(echo ${{ env.ORGNAME }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
           echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
-          # enable git-lfs for xcode
-          ln -s /usr/local/bin/git-lfs $(xcode-select -p)/usr/bin/git-lfs
+          git lfs install --skip-smudge
  
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
