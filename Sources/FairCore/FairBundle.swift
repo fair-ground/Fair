@@ -164,6 +164,85 @@ public extension URL {
     static var tmpdir: URL { URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true) }
 }
 
+extension URL {
+    /// Attempts to create a cached file based on the contents of the given URL's folder ending with ".parts".
+    /// This folder is expected to contain individual files which, when concatinated in alphabetical order, will re-create the specified file
+    ///
+    /// This allows large files to be split into individual parts to work around [SPM's lack of git LFS support](https://forums.swift.org/t/swiftpm-with-git-lfs/42396/6).
+    public func assemblePartsCache(overwrite: Bool = false) throws -> URL {
+        let fm = FileManager.default
+
+        if fm.isDirectory(url: self) != true {
+            throw CocoaError(.fileReadUnsupportedScheme)
+        }
+
+        let cacheBase = self.deletingPathExtension().lastPathComponent
+        let cacheFile = try fm.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: self, create: true).appendingPathComponent(cacheBase)
+
+        let parts = try self.fileChildren(deep: false)
+            .filter { fm.isDirectory(url: $0) == false }
+            .filter { $0.lastPathComponent.hasPrefix(".") == false }
+            .sorting(by: \.lastPathComponent)
+
+        let totalSize = try parts.compactMap({ try $0.fileSize() }).reduce(0, +)
+        dbg("assembling parts in", self.path, "into:", cacheFile.path, "size:", totalSize.localizedByteCount(), "from:", parts.map(\.lastPathComponent))
+
+        if fm.isReadableFile(atPath: cacheFile.path) && overwrite == false {
+            // ensure that the file size is equal to the sum of the individual path components
+            // note that we skip any checksum validation here, so we expect the resource to be trusted (which it will be if it is included in a signed app bundle)
+            if try cacheFile.fileSize() == totalSize {
+                return cacheFile
+            }
+        }
+
+        // clear any existing cache file that we aren't using (e.g., due to bad size)
+        try? FileManager.default.removeItem(at: cacheFile)
+
+        // file must exist before writing
+        FileManager.default.createFile(atPath: cacheFile.path, contents: nil, attributes: nil)
+        let fh = try FileHandle(forWritingTo: cacheFile)
+        defer { try? fh.close() }
+
+        for part in parts {
+            try fh.write(contentsOf: Data(contentsOf: part))
+        }
+
+        return cacheFile
+    }
+
+    /// Returns the contents of the given file URL's folder.
+    /// - Parameter deep: whether to retrieve the deep or shallow contents
+    /// - Returns: the list of URL children relative to the current URL's folder
+    public func fileChildren(deep: Bool) throws -> [URL] {
+        let fm = FileManager.default
+
+        if fm.isDirectory(url: self) != true {
+            throw CocoaError(.fileReadUnknown)
+        }
+
+        if deep == false {
+            return try fm.contentsOfDirectory(atPath: self.path)
+                .map { path in
+                    URL(fileURLWithPath: path, relativeTo: self)
+                }
+        } else {
+            guard let walker = fm.enumerator(atPath: self.path) else {
+                throw CocoaError(.fileReadNoSuchFile)
+            }
+
+            var paths: [URL] = []
+            for path in walker {
+                if let path = path as? String {
+                    paths.append(URL(fileURLWithPath: path, relativeTo: self))
+                }
+            }
+
+            return paths
+        }
+    }
+
+}
+
 public extension Decodable {
     /// Initialized this instance from a JSON string
     init(json: Data, decoder: @autoclosure () -> JSONDecoder = JSONDecoder(), allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws {

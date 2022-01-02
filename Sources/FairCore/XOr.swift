@@ -43,7 +43,7 @@ import Swift
 /// would need a type discriminator field to ensure that both sides
 /// are mutually exclusive for decoding.
 ///
-/// In short: `try XOr<Double>.Or<Float>(Float(1.0)).encoded().decoded() != XOr<Double>.Or<Float>(Float(1.0))`
+/// In short, given `typealias DoubleOrFloat = XOr<Double>.Or<Float>`: `try DoubleOrFloat(Float(1.0)).encoded().decoded() != DoubleOrFloat(Float(1.0))`
 public indirect enum XOr<P> : RawRepresentable {
     public typealias Value = P
     case p(P)
