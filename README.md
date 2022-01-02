@@ -47,12 +47,3 @@ let package = Package(
 )
 ```
 
-
-## Documentation
-
-Swift API documentation is avaiulable at:
-
- - [FairCore](https://fair-ground.github.io/Fair/documentation/faircore/)
- - [FairApp](https://fair-ground.github.io/Fair/documentation/fairapp/)
-
-
