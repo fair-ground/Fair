@@ -648,8 +648,9 @@ public struct AppError : LocalizedError {
 /// Returns the localized string for the current module.
 ///
 /// - Note: This is boilerplate package-local code that could be copied
-///  to any Swift package with localized strings.
-internal func loc(_ key: String, tableName: String? = nil, comment: String? = nil) -> String {
-    // TODO: use StringLocalizationKey
-    NSLocalizedString(key, tableName: tableName, bundle: .module, comment: comment ?? "")
+///  to any Swift package with localized strings, but cannot be used across modules since
+///    `Bundle.module` won't resolve to the callers bundle.
+internal func loc(_ key: StaticString, locale: Locale = .current, bundle: Bundle = .module, tableName: String? = nil, comment: StaticString = "") -> String {
+    NSLocalizedString(key.description, bundle: bundle.path(forResource: locale.languageCode, ofType: "lproj").flatMap(Bundle.init(path:)) ?? bundle, comment: comment.description)
+
 }

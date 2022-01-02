@@ -46,17 +46,10 @@ final class FairAppTests: XCTestCase {
         //let xyz = "XYZ"
         XCTAssertEqual("Cancel", loc("Cancel"))
 
-        XCTAssertEqual("Cancel", String.localizedString(for: "Cancel"))
-        XCTAssertEqual("Abbrechen", String.localizedString(for: "Cancel", locale: Locale(identifier: "de")))
-
-        // Seems to not yet be working…
-
-        // XCTAssertEqual("Cancel", String(localized: "Cancel", bundle: Bundle.fairApp, locale: Locale(identifier: "en")))
-        // XCTAssertEqual("Abbrechen", String(localized: "Cancel", bundle: Bundle.fairApp, locale: Locale(identifier: "de")))
-        // XCTAssertEqual("Cancelar", String(localized: "Cancel", bundle: Bundle.fairApp, locale: Locale(identifier: "es")))
-        // XCTAssertEqual("Annuler", String(localized: "Cancel", bundle: Bundle.fairApp, locale: Locale(identifier: "fr")))
-        // XCTAssertEqual("Annulla", String(localized: "Cancel", bundle: Bundle.fairApp, locale: Locale(identifier: "it")))
-        // XCTAssertEqual("キャンセルする", String(localized: "Cancel", bundle: Bundle.fairApp, locale: Locale(identifier: "ja")))
+        XCTAssertEqual("Cancel", loc("Cancel"))
+        XCTAssertEqual("Abbrechen", loc("Cancel", locale: Locale(identifier: "de")))
+        XCTAssertEqual("キャンセルする", loc("Cancel", locale: Locale(identifier: "ja")))
+        XCTAssertEqual("Отменить", loc("Cancel", locale: Locale(identifier: "ru")))
     }
 
     func testJavaScript() throws {

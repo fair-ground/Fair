@@ -1206,39 +1206,46 @@ public extension FairCLI {
         }
     }
 
-    private func fetchArtifact(msg: MessageHandler, url artifactURL: URL, retryDuration: TimeInterval, retryWait: TimeInterval) throws -> URL {
-        let timeoutDate = Date().addingTimeInterval(retryDuration)
+    /// Retries the given operation until the `retry-duration` flag as been exceeded
+    private func retrying<T>(msg: MessageHandler, operation: () throws -> T) throws -> T {
+        let timeoutDate = Date().addingTimeInterval(retryDurationFlag ?? 0)
         while true {
             do {
-                var request = URLRequest(url: artifactURL)
-                request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-                let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
-                if let response = response as? HTTPURLResponse,
-                   (200..<300).contains(response.statusCode) { // e.g., 404
-                    msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
-                    return downloadedURL
-                } else {
-                    msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                    if try Date() >= timeoutDate || backoff(error: nil) == false {
-                        throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
-                    }
-                }
+                return try operation()
             } catch {
-                if try backoff(error: error) == false {
+                if try backoff(timeoutDate, error: error, msg: msg) == false {
                     throw error
                 }
             }
         }
 
         /// Backs off until the given timeout date
-        @discardableResult func backoff(error: Error?) throws -> Bool {
+        @discardableResult func backoff(_ timeoutDate: Date, error: Error?, msg: MessageHandler) throws -> Bool {
             // we we are timed out, or if we don't want to retry, then simply re-download
-            if retryDuration <= 0 || retryWait <= 0 || Date() >= timeoutDate {
+            if (retryDurationFlag ?? 0) <= 0 || retryWaitFlag <= 0 || Date() >= timeoutDate {
                 return false
             } else {
-                msg(.info, "retrying download in \(retryWait) seconds from \(Date()) due to error:", error)
-                Thread.sleep(forTimeInterval: retryWait)
+                msg(.info, "retrying operation in \(retryWaitFlag) seconds from \(Date()) due to error:", error)
+                Thread.sleep(forTimeInterval: retryWaitFlag)
                 return true
+            }
+        }
+
+
+    }
+
+    private func fetchArtifact(msg: MessageHandler, url artifactURL: URL) throws -> URL {
+        try retrying(msg: msg) {
+            var request = URLRequest(url: artifactURL)
+            request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+            let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
+            if let response = response as? HTTPURLResponse,
+               (200..<300).contains(response.statusCode) { // e.g., 404
+                msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
+                return downloadedURL
+            } else {
+                msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
+                throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
             }
         }
     }
@@ -1254,7 +1261,7 @@ public extension FairCLI {
             throw Errors.missingFlag(self.op, "-artifact-url")
         }
 
-        return try fetchArtifact(msg: msg, url: artifactURL, retryDuration: retryDurationFlag ?? 0, retryWait: retryWaitFlag)
+        return try fetchArtifact(msg: msg, url: artifactURL)
     }
 
     #if canImport(Compression)
@@ -1540,7 +1547,12 @@ public extension FairCLI {
 
     func catalog(msg: MessageHandler) throws {
         msg(.info, "Catalog")
+        try retrying(msg: msg) {
+            try createCatalog(msg: msg)
+        }
+    }
 
+    private func createCatalog(msg: MessageHandler) throws {
         let hub = try fairHub()
 
         // whether to enforce a fairseal check before the app will be listed in the catalog
