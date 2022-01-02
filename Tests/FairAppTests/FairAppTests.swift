@@ -505,7 +505,7 @@ final class FairAppTests: XCTestCase {
 
         try path
             .png(bounds: CGRect(x: 0, y: 0, width: 250, height: 250))?
-            .write(to: URL(fileURLWithPath: NSString("~/Desktop/testSVGPath.png").expandingTildeInPath))
+            .write(to: URL(fileURLWithPath: NSString("\(NSTemporaryDirectory())/testSVGPath.png")))
         #endif
     }
 }
