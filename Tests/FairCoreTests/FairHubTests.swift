@@ -117,33 +117,55 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildMacOSCatalog() throws {
-        let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-        let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
-        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-        dbg("catalog", names.sorted())
+        for _ in 1...3 {
+            do {
+                return try buildCatalog()
+            } catch {
+                dbg("retrying error:", error)
+            }
+        }
+        try buildCatalog() // fail for real this time
 
-        XCTAssertFalse(names.contains("App"))
+        func buildCatalog() throws {
+            let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
+            let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
+            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+            dbg("catalog", names.sorted())
 
-        XCTAssertTrue(names.contains("App Fair"))
-        XCTAssertTrue(names.contains("Tune Out"))
-        XCTAssertGreaterThanOrEqual(names.count, 3)
+            XCTAssertFalse(names.contains("App"))
 
-        dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+            XCTAssertTrue(names.contains("App Fair"))
+            XCTAssertTrue(names.contains("Tune Out"))
+            XCTAssertGreaterThanOrEqual(names.count, 3)
+
+            dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        }
     }
 
     func testBuildIOSCatalog() throws {
-        let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
-        let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
-        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-        dbg("catalog", names.sorted())
+        for _ in 1...3 {
+            do {
+                return try buildCatalog()
+            } catch {
+                dbg("retrying error:", error)
+            }
+        }
+        try buildCatalog() // fail for real this time
 
-        XCTAssertFalse(names.contains("App"))
+        func buildCatalog() throws {
+            let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
+            let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
+            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+            dbg("catalog", names.sorted())
 
-        //XCTAssertFalse(names.contains("App Fair")) // App Fair should not be in iOS cataloa
-        XCTAssertTrue(names.contains("Tune Out"))
-        XCTAssertGreaterThanOrEqual(names.count, 3)
+            XCTAssertFalse(names.contains("App"))
 
-        dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+            //XCTAssertFalse(names.contains("App Fair")) // App Fair should not be in iOS cataloa
+            XCTAssertTrue(names.contains("Tune Out"))
+            XCTAssertGreaterThanOrEqual(names.count, 3)
+
+            dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        }
     }
 
     func testFetchCatalog() throws {
