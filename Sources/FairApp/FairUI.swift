@@ -87,7 +87,7 @@ public struct URLImage : View, Equatable {
                     ProgressView().progressViewStyle(.automatic)
                 } else if let suggestedSize = suggestedSize {
                     if let resizable = resizable {
-                        placeholderImage(size: suggestedSize)
+                        placeholderImage(size: suggestedSize)?
                             .resizable()
                             .aspectRatio(contentMode: resizable)
                             .redacted(reason: .placeholder)
@@ -115,10 +115,10 @@ public struct URLImage : View, Equatable {
         }
     }
 
-    func placeholderImage(size: CGSize, color: CIColor = .clear) -> Image {
-        Image(uxImage: UXImage(size: size, flipped: false, drawingHandler: { rect in
-            true
-        }))
+    /// Creates an empty image with a certain dimension.
+    /// Useful for replicating the behavior of a placeholder image when all that is known is the size.
+    func placeholderImage(size: CGSize, scale: CGFloat = 1.0, color: CIColor = .clear) -> Image? {
+        return Image(uxImage: UXImage(size: size))
     }
 }
 
