@@ -51,11 +51,13 @@ final class FairHubTests: XCTestCase {
         let hub = try Self.hub(skipNoAuth: true)
         do {
             let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
-            XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", response.result.failureValue?.infer()?.errors.first?.message)
+            XCTAssertNil(response.result.successValue, "request should not have succeeded")
+            XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", response.result.failureValue?.firstFailureReason)
         }
         do {
             let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: "", name: "", prid: 1))
-            XCTAssertEqual("Could not resolve to a Repository with the name '/'.", response.result.failureValue?.infer()?.errors.first?.message)
+            XCTAssertNil(response.result.successValue, "request should not have succeeded")
+            XCTAssertEqual("Could not resolve to a Repository with the name '/'.", response.result.failureValue?.firstFailureReason)
         }
     }
 

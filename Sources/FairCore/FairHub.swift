@@ -44,7 +44,7 @@ public protocol GraphQLEndpointService : EndpointService {
 
 /// A Fair Ground based on an online git service such as GitHub or GitLab.
 public struct FairHub : GraphQLEndpointService {
-    public typealias ErrorType = GraphQLFailure
+    public typealias ErrorType = HubEndpointFailure
 
     /// The root of the FairGround-compatible service
     public var baseURL: URL
@@ -681,7 +681,7 @@ extension URL {
 // MARK: GraphQL Request & Response
 
 
-public struct GraphQLError : Pure, LocalizedError {
+public struct HubEndpointError : Pure, LocalizedError {
     public var message: String // e.g., "Could not resolve to a Repository with the name '/App'."
     public var type: String? // e.g., "NOT_FOUND", "INSUFFICIENT_SCOPES"
     public var path: [String]? // e.g., ["repository"]
@@ -691,8 +691,8 @@ public struct GraphQLError : Pure, LocalizedError {
 }
 
 /// A set of one or more errors returned by the GraphQL API.
-public struct GraphQLErrorList : Pure, Error {
-    public var errors: [GraphQLError]
+public struct HubEndpointErrorList : Pure, Error {
+    public var errors: [HubEndpointError]
 }
 
 /// The payload of a successful `GraphQL` query.
@@ -713,12 +713,21 @@ extension GraphQLPayload : CursoredAPIResponse where T : CursoredAPIResponse {
     }
 }
 
+/// Either a single error or a list of errors
+public typealias HubEndpointFailure = XOr<HubEndpointError>.Or<HubEndpointErrorList>
+
+public extension HubEndpointFailure {
+    /// The first error message for the failure
+    var firstFailureReason: String? {
+        infer()?.failureReason ?? infer()?.errors.first?.message
+    }
+}
+
 public extension GraphQLEndpointService {
     /// A failure can be either a single error (typically for syntax errors), or a list of errors (typically for structural issues)
-    typealias GraphQLFailure = XOr<GraphQLError>.Or<GraphQLErrorList>
 
     /// A response can contain either a successful value or an error instance
-    typealias GraphQLResponse<T: Pure> = XResult<GraphQLPayload<T>, GraphQLFailure>
+    typealias GraphQLResponse<T: Pure> = XResult<GraphQLPayload<T>, HubEndpointFailure>
 
     func buildRequest<A: APIRequest>(for request: A, cache: URLRequest.CachePolicy? = nil) throws -> URLRequest where A.Service == Self {
         let url = request.queryURL(for: self)

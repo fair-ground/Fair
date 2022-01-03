@@ -246,10 +246,10 @@ public extension URLSession {
             } else if let response = response, let data = data {
                 return (data, response)
             } else {
-                throw GraphQLError(message: "No response or data")
+                throw HubEndpointError(message: "No response or data")
             }
         case .timedOut:
-            throw GraphQLError(message: "Request timed out")
+            throw HubEndpointError(message: "Request timed out")
         }
     }
 }
