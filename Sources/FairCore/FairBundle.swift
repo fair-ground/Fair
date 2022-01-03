@@ -229,12 +229,16 @@ extension URL {
             throw CocoaError(.fileReadUnknown)
         }
 
-        let mask: FileManager.DirectoryEnumerationOptions = skipHidden ? [.producesRelativePathURLs, .skipsHiddenFiles] : [.producesRelativePathURLs]
+        var mask: FileManager.DirectoryEnumerationOptions = skipHidden ? [.skipsHiddenFiles] : []
 
         if deep == false {
             // we could alternatively use `enumerator` with the `FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants` mask
             return try fm.contentsOfDirectory(at: self, includingPropertiesForKeys: keys, options: mask) // “the only supported option is skipsHiddenFiles”
         } else {
+            #if !os(Linux) && !os(Windows)
+            mask.insert(.producesRelativePathURLs) // unavailable on windows
+            #endif
+
             guard let walker = fm.enumerator(at: self, includingPropertiesForKeys: keys, options: mask) else {
                 throw CocoaError(.fileReadNoSuchFile)
             }
