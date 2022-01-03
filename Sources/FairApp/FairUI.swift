@@ -117,8 +117,21 @@ public struct URLImage : View, Equatable {
 
     /// Creates an empty image with a certain dimension.
     /// Useful for replicating the behavior of a placeholder image when all that is known is the size.
-    func placeholderImage(size: CGSize, scale: CGFloat = 1.0, color: CIColor = .clear) -> Image? {
-        return Image(uxImage: UXImage(size: size))
+    func placeholderImage(size: CGSize, scale: CGFloat = 1.0, opaque: Bool = true) -> Image? {
+        #if os(iOS)
+        let rect = CGRect(origin: .zero, size: size)
+
+        UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
+        // color.set()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return Image(uxImage: image!)
+        #elseif os(macOS)
+        return Image(uxImage: NSImage(size: size))
+        #else
+        return nil
+        #endif
     }
 }
 
