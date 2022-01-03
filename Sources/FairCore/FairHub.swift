@@ -721,6 +721,12 @@ public extension HubEndpointFailure {
     var firstFailureReason: String? {
         infer()?.failureReason ?? infer()?.errors.first?.message
     }
+
+    /// Returns `true` if the error is due to a rate limitation
+    var isRateLimitError: Bool {
+        // TODO: check for error code rather than message
+        firstFailureReason == "You have exceeded a secondary rate limit. Please wait a few minutes before you try again."
+    }
 }
 
 public extension GraphQLEndpointService {

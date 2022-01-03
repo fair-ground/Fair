@@ -52,37 +52,51 @@ final class FairHubTests: XCTestCase {
         do {
             let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
             XCTAssertNil(response.result.successValue, "request should not have succeeded")
-            XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", response.result.failureValue?.firstFailureReason)
+            if response.result.failureValue?.isRateLimitError != true {
+                let reason = response.result.failureValue?.firstFailureReason
+                XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", reason)
+            }
         }
         do {
             let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: "", name: "", prid: 1))
             XCTAssertNil(response.result.successValue, "request should not have succeeded")
-            XCTAssertEqual("Could not resolve to a Repository with the name '/'.", response.result.failureValue?.firstFailureReason)
+            if response.result.failureValue?.isRateLimitError != true {
+                let reason = response.result.failureValue?.firstFailureReason
+                XCTAssertEqual("Could not resolve to a Repository with the name '/'.", reason)
+            }
         }
     }
 
     func testFetchRepositoryQuery() throws {
         let hub = try Self.hub(skipNoAuth: true)
-        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "appfair", name: "App")).get().data
+        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "appfair", name: "App"))
+        do {
+            let content = try response.get().data
+            let org = content.organization
+            let repo = org.repository
 
-        let org = response.organization
-        let repo = org.repository
+            XCTAssertEqual(nil, org.email)
+            XCTAssertEqual("appfair", org.login)
 
-        XCTAssertEqual(nil, org.email)
-        XCTAssertEqual("appfair", org.login)
+            XCTAssertEqual(0, repo.discussionCategories.totalCount)
+            XCTAssertEqual(false, repo.hasIssuesEnabled)
+            XCTAssertEqual(false, repo.hasWikiEnabled)
+            XCTAssertEqual(false, repo.isFork)
+            XCTAssertEqual(false, repo.isEmpty)
+            XCTAssertEqual(false, repo.isLocked)
+            XCTAssertEqual(false, repo.isMirror)
+            XCTAssertEqual(false, repo.isPrivate)
+            XCTAssertEqual(false, repo.isArchived)
+            XCTAssertEqual(false, repo.isDisabled)
 
-        XCTAssertEqual(0, repo.discussionCategories.totalCount)
-        XCTAssertEqual(false, repo.hasIssuesEnabled)
-        XCTAssertEqual(false, repo.hasWikiEnabled)
-        XCTAssertEqual(false, repo.isFork)
-        XCTAssertEqual(false, repo.isEmpty)
-        XCTAssertEqual(false, repo.isLocked)
-        XCTAssertEqual(false, repo.isMirror)
-        XCTAssertEqual(false, repo.isPrivate)
-        XCTAssertEqual(false, repo.isArchived)
-        XCTAssertEqual(false, repo.isDisabled)
-
-        XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)
+            XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)
+        } catch {
+            if response.result.failureValue?.isRateLimitError == true {
+                throw XCTSkip("Skipping due to rate limit error")
+            } else {
+                throw error
+            }
+        }
     }
 
     func testFetchCommitQuery() throws {
