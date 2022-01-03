@@ -179,21 +179,28 @@ extension URL {
         let cacheBase = self.deletingPathExtension().lastPathComponent
         let cacheFile = try fm.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: self, create: true).appendingPathComponent(cacheBase)
 
-        let parts = try self.fileChildren(deep: false)
+        let parts = try self.fileChildren(deep: false, keys: [.fileSizeKey, .contentModificationDateKey])
             .filter { fm.isDirectory(url: $0) == false }
             .filter { $0.lastPathComponent.hasPrefix(".") == false }
             .sorting(by: \.lastPathComponent)
 
-        let totalSize = try parts.compactMap({ try $0.fileSize() }).reduce(0, +)
-        dbg("assembling parts in", self.path, "into:", cacheFile.path, "size:", totalSize.localizedByteCount(), "from:", parts.map(\.lastPathComponent))
+        let totalSize = parts.compactMap({ $0.fileSize() }).reduce(0, +)
+        let lastModified = parts.compactMap(\.modificationDate).sorted().last
 
         if fm.isReadableFile(atPath: cacheFile.path) && overwrite == false {
             // ensure that the file size is equal to the sum of the individual path components
             // note that we skip any checksum validation here, so we expect the resource to be trusted (which it will be if it is included in a signed app bundle)
-            if try cacheFile.fileSize() == totalSize {
+            let cacheNewerThanParts = (cacheFile.modificationDate ?? Date()) > (lastModified ?? Date())
+            if cacheFile.fileSize() == totalSize && cacheNewerThanParts == true {
                 return cacheFile
+            } else {
+                if !cacheNewerThanParts {
+                    dbg("rebuilding cache file:", cacheFile.path, "modified:", cacheFile.modificationDate, "latest part:", lastModified)
+                }
             }
         }
+
+        dbg("assembling parts in", self.path, "into:", cacheFile.path, "size:", totalSize.localizedByteCount(), "from:", parts.map(\.lastPathComponent))
 
         // clear any existing cache file that we aren't using (e.g., due to bad size)
         try? FileManager.default.removeItem(at: cacheFile)
@@ -212,27 +219,31 @@ extension URL {
 
     /// Returns the contents of the given file URL's folder.
     /// - Parameter deep: whether to retrieve the deep or shallow contents
+    /// - Parameter skipHidden: whether to skip hidden files
+    /// - Parameter keys: resource keys to pre-cache, such as `[.fileSizeKey]`
     /// - Returns: the list of URL children relative to the current URL's folder
-    public func fileChildren(deep: Bool) throws -> [URL] {
+    public func fileChildren(deep: Bool, skipHidden: Bool = false, keys: [URLResourceKey]? = nil) throws -> [URL] {
         let fm = FileManager.default
 
         if fm.isDirectory(url: self) != true {
             throw CocoaError(.fileReadUnknown)
         }
 
+        let mask: FileManager.DirectoryEnumerationOptions = skipHidden ? [.producesRelativePathURLs, .skipsHiddenFiles] : [.producesRelativePathURLs]
+
         if deep == false {
-            return try fm.contentsOfDirectory(atPath: self.path)
-                .map { path in
-                    URL(fileURLWithPath: path, relativeTo: self)
-                }
+            // we could alternatively use `enumerator` with the `FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants` mask
+            return try fm.contentsOfDirectory(at: self, includingPropertiesForKeys: keys, options: mask) // “the only supported option is skipsHiddenFiles”
         } else {
-            guard let walker = fm.enumerator(atPath: self.path) else {
+            guard let walker = fm.enumerator(at: self, includingPropertiesForKeys: keys, options: mask) else {
                 throw CocoaError(.fileReadNoSuchFile)
             }
 
             var paths: [URL] = []
             for path in walker {
-                if let path = path as? String {
+                if let url = path as? URL {
+                    paths.append(url)
+                } else if let path = path as? String {
                     paths.append(URL(fileURLWithPath: path, relativeTo: self))
                 }
             }
@@ -240,7 +251,6 @@ extension URL {
             return paths
         }
     }
-
 }
 
 public extension Decodable {

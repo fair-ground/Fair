@@ -342,7 +342,7 @@ public extension URL {
     }
 
     /// The size represented by this file URL, or nil if it is not a file URL.
-    func fileSize(includeMetadata: Bool = false, allocated: Bool = false) throws -> Int? {
+    func fileSize(includeMetadata: Bool = false, allocated: Bool = false) -> Int? {
         switch (includeMetadata, allocated) {
         case (false, false):
             return singleResourceValue(forKey: .fileSizeKey) as? Int

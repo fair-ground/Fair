@@ -1468,12 +1468,12 @@ public extension FairCLI {
 
             // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
             for stagingFolder in artifactStagingFolders {
-                let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsSubdirectoryDescendants, .skipsSubdirectoryDescendants, .skipsPackageDescendants, .producesRelativePathURLs])
+                let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants, .producesRelativePathURLs])
                     .sorting(by: \.lastPathComponent)
                 msg(.info, "scanning assets:", artifactAssets.map(\.relativePath))
 
                 for localURL in artifactAssets {
-                    guard let assetSize = try localURL.fileSize() else {
+                    guard let assetSize = localURL.fileSize() else {
                         continue
                     }
 
