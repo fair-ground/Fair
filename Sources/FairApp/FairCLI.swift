@@ -534,7 +534,7 @@ public extension FairCLI {
             }
         })
 
-        let appNameSpace = appName.replacingOccurrences(of: "-", with: " ")
+        let appNameSpace = appName.dehyphenated()
         let appBundleID = "app." + appName
         let appVersion = "0.0.1"
         let ghrepo = "https://www.github.com/\(appName)/App"
@@ -815,7 +815,7 @@ public extension FairCLI {
 
             // check that the Info.plist contains the correct values for certain keys
 
-            //let appName = appOrgName.replacingOccurrences(of: "-", with: " ")
+            //let appName = appOrgName.dehyphenated()
             let appID = "app." + appOrgName
 
             // ensure the Info.plist uses the correct constants
@@ -1070,7 +1070,7 @@ public extension FairCLI {
 
     /// Returns `App Name`
     func appNameSpace() throws -> String {
-        try appOrgName().replacingOccurrences(of: "-", with: " ")
+        try appOrgName().dehyphenated()
     }
 
     /// If the `--fair-properties` flag was specified, tries to parse the build settings
@@ -1588,7 +1588,7 @@ public extension FairCLI {
 
     @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?, msg: MessageHandler) throws -> Bool {
         let appNameSpace = app.name
-        let appNameHyphen = app.name.replacingOccurrences(of: " ", with: "-")
+        let appNameHyphen = app.name.rehyphenated()
 
         let appBundle = "app." + appNameHyphen
 
@@ -1618,7 +1618,7 @@ public extension FairCLI {
         let caskPath = caskName + ".rb"
 
         // apps other than "Catalog Name.app" are installed att "/Applications/Catalog Name/App Name.app"
-        let installPrefix = isCatalogAppCask ? "" : (fairground.replacingOccurrences(of: "-", with: " ") + "/")
+        let installPrefix = isCatalogAppCask ? "" : (fairground.dehyphenated() + "/")
 
         // depending on the fair-ground's catalog app becomes difficult when the catalog app updates itself; homebrew won't overwrite the self-updated app even with the force flag, which means that a user may need to manually delete and re-install the app;
         // let fairgroundCask = fairground.lowercased() // e.g., app-fair

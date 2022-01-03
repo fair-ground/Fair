@@ -613,12 +613,12 @@ public extension FairHub {
 
         /// The app name is simply the "Org-Name" without dashes: "Org Name"
         public var appNameWithSpace: String {
-            login.replacingOccurrences(of: "-", with: " ")
+            login.dehyphenated()
         }
 
         /// The app name is simply the "Org-Name"
         public var appNameWithHyphen: String {
-            login // .replacingOccurrences(of: " ", with: "-")
+            login // .rehyphenated()
         }
     }
 }

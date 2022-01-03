@@ -271,23 +271,33 @@ public extension BinaryInteger {
     }
 }
 
-public extension String {
-    /// The UTF8-encoded data for this string
-    @inlinable var utf8Data: Data {
-        data(using: .utf8) ?? Data(utf8)
-    }
-
-    func enquote(with char: Character = "\"") -> String {
-        String(char) + self + String(char)
-    }
-
-    func trimmed(_ characters: CharacterSet = .whitespacesAndNewlines) -> String {
-        trimmingCharacters(in: characters)
-    }
-    
+public extension StringProtocol {
     /// The total span of this string expressed as an NSRange
     var span: NSRange {
         NSRange(startIndex..<endIndex, in: self)
+    }
+
+    /// The UTF8-encoded data for this string
+    @inlinable var utf8Data: Data {
+        data(using: .utf8) ?? Data(utf8) // should never fail, but if so, fall back to wrapping the utf8 data bytes
+    }
+
+    @inlinable func enquote(with char: Character = "\"") -> String {
+        String(char) + String(self) + String(char)
+    }
+
+    /// Replaces all the hyphens in the string with a space
+    @inlinable func dehyphenated() -> String {
+        replacingOccurrences(of: "-", with: " ")
+    }
+
+    /// Replaces all the spaces in the string with a hyphen
+    @inlinable func rehyphenated() -> String {
+        replacingOccurrences(of: " ", with: "-")
+    }
+
+    @inlinable func trimmed(_ characters: CharacterSet = .whitespacesAndNewlines) -> String {
+        trimmingCharacters(in: characters)
     }
 }
 

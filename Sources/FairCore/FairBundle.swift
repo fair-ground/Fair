@@ -50,9 +50,9 @@ public extension Bundle {
     /// The name of the package's app/org, which is the bundle's name with hyphens for spaces
     var appOrgName: String? {
         if let bundleID = bundleID, let lastBundleComponent = bundleID.split(separator: ".").last {
-            return lastBundleComponent.replacingOccurrences(of: " ", with: "-")
+            return lastBundleComponent.rehyphenated()
         } else {
-            return bundleName?.replacingOccurrences(of: " ", with: "-")
+            return bundleName?.rehyphenated()
         }
     }
 }
