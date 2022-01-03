@@ -86,11 +86,15 @@ public struct URLImage : View, Equatable {
                 } else if showProgress == true {
                     ProgressView().progressViewStyle(.automatic)
                 } else if let suggestedSize = suggestedSize {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.4))
-                        // TODO: need to resize; maybe generate an image?
-                        .frame(width: suggestedSize.width, height: suggestedSize.height)
-                        .hidden()
+                    if let resizable = resizable {
+                        placeholderImage(size: suggestedSize)
+                            .resizable()
+                            .aspectRatio(contentMode: resizable)
+                            .redacted(reason: .placeholder)
+                    } else {
+                        placeholderImage(size: suggestedSize)
+                            .redacted(reason: .placeholder)
+                    }
                 } else {
                     Circle().hidden()
                     // Color.gray.opacity(0.5)
@@ -109,6 +113,12 @@ public struct URLImage : View, Equatable {
                 Label("Error Loading Image", systemImage: "xmark.octagon")
             }
         }
+    }
+
+    func placeholderImage(size: CGSize, color: CIColor = .clear) -> Image {
+        Image(uxImage: UXImage(size: size, flipped: false, drawingHandler: { rect in
+            true
+        }))
     }
 }
 

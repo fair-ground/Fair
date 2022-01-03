@@ -151,7 +151,7 @@ public extension FairHub {
             let appTitle = fork.owner.appNameWithSpace // un-hyphenated name
             let appid = fork.owner.appNameWithHyphen
 
-            let bundleIdentifier = "app." + appid
+            let bundleIdentifier = BundleIdentifier("app." + appid)
             let subtitle = fork.description ?? ""
             let localizedDescription = fork.description ?? "" // these should be different; perhaps extract the first paragraph from the README?
 

@@ -54,11 +54,22 @@ public struct AppNewsPost : Pure {
     public var sourceIdentifier: String?
 }
 
+/// A type wrapper for a bundle identifier string
+public struct BundleIdentifier: Pure, RawRepresentable, Comparable {
+    public let rawValue: String
+    public init(_ rawValue: String) { self.rawValue = rawValue }
+    public init(rawValue: String) { self.rawValue = rawValue }
+    
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+}
+
 public struct AppCatalogItem : Pure {
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
     /// The identifier for the all (e.g., "app.Cloud-Cuckoo")
-    public var bundleIdentifier: String
+    public var bundleIdentifier: BundleIdentifier
     /// A subtitle
     public var subtitle: String?
     /// The real name and e-mail address of the developer of the app
@@ -115,7 +126,7 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's README
     public var readmeURL: URL?
 
-    public init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?) {
+    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle

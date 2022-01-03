@@ -19,6 +19,83 @@ import Swift
 import SwiftUI
 import Combine
 
+/// A progress style that shows a circle being filled in.
+/// The `Label` and `CurrentValueLabel` are not rendered as part of the view.
+public struct PieProgressViewStyle : ProgressViewStyle {
+    let lineWidth: CGFloat
+
+    public init(lineWidth: CGFloat) {
+        self.lineWidth = lineWidth
+    }
+
+    public func makeBody(configuration: Configuration) -> some View {
+        PieProgressView(fractionCompleted: configuration.fractionCompleted ?? 1.0, label: configuration.label, currentValueLabel: configuration.currentValueLabel, style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt, lineJoin: .bevel, miterLimit: 0, dash: [], dashPhase: 0))
+    }
+}
+
+private struct PieProgressView<L1: View, L2: View> : View {
+    let fractionCompleted: Double
+    let label: L1
+    let currentValueLabel: L2
+    let style: StrokeStyle
+
+    var body: some View {
+        // draw a faint outline
+        Circle()
+            .stroke(style: self.style)
+            .opacity(0.4)
+        Circle()
+            .trim(from: 0, to: fractionCompleted)
+            .stroke(style: self.style)
+            .rotationEffect(Angle(degrees: -90))
+            .opacity(0.8)
+    }
+}
+
+
+
+public struct CapsuleProgressViewStyle : ProgressViewStyle {
+    public init() {
+    }
+
+    public func makeBody(configuration: Configuration) -> some View {
+        CapsuleProgressView(fractionCompleted: configuration.fractionCompleted ?? 1.0, label: configuration.label, currentValueLabel: configuration.currentValueLabel)
+    }
+}
+
+private struct CapsuleProgressView<L1: View, L2: View> : View {
+    let fractionCompleted: Double
+    let label: L1
+    let currentValueLabel: L2
+
+    var body: some View {
+        ZStack {
+            Capsule()
+                .fill(Color.secondary)
+            Capsule()
+                .fill(.linearGradient(stops: [
+                    Gradient.Stop(color: Color.accentColor, location: 0.0),
+                    Gradient.Stop(color: Color.accentColor, location: fractionCompleted),
+                    Gradient.Stop(color: Color.clear, location: fractionCompleted),
+                    Gradient.Stop(color: Color.clear, location: 1.0)
+                ], startPoint: UnitPoint(x: 0.0, y: 0.5), endPoint: UnitPoint(x: 1.0, y: 0.5)))
+                .animation(Animation.easeIn, value: fractionCompleted) // this animates the progress bar smoothly
+            Capsule()
+                .stroke(Color.accentColor, lineWidth: 2)
+
+            label
+                .font(Font.headline.smallCaps())
+            VStack {
+                Spacer()
+                // if the progress has a current value, put in in the bottom
+                currentValueLabel
+                    .font(Font.caption)
+            }
+        }
+    }
+}
+
+
 /// Observable progress
 public final class ObservableProgress: ObservableObject {
     public var progress: Progress {
@@ -40,16 +117,22 @@ public final class ObservableProgress: ObservableObject {
     }
 }
 
+/// A progress view that observes the underlying `ObservableProgress`.
 @available(iOS 14.0, macOS 11.0, *)
-private struct FairProgressView: View {
+public struct FairProgressView: View {
     @StateObject private var progress: ObservableProgress
 
-    init(_ progress: Progress) {
+    public init(_ progress: Progress) {
         _progress = StateObject(wrappedValue: ObservableProgress(progress: progress))
     }
 
-    var body: some View {
+    public var body: some View {
         ProgressView(progress.progress)
+        //    .progressViewStyle(CapsuleProgressViewStyle())
+        // ProgressView(value: progress.progress.fractionCompleted, total: 1.0)
+        // .labelsHidden()
+        // .progressViewStyle(.circular)
+
     }
 }
 
