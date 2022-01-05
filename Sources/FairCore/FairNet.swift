@@ -164,6 +164,18 @@ public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResp
     var cursor: CursorType? { get set }
 }
 
+public extension URLResponse {
+    func validateHTTPCode(inRange: Range<Int> = 200..<300) throws {
+        guard let httpResponse = self as? HTTPURLResponse else {
+            throw Bundle.module.error("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
+        }
+
+        if !inRange.contains(httpResponse.statusCode) {
+            throw Bundle.module.error("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
+        }
+    }
+}
+
 public extension URLRequest {
     #if swift(>=5.5)
     /// Downloads the URL and verifies the HTTP success code and, optionally, the validity of the
@@ -176,13 +188,7 @@ public extension URLRequest {
     @available(macOS 12.0, iOS 15.0, *)
     func fetch(session: URLSession = .shared, validateFragmentHash: Bool = false) async throws -> Data {
         let (data, response) = try await session.data(for: self, delegate: nil)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw Bundle.module.error("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
-        }
-
-        if !(200..<300).contains(httpResponse.statusCode) {
-            throw Bundle.module.error("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
-        }
+        try response.validateHTTPCode() // ensure the code in within the expected range
 
         #if canImport(CommonCrypto)
         if validateFragmentHash == true,
