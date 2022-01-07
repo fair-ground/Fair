@@ -309,7 +309,21 @@ extension URLSession {
         FileManager.default.createFile(atPath: downloadedArtifact.path, contents: nil, attributes: nil)
 
         let fh = try FileHandle(forWritingTo: downloadedArtifact)
-        defer { try? fh.close() }
+
+        var success = false
+
+        defer {
+            // if any errors occur, close the delete the temporary artifact;
+            // this is expected to fail unless we have successfully moved the file
+            if success == false {
+                do {
+                    try fh.close()
+                    try FileManager.default.removeItem(at: downloadedArtifact)
+                } catch {
+                    dbg("error when cleaning up failed download:", error)
+                }
+            }
+        }
 
         var bytes = Data()
         bytes.reserveCapacity(memoryBufferSize)
@@ -341,6 +355,7 @@ extension URLSession {
             try await flushBuffer(bytesCount)
         }
 
+        success = true // prevent the cleanup
         try fh.close()
         return (downloadedArtifact, response)
     }
