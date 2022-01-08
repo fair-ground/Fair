@@ -263,6 +263,15 @@ public extension URLSession {
 #if swift(>=5.5)
 extension URLSession {
 
+    /// Issues a `HEAD` request for the given URL and returns the expected content length.
+    @available(macOS 12.0, iOS 15.0, *)
+    public func fetchExpectedContentLength(url: URL, cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalCacheData) async throws -> Int64 {
+        var request = URLRequest(url: url, cachePolicy: cachePolicy)
+        request.httpMethod = "HEAD"
+        let (_, response) = try await data(for: request, delegate: nil)
+        return response.expectedContentLength
+    }
+
     /// the number of progress segments for the download part; the remainder will be the zip decompression
     public static let progressUnitCount: Int64 = 4
 
