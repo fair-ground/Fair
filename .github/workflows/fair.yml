@@ -169,7 +169,6 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
 
           cp -a "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive/Products/Applications" "staging/Payload"
@@ -193,7 +192,6 @@ jobs:
             CODE_SIGN_IDENTITY="-" \
             OTHER_CODE_SIGN_FLAGS="--deep --timestamp=none" \
             OTHER_LIBTOOLFLAGS="-D" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
 
           echo '<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"><plist version="1.0"><dict><key>method</key><string>mac-application</string><key>signingStyle</key><string>automatic</string><key>uploadBitcode</key><false/><key>compileBitcode</key><false/><key>uploadSymbols</key><false/></dict></plist>' > "staging/.exportOptions.plist"
@@ -514,7 +512,6 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             FAIRAPP_PRODUCT_NAME="${{ env.PRODUCT_NAME }}"
 
           cp -a "staging/.${{ env.FAIR_APP_ARTIFACT }}-iOS.xcarchive/Products/Applications" "staging/Payload"
@@ -534,7 +531,6 @@ jobs:
             CODE_SIGNING_ALLOWED=YES \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             CODE_SIGN_IDENTITY="-" \
-            PRODUCT_BUNDLE_IDENTIFIER="${{ env.BUNDLE_ID }}" \
             DEVELOPMENT_TEAM="" \
             CODE_SIGN_IDENTITY="-" \
             OTHER_CODE_SIGN_FLAGS="--deep --timestamp=none" \
