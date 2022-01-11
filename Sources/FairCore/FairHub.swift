@@ -754,7 +754,7 @@ public extension GraphQLEndpointService {
         // un-comment to view raw GraphQL for running in https://docs.github.com/en/graphql/overview/explorer
         // print(wip(postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\", with: "")) // for debugging post data
 
-        dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , postData?.utf8String)
+        dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount(), (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
         return req
     }
 }
@@ -1038,7 +1038,7 @@ public extension FairHub {
         public var name: String
 
         /// the number of forks to query per batch
-        public var count: Int = 100
+        public var count: Int = 25 // any more can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
 
         /// the number of releases to scan
         public var releaseCount: Int = 5

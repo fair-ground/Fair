@@ -133,13 +133,13 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildMacOSCatalog() throws {
-        for _ in 1...3 {
-            do {
-                return try buildCatalog()
-            } catch {
-                dbg("retrying error:", error)
-            }
-        }
+        //for _ in 1...3 {
+        //    do {
+        //        return try buildCatalog()
+        //    } catch {
+        //        dbg("retrying error:", error)
+        //    }
+        //}
         try buildCatalog() // fail for real this time
 
         func buildCatalog() throws {
@@ -159,13 +159,13 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildIOSCatalog() throws {
-        for _ in 1...3 {
-            do {
-                return try buildCatalog()
-            } catch {
-                dbg("retrying error:", error)
-            }
-        }
+        //for _ in 1...3 {
+        //    do {
+        //        return try buildCatalog()
+        //    } catch {
+        //        dbg("retrying error:", error)
+        //    }
+        //}
         try buildCatalog() // fail for real this time
 
         func buildCatalog() throws {
