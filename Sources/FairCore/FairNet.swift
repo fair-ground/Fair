@@ -185,9 +185,8 @@ public extension URLRequest {
     ///   - session: the URLSession to use, defaulting to `URLSession.shared`
     ///   - validateFragmentHash: if `true`, validate that the contents of the data match a SHA256 hash in the URL
     /// - Returns: the `Data` if it downloaded and validated
-    @available(macOS 12.0, iOS 15.0, *)
     func fetch(session: URLSession = .shared, validateFragmentHash: Bool = false) async throws -> Data {
-        let (data, response) = try await session.data(for: self, delegate: nil)
+        let (data, response) = try await session.fetch(request: self)
         try response.validateHTTPCode() // ensure the code in within the expected range
 
         #if canImport(CommonCrypto)
@@ -203,6 +202,49 @@ public extension URLRequest {
         return data
     }
     #endif
+}
+
+extension URLResponse {
+    public struct InvalidHTTPCode : Error {
+        public let code: Int?
+    }
+
+    /// Attempts to validate the status code in the given range and throws an error if they fail.
+    func validating(codes: Range<Int>?) throws -> Self {
+        guard let codes = codes else {
+            return self // no validation
+        }
+        guard let code = (self as? HTTPURLResponse)?.statusCode else {
+            throw InvalidHTTPCode(code: nil)
+        }
+
+        if !codes.contains(code) {
+            throw InvalidHTTPCode(code: code)
+        }
+
+        return self // the response is valid
+    }
+}
+
+extension URLSession {
+
+    /// Backwards-compatible shim for async fetch
+    public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
+        if #available(macOS 12.0, iOS 15.0, *) {
+            let response = try await data(for: request) // iOS 15+ built-in async `data`
+            return (response.0, try response.1.validating(codes: codes))
+        } else {
+            return try await withCheckedThrowingContinuation { continuation in
+                dataTask(with: request) { data, response, error in
+                    if let data = data, let response = response, error == nil {
+                        continuation.resume(returning: (data, response))
+                    } else {
+                        continuation.resume(throwing: error ?? CocoaError(.fileNoSuchFile))
+                    }
+                }.resume()
+            }
+        }
+    }
 }
 
 // TODO: @available(*, deprecated, message: "migrate to async")
@@ -260,16 +302,33 @@ public extension URLSession {
     }
 }
 
+extension URLResponse {
+    private static let gmtDateFormatter: DateFormatter = {
+        let fmt = DateFormatter()
+        fmt.dateFormat = "EEEE, dd LLL yyyy HH:mm:ss zzz"
+        return fmt
+    }()
+
+    /// Returns the last modified date for this response
+    public var lastModifiedDate: Date? {
+        guard let headers = (self as? HTTPURLResponse)?.allHeaderFields else {
+            return nil
+        }
+        guard let modDate = headers["Last-Modified"] as? String else {
+            return nil
+        }
+        return Self.gmtDateFormatter.date(from: modDate)
+    }
+}
+
 #if swift(>=5.5)
 extension URLSession {
-
-    /// Issues a `HEAD` request for the given URL and returns the expected content length.
-    @available(macOS 12.0, iOS 15.0, *)
-    public func fetchExpectedContentLength(url: URL, cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalCacheData) async throws -> Int64 {
+    /// Issues a `HEAD` request for the given URL and returns the response
+    public func fetchHEAD(url: URL, cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalCacheData) async throws -> URLResponse {
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = "HEAD"
-        let (_, response) = try await data(for: request, delegate: nil)
-        return response.expectedContentLength
+        let (_, response) = try await fetch(request: request)
+        return response
     }
 
     /// the number of progress segments for the download part; the remainder will be the zip decompression
