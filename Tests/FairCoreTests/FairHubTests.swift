@@ -133,6 +133,10 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildMacOSCatalog() throws {
+        if ({ true }()) {
+            throw XCTSkip("disabled to reduce API load")
+        }
+
         //for _ in 1...3 {
         //    do {
         //        return try buildCatalog()
@@ -159,6 +163,10 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildIOSCatalog() throws {
+        if ({ true }()) {
+            throw XCTSkip("disabled to reduce API load")
+        }
+
         //for _ in 1...3 {
         //    do {
         //        return try buildCatalog()
