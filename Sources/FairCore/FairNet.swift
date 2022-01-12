@@ -231,7 +231,7 @@ extension URLSession {
     /// Backwards-compatible shim for async fetch
     public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
         if #available(macOS 12.0, iOS 15.0, *) {
-            let response = try await data(for: request) // iOS 15+ built-in async `data`
+            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
             return (response.0, try response.1.validating(codes: codes))
         } else {
             return try await withCheckedThrowingContinuation { continuation in
