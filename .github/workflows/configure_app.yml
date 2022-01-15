@@ -16,11 +16,9 @@
 ##############################################################################
 
 # This workflow is run in a fork of https://www.github.com/appfair/App.git
-# It will create a new release with the specified version by tagging it
-# with the specified semantic release. It will also attempt to
-# open a new PR against the base fairground in order to
-# initiate the integrate_release workflow.
-name: "App Fair Release"
+# It will setup a new release with the specified version by tagging it
+# with the specified semantic release. 
+name: "Configure App Fair App"
 
 on:
   workflow_call:
@@ -33,13 +31,16 @@ on:
       version:
         type: string
         required: true
+      appname:
+        type: string
+        required: true
 
 jobs:
-  create_release:
-    name: "Create Release"
-    runs-on: macos-11
+  configure:
+    name: "Configure App"
+    runs-on: linux
     steps:
-      - name: "Initialize Release"
+      - name: "Setup App"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
@@ -57,6 +58,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
+        if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
