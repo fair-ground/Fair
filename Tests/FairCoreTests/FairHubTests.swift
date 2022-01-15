@@ -115,6 +115,10 @@ final class FairHubTests: XCTestCase {
     }
 
     func testCatalogQuery() throws {
+        if ({ true }()) {
+            throw XCTSkip("disabled to reduce API load")
+        }
+        
         let hub = try Self.hub(skipNoAuth: true)
 
         // tests that paginated queries work and return consistent results

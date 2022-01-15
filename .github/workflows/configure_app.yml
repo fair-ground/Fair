@@ -19,7 +19,6 @@
 # It will setup a new release with the specified version by tagging it
 # with the specified semantic release. 
 name: "Configure App Fair App"
-
 on:
   workflow_call:
     inputs:
@@ -38,7 +37,8 @@ on:
 jobs:
   configure:
     name: "Configure App"
-    runs-on: linux
+    runs-on: ubuntu-latest
+
     steps:
       - name: "Setup App"
         env:
