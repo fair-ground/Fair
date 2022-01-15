@@ -632,10 +632,17 @@ public struct AppError : LocalizedError {
     }
 
     public init(_ error: Error) {
-        self.errorDescription = error.localizedDescription
-        self.failureReason = nil
-        self.recoverySuggestion = nil
-        self.helpAnchor = nil
+        if let error = error as? AppError {
+            self.errorDescription = error.errorDescription
+            self.failureReason = error.failureReason
+            self.recoverySuggestion = error.recoverySuggestion
+            self.helpAnchor = error.helpAnchor
+        } else {
+            self.errorDescription = error.localizedDescription
+            self.failureReason = nil
+            self.recoverySuggestion = nil
+            self.helpAnchor = nil
+        }
     }
 }
 
