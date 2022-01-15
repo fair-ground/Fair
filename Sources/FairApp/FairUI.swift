@@ -85,15 +85,22 @@ public struct URLImage : View, Equatable {
                     Label(error.localizedDescription, systemImage: "xmark.octagon")
                 } else if showProgress == true {
                     ProgressView().progressViewStyle(.automatic)
-                } else if let suggestedSize = suggestedSize {
+                } else if let suggestedSize = suggestedSize, suggestedSize.width > 0.0, suggestedSize.height > 0.0 {
+                    // we make a placeholder with the specified size in order to maintain the correct aspect ratio
+                    // this doesn't work: the
+//                    Rectangle()
+//                        .aspectRatio(suggestedSize.height / suggestedSize.width, contentMode: .fill)
+//                        .background(Material.thick)
+
                     if let resizable = resizable {
                         placeholderImage(size: suggestedSize)?
                             .resizable()
                             .aspectRatio(contentMode: resizable)
-                            .redacted(reason: .placeholder)
+                            .overlay(Material.thick)
                     } else {
                         placeholderImage(size: suggestedSize)
                             .redacted(reason: .placeholder)
+                            .overlay(Material.thick)
                     }
                 } else {
                     Circle().hidden()
@@ -128,7 +135,12 @@ public struct URLImage : View, Equatable {
         UIGraphicsEndImageContext()
         return Image(uxImage: image!)
         #elseif os(macOS)
-        return Image(uxImage: NSImage(size: size))
+        return Image(uxImage: NSImage(size: size, flipped: false) { rect in
+            if opaque {
+                rect.fill()
+            }
+            return true
+        })
         #else
         return nil
         #endif
