@@ -58,25 +58,17 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
-        if: false
+        if: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Creating release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
-          # update the Info.plist with the new version
-          plutil -replace CFBundleShortVersionString -string "${{ inputs.version }}" Info.plist
 
-          # ensure the Info.plist has the correct name and bundle ID values
-          plutil -replace CFBundleIdentifier -string "${{ env.BUNDLE_ID }}" Info.plist
-          plutil -replace CFBundleName -string "${{ env.PRODUCT_NAME }}" Info.plist
+          echo 'PRODUCT_BUNDLE_IDENTIFIER = ${{ env.BUNDLE_ID }}' >> AppFairApp.xcconfig
+          echo 'MARKETING_VERSION = ${{ inputs.version }}' >> AppFairApp.xcconfig
 
-          # Commit, push, and tag the release 
-          git add Info.plist
-          git commit -m "Release version ${{ inputs.version }}"
-          git tag -a "${{ inputs.version }}" -m "Release version ${{ inputs.version }}"
-          git push --follow-tags
-
-          gh release create "${{ inputs.version }}" --prerelease
-          gh pr create --title "${{ env.BUNDLE_ID }}" --body "${{ env.BUNDLE_ID }} release ${{ inputs.version }}"
+          git add AppFairApp.xcconfig
+          git commit -m "Configure App version ${{ inputs.version }}"
+          git push
 
 
