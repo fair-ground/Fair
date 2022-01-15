@@ -64,8 +64,12 @@ jobs:
         run: |
           echo "Creating release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
 
+          echo 'PRODUCT_NAME = ${{ env.PRODUCT_NAME }}' >> AppFairApp.xcconfig
           echo 'PRODUCT_BUNDLE_IDENTIFIER = ${{ env.BUNDLE_ID }}' >> AppFairApp.xcconfig
           echo 'MARKETING_VERSION = ${{ inputs.version }}' >> AppFairApp.xcconfig
+
+          git config --global user.name 'fair-ground action'
+          git config --global user.email 'fair-ground@users.noreply.github.com'
 
           git add AppFairApp.xcconfig
           git commit -m "Configure App version ${{ inputs.version }}"
