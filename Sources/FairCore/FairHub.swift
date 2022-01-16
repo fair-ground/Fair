@@ -492,9 +492,9 @@ public extension FairHub {
             //throw Errors.noVerification(commit)
         //}
 
-        if verification.state != "VALID" || verification.isValid == false {
-            throw Errors.invalidVerification(commit)
-        }
+        //if verification.state != "VALID" || verification.isValid == false {
+            //throw Errors.invalidVerification(commit)
+        //}
 
         guard let name = info.author?.name, !name.isEmpty else {
             throw Errors.noAuthor(commit)
