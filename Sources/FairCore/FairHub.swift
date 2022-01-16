@@ -488,9 +488,9 @@ public extension FairHub {
     /// Checks the commit info to ensure that it is verified, and if so, returns the author information
     func authorize(commit: CommitInfo) throws -> String {
         let info = commit.repository.object
-        guard let verification = info.signature else {
-            throw Errors.noVerification(commit)
-        }
+        //guard let verification = info.signature else {
+            //throw Errors.noVerification(commit)
+        //}
 
         if verification.state != "VALID" || verification.isValid == false {
             throw Errors.invalidVerification(commit)
