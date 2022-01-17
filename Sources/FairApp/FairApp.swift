@@ -52,13 +52,13 @@ public extension Bundle {
         bundleIdentifier == "app.\(Self.catalogBrowserAppOrg)"
     }
 
-    /// Returns the URL for referencing the current app from within the app store
-    static func appFairURL(_ action: String) -> URL? {
-        URL(string: "\(catalogBrowserAppScheme)://\(action)/\(Bundle.mainBundleID)")
+    /// Returns the URL for referencing the current app from within the app fair app
+    static func appFairURL(for bundle: Bundle) -> URL? {
+        URL(string: catalogBrowserAppScheme + "://" + (bundle.bundleID ?? "").replacingOccurrences(of: ".", with: "/"))
     }
 
     static func isAppFairInstalled() -> Bool {
-        appFairURL("update")?.canLaunchScheme() == true
+        appFairURL(for: .main)?.canLaunchScheme() == true
     }
 }
 
@@ -332,7 +332,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @SceneBuilder public var body: some SwiftUI.Scene {
         let commands = Group {
             CommandGroup(after: CommandGroupPlacement.appSettings) {
-                if let url = Bundle.appFairURL("update"), url.canLaunchScheme() == true {
+                if let url = Bundle.appFairURL(for: Bundle.main), url.canLaunchScheme() == true {
                     Link(destination: url) {
                         Text("Check for Updates", bundle: .module)
                             .help(Text("Check for updates on the App Fair"))
