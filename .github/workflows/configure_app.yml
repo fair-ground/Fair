@@ -48,7 +48,16 @@ jobs:
           echo "PRODUCT_NAME=$(echo ${{ github.repository_owner }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ github.repository_owner }})" >> $GITHUB_ENV
 
-      - name: "Verify Repository Issues"
+      # Verifies that the repository is in an org
+      - name: "Check Repository Organization"
+        run: gh repo view "${{ github.repository_owner }}"/App --json isInOrganization | jq -e '.isInOrganization'
+
+      # Verifies that the repository is a fork
+      - name: "Check Repository Fork"
+        run: gh repo view "${{ github.repository_owner }}"/App --json isFork | jq -e '.isFork'
+
+      # Verifies that issues are enabled for this repository
+      - name: "Check Repository Issues"
         run: gh repo view "${{ github.repository_owner }}"/App --json hasIssuesEnabled | jq -e '.hasIssuesEnabled'
 
       - name: "Checkout ${{ env.PRODUCT_NAME }}"
