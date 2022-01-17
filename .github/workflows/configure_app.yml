@@ -48,6 +48,12 @@ jobs:
           echo "PRODUCT_NAME=$(echo ${{ github.repository_owner }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ github.repository_owner }})" >> $GITHUB_ENV
 
+      - name: "Setup Repository"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh repo edit --enable-issues "${{ github.repository_owner }}"/App
+
       - name: "Checkout ${{ env.PRODUCT_NAME }}"
         uses: actions/checkout@v2
         with:
@@ -55,7 +61,6 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
-        if: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
