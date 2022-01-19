@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Setup App"
+      - name: "Setup App: ${{ github.repository_owner }}"
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
@@ -67,6 +67,11 @@ jobs:
       # Verifies that issues are enabled for this repository
       - name: "Check Repository Issues"
         run: gh repo view "${{ github.repository }}" --json hasIssuesEnabled | jq -e '.hasIssuesEnabled'
+
+      # Verifies that discussions are enabled for this repository
+      # There is no API for this yet, so we just use curl
+      - name: "Check Repository Discussions"
+        run: curl --head -I --fail -s "https://github.com/${{ github.repository }}/discussions" > /dev/null
 
       - name: "Checkout ${{ env.PRODUCT_NAME }}"
         uses: actions/checkout@v2
