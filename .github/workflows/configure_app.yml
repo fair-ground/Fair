@@ -47,35 +47,27 @@ jobs:
           echo "FAIR_APP_ARTIFACT=${{ github.repository_owner }}" >> $GITHUB_ENV
           echo "PRODUCT_NAME=$(echo ${{ github.repository_owner }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ github.repository_owner }})" >> $GITHUB_ENV
+          echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
 
       # Verifies that the repository is named "App"
       - name: "Check Repository Name"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh repo view "${{ github.repository }}" --json name | jq -e '. | select(.name=="App")'
 
       # Verifies that the repository is in an org
       - name: "Check Repository Organization"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh repo view "${{ github.repository }}" --json isInOrganization | jq -e '.isInOrganization'
 
       # Verifies the repository license
       - name: "Check Repository License"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh repo view "${{ github.repository }}" --json licenseInfo | jq -e '.licenseInfo | select(.key == "agpl-3.0")'
 
       # Verifies that the repository is a fork
       - name: "Check Repository Fork"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh repo view "${{ github.repository }}" --json isFork | jq -e '.isFork'
 
       # Verifies that issues are enabled for this repository
       - name: "Check Repository Issues"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh repo view "${{ github.repository }}" --json hasIssuesEnabled | jq -e '.hasIssuesEnabled'
 
       # Verifies that discussions are enabled for this repository
@@ -90,8 +82,6 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: "Configure: ${{env.BUNDLE_ID}} ${{ inputs.version }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Creating release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
 
