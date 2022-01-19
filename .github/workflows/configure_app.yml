@@ -67,7 +67,6 @@ jobs:
 
       # Verifies that issues are enabled for this repository
       - name: "Check Repository Issues"
-        env:
         run: gh repo view "${{ github.repository }}" --json hasIssuesEnabled | jq -e '.hasIssuesEnabled'
 
       # Verifies that discussions are enabled for this repository
