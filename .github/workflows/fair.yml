@@ -113,6 +113,21 @@ jobs:
     runs-on: macos-11
     timeout-minutes: 45
 
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      id-token: write
+      issues: write
+      discussions: write
+      packages: write
+      pages: write
+      pull-requests: write
+      repository-projects: write
+      security-events: write
+      statuses: write
+
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
 
