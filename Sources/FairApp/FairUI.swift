@@ -49,15 +49,18 @@ public struct URLImage : View, Equatable {
     public let resizable: ContentMode?
     /// Whether a progress placeholder should be used
     public let showProgress: Bool
+    /// Whether a progress placeholder should be used
+    public let showError: Bool
     /// The recommended size of the image, as encoded with the image ending in `"-widthxheight"`
     public let suggestedSize: CGSize?
 
-    public init(sync: Bool = false, url: URL, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showProgress: Bool = false) {
+    public init(sync: Bool = false, url: URL, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showProgress: Bool = false, showError: Bool = false) {
         self.sync = sync
         self.url = url
         self.scale = scale
         self.resizable = resizable
         self.showProgress = showProgress
+        self.showError = showError
         if let lastPart = url.deletingPathExtension()
             .lastPathComponent.split(separator: "-").last,
            let sizeParts = Optional.some(lastPart)?.split(separator: "x"),
@@ -82,7 +85,13 @@ public struct URLImage : View, Equatable {
                         image
                     }
                 } else if let error = phase.error {
-                    Label(error.localizedDescription, systemImage: "xmark.octagon")
+                    if showError {
+                        Text(error.localizedDescription)
+                            .label(image: FairSymbol.xmark_octagon)
+                    } else {
+                        FairSymbol.xmark_octagon.image
+                            .resizable(resizingMode: .stretch)
+                    }
                 } else if showProgress == true {
                     ProgressView().progressViewStyle(.automatic)
                 } else if let suggestedSize = suggestedSize, suggestedSize.width > 0.0, suggestedSize.height > 0.0 {
