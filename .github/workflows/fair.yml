@@ -113,21 +113,6 @@ jobs:
     runs-on: macos-11
     timeout-minutes: 45
 
-    permissions:
-      actions: write
-      checks: write
-      contents: write
-      deployments: write
-      id-token: write
-      issues: write
-      discussions: write
-      packages: write
-      pages: write
-      pull-requests: write
-      repository-projects: write
-      security-events: write
-      statuses: write
-
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
 
@@ -152,15 +137,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.ref }}
-
-      - name: Create PR
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git stash || true # ensure that local changes (e.g., the icon) are discarded
-          git checkout main # ensure we are on main
-          git status
-          gh pr create --no-maintainer-edit --repo "${{ inputs.fairground }}/App" --title "${{ env.BUNDLE_ID }}" --body "${{ env.BUNDLE_ID }} release ${GITHUB_REF#refs/tags/}"
 
       - name: "Check platforms"
         id: platforms
@@ -364,6 +340,35 @@ jobs:
 
           # upload staging assets to the existing GitHub release
           gh release upload "${GITHUB_REF#refs/tags/}" -- staging/*.*
+
+          # ideally, we would automatically create the 
+          # integrate-release pull request here, but tying to 
+          # create one raises the error:
+          #
+          # "pull request create failed: GraphQL error: Resource not accessible by integration"
+          #
+          # This is because forked repositories only have read access:
+          #
+          # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+          #
+          # We cannot use "Send write tokens to workflows from pull requests"
+          # due to it being restricted to private repositories:
+          #
+          # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#enabling-workflows-for-private-repository-forks
+          #
+          # Another alternative could be to require the forked user to 
+          # set up a PAT with write permission, but that's a big ask.
+          #
+          # So for now, we just require the user to open a PR
+          # manually and set its title correctly.
+          #
+          # For more information, see:
+          # https://github.community/t/github-actions-are-severely-limited-on-prs/18179
+
+          # git stash || true # ensure that local changes (e.g., the icon) are discarded
+          # git checkout main # ensure we are on main
+          # git status
+          # gh pr create --no-maintainer-edit --repo "${{ inputs.fairground }}/App" --title "${{ env.BUNDLE_ID }} ${GITHUB_REF#refs/tags/}" --body "${{ env.BUNDLE_ID }} release ${GITHUB_REF#refs/tags/}"
    
       # See: Creating API Keys for App Store Connect API
       # https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api
