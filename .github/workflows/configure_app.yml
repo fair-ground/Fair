@@ -93,7 +93,7 @@ jobs:
           git config --global user.email 'fair-ground@users.noreply.github.com'
 
           git add AppFairApp.xcconfig
-          git commit -m "Configure App ${{ env.PRODUCT_NAME }} ${{ inputs.version }}"
+          git commit -m "${{ env.PRODUCT_NAME }} ${{ inputs.version }}"
           git push
 
 
