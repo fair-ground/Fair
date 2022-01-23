@@ -335,7 +335,7 @@ public extension FairCLI {
 
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
     var integrationTitleFlag: String? {
-        flags["-integrationTitle"]?.first
+        flags["-integration-title"]?.first
     }
 
     /// The flag specifying the permitted license titles that must
