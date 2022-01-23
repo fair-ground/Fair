@@ -465,6 +465,7 @@ jobs:
             --token "${{ secrets.token }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
+            --fair-properties "ReleasePR/AppFairApp.xcconfig" \
             --integrationTitle "${{ env.PRTITLE }}" \
             --fairseal-issuer "${{ inputs.fairseal_issuer }}" \
             --allow-license "${{ inputs.license }}" \

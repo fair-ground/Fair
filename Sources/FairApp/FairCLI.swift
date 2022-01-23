@@ -815,9 +815,6 @@ public extension FairCLI {
 
             // check that the Info.plist contains the correct values for certain keys
 
-            let appName = appOrgName.dehyphenated()
-            //let appID = "app." + appOrgName
-
             // ensure the Info.plist uses the correct constants
             try checkStr(key: InfoPlistKey.CFBundleName, in: ["$(PRODUCT_NAME)"])
             try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: ["$(PRODUCT_BUNDLE_IDENTIFIER)"])
@@ -830,17 +827,37 @@ public extension FairCLI {
             if let licenseFlag = self.licenseFlag, !licenseFlag.isEmpty {
                 try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
             }
+        }
+
+        // 2. Check AppFairApp.xcconfig
+        do {
+            let appOrgNameSpace = appOrgName.dehyphenated()
+            //let appID = "app." + appOrgName
+
+            guard let appName = try buildSettings()?["PRODUCT_NAME"] else {
+                throw AppError("Missing PRODUCT_NAME in AppFairApp.xcconfig")
+            }
+
+            if appName != appOrgNameSpace {
+                throw AppError("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“\(appName)”) to match the organization name (“\(appOrgNameSpace)”)")
+            }
+
+            guard let appVersion = try buildSettings()?["MARKETING_VERSION"] else {
+                throw AppError("Missing MARKETING_VERSION in AppFairApp.xcconfig")
+            }
+
+            let expectedIntegrationTitle = appName + ": " + appVersion
 
             if let integrationTitle = self.integrationTitleFlag,
-               integrationTitle != appName {
-                throw Errors.invalidIntegrationTitle(integrationTitle, appName)
+               integrationTitle != expectedIntegrationTitle {
+                throw Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
             }
 
             //let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
             //msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
         }
 
-        // 2. Check Sandbox.entitlements
+        // 3. Check Sandbox.entitlements
         do {
             let path = "Sandbox.entitlements"
             msg(.debug, "comparing entitlements:", path)
@@ -848,17 +865,17 @@ public extension FairCLI {
             try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
         }
 
-        // 3. Check LICENSE.txt
+        // 4. Check LICENSE.txt
         try compareContents(of: "LICENSE.txt", partial: false)
 
-        // 4. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
+        // 5. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
         try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
 
-        // 5. Check Sources/
+        // 6. Check Sources/
         try compareContents(of: "Sources/App/AppMain.swift", partial: false)
         try compareContents(of: "Sources/App/Bundle/LICENSE.txt", partial: false)
 
-        // 6. Check Package.resolved if it exists and we've specified the hub to validate
+        // 7. Check Package.resolved if it exists and we've specified the hub to validate
         if let packageResolvedData = try? load(url: projectPathURL(path: "Package.resolved")), let hubFlag = hubFlag {
             msg(.debug, "validating Package.resolved")
             let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: packageResolvedData)
@@ -1747,7 +1764,7 @@ end
         case forbiddenEntitlement(_ entitlement: String)
         case missingUsageDescription(_ entitlement: AppEntitlement)
         case missingFlag(_ op: Operation, _ flag: String)
-        case invalidIntegrationTitle(_ integrationName: String, _ bundleID: String)
+        case invalidIntegrationTitle(_ integrationName: String, _ expectedName: String)
 
         public var errorDescription: String? {
             switch self {
@@ -1780,7 +1797,7 @@ end
             case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
             case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
             case .missingFlag(let op, let flag): return "The operation \(op.rawValue) requires the -\(flag) flag"
-            case .invalidIntegrationTitle(let title, let appName): return "The title of the integration pull request \"\(title)\" must match the product name in the Info.plist of the app being built (found: \"\(appName)\")"
+            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the AppFairApp.xcconfig file (expected: \"\(expectedName)\")"
             }
         }
     }
