@@ -482,7 +482,7 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --output .
+          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
