@@ -74,6 +74,11 @@ jobs:
       - name: "Check Repository Discussions"
         run: curl --head -I --fail -s "https://github.com/${{ github.repository }}/discussions" > /dev/null
 
+      # Verifies that pages are enabled for this repository
+      # There is no API for this yet, so we just use curl
+      - name: "Check Repository Page: https://${{ github.repository_owner }}.github.io/App"
+        run: curl --head -I --fail -s "https://${{ github.repository_owner }}.github.io/App" > /dev/null
+
       - name: "Checkout ${{ env.PRODUCT_NAME }}"
         uses: actions/checkout@v2
         with:
