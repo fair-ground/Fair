@@ -192,22 +192,22 @@ public extension FairHub {
                     continue
                 }
 
-                guard let orgEmail = fork.owner.email else {
-                    dbg(fork.nameWithOwner, "missing org email")
-                    continue
-                }
-                do {
-                    try validateEmailAddress(orgEmail)
-                } catch {
-                    // skip packages whose e-mail addresses are not valid
-                    dbg(fork.nameWithOwner, "invalid owner email:", error)
-                    continue
-                }
-
-                if orgEmail != devEmail {
-                    dbg(fork.nameWithOwner, "org email must match commit email")
-                    continue
-                }
+//                guard let orgEmail = fork.owner.email else {
+//                    dbg(fork.nameWithOwner, "missing org email")
+//                    continue
+//                }
+//                do {
+//                    try validateEmailAddress(orgEmail)
+//                } catch {
+//                    // skip packages whose e-mail addresses are not valid
+//                    dbg(fork.nameWithOwner, "invalid owner email:", error)
+//                    continue
+//                }
+//
+//                if orgEmail != devEmail {
+//                    dbg(fork.nameWithOwner, "org email must match commit email")
+//                    continue
+//                }
 
                 do {
                     try validateAppName(fork.owner.login)

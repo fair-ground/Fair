@@ -572,18 +572,18 @@ public extension FairCLI {
         """)
         try showURL(key: "create-org", url: "https://github.com/account/organizations/new?plan=free")
 
-        po("""
-
-        Next, we will configure the organization.
-
-        Edit the organization's profile settings and set:
-
-            \(ansi("Public e-mail")): same as your GitHub e-mail
-
-        The e-mail address must be valid and public.
-
-        """)
-        try showURL(key: "set-email", url: "https://github.com/organizations/\(appName)/settings/profile")
+        //        po("""
+        //
+        //        Next, we will configure the organization.
+        //
+        //        Edit the organization's profile settings and set:
+        //
+        //            \(ansi("Public e-mail")): same as your GitHub e-mail
+        //
+        //        The e-mail address must be valid and public.
+        //
+        //        """)
+        //        try showURL(key: "set-email", url: "https://github.com/organizations/\(appName)/settings/profile")
 
         po("""
 
@@ -678,7 +678,7 @@ public extension FairCLI {
 
         Set the Pull Request title to:
 
-          \(ansi("app.\(appName)"))
+          \(ansi("\(appNameSpace)"))
 
         Then select "Create Pull Request"
         """)
@@ -815,8 +815,8 @@ public extension FairCLI {
 
             // check that the Info.plist contains the correct values for certain keys
 
-            //let appName = appOrgName.dehyphenated()
-            let appID = "app." + appOrgName
+            let appName = appOrgName.dehyphenated()
+            //let appID = "app." + appOrgName
 
             // ensure the Info.plist uses the correct constants
             try checkStr(key: InfoPlistKey.CFBundleName, in: ["$(PRODUCT_NAME)"])
@@ -831,9 +831,9 @@ public extension FairCLI {
                 try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
             }
 
-            if let expectedIntegrationTitle = self.integrationTitleFlag,
-                expectedIntegrationTitle != appID {
-                throw Errors.invalidIntegrationTitle(expectedIntegrationTitle, appID)
+            if let integrationTitle = self.integrationTitleFlag,
+               integrationTitle != appName {
+                throw Errors.invalidIntegrationTitle(integrationTitle, appName)
             }
 
             //let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
@@ -1780,7 +1780,7 @@ end
             case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
             case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
             case .missingFlag(let op, let flag): return "The operation \(op.rawValue) requires the -\(flag) flag"
-            case .invalidIntegrationTitle(let title, let bundleID): return "The title of the integration pull request \"\(title)\" must match the bundle ID in the Info.plist of the app being built (found: \"\(bundleID)\")"
+            case .invalidIntegrationTitle(let title, let appName): return "The title of the integration pull request \"\(title)\" must match the product name in the Info.plist of the app being built (found: \"\(appName)\")"
             }
         }
     }

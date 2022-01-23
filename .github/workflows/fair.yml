@@ -132,6 +132,11 @@ jobs:
           echo "FAIR_APP_ARTIFACT=${{ env.APPNAME }}" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ env.APPNAME }})" >> $GITHUB_ENV
 
+      # Verifies that pages are enabled for this repository
+      # Done early to fail fast and avoid burning minutes on misconfigured forks
+      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://app-fair.app/fair#app/${{ env.ORGNAME }}"
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -426,6 +431,11 @@ jobs:
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
           echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
  
+      # Verifies that pages are enabled for the forked repository
+      # Done early to fail fast and avoid burning minutes on misconfigured forks
+      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://app-fair.app/fair#app/${{ env.ORGNAME }}"
+
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
 

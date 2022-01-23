@@ -51,33 +51,29 @@ jobs:
 
       # Verifies that the repository is named "App"
       - name: "Check Repository Name"
-        run: gh repo view "${{ github.repository }}" --json name | jq -e '. | select(.name=="App")'
+        run: gh repo view "${{ env.ORGNAME }}/App" --json name | jq -e '. | select(.name=="App")'
 
       # Verifies that the repository is in an org
       - name: "Check Repository Organization"
-        run: gh repo view "${{ github.repository }}" --json isInOrganization | jq -e '.isInOrganization'
-
-      # Verifies the repository license
-      - name: "Check Repository License"
-        run: gh repo view "${{ github.repository }}" --json licenseInfo | jq -e '.licenseInfo | select(.key == "agpl-3.0")'
+        run: gh repo view "${{ env.ORGNAME }}/App" --json isInOrganization | jq -e '.isInOrganization'
 
       # Verifies that the repository is a fork
       - name: "Check Repository Fork"
-        run: gh repo view "${{ github.repository }}" --json isFork | jq -e '.isFork'
+        run: gh repo view "${{ env.ORGNAME }}/App" --json isFork | jq -e '.isFork'
 
       # Verifies that issues are enabled for this repository
       - name: "Check Repository Issues"
-        run: gh repo view "${{ github.repository }}" --json hasIssuesEnabled | jq -e '.hasIssuesEnabled'
+        run: gh repo view "${{ env.ORGNAME }}/App" --json hasIssuesEnabled | jq -e '.hasIssuesEnabled'
 
       # Verifies that discussions are enabled for this repository
       # There is no API for this yet, so we just use curl
       - name: "Check Repository Discussions"
-        run: curl --head -I --fail -s "https://github.com/${{ github.repository }}/discussions" > /dev/null
+        run: curl --head -I --fail -s "https://github.com/${{ env.ORGNAME }}/App/discussions" > /dev/null
 
       # Verifies that pages are enabled for this repository
       # There is no API for this yet, so we just use curl
-      - name: "Check Repository Page: https://${{ github.repository_owner }}.github.io/App"
-        run: curl --head -I --fail -s "https://${{ github.repository_owner }}.github.io/App" > /dev/null
+      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://app-fair.app/fair#app/${{ env.ORGNAME }}"
 
       - name: "Checkout ${{ env.PRODUCT_NAME }}"
         uses: actions/checkout@v2
