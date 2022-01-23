@@ -846,7 +846,7 @@ public extension FairCLI {
                 throw AppError("Missing MARKETING_VERSION in AppFairApp.xcconfig")
             }
 
-            let expectedIntegrationTitle = appName + ": " + appVersion
+            let expectedIntegrationTitle = appName + " " + appVersion
 
             if let integrationTitle = self.integrationTitleFlag,
                integrationTitle != expectedIntegrationTitle {
