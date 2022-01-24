@@ -385,7 +385,12 @@ public extension FairCLI {
         flags["-artifact-url"]?.first
     }
 
-    /// The flag for the `fairseal` command indicating the output folder for the casks
+    /// The flag for the `index` markdown to save a catalog index markdown
+    var indexFlag: String? {
+        flags["-index"]?.first
+    }
+
+    /// The flag for the `cask-filder` indicating the output folder for the casks
     var caskFolderFlag: String? {
         flags["-cask-folder"]?.first
     }
@@ -1525,7 +1530,6 @@ public extension FairCLI {
         let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: Int(coreSize), tint: tint)
         
         msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
-        //try writeOutput(fairseal.debugJSON) // save the file
 
         // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
         msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
@@ -1584,6 +1588,15 @@ public extension FairCLI {
             artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
         }
 
+        func output(_ data: Data, to path: String) throws {
+            if path == "-" {
+                print(data.utf8String!)
+            } else {
+                let file = URL(fileURLWithPath: path)
+                try data.write(to: file)
+            }
+        }
+
         // build the catalog filtering on specific artifact extensions
         let catalog = try hub.buildCatalog(title: catalogTitleFlag ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
 
@@ -1592,9 +1605,11 @@ public extension FairCLI {
             msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
         }
 
-        let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
-        let success = try writeOutput(json.utf8String)
-        msg(.info, success ? "Successfully wrote catalog to" : "Unable to write catalog to", outputFlag, json.utf8String?.count.localizedByteCount())
+        if let outputFile = outputFlag {
+            let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+            try output(json, to: outputFile)
+            msg(.info, "Wrote catalog to", outputFile, json.count.localizedByteCount())
+        }
 
         if let caskFolderFlag = caskFolderFlag {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
@@ -1602,6 +1617,25 @@ public extension FairCLI {
                 try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease", msg: msg)
             }
         }
+
+        if let indexFlag = indexFlag {
+            var md = """
+            ---
+            layout: catalog
+            ---
+            """
+
+            for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
+                md += """
+                  * \(app.name) \(app.version ?? "")
+                """
+            }
+
+            try output(md.utf8Data, to: indexFlag)
+            msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
+
+        }
+
     }
 
     @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?, msg: MessageHandler) throws -> Bool {
@@ -1693,21 +1727,6 @@ end
         return true
     }
 
-
-    @discardableResult
-    func writeOutput(_ value: String?) throws -> Bool {
-        guard let outputFile = outputFlag else {
-            return false
-        }
-
-        if outputFile == "-" { // print to standard out
-            print(value ?? "")
-        } else {
-            let file = URL(fileURLWithPath: outputFile)
-            try value?.write(to: file, atomically: true, encoding: .utf8)
-        }
-        return true
-    }
 
     @discardableResult func printMessage(kind: MessageKind = .info, _ message: [Any?]) -> String {
         let msg = message.map({ $0.flatMap(String.init(describing:)) ?? "nil" }).joined(separator: " ")
