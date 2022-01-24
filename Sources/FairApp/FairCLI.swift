@@ -970,7 +970,7 @@ public extension FairCLI {
     func validateCommit(ref: String, hub: FairHub, msg: MessageHandler) throws {
         msg(.info, "Validating commit ref:", ref)
         let response = try hub.requestSync(FairHub.GetCommitQuery(owner: hub.org, name: appName, ref: ref)).get().data
-        let author = try hub.authorize(commit: response)
+        let author: Void = try hub.authorize(commit: response)
         let _ = author
         //msg(.info, "Validated commit author:", author)
     }

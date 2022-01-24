@@ -537,9 +537,9 @@ public extension FairHub {
 
     /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
     func validateEmailAddress(_ email: String?) throws {
-        guard let email = email, try permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
-            throw Errors.invalidEmail(email)
-        }
+//        guard let email = email, try permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
+//            throw Errors.invalidEmail(email)
+//        }
     }
 
     /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
