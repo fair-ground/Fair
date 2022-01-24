@@ -1627,7 +1627,9 @@ public extension FairCLI {
 
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
                 md += """
-                  * \(app.name) \(app.version ?? "")
+
+                  * [\(app.name)](\(app.homepage)) \(app.version ?? "")
+
                 """
             }
 
