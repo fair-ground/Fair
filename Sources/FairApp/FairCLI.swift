@@ -1626,9 +1626,44 @@ public extension FairCLI {
             """
 
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
+                let landingPage = "https://\(app.name.rehyphenated()).github.io/App"
+                var version = app.version ?? ""
+                if app.beta == true {
+                    version = "_\(version) pre-release_"
+                }
+
+//                /// The categories assigned to this app
+//                public var categories: [String]?
+//                /// The number of downloads for this asset
+//                public var downloadCount: Int?
+//                /// The number of stargazers for this project
+//                public var starCount: Int?
+//                /// The number of followers for this project
+//                public var watcherCount: Int?
+//                /// The number of forks for this project
+//                public var forkCount: Int?
+//                /// The number of issues for this project
+//                public var issueCount: Int?
+//                /// The total size of the source assets for this project
+//                public var sourceSize: Int?
+//                /// The size of the core code
+//                public var coreSize: Int?
+
+                var catalogEntry = "[**\(app.name)**](\(landingPage)) \(version)"
+                catalogEntry += ": "
+                catalogEntry += "[downloads: \(app.downloadCount ?? 0)](\(app.releasesURL.absoluteString)) "
+                catalogEntry += "[issues: \(app.issueCount ?? 0)](\(app.issuesURL.absoluteString)) "
+                catalogEntry += "[stars: \(app.starCount ?? 0)](\(app.sourceURL.absoluteString)) "
+                for category in app.appCategories {
+                    catalogEntry += "[category: \(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
+                }
+
+
+                catalogEntry += app.versionDate?.description ?? ""
+
                 md += """
 
-                  * [\(app.name)](https://\(app.name.rehyphenated()).github.io/App) \(app.version ?? ""): \(app.versionDate?.description ?? ""))
+                  * \(catalogEntry)
 
                 """
             }
