@@ -486,7 +486,7 @@ public extension FairHub {
     }
 
     /// Checks the commit info to ensure that it is verified, and if so, returns the author information
-    func authorize(commit: CommitInfo) throws -> String {
+    func authorize(commit: CommitInfo) throws {
         let info = commit.repository.object
         //guard let verification = info.signature else {
             //throw Errors.noVerification(commit)
@@ -509,8 +509,8 @@ public extension FairHub {
 //            throw Errors.mismatchedEmail(info.author?.email, info.owner.email)
 //        }
 
-        try validateEmailAddress(email)
-        return name + " <" + email + ">"
+
+//        try validateEmailAddress(email)
     }
 
     private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) throws -> Bool {
