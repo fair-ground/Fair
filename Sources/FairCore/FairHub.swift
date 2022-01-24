@@ -500,9 +500,9 @@ public extension FairHub {
             throw Errors.noAuthor(commit)
         }
 
-        guard let email = info.author?.email, !email.isEmpty else {
-            throw Errors.invalidEmail(info.author?.email)
-        }
+//        guard let email = info.author?.email, !email.isEmpty else {
+//            throw Errors.invalidEmail(info.author?.email)
+//        }
 
         // TODO: email isn't sent as part of owner; will need to match org-email and commit-email using a separate request
 //        if email != info.owner.email {
