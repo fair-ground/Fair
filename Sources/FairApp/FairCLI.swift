@@ -1628,7 +1628,7 @@ public extension FairCLI {
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
                 md += """
 
-                  * [\(app.name)](\(app.homepage)) \(app.version ?? "")
+                  * [\(app.name)](https://\(app.name.rehyphenated()).github.io/App) \(app.version ?? ""): \(app.versionDate?.description ?? ""))
 
                 """
             }

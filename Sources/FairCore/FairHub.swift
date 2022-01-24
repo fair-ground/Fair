@@ -31,10 +31,10 @@ public let appfairMaxApps = 250_000
 public let appfairName = "appfair"
 
 /// The canonical location of the catalog for the Fair Ground
-public let appfairCatalogURL = URL(string: "https://www.appfair.net/fairapps.json")
+public let appfairCatalogURLMacOS = URL(string: "https://www.appfair.net/fairapps-macos.json")
 
 /// The canonical location of the iOS catalog for the Fair Ground
-public let appfairCatalogIOSURL = URL(string: "https://www.appfair.net/fairapps-iOS.json")
+public let appfairCatalogURLIOS = URL(string: "https://www.appfair.net/fairapps-ios.json")
 
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
@@ -350,7 +350,7 @@ public extension FairHub {
         // in order to minimize catalog changes, always sort by the bundle name
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
-        let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURL : appfairCatalogIOSURL
+        let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURLMacOS : appfairCatalogURLIOS
         let catalog = FairAppCatalog(name: title, identifier: org, sourceURL: catalogURL!, apps: apps, news: news)
         return catalog
     }

@@ -197,7 +197,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testFetchCatalog() throws {
-        guard let url = appfairCatalogURL else {
+        guard let url = appfairCatalogURLMacOS else {
             return XCTFail("could not load catalog URL")
         }
 
