@@ -1619,6 +1619,16 @@ public extension FairCLI {
         }
 
         if let indexFlag = indexFlag {
+            let format = ISO8601DateFormatter()
+            func fmt(_ date: Date) -> String {
+                //date.localizedDate(dateStyle: .short, timeStyle: .short)
+                format.string(from: date)
+            }
+
+            func pre(_ string: String) -> String {
+                "`" + string + "`"
+            }
+
             var md = """
             ---
             layout: catalog
@@ -1637,32 +1647,32 @@ public extension FairCLI {
                 }
 
                 md += "| "
-                md += version
+                md += pre(version)
 
                 md += " | "
                 md += "[\(app.name)](\(landingPage))"
 
                 md += " | "
-                md += (app.downloadCount ?? 0).description
+                md += pre((app.downloadCount ?? 0).description)
 
                 md += " | "
-                md += (app.starCount ?? 0).description
+                md += pre((app.starCount ?? 0).description)
 
                 md += " | "
-                md += (app.issueCount ?? 0).description
+                md += pre((app.issueCount ?? 0).description)
 
                 md += " | "
-                md += (app.versionDate ?? .distantPast).localizedDate(dateStyle: .short, timeStyle: .short)
+                md += pre(fmt(app.versionDate ?? .distantPast))
 
                 md += " | "
                 if let category = app.appCategories.first {
-                    md += "[\(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
+                    md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
                 }
 
                 md += " |\n"
             }
 
-            md += " \n_Updated: {{ page.date }}_\n"
+            md += " \n_Updated: \(pre(fmt(Date())))_\n"
 
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
