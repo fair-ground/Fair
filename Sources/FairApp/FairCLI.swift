@@ -1623,30 +1623,40 @@ public extension FairCLI {
             ---
             layout: catalog
             ---
+
+            | Name | version | downloads | stars | issues | category |
+            | ---- | ------: | --------: | ----: | -----: | :------: |
+
             """
 
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
                 let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
                 var version = app.version ?? ""
                 if app.beta == true {
-                    version = "_\(version) pre-release_"
+                    version = "_\(version)β_"
                 }
 
-                var catalogEntry = "[**\(app.name)**](\(landingPage)) \(version)"
-                catalogEntry += ": "
-                catalogEntry += "[downloads: \(app.downloadCount ?? 0)](\(app.releasesURL.absoluteString)) "
-                catalogEntry += "[issues: \(app.issueCount ?? 0)](\(app.issuesURL.absoluteString)) "
-                catalogEntry += "[stars: \(app.starCount ?? 0)](\(app.sourceURL.absoluteString)) "
-                for category in app.appCategories {
-                    catalogEntry += "[category: \(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
+                md += "| "
+                md += "[\(app.name)](\(landingPage))"
+
+                md += " | "
+                md += version
+
+                md += " | "
+                md += (app.downloadCount ?? 0).description
+
+                md += " | "
+                md += (app.starCount ?? 0).description
+
+                md += " | "
+                md += (app.issueCount ?? 0).description
+
+                md += " | "
+                if let category = app.appCategories.first {
+                    md += "[category: \(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
                 }
 
-                catalogEntry += app.versionDate?.description ?? ""
-
-                md += """
-                  * \(catalogEntry)
-
-                """
+                md += " |\n"
             }
 
             try output(md.utf8Data, to: indexFlag)
