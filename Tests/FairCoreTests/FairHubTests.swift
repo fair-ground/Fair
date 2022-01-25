@@ -115,9 +115,9 @@ final class FairHubTests: XCTestCase {
     }
 
     func testCatalogQuery() throws {
-        if ({ true }()) {
-            throw XCTSkip("disabled to reduce API load")
-        }
+//        if ({ true }()) {
+//            throw XCTSkip("disabled to reduce API load")
+//        }
         
         let hub = try Self.hub(skipNoAuth: true)
 
@@ -125,7 +125,7 @@ final class FairHubTests: XCTestCase {
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.CatalogQuery.QueryResponse.BaseRepository.Repository]] = []
         for _ in 1...3 {
-            let results = try hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 10...80)), maxBatches: 1_000)
+            let results = try hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 2...9)), maxBatches: 1_000)
             let forks = results
                 .compactMap(\.result.successValue)
                 .flatMap(\.data.repository.forks.nodes)

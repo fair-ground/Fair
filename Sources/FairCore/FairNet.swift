@@ -111,7 +111,7 @@ extension EndpointService {
                 // no more elements
                 return nil
             }
-            dbg("requesing next cursor") // , cursor)
+            dbg("requesting next cursor:", requestIndex) // , cursor)
             request.cursor = cursor // make another request with the new cursor
         }
 
@@ -122,6 +122,7 @@ extension EndpointService {
     public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) throws -> [A.Response] where A.Service == Self, A.Response.CursorType == A.CursorType {
         var batches: [A.Response] = []
         let _: Bool? = try self.requestFirstBatch(request) { resultIndex, urlResponse, batch in
+//            dbg("batch response:", urlResponse, (urlResponse as? HTTPURLResponse)?.allHeaderFields)
             batches.append(batch)
             if batches.count >= maxBatches {
                 return false

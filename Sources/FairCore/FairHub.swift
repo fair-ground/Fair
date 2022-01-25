@@ -1038,12 +1038,12 @@ public extension FairHub {
         public var name: String
 
         /// the number of forks to return per batch
-        public var count: Int = 25 // any more can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
+        public var count: Int = 5 // any higher can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
 
         /// the number of releases to scan
         public var releaseCount: Int = 10
         /// the number of release assets to process
-        public var assetCount: Int = 50
+        public var assetCount: Int = 25
         /// the number of recent PRs to scan for a fairseal
         public var prCount: Int = 10
         /// the number of initial comments to scan for a fairseal
