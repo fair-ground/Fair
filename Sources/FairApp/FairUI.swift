@@ -89,8 +89,9 @@ public struct URLImage : View, Equatable {
                         Text(error.localizedDescription)
                             .label(image: FairSymbol.xmark_octagon)
                     } else {
-                        FairSymbol.xmark_octagon.image
-                            .resizable(resizingMode: .stretch)
+                        Circle().fill(.secondary).opacity(0.5)
+//                        FairSymbol.xmark_octagon.image
+//                            .resizable(resizingMode: .stretch)
                     }
                 } else if showProgress == true {
                     ProgressView().progressViewStyle(.automatic)

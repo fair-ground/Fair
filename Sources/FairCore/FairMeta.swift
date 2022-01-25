@@ -718,7 +718,7 @@ public extension AppCatalogItem {
 
     /// The official landing page for the app
     var landingPage: URL! {
-        URL(string: "https://\(appNameHyphenated).github.io/App")
+        URL(string: "https://\(appNameHyphenated).github.io/App/")
     }
 
     /// Returns the URL to this app's home page

@@ -542,7 +542,7 @@ public extension FairCLI {
         let appNameSpace = appName.dehyphenated()
         let appBundleID = "app." + appName
         let appVersion = "0.0.1"
-        let ghrepo = "https://www.github.com/\(appName)/App"
+        let ghrepo = "https://www.github.com/\(appName)/App/"
 
         po("Your app will be uniquely contained in a GitHub organization.")
         po("Create a new GitHub organization named: \(appName)")
@@ -1626,28 +1626,11 @@ public extension FairCLI {
             """
 
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
-                let landingPage = "https://\(app.name.rehyphenated()).github.io/App"
+                let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
                 var version = app.version ?? ""
                 if app.beta == true {
                     version = "_\(version) pre-release_"
                 }
-
-//                /// The categories assigned to this app
-//                public var categories: [String]?
-//                /// The number of downloads for this asset
-//                public var downloadCount: Int?
-//                /// The number of stargazers for this project
-//                public var starCount: Int?
-//                /// The number of followers for this project
-//                public var watcherCount: Int?
-//                /// The number of forks for this project
-//                public var forkCount: Int?
-//                /// The number of issues for this project
-//                public var issueCount: Int?
-//                /// The total size of the source assets for this project
-//                public var sourceSize: Int?
-//                /// The size of the core code
-//                public var coreSize: Int?
 
                 var catalogEntry = "[**\(app.name)**](\(landingPage)) \(version)"
                 catalogEntry += ": "
@@ -1658,11 +1641,9 @@ public extension FairCLI {
                     catalogEntry += "[category: \(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
                 }
 
-
                 catalogEntry += app.versionDate?.description ?? ""
 
                 md += """
-
                   * \(catalogEntry)
 
                 """
