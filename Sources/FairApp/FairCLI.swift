@@ -1634,26 +1634,30 @@ public extension FairCLI {
             layout: catalog
             ---
 
-            | name | version | downloads | stars | issues | date | category |
-            | :--: | :-----: | --------: | -----:| -----: | ---- | :------: |
+            | name | version | downloads | size | stars | issues | date | category |
+            | ---: | :------ | --------: | :--- | -----:| -----: | ---- | :------- |
 
             """
 
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
                 let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
+
                 var version = app.version ?? ""
                 if app.beta == true {
-                    version = "_\(version)β_"
+                    version += "β"
                 }
 
                 md += "| "
+                md += "[`\(app.name)`](\(landingPage))"
+
+                md += " | "
                 md += pre(version)
 
                 md += " | "
-                md += "[\(app.name)](\(landingPage))"
+                md += pre((app.downloadCount ?? 0).description)
 
                 md += " | "
-                md += pre((app.downloadCount ?? 0).description)
+                md += pre(app.size.localizedByteCount())
 
                 md += " | "
                 md += pre((app.starCount ?? 0).description)
