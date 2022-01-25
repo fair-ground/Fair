@@ -209,8 +209,10 @@ public extension FairHub {
 //                    continue
 //                }
 
+                let appName = fork.owner.login
+
                 do {
-                    try validateAppName(fork.owner.login)
+                    try validateAppName(appName)
                 } catch {
                     // skip packages whose names are not valid
                     dbg(fork.nameWithOwner, "invalid app name:", error)
@@ -245,7 +247,7 @@ public extension FairHub {
 
                 for artifactTarget in [artifactTarget] {
                     let artifactType = artifactTarget.artifactType
-                    dbg("checking target:", fork.owner.login, fork.name, appVersion.versionString, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
+                    dbg("checking target:", appName, fork.name, appVersion.versionString, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(artifactType)
                     }) else {
@@ -260,6 +262,11 @@ public extension FairHub {
 
                     guard let appREADME = releaseAsset(named: "README.md") else {
                         dbg("missing app metadata from release")
+                        continue
+                    }
+
+                    guard let appIcon = releaseAsset(named: appName + ".png") else {
+                        dbg("missing appIcon from release")
                         continue
                     }
 
@@ -313,11 +320,14 @@ public extension FairHub {
                     }
 
                     let downloadCount = appArtifact.downloadCount
+                    let impressionCount = appIcon.downloadCount
+                    let viewCount = appREADME.downloadCount
+
                     let size = appArtifact.size
 
                     // walk through the recent releases until we find one that has a fairseal on it
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum))
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum))
 
 
                     if beta == true {

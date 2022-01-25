@@ -1634,8 +1634,8 @@ public extension FairCLI {
             layout: catalog
             ---
 
-            | name | version | downloads | size | stars | issues | date | category |
-            | ---: | :------ | --------: | :--- | -----:| -----: | ---- | :------- |
+            | name | version | downloads | impressions | views | size | stars | issues | date | category |
+            | ---: | :------ | --------: | ----------: | -----: | :--- | -----:| -----: | ---- | :------- |
 
             """
 
@@ -1655,6 +1655,12 @@ public extension FairCLI {
 
                 md += " | "
                 md += pre((app.downloadCount ?? 0).description)
+
+                md += " | "
+                md += pre((app.impressionCount ?? 0).description)
+
+                md += " | "
+                md += pre((app.viewCount ?? 0).description)
 
                 md += " | "
                 md += pre(app.size.localizedByteCount())

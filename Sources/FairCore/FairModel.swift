@@ -101,6 +101,10 @@ public struct AppCatalogItem : Pure {
     public var categories: [String]?
     /// The number of downloads for this asset
     public var downloadCount: Int?
+    /// The number of views for the catalog item
+    public var viewCount: Int?
+    /// The number of impression for the catalog item
+    public var impressionCount: Int?
     /// The number of stargazers for this project
     public var starCount: Int?
     /// The number of followers for this project
@@ -126,7 +130,7 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's README
     public var readmeURL: URL?
 
-    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?) {
+    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, impressionCount: Int?, viewCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -144,6 +148,8 @@ public struct AppCatalogItem : Pure {
         self.sourceIdentifier = sourceIdentifier
         self.categories = categories
         self.downloadCount = downloadCount
+        self.impressionCount = impressionCount
+        self.viewCount = viewCount
         self.starCount = starCount
         self.watcherCount = watcherCount
         self.issueCount = issueCount
