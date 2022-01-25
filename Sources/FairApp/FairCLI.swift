@@ -1634,6 +1634,25 @@ public extension FairCLI {
             layout: catalog
             ---
 
+            <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            td, th {
+                border: 1px solid black;
+            }
+
+            th, td {
+                padding: 5px;
+            }
+
+            tr:nth-child(even) {
+                background-color: Lightgreen;
+            }
+            </style>
+
+            
             | name | version | downloads | impressions | views | size | stars | issues | date | category |
             | ---: | :------ | --------: | ----------: | -----: | :--- | -----:| -----: | ---- | :------- |
 
