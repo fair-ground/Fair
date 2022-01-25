@@ -1624,8 +1624,8 @@ public extension FairCLI {
             layout: catalog
             ---
 
-            | Name | version | downloads | stars | issues | category |
-            | ---- | ------: | --------: | ----: | -----: | :------: |
+            | name | version | downloads | stars | issues | date | category |
+            | :--: | :-----: | --------: | -----:| -----: | ---- | :------: |
 
             """
 
@@ -1637,10 +1637,10 @@ public extension FairCLI {
                 }
 
                 md += "| "
-                md += "[\(app.name)](\(landingPage))"
+                md += version
 
                 md += " | "
-                md += version
+                md += "[\(app.name)](\(landingPage))"
 
                 md += " | "
                 md += (app.downloadCount ?? 0).description
@@ -1652,12 +1652,17 @@ public extension FairCLI {
                 md += (app.issueCount ?? 0).description
 
                 md += " | "
+                md += (app.versionDate ?? .distantPast).localizedDate(dateStyle: .short, timeStyle: .short)
+
+                md += " | "
                 if let category = app.appCategories.first {
-                    md += "[category: \(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
+                    md += "[\(category.rawValue)](https://github.com/topics/appfair-\(category.rawValue)) "
                 }
 
                 md += " |\n"
             }
+
+            md += " \n_Updated: {{ page.date }}_\n"
 
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
