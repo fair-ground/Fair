@@ -135,7 +135,7 @@ jobs:
       # Verifies that pages are enabled for this repository
       # Done early to fail fast and avoid burning minutes on misconfigured forks
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
-        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://app-fair.app/fair#app/${{ env.ORGNAME }}"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair#app/${{ env.ORGNAME }}"
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -434,7 +434,7 @@ jobs:
       # Verifies that pages are enabled for the forked repository
       # Done early to fail fast and avoid burning minutes on misconfigured forks
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
-        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://app-fair.app/fair#app/${{ env.ORGNAME }}"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair#app/${{ env.ORGNAME }}"
 
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
