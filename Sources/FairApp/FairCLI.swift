@@ -1641,6 +1641,7 @@ public extension FairCLI {
 
             td, th {
                 border: 1px solid black;
+                white-space: nowrap;
             }
 
             th, td {
@@ -1653,15 +1654,16 @@ public extension FairCLI {
             </style>
 
             
-            | name | version | downloads | impressions | views | size | stars | issues | date | category |
-            | ---: | :------ | --------: | ----------: | -----: | :--- | -----:| -----: | ---- | :------- |
+            | name | version | imps | views | dls | size | stars | issues | date | category |
+            | ---: | :------ | ---: | ----: | --: | :--- | -----:| -----: | ---- | :------- |
 
             """
 
             for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
                 let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
 
-                var version = app.version ?? ""
+                let v = app.version ?? ""
+                var version = v
                 if app.beta == true {
                     version += "β"
                 }
@@ -1670,16 +1672,20 @@ public extension FairCLI {
                 md += "[`\(app.name)`](\(landingPage))"
 
                 md += " | "
-                md += pre(version)
-
-                md += " | "
-                md += pre((app.downloadCount ?? 0).description)
+                if let relURL = URL(string: v, relativeTo: app.releasesURL) {
+                    md += "[`\(pre(version))`](\(relURL.absoluteString))"
+                } else {
+                    md += "`\(pre(version))`"
+                }
 
                 md += " | "
                 md += pre((app.impressionCount ?? 0).description)
 
                 md += " | "
                 md += pre((app.viewCount ?? 0).description)
+
+                md += " | "
+                md += pre((app.downloadCount ?? 0).description)
 
                 md += " | "
                 md += pre(app.size.localizedByteCount())
@@ -1701,7 +1707,7 @@ public extension FairCLI {
                 md += " |\n"
             }
 
-            md += " \n_Updated: \(pre(fmt(Date())))_\n"
+            md += "\n<small>Updated: {{ page.date }}</small>\n"
 
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
