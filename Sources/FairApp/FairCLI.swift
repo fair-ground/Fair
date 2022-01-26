@@ -1653,7 +1653,8 @@ public extension FairCLI {
             }
             </style>
 
-            
+            <small>Last updated: {{ site.time | date_to_xmlschema }}</small>
+
             | name | version | imps | views | dls | size | stars | issues | date | category |
             | ---: | :------ | ---: | ----: | --: | :--- | -----:| -----: | ---- | :------- |
 
@@ -1706,8 +1707,6 @@ public extension FairCLI {
 
                 md += " |\n"
             }
-
-            md += "\n<small>Updated: {{ page.date }}</small>\n"
 
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
