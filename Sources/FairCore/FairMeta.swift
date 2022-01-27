@@ -723,7 +723,7 @@ public extension AppCatalogItem {
 
     /// Returns the URL to this app's home page
     var baseURL: URL! {
-        URL(string: "https://github.com/\(appNameHyphenated)/App")
+        URL(string: "https://github.com/\(appNameHyphenated)/App/")
     }
 
     /// The e-mail address for contacting the developer
@@ -745,7 +745,7 @@ public extension AppCatalogItem {
     }
 
     var releasesURL: URL! {
-        URL(string: "releases", relativeTo: baseURL)
+        URL(string: "releases/", relativeTo: baseURL)
     }
 
     var developerURL: URL! {
