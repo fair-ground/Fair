@@ -737,15 +737,15 @@ public extension AppCatalogItem {
     }
 
     var issuesURL: URL! {
-        baseURL.appendingPathComponent("issues")
+        URL(string: "issues", relativeTo: baseURL)
     }
 
     var discussionsURL: URL! {
-        baseURL.appendingPathComponent("discussions")
+        URL(string: "discussions", relativeTo: baseURL)
     }
 
     var releasesURL: URL! {
-        baseURL.appendingPathComponent("releases")
+        URL(string: "releases", relativeTo: baseURL)
     }
 
     var developerURL: URL! {

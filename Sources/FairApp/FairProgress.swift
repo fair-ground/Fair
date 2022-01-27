@@ -153,6 +153,7 @@ struct FairProgressView_Previews: PreviewProvider {
 
         return Group {
             FairProgressView(progress)
+                //.progressViewStyle(PieProgressViewStyle(lineWidth: 40))
         }
         .previewLayout(.sizeThatFits)
     }

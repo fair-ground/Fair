@@ -1653,8 +1653,6 @@ public extension FairCLI {
             }
             </style>
 
-            <small>Last updated: {{ site.time | date_to_xmlschema }}</small>
-
             | name | version | imps | views | dls | size | stars | issues | date | category |
             | ---: | :------ | ---: | ----: | --: | :--- | -----:| -----: | ---- | :------- |
 
@@ -1695,7 +1693,12 @@ public extension FairCLI {
                 md += pre((app.starCount ?? 0).description)
 
                 md += " | "
-                md += pre((app.issueCount ?? 0).description)
+                let issueCount = (app.issueCount ?? 0)
+                if issueCount > 0, let issuesURL = app.issuesURL {
+                    md += "[`\(pre(issueCount.description))`](\(issuesURL.absoluteString))"
+                } else {
+                    md += pre(issueCount.description)
+                }
 
                 md += " | "
                 md += pre(fmt(app.versionDate ?? .distantPast))
@@ -1707,6 +1710,12 @@ public extension FairCLI {
 
                 md += " |\n"
             }
+
+            md += """
+
+            <center><small>`{{ site.time | date_to_xmlschema }}`</small></center>
+            
+            """
 
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
