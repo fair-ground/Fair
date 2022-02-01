@@ -31,10 +31,13 @@ public let appfairMaxApps = 250_000
 public let appfairName = "appfair"
 
 /// The canonical location of the catalog for the Fair Ground
-public let appfairCatalogURLMacOS = URL(string: "https://www.appfair.net/fairapps-macos.json")
+public let appfairCatalogURLMacOS = URL(string: "https://www.appfair.net/fairapps-macos.json")!
 
 /// The canonical location of the iOS catalog for the Fair Ground
-public let appfairCatalogURLIOS = URL(string: "https://www.appfair.net/fairapps-ios.json")
+public let appfairCatalogURLIOS = URL(string: "https://www.appfair.net/fairapps-ios.json")!
+
+/// The canonical location of the enhanced cask app metadata
+public let appfairCaskAppsURL = URL(string: "https://www.appfair.net/appcasks.json")!
 
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
@@ -178,6 +181,8 @@ public extension FairHub {
                 //let developerName = release.tagCommit.signature?.signer.name
 
                 let devName = release.tagCommit.author?.name
+
+                let homepage = fork.homepageUrl.flatMap(URL.init(string:))
 
                 guard let devEmail = release.tagCommit.author?.email else {
                     dbg(fork.nameWithOwner, "no email for commit")
@@ -327,7 +332,7 @@ public extension FairHub {
 
                     // walk through the recent releases until we find one that has a fairseal on it
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum))
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), homepage: homepage)
 
 
                     if beta == true {
@@ -361,7 +366,121 @@ public extension FairHub {
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
         let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURLMacOS : appfairCatalogURLIOS
-        let catalog = FairAppCatalog(name: title, identifier: org, sourceURL: catalogURL!, apps: apps, news: news)
+        let catalog = FairAppCatalog(name: title, identifier: org, sourceURL: catalogURL, apps: apps, news: news)
+        return catalog
+    }
+
+    /// Generates the appcasks enhanced catalog for Homebrew Casks
+    func buildAppCasks(owner: String = appfairName) throws -> FairAppCatalog {
+        // all the seal hashes we will look up to validate releases
+        dbg("buildAppCasks")
+
+        let forksResponse = try self.requestBatches(FairHub.AppCasksQuery(owner: owner, name: "appcasks"), maxBatches: appfairMaxApps / 200)
+        if let error = forksResponse.compactMap(\.result.failureValue).first {
+            throw error
+        }
+        let forks = forksResponse
+            .compactMap(\.result.successValue)
+            .flatMap(\.data.repository.forks.nodes)
+
+        dbg("fetched forks:", forks.count)
+
+        var apps: [AppCatalogItem] = []
+
+        for fork in forks  {
+            dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
+
+            guard let homepage = fork.owner.websiteUrl else {
+                dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
+                continue
+            }
+
+            if fork.owner.isVerified != true {
+                dbg("skipping un-verified owner:", fork.nameWithOwner)
+                continue
+            }
+
+            // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
+            let categories = (fork.repositoryTopics.nodes ?? []).map(\.topic.name).compactMap({
+                AppCategory.topics[$0]?.metadataIdentifier
+            })
+
+            for release in (fork.releases.nodes ?? []) {
+                let appid = BundleIdentifier(release.tag.name)
+                let releaseName = release.name
+
+                let subtitle: String? = nil
+                let localizedDescription = release.description
+
+                dbg("  checking release tag:", appid, "name:", releaseName)
+
+                let appName = fork.owner.login
+
+                do {
+                    try validateAppName(appName)
+                } catch {
+                    // skip packages whose names are not valid
+                    dbg(fork.nameWithOwner, "invalid app name:", error)
+                    continue
+                }
+
+                let versionDate = release.createdAt
+                let versionDescription = release.description
+
+                let iconURL = release.releaseAssets.nodes.first { asset in
+                    asset.name == "AppIcon.png"
+                }?.downloadUrl
+
+                let beta: Bool = release.isPrerelease
+
+                let sourceIdentifier: String? = nil
+
+                func releaseAsset(named name: String) -> ReleaseAsset? {
+                    release.releaseAssets.nodes.first(where: { node in
+                        node.name == name
+                    })
+                }
+
+                dbg("checking target:", appName, fork.name, "files:", release.releaseAssets.nodes.map(\.name))
+                guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
+                    node.name.hasSuffix("AppIcon.png")
+                }) else {
+                    dbg("missing app artifact from release")
+                    continue
+                }
+
+                let appREADME = releaseAsset(named: "README.md")
+
+                guard let appIcon = releaseAsset(named: "AppIcon.png") else {
+                    dbg("missing appIcon from release")
+                    continue
+                }
+
+                let artifactURL = appArtifact.downloadUrl
+
+                let readmeURL = appREADME?.downloadUrl
+                let screenshotURLs = release.releaseAssets.nodes.filter { node in
+                    if !node.name.hasSuffix(".png") { return false }
+                    return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
+                }
+
+                let downloadCount = appArtifact.downloadCount
+                let impressionCount = appIcon.downloadCount
+                let viewCount = appREADME?.downloadCount
+
+                let size = appArtifact.size
+
+                // walk through the recent releases until we find one that has a fairseal on it
+
+                let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: size, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: nil, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, homepage: homepage)
+                apps.append(app)
+            }
+        }
+
+        // in order to minimize catalog changes, always sort by the bundle name
+        apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
+
+        let catalog = FairAppCatalog(name: "Cask enhanced metadata", identifier: "appcasks", sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
         return catalog
     }
 
@@ -1039,6 +1158,233 @@ public extension FairHub {
         }
     }
 
+    /**
+     ```
+     query {
+       repository(owner: "appfair", name: "appcasks") {
+         __typename
+         forks(first: 100) {
+           __typename
+           nodes {
+             __typename
+             nameWithOwner
+             owner {
+               __typename
+               url
+               ... on Organization {
+                 email
+                 isVerified
+                 websiteUrl
+                 email
+                 createdAt
+               }
+             }
+             releases(last: 100) {
+               nodes {
+                 name
+                 tagName
+                 description
+                   createdAt
+                   releaseAssets(first: 25) {
+                     nodes {
+                       name
+                       size
+                       downloadUrl
+                       downloadCount
+                     }
+                 }
+               }
+             }
+           }
+         }
+       }
+     }
+     ```
+     */
+
+    /// The query to generate a catalog of enhanced cask metadata
+    struct AppCasksQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        public let queryName: String = "AppCasksQuery"
+        public typealias Service = FairHub
+
+        public var owner: String
+        public var name: String
+
+        /// the number of forks to return per batch
+        public var count: Int = 25
+
+        /// the number of releases to scan
+        public var releaseCount: Int = 100
+        /// the number of release assets to process
+        public var assetCount: Int = 25
+
+        public var cursor: Cursor? = nil
+
+        public func postData() throws -> Data? {
+            try ["query": """
+             query \(queryName) {
+             __typename
+              repository(owner: "\(owner)", name: "\(name)") {
+                __typename
+                forks(after: \(quotedOrNull(cursor?.rawValue)), first: \(count), isLocked: false, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
+                  __typename
+                  totalCount
+                  pageInfo {
+                    endCursor
+                    hasNextPage
+                    hasPreviousPage
+                    startCursor
+                  }
+                  edges {
+                    node {
+                      __typename
+                      name
+                      nameWithOwner
+                      owner {
+                        __typename
+                        login
+                        ... on Organization {
+                          email
+                          isVerified
+                          websiteUrl
+                          createdAt
+                        }
+                      }
+                      description
+                      visibility
+                      shortDescriptionHTML
+                      forkCount
+                      stargazerCount
+                      hasIssuesEnabled
+                      discussionCategories { totalCount }
+                      issues { totalCount }
+                      stargazers { totalCount }
+                      watchers { totalCount }
+                      isInOrganization
+                      hasWikiEnabled
+                      hasProjectsEnabled
+                      homepageUrl
+                      repositoryTopics(first: 1) {
+                        nodes {
+                          __typename
+                          topic {
+                            __typename
+                            name
+                          }
+                        }
+                      }
+                      releases(first: \(releaseCount), orderBy: {field: CREATED_AT, direction: DESC}) {
+                        nodes {
+                          __typename
+                          name
+                          createdAt
+                          updatedAt
+                          isLatest
+                          isPrerelease
+                          isDraft
+                          description
+                          releaseAssets(first: \(assetCount)) {
+                            __typename
+                            edges {
+                              node {
+                                __typename
+                                contentType
+                                downloadCount
+                                downloadUrl
+                                name
+                                size
+                                updatedAt
+                                createdAt
+                              }
+                            }
+                          }
+                          tag {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            """].json()
+        }
+
+        public typealias Response = GraphQLResponse<QueryResponse>
+
+        public struct QueryResponse : Pure, CursoredAPIResponse {
+            public var endCursor: Cursor? {
+                repository.forks.pageInfo?.endCursor
+            }
+
+            public var elementCount: Int {
+                repository.forks.nodes.count
+            }
+
+            public enum TypeName : String, Pure { case Query }
+            public let __typename: TypeName
+            public let repository: BaseRepository
+            public struct BaseRepository : Pure {
+                public enum TypeName : String, Pure { case Repository }
+                public let __typename: TypeName
+                public let forks: EdgeList<Repository>
+                public struct Repository : Pure {
+                    public enum TypeName : String, Pure { case Repository }
+                    public let __typename: TypeName
+                    public let name: String
+                    public let nameWithOwner: String
+                    public let owner: RepositoryOwner
+                    public let description: String?
+                    public let visibility: String // e.g. "PUBLIC"
+                    public let shortDescriptionHTML: String
+                    public let forkCount: Int
+                    public let stargazerCount: Int
+                    public let hasIssuesEnabled: Bool
+                    public let discussionCategories: NodeCount
+                    public let issues: NodeCount
+                    public let stargazers: NodeCount
+                    public let watchers: NodeCount
+                    public let isInOrganization: Bool
+                    public let hasWikiEnabled: Bool
+                    public let hasProjectsEnabled: Bool
+                    public let homepageUrl: String?
+                    public var repositoryTopics: NodeList<RepositoryTopic>
+                    public let releases: NodeList<Release>
+
+                    public struct Release : Pure {
+                        public enum TypeName : String, Pure { case Release }
+                        public let __typename: TypeName
+                        public let tag: Tag
+                        public let name: String
+                        public let createdAt: Date
+                        public let updatedAt: Date
+                        public let isLatest: Bool
+                        public let isPrerelease: Bool
+                        public let isDraft: Bool
+                        public let description: String?
+                        public let releaseAssets: EdgeList<ReleaseAsset>
+
+                        public struct Tag: Pure {
+                            public let name: String
+                        }
+
+                    }
+
+                    public struct RepositoryTopic : Pure {
+                        public enum TypeName : String, Pure { case RepositoryTopic }
+                        public let __typename: TypeName
+                        public let topic: Topic
+                        public struct Topic : Pure {
+                            public enum TypeName : String, Pure { case Topic }
+                            public let __typename: TypeName
+                            public let name: String // TODO: this will be the appfair- app category
+                        }
+                    }
+                }
+            }
+        }
+    }
     /// The query to generate a fair-ground catalog
     struct CatalogQuery : GraphQLAPIRequest & CursoredAPIRequest {
         public let queryName: String = "CatalogQuery"
@@ -1117,6 +1463,7 @@ public extension FairHub {
                       releases(first: \(releaseCount), orderBy: {field: CREATED_AT, direction: DESC}) {
                         nodes {
                           __typename
+                          name
                           createdAt
                           updatedAt
                           isLatest
@@ -1290,6 +1637,7 @@ public extension FairHub {
                         public enum TypeName : String, Pure { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
+                        public let name: String
                         public let tagCommit: Commit
                         public let createdAt: Date
                         public let updatedAt: Date

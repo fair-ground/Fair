@@ -156,6 +156,7 @@ public extension FairCLI {
         case validate
         case merge
         case catalog
+        case appcasks
         #if canImport(Compression)
         case fairseal
         #endif
@@ -172,6 +173,7 @@ public extension FairCLI {
             case .validate: return "validate that the project can be successfully released"
             case .merge: return "merge base fair-ground updates into the project"
             case .catalog: return "build the catalog"
+            case .appcasks: return "build the enhanced appcasks catalog"
             #if canImport(Compression)
             case .fairseal: return "generates fairseal from trusted artifact"
             #endif
@@ -460,6 +462,7 @@ public extension FairCLI {
         case .validate: try validate(msg: messenger)
         case .merge: try merge(msg: messenger)
         case .catalog: try catalog(msg: messenger)
+        case .appcasks: try appcasks(msg: messenger)
         #if canImport(Compression)
         case .fairseal: try fairseal(msg: messenger)
         #endif
@@ -1574,6 +1577,40 @@ public extension FairCLI {
         }
     }
 
+    func appcasks(msg: MessageHandler) throws {
+        msg(.info, "AppCasks")
+        try retrying(msg: msg) {
+            try createAppCasks(msg: msg)
+        }
+    }
+
+    private func createAppCasks(msg: MessageHandler) throws {
+        let hub = try fairHub()
+
+        func output(_ data: Data, to path: String) throws {
+            if path == "-" {
+                print(data.utf8String!)
+            } else {
+                let file = URL(fileURLWithPath: path)
+                try data.write(to: file)
+            }
+        }
+
+        // build the catalog filtering on specific artifact extensions
+        let catalog = try hub.buildAppCasks()
+
+        msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
+        for apprel in catalog.apps {
+            msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
+        }
+
+        if let outputFile = outputFlag {
+            let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+            try output(json, to: outputFile)
+            msg(.info, "Wrote appcasks to", outputFile, json.count.localizedByteCount())
+        }
+    }
+
     private func createCatalog(msg: MessageHandler) throws {
         let hub = try fairHub()
 
@@ -1619,17 +1656,24 @@ public extension FairCLI {
         }
 
         if let indexFlag = indexFlag {
-            let format = ISO8601DateFormatter()
-            func fmt(_ date: Date) -> String {
-                //date.localizedDate(dateStyle: .short, timeStyle: .short)
-                format.string(from: date)
-            }
+            let md = try buildAppCatalogMarkdown(msg: msg, catalog: catalog)
+            try output(md.utf8Data, to: indexFlag)
+            msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
+        }
+    }
 
-            func pre(_ string: String) -> String {
-                "`" + string + "`"
-            }
+    func buildAppCatalogMarkdown(msg: MessageHandler, catalog: FairAppCatalog) throws -> String {
+        let format = ISO8601DateFormatter()
+        func fmt(_ date: Date) -> String {
+            //date.localizedDate(dateStyle: .short, timeStyle: .short)
+            format.string(from: date)
+        }
 
-            var md = """
+        func pre(_ string: String) -> String {
+            "`" + string + "`"
+        }
+
+        var md = """
             ---
             layout: catalog
             ---
@@ -1658,70 +1702,66 @@ public extension FairCLI {
 
             """
 
-            for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
-                let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
+        for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
+            let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
 
-                let v = app.version ?? ""
-                var version = v
-                if app.beta == true {
-                    version += "β"
-                }
-
-                md += "| "
-                md += "[`\(app.name)`](\(landingPage))"
-
-                md += " | "
-                if let relURL = URL(string: v, relativeTo: app.releasesURL) {
-                    md += "[`\(pre(version))`](\(relURL.absoluteString))"
-                } else {
-                    md += "`\(pre(version))`"
-                }
-
-                md += " | "
-                md += pre((app.impressionCount ?? 0).description)
-
-                md += " | "
-                md += pre((app.viewCount ?? 0).description)
-
-                md += " | "
-                md += pre((app.downloadCount ?? 0).description)
-
-                md += " | "
-                md += pre(app.size.localizedByteCount())
-
-                md += " | "
-                md += pre((app.starCount ?? 0).description)
-
-                md += " | "
-                let issueCount = (app.issueCount ?? 0)
-                if issueCount > 0, let issuesURL = app.issuesURL {
-                    md += "[`\(pre(issueCount.description))`](\(issuesURL.absoluteString))"
-                } else {
-                    md += pre(issueCount.description)
-                }
-
-                md += " | "
-                md += pre(fmt(app.versionDate ?? .distantPast))
-
-                md += " | "
-                if let category = app.appCategories.first {
-                    md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
-                }
-
-                md += " |\n"
+            let v = app.version ?? ""
+            var version = v
+            if app.beta == true {
+                version += "β"
             }
 
-            md += """
+            md += "| "
+            md += "[`\(app.name)`](\(landingPage))"
 
-            <center><small>`{{ site.time | date_to_xmlschema }}`</small></center>
-            
-            """
+            md += " | "
+            if let relURL = URL(string: v, relativeTo: app.releasesURL) {
+                md += "[`\(pre(version))`](\(relURL.absoluteString))"
+            } else {
+                md += "`\(pre(version))`"
+            }
 
-            try output(md.utf8Data, to: indexFlag)
-            msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
+            md += " | "
+            md += pre((app.impressionCount ?? 0).description)
 
+            md += " | "
+            md += pre((app.viewCount ?? 0).description)
+
+            md += " | "
+            md += pre((app.downloadCount ?? 0).description)
+
+            md += " | "
+            md += pre((app.size ?? 0).localizedByteCount())
+
+            md += " | "
+            md += pre((app.starCount ?? 0).description)
+
+            md += " | "
+            let issueCount = (app.issueCount ?? 0)
+            if issueCount > 0, let issuesURL = app.issuesURL {
+                md += "[`\(pre(issueCount.description))`](\(issuesURL.absoluteString))"
+            } else {
+                md += pre(issueCount.description)
+            }
+
+            md += " | "
+            md += pre(fmt(app.versionDate ?? .distantPast))
+
+            md += " | "
+            if let category = app.appCategories.first {
+                md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
+            }
+
+            md += " |\n"
         }
 
+        md += """
+
+            <center><small>`{{ site.time | date_to_xmlschema }}`</small></center>
+
+            """
+
+        return md
     }
 
     @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?, msg: MessageHandler) throws -> Bool {

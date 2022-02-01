@@ -73,11 +73,11 @@ public struct AppCatalogItem : Pure {
     /// A subtitle
     public var subtitle: String?
     /// The real name and e-mail address of the developer of the app
-    public var developerName: String
+    public var developerName: String?
     /// A localized description of the app, such as markdown
-    public var localizedDescription: String
+    public var localizedDescription: String?
     /// The size of the app's primary download url
-    public var size: Int
+    public var size: Int?
     /// The current version of the app
     public var version: String?
     /// The date the version was released
@@ -130,7 +130,10 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's README
     public var readmeURL: URL?
 
-    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String, localizedDescription: String, size: Int, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, impressionCount: Int?, viewCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?) {
+    /// The URL for the app's homepage
+    public var homepage: URL?
+
+    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String?, localizedDescription: String?, size: Int?, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, impressionCount: Int?, viewCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?, homepage: URL?) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -159,6 +162,7 @@ public struct AppCatalogItem : Pure {
         self.permissions = permissions
         self.metadataURL = metadataURL
         self.readmeURL = readmeURL
+        self.homepage = homepage
     }
 }
 

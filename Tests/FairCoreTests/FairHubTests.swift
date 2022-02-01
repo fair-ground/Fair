@@ -136,6 +136,21 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(resultResults[0].count, resultResults[2].count)
     }
 
+    func testBuildAppCasks() throws {
+        let catalog = try Self.hub(skipNoAuth: true).buildAppCasks()
+        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+        let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
+        dbg("catalog", names.sorted())
+
+        XCTAssertTrue(names.contains("iterm2"))
+        XCTAssertTrue(ids.contains(.init("iterm2")))
+
+        XCTAssertGreaterThanOrEqual(names.count, 1)
+
+        dbg(catalog.prettyJSON)
+        dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+    }
+
     func testBuildMacOSCatalog() throws {
         if ({ true }()) {
             throw XCTSkip("disabled to reduce API load")

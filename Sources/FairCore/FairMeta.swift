@@ -727,7 +727,7 @@ public extension AppCatalogItem {
     }
 
     /// The e-mail address for contacting the developer
-    var developerEmail: String {
+    var developerEmail: String? {
         developerName // TODO: parse out
     }
 
@@ -749,7 +749,7 @@ public extension AppCatalogItem {
     }
 
     var developerURL: URL! {
-        queryURL(type: "users", term: developerEmail)
+        queryURL(type: "users", term: developerEmail ?? "")
     }
 
     var fairsealURL: URL! {
