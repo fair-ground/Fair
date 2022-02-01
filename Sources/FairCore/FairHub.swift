@@ -407,7 +407,7 @@ public extension FairHub {
 
             for release in (fork.releases.nodes ?? []) {
                 let appid = BundleIdentifier(release.tag.name)
-                let releaseName = release.name
+                let releaseName = release.name ?? release.tag.name
 
                 let subtitle: String? = nil
                 let localizedDescription = release.description
@@ -1356,12 +1356,12 @@ public extension FairHub {
                         public enum TypeName : String, Pure { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
-                        public let name: String
                         public let createdAt: Date
                         public let updatedAt: Date
                         public let isLatest: Bool
                         public let isPrerelease: Bool
                         public let isDraft: Bool
+                        public let name: String?
                         public let description: String?
                         public let releaseAssets: EdgeList<ReleaseAsset>
 
@@ -1637,13 +1637,13 @@ public extension FairHub {
                         public enum TypeName : String, Pure { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
-                        public let name: String
                         public let tagCommit: Commit
                         public let createdAt: Date
                         public let updatedAt: Date
                         public let isLatest: Bool
                         public let isPrerelease: Bool
                         public let isDraft: Bool
+                        public let name: String?
                         public let description: String?
                         public let releaseAssets: EdgeList<ReleaseAsset>
 

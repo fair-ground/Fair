@@ -212,9 +212,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testFetchCatalog() throws {
-        guard let url = appfairCatalogURLMacOS else {
-            return XCTFail("could not load catalog URL")
-        }
+        let url = appfairCatalogURLMacOS
 
         let (data, response) = try URLSession.shared.fetchSync(URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0))
         XCTAssertEqual(200, (response as? HTTPURLResponse)?.statusCode)
