@@ -325,6 +325,7 @@ jobs:
           cp Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
           cp README.md LICENSE.txt Info.plist Sandbox.entitlements Package.resolved staging/
           cp docs/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
+          cp docs/screenshots/screenshot*-[0-9]*x[0-9]*.jpg staging/ || true
           ls -la staging/
 
           rm -rf staging/*.app # need to cleanup app
@@ -575,6 +576,7 @@ jobs:
           cp "${{ env.IR_TARGET }}"/Assets.xcassets/AppIcon.appiconset/appicon-iphone-60x60@3x.png staging/"${{ env.FAIR_APP_ARTIFACT }}.png"
           cp "${{ env.IR_TARGET }}"/LICENSE.txt "${{ env.IR_TARGET }}"/Package.resolved "${{ env.IR_TARGET }}"/README.md "${{ env.IR_TARGET }}"/Info.plist "${{ env.IR_TARGET }}"/Sandbox.entitlements staging/
           cp "${{ env.IR_TARGET }}"/docs/screenshots/screenshot*-[0-9]*x[0-9]*.png staging/ || true
+          cp "${{ env.IR_TARGET }}"/docs/screenshots/screenshot*-[0-9]*x[0-9]*.jpg staging/ || true
           ls -la staging/
           # log the checksum for each of the staging elements
           shasum -a 256 staging/*.*

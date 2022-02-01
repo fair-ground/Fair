@@ -315,7 +315,9 @@ public extension FairHub {
                     }
 
                     let screenshotURLs = release.releaseAssets.nodes.filter { node in
-                        if !node.name.hasSuffix(".png") { return false }
+                        if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
+                            return false
+                        }
                         return artifactTarget.devices.contains { device in
                             node.name.hasPrefix("screenshot") && node.name.contains("-" + device + "-")
                         }
@@ -460,7 +462,9 @@ public extension FairHub {
 
                 let readmeURL = appREADME?.downloadUrl
                 let screenshotURLs = release.releaseAssets.nodes.filter { node in
-                    if !node.name.hasSuffix(".png") { return false }
+                    if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
+                        return false
+                    }
                     return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
                 }
 
