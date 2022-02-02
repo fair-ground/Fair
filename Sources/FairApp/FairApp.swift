@@ -57,6 +57,14 @@ public extension Bundle {
         URL(string: catalogBrowserAppScheme + "://" + (bundle.bundleID ?? "").replacingOccurrences(of: ".", with: "/"))
     }
 
+    /// Returns the URL for the home of this App Fair app. This will open a link to the (required) GitHub pages page for the app, automatically re-directing to any custom domain that may have been configured..
+    static func appHomeURL(for bundle: Bundle) -> URL? {
+        guard let appOrgName = bundle.appOrgName else {
+            return nil
+        }
+        return URL(string: "https://\(appOrgName).github.io/App/")
+    }
+
     static func isAppFairInstalled() -> Bool {
         appFairURL(for: .main)?.canLaunchScheme() == true
     }
@@ -341,7 +349,9 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
             }
 
             CommandGroup(replacing: CommandGroupPlacement.help) {
-                linkButton("Help", path: nil)
+                if let home = Bundle.appHomeURL(for: Bundle.main) {
+                    Text("Home", bundle: .module).link(to: home)
+                }
                 linkButton("Discussions", path: "discussions")
                 linkButton("Issues", path: "issues")
             }
