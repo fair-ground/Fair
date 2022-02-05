@@ -346,7 +346,7 @@ extension URLSession {
     ///
     /// - Returns: the downloaded file URL along with the request's response
     ///
-    /// Note: this operaiton downloads directly into memory instead of the potentially-more-efficient download task.
+    /// Note: this operation downloads directly into memory instead of the potentially-more-efficient download task.
     /// We would like to use a download task to save directly to a file and have progress callbacks go through DownloadDelegate, but it is not working with async/await (see https://stackoverflow.com/questions/68276940/how-to-get-the-download-progress-with-the-new-try-await-urlsession-shared-downlo)
     /// However, an advantage of using streaming bytes is that we can maintain a running sha256 hash for the download without have to load the whole data chunk into memory after the download has completed
     @available(macOS 12.0, iOS 15.0, *)

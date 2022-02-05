@@ -93,6 +93,27 @@ public extension Process {
     }
 }
 
+//#if os(macOS)
+//@available(macOS 12.0, iOS 15.0, *)
+//public extension Process {
+//    func dispatch(command executablePath: URL, environment: [String: String] = [:], _ args: [String]) async throws {
+//        let process = Process()
+//        process.executableURL = executablePath
+//
+//        let pipe = Pipe()
+//        process.standardOutput = pipe
+//        process.standardError = pipe
+//
+//        process.standardInput = Pipe()
+//
+//        for try await line in pipe.fileHandleForReading.bytes.lines {
+//            print("### received line: \(line)")
+//            try Task.checkCancellation()
+//        }
+//    }
+//}
+//#endif
+//
 
 public extension Process {
 

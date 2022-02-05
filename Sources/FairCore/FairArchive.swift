@@ -1045,9 +1045,10 @@ extension FileManager {
     ///   - skipCRC32: Optional flag to skip calculation of the CRC32 checksum to improve performance.
     ///   - progress: A progress object that can be used to track or cancel the unzip operation.
     ///   - preferredEncoding: Encoding for entry paths. Overrides the encoding specified in the archive.
+    ///   - trimBasePath: if true, trim the first path element, which is useful for unpacking a zip that includes the basename
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
     public func unzipItem(at sourceURL: URL, to destinationURL: URL, skipCRC32: Bool = false,
-                          progress: Progress? = nil, preferredEncoding: String.Encoding? = nil) throws {
+                          progress: Progress? = nil, preferredEncoding: String.Encoding? = nil, trimBasePath: Bool = false, overwrite: Bool = false) throws {
         let fileManager = FileManager()
         guard fileManager.itemExists(at: sourceURL) else {
             throw CocoaError(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: sourceURL.path])
@@ -1072,7 +1073,11 @@ extension FileManager {
         }
 
         for entry in sortedEntries {
-            let path = preferredEncoding == nil ? entry.path : entry.path(using: preferredEncoding!)
+            var path = preferredEncoding == nil ? entry.path : entry.path(using: preferredEncoding!)
+            if trimBasePath == true, let basePath = path.split(separator: "/").first, !basePath.isEmpty {
+                path = String(path.dropFirst(basePath.count + 1))
+                // dbg("trimmed basePath:", basePath, "from path:", path)
+            }
             let destinationEntryURL = destinationURL.appendingPathComponent(path)
             guard destinationEntryURL.isContained(in: destinationURL) else {
                 throw CocoaError(.fileReadInvalidFileName,
@@ -1081,9 +1086,9 @@ extension FileManager {
             if let progress = progress {
                 let entryProgress = archive.makeProgressForReading(entry)
                 progress.addChild(entryProgress, withPendingUnitCount: entryProgress.totalUnitCount)
-                _ = try archive.extract(entry, to: destinationEntryURL, skipCRC32: skipCRC32, progress: entryProgress)
+                _ = try archive.extract(entry, to: destinationEntryURL, overwrite: overwrite, skipCRC32: skipCRC32, progress: entryProgress)
             } else {
-                _ = try archive.extract(entry, to: destinationEntryURL, skipCRC32: skipCRC32)
+                _ = try archive.extract(entry, to: destinationEntryURL, overwrite: overwrite, skipCRC32: skipCRC32)
             }
         }
     }
@@ -2531,12 +2536,12 @@ extension ZipArchive {
     ///   - entry: The ZIP `Entry` to read.
     ///   - url: The destination file URL.
     ///   - bufferSize: The maximum size of the read buffer and the decompression buffer (if needed).
+    ///   - overwrite: If `true`, permit overwriting an existing path
     ///   - skipCRC32: Optional flag to skip calculation of the CRC32 checksum to improve performance.
     ///   - progress: A progress object that can be used to track or cancel the extract operation.
     /// - Returns: The checksum of the processed content or 0 if the `skipCRC32` flag was set to `true`.
     /// - Throws: An error if the destination file cannot be written or the entry contains malformed content.
-    public func extract(_ entry: Entry, to url: URL, bufferSize: Int = defaultReadChunkSize, skipCRC32: Bool = false,
-                        progress: Progress? = nil) throws -> CRC32 {
+    public func extract(_ entry: Entry, to url: URL, bufferSize: Int = defaultReadChunkSize, overwrite: Bool = false, skipCRC32: Bool = false, progress: Progress? = nil) throws -> CRC32 {
         guard bufferSize > 0 else {
             throw ArchiveError.invalidBufferSize
         }
@@ -2544,7 +2549,8 @@ extension ZipArchive {
         var checksum = CRC32(0)
         switch entry.type {
         case .file:
-            guard !fileManager.itemExists(at: url) else {
+            //dbg("unzipping:", entry.path)
+            guard overwrite == true || !fileManager.itemExists(at: url) else {
                 throw CocoaError(.fileWriteFileExists, userInfo: [NSFilePathErrorKey: url.path])
             }
             try fileManager.createParentDirectoryStructure(for: url)
@@ -2563,8 +2569,13 @@ extension ZipArchive {
             checksum = try self.extract(entry, bufferSize: bufferSize, skipCRC32: skipCRC32,
                                         progress: progress, consumer: consumer)
         case .symlink:
-            guard !fileManager.itemExists(at: url) else {
-                throw CocoaError(.fileWriteFileExists, userInfo: [NSFilePathErrorKey: url.path])
+            //dbg("linking:", entry.path)
+            if fileManager.itemExists(at: url) {
+                if overwrite == true {
+                    try fileManager.removeItem(at: url) // otherwise `createSymbolicLink` will fail
+                } else {
+                    throw CocoaError(.fileWriteFileExists, userInfo: [NSFilePathErrorKey: url.path])
+                }
             }
             let consumer = { (data: Data) in
                 guard let linkPath = String(data: data, encoding: .utf8) else { throw ArchiveError.invalidEntryPath }
