@@ -75,7 +75,7 @@ public struct URLImage : View, Equatable {
 
     public var body: some View {
         if sync == false, #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
-            AsyncImage(url: url, scale: scale) { phase in
+            AsyncImage(url: url, scale: scale, transaction: Transaction(animation: .easeIn)) { phase in
                 if let image = phase.image {
                     if let resizable = resizable {
                         image
