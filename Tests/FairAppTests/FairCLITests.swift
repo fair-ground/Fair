@@ -20,7 +20,7 @@ import FairApp
 final class FairCLITests: XCTestCase {
     typealias ToolMessage = (kind: FairCLI.MessageKind, items: [Any?])
 
-    func runTool(op: FairCLI.Operation, _ args: String...) throws -> [ToolMessage] {
+    func runTool(op: FairCLI.Operation, _ args: String...) async throws -> [ToolMessage] {
         var messages: [ToolMessage] = []
         // first argument is tool name
         let it = try FairCLI(arguments: ["fairtool"] + [op.rawValue] + args, environment: [:])
@@ -29,7 +29,7 @@ final class FairCLITests: XCTestCase {
             messages.append((kind, items))
         }
 
-        try it.runCLI(msg: addMessage)
+        try await it.runCLI(msg: addMessage)
 
         return messages
     }
@@ -56,8 +56,9 @@ final class FairCLITests: XCTestCase {
         XCTAssertEqual(4, pm.platforms.count)
     }
 
-    func testToolWelcome() throws {
-        try XCTAssertEqual(extract(runTool(op: .welcome)).first, "Welcome to Fair Ground!")
+    func testToolWelcome() async throws {
+        let result = try await runTool(op: .welcome)
+        XCTAssertEqual(extract(result).first, "Welcome to Fair Ground!")
     }
 }
 #endif

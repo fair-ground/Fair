@@ -24,14 +24,14 @@ final class FairAppTests: XCTestCase {
     static let authToken: String? = ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
 
     @available(macOS 11, iOS 14, *)
-    func testCLIHelp() throws {
-        try FairCLI(arguments: ["fairtool", "help"], environment: [:]).runCLI(operation: .help)
+    func testCLIHelp() async throws {
+        try await FairCLI(arguments: ["fairtool", "help"], environment: [:]).runCLI(operation: .help)
     }
 
     @available(macOS 11, iOS 14, *)
-    func testCLICatalog() throws {
+    func testCLICatalog() async throws {
         if Self.authToken == nil { throw XCTSkip("cannot run API tests without a token") }
-        try FairCLI(arguments: ["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"], environment: [:]).runCLI(operation: .catalog)
+        try await FairCLI(arguments: ["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"], environment: [:]).runCLI(operation: .catalog)
     }
 
     @available(macOS 11, iOS 14, *)

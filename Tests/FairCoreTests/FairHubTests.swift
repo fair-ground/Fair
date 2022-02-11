@@ -114,7 +114,7 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(false, sig.wasSignedByGitHub)
     }
 
-    func testCatalogQuery() throws {
+    func testCatalogQuery() async throws {
 //        if ({ true }()) {
 //            throw XCTSkip("disabled to reduce API load")
 //        }
@@ -125,7 +125,7 @@ final class FairHubTests: XCTestCase {
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.CatalogQuery.QueryResponse.BaseRepository.Repository]] = []
         for _ in 1...3 {
-            let results = try hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 2...9)), maxBatches: 1_000)
+            let results = try await hub.requestBatches(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 2...9)), maxBatches: 1_000)
             let forks = results
                 .compactMap(\.result.successValue)
                 .flatMap(\.data.repository.forks.nodes)
@@ -136,8 +136,8 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(resultResults[0].count, resultResults[2].count)
     }
 
-    func testBuildAppCasks() throws {
-        let catalog = try Self.hub(skipNoAuth: true).buildAppCasks()
+    func testBuildAppCasks() async throws {
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks()
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
         dbg("catalog", names.sorted())
@@ -151,7 +151,7 @@ final class FairHubTests: XCTestCase {
         dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
-    func testBuildMacOSCatalog() throws {
+    func testBuildMacOSCatalog() async throws {
         if ({ true }()) {
             throw XCTSkip("disabled to reduce API load")
         }
@@ -163,11 +163,11 @@ final class FairHubTests: XCTestCase {
         //        dbg("retrying error:", error)
         //    }
         //}
-        try buildCatalog() // fail for real this time
+        try await buildCatalog() // fail for real this time
 
-        func buildCatalog() throws {
+        func buildCatalog() async throws {
             let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-            let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
+            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
             let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
             dbg("catalog", names.sorted())
 
@@ -181,7 +181,7 @@ final class FairHubTests: XCTestCase {
         }
     }
 
-    func testBuildIOSCatalog() throws {
+    func testBuildIOSCatalog() async throws {
         if ({ true }()) {
             throw XCTSkip("disabled to reduce API load")
         }
@@ -193,11 +193,11 @@ final class FairHubTests: XCTestCase {
         //        dbg("retrying error:", error)
         //    }
         //}
-        try buildCatalog() // fail for real this time
+        try await buildCatalog() // fail for real this time
 
-        func buildCatalog() throws {
+        func buildCatalog() async throws {
             let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
-            let catalog = try Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
+            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
             let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
             dbg("catalog", names.sorted())
 
