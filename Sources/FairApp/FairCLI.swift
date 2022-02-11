@@ -459,8 +459,8 @@ public extension FairCLI {
         case .welcome: try self.welcome(msg: messenger)
         case .walkthrough: try self.walkthrough(msg: messenger)
         case .package: try self.package(msg: messenger)
-        case .validate: try self.validate(msg: messenger)
-        case .merge: try self.merge(msg: messenger)
+        case .validate: try await self.validate(msg: messenger)
+        case .merge: try await self.merge(msg: messenger)
         case .catalog: try await self.catalog(msg: messenger)
         case .appcasks: try await self.appcasks(msg: messenger)
         #if canImport(Compression)
@@ -724,7 +724,7 @@ public extension FairCLI {
         msg(.info, helpMsg)
     }
 
-    func validate(msg: MessageHandler) throws {
+    func validate(msg: MessageHandler) async throws {
         msg(.info, "Validating project:", projectPathURL(path: "").path)
         //msg(.debug, "flags:", flags)
         //msg(.debug, "arguments:", trailingArguments)
@@ -903,7 +903,7 @@ public extension FairCLI {
 
         // also check the hub for the
         if hubFlag != nil {
-            try verify(org: orgName, repo: appName, hub: fairHub(), msg: msg)
+            try await verify(org: orgName, repo: appName, hub: fairHub(), msg: msg)
         }
 
         msg(.info, "Successfully validated project:", projectPathURL(path: "").path)
@@ -911,7 +911,7 @@ public extension FairCLI {
 
         // validate the reference
         if let refFlag = refFlag {
-            try validateCommit(ref: refFlag, hub: fairHub(), msg: msg)
+            try await validateCommit(ref: refFlag, hub: fairHub(), msg: msg)
         }
     }
 
@@ -975,19 +975,19 @@ public extension FairCLI {
         return permissions
     }
 
-    func validateCommit(ref: String, hub: FairHub, msg: MessageHandler) throws {
+    func validateCommit(ref: String, hub: FairHub, msg: MessageHandler) async throws {
         msg(.info, "Validating commit ref:", ref)
-        let response = try hub.requestSync(FairHub.GetCommitQuery(owner: hub.org, name: appName, ref: ref)).get().data
+        let response = try await hub.request(FairHub.GetCommitQuery(owner: hub.org, name: appName, ref: ref)).get().data
         let author: Void = try hub.authorize(commit: response)
         let _ = author
         //msg(.info, "Validated commit author:", author)
     }
 
-    func verify(org: String, repo repoName: String, hub: FairHub, msg: MessageHandler) throws {
+    func verify(org: String, repo repoName: String, hub: FairHub, msg: MessageHandler) async throws {
         // when the app we are validating is the actual hub's root organization, use special validation rules (such as not requiring issues)
         msg(.info, "Validating App-Name:", org)
 
-        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: org, name: repoName)).get().data
+        let response = try await hub.request(FairHub.RepositoryQuery(owner: org, name: repoName)).get().data
         let organization = response.organization
         let repo = organization.repository
 
@@ -1003,7 +1003,7 @@ public extension FairCLI {
     }
 
     /// Copies the resources from the project to the output
-    func merge(msg: MessageHandler) throws {
+    func merge(msg: MessageHandler) async throws {
         msg(.info, "merge")
 
         if outputDirectoryFlag == projectPathFlag {
@@ -1016,7 +1016,7 @@ public extension FairCLI {
             throw Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
         }
 
-        try validate(msg: msg) // always validate first
+        try await validate(msg: msg) // always validate first
 
         /// Attempt to copy the path from the projectPath to the outputPath,
         /// thereby selectively merging parts of the PR with a customizable transform

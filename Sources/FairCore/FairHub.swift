@@ -1897,19 +1897,6 @@ extension FairHub {
         return catalog
     }
 #endif // swift(>=5.5)
-
-    /// Fetches the `FairAppCatalog`
-    @available(macOS 11.0, iOS 14.0, *)
-    public static func fetchCatalogSync(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) throws -> FairAppCatalog {
-        dbg("fetching sync", catalogURL)
-        var req = URLRequest(url: catalogURL)
-        if let cache = cache { req.cachePolicy = cache }
-        let (data, response) = try URLSession.shared.fetchSync(req)
-        let _ = response
-        let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
-
-        return catalog
-    }
 }
 
 extension String {

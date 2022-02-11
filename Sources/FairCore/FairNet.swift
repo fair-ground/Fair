@@ -92,9 +92,15 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request
+    @available(*, deprecated, message: "async")
     public func requestSync<A: APIRequest>(_ request: A) throws -> A.Response where A.Service == Self {
         try decode(data: try session.fetchSync(buildRequest(for: request, cache: nil)).data)
     }
+
+    public func request<A: APIRequest>(_ request: A) async throws -> A.Response where A.Service == Self {
+        try await decode(data: try session.fetch(request: buildRequest(for: request, cache: nil)).data)
+    }
+
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
     public func requestFirstBatch<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self, A.Response.CursorType == A.CursorType {
@@ -261,6 +267,7 @@ public extension URLSession {
     }
 
     /// Fetches the given URL request in the current session
+    @available(*, deprecated, message: "async")
     func fetchSync(_ request: URLRequest, timeout: DispatchTime = .distantFuture) throws -> (data: Data, response: URLResponse) {
         try sync(request: request, timeout: timeout, createTask: dataTask)
     }
