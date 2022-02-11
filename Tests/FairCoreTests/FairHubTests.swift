@@ -43,14 +43,14 @@ final class FairHubTests: XCTestCase {
     static let authToken: String? = ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
 
     /// Issue a request against the hub for the given request type
-    func request<A: APIRequest>(_ request: A) throws -> A.Response? where A.Service == FairHub {
-        try Self.hub().requestSync(request)
+    func request<A: APIRequest>(_ request: A) async throws -> A.Response? where A.Service == FairHub {
+        try await Self.hub().request(request)
     }
 
-    func testQueryError() throws {
+    func testQueryError() async throws {
         let hub = try Self.hub(skipNoAuth: true)
         do {
-            let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
+            let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
             XCTAssertNil(response.result.successValue, "request should not have succeeded")
             if response.result.failureValue?.isRateLimitError != true {
                 let reason = response.result.failureValue?.firstFailureReason
@@ -58,7 +58,7 @@ final class FairHubTests: XCTestCase {
             }
         }
         do {
-            let response = try hub.requestSync(FairHub.LookupPRNumberQuery(owner: "", name: "", prid: 1))
+            let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: "", name: "", prid: 1))
             XCTAssertNil(response.result.successValue, "request should not have succeeded")
             if response.result.failureValue?.isRateLimitError != true {
                 let reason = response.result.failureValue?.firstFailureReason
@@ -67,9 +67,9 @@ final class FairHubTests: XCTestCase {
         }
     }
 
-    func testFetchRepositoryQuery() throws {
+    func testFetchRepositoryQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
-        let response = try hub.requestSync(FairHub.RepositoryQuery(owner: "appfair", name: "App"))
+        let response = try await hub.request(FairHub.RepositoryQuery(owner: "appfair", name: "App"))
         do {
             let content = try response.get().data
             let org = content.organization
@@ -99,9 +99,9 @@ final class FairHubTests: XCTestCase {
         }
     }
 
-    func testFetchCommitQuery() throws {
+    func testFetchCommitQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
-        let response = try hub.requestSync(FairHub.GetCommitQuery(owner: "fair-ground", name: "Fair", ref: "93d86ba5884772c8ef189bead1ca131bb11b90f2")).get().data
+        let response = try await hub.request(FairHub.GetCommitQuery(owner: "fair-ground", name: "Fair", ref: "93d86ba5884772c8ef189bead1ca131bb11b90f2")).get().data
 
         guard let sig = response.repository.object.signature else {
             return XCTFail("no signature in response")
@@ -211,10 +211,10 @@ final class FairHubTests: XCTestCase {
         }
     }
 
-    func testFetchCatalog() throws {
+    func testFetchCatalog() async throws {
         let url = appfairCatalogURLMacOS
 
-        let (data, response) = try URLSession.shared.fetchSync(URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0))
+        let (data, response) = try await URLSession.shared.fetch(request: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0))
         XCTAssertEqual(200, (response as? HTTPURLResponse)?.statusCode)
 
         let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)

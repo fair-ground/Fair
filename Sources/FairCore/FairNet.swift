@@ -91,12 +91,6 @@ extension EndpointService {
         return try decoder.decode(T.self, from: data)
     }
 
-    /// Fetches the web service for the given request
-    @available(*, deprecated, message: "async")
-    public func requestSync<A: APIRequest>(_ request: A) throws -> A.Response where A.Service == Self {
-        try decode(data: try session.fetchSync(buildRequest(for: request, cache: nil)).data)
-    }
-
     public func request<A: APIRequest>(_ request: A) async throws -> A.Response where A.Service == Self {
         try await decode(data: try session.fetch(request: buildRequest(for: request, cache: nil)).data)
     }
@@ -257,25 +251,10 @@ extension URLSession {
 
 // TODO: @available(*, deprecated, message: "migrate to async")
 public extension URLSession {
-    /// Synchronously fetches the given URL
-    ///
-    /// ```let (data, response) = try await session.data(from: url)```
-    ///
-    /// - TODO: Swift 5.5 async support
-    func dataSync(from url: URL) throws -> (data: Data, response: URLResponse) {
-        try fetchSync(URLRequest(url: url))
-    }
-
-    /// Fetches the given URL request in the current session
-    @available(*, deprecated, message: "async")
-    func fetchSync(_ request: URLRequest, timeout: DispatchTime = .distantFuture) throws -> (data: Data, response: URLResponse) {
-        try sync(request: request, timeout: timeout, createTask: dataTask)
-    }
-
     #if os(Linux) || os(Windows)
     /// Stub for missing async data support on Linux & Windows
     func data(for request: URLRequest, delegate: Void?) async throws -> (data: Data, response: URLResponse) {
-        try fetchSync(request)
+        try await fetch(request: request)
     }
     #endif
 

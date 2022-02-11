@@ -622,7 +622,7 @@ public extension FairHub {
 
         let sealJSON = try fairseal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
         let sealComment = "```\n" + (sealJSON.utf8String ?? "") + "\n```"
-        let postResponse = try self.requestSync(FairHub.PostCommentQuery(id: appPR.id, comment: sealComment)).get()
+        let postResponse = try await self.request(FairHub.PostCommentQuery(id: appPR.id, comment: sealComment)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
 
         dbg("posted fairseal for:", fairseal.assets.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)
