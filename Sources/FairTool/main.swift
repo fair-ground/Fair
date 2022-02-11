@@ -16,6 +16,7 @@
  */
 import Swift
 import FairApp
+import Dispatch
 
 #if os(Linux)
 import func Glibc.exit
