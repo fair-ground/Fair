@@ -20,6 +20,7 @@ import FoundationNetworking
 #endif
 
 final class FairNetTests: XCTestCase {
+    #if !os(Linux)
     @available(macOS 12.0, iOS 15.0, *)
     func testFairDownload() async throws {
         try await testDownload(sliceable: true)
@@ -35,7 +36,6 @@ final class FairNetTests: XCTestCase {
         try await testDownload(sliceable: false)
     }
 
-    #if !os(Linux)
     @available(macOS 12.0, iOS 15.0, *)
     private func testDownload(sliceable: Bool, range: ClosedRange<Int>? = nil) async throws {
         if ({ true }()) { throw XCTSkip("used for local testing") }
