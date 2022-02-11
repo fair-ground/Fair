@@ -30,10 +30,16 @@ let fairwell = Darwin.exit
 func fairwell(_ code: Int) -> Never { }
 #endif
 
-do {
-    try FairCLI().runCLI()
-} catch {
-    print("fairtool error: \(error.localizedDescription)")
-    error.dumpError()
-    fairwell(1)
+let sema = DispatchSemaphore(value: 0)
+Task.detached {
+    do {
+        try await FairCLI().runCLI()
+        sema.signal()
+    } catch {
+        print("fairtool error: \(error.localizedDescription)")
+        error.dumpError()
+        fairwell(1)
+    }
 }
+
+sema.wait()

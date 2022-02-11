@@ -124,7 +124,7 @@ public extension URL {
 
     
     /// Launch the app, either in GUI or CLI form
-    static func main() throws
+    static func main() async throws
 
     /// Invokes the command-line form of the application when the app is run from a terminal
     static func cli(args: [String]) throws -> Bool
@@ -215,7 +215,7 @@ public extension AppEntitlement {
 @available(macOS 12.0, iOS 15.0, *)
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
-    public static func launch(bundle: Bundle, sourceFile: StaticString = #file) throws {
+    public static func launch(bundle: Bundle, sourceFile: StaticString = #file) async throws {
         // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally set to permit launching in Xcode debugger (where stdin is set)
         let isCLI = isatty(fileno(stdin)) == 1
             && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
@@ -226,7 +226,7 @@ extension FairContainer {
 
         let args = Array(CommandLine.arguments.dropFirst())
         if args.first == "fairtool" && isCLI {
-            try FairCLI(arguments: args).runCLI()
+            try await FairCLI(arguments: args).runCLI()
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
                 validateEntitlements()
@@ -244,9 +244,9 @@ extension FairContainer {
         }
     }
 
-    public static func main() throws {
+    public static func main() async throws {
         do {
-            try launch(bundle: Bundle.module)
+            try await launch(bundle: Bundle.module)
         } catch {
             // we don't want to re-throw the exception here, since it will cause a crash report when run from AppContainer.main
             error.dumpError()
@@ -576,13 +576,14 @@ extension SwiftUI.View {
     }
 
     /// Creates a `Link` to the given URL, or the Text itself if the link is `.none`.
-    public func link(to destination: URL?) -> some View {
+    public func link(to destination: URL?, draggable: Bool = true) -> some View {
         Group {
             if let destination = destination {
                 Link(destination: destination) {
                     self
                 }
                 .help(Text("Open link in browser: ") + Text(destination.absoluteString))
+                .onDrag { NSItemProvider(object: destination as NSURL) } // sadly, doesn't seem to work
             } else {
                 self
             }

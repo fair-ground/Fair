@@ -452,22 +452,22 @@ public extension FairCLI {
     typealias MessageHandler = ((MessageKind, Any?...) -> ())
 
     /// Invokes the tool with the command-line interface
-    func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) throws {
+    func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) async throws {
         let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
-        switch operation ?? op {
-        case .help: try help(msg: messenger)
-        case .welcome: try welcome(msg: messenger)
-        case .walkthrough: try walkthrough(msg: messenger)
-        case .package: try package(msg: messenger)
-        case .validate: try validate(msg: messenger)
-        case .merge: try merge(msg: messenger)
-        case .catalog: try catalog(msg: messenger)
-        case .appcasks: try appcasks(msg: messenger)
+        switch operation ?? self.op {
+        case .help: try self.help(msg: messenger)
+        case .welcome: try self.welcome(msg: messenger)
+        case .walkthrough: try self.walkthrough(msg: messenger)
+        case .package: try self.package(msg: messenger)
+        case .validate: try self.validate(msg: messenger)
+        case .merge: try self.merge(msg: messenger)
+        case .catalog: try await self.catalog(msg: messenger)
+        case .appcasks: try await self.appcasks(msg: messenger)
         #if canImport(Compression)
-        case .fairseal: try fairseal(msg: messenger)
+        case .fairseal: try await self.fairseal(msg: messenger)
         #endif
         #if canImport(SwiftUI)
-        case .icon: try icon(msg: messenger)
+        case .icon: try self.icon(msg: messenger)
         #endif
         }
     }
@@ -1233,11 +1233,11 @@ public extension FairCLI {
     }
 
     /// Retries the given operation until the `retry-duration` flag as been exceeded
-    private func retrying<T>(msg: MessageHandler, operation: () throws -> T) throws -> T {
+    private func retrying<T>(msg: MessageHandler, operation: () async throws -> T) async throws -> T {
         let timeoutDate = Date().addingTimeInterval(retryDurationFlag ?? 0)
         while true {
             do {
-                return try operation()
+                return try await operation()
             } catch {
                 if try backoff(timeoutDate, error: error, msg: msg) == false {
                     throw error
@@ -1260,8 +1260,8 @@ public extension FairCLI {
 
     }
 
-    private func fetchArtifact(msg: MessageHandler, url artifactURL: URL) throws -> URL {
-        try retrying(msg: msg) {
+    private func fetchArtifact(msg: MessageHandler, url artifactURL: URL) async throws -> URL {
+        try await retrying(msg: msg) {
             var request = URLRequest(url: artifactURL)
             request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
             let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
@@ -1276,7 +1276,7 @@ public extension FairCLI {
         }
     }
 
-    private func fetchUntrustedArtifact(msg: MessageHandler) throws -> URL {
+    private func fetchUntrustedArtifact(msg: MessageHandler) async throws -> URL {
         // if we specified the artifact as a local file, just use it directly
         if let untrustedArtifactFlag = untrustedArtifactFlag {
             return URL(fileURLWithPath: untrustedArtifactFlag)
@@ -1287,11 +1287,11 @@ public extension FairCLI {
             throw Errors.missingFlag(self.op, "-artifact-url")
         }
 
-        return try fetchArtifact(msg: msg, url: artifactURL)
+        return try await fetchArtifact(msg: msg, url: artifactURL)
     }
 
     #if canImport(Compression)
-    func fairseal(msg: MessageHandler) throws {
+    func fairseal(msg: MessageHandler) async throws {
         msg(.info, "Fairseal")
 
         // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
@@ -1306,7 +1306,7 @@ public extension FairCLI {
             throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
         }
 
-        let untrustedArtifactLocalURL = try fetchUntrustedArtifact(msg: msg)
+        let untrustedArtifactLocalURL = try await fetchUntrustedArtifact(msg: msg)
 
         guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
             throw AppError("Error opening untrusted archive: \(untrustedArtifactLocalURL.absoluteString)")
@@ -1536,7 +1536,7 @@ public extension FairCLI {
 
         // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
         msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
-        if let postURL = try fairHub().postFairseal(fairseal) {
+        if let postURL = try await fairHub().postFairseal(fairseal) {
             msg(.info, "posted fairseal to:", postURL.absoluteString)
         } else {
             msg(.warn, "unable to post fairseal")
@@ -1570,21 +1570,21 @@ public extension FairCLI {
         try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
     }
 
-    func catalog(msg: MessageHandler) throws {
+    func catalog(msg: MessageHandler) async throws {
         msg(.info, "Catalog")
-        try retrying(msg: msg) {
-            try createCatalog(msg: msg)
+        try await retrying(msg: msg) {
+            try await createCatalog(msg: msg)
         }
     }
 
-    func appcasks(msg: MessageHandler) throws {
+    func appcasks(msg: MessageHandler) async throws {
         msg(.info, "AppCasks")
-        try retrying(msg: msg) {
-            try createAppCasks(msg: msg)
+        try await retrying(msg: msg) {
+            try await createAppCasks(msg: msg)
         }
     }
 
-    private func createAppCasks(msg: MessageHandler) throws {
+    private func createAppCasks(msg: MessageHandler) async throws {
         let hub = try fairHub()
 
         func output(_ data: Data, to path: String) throws {
@@ -1597,7 +1597,7 @@ public extension FairCLI {
         }
 
         // build the catalog filtering on specific artifact extensions
-        let catalog = try hub.buildAppCasks()
+        let catalog = try await hub.buildAppCasks()
 
         msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {
@@ -1611,7 +1611,7 @@ public extension FairCLI {
         }
     }
 
-    private func createCatalog(msg: MessageHandler) throws {
+    private func createCatalog(msg: MessageHandler) async throws {
         let hub = try fairHub()
 
         // whether to enforce a fairseal check before the app will be listed in the catalog
@@ -1635,7 +1635,7 @@ public extension FairCLI {
         }
 
         // build the catalog filtering on specific artifact extensions
-        let catalog = try hub.buildCatalog(title: catalogTitleFlag ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
+        let catalog = try await hub.buildCatalog(title: catalogTitleFlag ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
 
         msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {

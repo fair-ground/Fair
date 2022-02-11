@@ -97,10 +97,11 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    public func requestFirstBatch<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) throws -> T? where A.Service == Self, A.Response.CursorType == A.CursorType {
+    public func requestFirstBatch<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self, A.Response.CursorType == A.CursorType {
         var request = request
         for requestIndex in 0... {
-            let (data, urlResponse) = try session.fetchSync(buildRequest(for: request, cache: cache))
+            let (data, urlResponse) = try await session.fetch(request: buildRequest(for: request, cache: cache))
+            dbg("batch response:", data.utf8String)
             let batch: A.Response = try decode(data: data)
 
             if let stopValue = try batchHandler(requestIndex, urlResponse, batch) {
@@ -119,9 +120,9 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, following the cursor until a maximum number of batches has been retrieved
-    public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) throws -> [A.Response] where A.Service == Self, A.Response.CursorType == A.CursorType {
+    public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) async throws -> [A.Response] where A.Service == Self, A.Response.CursorType == A.CursorType {
         var batches: [A.Response] = []
-        let _: Bool? = try self.requestFirstBatch(request) { resultIndex, urlResponse, batch in
+        let _: Bool? = try await self.requestFirstBatch(request) { resultIndex, urlResponse, batch in
 //            dbg("batch response:", urlResponse, (urlResponse as? HTTPURLResponse)?.allHeaderFields)
             batches.append(batch)
             if batches.count >= maxBatches {
