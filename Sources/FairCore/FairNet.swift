@@ -232,24 +232,30 @@ extension URLSession {
 
     /// Backwards-compatible shim for async fetch
     public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
-//        if #available(macOS 12.0, iOS 15.0, *) {
-//            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
-//            return (response.0, try response.1.validating(codes: codes))
-//        } else {
-            // this seems to crash on Linux (no exception, but: "Error: Process completed with exit code 137.")
-            return try await withCheckedThrowingContinuation { continuation in
-                dataTask(with: request) { data, response, error in
-                    if let data = data, let response = response, error == nil {
-                        continuation.resume(returning: (data, response))
-                    } else {
-                        continuation.resume(throwing: error ?? CocoaError(.fileReadUnknown))
-                    }
-                }.resume()
-            }
+        #if os(Linux)
+        // the fall-through below crashes on Linux for some reason (exit code 137 at runtime); this works around it
+        return try await fetchSync(request: request, validate: codes)
+        #else
+        if #available(macOS 12.0, iOS 15.0, *) {
+            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
+            return (response.0, try response.1.validating(codes: codes))
+        } else {
+            return try await fetchSync(request: request, validate: codes)
+        }
+        #endif
+    }
 
-            // so we just make it synchronous
-            // let response = URL(
-//        }
+    private func fetchSync(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
+        return try await withCheckedThrowingContinuation { continuation in
+            dataTask(with: request) { data, response, error in
+                if let data = data, let response = response, error == nil {
+                    continuation.resume(returning: (data, response))
+                } else {
+                    continuation.resume(throwing: error ?? CocoaError(.fileNoSuchFile))
+                }
+            }.resume()
+        }
+
     }
 }
 
