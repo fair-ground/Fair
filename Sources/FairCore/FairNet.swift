@@ -237,19 +237,18 @@ extension URLSession {
 //            return (response.0, try response.1.validating(codes: codes))
 //        } else {
             // this seems to crash on Linux (no exception, but: "Error: Process completed with exit code 137.")
-//            return try await withCheckedThrowingContinuation { continuation in
-//                dataTask(with: request) { data, response, error in
-//                    if let data = data, let response = response, error == nil {
-//                        continuation.resume(returning: (data, response))
-//                    } else {
-//                        continuation.resume(throwing: error ?? CocoaError(.fileNoSuchFile))
-//                    }
-//                }.resume()
-//            }
+            return try await withCheckedThrowingContinuation { continuation in
+                dataTask(with: request) { data, response, error in
+                    if let data = data, let response = response, error == nil {
+                        continuation.resume(returning: (data, response))
+                    } else {
+                        continuation.resume(throwing: error ?? CocoaError(.fileReadUnknown))
+                    }
+                }.resume()
+            }
 
             // so we just make it synchronous
             // let response = URL(
-            throw CocoaError(.fileNoSuchFile)
 //        }
     }
 }
