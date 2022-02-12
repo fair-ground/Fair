@@ -454,8 +454,9 @@ public extension FairCLI {
     /// Invokes the tool with the command-line interface
     func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) async throws {
         print("### RUNNING CLI")
-//        let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
-//        switch operation ?? self.op {
+        let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
+        switch operation ?? self.op {
+        default: print("OP")
 //        case .help: try self.help(msg: messenger)
 //        case .welcome: try self.welcome(msg: messenger)
 //        case .walkthrough: try self.walkthrough(msg: messenger)
@@ -470,7 +471,7 @@ public extension FairCLI {
 //        #if canImport(SwiftUI)
 //        case .icon: try self.icon(msg: messenger)
 //        #endif
-//        }
+        }
     }
 
     func package(msg: MessageHandler) throws {
