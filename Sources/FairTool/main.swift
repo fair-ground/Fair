@@ -16,7 +16,7 @@
  */
 import Swift
 import FairApp
-import Dispatch
+import CoreFoundation
 
 #if os(Linux)
 import func Glibc.exit
@@ -34,6 +34,7 @@ func fairwell(_ code: Int) -> Never { }
 Task {
     do {
         try await FairCLI().runCLI()
+        fairwell(0)
     } catch {
         print("fairtool error: \(error.localizedDescription)")
         error.dumpError()
