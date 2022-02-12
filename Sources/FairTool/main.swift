@@ -34,11 +34,15 @@ func fairwell(_ code: Int) -> Never { }
 print("Pre-Task")
 let cli = try FairCLI()
 
+func doSomething() async throws {
+
+}
+
 Task {
     print("Task init")
-    fairwell(0)
     do {
         print("runCLI start")
+        try await doSomething()
 //        try await cli.runCLI()
         print("runCLI done")
         fairwell(0)
