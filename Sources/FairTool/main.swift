@@ -17,7 +17,6 @@
 import Swift
 import FairApp
 import Foundation
-import CoreFoundation
 
 #if os(Linux)
 import func Glibc.exit
@@ -47,13 +46,12 @@ Task {
         fairwell(0)
     } catch {
         print("fairtool error: \(error.localizedDescription)")
-        //error.dumpError()
-        //fairwell(.init((error as NSError).code))
-        fairwell(1)
+        error.dumpError()
+        fairwell(.init((error as NSError).code))
     }
 }
 
 print("Post-Task")
 
-CFRunLoopRun()
+RunLoop.main.run()
 print("Post-Run")

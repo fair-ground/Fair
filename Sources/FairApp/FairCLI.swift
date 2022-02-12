@@ -453,23 +453,24 @@ public extension FairCLI {
 
     /// Invokes the tool with the command-line interface
     func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) async throws {
-        let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
-        switch operation ?? self.op {
-        case .help: try self.help(msg: messenger)
-        case .welcome: try self.welcome(msg: messenger)
-        case .walkthrough: try self.walkthrough(msg: messenger)
-        case .package: try self.package(msg: messenger)
-        case .validate: try await self.validate(msg: messenger)
-        case .merge: try await self.merge(msg: messenger)
-        case .catalog: try await self.catalog(msg: messenger)
-        case .appcasks: try await self.appcasks(msg: messenger)
-        #if canImport(Compression)
-        case .fairseal: try await self.fairseal(msg: messenger)
-        #endif
-        #if canImport(SwiftUI)
-        case .icon: try self.icon(msg: messenger)
-        #endif
-        }
+        print("### RUNNING CLI")
+//        let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
+//        switch operation ?? self.op {
+//        case .help: try self.help(msg: messenger)
+//        case .welcome: try self.welcome(msg: messenger)
+//        case .walkthrough: try self.walkthrough(msg: messenger)
+//        case .package: try self.package(msg: messenger)
+//        case .validate: try await self.validate(msg: messenger)
+//        case .merge: try await self.merge(msg: messenger)
+//        case .catalog: try await self.catalog(msg: messenger)
+//        case .appcasks: try await self.appcasks(msg: messenger)
+//        #if canImport(Compression)
+//        case .fairseal: try await self.fairseal(msg: messenger)
+//        #endif
+//        #if canImport(SwiftUI)
+//        case .icon: try self.icon(msg: messenger)
+//        #endif
+//        }
     }
 
     func package(msg: MessageHandler) throws {
