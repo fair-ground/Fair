@@ -16,7 +16,7 @@
  */
 import Swift
 import FairApp
-import CoreFoundation
+import Foundation
 
 #if os(Linux)
 import func Glibc.exit
