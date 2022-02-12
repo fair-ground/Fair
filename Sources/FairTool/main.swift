@@ -43,7 +43,7 @@ Task {
     do {
         print("runCLI start")
         try await doSomething()
-//        try await cli.runCLI()
+        try await cli.runCLI()
         print("runCLI done")
         fairwell(0)
     } catch {
