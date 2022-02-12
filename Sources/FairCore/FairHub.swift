@@ -373,7 +373,7 @@ public extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String = appfairName, name: String = "appcasks") async throws -> FairAppCatalog {
+    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true) async throws -> FairAppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("buildAppCasks")
 
@@ -498,7 +498,18 @@ public extension FairHub {
                 // walk through the recent releases until we find one that has a fairseal on it
 
                 let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, homepage: homepage)
-                apps.append(app)
+
+                // only add the cask if it has any supplemental information defined
+                if excludeEmptyCasks == false
+                    || (app.downloadCount ?? 0) > 0
+                    || app.readmeURL != nil
+                    || app.iconURL != nil
+                    || app.tintColor != nil
+                    || app.categories?.isEmpty == false
+                    || app.screenshotURLs?.isEmpty == false
+                {
+                    apps.append(app)
+                }
             }
         }
 
@@ -511,10 +522,10 @@ public extension FairHub {
             // each bit of metadata for a cask boosts its position in the rankings
             let boost = Int64(1_000_000_000)
 
-            if item.iconURL != nil { ranking += boost }
-            if item.categories?.isEmpty == false { ranking += boost }
-            if item.tintColor != nil { ranking += boost }
             if item.readmeURL != nil { ranking += boost }
+            if item.iconURL != nil { ranking += boost }
+            if item.tintColor != nil { ranking += boost }
+            if item.categories?.isEmpty == false { ranking += boost }
             if item.screenshotURLs?.isEmpty == false { ranking += boost }
 
             return ranking
