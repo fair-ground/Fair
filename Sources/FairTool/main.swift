@@ -32,7 +32,7 @@ func fairwell(_ code: Int) -> Never { }
 #endif
 
 print("Pre-Task")
-let cli = FairCLI()
+let cli = try FairCLI()
 
 Task {
     print("Task init")
