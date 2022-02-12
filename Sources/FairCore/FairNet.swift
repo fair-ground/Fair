@@ -232,11 +232,11 @@ extension URLSession {
 
     /// Backwards-compatible shim for async fetch
     public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
-        throw NSError()
 //        if #available(macOS 12.0, iOS 15.0, *) {
 //            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
 //            return (response.0, try response.1.validating(codes: codes))
 //        } else {
+            // this seems to crash on Linux (no exception, but: "Error: Process completed with exit code 137.")
 //            return try await withCheckedThrowingContinuation { continuation in
 //                dataTask(with: request) { data, response, error in
 //                    if let data = data, let response = response, error == nil {
@@ -246,6 +246,10 @@ extension URLSession {
 //                    }
 //                }.resume()
 //            }
+
+            // so we just make it synchronous
+            // let response = URL(
+            throw CocoaError(.fileNoSuchFile)
 //        }
     }
 }
