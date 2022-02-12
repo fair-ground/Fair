@@ -122,15 +122,15 @@ extension EndpointService {
     /// Fetches the web service for the given request, following the cursor until a maximum number of batches has been retrieved
     public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) async throws -> [A.Response] where A.Service == Self, A.Response.CursorType == A.CursorType {
         var batches: [A.Response] = []
-//        let _: Bool? = try await self.requestFirstBatch(request) { resultIndex, urlResponse, batch in
-////            dbg("batch response:", urlResponse, (urlResponse as? HTTPURLResponse)?.allHeaderFields)
-//            batches.append(batch)
-//            if batches.count >= maxBatches {
-//                return false
-//            } else {
-//                return nil // keep going
-//            }
-//        }
+        let _: Bool? = try await self.requestFirstBatch(request) { resultIndex, urlResponse, batch in
+//            dbg("batch response:", urlResponse, (urlResponse as? HTTPURLResponse)?.allHeaderFields)
+            batches.append(batch)
+            if batches.count >= maxBatches {
+                return false
+            } else {
+                return nil // keep going
+            }
+        }
         return batches
     }
 }
@@ -232,20 +232,21 @@ extension URLSession {
 
     /// Backwards-compatible shim for async fetch
     public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
-        if #available(macOS 12.0, iOS 15.0, *) {
-            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
-            return (response.0, try response.1.validating(codes: codes))
-        } else {
-            return try await withCheckedThrowingContinuation { continuation in
-                dataTask(with: request) { data, response, error in
-                    if let data = data, let response = response, error == nil {
-                        continuation.resume(returning: (data, response))
-                    } else {
-                        continuation.resume(throwing: error ?? CocoaError(.fileNoSuchFile))
-                    }
-                }.resume()
-            }
-        }
+        return wip((.init(), .init()))
+//        if #available(macOS 12.0, iOS 15.0, *) {
+//            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
+//            return (response.0, try response.1.validating(codes: codes))
+//        } else {
+//            return try await withCheckedThrowingContinuation { continuation in
+//                dataTask(with: request) { data, response, error in
+//                    if let data = data, let response = response, error == nil {
+//                        continuation.resume(returning: (data, response))
+//                    } else {
+//                        continuation.resume(throwing: error ?? CocoaError(.fileNoSuchFile))
+//                    }
+//                }.resume()
+//            }
+//        }
     }
 }
 
