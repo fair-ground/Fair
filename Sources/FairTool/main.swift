@@ -34,26 +34,25 @@ func fairwell(_ code: Int) -> Never { }
 print("Pre-Task")
 let cli = try FairCLI()
 
-func doSomething() async throws {
-
-}
+//func doSomething() async throws { }
 
 Task {
     print("Task init")
     do {
         print("runCLI start")
-        try await doSomething()
+        // try await doSomething()
         try await cli.runCLI()
         print("runCLI done")
         fairwell(0)
     } catch {
         print("fairtool error: \(error.localizedDescription)")
-        error.dumpError()
-        fairwell(.init((error as NSError).code))
+        //error.dumpError()
+        //fairwell(.init((error as NSError).code))
+        fairwell(1)
     }
 }
 
 print("Post-Task")
 
-RunLoop.main.run()
+CFRunLoopRun()
 print("Post-Run")
