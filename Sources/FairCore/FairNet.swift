@@ -231,7 +231,7 @@ extension URLResponse {
 extension URLSession {
     /// Fetches the given request asynchronously, optionally validating that the response code is within the given range of HTTP codes.
     public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
-        #if os(Linux)
+        #if os(Linux) || true 
         // the fall-through below crashes on Linux for some reason (exit code 137 at runtime); this works around it
         return try await fetchTask(request: request, validate: codes)
         #else

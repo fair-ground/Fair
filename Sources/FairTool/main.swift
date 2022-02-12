@@ -18,28 +18,28 @@ import Swift
 import FairApp
 import Foundation
 
-#if os(Linux)
-import func Glibc.exit
-let fairwell = Glibc.exit
-#elseif os(Windows)
-import func ucrt.exit
-let fairwell = ucrt.exit
+#if canImport(Glibc)
+import Glibc
+private let _exit: (Int32) -> Never = Glibc.exit
 #elseif canImport(Darwin)
-import func Darwin.exit
-let fairwell = Darwin.exit
-#else
-func fairwell(_ code: Int) -> Never { }
+import Darwin
+private let _exit: (Int32) -> Never = Darwin.exit
+#elseif canImport(CRT)
+import CRT
+private let _exit: (Int32) -> Never = ucrt._exit
+#elseif canImport(WASILibc)
+import WASILibc
 #endif
 
 Task {
     do {
         let cli = try FairCLI()
         try await cli.runCLI()
-        fairwell(0)
+        _exit(0)
     } catch {
         print("fairtool error: \(error.localizedDescription)")
         error.dumpError()
-        fairwell(.init((error as NSError).code))
+        _exit(.init((error as NSError).code))
     }
 }
 
