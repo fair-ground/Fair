@@ -461,7 +461,7 @@ public extension FairCLI {
         case .walkthrough: try self.walkthrough(msg: messenger)
         case .package: try self.package(msg: messenger)
         case .validate: try await self.validate(msg: messenger)
-//        case .merge: try await self.merge(msg: messenger)
+        case .merge: try await self.merge(msg: messenger)
 //        case .catalog: try await self.catalog(msg: messenger)
 //        case .appcasks: try await self.appcasks(msg: messenger)
         #if canImport(Compression)
