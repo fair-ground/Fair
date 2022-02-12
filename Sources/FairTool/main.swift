@@ -31,9 +31,14 @@ let fairwell = Darwin.exit
 func fairwell(_ code: Int) -> Never { }
 #endif
 
+print("Pre-Task")
+
 Task {
+    print("Task init")
     do {
+        print("runCLI start")
         try await FairCLI().runCLI()
+        print("runCLI done")
         fairwell(0)
     } catch {
         print("fairtool error: \(error.localizedDescription)")
@@ -42,4 +47,7 @@ Task {
     }
 }
 
+print("Post-Task")
+
 RunLoop.main.run()
+print("Post-Run")
