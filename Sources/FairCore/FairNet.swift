@@ -229,27 +229,32 @@ extension URLResponse {
 }
 
 extension URLSession {
-
-    /// Backwards-compatible shim for async fetch
+    /// Fetches the given request asynchronously, optionally validating that the response code is within the given range of HTTP codes.
     public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
         #if os(Linux)
         // the fall-through below crashes on Linux for some reason (exit code 137 at runtime); this works around it
-        return try await fetchSync(request: request, validate: codes)
+        return try await fetchTask(request: request, validate: codes)
         #else
         if #available(macOS 12.0, iOS 15.0, *) {
             let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
             return (response.0, try response.1.validating(codes: codes))
         } else {
-            return try await fetchSync(request: request, validate: codes)
+            return try await fetchTask(request: request, validate: codes)
         }
         #endif
     }
 
-    private func fetchSync(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
+    /// A shim for async URL download for back-ported async/await without corresponding URLSession API support
+    private func fetchTask(request: URLRequest, validate codes: Range<Int>?) async throws -> (data: Data, response: URLResponse) {
         return try await withCheckedThrowingContinuation { continuation in
             dataTask(with: request) { data, response, error in
                 if let data = data, let response = response, error == nil {
-                    continuation.resume(returning: (data, response))
+                    do {
+                        let validResponse = try response.validating(codes: codes)
+                        continuation.resume(returning: (data, validResponse))
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
                 } else {
                     continuation.resume(throwing: error ?? CocoaError(.fileNoSuchFile))
                 }
