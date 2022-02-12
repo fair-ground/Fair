@@ -142,8 +142,8 @@ final class FairHubTests: XCTestCase {
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
         dbg("catalog", names.sorted())
 
-        XCTAssertTrue(names.contains("vlc"))
-        XCTAssertTrue(ids.contains(.init("vlc")))
+        XCTAssertTrue(names.contains("coteditor"))
+        XCTAssertTrue(ids.contains(.init("coteditor")))
 
         XCTAssertGreaterThanOrEqual(names.count, 1)
 

@@ -68,7 +68,7 @@ public struct BundleIdentifier: Pure, RawRepresentable, Comparable {
 public struct AppCatalogItem : Pure {
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
-    /// The identifier for the all (e.g., "app.Cloud-Cuckoo")
+    /// The identifier for the app (e.g., "app.Cloud-Cuckoo")
     public var bundleIdentifier: BundleIdentifier
     /// A subtitle
     public var subtitle: String?

@@ -40,7 +40,10 @@ public protocol EndpointService {
 public protocol APIRequest {
     associatedtype Response : Pure
     associatedtype Service : EndpointService
+
+    /// The URL for connecting to the service
     func queryURL(for service: Service) -> URL
+
     /// Post data if this is a `POST` request, `nil` if it is a `GET`
     func postData() throws -> Data?
 }
@@ -97,11 +100,11 @@ extension EndpointService {
 
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    public func requestFirstBatch<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self, A.Response.CursorType == A.CursorType {
+    public func requestNextBatch<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
         var request = request
         for requestIndex in 0... {
             let (data, urlResponse) = try await session.fetch(request: buildRequest(for: request, cache: cache))
-            dbg("batch response:", data.utf8String)
+            // dbg("batch response:", data.utf8String)
             let batch: A.Response = try decode(data: data)
 
             if let stopValue = try batchHandler(requestIndex, urlResponse, batch) {
@@ -120,9 +123,9 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, following the cursor until a maximum number of batches has been retrieved
-    public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) async throws -> [A.Response] where A.Service == Self, A.Response.CursorType == A.CursorType {
+    public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) async throws -> [A.Response] where A.Service == Self {
         var batches: [A.Response] = []
-        let _: Bool? = try await self.requestFirstBatch(request) { resultIndex, urlResponse, batch in
+        let _: Bool? = try await self.requestNextBatch(request) { resultIndex, urlResponse, batch in
 //            dbg("batch response:", urlResponse, (urlResponse as? HTTPURLResponse)?.allHeaderFields)
             batches.append(batch)
             if batches.count >= maxBatches {
@@ -135,35 +138,38 @@ extension EndpointService {
     }
 }
 
+/// A cursor that represents a pointer to a page in a set of GraphQL results.
+/// It is an opaque (base-64 encoded) string.
+public struct GraphQLCursor : RawRepresentable, Pure {
+    public let rawValue: String
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+}
+
 /// A response that returns results in batches with a cursor
 public protocol CursoredAPIResponse {
-    associatedtype CursorType
-    var endCursor: CursorType? { get }
+    var endCursor: GraphQLCursor? { get }
     /// The number of elements in this response batch
     var elementCount: Int { get }
 }
 
 /// In the common case of a result type that is in `XOr<Error>.Or<Result>`, use the success value as the success
 extension XOr.Or : CursoredAPIResponse where P : Error, Q : CursoredAPIResponse {
-    public typealias CursorType = Q.CursorType
-
     public var elementCount: Int {
         result.successValue?.elementCount ?? 0
     }
 
     /// Passes the cursor check through to the success value
-    public var endCursor: CursorType? {
+    public var endCursor: GraphQLCursor? {
         result.successValue?.endCursor
     }
 }
 
 /// A response from an API that incudes the ability to move through pages.
 public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResponse {
-    associatedtype CursorType
-    /// The number of results per batch to return
-    var count: Int { get set }
     /// The cursor for the request
-    var cursor: CursorType? { get set }
+    var cursor: GraphQLCursor? { get set }
 }
 
 public extension URLResponse {

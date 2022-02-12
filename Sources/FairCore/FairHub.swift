@@ -404,7 +404,18 @@ public extension FairHub {
 
             let caskPrefix = "cask-"
 
-            for release in (fork.releases.nodes ?? []) {
+            let releases = fork.releases
+            var releaseNodes = releases.nodes
+            dbg("received release names:", releaseNodes.compactMap(\.name))
+            if releases.pageInfo?.hasNextPage == true, let releaseCursor = releases.pageInfo?.endCursor {
+                dbg("traversing release cursor:", releaseCursor)
+                let moreReleases = try await self.requestBatches(FairHub.AppCaskReleasesQuery(repositoryNodeID: fork.id, cursor: releaseCursor), maxBatches: appfairMaxApps / 200)
+                let moreReleaseNodes = moreReleases.compactMap(\.result.successValue?.data.node.releases.nodes).joined()
+                dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
+                releaseNodes.append(contentsOf: moreReleaseNodes)
+            }
+
+            for release in releaseNodes {
                 let tagName = release.tag.name
                 if !tagName.hasPrefix(caskPrefix) {
                     dbg("tag name", tagName.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
@@ -431,10 +442,6 @@ public extension FairHub {
                 let versionDate = release.createdAt
                 let versionDescription = release.description
 
-                let iconURL = release.releaseAssets.nodes.first { asset in
-                    asset.name == "AppIcon.png"
-                }?.downloadUrl
-
                 let beta: Bool = release.isPrerelease
 
                 let sourceIdentifier: String? = nil
@@ -447,18 +454,23 @@ public extension FairHub {
 
                 dbg("checking target:", appName, fork.name, "files:", release.releaseAssets.nodes.map(\.name))
 
-                let categoryPrefix = "category-"
+                /// Returns all the asset names with the given prefix trimmed off
+                func prefixedAssetTag(_ prefix: String) -> [String] {
+                    release.releaseAssets.nodes.filter {
+                        $0.name.hasPrefix(prefix)
+                    }
+                    .map {
+                        $0.name.dropFirst(prefix.count).description
+                    }
+                }
 
                 // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
-                let categories = release.releaseAssets.nodes.filter {
-                    $0.name.hasPrefix(categoryPrefix)
-                }
-                .map {
-                    $0.name.dropFirst(categoryPrefix.count).description
-                }
-                .compactMap {
-                    AppCategory(rawValue: $0)
-                }
+                let categories = prefixedAssetTag("category-")
+                    .compactMap(AppCategory.init(rawValue:))
+
+                let tintColor = prefixedAssetTag("tint-")
+                    .filter({ $0.count == 6 }) // needs to be a 6-digit hex code
+                    .first
 
                 let appREADME = releaseAsset(named: "README.md")
 
@@ -467,10 +479,7 @@ public extension FairHub {
                     continue
                 }
 
-                guard let appIcon = releaseAsset(named: "AppIcon.png") else {
-                    dbg("missing appIcon from release")
-                    continue
-                }
+                let appIcon = releaseAsset(named: "AppIcon.png")
 
                 let artifactURL = caskInstalls.downloadUrl // not the real artifact, but we need something for the download URL; it will be ignored when we merge this catalog with the main brew catalog
 
@@ -483,18 +492,35 @@ public extension FairHub {
                 }
 
                 let downloadCount = caskInstalls.downloadCount
-                let impressionCount = appIcon.downloadCount
+                let impressionCount = appIcon?.downloadCount
                 let viewCount = appREADME?.downloadCount
 
                 // walk through the recent releases until we find one that has a fairseal on it
 
-                let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: nil, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, homepage: homepage)
+                let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, homepage: homepage)
                 apps.append(app)
             }
         }
 
-        // in order to minimize catalog changes, always sort by the bundle name
-        apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
+
+        // apps are ranked based on how much metadata is provided, and then their download count
+        func rank(for item: AppCatalogItem) -> Int64 {
+            // the base ranking is the number of downloads (represented by the number of times cask-install has been hit)
+            var ranking = Int64(item.downloadCount ?? 0)
+
+            // each bit of metadata for a cask boosts its position in the rankings
+            let boost = Int64(1_000_000_000)
+
+            if item.iconURL != nil { ranking += boost }
+            if item.categories?.isEmpty == false { ranking += boost }
+            if item.tintColor != nil { ranking += boost }
+            if item.readmeURL != nil { ranking += boost }
+            if item.screenshotURLs?.isEmpty == false { ranking += boost }
+
+            return ranking
+        }
+
+        apps.sort { rank(for: $0) > rank(for: $1) }
 
         let catalog = FairAppCatalog(name: "Cask enhanced metadata", identifier: "appcasks", sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
         return catalog
@@ -607,7 +633,7 @@ public extension FairHub {
         let nameWithOwner = appOrg + "/" + name
 
         let lookupPRsRequest = FairHub.FindPullRequests(owner: owner, name: name)
-        let appPR = try await self.requestFirstBatch(lookupPRsRequest) { resultIndex, urlResponse, batch in
+        let appPR = try await self.requestNextBatch(lookupPRsRequest) { resultIndex, urlResponse, batch in
             try batch.result.get().data.repository.pullRequests.nodes.first { edge in
                 edge.state == "OPEN"
                 //&& edge.mergeable != "CONFLICTING"
@@ -847,9 +873,7 @@ public struct GraphQLPayload<T : Pure> : Pure {
 
 /// Pass-through cursor support.
 extension GraphQLPayload : CursoredAPIResponse where T : CursoredAPIResponse {
-    public typealias CursorType = T.CursorType
-
-    public var endCursor: T.CursorType? {
+    public var endCursor: GraphQLCursor? {
         data.endCursor
     }
 
@@ -933,14 +957,6 @@ public extension FairHub {
         }
     }
 
-    /// A cursor that represents a pointer to a page in a set of results
-    struct Cursor : RawRepresentable, Pure {
-        public let rawValue: String
-        public init(rawValue: String) {
-            self.rawValue = rawValue
-        }
-    }
-
     /// Generic placeholder for a related collection that only has a `totalCount` property requested
     struct NodeCount : Pure {
         public let totalCount: Int
@@ -967,10 +983,10 @@ public extension FairHub {
 
         /// The info for a page of results, which includes a cursor to traverse
         struct PageInfo : Pure {
-            let endCursor: Cursor?
+            let endCursor: GraphQLCursor?
             let hasNextPage: Bool?
             let hasPreviousPage: Bool?
-            let startCursor: Cursor?
+            let startCursor: GraphQLCursor?
         }
     }
 
@@ -1231,10 +1247,11 @@ public extension FairHub {
 
         /// the number of releases to scan
         public var releaseCount: Int = 100
+
         /// the number of release assets to process
         public var assetCount: Int = 25
 
-        public var cursor: Cursor? = nil
+        public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try ["query": """
@@ -1242,7 +1259,7 @@ public extension FairHub {
              __typename
               repository(owner: "\(owner)", name: "\(name)") {
                 __typename
-                forks(after: \(quotedOrNull(cursor?.rawValue)), first: \(count), isLocked: false, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
+                forks(after: \(quotedOrNull(cursor?.rawValue)), first: \(count), isLocked: false, privacy: PUBLIC) {
                   __typename
                   totalCount
                   pageInfo {
@@ -1254,6 +1271,7 @@ public extension FairHub {
                   edges {
                     node {
                       __typename
+                      id
                       name
                       nameWithOwner
                       owner {
@@ -1280,42 +1298,41 @@ public extension FairHub {
                       hasWikiEnabled
                       hasProjectsEnabled
                       homepageUrl
-                      repositoryTopics(first: 1) {
-                        nodes {
-                          __typename
-                          topic {
+                      releases(first: \(releaseCount)) {
+                        pageInfo {
+                          endCursor
+                          hasNextPage
+                          hasPreviousPage
+                          startCursor
+                        }
+                        edges {
+                          node {
                             __typename
                             name
-                          }
-                        }
-                      }
-                      releases(first: \(releaseCount), orderBy: {field: CREATED_AT, direction: DESC}) {
-                        nodes {
-                          __typename
-                          name
-                          createdAt
-                          updatedAt
-                          isLatest
-                          isPrerelease
-                          isDraft
-                          description
-                          releaseAssets(first: \(assetCount)) {
-                            __typename
-                            edges {
-                              node {
-                                __typename
-                                contentType
-                                downloadCount
-                                downloadUrl
-                                name
-                                size
-                                updatedAt
-                                createdAt
+                            createdAt
+                            updatedAt
+                            isLatest
+                            isPrerelease
+                            isDraft
+                            description
+                            releaseAssets(first: \(assetCount)) {
+                              __typename
+                              edges {
+                                node {
+                                  __typename
+                                  contentType
+                                  downloadCount
+                                  downloadUrl
+                                  name
+                                  size
+                                  updatedAt
+                                  createdAt
+                                }
                               }
                             }
-                          }
-                          tag {
-                            name
+                            tag {
+                              name
+                            }
                           }
                         }
                       }
@@ -1330,7 +1347,7 @@ public extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Pure, CursoredAPIResponse {
-            public var endCursor: Cursor? {
+            public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
 
@@ -1348,6 +1365,7 @@ public extension FairHub {
                 public struct Repository : Pure {
                     public enum TypeName : String, Pure { case Repository }
                     public let __typename: TypeName
+                    public let id: String // used as a base for paginaton
                     public let name: String
                     public let nameWithOwner: String
                     public let owner: RepositoryOwner
@@ -1365,8 +1383,7 @@ public extension FairHub {
                     public let hasWikiEnabled: Bool
                     public let hasProjectsEnabled: Bool
                     public let homepageUrl: String?
-                    public var repositoryTopics: NodeList<RepositoryTopic>
-                    public let releases: NodeList<Release>
+                    public let releases: EdgeList<Release>
 
                     public struct Release : Pure {
                         public enum TypeName : String, Pure { case Release }
@@ -1386,21 +1403,101 @@ public extension FairHub {
                         }
 
                     }
-
-                    public struct RepositoryTopic : Pure {
-                        public enum TypeName : String, Pure { case RepositoryTopic }
-                        public let __typename: TypeName
-                        public let topic: Topic
-                        public struct Topic : Pure {
-                            public enum TypeName : String, Pure { case Topic }
-                            public let __typename: TypeName
-                            public let name: String // TODO: this will be the appfair- app category
-                        }
-                    }
                 }
             }
         }
     }
+
+    /// The query to get additional pages of releases for `AppCasksQuery` when a fork has many releases
+    struct AppCaskReleasesQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        public let queryName: String = "AppCaskReleasesQuery"
+        public typealias Service = FairHub
+
+        /// The opaque ID of the fork repository
+        public let repositoryNodeID: String
+
+        /// the number of releases to get per batch
+        public var releaseCount: Int = 100
+
+        /// the number of release assets to process
+        public var assetCount: Int = 25
+
+        public var cursor: GraphQLCursor?
+
+        public func postData() throws -> Data? {
+            try ["query": """
+            query \(queryName) {
+            node(id: "\(repositoryNodeID)") {
+              id
+              __typename
+              ... on Repository {
+                releases(after: \(quotedOrNull(cursor?.rawValue)), first: \(releaseCount)) {
+                  pageInfo {
+                    endCursor
+                    hasNextPage
+                    hasPreviousPage
+                    startCursor
+                  }
+                  edges {
+                    node {
+                      __typename
+                      name
+                      createdAt
+                      updatedAt
+                      isLatest
+                      isPrerelease
+                      isDraft
+                      description
+                      releaseAssets(first: \(assetCount)) {
+                        __typename
+                        edges {
+                          node {
+                            __typename
+                            contentType
+                            downloadCount
+                            downloadUrl
+                            name
+                            size
+                            updatedAt
+                            createdAt
+                          }
+                        }
+                      }
+                      tag {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        """].json()
+        }
+
+        public typealias Response = GraphQLResponse<QueryResponse>
+
+        public struct QueryResponse : Pure, CursoredAPIResponse {
+            public var endCursor: GraphQLCursor? {
+                node.releases.pageInfo?.endCursor
+            }
+
+            public var elementCount: Int {
+                node.releases.nodes.count
+            }
+
+            public let node: Repository
+            public struct Repository : Pure {
+                public enum TypeName : String, Pure { case Repository }
+                public let __typename: TypeName
+                public let id: String // used as a base for paginaton
+
+                /// We re-use the same release structure between the parent query and the cursored release query
+                public let releases: EdgeList<AppCasksQuery.QueryResponse.BaseRepository.Repository.Release>
+            }
+        }
+    }
+
     /// The query to generate a fair-ground catalog
     struct CatalogQuery : GraphQLAPIRequest & CursoredAPIRequest {
         public let queryName: String = "CatalogQuery"
@@ -1421,7 +1518,7 @@ public extension FairHub {
         /// the number of initial comments to scan for a fairseal
         public var commentCount: Int = 10
 
-        public var cursor: Cursor? = nil
+        public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try ["query": """
@@ -1570,7 +1667,7 @@ public extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Pure, CursoredAPIResponse {
-            public var endCursor: Cursor? {
+            public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
 
@@ -1787,7 +1884,7 @@ public extension FairHub {
         /// The state of the PR
         public var state: String? = "OPEN"
         public var count: Int = 100
-        public var cursor: Cursor? = nil
+        public var cursor: GraphQLCursor? = nil
 
 
         public func postData() throws -> Data? {
@@ -1826,7 +1923,7 @@ public extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Pure, CursoredAPIResponse {
-            public var endCursor: Cursor? {
+            public var endCursor: GraphQLCursor? {
                 repository.pullRequests.pageInfo?.endCursor
             }
 
