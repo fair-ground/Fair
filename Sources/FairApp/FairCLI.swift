@@ -460,16 +460,16 @@ public extension FairCLI {
         case .welcome: try self.welcome(msg: messenger)
         case .walkthrough: try self.walkthrough(msg: messenger)
         case .package: try self.package(msg: messenger)
-//        case .validate: try await self.validate(msg: messenger)
-//        case .merge: try await self.merge(msg: messenger)
+        case .validate: try await self.validate(msg: messenger)
+        case .merge: try await self.merge(msg: messenger)
 //        case .catalog: try await self.catalog(msg: messenger)
-//        case .appcasks: try await self.appcasks(msg: messenger)
-//        #if canImport(Compression)
-//        case .fairseal: try await self.fairseal(msg: messenger)
-//        #endif
-//        #if canImport(SwiftUI)
-//        case .icon: try self.icon(msg: messenger)
-//        #endif
+        case .appcasks: try await self.appcasks(msg: messenger)
+        #if canImport(Compression)
+        case .fairseal: try await self.fairseal(msg: messenger)
+        #endif
+        #if canImport(SwiftUI)
+        case .icon: try self.icon(msg: messenger)
+        #endif
         default: print(wip("OP"), operation)
         }
     }
