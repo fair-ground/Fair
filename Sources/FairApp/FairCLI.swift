@@ -456,11 +456,10 @@ public extension FairCLI {
         print("### RUNNING CLI")
         let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
         switch operation ?? self.op {
-        default: print("OP")
-//        case .help: try self.help(msg: messenger)
-//        case .welcome: try self.welcome(msg: messenger)
-//        case .walkthrough: try self.walkthrough(msg: messenger)
-//        case .package: try self.package(msg: messenger)
+        case .help: try self.help(msg: messenger)
+        case .welcome: try self.welcome(msg: messenger)
+        case .walkthrough: try self.walkthrough(msg: messenger)
+        case .package: try self.package(msg: messenger)
 //        case .validate: try await self.validate(msg: messenger)
 //        case .merge: try await self.merge(msg: messenger)
 //        case .catalog: try await self.catalog(msg: messenger)
@@ -471,6 +470,7 @@ public extension FairCLI {
 //        #if canImport(SwiftUI)
 //        case .icon: try self.icon(msg: messenger)
 //        #endif
+        default: print(wip("OP"), operation)
         }
     }
 
