@@ -373,7 +373,7 @@ public extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true) async throws -> FairAppCatalog {
+    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true, boostFactor: Int64) async throws -> FairAppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("buildAppCasks")
 
@@ -429,16 +429,6 @@ public extension FairHub {
 
                 dbg("  checking release tag:", appid, "name:", releaseName)
 
-                let appName = fork.owner.login
-
-                do {
-                    try validateAppName(appName)
-                } catch {
-                    // skip packages whose names are not valid
-                    dbg(fork.nameWithOwner, "invalid app name:", error)
-                    continue
-                }
-
                 let versionDate = release.createdAt
                 let versionDescription = release.description
 
@@ -452,7 +442,7 @@ public extension FairHub {
                     })
                 }
 
-                dbg("checking target:", appName, fork.name, "files:", release.releaseAssets.nodes.map(\.name))
+                dbg("checking target:", appid, "files:", release.releaseAssets.nodes.map(\.name))
 
                 /// Returns all the asset names with the given prefix trimmed off
                 func prefixedAssetTag(_ prefix: String) -> [String] {
@@ -520,13 +510,11 @@ public extension FairHub {
             var ranking = Int64(item.downloadCount ?? 0)
 
             // each bit of metadata for a cask boosts its position in the rankings
-            let boost = Int64(1_000_000_000)
-
-            if item.readmeURL != nil { ranking += boost }
-            if item.iconURL != nil { ranking += boost }
-            if item.tintColor != nil { ranking += boost }
-            if item.categories?.isEmpty == false { ranking += boost }
-            if item.screenshotURLs?.isEmpty == false { ranking += boost }
+            if item.readmeURL != nil { ranking += boostFactor }
+            if item.iconURL != nil { ranking += boostFactor }
+            if item.tintColor != nil { ranking += boostFactor }
+            if item.categories?.isEmpty == false { ranking += boostFactor }
+            if item.screenshotURLs?.isEmpty == false { ranking += boostFactor }
 
             return ranking
         }

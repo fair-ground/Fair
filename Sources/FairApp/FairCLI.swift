@@ -315,6 +315,15 @@ public extension FairCLI {
         flags["-allow-license"].flatMap(joinWhitespaceSeparated)
     }
 
+    /// The multiplier for how much metadata additions boost the app rankings
+    var boostFactor: Int64 {
+        if let boost = flags["-boost-factor"]?.first, let boostFactor = Int64(boost) {
+            return boostFactor
+        } else {
+            return 100_000
+        }
+    }
+
     /// Allow multiple newline separated elements for a single value, which
     /// permits us to pass multiple e-mail addresses in a single
     /// `--allow-from` or `--deny-from` setting.
@@ -1597,7 +1606,7 @@ public extension FairCLI {
         }
 
         // build the catalog filtering on specific artifact extensions
-        let catalog = try await hub.buildAppCasks()
+        let catalog = try await hub.buildAppCasks(boostFactor: boostFactor)
 
         msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {
