@@ -441,6 +441,11 @@ jobs:
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
 
+      - name: Build fairtool
+        run: |
+          xcrun swift build
+          cp -v ./.build/*-apple-macosx/debug/fairtool fairtool
+
       - name: Checkout Integration Pull Request
         uses: actions/checkout@v2
         with:
@@ -460,7 +465,7 @@ jobs:
 
       - name: "Validate App-Name: ${{ env.ORGNAME }}"
         run: |
-          xcrun swift run -- fairtool validate \
+          ./fairtool validate \
             --base . \
             --project ReleasePR \
             --hub github.com/${{ inputs.fairground }} \
@@ -484,11 +489,11 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          xcrun swift run -- fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
+          ./fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
         
-          xcrun swift run -- fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
+          ./fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
@@ -503,7 +508,7 @@ jobs:
       - name: "Generate Icon"
         run: |
           cd "${{ env.IR_TARGET }}"
-          xcrun swift run -- fairtool icon --org "${{ env.ORGNAME }}" --fair-properties "AppFairApp.xcconfig" --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          ./fairtool icon --org "${{ env.ORGNAME }}" --fair-properties "AppFairApp.xcconfig" --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
           cd -
 
       - name: "Check platforms"
@@ -618,7 +623,7 @@ jobs:
           # client apps will use this hash to verify that the untrusted
           # release artifact that is downloaded matches the release
           # artifact that was created in the trusted environment
-          xcrun swift run -- fairtool fairseal \
+          ./fairtool fairseal \
             --verbose true \
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
@@ -657,7 +662,7 @@ jobs:
 
           # Builds on iOS are currently not reproducible (help wanted!),
           # so we accept a diff tolerance of 1,000,000 bytes for fairseal-match
-          xcrun swift run -- fairtool fairseal \
+          ./fairtool fairseal \
             --verbose true \
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
