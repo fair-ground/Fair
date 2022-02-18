@@ -499,6 +499,7 @@ jobs:
         
           ./fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
+          xcrun swift package resolve
           cp -a .build/checkouts Dependencies
           tar cvzf "staging/${{ env.FAIR_APP_ARTIFACT }}-source.tgz" --exclude='.git/' --exclude='.build/' --exclude='staging/' .
           rm -rf Dependencies
