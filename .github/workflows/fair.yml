@@ -438,15 +438,6 @@ jobs:
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
         run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair#app/${{ env.ORGNAME }}"
 
-      - name: Build fairtool
-        run: |
-          git clone http://fair-ground.org/Fair.git
-          cd Fair
-          xcrun swift build
-          cp -v ./.build/*-apple-macosx/debug/fairtool ../fairtool
-          cd -
-          ./fairtool --help
-
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
 
@@ -466,6 +457,15 @@ jobs:
       - name: Get version tag
         id: get_semver_tag
         run: echo ::set-output name=semver_tag::$(xcodebuild -quiet -workspace ReleasePR/App.xcworkspace -showBuildSettings -json -scheme AppFairApp archive 2> /dev/null | jq '.[].buildSettings.MARKETING_VERSION' | cut -f 2 -d '"')
+
+      - name: Build fairtool
+        run: |
+          git clone http://fair-ground.org/Fair.git
+          cd Fair
+          xcrun swift build
+          cp -v ./.build/*-apple-macosx/debug/fairtool ../fairtool
+          cd -
+          ./fairtool --help
 
       - name: "Validate App-Name: ${{ env.ORGNAME }}"
         run: |
