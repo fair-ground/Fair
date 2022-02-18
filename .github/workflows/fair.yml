@@ -438,13 +438,17 @@ jobs:
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
         run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair#app/${{ env.ORGNAME }}"
 
-      - name: Checkout Base Fairground
-        uses: actions/checkout@v2
-
       - name: Build fairtool
         run: |
+          git clone http://fair-ground.org/Fair.git
+          cd Fair
           xcrun swift build
-          cp -v ./.build/*-apple-macosx/debug/fairtool fairtool
+          cp -v ./.build/*-apple-macosx/debug/fairtool ../fairtool
+          cd -
+          ./fairtool --help
+
+      - name: Checkout Base Fairground
+        uses: actions/checkout@v2
 
       - name: Checkout Integration Pull Request
         uses: actions/checkout@v2
