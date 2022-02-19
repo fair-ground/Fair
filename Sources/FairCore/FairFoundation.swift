@@ -417,10 +417,6 @@ public extension Error {
         print("Error:", self.localizedDescription, to: &out)
         let localizedError = self as NSError // handles LocalizedError
 
-        if let errorDescription = localizedError.errorDescription,
-            errorDescription != localizedError.localizedDescription {
-            print("   Description:", errorDescription, to: &out)
-        }
         if let failureReason = localizedError.localizedFailureReason {
             print("   Reason:", failureReason, to: &out)
         }
@@ -432,10 +428,6 @@ public extension Error {
         }
         print("Raw:", localizedError.debugDescription, to: &out)
     }
-}
-
-extension NSError : LocalizedError {
-
 }
 
 /// A property list, which is simply a wrapper around an `NSDictionary` with some conveniences.

@@ -631,15 +631,19 @@ public struct AppError : LocalizedError {
     /// A localized message providing "help" text if the user requests help.
     public let helpAnchor: String?
 
+    /// An underlying error
+    public let underlyingError: Error?
+
     public init(function: StaticString = #function, file: StaticString = #file, line: UInt = #line) {
         self.init("Error at \(function) in \(file):\(line)")
     }
 
-    public init(_ errorDescription: String, failureReason: String? = nil, recoverySuggestion: String? = nil, helpAnchor: String? = nil) {
+    public init(_ errorDescription: String, failureReason: String? = nil, recoverySuggestion: String? = nil, helpAnchor: String? = nil, underlyingError: Error? = nil) {
         self.errorDescription = errorDescription
         self.failureReason = failureReason
         self.recoverySuggestion = recoverySuggestion
         self.helpAnchor = helpAnchor
+        self.underlyingError = underlyingError
     }
 
     public init(_ error: Error) {
@@ -648,11 +652,18 @@ public struct AppError : LocalizedError {
             self.failureReason = error.failureReason
             self.recoverySuggestion = error.recoverySuggestion
             self.helpAnchor = error.helpAnchor
+            self.underlyingError = error.underlyingError
         } else {
-            self.errorDescription = error.localizedDescription
-            self.failureReason = nil
-            self.recoverySuggestion = nil
-            self.helpAnchor = nil
+            let nsError = error as NSError
+            self.errorDescription = nsError.localizedDescription
+            self.failureReason = nsError.localizedFailureReason
+            self.recoverySuggestion = nsError.localizedRecoverySuggestion
+            self.helpAnchor = nsError.helpAnchor
+            if #available(macOS 11.3, *) {
+                self.underlyingError = nsError.underlyingErrors.first
+            } else {
+                self.underlyingError = nil
+            }
         }
     }
 }
