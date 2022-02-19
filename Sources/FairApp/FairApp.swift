@@ -654,6 +654,7 @@ public struct AppError : LocalizedError {
             self.helpAnchor = error.helpAnchor
             self.underlyingError = error.underlyingError
         } else {
+            #if canImport(AppKit) || canImport(UIKit)
             let nsError = error as NSError
             self.errorDescription = nsError.localizedDescription
             self.failureReason = nsError.localizedFailureReason
@@ -664,6 +665,21 @@ public struct AppError : LocalizedError {
             } else {
                 self.underlyingError = nil
             }
+            #else // NSError bridge on other platforms does not expose properties
+            if let locError = error as? LocalizedError {
+                self.errorDescription = locError.errorDescription
+                self.failureReason = locError.failureReason
+                self.recoverySuggestion = locError.recoverySuggestion
+                self.helpAnchor = locError.helpAnchor
+                self.underlyingError = nil
+            } else {
+                self.errorDescription = error.localizedDescription
+                self.failureReason = nil
+                self.recoverySuggestion = nil
+                self.helpAnchor = nil
+                self.underlyingError = nil
+            }
+            #endif
         }
     }
 }
