@@ -660,7 +660,7 @@ public struct AppError : LocalizedError {
             self.failureReason = nsError.localizedFailureReason
             self.recoverySuggestion = nsError.localizedRecoverySuggestion
             self.helpAnchor = nsError.helpAnchor
-            if #available(macOS 11.3, *) {
+            if #available(macOS 11.3, iOS 14.5, *) {
                 self.underlyingError = nsError.underlyingErrors.first
             } else {
                 self.underlyingError = nil
