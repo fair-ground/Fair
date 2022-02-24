@@ -340,7 +340,9 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @SceneBuilder public var body: some SwiftUI.Scene {
         let commands = Group {
             CommandGroup(after: CommandGroupPlacement.appSettings) {
-                if let url = Bundle.appFairURL(for: Bundle.main), url.canLaunchScheme() == true {
+                if let url = Bundle.appFairURL(for: Bundle.main),
+                    url.canLaunchScheme() == true,
+                   Bundle.main.isCatalogBrowserApp == false {
                     Link(destination: url) {
                         Text("Check for Updates", bundle: .module)
                             .help(Text("Check for updates on the App Fair"))

@@ -36,12 +36,12 @@ open class HandleStream: TextOutputStream {
 #if os(macOS)
 public extension Process {
     /// The output of `execute`
-    typealias CommandResult = (stdout: [String], stderr: [String])
+    typealias CommandResult = (exitCode: Int32, stdout: [String], stderr: [String])
 
     /// Invokes a tool with the given arguments
     @discardableResult static func execute(command executablePath: URL, environment: [String: String] = [:], _ args: [String], expectSuccess: Bool = true) throws -> CommandResult {
         // Some of the APIs that we use below are available in macOS 10.13 and above.
-        guard #available(macOS 10.13, *) else { return ([], []) }
+        guard #available(macOS 10.13, *) else { return (-1, [], []) }
 
         // quick check to ensure we can read the executable
         let _ = try Data(contentsOf: executablePath)
@@ -74,12 +74,13 @@ public extension Process {
         let errdata = stderr.fileHandleForReading.readDataToEndOfFile()
         let errput = String(data: errdata, encoding: .utf8) ?? ""
 
-        if expectSuccess && process.terminationStatus != 0 {
+        let exitCode = process.terminationStatus
+        if expectSuccess && exitCode != 0 {
             print("error running tool \(process.terminationStatus); STDOUT:\n", output, "STDERR:\n", errput)
             throw Errors.processExit(executablePath, process.terminationStatus)
         }
 
-        return (output.split(separator: "\n").map(\.description), errput.split(separator: "\n").map(\.description))
+        return (exitCode, output.split(separator: "\n").map(\.description), errput.split(separator: "\n").map(\.description))
     }
 
     enum Errors : Pure, LocalizedError {
@@ -119,8 +120,8 @@ public extension Process {
 
 
     /// Convenience for executing a local command whose final argument is a target file
-    static func exec(cmd: String, _ commands: String..., target: URL? = nil) throws -> CommandResult {
-        try execute(command: URL(fileURLWithPath: cmd), commands + [target?.path].compactMap({ $0 }))
+    static func exec(cmd: String, _ commands: String..., target: URL? = nil, expectSuccess: Bool = false) throws -> CommandResult {
+        try execute(command: URL(fileURLWithPath: cmd), commands + [target?.path].compactMap({ $0 }), expectSuccess: expectSuccess)
     }
 
     /// Returns `swift test <file>`. Untested.
@@ -137,7 +138,7 @@ public extension Process {
         try exec(cmd: "/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", target: appURL)
     }
 
-    /// Returns `spctl --assess --verbose --type execute <file>`. Untested.
+    /// Returns `spctl --assess --verbose --type execute <file>`. .
     @discardableResult static func spctlAssess(appURL: URL) throws -> CommandResult {
         try exec(cmd: "/usr/sbin/spctl", "--assess", "--verbose", "--type", "execute", target: appURL)
     }
