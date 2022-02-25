@@ -461,7 +461,7 @@ public extension FairCLI {
     typealias MessageHandler = ((MessageKind, Any?...) -> ())
 
     /// Invokes the tool with the command-line interface
-    func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) async throws {
+    @MainActor func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) async throws {
         let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
         switch operation ?? self.op {
         case .help: try self.help(msg: messenger)
@@ -1117,6 +1117,8 @@ public extension FairCLI {
     #if canImport(SwiftUI)
     func icon(msg: MessageHandler) throws {
         msg(.info, "icon")
+
+        assert(Thread.isMainThread, "SwiftUI can only be used from main thread")
 
         guard let appIconPath = self.appIconPath else {
             throw Errors.missingFlag(self.op, "-app-icon")

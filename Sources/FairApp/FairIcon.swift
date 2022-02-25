@@ -84,10 +84,6 @@ public struct FairIconView : View, Equatable {
         //Font.system(size: size).smallCaps()
     }
 
-    static func iconGradient(color: Color?, name: String?) {
-
-    }
-
     func iconView(for span: CGFloat) -> some View {
         let parts = name.components(separatedBy: CharacterSet.alphanumerics.inverted)
         let monogram = String(parts.map(\.first).compacted()).uppercased()
