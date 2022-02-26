@@ -631,7 +631,7 @@ public enum AppEntitlement : String, Pure, CaseIterable {
 }
 
 /// The `LSApplicationCategoryType` for an app
-public enum AppCategory : String, CaseIterable, Pure {
+public enum AppCategory : String, CaseIterable, Identifiable, Pure {
     case business = "business"
     case developertools = "developer-tools"
     case education = "education"
@@ -674,6 +674,8 @@ public enum AppCategory : String, CaseIterable, Pure {
     case strategygames = "strategy-games"
     case triviagames = "trivia-games"
     case wordgames = "word-games"
+
+    public var id: Self { self }
 
     public init?(topic: String) {
         guard let category = Self.topics[topic] else {
