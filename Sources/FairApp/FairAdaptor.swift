@@ -280,6 +280,18 @@ public extension UXViewControllerRepresentable {
     #endif
 }
 
+extension UXView : TreeRoot {
+    /// An iterator that recursively traverse the tree of view controller children in a depth-first manner
+    @inlinable public var subviewsDepthFirst: TreeNodeIterator<UXView> {
+        self[depthFirst: \.subviews]
+    }
+
+    /// An iterator that recursively traverse the tree of view controller children in a breadth-first manner
+    @inlinable public var subviewsBreadthFirst: TreeNodeIterator<UXView> {
+        self[breadthFirst: \.subviews]
+    }
+}
+
 public extension View {
     /// Takes a snapshot of the view and returns the PNG data.
     /// - Parameters:
