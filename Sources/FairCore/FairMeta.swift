@@ -637,6 +637,7 @@ public enum AppCategory : String, CaseIterable, Identifiable, Pure {
     case education = "education"
     case entertainment = "entertainment"
     case finance = "finance"
+    case games = "games"
     case graphicsdesign = "graphics-design"
     case healthcarefitness = "healthcare-fitness"
     case lifestyle = "lifestyle"
@@ -653,8 +654,7 @@ public enum AppCategory : String, CaseIterable, Identifiable, Pure {
     case video = "video"
     case weather = "weather"
 
-    // MARK: Games
-    case games = "games"
+    // MARK: Game Sub-types
     case actiongames = "action-games"
     case adventuregames = "adventure-games"
     case arcadegames = "arcade-games"
