@@ -2398,5 +2398,15 @@ extension AssetName {
             self.init(base: str, idiom: nil, width: width, height: height, scale: scale, ext: ext)
         }
     }
+
+    /// The size encoded in the asset name, applying a scaling factor if it is defined
+    var size: CGSize {
+        if let scale = self.scale {
+            return CGSize(width: width * .init(scale), height: height * .init(scale))
+        } else {
+            return CGSize(width: width, height: height)
+        }
+
+    }
 }
 

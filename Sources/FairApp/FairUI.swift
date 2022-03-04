@@ -61,13 +61,9 @@ public struct URLImage : View, Equatable {
         self.resizable = resizable
         self.showProgress = showProgress
         self.showError = showError
-        if let lastPart = url.deletingPathExtension()
-            .lastPathComponent.split(separator: "-").last,
-           let sizeParts = Optional.some(lastPart)?.split(separator: "x"),
-           sizeParts.count == 2,
-           let width = Int(sizeParts[0]),
-           let height = Int(sizeParts[1]) {
-            self.suggestedSize = CGSize(width: width, height: height)
+
+        if let assetName = try? AssetName(string: url.lastPathComponent) {
+            self.suggestedSize = assetName.size
         } else {
             self.suggestedSize = nil
         }
