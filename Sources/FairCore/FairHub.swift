@@ -270,6 +270,8 @@ public extension FairHub {
                         continue
                     }
 
+                    let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
+
                     guard let appIcon = releaseAsset(named: appName + ".png") else {
                         dbg("missing appIcon from release")
                         continue
@@ -314,6 +316,8 @@ public extension FairHub {
                         continue
                     }
 
+                    let releaseNotesURL = appRELEASENOTES?.downloadUrl
+
                     let screenshotURLs = release.releaseAssets.nodes.filter { node in
                         if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
                             return false
@@ -334,7 +338,7 @@ public extension FairHub {
 
                     // walk through the recent releases until we find one that has a fairseal on it
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), homepage: homepage)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, sourceSize: sourceSize, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
 
 
                     if beta == true {
@@ -463,6 +467,7 @@ public extension FairHub {
                     .first
 
                 let appREADME = releaseAsset(named: "README.md")
+                let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
 
                 guard let caskInstalls = releaseAsset(named: "cask-install") else {
                     dbg("missing cask-install from release")
@@ -474,6 +479,7 @@ public extension FairHub {
                 let artifactURL = caskInstalls.downloadUrl // not the real artifact, but we need something for the download URL; it will be ignored when we merge this catalog with the main brew catalog
 
                 let readmeURL = appREADME?.downloadUrl
+                let releaseNotesURL = appRELEASENOTES?.downloadUrl
                 let screenshotURLs = release.releaseAssets.nodes.filter { node in
                     if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
                         return false
@@ -487,12 +493,13 @@ public extension FairHub {
 
                 // walk through the recent releases until we find one that has a fairseal on it
 
-                let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, homepage: homepage)
+                let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, releaseNotesURL: releaseNotesURL, homepage: homepage)
 
                 // only add the cask if it has any supplemental information defined
                 if excludeEmptyCasks == false
                     || (app.downloadCount ?? 0) > 0
                     || app.readmeURL != nil
+                    || app.releaseNotesURL != nil
                     || app.iconURL != nil
                     || app.tintColor != nil
                     || app.categories?.isEmpty == false

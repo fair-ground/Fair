@@ -130,10 +130,13 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's README
     public var readmeURL: URL?
 
+    /// The URL for the app's `RELEASE_NOTES`
+    public var releaseNotesURL: URL?
+
     /// The URL for the app's homepage
     public var homepage: URL?
 
-    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String?, localizedDescription: String?, size: Int?, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, impressionCount: Int?, viewCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?, homepage: URL?) {
+    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String?, developerName: String?, localizedDescription: String?, size: Int?, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, sourceIdentifier: String?, categories: [String]?, downloadCount: Int?, impressionCount: Int?, viewCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, sourceSize: Int?, coreSize: Int?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?, releaseNotesURL: URL?, homepage: URL?) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -162,6 +165,7 @@ public struct AppCatalogItem : Pure {
         self.permissions = permissions
         self.metadataURL = metadataURL
         self.readmeURL = readmeURL
+        self.releaseNotesURL = releaseNotesURL
         self.homepage = homepage
     }
 }
