@@ -468,15 +468,11 @@ public extension FairHub {
 
                 let appREADME = releaseAsset(named: "README.md")
                 let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
-
-                guard let caskInstalls = releaseAsset(named: "cask-install") else {
-                    dbg("missing cask-install from release")
-                    continue
-                }
+                let caskInstalls = releaseAsset(named: "cask-install")
 
                 let appIcon = releaseAsset(named: "AppIcon.png")
 
-                let artifactURL = caskInstalls.downloadUrl // not the real artifact, but we need something for the download URL; it will be ignored when we merge this catalog with the main brew catalog
+                let artifactURL = homepage // not the real artifact, but we need something for the download URL; it will be ignored when we merge this catalog with the main brew catalog
 
                 let readmeURL = appREADME?.downloadUrl
                 let releaseNotesURL = appRELEASENOTES?.downloadUrl
@@ -487,7 +483,7 @@ public extension FairHub {
                     return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
                 }
 
-                let downloadCount = caskInstalls.downloadCount
+                let downloadCount = caskInstalls?.downloadCount
                 let impressionCount = appIcon?.downloadCount
                 let viewCount = appREADME?.downloadCount
 
