@@ -85,7 +85,9 @@ public struct URLImage : View, Equatable {
                         Text(error.localizedDescription)
                             .label(image: FairSymbol.xmark_octagon)
                     } else {
-                        Circle().fill(.secondary).opacity(0.5)
+                        //Circle()
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .fill(.secondary).opacity(0.5)
 //                        FairSymbol.xmark_octagon.image
 //                            .resizable(resizingMode: .stretch)
                     }
