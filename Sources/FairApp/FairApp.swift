@@ -546,6 +546,36 @@ private final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 #endif
 
+/// Command to select the search bar using the CMD-F keyboard shortcut
+/// The command will be installed in the `CommandGroupPlacement.textEditing` menu on macOS.
+@available(macOS 12.0, iOS 15.0, *)
+public struct SearchBarCommands: Commands {
+    public init() {
+    }
+
+    public var body: some Commands {
+        CommandGroup(after: CommandGroupPlacement.textEditing) {
+            Section {
+                #if os(macOS)
+                Text("Search").button {
+                    dbg("activating search field")
+                    // there's no official way to do this, so search the NSToolbar for the item and make it the first responder
+                    if let window = NSApp.currentEvent?.window,
+                       let toolbar = window.toolbar,
+                       let searchField = toolbar.visibleItems?.compactMap({ $0 as? NSSearchToolbarItem }).first {
+                        // <SwiftUI.AppKitSearchToolbarItem: 0x13a8721a0> identifier = "com.apple.SwiftUI.search"]
+                        dbg("searchField:", searchField)
+                        window.makeFirstResponder(searchField.searchField)
+                    }
+                }
+                .keyboardShortcut("F")
+                #endif
+            }
+        }
+    }
+}
+
+
 @available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.Text {
     /// Creates a Text from the given attributed string, falling back to the unformatted string if it fails to parse.
