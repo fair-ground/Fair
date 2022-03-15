@@ -9,6 +9,8 @@ It consists of:
 A fair-ground is an independent distribution platform
 for free and open-source native apps written in SwiftUI.
 
+Browse the [API documentation](https://fair-ground.github.io/Fair/documentation/faircore/) for details.
+
 ## fairtool
 
 The `fairtool` is a command-line executable for macOS12.
@@ -47,3 +49,9 @@ let package = Package(
 )
 ```
 
+
+### Building documentation
+
+```
+swift package --allow-writing-to-directory ./docs generate-documentation --target FairCore --disable-indexing --transform-for-static-hosting --hosting-base-path Fair --output-path docs/
+```
