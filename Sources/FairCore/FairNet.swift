@@ -343,7 +343,6 @@ extension URLSession {
     /// the number of progress segments for the download part; the remainder will be the zip decompression
     public static let progressUnitCount: Int64 = 4
 
-    #if !os(Linux) && !os(Windows)
     /// Downloads the given request to a cached file location.
     ///
     /// - Parameters:
@@ -436,7 +435,6 @@ extension URLSession {
         try fh.close()
         return (downloadedArtifact, response)
     }
-    #endif // !os(Linux) && !os(Windows)
 
     /// If the download from `downloadTask` is successful, the completion handler receives a URL indicating the location of the downloaded file on the local filesystem. This storage is temporary. To preserve the file, this will move it from the temporary location before returning from the completion handler.
     /// In practice, macOS seems to be inconsistent in when it ever cleans up these files, so a failure here will manifest itself in occasional missing files.

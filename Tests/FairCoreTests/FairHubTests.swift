@@ -137,6 +137,10 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildAppCasks() async throws {
+        if ({ true }()) {
+            throw XCTSkip("disabled to reduce API load")
+        }
+
         let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(boostFactor: 1000)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
