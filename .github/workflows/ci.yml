@@ -46,10 +46,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: swift test
 
+      - name: Generate docs
+        if: false # needs swift 5.6
+        run: |
+          swift package --allow-writing-to-directory ./docs generate-documentation --target FairCore --target FairApp --output-path ./docs --transform-for-static-hosting --hosting-base-path api
+
+      - name: Update Docs
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          force_orphan: true
+
   ci-macOS:
     runs-on: macos-11
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_13.3.app/Contents/Developer"
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
@@ -78,77 +91,19 @@ jobs:
       - name: Build macOS FairApp
         run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "macosx" -destination "platform=macosx"
 
-      - name: Generate docbuild
-        if: false # broken: https://github.com/DoccZz/docc2html/issues/15
-
-        run: |
-          # see: https://fair-ground.github.io/Fair/documentation/faircore/index.html
-          mkdir -p docs
-          touch docs/index.html
-          mkdir -p docbuild/output
-
-          xcodebuild docbuild -scheme "FairCore" -destination "platform=macOS" -derivedDataPath docbuild/output/
-          xcodebuild docbuild -scheme "FairApp" -destination "platform=macOS" -derivedDataPath docbuild/output/
-
-          cd docbuild/
-          git clone https://github.com/marcprux/zzdoc.git
-          cd zzdoc
-          #git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
-
-          swift run zzdoc --verbose --force ../output/Build/Products/Debug/FairCore.doccarchive ../../docs/
-          swift run zzdoc --verbose --force ../output/Build/Products/Debug/FairApp.doccarchive ../../docs/
-
-      - name: Update Docs
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          force_orphan: true
-
   ci-windows:
     runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
-      - uses: seanmiddleditch/gha-setup-vsdevenv@master
-      - name: Install swift-5.5
-        run: |
-          Install-Binary -Url "https://swift.org/builds/swift-5.5-release/windows10/swift-5.5-RELEASE/swift-5.5-RELEASE-windows10.exe" -Name "installer.exe" -ArgumentList ("-q")
-      - name: Set Environment Variables
-        run: |
-          echo "SDKROOT=C:\Library\Developer\Platforms\Windows.platform\Developer\SDKs\Windows.sdk" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "DEVELOPER_DIR=C:\Library\Developer" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-      - name: Adjust Paths
-        run: |
-          echo "C:\Library\Swift-development\bin;C:\Library\icu-67\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo "C:\Library\Developer\Toolchains\unknown-Asserts-development.xctoolchain\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-      - name: Install Supporting Files
-        run: |
-          Copy-Item "$env:SDKROOT\usr\share\ucrt.modulemap" -destination "$env:UniversalCRTSdkDir\Include\$env:UCRTVersion\ucrt\module.modulemap"
-          Copy-Item "$env:SDKROOT\usr\share\visualc.modulemap" -destination "$env:VCToolsInstallDir\include\module.modulemap"
-          Copy-Item "$env:SDKROOT\usr\share\visualc.apinotes" -destination "$env:VCToolsInstallDir\include\visualc.apinotes"
-          Copy-Item "$env:SDKROOT\usr\share\winsdk.modulemap" -destination "$env:UniversalCRTSdkDir\Include\$env:UCRTVersion\um\module.modulemap"
-
-      - name: Get swift version
-        run: swift --version # Swift 5.5?
-
-      - name: Checkout
-        uses: actions/checkout@v2
-
+      - uses: compnerd/gha-setup-swift@main
+        with:
+          branch: swift-5.5-release
+          tag: 5.5-RELEASE
       - name: Run fairtool
         run: |
           swift run fairtool welcome
-
       - name: Fair Tests
-        if: false
-        # there seems to be a problem with linking a project that
-        # contains both a main.swift (fairtool) and test cases
-        # (that have their own main() created): 
-        # lld-link: error: duplicate symbol: main
-        # >>> defined at D:\a\Fair\Fair\.build\x86_64-unknown-windows-msvc\debug\FairPackageTests.build\main.swift.o
-        # >>> defined at D:\a\Fair\Fair\.build\x86_64-unknown-windows-msvc\debug\FairTool.build\main.swift.o
-        # clang: error: linker command failed with exit code 1 (use -v to see invocation)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
