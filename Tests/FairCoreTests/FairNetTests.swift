@@ -20,7 +20,7 @@ import FoundationNetworking
 #endif
 
 final class FairNetTests: XCTestCase {
-    #if !os(Linux)
+    #if !os(Linux) && !os(Windows)
     @available(macOS 12.0, iOS 15.0, *)
     func testFairDownload() async throws {
         try await testDownload(sliceable: true)
@@ -70,5 +70,5 @@ final class FairNetTests: XCTestCase {
         }
         XCTAssertEqual(range == nil ? 200 : 206, (response as? HTTPURLResponse)?.statusCode)
     }
-    #endif
+    #endif // !os(Linux) && !os(Windows)
 }
