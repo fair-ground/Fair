@@ -332,9 +332,10 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
     @Environment(\.openURL) var openURL
     @Environment(\.scenePhase) var scenePhase
-    @StateObject public var store = Container.AppStore()
+    @StateObject public var store: Container.AppStore
 
     public init() {
+        self._store = .init(wrappedValue: Container.AppStore())
     }
 
     @SceneBuilder public var body: some SwiftUI.Scene {
