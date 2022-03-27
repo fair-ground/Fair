@@ -19,6 +19,7 @@ import XCTest
 import FoundationNetworking
 #endif
 
+#if !os(Windows) // Windows doesn't yet seem to support async tests: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'
 final class FairHubTests: XCTestCase {
 
     /// Our test org
@@ -260,3 +261,4 @@ final class FairHubTests: XCTestCase {
 //    }
 
 }
+#endif // os(Windows)

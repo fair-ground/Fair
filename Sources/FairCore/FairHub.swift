@@ -30,14 +30,16 @@ public let appfairMaxApps = 250_000
 /// The organization name of the fair-ground: `"appfair"`
 public let appfairName = "appfair"
 
+public let appfairRoot = URL(string: "https://www.appfair.net")!
+
 /// The canonical location of the catalog for the Fair Ground
-public let appfairCatalogURLMacOS = URL(string: "https://www.appfair.net/fairapps-macos.json")!
+public let appfairCatalogURLMacOS = URL(string: "fairapps-macos.json", relativeTo: appfairRoot)!
 
 /// The canonical location of the iOS catalog for the Fair Ground
-public let appfairCatalogURLIOS = URL(string: "https://www.appfair.net/fairapps-ios.json")!
+public let appfairCatalogURLIOS = URL(string: "fairapps-ios.json", relativeTo: appfairRoot)!
 
 /// The canonical location of the enhanced cask app metadata
-public let appfairCaskAppsURL = URL(string: "https://www.appfair.net/appcasks.json")!
+public let appfairCaskAppsURL = URL(string: "appcasks.json", relativeTo: appfairRoot)!
 
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
