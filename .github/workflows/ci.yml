@@ -100,10 +100,15 @@ jobs:
         with:
           branch: swift-5.5-release
           tag: 5.5-RELEASE
-      - name: Run fairtool
-        run: |
-          swift run fairtool welcome
       - name: Disable CLI
+        # there seems to be a problem with linking a project that
+        # contains both a main.swift (fairtool) and test cases
+        # (that have their own main() created):
+        # lld-link: error: duplicate symbol: main
+        # >>> defined at D:\a\Fair\Fair\.build\x86_64-unknown-windows-msvc\debug\FairPackageTests.build\main.swift.o
+        # >>> defined at D:\a\Fair\Fair\.build\x86_64-unknown-windows-msvc\debug\FairTool.build\main.swift.o
+        # clang: error: linker command failed with exit code 1 (use -v to see invocation)
+        if: false
         run: |
           # swift test on windows fail if there is another main
           mv Sources/FairTool/main.swift Sources/FairTool/main.swift.disabled
@@ -113,4 +118,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           swift test 
+      - name: Run fairtool
+        run: |
+          swift run fairtool welcome
 
