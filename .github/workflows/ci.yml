@@ -101,8 +101,11 @@ jobs:
           branch: swift-5.5-release
           tag: 5.5-RELEASE
       - name: Run fairtool
+        # A long-standing Windows glitch is the following error (see https://github.com/compnerd/swift-win32/issues/327):
+        # TSCUtility/Triple.swift:154: Fatal error: could not determine host triple: malformed
+        # So we re-try a few times…
         run: |
-          swift run fairtool welcome
+          swift run fairtool welcome || swift run fairtool welcome || swift run fairtool welcome || swift run fairtool welcome
       - name: Disable CLI
         # there seems to be a problem with linking a project that
         # contains both a main.swift (fairtool) and test cases
