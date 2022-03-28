@@ -106,7 +106,7 @@ jobs:
       - name: Disable CLI
         run: |
           # swift test on windows fail if there is another main
-          mv Sources/FairTool/main.swift Sources/FairTool/main.swift.disabled
+          mv Sources/FairTool/main.swift Sources/FairTool/NotMain.swift
       - name: Fair Tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
