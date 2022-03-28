@@ -270,17 +270,31 @@ final class FairCoreTests: XCTestCase {
     func testTidyHTML() throws {
         #if os(iOS) // XMLDocument unavailable on iOS…
         XCTAssertThrowsError(try tidyHTML()) // …so the `.tidyHTML` flag should throw an error
+        #elseif os(Windows)
+        // Windows XML parsing doesn't seem to handle whitespace the same
+        try tidyHTML(preservesWhitespace: false)
         #elseif !os(Linux) // these pass on Linux, but the whitespace in the output is different, so it fails the exact equality tests; I'll need to implement XCTAssertEqualDisgrgardingWhitespace() to test on Linux
         try tidyHTML()
         #endif
     }
 
-    func tidyHTML() throws {
-        XCTAssertEqual("""
+    func tidyHTML(preservesWhitespace: Bool = true) throws {
+        func trim(_ string: String) -> String {
+            if preservesWhitespace {
+                return string
+            } else {
+                return string
+                    .replacingOccurrences(of: " ", with: "")
+                    .replacingOccurrences(of: "\n", with: "")
+                    .replacingOccurrences(of: "\r", with: "")
+            }
+        }
+
+        XCTAssertEqual(trim("""
         <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
         </h1><p>Body Text
         </p></body></html>
-        """, try XMLNode.parse(data: """
+        """), trim(try XMLNode.parse(data: """
         <html>
             <head>
                 <title>My Page</title>
@@ -294,14 +308,14 @@ final class FairCoreTests: XCTestCase {
                 </p>
             </body>
         </html>
-        """.utf8Data, options: [.tidyHTML]).xmlString())
+        """.utf8Data, options: [.tidyHTML]).xmlString()))
 
         // tag capitalization mismatch
-        XCTAssertEqual("""
+        XCTAssertEqual(trim("""
         <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
         </h1><p>Body Text
         </p></body></html>
-        """, try XMLNode.parse(data: """
+        """), trim(try XMLNode.parse(data: """
         <hTmL>
             <head>
                 <title>My Page</title>
@@ -315,13 +329,13 @@ final class FairCoreTests: XCTestCase {
                 </p>
             </body>
         </HTML>
-        """.utf8Data, options: [.tidyHTML]).xmlString())
+        """.utf8Data, options: [.tidyHTML]).xmlString()))
 
         // tag mismatch
-        XCTAssertEqual("""
+        XCTAssertEqual(trim("""
         <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
         </h1>Body Text<p></p></body></html>
-        """, try XMLNode.parse(data: """
+        """), trim(try XMLNode.parse(data: """
         <html>
             <head>
                 <title>My Page</title>
@@ -335,14 +349,14 @@ final class FairCoreTests: XCTestCase {
                 </p>
             </body>
         </html>
-        """.utf8Data, options: [.tidyHTML]).xmlString())
+        """.utf8Data, options: [.tidyHTML]).xmlString()))
 
         // unclosed tags
-        XCTAssertEqual("""
+        XCTAssertEqual(trim("""
         <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title>My Page</title></head><body><h1>Header
         </h1><p>Body Text
         </p></body></html>
-        """, try XMLNode.parse(data: """
+        """), trim(try XMLNode.parse(data: """
         <html>
             <head>
                 <title>My Page</title>
@@ -352,13 +366,13 @@ final class FairCoreTests: XCTestCase {
                     Header
                 <p>
                     Body Text
-        """.utf8Data, options: [.tidyHTML]).xmlString())
+        """.utf8Data, options: [.tidyHTML]).xmlString()))
 
 
 
-        XCTAssertEqual("""
+        XCTAssertEqual(trim("""
         <?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml"><head><title></title></head><body>Value</body></html>
-        """, try XMLNode.parse(data: """
+        """), try XMLNode.parse(data: """
         <root>
             <element attr="value">
                 <child1>
