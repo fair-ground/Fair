@@ -23,11 +23,14 @@ import WebKit
 
 @available(macOS 11, iOS 14, *)
 public struct FairBrowser : View {
+    public let toolbar: Bool
+
     @Binding var url: URL
     @StateObject var web = WebController()
 
-    public init(url: Binding<URL>) {
+    public init(url: Binding<URL>, toolbar: Bool = true) {
         self._url = url
+        self.toolbar = toolbar
     }
 
     var urlString: Binding<String> {
@@ -39,37 +42,45 @@ public struct FairBrowser : View {
     }
 
     public var body: some View {
-        UXWebView(webView: web.webView)
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    TextField("URL", text: urlString)
-                        //.keyboardShortcut("L") // it would be nice to focus on the URL bar
-                        .frame(maxWidth: .infinity)
-                }
-
-                ToolbarItemGroup(placement: .automatic) {
-                    Button(action: goBack) {
-                        FairSymbol.chevron_left
-                            .imageScale(.large)
-                            .aspectRatio(contentMode: .fit)
-                    }
-                    .disabled(!web.canGoBack)
-                    .keyboardShortcut("[")
-                    Button(action: goForward) {
-                        FairSymbol.chevron_right
-                            .imageScale(.large)
-                            .aspectRatio(contentMode: .fit)
-                    }
-                    .disabled(!web.canGoForward)
-                    .keyboardShortcut("]")
-                }
-            }
+        webViewBody
             .onAppear {
                 self.web.webView.load(URLRequest(url: url))
             }
             .onChange(of: url) { url in
                 self.web.webView.load(URLRequest(url: url))
             }
+    }
+
+    @ViewBuilder public var webViewBody: some View {
+        if !toolbar {
+            UXWebView(webView: web.webView)
+        } else {
+            UXWebView(webView: web.webView)
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        TextField("URL", text: urlString)
+                            //.keyboardShortcut("L") // it would be nice to focus on the URL bar
+                            .frame(maxWidth: .infinity)
+                    }
+
+                    ToolbarItemGroup(placement: .automatic) {
+                        Button(action: goBack) {
+                            FairSymbol.chevron_left
+                                .imageScale(.large)
+                                .aspectRatio(contentMode: .fit)
+                        }
+                        .disabled(!web.canGoBack)
+                        .keyboardShortcut("[")
+                        Button(action: goForward) {
+                            FairSymbol.chevron_right
+                                .imageScale(.large)
+                                .aspectRatio(contentMode: .fit)
+                        }
+                        .disabled(!web.canGoForward)
+                        .keyboardShortcut("]")
+                    }
+                }
+        }
     }
 
     func goBack() {

@@ -1981,25 +1981,6 @@ public extension FairHub {
     typealias CommitInfo = FairHub.GetCommitQuery.QueryResponse
 }
 
-extension FairHub {
-#if swift(>=5.5)
-    /// Fetches the `FairAppCatalog`
-    @available(macOS 12.0, iOS 15.0, *)
-    public static func fetchCatalog(catalogURL: URL, cache: URLRequest.CachePolicy? = nil) async throws -> FairAppCatalog {
-        dbg("fetching async", catalogURL)
-
-        var req = URLRequest(url: catalogURL)
-        if let cache = cache { req.cachePolicy = cache }
-        let (data, response) = try await URLSession.shared.data(for: req, delegate: nil)
-
-        let _ = response
-        let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
-
-        return catalog
-    }
-#endif // swift(>=5.5)
-}
-
 extension String {
     /// `addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)`
     public var escapedURLTerm: String {
