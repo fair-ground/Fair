@@ -368,7 +368,7 @@ extension View {
         #else
         return Group {
             if let subtitle = subtitle {
-                navigationTitle(title + Text(": ") + subtitle)
+                navigationTitle(Text("\(title): \(subtitle)", bundle: .module, comment: "formatting string separating navigation title from subtitle"))
             } else {
                 navigationTitle(title)
             }

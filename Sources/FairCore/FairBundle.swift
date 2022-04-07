@@ -306,7 +306,16 @@ public extension Decodable {
 
 extension Encodable {
     /// Encode this instance as JSON data
-    public func json(encoder: @autoclosure () -> JSONEncoder = JSONEncoder(), outputFormatting: JSONEncoder.OutputFormatting? = [.sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: JSONEncoder.DateEncodingStrategy? = nil, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy? = nil, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy? = nil, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws -> Data {
+    /// - Parameters:
+    ///   - encoder: the encoder to use, defaulting to a stock `JSONEncoder`
+    ///   - outputFormatting: formatting options, defaulting to `.sortedKeys` and `.withoutEscapingSlashes`
+    ///   - dateEncodingStrategy: the strategy for decoding `Date` instances
+    ///   - dataEncodingStrategy: the strategy for decoding `Data` instances
+    ///   - nonConformingFloatEncodingStrategy: the strategy for handling non-conforming floats
+    ///   - keyEncodingStrategy: the strategy for encoding keys
+    ///   - userInfo: additional user info to pass to the encoder
+    /// - Returns: the JSON-encoded `Data`
+    @inlinable public func json(encoder: @autoclosure () -> JSONEncoder = JSONEncoder(), outputFormatting: JSONEncoder.OutputFormatting? = [.sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: JSONEncoder.DateEncodingStrategy? = nil, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy? = nil, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy? = nil, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws -> Data {
         let encoder = encoder()
         if let outputFormatting = outputFormatting {
             encoder.outputFormatting = outputFormatting

@@ -431,4 +431,46 @@ final class FairCoreTests: XCTestCase {
             XCTAssertEqual(intsNoneFirst.reversed(), intsNoneFirst.sorting(by: \.self, ascending: false, noneFirst: true))
         }
     }
+
+    func testJSum() throws {
+        let js: JSum = [
+               "string": "hello",
+               "number": 1.23,
+               "null": nil,
+               "array": [1, nil, "foo"],
+               "object": [
+                   "x": "a",
+                   "y": 5,
+                   "z": [:]
+               ]
+            ]
+
+        XCTAssertEqual(js["string"], "hello")
+        XCTAssertEqual(js["string"]?.str, "hello")
+
+        XCTAssertEqual(js["number"], 1.23)
+        XCTAssertEqual(js["number"]?.num, 1.23)
+
+        XCTAssertEqual(js["null"], JSum.nul)
+        XCTAssertNotNil(js["null"]?.nul)
+
+        XCTAssertEqual(js["array"], [1, nil, "foo"])
+        XCTAssertEqual(js["array"]?.arr, [1, nil, "foo"])
+
+        XCTAssertEqual(js["object"]?["x"], "a")
+        XCTAssertEqual(js["object"]?["x"]?.str, "a")
+
+        XCTAssertEqual(js["array"]?[0], 1)
+        XCTAssertEqual(js["array"]?[1], .nul)
+        XCTAssertEqual(js["array"]?[2], "foo")
+        XCTAssertNil(js["array"]?[3])
+
+        let data = try js.json()
+        XCTAssertEqual(data.utf8String, """
+        {"array":[1,null,"foo"],"null":null,"number":1.23,"object":{"x":"a","y":5,"z":{}},"string":"hello"}
+        """)
+
+        let js2 = try JSum(json: data)
+        XCTAssertEqual(js, js2)
+    }
 }

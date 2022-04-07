@@ -39,12 +39,12 @@ public struct FairContentView: View {
 
     public var body: some View {
         VStack(spacing: 20) {
-            Text("Welcome to \(Bundle.mainBundleName)!")
+            Text("Welcome to \(Bundle.mainBundleName)!", bundle: .module, comment: "welcome text headline")
                 .font(.largeTitle)
                 .symbolRenderingMode(.multicolor)
             HStack {
-                Text("version \(Bundle.main.bundleVersionString ?? "")")
-                Text("build \(Bundle.main.bundleVersionCounter ?? 0)")
+                Text("version \(Bundle.main.bundleVersionString ?? "")", bundle: .module, comment: "app version localized text")
+                Text("build \(Bundle.main.bundleVersionCounter ?? 0)", bundle: .module, comment: "app build number localized text")
             }
 
             Spacer()
@@ -73,7 +73,7 @@ public struct FairContentView: View {
 
             Spacer()
 
-            Text("[Free & Fair, Forever](https://www.appfair.net)")
+            Text("[Free & Fair, Forever](https://www.appfair.net)", bundle: .module, comment: "footer link for template App Fair app")
                 .font(.footnote)
                 .lineLimit(1)
                 .multilineTextAlignment(.center)

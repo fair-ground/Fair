@@ -87,7 +87,7 @@ public struct DisplayModePicker: View {
                     viewMode.label
                 }
             } label: {
-                Text("Display Mode")
+                Text("Display Mode", bundle: .module, comment: "picker title for whether to display a list view or a table view")
             }
             .pickerStyle(SegmentedPickerStyle())
         }
@@ -96,19 +96,23 @@ public struct DisplayModePicker: View {
 
 @available(macOS 12.0, iOS 15.0, *)
 public extension TriptychOrient {
-    var labelContent: (name: LocalizedStringKey, systemImage: String) {
+    var labelContent: (title: Text, icon: FairSymbol) {
         switch self {
         case .list:
-            return ("List", "list.bullet.rectangle")
+            return (Text("List", bundle: .module, comment: "display mode for three-panel triptych layout in list mode"), .list_bullet_rectangle)
         #if os(macOS)
         case .table:
-            return ("Table", "tablecells")
+            return (Text("Table", bundle: .module, comment: "display mode the three-panel triptych layout in table mode for macOS"), .tablecells)
         #endif
         }
     }
 
     var label: some View {
-        Label(labelContent.name, systemImage: labelContent.systemImage)
+        Label {
+            labelContent.title
+        } icon: {
+            labelContent.icon
+        }
     }
 }
 

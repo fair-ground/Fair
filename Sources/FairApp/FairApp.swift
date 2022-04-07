@@ -345,8 +345,8 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                     url.canLaunchScheme() == true,
                    Bundle.main.isCatalogBrowserApp == false {
                     Link(destination: url) {
-                        Text("Check for Updates", bundle: .module)
-                            .help(Text("Check for updates on the App Fair"))
+                        Text("Check for Updates", bundle: .module, comment: "text for command group to check for app updates")
+                            .help(Text("Check for updates on the App Fair", bundle: .module, comment: "tooltip for command group to check for updates"))
                     }
                 }
             }
@@ -355,8 +355,8 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                 if let home = Bundle.appHomeURL(for: Bundle.main) {
                     Text("Home", bundle: .module).link(to: home)
                 }
-                linkButton("Discussions", path: "discussions")
-                linkButton("Issues", path: "issues")
+                linkButton(Text("Discussions", bundle: .module, comment: "command name for opening app discussions page"), path: "discussions")
+                linkButton(Text("Issues", bundle: .module, comment: "command name for opening app issues page"), path: "issues")
             }
         }
 
@@ -399,10 +399,10 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
         }
     }
 
-    func linkButton(_ title: SwiftUI.LocalizedStringKey, path: String? = nil) -> some View {
+    func linkButton(_ title: Text, path: String? = nil) -> some View {
         Group {
             if let url = URL.fairHubURL(path) {
-                Text(title, bundle: .module).link(to: url)
+                title.link(to: url)
             }
         }
     }
@@ -558,7 +558,7 @@ public struct SearchBarCommands: Commands {
         CommandGroup(after: CommandGroupPlacement.textEditing) {
             Section {
                 #if os(macOS)
-                Text("Search").button {
+                Text("Search", bundle: .module, comment: "search command text").button {
                     dbg("activating search field")
                     // there's no official way to do this, so search the NSToolbar for the item and make it the first responder
                     if let window = NSApp.currentEvent?.window,
@@ -615,7 +615,7 @@ extension SwiftUI.View {
                 Link(destination: destination) {
                     self
                 }
-                .help(Text("Open link in browser: ") + Text(destination.absoluteString))
+                .help(Text("Open link in browser: \(Text(verbatim: destination.absoluteString))", bundle: .module, comment: "open link tooltip text"))
                 .onDrag { NSItemProvider(object: destination as NSURL) } // sadly, doesn't seem to work
             } else {
                 self

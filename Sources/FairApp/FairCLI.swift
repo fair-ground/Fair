@@ -655,7 +655,7 @@ public extension FairCLI {
 
         Edit the SwiftUI container and code your app. E.g.,
 
-          Text("Welcome to \(appNameSpace)!").font(.largeTitle)
+          Text("Welcome to \(appNameSpace)!", bundle: .module, comment: "welcome text localization").font(.largeTitle)
 
         """)
         try showURL(key: "code-app", url: "\(ghrepo)/edit/main/Sources/App/AppContainer.swift")
