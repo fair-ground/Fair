@@ -43,7 +43,7 @@ import Swift
 ///
 /// The primary syntactic differences with JSON are that `null` is represented with the `nil` constant,
 /// and object literals expressed in JSON with `{:}` are expressed in swift with `[:]`.
-@frozen public enum JSum : Hashable {
+@frozen public enum JSum : Hashable, Sendable {
     case arr([JSum]) // Array
     case obj(JObj) // Dictionary
     case str(String) // String
