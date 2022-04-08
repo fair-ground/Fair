@@ -51,11 +51,15 @@ final class FairHubTests: XCTestCase {
     func testQueryError() async throws {
         let hub = try Self.hub(skipNoAuth: true)
         do {
-            let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
-            XCTAssertNil(response.result.successValue, "request should not have succeeded")
-            if response.result.failureValue?.isRateLimitError != true {
-                let reason = response.result.failureValue?.firstFailureReason
-                XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", reason)
+            do {
+                let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
+                XCTAssertNil(response.result.successValue, "request should not have succeeded")
+                if response.result.failureValue?.isRateLimitError != true {
+                    let reason = response.result.failureValue?.firstFailureReason
+                    XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", reason)
+                }
+            } catch let error as URLResponse.InvalidHTTPCode {
+                XCTAssertEqual(403, error.code, "unexpected error code")
             }
         }
         do {
