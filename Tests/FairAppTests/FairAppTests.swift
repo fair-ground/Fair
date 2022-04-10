@@ -56,26 +56,6 @@ final class FairAppTests: XCTestCase {
         XCTAssertEqual("Отменить", loc("Cancel", locale: Locale(identifier: "ru")))
     }
 
-    func testJavaScript() throws {
-        let wv = WKWebView()
-
-        func checkJS() {
-            XCTAssertEqual(3 as NSNumber, try wv.eval(js: "1+2"))
-        }
-
-        // warm up (~0.030 seconds)
-        checkJS()
-
-        measure(checkJS) // measured [Time, seconds] average: 0.000, relative standard deviation: 28.129%, values: [0.000374, 0.000208, 0.000206, 0.000183, 0.000181, 0.000173, 0.000201, 0.000247, 0.000172, 0.000162]
-
-        XCTAssertThrowsError(try wv.eval(js: "x.y.z"))
-        XCTAssertEqual(Double.infinity as NSNumber, try wv.eval(js: "1/0") as? NSNumber)
-        XCTAssertEqual(Double.nan as NSNumber, try wv.eval(js: "Math.sqrt(-1)") as? NSNumber)
-        XCTAssertEqual(Double.nan as NSNumber, try wv.eval(js: "{} + {}") as? NSNumber)
-
-        XCTAssertEqual("[object Object]", try wv.eval(js: "[] + {}") as? NSString)
-    }
-
     /// Ensure that all the variants of `Assets.xcassets/AccentColor.colorset/Contents.json` can be parsed into the same color value
     func testColorParsing() throws {
         let contentsSystemGreen = """
