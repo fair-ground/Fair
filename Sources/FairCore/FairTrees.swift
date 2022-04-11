@@ -89,8 +89,8 @@ public enum Tree {
     /// - Returns: the enumerated sequence of `IndexPath` and child elements
     /// - Note: this is analagous to `Sequence.enumerated`
     /// - Note: breadth-first enumeration is around 5 times slower than depth-first enumeration
-    @inlinable public static func enumerated<Parent, Children : Collection>(_ parent: Parent, traverse: TreeTraversal, maxDepth: UInt = .max, children: @escaping (Parent) -> (Children)) -> TreeEnumeration<Children> where Children.Element == Parent {
-        CollectionOfOne(([], parent)).flatTree(traverse: traverse) { parentIndices, parent in
+    @inlinable public static func enumerated<Parent, Children : Collection>(_ roots: [Parent], traverse: TreeTraversal, maxDepth: UInt = .max, children: @escaping (Parent) -> (Children)) -> TreeEnumeration<Children> where Children.Element == Parent {
+        roots.map({ ([], $0) }).flatTree(traverse: traverse) { parentIndices, parent in
             children(parent)
                 .zippedWithIndices
                 .lazy
@@ -111,7 +111,7 @@ public enum Tree {
     ///   - children: a closure that returns the children for the item
     /// - Returns: a lazy sequence of node elements of the tree, including the `root`
     @inlinable public static func nodes<Parent, Children : Collection>(_ root: Parent, traverse: TreeTraversal, maxDepth: UInt = .max, children: @escaping (Parent) -> (Children)) -> TreeNodeSequence<Children> where Children.Element == Parent, Children.Index == Int {
-        Tree.enumerated(root, traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.element)
+        Tree.enumerated([root], traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.element)
     }
 
     /// Returns the indices for the elements of this tree as `IndexPath` elements
@@ -122,7 +122,7 @@ public enum Tree {
     ///   - children: a closure that returns the children for the item
     /// - Returns: a last sequence of indices for the trees
     @inlinable public static func indices<Parent, Children : Collection>(_ root: Parent, traverse: TreeTraversal, maxDepth: UInt = .max, children: @escaping (Parent) -> (Children)) -> TreeIndexSequence<Children> where Children.Element == Parent, Children.Index == Int {
-        Tree.enumerated(root, traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.indices).map(IndexPath.init(indexes:))
+        Tree.enumerated([root], traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.indices).map(IndexPath.init(indexes:))
     }
 
     /// Traverses the hierarchy of nodes along the collection of indices

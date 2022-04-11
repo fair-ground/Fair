@@ -563,7 +563,7 @@ open class WebViewState : ObservableObject {
     var configuration: WKWebViewConfiguration?
     @Published public var errors: [NSError] = []
 
-    public fileprivate(set) var webView: WKWebView! {
+    public fileprivate(set) var webView: WKWebView? {
         didSet {
             webViewObservations.forEach { $0.invalidate() }
             guard let webView = webView else {
@@ -582,6 +582,7 @@ open class WebViewState : ObservableObject {
                 register(\.url),
                 register(\.isLoading),
                 register(\.estimatedProgress),
+                register(\.pageZoom),
             ]
         }
     }
