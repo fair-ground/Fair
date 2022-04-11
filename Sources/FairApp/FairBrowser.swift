@@ -656,59 +656,77 @@ open class WebViewState : ObservableObject {
     @MainActor open func stopLoading() {
         webView?.stopLoading()
     }
+}
 
-    @MainActor open func createPDF(configuration: WKPDFConfiguration = .init(), completion: @escaping (Result<Data, Error>) -> Void) {
-        if let webView = webView {
-            webView.createPDF(configuration: configuration, completionHandler: completion)
-        } else {
-            completion(.failure(WKError(.unknown)))
-        }
-    }
 
+// MARK: Command action support
+
+extension WebViewState {
     @available(macOS 12, iOS 15, *)
-    public static func stopCommand(_ state: WebViewState?, brief: Bool) -> some View {
+    public func stopAction(brief: Bool = false) -> some View {
         (brief ? Text("Stop", bundle: .module, comment: "label for brief stop command") : Text("Stop Loading", bundle: .module, comment: "label for non-brief stop command"))
             .label(image: FairSymbol.xmark)
             .button {
-                dbg("stopping load:", state?.url)
+                dbg("stopping load:", self.url)
                 Task {
-                    await state?.stopLoading()
+                    await self.stopLoading()
                 }
             }
-            .disabled(state?.url == nil)
+            .disabled(self.url == nil || self.isLoading != true)
     }
 
     @available(macOS 12, iOS 15, *)
-    public static func reloadCommand(_ state: WebViewState?, brief: Bool) -> some View {
+    public func navigateAction(brief: Bool = false, amount: Int) -> some View {
+        (amount < 0 ? (brief ? Text("Back", bundle: .module, comment: "label for go back command") : Text("Go Back", bundle: .module, comment: "label for non-brief go back command")) : (brief ? Text("Forward", bundle: .module, comment: "label for go forward command") : Text("Go Forward", bundle: .module, comment: "label for non-brief go forward command")))
+            .label(image: amount < 0 ? FairSymbol.chevron_left : FairSymbol.chevron_right)
+            .button {
+                dbg("navigate:", amount, self.url)
+                Task {
+                    if amount < 0 {
+                        await self.goBack()
+                    } else {
+                        await self.goForward()
+                    }
+                }
+            }
+            .disabled(amount < 0 ? self.canGoBack != true : self.canGoForward != true)
+    }
+
+
+    @available(macOS 12, iOS 15, *)
+    public func reloadAction(brief: Bool = false) -> some View {
         (brief ? Text("Reload", bundle: .module, comment: "label for brief reload command") : Text("Reload Page", bundle: .module, comment: "label for non-brief reload command"))
             .label(image: FairSymbol.arrow_clockwise)
             .button {
-                dbg("reloading:", state?.url)
+                dbg("reloading:", self.url)
                 Task {
-                    await state?.reload()
+                    await self.reload()
                 }
             }
-            .disabled(state?.url == nil)
+            .disabled(self.url == nil || self.isLoading != false)
     }
 
     /// The command for performing a zoom operation at the given amount.
     @available(macOS 12, iOS 15, *)
-    public static func zoomCommand(_ state: WebViewState?, brief: Bool, amount: Double?) -> some View {
-        (amount == nil ?
-         (brief ? Text("Actual Size", bundle: .module, comment: "label for brief actual size command") : Text("Actual Size", bundle: .module, comment: "label for non-brief actual size command"))
-         : (amount ?? 1.0) > 1.0 ? (brief ? Text("Bigger", bundle: .module, comment: "label for brief zoom in command") : Text("Zoom In", bundle: .module, comment: "label for non-brief zoom in command"))
-             : (brief ? Text("Smaller", bundle: .module, comment: "label for brief zoom out command") : Text("Zoom Out", bundle: .module, comment: "label for non-brief zoom out command")))
-        .label(image: amount == nil ? FairSymbol.textformat_superscript : (amount ?? 1.0) > 1.0 ? FairSymbol.textformat_size_larger : FairSymbol.textformat_size_smaller)
-            .button {
-                dbg("zooming:", amount)
-                if let webView = state?.webView {
-                    if let amount = amount {
-                        webView.pageZoom *= amount
-                    } else { // reset to zero
-                        webView.pageZoom = 1.0
+    public func zoomAction(brief: Bool = false, amount: Double?, minimumZoomLevel: Double = 0.05, maximumZoomLevel: Double = 100.0) -> some View {
+        let disabled = (amount ?? 1.0) < 1.0 ? ((self.webView?.pageZoom ?? 0.0) < minimumZoomLevel) : ((amount ?? 0.0) > 0.0 ? ((self.webView?.pageZoom ?? 1.0) > maximumZoomLevel) : (self.webView?.pageZoom == 1.0))
+
+        return (amount == nil ?
+             (brief ? Text("Actual Size", bundle: .module, comment: "label for brief actual size command") : Text("Actual Size", bundle: .module, comment: "label for non-brief actual size command"))
+             : (amount ?? 1.0) > 1.0 ? (brief ? Text("Bigger", bundle: .module, comment: "label for brief zoom in command") : Text("Zoom In", bundle: .module, comment: "label for non-brief zoom in command"))
+                 : (brief ? Text("Smaller", bundle: .module, comment: "label for brief zoom out command") : Text("Zoom Out", bundle: .module, comment: "label for non-brief zoom out command")))
+            .label(image: amount == nil ? FairSymbol.textformat_superscript : (amount ?? 1.0) > 1.0 ? FairSymbol.textformat_size_larger : FairSymbol.textformat_size_smaller)
+                .button {
+                    if let webView = self.webView {
+                        if let amount = amount {
+                            webView.pageZoom *= amount
+                        } else { // reset to zero
+                            webView.pageZoom = 1.0
+                        }
+                        dbg("zoomed by:", amount, "to:", webView.pageZoom)
                     }
                 }
-            }
+                .disabled(disabled)
     }
 }
 
