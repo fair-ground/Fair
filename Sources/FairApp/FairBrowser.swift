@@ -274,6 +274,31 @@ private final class Coordinator : NSObject, WKNavigationDelegate, WKUIDelegate {
         owner.dialog = .javaScriptPrompt(
             prompt, defaultText: defaultText ?? "", completion: completionHandler)
     }
+
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        owner.state.didCommit(navigation: navigation)
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        owner.state.didFinish(navigation: navigation)
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        owner.state.didFail(navigation: navigation, provisional: false, error: error)
+    }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        owner.state.didFail(navigation: navigation, provisional: true, error: error)
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        owner.state.didStartProvisional(navigation: navigation)
+    }
+
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        owner.state.didRedirectProvisional(navigation: navigation)
+    }
+
 }
 
 public struct Dialog : Identifiable, Hashable {
@@ -656,6 +681,24 @@ open class WebViewState : ObservableObject {
     @MainActor open func stopLoading() {
         webView?.stopLoading()
     }
+
+    // extension points
+
+    open func didCommit(navigation: WKNavigation) {
+    }
+
+    open func didFinish(navigation: WKNavigation) {
+    }
+
+    open func didFail(navigation: WKNavigation, provisional: Bool, error: Error) {
+        dbg("failed", provisional ? "provisional" : "", navigation, error)
+    }
+
+    open func didStartProvisional(navigation: WKNavigation) {
+    }
+
+    open func didRedirectProvisional(navigation: WKNavigation) {
+    }
 }
 
 
@@ -708,8 +751,8 @@ extension WebViewState {
 
     /// The command for performing a zoom operation at the given amount.
     @available(macOS 12, iOS 15, *)
-    public func zoomAction(brief: Bool = false, amount: Double?, minimumZoomLevel: Double = 0.05, maximumZoomLevel: Double = 100.0) -> some View {
-        let disabled = (amount ?? 1.0) < 1.0 ? ((self.webView?.pageZoom ?? 0.0) < minimumZoomLevel) : ((amount ?? 0.0) > 0.0 ? ((self.webView?.pageZoom ?? 1.0) > maximumZoomLevel) : (self.webView?.pageZoom == 1.0))
+    open func zoomAction(brief: Bool = false, amount: Double?, minimumZoomLevel: Double = 0.05, maximumZoomLevel: Double = 100.0) -> some View {
+        let disabled = (amount ?? 1.0) < 1.0 ? ((self.webView?.pageZoom ?? 0.0) < minimumZoomLevel) : ((amount ?? 1.0) > 1.0 ? ((self.webView?.pageZoom ?? 1.0) > maximumZoomLevel) : (self.webView?.pageZoom == 1.0))
 
         return (amount == nil ?
              (brief ? Text("Actual Size", bundle: .module, comment: "label for brief actual size command") : Text("Actual Size", bundle: .module, comment: "label for non-brief actual size command"))
@@ -724,6 +767,8 @@ extension WebViewState {
                             webView.pageZoom = 1.0
                         }
                         dbg("zoomed by:", amount, "to:", webView.pageZoom)
+                    } else {
+                        dbg("no webView installed on:", self)
                     }
                 }
                 .disabled(disabled)
