@@ -41,7 +41,7 @@ public struct FairIconView : View, Equatable {
         self.paths = paths
         self.iconColor = iconColor
         self.borderRatio = borderRatio
-        self.cornerRadiusFactor = cornerRadiusFactor ?? 4.3
+        self.cornerRadiusFactor = cornerRadiusFactor ?? (100.0/22.5)
     }
 
     public var body: some View {

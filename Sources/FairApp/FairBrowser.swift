@@ -633,6 +633,7 @@ open class WebViewState : ObservableObject {
 
     /// Register that an error occurred with the app manager
     open func reportError(_ error: Error) {
+        dbg("error:", error)
         errors.append(error as NSError)
     }
 
