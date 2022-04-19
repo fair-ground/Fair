@@ -155,8 +155,11 @@ jobs:
           swift package resolve
           cp Package.resolved Sources/App/Resources/
 
-      - name: "Validate App Organization: ${{ env.ORGNAME }}"
-        run: xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig" --output -
+      - name: "Validate App: ${{ env.ORGNAME }}"
+        run: |
+          # strip out forbidden entitlements
+          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+          xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig" --output -
 
       - name: "Generate Icon"
         run: |
@@ -467,7 +470,7 @@ jobs:
           cd -
           ./fairtool --help
 
-      - name: "Validate App-Name: ${{ env.ORGNAME }}"
+      - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
           ./fairtool validate \
             --base . \
@@ -496,6 +499,9 @@ jobs:
           ./fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
+
+          # strip out forbidden entitlements
+          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
         
           ./fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
