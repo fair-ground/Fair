@@ -159,6 +159,7 @@ jobs:
         run: |
           # strip out forbidden entitlements
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+          plutil -remove 'com\.apple\.security\.cs\.disable-library-validation' Sandbox.entitlements
           xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig" --output -
 
       - name: "Generate Icon"
@@ -474,6 +475,7 @@ jobs:
         run: |
           # strip out forbidden entitlements
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+          plutil -remove 'com\.apple\.security\.cs\.disable-library-validation' Sandbox.entitlements
 
           ./fairtool validate \
             --base . \
@@ -505,6 +507,7 @@ jobs:
 
           # strip out forbidden entitlements
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+          plutil -remove 'com\.apple\.security\.cs\.disable-library-validation' Sandbox.entitlements
         
           ./fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
