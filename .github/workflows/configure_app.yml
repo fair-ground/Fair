@@ -73,7 +73,7 @@ jobs:
       # Verifies that pages are enabled for this repository
       # There is no API for this yet, so we just use curl
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
-        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair#app/${{ env.ORGNAME }}"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair?app=${{ env.ORGNAME }}"
 
       - name: "Checkout ${{ env.PRODUCT_NAME }}"
         uses: actions/checkout@v2
