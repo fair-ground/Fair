@@ -72,6 +72,7 @@ jobs:
 
       # Verifies that pages are enabled for this repository
       # There is no API for this yet, so we just use curl
+      # to verify that the page link contains a link to the app
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
         run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair?app=${{ env.ORGNAME }}"
 
