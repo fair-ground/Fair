@@ -611,14 +611,13 @@ public enum AppEntitlement : String, Pure, CaseIterable {
             return nil // never allowed
         case .cs_disable_executable_page_protection:
             return nil // never allowed
+        case .cs_disable_library_validation:
+            return nil // never allowed
 
         case .app_sandbox:
             return [] // no description required; ["CSAllowJITUsageDescription"]
 
         case .cs_allow_jit:
-            return [] // permitted, with no description required
-
-        case .cs_disable_library_validation:
             return [] // permitted, with no description required
 
         default:
