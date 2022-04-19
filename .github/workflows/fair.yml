@@ -472,6 +472,9 @@ jobs:
 
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
+          # strip out forbidden entitlements
+          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+
           ./fairtool validate \
             --base . \
             --project ReleasePR \
