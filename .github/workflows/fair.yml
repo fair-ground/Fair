@@ -151,8 +151,8 @@ jobs:
 
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
-          # strip out forbidden entitlements
-          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+          # needed to be able to ad-hoc codesign embedded frameworks
+          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
           xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig" --output -
 
       # Verifies that pages are enabled for this repository
@@ -465,8 +465,8 @@ jobs:
 
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
-          # strip out forbidden entitlements
-          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false ReleasePR/Sandbox.entitlements
+          # needed to be able to ad-hoc codesign embedded frameworks
+          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true ReleasePR/Sandbox.entitlements
           ./fairtool validate \
             --base . \
             --project ReleasePR \
@@ -495,8 +495,8 @@ jobs:
 
           file Assets.xcassets/AppIcon.appiconset/*.*
 
-          # strip out forbidden entitlements
-          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
+          # needed to be able to ad-hoc codesign embedded frameworks
+          plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
         
           ./fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
