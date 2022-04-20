@@ -132,12 +132,6 @@ jobs:
           echo "FAIR_APP_ARTIFACT=${{ env.APPNAME }}" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ env.APPNAME }})" >> $GITHUB_ENV
 
-      # Verifies that pages are enabled for this repository
-      # Done early to fail fast and avoid burning minutes on misconfigured forks
-      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
-        if: false
-        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair?app=${{ env.ORGNAME }}"
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -160,6 +154,10 @@ jobs:
           # strip out forbidden entitlements
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool false Sandbox.entitlements
           xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig" --output -
+
+      # Verifies that pages are enabled for this repository
+      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair?app=${{ env.ORGNAME }}"
 
       - name: "Generate Icon"
         run: |
@@ -436,11 +434,6 @@ jobs:
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
           echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
  
-      # Verifies that pages are enabled for the forked repository
-      # Done early to fail fast and avoid burning minutes on misconfigured forks
-      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
-        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair?app=${{ env.ORGNAME }}"
-
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
 
@@ -517,6 +510,10 @@ jobs:
           cat Package.resolved # useful for the log
           cp Package.resolved Sources/App/Resources/ # embed in the app
           cd -
+
+      # Verifies that pages are enabled for the forked repository
+      - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
+        run: curl --location --fail -s "${{ env.ORGNAME }}.github.io/App" | grep "https://appfair.app/fair?app=${{ env.ORGNAME }}"
 
       - name: "Generate Icon"
         run: |
