@@ -184,7 +184,9 @@ public extension FairHub {
 
                 let devName = release.tagCommit.author?.name
 
-                let homepage = fork.homepageUrl.flatMap(URL.init(string:))
+                // if there is no homepage explicitly set, use the standard github page
+                let page = fork.homepageUrl ?? "https://\(appid).github.io/App"
+                let homepage = URL(string: page)
 
                 guard let devEmail = release.tagCommit.author?.email else {
                     dbg(fork.nameWithOwner, "no email for commit")
