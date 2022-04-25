@@ -110,7 +110,7 @@ jobs:
   fork_apply:
     name: "Fork Apply"
     if: ${{ inputs.fairseal_issuer == '' }}
-    runs-on: macos-11
+    runs-on: macos-12
     timeout-minutes: 45
 
     env:
@@ -403,7 +403,7 @@ jobs:
   integrate_release:
     name: "Integrate Release"
     if: ${{ inputs.fairseal_issuer != '' }}
-    runs-on: macos-11
+    runs-on: macos-12
     timeout-minutes: 45
 
     env:
