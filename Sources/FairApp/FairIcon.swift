@@ -19,8 +19,7 @@ import Foundation
 import SwiftUI
 import FairCore
 
-/// A view that generates the default icon for a FairApp.
-/// The icon consists of the app name laid out on a circular path.
+/// A view that generates the default icon for a FairApp, which is a squircle filled in with either the app's path if it exists, or else the name of the app.
 public struct FairIconView : View, Equatable {
     /// The first word of the app's name
     var name: String
@@ -69,8 +68,17 @@ public struct FairIconView : View, Equatable {
 
         // if we have specified a base color, use the hue as the basis for our app
         if let base = base, let cgColor = base.cgColor {
-            if let rgbColor = cgColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil), let uxColor = (UXColor(cgColor: rgbColor) as UXColor?) {
-                uxColor.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
+            if let rgbColor = cgColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil) {
+                #if canImport(AppKit)
+                if let uxColor = (NSColor(cgColor: rgbColor) as NSColor?) {
+                    uxColor.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
+                }
+                #endif
+                #if canImport(UIKit)
+                if let uxColor = (UIColor(cgColor: rgbColor) as UIColor?) {
+                    uxColor.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
+                }
+                #endif
             }
         }
         let color = Color(hue: hue, saturation: saturation, brightness: brightness)

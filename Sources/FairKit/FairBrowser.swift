@@ -15,6 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #if canImport(WebKit)
+@_exported import WebKit
 
 public extension WKWebView {
     /// Equivalent to the async form of `evaluateJavaScript`, except it doesn't crash when a nil is returned.

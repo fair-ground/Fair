@@ -21,6 +21,19 @@ import FairCore
 import FoundationNetworking
 #endif
 
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
+#if canImport(AppKit)
+import AppKit
+#endif
+
+#if canImport(UIKit)
+import UIKit
+#endif
+
+
 public class FairCLI {
     /// The name of the App & the repository; defaults to "App"
     public let appName = AppNameValidation.defaultAppName
@@ -2400,7 +2413,7 @@ extension AssetName {
     }
 
     /// The size encoded in the asset name, applying a scaling factor if it is defined
-    var size: CGSize {
+    public var size: CGSize {
         if let scale = self.scale {
             return CGSize(width: width * .init(scale), height: height * .init(scale))
         } else {

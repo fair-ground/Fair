@@ -150,6 +150,49 @@ extension CGPath {
 #if canImport(SwiftUI)
 import SwiftUI
 
+public extension View {
+    /// Takes a snapshot of the view and returns the PNG data.
+    /// - Parameters:
+    ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
+    ///   - normalize: whether to normalize to 0,0 origin
+    /// - Returns: the PNG data for the view
+    func png(bounds viewBounds: CGRect?, normalize: Bool = true) -> Data? {
+        let v = self.frame(width: viewBounds?.width, height: viewBounds?.height)
+#if canImport(UIKit)
+        let view = UIHostingController(rootView: v).view!
+#elseif canImport(AppKit)
+        let view = NSHostingController(rootView: v).view
+#endif
+
+        var bounds = viewBounds ?? CGRect(origin: .zero, size: view.intrinsicContentSize)
+        if normalize {
+            bounds = bounds.offsetBy(dx: -bounds.minX, dy: -bounds.minY) // normalize to 0,0
+            bounds = bounds.offsetBy(dx: -bounds.width / 2, dy: -bounds.height / 2)
+        }
+
+#if canImport(UIKit)
+        view.backgroundColor = .clear
+        let renderer = UIGraphicsImageRenderer(size: bounds.size)
+        let data = renderer.pngData { _ in
+            view.drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+        return data
+#elseif canImport(AppKit)
+        guard let rep: NSBitmapImageRep = view.bitmapImageRepForCachingDisplay(in: bounds) else {
+            dbg("could not cache rep in", bounds)
+            return nil
+        }
+
+        view.cacheDisplay(in: bounds, to: rep)
+        let data = rep.representation(using: .png, properties: [:])
+        return data
+#else
+        return nil // needs cross-platform SwiftUI
+#endif
+    }
+}
+
+
 /// Renders the underlying path as a `SwiftUI.InsettableShape`.
 @available(macOS 11.0, iOS 14.0, *)
 extension SVGPath : View, InsettableShape {

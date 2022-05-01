@@ -17,6 +17,11 @@
 import Swift
 import Foundation
 @_exported import FairCore
+
+#if canImport(SwiftUI)
+@_exported import SwiftUI
+#endif
+
 #if canImport(Security)
 import Security
 #endif 
@@ -407,6 +412,15 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
         }
     }
 }
+
+#if canImport(AppKit)
+@available(macOS 11, *)
+typealias UXApplicationDelegateAdaptor = NSApplicationDelegateAdaptor
+typealias UXApplicationDelegate = NSApplicationDelegate
+#elseif canImport(UIKit)
+typealias UXApplicationDelegateAdaptor = UIApplicationDelegateAdaptor
+typealias UXApplicationDelegate = UIApplicationDelegate
+#endif
 
 @available(macOS 12.0, iOS 15.0, *)
 private final class AppDelegate: NSObject, UXApplicationDelegate {

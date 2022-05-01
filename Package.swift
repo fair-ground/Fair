@@ -19,21 +19,23 @@ let package = Package(
     name: "Fair",
     defaultLocalization: "en",
     platforms: [
-        .macOS(.v11), .iOS(.v14), .tvOS(.v14), .watchOS(.v7)
-        //.macOS(.v12), .iOS(.v15), .tvOS(.v15), .watchOS(.v8)
+        .macOS(.v12), .iOS(.v15), .tvOS(.v15), .watchOS(.v8)
     ],
     products: [
         .library(name: "FairCore", targets: ["FairCore"]),
         .library(name: "FairApp", targets: ["FairApp"]),
+        .library(name: "FairKit", targets: ["FairKit"]),
         .executable(name: "fairtool", targets: ["FairTool"]),
     ],
     targets: [
         .target(name: "FairCore", resources: [.process("Resources"), .copy("Bundle")]),
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources"), .copy("Bundle")]),
+        .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
         .executableTarget(name: "FairTool", dependencies: ["FairApp"]),
-        
+
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources"), .copy("Bundle")]),
+        .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")]),
         .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")])
     ]
 )

@@ -292,42 +292,6 @@ extension UXView : TreeRoot {
     }
 }
 
-public extension View {
-    /// Takes a snapshot of the view and returns the PNG data.
-    /// - Parameters:
-    ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
-    ///   - normalize: whether to normalize to 0,0 origin
-    /// - Returns: the PNG data for the view
-    func png(bounds viewBounds: CGRect?, normalize: Bool = true) -> Data? {
-        let view = self.frame(width: viewBounds?.width, height: viewBounds?.height).viewWrapper()
-        var bounds = viewBounds ?? CGRect(origin: .zero, size: view.intrinsicContentSize)
-        if normalize {
-            bounds = bounds.offsetBy(dx: -bounds.minX, dy: -bounds.minY) // normalize to 0,0
-            bounds = bounds.offsetBy(dx: -bounds.width / 2, dy: -bounds.height / 2)
-        }
-
-#if canImport(UIKit)
-        view.backgroundColor = .clear
-        let renderer = UIGraphicsImageRenderer(size: bounds.size)
-        let data = renderer.pngData { _ in
-            view.drawHierarchy(in: bounds, afterScreenUpdates: true)
-        }
-        return data
-#elseif canImport(AppKit)
-        guard let rep: NSBitmapImageRep = view.bitmapImageRepForCachingDisplay(in: bounds) else {
-            dbg("could not cache rep in", bounds)
-            return nil
-        }
-
-        view.cacheDisplay(in: bounds, to: rep)
-        let data = rep.representation(using: .png, properties: [:])
-        return data
-#else
-        return nil // needs cross-platform SwiftUI
-#endif
-    }
-}
-
 extension View {
     /// When called within an invocation of body of a view of this type,
     /// prints the names of the changed dynamic properties that caused the

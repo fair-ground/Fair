@@ -15,7 +15,9 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
-import FairCore
+
+@_exported import FairApp
+
 #if canImport(SwiftUI)
 import SwiftUI
 
