@@ -176,7 +176,7 @@ public struct WebView : View {
 private struct WebViewRepresentable {
     let owner: WebView
 
-    func makeView(coordinator: Coordinator, environment: EnvironmentValues) -> WKWebView {
+    func makeView(coordinator: Coordinator, environment: EnvironmentValues) -> WebEngineView {
         let view = coordinator.owner.state.createWebView()
 
         view.navigationDelegate = coordinator
@@ -192,7 +192,7 @@ private struct WebViewRepresentable {
         return view
     }
 
-    func updateView(_ view: WKWebView, coordinator: Coordinator, environment: EnvironmentValues) {
+    func updateView(_ view: WebEngineView, coordinator: Coordinator, environment: EnvironmentValues) {
         coordinator.environment = environment
 
         if let flag = environment.allowsBackForwardNavigationGestures {
@@ -210,15 +210,15 @@ private struct WebViewRepresentable {
 }
 
 extension WebViewRepresentable : UXViewRepresentable {
-    func makeUXView(context: Context) -> WKWebView {
+    func makeUXView(context: Context) -> WebEngineView {
         makeView(coordinator: context.coordinator, environment: context.environment)
     }
 
-    func updateUXView(_ uxView: WKWebView, context: Context) {
+    func updateUXView(_ uxView: WebEngineView, context: Context) {
         updateView(uxView, coordinator: context.coordinator, environment: context.environment)
     }
 
-    static func dismantleUXView(_ uxView: WKWebView, coordinator: Coordinator) {
+    static func dismantleUXView(_ uxView: WebEngineView, coordinator: Coordinator) {
         dismantleView(uxView, coordinator: coordinator)
     }
 }
@@ -300,6 +300,19 @@ private final class Coordinator : NSObject, WKNavigationDelegate, WKUIDelegate {
         owner.state.didRedirectProvisional(navigation: navigation)
     }
 
+    #if os(iOS)
+    // TODO: context menus on iOS
+
+//    func webView(_ webView: WKWebView, contextMenuConfigurationForElement elementInfo: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
+//        completionHandler(UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: { [weak self] elements in
+//            self?.actionProvider(suggestedActions: elements)
+//        }))
+//    }
+//
+//    func actionProvider(suggestedActions: [UIMenuElement]) -> UIMenu? {
+//        UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: suggestedActions)
+//    }
+    #endif
 }
 
 public struct Dialog : Identifiable, Hashable {
@@ -620,8 +633,8 @@ open class WebViewState : ObservableObject {
         self.configuration = configuration
     }
 
-    open func createWebView() -> WKWebView {
-        WKWebView(frame: .zero, configuration: configuration ?? .init())
+    open func createWebView() -> WebEngineView {
+        WebEngineView(frame: .zero, configuration: configuration ?? .init())
     }
 
     open var canGoBack: Bool { webView?.canGoBack ?? false }
@@ -703,6 +716,25 @@ open class WebViewState : ObservableObject {
     }
 }
 
+
+/// The subclass for WKWebView that handles some basic browser operations
+@MainActor open class WebEngineView : WKWebView {
+    #if canImport(AppKit)
+    // TODO: context menus on macOS
+//    open override func willOpenMenu(_ menu: NSMenu, with event: NSEvent) {
+//        dbg("### opening menu:", menu) // WKMenuItemIdentifierOpenLink, WKMenuItemIdentifierOpenLinkInNewWindow, WKMenuItemIdentifierDownloadLinkedFile, WKMenuItemIdentifierCopyLink, WKMenuItemIdentifierShareMenu
+//        for item in menu.items {
+//            dbg("### item id:", item.identifier, "rep:", item.representedObject)
+//            if let picker = item.representedObject as? NSSharingServicePicker {
+//            }
+//        }
+//        if let delegate = self.uiDelegate as? WebViewRepresentable {
+//            //delegate.owner.state.contextMenuActions()
+//        }
+//        super.willOpenMenu(menu, with: event)
+//    }
+    #endif
+}
 
 // MARK: Command action support
 

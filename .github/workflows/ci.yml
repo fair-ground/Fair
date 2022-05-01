@@ -59,38 +59,6 @@ jobs:
           publish_dir: ./docs
           force_orphan: true
 
-  ci-macOS-11:
-    runs-on: macos-11
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Run fairtool
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: xcrun swift run fairtool welcome
-
-      - name: Fair Tests
-        run: xcrun swift test
- 
-      - name: Test iOS FairCore
-        if: false # not configured for testing
-        run: xcodebuild test -configuration Debug -scheme "FairCore" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 13" 
-
-      - name: Build iOS FairApp
-        run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 13" 
-
-      - name: Test macOS FairCore
-        if: false # not configured for testing
-        run: xcodebuild test -configuration Debug -scheme "FairCore" -sdk "macosx" -destination "platform=macosx"
-
-      - name: Build macOS FairApp
-        run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "macosx" -destination "platform=macosx"
-
   ci-macOS-12:
     runs-on: macos-12
     env:
