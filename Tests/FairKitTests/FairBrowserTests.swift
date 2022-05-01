@@ -1,6 +1,6 @@
 import Swift
 import XCTest
-import FairApp
+import FairKit
 
 #if canImport(WebKit)
 open class FairBrowserTests: XCTestCase {
