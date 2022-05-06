@@ -39,6 +39,81 @@ public extension Bundle {
     }
 }
 
+
+/// A caching mechanism for images
+public protocol CachedImageCache {
+    @MainActor subscript(url: URL) -> Image? { get nonmutating set }
+}
+
+public final class AsyncCachedImageCache : CachedImageCache {
+    /// A singleton image cache that can be used globally
+    public static let shared = AsyncCachedImageCache()
+
+    private var cache = NSCache<NSURL, ImageInfo>()
+
+    /// Access the underlying cached image
+    @MainActor public subscript(_ url: URL) -> Image? {
+        get {
+            cache.object(forKey: url as NSURL)?.image
+        }
+
+        set {
+            if let newValue = newValue {
+                cache.setObject(ImageInfo(image: newValue), forKey: url as NSURL)
+            } else {
+                cache.removeObject(forKey: url as NSURL)
+            }
+        }
+    }
+
+    /// Clear the image cache
+    public func clear() {
+        cache.removeAllObjects()
+    }
+
+    private final class ImageInfo {
+        let image: SwiftUI.Image
+
+        init(image: SwiftUI.Image) {
+            self.image = image
+        }
+    }
+}
+
+@available(*, deprecated, message: "cached SwiftUI.Image instances seem to become invalid after a while")
+public struct AsyncCachedImage<Content>: View where Content: View {
+    private let cache: CachedImageCache
+    private let url: URL
+    private let scale: CGFloat
+    private let transaction: Transaction
+    private let content: (AsyncImagePhase) -> Content
+
+    public init(cache: CachedImageCache = AsyncCachedImageCache.shared, url: URL, scale: CGFloat = 1.0, transaction: Transaction = Transaction(), @ViewBuilder content: @escaping (AsyncImagePhase) -> Content) {
+        self.cache = cache
+        self.url = url
+        self.scale = scale
+        self.transaction = transaction
+        self.content = content
+    }
+
+    public var body: some View {
+        if let cached = cache[url] {
+            content(.success(cached))
+        } else {
+            AsyncImage(url: url, scale: scale, transaction: transaction) { phase in
+                cacheAndRender(phase: phase)
+            }
+        }
+    }
+
+    @MainActor func cacheAndRender(phase: AsyncImagePhase) -> some View {
+        if case .success (let image) = phase {
+            cache[url] = image // cache the image
+        }
+        return content(phase)
+    }
+}
+
 /// An image that loads from a URL, either synchronously or asynchronously
 public struct URLImage : View, Equatable {
     /// Whether the image should be loaded synchronously or asynchronously

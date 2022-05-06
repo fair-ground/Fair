@@ -299,6 +299,28 @@ public extension StringProtocol {
     @inlinable func trimmed(_ characters: CharacterSet = .whitespacesAndNewlines) -> String {
         trimmingCharacters(in: characters)
     }
+
+    /// Trim the given characters from either side of the string, but only if both sides contain the character
+    /// Only a single trimming operation will take place; subsequent character matches will be ignored.
+    /// This is suitable for de-quoting strings, but preserving any internal quotes. For example:
+    ///
+    /// ```
+    /// "'dog'".trimmedEvenly(["'"]) // returns: dog
+    /// "''dog''".trimmedEvenly(["'"]) // returns: 'dog'
+    /// "\"'dog'\"".trimmedEvenly(["'"]) // returns: 'dog'
+    /// "'\"'dog'\"'".trimmedEvenly(["'"]) // returns: "'dog'"
+    /// ```
+    @inlinable func trimmedEvenly(_ characters: Array<Character>) -> Self {
+        if first == last {
+            for char in characters {
+                if first == char && count > 1 {
+                    return Self(stringLiteral: String(dropLast().dropFirst()))
+                }
+            }
+        }
+        return self
+    }
+
 }
 
 #if os(macOS) || os(iOS)

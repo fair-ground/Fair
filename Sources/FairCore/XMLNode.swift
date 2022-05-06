@@ -325,13 +325,19 @@ public extension XMLNode {
     @inlinable var childContent: [String] {
         self.children.map {
             if case .content(let str) = $0 { return str }
+            if case .cdata(let data) = $0 { return String(data: data, encoding: .utf8) }
             return nil
         }.compactMap({ $0 })
     }
 
+    /// Join together all the child contents that are strings or CDATA blocks
+    @inlinable var stringContent: String {
+        childContent.joined()
+    }
+
     /// Join together all the child content and trim and whitespace
     @inlinable var childContentTrimmed: String {
-        childContent.joined().trimmingCharacters(in: .whitespacesAndNewlines)
+        stringContent.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     /// Converts the current node into a dictionary of element children names and the trimmed content of their joined string children.

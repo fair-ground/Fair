@@ -333,7 +333,7 @@ extension URLResponse {
 #if swift(>=5.5)
 extension URLSession {
     /// Issues a `HEAD` request for the given URL and returns the response
-    public func fetchHEAD(url: URL, cachePolicy: URLRequest.CachePolicy = .reloadIgnoringLocalAndRemoteCacheData) async throws -> URLResponse {
+    public func fetchHEAD(url: URL, cachePolicy: URLRequest.CachePolicy) async throws -> URLResponse {
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = "HEAD"
         let (_, response) = try await fetch(request: request)
