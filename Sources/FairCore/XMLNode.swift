@@ -51,6 +51,7 @@ public struct XMLNode : Hashable {
     public var children: [Child]
     public var namespaceURI: String?
     public var qualifiedName: String?
+    public var namespaces: [String: String]?
 
     /// This is the document root, which is the only one that permits an empty element name
     @inlinable public var isDocument: Bool { return elementName == "" }
@@ -82,12 +83,13 @@ public struct XMLNode : Hashable {
         case processingInstruction(target: String, data: String?)
     }
 
-    public init(elementName: String, attributes: [String : String] = [:], children: [Child] = [], namespaceURI: String? = nil, qualifiedName: String? = nil) {
+    public init(elementName: String, attributes: [String : String] = [:], children: [Child] = [], namespaceURI: String? = nil, qualifiedName: String? = nil, namespaces: [String: String]? = nil) {
         self.elementName = elementName
         self.attributes = attributes
         self.children = children
         self.namespaceURI = namespaceURI
         self.qualifiedName = qualifiedName
+        self.namespaces = namespaces
     }
 
     /// Appends the given tree as an element child
@@ -113,6 +115,50 @@ public struct XMLNode : Hashable {
         }
         self.children.append(.element(node))
         return self
+    }
+
+    /// Returns an array of child elements with the given name and optional namespace.
+    /// - Parameters:
+    ///   - elementName: the element name of the child
+    ///   - namespace: the list of namespaces
+    /// - Returns: the filtered list of child elements matching the name and namespace URI.
+    @inlinable public func childElements(named elementName: String, namespaceURI: String? = nil) -> [XMLNode] {
+        if let namespaceURI = namespaceURI {
+            // there may be more than a single alias to a given namespace
+            guard let prefixes = self.namespaces?.filter({ $0.value == namespaceURI }).keys,
+                    !prefixes.isEmpty else {
+                return []
+            }
+            let elementNames = prefixes.map({ $0 + ":" + elementName }).set()
+            return self.elementChildren.filter { element in
+                elementNames.contains(element.elementName)
+            }
+        } else {
+            return self.elementChildren
+        }
+    }
+
+    /// Returns the value of the given attribute, optionally mapped with the given URL
+    /// - Parameters:
+    ///   - key: the attribute key
+    ///   - namespace: the namespace of the key
+    /// - Returns: the value of the attribute
+    @inlinable public func attributeValue(key: String, namespaceURI: String? = nil) -> String? {
+        if let namespaceURI = namespaceURI {
+            // there may be more than a single alias to a given namespace
+            guard let prefixes = self.namespaces?.filter({ $0.value == namespaceURI }).keys,
+                    !prefixes.isEmpty else {
+                return nil
+            }
+            for pfx in prefixes {
+                if let value = self.attributes[pfx + ":" + key] {
+                    return value
+                }
+            }
+            return nil
+        } else {
+            return self.attributes[key]
+        }
     }
 
     @inlinable public func xmlString(declaration: String = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>", quote: String = "\"", compactCloseTags: Bool = false, escape entities: Entity = [.lt, .amp, .gt], commentScriptCDATA: Bool = false, attributeSorter: ([String: String]) -> [(String, String)] = { Array($0).sorted(by: { $0.0 < $1.0 }) }) -> String {
@@ -231,6 +277,7 @@ public struct XMLNode : Hashable {
 
     @usableFromInline internal final class Delegate : NSObject, XMLParserDelegate {
         @usableFromInline var elements = Array<XMLNode>()
+        @usableFromInline var namespaces: [String: [String]] = [:]
         @usableFromInline var parseErrors: [Error] = []
         @usableFromInline var validationErrors: [Error] = []
         @usableFromInline var entityResolver: (_ name: String, _ systemID: String?) -> (Data?) = { _, _ in nil}
@@ -263,8 +310,16 @@ public struct XMLNode : Hashable {
             // we do nothing here because we hold on to the root document
         }
 
+        @usableFromInline func parser(_ parser: XMLParser, didStartMappingPrefix prefix: String, toURI namespaceURI: String) {
+            self.namespaces[prefix, default: []].append(namespaceURI)
+        }
+
+        @usableFromInline func parser(_ parser: XMLParser, didEndMappingPrefix prefix: String) {
+            let _ = self.namespaces[prefix]?.popLast()
+        }
+
         @usableFromInline func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-            elements.append(XMLNode(elementName: elementName, attributes: attributeDict, children: [], namespaceURI: namespaceURI, qualifiedName: qName))
+            elements.append(XMLNode(elementName: elementName, attributes: attributeDict, children: [], namespaceURI: namespaceURI, qualifiedName: qName, namespaces: self.namespaces.compactMapValues(\.last)))
         }
 
         @usableFromInline func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {

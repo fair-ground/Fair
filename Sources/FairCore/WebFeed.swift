@@ -19,7 +19,7 @@ import Swift
 import struct Foundation.Data
 
 /// An RSS web feed document outline with a generic `WebFeedAdditions` parameters allowing extension points for the various elements.
-public struct WebFeed<Additions: WebFeedAdditions> : Hashable {
+public struct WebFeed<Additions: WebFeedAdditions> {
     public var channels: [Channel]
 
     /// Additional properties as defined in the item additions
@@ -49,7 +49,7 @@ public struct WebFeed<Additions: WebFeedAdditions> : Hashable {
         self.additions = try Additions.FeedAdditions(node: node)
     }
 
-    public struct Channel : Hashable {
+    public struct Channel {
         public var title: String?
         public var link: String?
         public var language: String?
@@ -80,7 +80,7 @@ public struct WebFeed<Additions: WebFeedAdditions> : Hashable {
             self.additions = try Additions.ChannelAdditions(node: node)
         }
 
-        public struct Item : Hashable {
+        public struct Item {
             public var title: String?
             public var link: String?
             public var pubDate: String?
@@ -114,7 +114,7 @@ public struct WebFeed<Additions: WebFeedAdditions> : Hashable {
 
         // <enclosure url="https://sparkle-project.org/files/Sparkle%20Test%20App.zip" length="107758" type="application/octet-stream" sparkle:edSignature="7cLALFUHSwvEJWSkV8aMreoBe4fhRa4FncC5NoThKxwThL6FDR7hTiPJh1fo2uagnPogisnQsgFgq6mGkt2RBw==" />
 
-        public struct Enclosure : Hashable {
+        public struct Enclosure {
             public var url: String?
             public var length: String?
             public var type: String?
@@ -160,9 +160,32 @@ extension Never : XMLNodeExpressible {
 
 /// Contains optional structures that can hold additional data in the outline of a `WebFeed`
 public protocol WebFeedAdditions {
-    associatedtype FeedAdditions : Hashable & XMLNodeExpressible
-    associatedtype ChannelAdditions : Hashable & XMLNodeExpressible
-    associatedtype ItemAdditions : Hashable & XMLNodeExpressible
-    associatedtype EnclosureAdditions : Hashable & XMLNodeExpressible
+    associatedtype FeedAdditions: XMLNodeExpressible
+    associatedtype ChannelAdditions: XMLNodeExpressible
+    associatedtype ItemAdditions: XMLNodeExpressible
+    associatedtype EnclosureAdditions: XMLNodeExpressible
 }
+
+/// An empty default additions protocol implementation for `WebFeedAdditions`
+public enum EmptyFeedAdditions : WebFeedAdditions {
+    public typealias FeedAdditions = Never
+    public typealias ChannelAdditions = Never
+    public typealias ItemAdditions = Never
+    public typealias EnclosureAdditions = Never
+}
+
+extension WebFeed : Equatable where Additions.FeedAdditions : Equatable, Additions.ChannelAdditions : Equatable, Additions.EnclosureAdditions : Equatable, Additions.ItemAdditions : Equatable { }
+extension WebFeed.Channel : Equatable where Additions.ChannelAdditions : Equatable, Additions.EnclosureAdditions : Equatable, Additions.ItemAdditions : Equatable { }
+extension WebFeed.Channel.Item : Equatable where Additions.EnclosureAdditions : Equatable, Additions.ItemAdditions : Equatable { }
+extension WebFeed.Channel.Enclosure : Equatable where Additions.EnclosureAdditions : Equatable { }
+
+extension WebFeed : Hashable where Additions.FeedAdditions : Hashable, Additions.ChannelAdditions : Hashable, Additions.EnclosureAdditions : Hashable, Additions.ItemAdditions : Hashable { }
+extension WebFeed.Channel : Hashable where Additions.ChannelAdditions : Hashable, Additions.EnclosureAdditions : Hashable, Additions.ItemAdditions : Hashable { }
+extension WebFeed.Channel.Item : Hashable where Additions.EnclosureAdditions : Hashable, Additions.ItemAdditions : Hashable { }
+extension WebFeed.Channel.Enclosure : Hashable where Additions.EnclosureAdditions : Hashable { }
+
+extension WebFeed : Sendable where Additions.FeedAdditions : Sendable, Additions.ChannelAdditions : Sendable, Additions.EnclosureAdditions : Sendable, Additions.ItemAdditions : Sendable { }
+extension WebFeed.Channel : Sendable where Additions.ChannelAdditions : Sendable, Additions.EnclosureAdditions : Sendable, Additions.ItemAdditions : Sendable { }
+extension WebFeed.Channel.Item : Sendable where Additions.EnclosureAdditions : Sendable, Additions.ItemAdditions : Sendable { }
+extension WebFeed.Channel.Enclosure : Sendable where Additions.EnclosureAdditions : Sendable { }
 

@@ -267,6 +267,56 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual("Value", parsed.elementChildren.first?.elementChildren.first?.elementChildren.first?.childContentTrimmed)
     }
 
+    func testParseXMLNamespaced() throws {
+        let doc1 = try XMLNode.parse(data: """
+        <foo:root xmlns:foo="http://main/ns" xmlns:bar="http://secondary/ns">
+          <foo:child bar:attr="1234">some data</foo:child>
+        </foo:root>
+        """.utf8Data)
+
+        let doc2 = try XMLNode.parse(data: """
+        <bar:root xmlns:bar="http://main/ns" xmlns:foo="http://secondary/ns">
+          <bar:child foo:attr="1234">some data</bar:child>
+        </bar:root>
+        """.utf8Data)
+
+        let doc3 = try XMLNode.parse(data: """
+        <root xmlns="http://main/ns" xmlns:baz="http://secondary/ns">
+          <child baz:attr="1234">some data</child>
+        </root>
+        """.utf8Data)
+
+        guard let e1 = doc1.elementChildren.first else { return XCTFail("no root") }
+        guard let c1 = e1.elementChildren.first else { return XCTFail("no child") }
+        guard let e2 = doc2.elementChildren.first else { return XCTFail("no root") }
+        guard let c2 = e2.elementChildren.first else { return XCTFail("no child") }
+        guard let e3 = doc3.elementChildren.first else { return XCTFail("no root") }
+        guard let c3 = e3.elementChildren.first else { return XCTFail("no child") }
+
+        XCTAssertEqual(["bar": "http://secondary/ns", "foo": "http://main/ns"], e1.namespaces)
+        XCTAssertEqual(["foo": "http://secondary/ns", "bar": "http://main/ns"], e2.namespaces)
+        XCTAssertEqual(["baz": "http://secondary/ns", "": "http://main/ns"], e3.namespaces)
+
+        XCTAssertEqual("root", e1.elementName)
+        XCTAssertEqual("http://main/ns", e1.namespaceURI)
+        XCTAssertEqual("child", c1.elementName)
+        XCTAssertEqual("http://main/ns", c1.namespaceURI)
+        XCTAssertEqual("1234", c1.attributeValue(key: "attr", namespaceURI: "http://secondary/ns"))
+
+        XCTAssertEqual("root", e2.elementName)
+        XCTAssertEqual("http://main/ns", e2.namespaceURI)
+        XCTAssertEqual("child", c2.elementName)
+        XCTAssertEqual("http://main/ns", c2.namespaceURI)
+        XCTAssertEqual("1234", c2.attributeValue(key: "attr", namespaceURI: "http://secondary/ns"))
+
+        XCTAssertEqual("root", e3.elementName)
+        XCTAssertEqual("http://main/ns", e3.namespaceURI)
+        XCTAssertEqual("child", c3.elementName)
+        XCTAssertEqual("http://main/ns", c3.namespaceURI)
+        XCTAssertEqual("1234", c3.attributeValue(key: "attr", namespaceURI: "http://secondary/ns"))
+
+    }
+
     func testTidyHTML() throws {
         #if os(iOS) // XMLDocument unavailable on iOS…
         XCTAssertThrowsError(try tidyHTML()) // …so the `.tidyHTML` flag should throw an error
