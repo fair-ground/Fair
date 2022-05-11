@@ -362,6 +362,22 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                 }
                 linkButton(Text("Discussions", bundle: .module, comment: "command name for opening app discussions page"), path: "discussions")
                 linkButton(Text("Issues", bundle: .module, comment: "command name for opening app issues page"), path: "issues")
+
+                #if os(macOS)
+                Divider()
+
+                Button {
+                    NSPasteboard.general.clearContents()
+
+                    if let window = NSApp.keyWindow ?? NSApp.mainWindow ?? NSApp.windows.first {
+                        if let screenshot = window.takeSnapshot() {
+                            NSPasteboard.general.writeObjects([screenshot])
+                        }
+                    }
+                } label: {
+                    Text("Copy Screenshot to Clipboard", bundle: .module, comment: "help menu label for command to take a screenshot of the frontmost window")
+                }
+                #endif
             }
         }
 
@@ -688,6 +704,23 @@ private struct ObservedStateView<O: ObservableObject, V : View> : View {
 
 #endif // canImport(SwiftUI)
 
+#if canImport(AppKit)
+public extension NSWindow {
+    /// Grab a snapshot of the given window
+    func takeSnapshot() -> NSImage? {
+        guard windowNumber != -1 else {
+            dbg("bad window number")
+            return nil
+        }
+
+        guard let cgImage = CGWindowListCreateImage(.null, .optionIncludingWindow, CGWindowID(windowNumber), []) else {
+            return nil
+        }
+
+        return NSImage(cgImage: cgImage, size: frame.size)
+    }
+}
+#endif
 
 /// A generic error
 public struct AppError : LocalizedError {
