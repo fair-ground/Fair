@@ -470,24 +470,51 @@ struct JavaScriptPrompt : View {
             Text(message)
             TextField("Your Response", text: $text, onCommit: { completion(text) })
         } actions: {
-            Button("Cancel", action: { completion(nil) })
+            Button(action: { completion(nil) }) {
+                Text("Cancel", bundle: .module, comment: "cancel button label")
+            }
                 .keyboardShortcut(".")
-            Button("OK", action: { completion(text) })
+            Button(action: { completion(text) }) {
+                Text("OK", bundle: .module, comment: "OK button label")
+            }
                 .keyboardShortcut(.return)
         }
     }
 }
 
 extension View {
-    public func webViewNavigationPolicy(onAction actionDecider: @escaping (NavigationAction, WebViewState) -> Void) -> some View {
+    /// An async block that will return whether a navigation action should be permitted
+    public func webViewNavigationActionPolicy(decide actionDecider: @escaping (WKNavigationAction, WebViewState) async -> (WKNavigationActionPolicy, WKWebpagePreferences?)) -> some View {
+        navigationPolicy(onAction: { action, state in
+            Task {
+                let (policy, prefs) = await actionDecider(action.action, state)
+                action.decidePolicy(policy, webpagePreferences: prefs)
+            }
+        })
+    }
+
+    /// An async block that will return whether a navigation response should be permitted
+    public func webViewNavigationResponsePolicy(decide responseDecider: @escaping (WKNavigationResponse, WebViewState) async -> WKNavigationResponsePolicy) -> some View {
+        navigationPolicy(onResponse: { response, state in
+            Task {
+                let policy = await responseDecider(response.response, state)
+                response.decidePolicy(policy)
+            }
+        })
+    }
+
+}
+
+extension View {
+    private func navigationPolicy(onAction actionDecider: @escaping (NavigationAction, WebViewState) -> Void) -> some View {
         environment(\.navigationActionDecider, actionDecider)
     }
 
-    public func webViewNavigationPolicy(onResponse responseDecider: @escaping (NavigationResponse, WebViewState) -> Void) -> some View {
+    private func navigationPolicy(onResponse responseDecider: @escaping (NavigationResponse, WebViewState) -> Void) -> some View {
         environment(\.navigationResponseDecider, responseDecider)
     }
 
-    public func webViewNavigationPolicy(onAction actionDecider: @escaping (NavigationAction, WebViewState) -> Void, onResponse responseDecider: @escaping (NavigationResponse, WebViewState) -> Void) -> some View {
+    private func navigationPolicy(onAction actionDecider: @escaping (NavigationAction, WebViewState) -> Void, onResponse responseDecider: @escaping (NavigationResponse, WebViewState) -> Void) -> some View {
         environment(\.navigationActionDecider, actionDecider)
             .environment(\.navigationResponseDecider, responseDecider)
     }
@@ -496,13 +523,13 @@ extension View {
 /// Contains information about an action that may cause a navigation, used for making
 /// policy decisions.
 @dynamicMemberLookup
-public struct NavigationAction {
-    public typealias Policy = WKNavigationActionPolicy
+fileprivate struct NavigationAction {
+    typealias Policy = WKNavigationActionPolicy
 
-    private var action: WKNavigationAction
-    private var reply: (WKNavigationActionPolicy, WKWebpagePreferences) -> Void
+    var action: WKNavigationAction
+    var reply: (WKNavigationActionPolicy, WKWebpagePreferences) -> Void
 
-    public private(set) var webpagePreferences: WKWebpagePreferences
+    private(set) var webpagePreferences: WKWebpagePreferences
 
     init(_ action: WKNavigationAction, webpagePreferences: WKWebpagePreferences, reply: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         self.action = action
@@ -510,11 +537,11 @@ public struct NavigationAction {
         self.webpagePreferences = webpagePreferences
     }
 
-    public func decidePolicy(_ policy: Policy, webpagePreferences: WKWebpagePreferences? = nil) {
+    func decidePolicy(_ policy: Policy, webpagePreferences: WKWebpagePreferences? = nil) {
         reply(policy, webpagePreferences ?? self.webpagePreferences)
     }
 
-    public subscript<T>(dynamicMember keyPath: KeyPath<WKNavigationAction, T>) -> T {
+    subscript<T>(dynamicMember keyPath: KeyPath<WKNavigationAction, T>) -> T {
         action[keyPath: keyPath]
     }
 
@@ -524,22 +551,22 @@ public struct NavigationAction {
 }
 
 @dynamicMemberLookup
-public struct NavigationResponse {
-    public typealias Policy = WKNavigationResponsePolicy
+fileprivate struct NavigationResponse {
+    typealias Policy = WKNavigationResponsePolicy
 
-    private var response: WKNavigationResponse
-    private var reply: (Policy) -> Void
+    var response: WKNavigationResponse
+    var reply: (Policy) -> Void
 
     init(_ response: WKNavigationResponse, reply: @escaping (Policy) -> Void) {
         self.response = response
         self.reply = reply
     }
 
-    public func decidePolicy(_ policy: Policy) {
+    func decidePolicy(_ policy: Policy) {
         reply(policy)
     }
 
-    public subscript<T>(dynamicMember keyPath: KeyPath<WKNavigationResponse, T>) -> T {
+    subscript<T>(dynamicMember keyPath: KeyPath<WKNavigationResponse, T>) -> T {
         response[keyPath: keyPath]
     }
 
@@ -548,7 +575,7 @@ public struct NavigationResponse {
     }
 }
 
-extension EnvironmentValues {
+private extension EnvironmentValues {
     var navigationActionDecider: ((NavigationAction, WebViewState) -> Void)? {
         get { self[NavigationAction.DeciderKey.self] }
         set { self[NavigationAction.DeciderKey.self] = newValue }
