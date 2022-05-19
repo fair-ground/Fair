@@ -120,7 +120,7 @@ import SwiftUI
 /// A view that displays a web page.
 @available(macOS 11, iOS 14, *)
 public struct WebView : View {
-    /// The state of the web view, which created and held externally
+    /// The state of the web view, which is created and held externally
     @ObservedObject var state: WebViewState
     @State private var defaultDialog: Dialog? = nil
 
@@ -176,7 +176,7 @@ public struct WebView : View {
 private struct WebViewRepresentable {
     let owner: WebView
 
-    func makeView(coordinator: Coordinator, environment: EnvironmentValues) -> WebEngineView {
+    func makeView(coordinator: WebViewCoordinator, environment: EnvironmentValues) -> WebEngineView {
         let view = coordinator.owner.state.createWebView()
 
         view.navigationDelegate = coordinator
@@ -192,7 +192,7 @@ private struct WebViewRepresentable {
         return view
     }
 
-    func updateView(_ view: WebEngineView, coordinator: Coordinator, environment: EnvironmentValues) {
+    func updateView(_ view: WebEngineView, coordinator: WebViewCoordinator, environment: EnvironmentValues) {
         coordinator.environment = environment
 
         if let flag = environment.allowsBackForwardNavigationGestures {
@@ -200,12 +200,12 @@ private struct WebViewRepresentable {
         }
     }
 
-    static func dismantleView(_ view: WKWebView, coordinator: Coordinator) {
+    static func dismantleView(_ view: WKWebView, coordinator: WebViewCoordinator) {
         coordinator.webView = nil
     }
 
-    func makeCoordinator() -> Coordinator {
-        Coordinator(owner: owner)
+    func makeCoordinator() -> WebViewCoordinator {
+        WebViewCoordinator(owner: owner)
     }
 }
 
@@ -224,7 +224,7 @@ extension WebViewRepresentable : UXViewRepresentable {
 }
 
 @dynamicMemberLookup
-private final class Coordinator : NSObject, WKNavigationDelegate, WKUIDelegate {
+private final class WebViewCoordinator : NSObject, WKNavigationDelegate, WKUIDelegate {
     var owner: WebView
     fileprivate var environment: EnvironmentValues?
 
