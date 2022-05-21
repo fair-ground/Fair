@@ -658,20 +658,11 @@ jobs:
           # build the URL for the GitHub download artifact
           IPAURL="https://github.com/${{ env.ORGNAME }}/App/releases/download/${{ steps.get_semver_tag.outputs.semver_tag }}/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" 
 
-          # virus/malware scan
-          mkdir -p staging/.artifact_scan
-          cd staging/.artifact_scan
-          curl --retry-max-time 300 --retry 25 --retry-all-errors -fsSL -o untrusted.ipa "${IPAURL}"
-          clamscan -v --heuristic-scan-precedence=yes --scan-archive=yes untrusted.ipa
-          cd -
-
           echo "Generating fairseal for: $IPAURL"
 
           mkdir -p staging/.artifact_stash/
           mv -f staging/*.zip staging/.artifact_stash/ || true # don't seal the macOS zip for iOS seal
 
-          # Builds on iOS are currently not reproducible (help wanted!),
-          # so we accept a diff tolerance of 1,000,000 bytes for fairseal-match
           ./fairtool fairseal \
             --verbose true \
             --hub "github.com/${{ inputs.fairground }}" \
@@ -679,7 +670,6 @@ jobs:
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
-            --fairseal-match 1000000 \
             --retry-duration 600 \
             --artifact-url "$IPAURL" \
             --artifact-staging "staging/" \
