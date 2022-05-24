@@ -791,6 +791,7 @@ public struct AppError : LocalizedError {
 
 
 public extension UsageDescriptionKeys {
+    #if canImport(SwiftUI)
     var description: LocalizedStringKey {
         switch self {
         case .NSSiriUsageDescription: return "Siri"
@@ -826,6 +827,7 @@ public extension UsageDescriptionKeys {
             return "Nearby Interaction (Once)"
         }
     }
+    #endif // canImport(SwiftUI)
 
     var icon: FairSymbol {
         switch self {
