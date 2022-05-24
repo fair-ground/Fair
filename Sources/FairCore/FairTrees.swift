@@ -78,7 +78,7 @@ public extension Sequence {
 
 
 /// Utility functions for operating on trees of elements
-public enum Tree {
+public enum TreeEnumerations {
 
     /// Recursively enumerates the elements of the given tree, returning the elements and their corresponding `IndexPath`
     /// - Parameters:
@@ -111,7 +111,7 @@ public enum Tree {
     ///   - children: a closure that returns the children for the item
     /// - Returns: a lazy sequence of node elements of the tree, including the `root`
     @inlinable public static func nodes<Parent, Children : Collection>(_ root: Parent, traverse: TreeTraversal, maxDepth: UInt = .max, children: @escaping (Parent) -> (Children)) -> TreeNodeSequence<Children> where Children.Element == Parent, Children.Index == Int {
-        Tree.enumerated([root], traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.element)
+        TreeEnumerations.enumerated([root], traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.element)
     }
 
     /// Returns the indices for the elements of this tree as `IndexPath` elements
@@ -122,7 +122,7 @@ public enum Tree {
     ///   - children: a closure that returns the children for the item
     /// - Returns: a last sequence of indices for the trees
     @inlinable public static func indices<Parent, Children : Collection>(_ root: Parent, traverse: TreeTraversal, maxDepth: UInt = .max, children: @escaping (Parent) -> (Children)) -> TreeIndexSequence<Children> where Children.Element == Parent, Children.Index == Int {
-        Tree.enumerated([root], traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.indices).map(IndexPath.init(indexes:))
+        TreeEnumerations.enumerated([root], traverse: traverse, maxDepth: maxDepth, children: children).lazy.map(\.indices).map(IndexPath.init(indexes:))
     }
 
     /// Traverses the hierarchy of nodes along the collection of indices
@@ -131,7 +131,7 @@ public enum Tree {
     ///   - indices: the collection of incides to traverse (e.g., an `IndexPath`)
     ///   - children: the function or keyPath to fetch the children from the parent
     /// - Returns: the element in the tree at the index path collection
-    @inlinable public static func verse<Parent, Indices: Sequence, Children : Collection>(from root: Parent, at indices: Indices, children: (Parent) -> (Children)) -> Children.Element where Indices.Element == Children.Index, Children.Element == Parent {
+    @inlinable public static func traverse<Parent, Indices: Sequence, Children : Collection>(from root: Parent, at indices: Indices, children: (Parent) -> (Children)) -> Children.Element where Indices.Element == Children.Index, Children.Element == Parent {
         var node = root
         for idx in indices {
             node = children(node)[idx]
@@ -159,7 +159,7 @@ public enum Tree {
     /// - Returns: the element of the tree that was replaced
     @inlinable @discardableResult public static func place<Indices: Sequence, Children: MutableCollection>(_ element: Children.Element, into tree: inout Children.Element, at indices: Indices, children keyPath: WritableKeyPath<Children.Element, Children>) -> Children.Element where Indices.Element == Children.Index {
         if let (headIndex, trailIndices) = indices.headAndTail {
-            return Tree.place(element, into: &tree[keyPath: keyPath][headIndex], at: trailIndices, children: keyPath)
+            return TreeEnumerations.place(element, into: &tree[keyPath: keyPath][headIndex], at: trailIndices, children: keyPath)
         } else {
             defer { tree = element }
             return tree // return the old element
@@ -270,7 +270,7 @@ public extension KeyPath where Value: BidirectionalCollection, Value.Element == 
         } else {
             let previousIndex = i.dropLast() + [children.index(last, offsetBy: -1)]
             // now append the lastIndex to the previous index and get the final index of the child
-            return previousIndex + lastDepthIndexPath(for: Tree.verse(from: root, at: previousIndex, children: { $0[keyPath: self] }))
+            return previousIndex + lastDepthIndexPath(for: TreeEnumerations.traverse(from: root, at: previousIndex, children: { $0[keyPath: self] }))
         }
     }
 }
@@ -341,8 +341,8 @@ public extension TreeOfSelf {
     }
 
     @inlinable subscript(position: IndexPath) -> Self {
-        get { Tree.verse(from: self, at: position, children: { $0[keyPath: Self.childrenKeyPath] }) }
-        set { Tree.place(newValue, into: &self, at: position, children: Self.childrenKeyPath) }
+        get { TreeEnumerations.traverse(from: self, at: position, children: { $0[keyPath: Self.childrenKeyPath] }) }
+        set { TreeEnumerations.place(newValue, into: &self, at: position, children: Self.childrenKeyPath) }
     }
 }
 

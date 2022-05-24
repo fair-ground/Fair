@@ -17,15 +17,15 @@ import XCTest
 #if canImport(SwiftUI)
 import FairApp
 
-final class FairCLITests: XCTestCase {
-    typealias ToolMessage = (kind: FairCLI.MessageKind, items: [Any?])
+final class FairToolTests: XCTestCase {
+    typealias ToolMessage = (kind: FairTool.MessageKind, items: [Any?])
 
-    func runTool(op: FairCLI.Operation, _ args: String...) async throws -> [ToolMessage] {
+    func runTool(op: FairTool.Operation, _ args: String...) async throws -> [ToolMessage] {
         var messages: [ToolMessage] = []
         // first argument is tool name
-        let it = try FairCLI(arguments: ["fairtool"] + [op.rawValue] + args, environment: [:])
+        let it = try FairTool(arguments: ["fairtool"] + [op.rawValue] + args, environment: [:])
 
-        func addMessage(_ kind: FairCLI.MessageKind, items: Any?...) {
+        func addMessage(_ kind: FairTool.MessageKind, items: Any?...) {
             messages.append((kind, items))
         }
 
@@ -34,7 +34,7 @@ final class FairCLITests: XCTestCase {
         return messages
     }
 
-    func extract(kind: FairCLI.MessageKind = .info, _ messages: [ToolMessage]) -> [String] {
+    func extract(kind: FairTool.MessageKind = .info, _ messages: [ToolMessage]) -> [String] {
         messages
             .filter({ $0.kind == kind })
             .map({

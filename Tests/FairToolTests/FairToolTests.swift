@@ -20,7 +20,7 @@ import FairApp
 
 final class FairToolTests: XCTestCase {
     func testTool() throws {
-        //XCTAssertEqual(try runTool(["welcome"]).stdout, ["Welcome to Fair Ground!"])
+        XCTAssertEqual(try runTool(["welcome"]).stdout, ["INFO Welcome to Fair Ground!"])
     }
 
     @discardableResult func runTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Bool = true) throws -> Process.CommandResult {

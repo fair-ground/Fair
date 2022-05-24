@@ -33,7 +33,7 @@ import WASILibc
 
 Task {
     do {
-        let cli = try FairCLI()
+        let cli = try FairTool()
         try await cli.runCLI()
         _exit(0)
     } catch {

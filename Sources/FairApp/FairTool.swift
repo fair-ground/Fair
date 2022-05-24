@@ -34,7 +34,7 @@ import UIKit
 #endif
 
 
-public class FairCLI {
+public class FairTool {
     /// The name of the App & the repository; defaults to "App"
     public let appName = AppNameValidation.defaultAppName
 
@@ -139,28 +139,28 @@ public extension Plist {
 //        // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
 //        let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
 //        guard let buildNumberValue = plist_dict.CFBundleVersion else {
-//            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
+//            throw FairTool.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
 //        }
 //
 //        guard let buildNumber = UInt(buildNumberValue) else {
-//            throw FairCLI.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
+//            throw FairTool.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
 //        }
 //
 //        // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
 //        guard let buildVersion = plist_dict.CFBundleShortVersionString else {
-//            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
+//            throw FairTool.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
 //        }
 //
 //        // a version number needs to be in the form 1.23.456
 //        guard let version = AppVersion(string: buildVersion) else {
-//            throw FairCLI.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], buildVersion as NSString, plistURL)
+//            throw FairTool.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], buildVersion as NSString, plistURL)
 //        }
 //
 //        self.init(build: buildNumber, version: version)
 //    }
 //}
 
-public extension FairCLI {
+public extension FairTool {
     enum Operation: String, CaseIterable {
         case help
         case welcome
@@ -818,10 +818,10 @@ public extension FairCLI {
                     if scaffoldParts.count < 2
                         || projectParts.count < 2
                         || scaffoldParts.last != projectParts.last {
-                        throw FairCLI.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
+                        throw FairTool.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
                     }
                 } else {
-                    throw FairCLI.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
+                    throw FairTool.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
                 }
             }
         }

@@ -630,6 +630,60 @@ public enum AppEntitlement : String, Pure, CaseIterable {
     }
 }
 
+public enum UsageDescriptionKeys : String, CaseIterable {
+
+    // MARK: tracking
+    case NSUserTrackingUsageDescription
+
+    // MARK: location
+
+    case NSLocationUsageDescription
+    case NSLocationAlwaysUsageDescription
+    case NSLocationTemporaryUsageDescriptionDictionary
+    case NSLocationWhenInUseUsageDescription
+    case NSLocationAlwaysAndWhenInUseUsageDescription
+
+    // MARK: voice
+
+    case NSSiriUsageDescription
+    case NSSpeechRecognitionUsageDescription
+
+    // MARK: hardware
+
+    case NSMicrophoneUsageDescription
+    case NSCameraUsageDescription
+    case NSMotionUsageDescription
+    case NFCReaderUsageDescription
+    case NSBluetoothUsageDescription
+    case NSBluetoothAlwaysUsageDescription
+    case NSBluetoothPeripheralUsageDescription
+
+    // MARK: databases
+
+    case NSRemindersUsageDescription
+    case NSContactsUsageDescription
+    case NSCalendarsUsageDescription
+    case NSPhotoLibraryAddUsageDescription
+    case NSPhotoLibraryUsageDescription
+
+    // MARK: services
+
+    case NSAppleMusicUsageDescription
+    case NSHomeKitUsageDescription
+    //case NSVideoSubscriberAccountUsageDescription
+    case NSHealthShareUsageDescription
+    case NSHealthUpdateUsageDescription
+
+    // MARK: misc
+
+    case NSAppleEventsUsageDescription
+    case NSFocusStatusUsageDescription
+    case NSLocalNetworkUsageDescription
+    case NSFaceIDUsageDescription
+    case NSNearbyInteractionAllowOnceUsageDescription
+
+}
+
 /// The `LSApplicationCategoryType` for an app
 public enum AppCategory : String, CaseIterable, Identifiable, Pure {
     case business = "business"

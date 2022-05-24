@@ -231,7 +231,7 @@ extension FairContainer {
 
         let args = Array(CommandLine.arguments.dropFirst())
         if args.first == "fairtool" && isCLI {
-            try await FairCLI(arguments: args).runCLI()
+            try await FairTool(arguments: args).runCLI()
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
                 validateEntitlements()
@@ -785,6 +785,81 @@ public struct AppError : LocalizedError {
                 self.underlyingError = nil
             }
             #endif
+        }
+    }
+}
+
+
+public extension UsageDescriptionKeys {
+    var description: LocalizedStringKey {
+        switch self {
+        case .NSSiriUsageDescription: return "Siri"
+        case .NSSpeechRecognitionUsageDescription: return "Speech Recognition"
+        case .NSMicrophoneUsageDescription: return "Microphone"
+        case .NSCameraUsageDescription: return "Camera"
+        case .NSMotionUsageDescription: return "Motion"
+        case .NFCReaderUsageDescription: return "NFC Reader"
+        case .NSBluetoothUsageDescription: return "Bluetooth"
+        case .NSBluetoothAlwaysUsageDescription: return "Bluetooth (Always)"
+        case .NSBluetoothPeripheralUsageDescription: return "Bluetooth (peripheral)"
+        case .NSRemindersUsageDescription: return "Reminders"
+        case .NSContactsUsageDescription: return "Contacts"
+        case .NSCalendarsUsageDescription: return "Calendars"
+        case .NSPhotoLibraryAddUsageDescription: return "Photo Library Add"
+        case .NSPhotoLibraryUsageDescription: return "Photo Library"
+        case .NSAppleMusicUsageDescription: return "Apple Music"
+        case .NSHomeKitUsageDescription: return "HomeKit"
+            //case .NSVideoSubscriberAccountUsageDescription: return "Video Subscriber Account Usage"
+        case .NSHealthShareUsageDescription: return "Health Sharing"
+        case .NSHealthUpdateUsageDescription: return "Health Update"
+        case .NSAppleEventsUsageDescription: return "Apple Events"
+        case .NSFocusStatusUsageDescription: return "Focus Status"
+        case .NSLocalNetworkUsageDescription: return "Local Network"
+        case .NSFaceIDUsageDescription: return "Face ID"
+        case .NSLocationUsageDescription: return "Location"
+        case .NSLocationAlwaysUsageDescription: return "Location (Always)"
+        case .NSLocationTemporaryUsageDescriptionDictionary: return "Location (Temporary)"
+        case .NSLocationWhenInUseUsageDescription: return "Location (When in use)"
+        case .NSLocationAlwaysAndWhenInUseUsageDescription: return "Location (Always)"
+        case .NSUserTrackingUsageDescription: return "User Tracking"
+        case .NSNearbyInteractionAllowOnceUsageDescription:
+            return "Nearby Interaction (Once)"
+        }
+    }
+
+    var icon: FairSymbol {
+        switch self {
+        case .NSSiriUsageDescription: return .ear
+        case .NSSpeechRecognitionUsageDescription: return .waveform
+        case .NSMicrophoneUsageDescription: return .mic_circle
+        case .NSCameraUsageDescription: return .camera
+        case .NSMotionUsageDescription: return .gyroscope
+        case .NFCReaderUsageDescription: return .barcode_viewfinder
+        case .NSBluetoothUsageDescription: return .cable_connector
+        case .NSBluetoothAlwaysUsageDescription: return .cable_connector_horizontal
+        case .NSBluetoothPeripheralUsageDescription: return .printer
+        case .NSRemindersUsageDescription: return .text_badge_checkmark
+        case .NSContactsUsageDescription: return .person_text_rectangle
+        case .NSCalendarsUsageDescription: return .calendar
+        case .NSPhotoLibraryAddUsageDescription: return .text_below_photo_fill
+        case .NSPhotoLibraryUsageDescription: return .photo
+        case .NSAppleMusicUsageDescription: return .music_note
+        case .NSHomeKitUsageDescription: return .house
+            //case .NSVideoSubscriberAccountUsageDescription: return .sparkles_tv
+        case .NSHealthShareUsageDescription: return .stethoscope
+        case .NSHealthUpdateUsageDescription: return .stethoscope_circle
+        case .NSAppleEventsUsageDescription: return .scroll
+        case .NSFocusStatusUsageDescription: return .eyeglasses
+        case .NSLocalNetworkUsageDescription: return .network
+        case .NSFaceIDUsageDescription: return .viewfinder
+        case .NSLocationUsageDescription: return .location_magnifyingglass
+        case .NSLocationAlwaysUsageDescription: return .location_fill
+        case .NSLocationTemporaryUsageDescriptionDictionary: return .location
+        case .NSLocationWhenInUseUsageDescription: return .location_north
+        case .NSLocationAlwaysAndWhenInUseUsageDescription: return .location_fill_viewfinder
+        case .NSUserTrackingUsageDescription: return .eyes
+        case .NSNearbyInteractionAllowOnceUsageDescription:
+                return .person_badge_clock_fill
         }
     }
 }
