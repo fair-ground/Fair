@@ -142,8 +142,8 @@ public struct FairTool : AsyncParsableCommand {
         @Option(name: [.long], help: "the artifact extrnsions.")
         var artifactExtension: [String] = []
 
-        @Option(name: [.long], help: "XXX.")
-        var fairsealMatch: [String] = []
+        @Option(name: [.long], help: "the number of bytes that may differ for a build to be reproducible.")
+        var fairsealMatch: Int?
 
         @Option(name: [.long], help: "commit ref to validate.")
         var ref: String?
@@ -205,12 +205,11 @@ public struct FairTool : AsyncParsableCommand {
         @Option(name: [.long], help: "resource for the artifact that will be generated.")
         var artifactURL: String?
 
-        @Option(name: [.long], help: "index markdown to save a catalog index markdown.")
+        @Option(name: [.long], help: "catalog index markdown.")
         var index: String?
 
         @Option(name: [.long], help: "the output folder for the app casks.")
         var caskFolder: String?
-
     }
 
     struct WelcomeCommand: FairParsableCommand {
@@ -232,7 +231,7 @@ public struct FairTool : AsyncParsableCommand {
             msg(.info, "Validating project:", projectPathURL(path: "").path)
             //msg(.debug, "flags:", flags)
 
-            guard let orgName = orgName else {
+            guard let orgName = options.org else {
                 throw FairTool.Errors.badArgument("org")
             }
 
@@ -335,7 +334,8 @@ public struct FairTool : AsyncParsableCommand {
                 try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
                 try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
 
-                if let licenseFlag = self.licenseFlag, !licenseFlag.isEmpty {
+                let licenseFlag = self.options.license
+                if !licenseFlag.isEmpty {
                     try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
                 }
             }
@@ -359,7 +359,7 @@ public struct FairTool : AsyncParsableCommand {
 
                 let expectedIntegrationTitle = appName + " " + appVersion
 
-                if let integrationTitle = self.integrationTitleFlag,
+                if let integrationTitle = self.options.integrationTitle,
                    integrationTitle != expectedIntegrationTitle {
                     throw FairTool.Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
                 }
@@ -580,9 +580,9 @@ public struct FairTool : AsyncParsableCommand {
             msg(.info, "Fairseal")
 
             // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
-            let fairsealThreshold = options.fairsealMatch.compactMap({ Int($0) }).first
+            let fairsealThreshold = options.fairsealMatch
 
-            guard let trustedArtifactFlag = trustedArtifactFlag else {
+            guard let trustedArtifactFlag = options.trustedArtifact else {
                 throw FairTool.Errors.missingFlag("-trusted-artifact")
             }
 
@@ -775,7 +775,7 @@ public struct FairTool : AsyncParsableCommand {
             var assets: [FairSeal.Asset] = []
 
             // publish the hash for the artifact binary URL
-            if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
+            if let artifactURLFlag = self.options.artifactURL, let artifactURL = URL(string: artifactURLFlag) {
 
                 // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
                 for stagingFolder in artifactStagingFolders {
@@ -831,11 +831,11 @@ public struct FairTool : AsyncParsableCommand {
 
         private func fetchUntrustedArtifact() async throws -> URL {
             // if we specified the artifact as a local file, just use it directly
-            if let untrustedArtifactFlag = untrustedArtifactFlag {
+            if let untrustedArtifactFlag = options.untrustedArtifact {
                 return URL(fileURLWithPath: untrustedArtifactFlag)
             }
 
-            guard let artifactURLFlag = self.artifactURLFlag,
+            guard let artifactURLFlag = self.options.artifactURL,
                 let artifactURL = URL(string: artifactURLFlag) else {
                 throw FairTool.Errors.missingFlag("-artifact-url")
             }
@@ -884,7 +884,7 @@ public struct FairTool : AsyncParsableCommand {
             let appName = try appNameSpace()
             let iconColor = try parseTintIconColor()
 
-            var symbolNames = iconSymbols ?? []
+            var symbolNames = options.iconSymbol
             if let symbolName = try self.buildSettings()?["ICON_SYMBOL"] {
                 symbolNames.append(symbolName)
             }
@@ -906,7 +906,7 @@ public struct FairTool : AsyncParsableCommand {
             var appIconSet = iconSet
 
             for imageSet in icons {
-                let iconView = FairIconView(appName, subtitle: catalogTitleFlag, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
+                let iconView = FairIconView(appName, subtitle: options.catalogTitle, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
 
                 if imageSet.filename != nil {
                     continue // skip any elements that have a file path specified already
@@ -995,7 +995,7 @@ fileprivate extension FairParsableCommand {
             // let (checkMark, failMark) = ("✓", "X")
             if kind == .info {
                 // info just gets printed directly
-                print(kind.name, msg)
+                print(msg)
             } else {
                 print(kind.name, msg)
             }
@@ -1160,24 +1160,6 @@ fileprivate extension FairParsableCommand {
         options.output ?? fm.currentDirectoryPath
     }
 
-    /// The flag for the repository
-    var orgName: String? {
-        //flags["g"]?.first ?? flags["-org"]?.first
-        options.org
-    }
-
-    /// The flag for the name of the login that issues the fairseal
-    var fairsealIssuer: String? {
-        //flags["-fairseal-issuer"]?.first
-        options.fairsealIssuer
-    }
-
-    /// Symbols to emboss over the icon
-    var iconSymbols: [String]? {
-        //flags["-icon-symbol"]
-        options.iconSymbol
-    }
-
     /// The path to `Assets.xcassets/AppIcon.appiconset/Contents.json`
     var appIconPath: String? {
         //flags["-app-icon"]?.first
@@ -1230,35 +1212,9 @@ fileprivate extension FairParsableCommand {
     }
 
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
-    var integrationTitleFlag: String? {
-        //flags["-integration-title"]?.first
-        options.integrationTitle
-    }
-
-    /// The flag specifying the permitted license titles that must
-    /// appear in the `NSHumanReadableCopyright` property, such as
-    /// `"GNU Affero General Public License"`
-    var licenseFlag: [String]? {
-        //flags["-license"]
-        options.license
-    }
-
-    /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
     var maxsizeFlag: Int? {
         //flags["-maxsize"]?.first.flatMap({ Int($0) })
         options.maxsize
-    }
-
-    /// The maximum number of Hub API requests that can be made for a session
-    var requestLimitFlag: Int? {
-        //flags["-requestLimit"]?.first.flatMap({ Int($0) })
-        options.requestLimit
-    }
-
-    /// The title of the generated catalog
-    var catalogTitleFlag: String? {
-        //flags["-catalog-title"]?.first
-        options.catalogTitle
     }
 
     /// The amount of time to continue re-trying downloading a resource
@@ -1273,43 +1229,13 @@ fileprivate extension FairParsableCommand {
         options.retryWait
     }
 
-    /// The flag for the `fairseal` command indicating the artifact that was created in a trusted environment
-    var trustedArtifactFlag: String? {
-        //flags["-trusted-artifact"]?.first
-        options.trustedArtifact
-    }
-
-    /// The flag for the `fairseal` command indicating the artifact that was created in an untrusted environment
-    var untrustedArtifactFlag: String? {
-        //flags["-untrusted-artifact"]?.first
-        options.untrustedArtifact
-    }
-
-    /// The flag for the `fairseal` command indicating the online resource for the artifact that will be generated
-    var artifactURLFlag: String? {
-        //flags["-artifact-url"]?.first
-        options.artifactURL
-    }
-
-    /// The flag for the `index` markdown to save a catalog index markdown
-    var indexFlag: String? {
-        //flags["-index"]?.first
-        options.index
-    }
-
-    /// The flag for the `cask-filder` indicating the output folder for the casks
-    var caskFolderFlag: String? {
-        //flags["-cask-folder"]?.first
-        options.caskFolder
-    }
-
     /// The hub service we should use for this tool
     func fairHub() throws -> FairHub {
         guard let hubFlag = options.hub else {
             throw FairTool.Errors.invalidHub(nil)
         }
 
-        return try FairHub(hostOrg: hubFlag, authToken: options.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
+        return try FairHub(hostOrg: hubFlag, authToken: options.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: options.fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
     }
 
     /// Loads the data for the output file at the given relative path
@@ -1410,14 +1336,14 @@ fileprivate extension FairParsableCommand {
 
     /// Returns `App-Name`
     func appOrgName() throws -> String {
-        guard let orgName = orgName else {
+        guard let orgName = options.org else {
             throw FairTool.Errors.badArgument("org")
         }
         return orgName
     }
 
     var isCatalogApp: Bool {
-        orgName == Bundle.catalogBrowserAppOrg
+        options.org == Bundle.catalogBrowserAppOrg
     }
 
     /// Returns `App Name`
@@ -1533,7 +1459,7 @@ fileprivate extension FairParsableCommand {
         }
 
         // build the catalog filtering on specific artifact extensions
-        let catalog = try await hub.buildCatalog(title: catalogTitleFlag ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.requestLimitFlag)
+        let catalog = try await hub.buildCatalog(title: options.catalogTitle ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.options.requestLimit)
 
         msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
         for apprel in catalog.apps {
@@ -1546,14 +1472,14 @@ fileprivate extension FairParsableCommand {
             msg(.info, "Wrote catalog to", outputFile, json.count.localizedByteCount())
         }
 
-        if let caskFolderFlag = caskFolderFlag {
+        if let caskFolderFlag = options.caskFolder {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
             for app in catalog.apps {
                 try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease")
             }
         }
 
-        if let indexFlag = indexFlag {
+        if let indexFlag = options.index {
             let md = try buildAppCatalogMarkdown(catalog: catalog)
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())

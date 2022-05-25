@@ -2444,6 +2444,10 @@ extension AsyncParsableCommand {
       exit(withError: error)
     }
   }
+
+  public static func mainAsync() async {
+      await main()
+  }
 }
 
 /// The configuration for a command.

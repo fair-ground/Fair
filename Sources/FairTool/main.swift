@@ -15,7 +15,9 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import FairApp
-
-@main final class FairToolMain : AsyncParsableCommand {
-    public static var configuration = FairTool.configuration
+Task {
+    await FairTool.main()
+    FairTool.exit()
 }
+
+dispatchMain()
