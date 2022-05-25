@@ -20,4 +20,4 @@ Task {
     FairTool.exit()
 }
 
-dispatchMain()
+RunLoop.main.run()

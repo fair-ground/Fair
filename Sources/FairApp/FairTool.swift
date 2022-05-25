@@ -867,7 +867,11 @@ public struct FairTool : AsyncParsableCommand {
         var messages: MessageBuffer? = nil
         @OptionGroup var options: Options
 
-        @MainActor mutating func run() async throws {
+        mutating func run() async throws {
+            try await runOnMain()
+        }
+
+        @MainActor mutating func runOnMain() async throws {
             msg(.info, "icon")
 
             assert(Thread.isMainThread, "SwiftUI can only be used from main thread")
