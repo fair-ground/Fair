@@ -14,7 +14,9 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import FairApp
+import struct FairApp.FairTool
+import class Foundation.RunLoop
+
 Task {
     await FairTool.main()
     FairTool.exit()
