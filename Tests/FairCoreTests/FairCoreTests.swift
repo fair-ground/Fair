@@ -247,6 +247,26 @@ final class FairCoreTests: XCTestCase {
 
 #endif //os(macOS)
 
+    func testParsePlist() throws {
+        let plist = try Plist(data: """
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict>
+            <key>arrayOfStrings</key>
+            <array>
+                <string>abc</string>
+                <string>def</string>
+            </array>
+            <key>stringKey</key>
+            <string>xyz</string>
+        </dict>
+        </plist>
+        """.utf8Data)
+        
+        XCTAssertEqual("xyz", plist.rawValue["stringKey"] as? String)
+        XCTAssertEqual(["abc", "def"], plist.rawValue["arrayOfStrings"] as? [String])
+    }
+
     func testParseXML() throws {
         let parsed = try XMLNode.parse(data: """
         <root>
