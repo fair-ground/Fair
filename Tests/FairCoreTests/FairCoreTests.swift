@@ -248,23 +248,36 @@ final class FairCoreTests: XCTestCase {
 #endif //os(macOS)
 
     func testParsePlist() throws {
-        let plist = try Plist(data: """
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-            <key>arrayOfStrings</key>
-            <array>
-                <string>abc</string>
-                <string>def</string>
-            </array>
-            <key>stringKey</key>
-            <string>xyz</string>
-        </dict>
-        </plist>
-        """.utf8Data)
-        
-        XCTAssertEqual("xyz", plist.rawValue["stringKey"] as? String)
-        XCTAssertEqual(["abc", "def"], plist.rawValue["arrayOfStrings"] as? [String])
+        for plist in [
+            try Plist(data: """
+                <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+                <plist version="1.0">
+                <dict>
+                    <key>arrayOfStrings</key>
+                    <array>
+                        <string>abc</string>
+                        <string>def</string>
+                    </array>
+                    <key>stringKey</key>
+                    <string>xyz</string>
+                    <key>intKey</key>
+                    <integer>2</integer>
+                </dict>
+                </plist>
+                """.utf8Data),
+
+            // result of converting the above XML with: plutil -convert binary1 -o pl.bplist pl.plist
+            try Plist(data: Data(base64Encoded: "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA") ?? .init()),
+
+            // result of converting the above XML with: plutil -convert json -o pl.jplist pl.plist
+            // seems to not work…
+            // try Plist(data: #"{"stringKey":"xyz","intKey":2,"arrayOfStrings":["abc","def"]}"#.utf8Data),
+
+        ] {
+            XCTAssertEqual("xyz", plist.rawValue["stringKey"] as? String)
+            XCTAssertEqual(["abc", "def"], plist.rawValue["arrayOfStrings"] as? [String])
+            XCTAssertEqual(2, plist.rawValue["intKey"] as? Int)
+        }
     }
 
     func testParseXML() throws {
