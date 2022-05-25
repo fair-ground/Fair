@@ -114,5 +114,26 @@ final class FairToolTests: XCTestCase {
             XCTAssertEqual(error.localizedDescription, #"The hub ("null") specified by the -h/--hub flag is invalid"#)
         }
     }
+
+    #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”
+    @available(macOS 11, iOS 14, *)
+    func XXXtestCLIHelp() async throws {
+        FairTool.main(["help"])
+    }
+    #endif
+
+    /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
+    static let authToken: String? = ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
+
+
+    #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”
+    @available(macOS 11, iOS 14, *)
+    func XXXtestCLICatalog() async throws {
+        //if Self.authToken == nil { throw XCTSkip("cannot run API tests without a token") }
+        FairTool.main(["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"])
+    }
+    #endif
+
+
 }
 #endif

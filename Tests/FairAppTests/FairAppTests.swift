@@ -20,24 +20,6 @@ import WebKit
 
 final class FairAppTests: XCTestCase {
 
-    /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
-    static let authToken: String? = ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
-
-    #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”
-    @available(macOS 11, iOS 14, *)
-    func testCLIHelp() async throws {
-        FairTool.main(["help"])
-    }
-    #endif
-
-    #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”
-    @available(macOS 11, iOS 14, *)
-    func testCLICatalog() async throws {
-        if Self.authToken == nil { throw XCTSkip("cannot run API tests without a token") }
-        FairTool.main(["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"])
-    }
-    #endif
-
     @available(macOS 11, iOS 14, *)
     func testFairBrowser() throws {
         //let url = URL(string: "https://www.appfair.net")!
