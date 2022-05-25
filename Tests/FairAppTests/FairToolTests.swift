@@ -15,26 +15,26 @@
 import Swift
 import XCTest
 #if canImport(SwiftUI)
-import FairApp
+@testable import FairApp
 
 final class FairToolTests: XCTestCase {
-    typealias ToolMessage = (kind: FairTool.MessageKind, items: [Any?])
+    typealias ToolMessage = (kind: MessageKind, items: [Any?])
 
-    func runTool(op: FairTool.Operation, _ args: String...) async throws -> [ToolMessage] {
-        var messages: [ToolMessage] = []
-        // first argument is tool name
-        let it = try FairTool(arguments: ["fairtool"] + [op.rawValue] + args, environment: [:])
-
-        func addMessage(_ kind: FairTool.MessageKind, items: Any?...) {
-            messages.append((kind, items))
+    func runTool(op: String?, _ args: String...) async throws -> [ToolMessage] {
+        let arguments = (op != nil ? [op!] : []) + args
+        let command = try FairTool.parseAsRoot(arguments)
+        guard var asyncCommand = command as? FairParsableCommand else {
+            throw AppError("Bad command type: \(command)")
         }
 
-        try await it.runCLI(msg: addMessage)
-
-        return messages
+        // capture the output of the tool run
+        let buffer = MessageBuffer()
+        asyncCommand.messages = buffer
+        try await asyncCommand.run()
+        return buffer.messages
     }
 
-    func extract(kind: FairTool.MessageKind = .info, _ messages: [ToolMessage]) -> [String] {
+    func extract(kind: MessageKind = .info, _ messages: [ToolMessage]) -> [String] {
         messages
             .filter({ $0.kind == kind })
             .map({
@@ -56,9 +56,63 @@ final class FairToolTests: XCTestCase {
         XCTAssertEqual(4, pm.platforms.count)
     }
 
-    func testToolWelcome() async throws {
-        let result = try await runTool(op: .welcome)
+    func testWelcomeCommand() async throws {
+        let result = try await runTool(op: FairTool.WelcomeCommand.configuration.commandName)
         XCTAssertEqual(extract(result).first, "Welcome to Fair Ground!")
+    }
+
+    func testValidateCommand() async throws {
+        do {
+            let result = try await runTool(op: FairTool.ValidateCommand.configuration.commandName)
+            XCTAssertFalse(result.isEmpty)
+        } catch {
+            XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
+        }
+    }
+
+    func testIconCommand() async throws {
+        do {
+            let result = try await runTool(op: FairTool.IconCommand.configuration.commandName)
+            XCTAssertFalse(result.isEmpty)
+        } catch {
+            XCTAssertEqual(error.localizedDescription, #"The operation requires the --app-icon flag"#)
+        }
+    }
+
+    func testMergeCommand() async throws {
+        do {
+            let result = try await runTool(op: FairTool.MergeCommand.configuration.commandName)
+            XCTAssertFalse(result.isEmpty)
+        } catch {
+            XCTAssertTrue(error.localizedDescription.hasPrefix("The output path specified"))
+        }
+    }
+
+    func testFairsealCommand() async throws {
+        do {
+            let result = try await runTool(op: FairTool.FairsealCommand.configuration.commandName)
+            XCTAssertFalse(result.isEmpty)
+        } catch {
+            XCTAssertEqual(error.localizedDescription, #"The operation requires the --trusted-artifact flag"#)
+        }
+    }
+
+    func testCatalogCommand() async throws {
+        do {
+            let result = try await runTool(op: FairTool.CatalogCommand.configuration.commandName)
+            XCTAssertFalse(result.isEmpty)
+        } catch {
+            XCTAssertEqual(error.localizedDescription, #"The hub ("null") specified by the -h/--hub flag is invalid"#)
+        }
+    }
+
+    func testAppcasksCommand() async throws {
+        do {
+            let result = try await runTool(op: FairTool.AppcasksCommand.configuration.commandName)
+            XCTAssertFalse(result.isEmpty)
+        } catch {
+            XCTAssertEqual(error.localizedDescription, #"The hub ("null") specified by the -h/--hub flag is invalid"#)
+        }
     }
 }
 #endif

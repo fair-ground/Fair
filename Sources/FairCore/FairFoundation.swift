@@ -452,6 +452,160 @@ public extension Error {
     }
 }
 
+
+/// Wrapper around `NSCache` that allows keys/values to be value types and has an atomic `fetch` option.
+public final class Cache<Key : Hashable, Value> {
+    @usableFromInline typealias CacheType = NSCache<KeyRef, ValRef>
+
+    /// We work with an internal cache because “Extension of a generic Objective-C class cannot access the class's generic parameters at runtime”
+    @usableFromInline let cache = CacheType()
+
+    // private let logger = LoggingDelegate()
+    @usableFromInline let lock = NSRecursiveLock()
+
+    public init(name: String = "\(#file):\(#line)", countLimit: Int? = 0) {
+        self.cache.name = name
+        // self.cache.delegate = logger
+        if let countLimit = countLimit {
+            self.cache.countLimit = countLimit
+        }
+    }
+
+    /// Performs an operation on the reference, optionally locking it first
+    @usableFromInline func withLock<T>(exclusive: Bool = true, action: () throws -> T) rethrows -> T {
+        if exclusive { lock.lock() }
+        defer { if exclusive { lock.unlock() } }
+        return try action()
+    }
+
+    private class LoggingDelegate : NSObject, NSCacheDelegate {
+        func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
+//            if let obj = obj as? ValRef {
+//                print("evicting", obj.val, "from", Cache<Key, Value>.self)
+//            } else {
+//                print("evicting", obj, "from", Cache<Key, Value>.self)
+//            }
+        }
+    }
+
+    public subscript(key: Key) -> Value? {
+        get {
+            cache.object(forKey: KeyRef(key))?.val
+        }
+
+        set {
+            if let newValue = newValue {
+                cache.setObject(ValRef(.init(newValue)), forKey: KeyRef(key))
+            } else {
+                cache.removeObject(forKey: KeyRef(key))
+            }
+        }
+    }
+
+    /// Gets the instance from the cache, or `create`s it if is not present
+    @inlinable public func fetch(key: Key, exclusive: Bool = false, create: (Key) throws -> (Value)) rethrows -> Value {
+        // cache is thread safe, so we don't need to sync; but one possible advantage of syncing is that two threads won't try to generate the value for the same key at the same time, but in an environment where we are pre-populating the cache from multiple threads, it is probably better to accept the multiple work items rather than cause the process to be serialized
+        let keyRef = KeyRef(key) // NSCache requires that the key be an NSObject subclass
+        // quick lockless check for the object; we will check again inside any exclusive block
+        if let object = cache.object(forKey: keyRef)?.val {
+            return object
+        }
+
+        var lockOrValue = ValRef(nil) // empty value: create a new empty ValRef (i.e., the lock)
+
+        do {
+            if let lockValue = cache.object(forKey: keyRef) {
+                if let value: Value = lockValue.withLock(exclusive: exclusive, action: {
+                    if let value = lockValue.val {
+                        return value
+                    } else {
+                        lockOrValue = lockValue // empty value means use the ref as a lock
+                        return Value?.none
+                    }
+                }) {
+                    return value
+                }
+            } else {
+                cache.setObject(lockOrValue, forKey: keyRef)
+            }
+        }
+
+        do {
+            let value = try lockOrValue.withLock(exclusive: exclusive) {
+                try create(key)
+            }
+
+            if exclusive {
+                // when exclusive, we update the existing value's pointer…
+                lockOrValue.val = value
+            } else {
+                // …otherwise we overwrite with a new (unsynchronized) value
+                cache.setObject(ValRef(value), forKey: keyRef)
+            }
+
+            return value
+        }
+    }
+
+    /// Empties the cache.
+    public func clear() {
+        cache.removeAllObjects()
+    }
+
+    /// The maximum total cost that the cache can hold before it starts evicting objects.
+    /// If 0, there is no total cost limit. The default value is 0.
+    /// When you add an object to the cache, you may pass in a specified cost for the object, such as the size in bytes of the object. If adding this object to the cache causes the cache’s total cost to rise above totalCostLimit, the cache may automatically evict objects until its total cost falls below totalCostLimit. The order in which the cache evicts objects is not guaranteed.
+    /// - Note: This is not a strict limit, and if the cache goes over the limit, an object in the cache could be evicted instantly, at a later point in time, or possibly never, all depending on the implementation details of the cache.
+    public var totalCostLimit: Int {
+        get { cache.totalCostLimit }
+        set { cache.totalCostLimit = newValue }
+    }
+
+    /// The maximum number of objects the cache should hold.
+    /// If 0, there is no count limit. The default value is 0.
+    /// - Note: This is not a strict limit—if the cache goes over the limit, an object in the cache could be evicted instantly, later, or possibly never, depending on the implementation details of the cache.
+    public var countLimit: Int {
+        get { cache.countLimit }
+        set { cache.countLimit = newValue }
+    }
+
+    /// A reference wrapper around another type that enables locking operations.
+    @usableFromInline final class ValRef {
+        @usableFromInline var val: Value?
+        @usableFromInline let lock = NSRecursiveLock()
+
+        @inlinable init(_ val: Value?) { self.val = val }
+
+        /// Performs an operation on the reference, optionally locking it first
+        @usableFromInline func withLock<T>(exclusive: Bool = true, action: () throws -> T) rethrows -> T {
+            if exclusive { lock.lock() }
+            defer { if exclusive { lock.unlock() } }
+            return try action()
+        }
+    }
+
+    /// A reference that can be used as a cache key for `NSCache` that wraps a value type. Unlike `ValRef`, the key must be an `NSObject`
+    @usableFromInline final class KeyRef: NSObject {
+        @usableFromInline let val: Key
+
+        @usableFromInline init(_ val: Key) {
+            self.val = val
+        }
+
+        @inlinable override func isEqual(_ object: Any?) -> Bool {
+            return (object as? Self)?.val == self.val
+        }
+
+        @inlinable static func ==(lhs: KeyRef, rhs: KeyRef) -> Bool {
+            return lhs.val == rhs.val
+        }
+
+        @inlinable override var hash: Int {
+            return self.val.hashValue
+        }
+    }
+}
+
 /// A property list, which is simply a wrapper around an `NSDictionary` with some conveniences.
 public final class Plist : RawRepresentable, Hashable {
     public let rawValue: NSDictionary

@@ -231,7 +231,7 @@ extension FairContainer {
 
         let args = Array(CommandLine.arguments.dropFirst())
         if args.first == "fairtool" && isCLI {
-            try await FairTool(arguments: args).runCLI()
+            FairTool.main(args)
         } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
                 validateEntitlements()

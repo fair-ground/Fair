@@ -2879,15 +2879,6 @@ extension ParsableArguments {
     MessageInfo(error: error, type: self).exitCode
   }
 
-  /// Returns a shell completion script for the specified shell.
-  ///
-  /// - Parameter shell: The shell to generate a completion script for.
-  /// - Returns: The completion script for `shell`.
-  public static func completionScript(for shell: CompletionShell) -> String {
-    let completionsGenerator = try! CompletionsGenerator(command: self.asCommand, shell: shell)
-    return completionsGenerator.generateCompletionScript()
-  }
-
   /// Terminates execution with a message and exit code that is appropriate
   /// for the given error.
   ///
@@ -4682,12 +4673,6 @@ extension CommandParser {
   /// - Parameter arguments: The array of arguments to parse. This should not
   ///   include the command name as the first argument.
   mutating func parse(arguments: [String]) -> Result<ParsableCommand, CommandError> {
-    do {
-      try handleCustomCompletion(arguments)
-    } catch {
-      return .failure(CommandError(commandStack: [commandTree.element], parserError: error as! ParserError))
-    }
-
     var split: SplitArguments
     do {
       split = try SplitArguments(arguments: arguments)
@@ -4698,7 +4683,6 @@ extension CommandParser {
     }
 
     do {
-      try checkForCompletionScriptRequest(&split)
       try descendingParse(&split)
       let result = try extractLastParsedValue(split)
 
@@ -4732,91 +4716,6 @@ struct GenerateCompletions: ParsableCommand {
 
 struct AutodetectedGenerateCompletions: ParsableCommand {
   @Flag() var generateCompletionScript = false
-}
-
-extension CommandParser {
-  func checkForCompletionScriptRequest(_ split: inout SplitArguments) throws {
-    // Pseudo-commands don't support `--generate-completion-script` flag
-    guard rootCommand.configuration._superCommandName == nil else {
-      return
-    }
-
-    // We don't have the ability to check for `--name [value]`-style args yet,
-    // so we need to try parsing two different commands.
-
-    // First look for `--generate-completion-script <shell>`
-    var completionsParser = CommandParser(GenerateCompletions.self)
-    if let result = try? completionsParser.parseCurrent(&split) as? GenerateCompletions {
-      throw CommandError(commandStack: commandStack, parserError: .completionScriptRequested(shell: result.generateCompletionScript))
-    }
-
-    // Check for for `--generate-completion-script` without a value
-    var autodetectedParser = CommandParser(AutodetectedGenerateCompletions.self)
-    if let result = try? autodetectedParser.parseCurrent(&split) as? AutodetectedGenerateCompletions,
-       result.generateCompletionScript
-    {
-      throw CommandError(commandStack: commandStack, parserError: .completionScriptRequested(shell: nil))
-    }
-  }
-
-  func handleCustomCompletion(_ arguments: [String]) throws {
-    // Completion functions use a custom format:
-    //
-    // <command> ---completion [<subcommand> ...] -- <argument-name> [<completion-text>]
-    //
-    // The triple-dash prefix makes '---completion' invalid syntax for regular
-    // arguments, so it's safe to use for this internal purpose.
-    guard arguments.first == "---completion"
-      else { return }
-
-    var args = arguments.dropFirst()
-    var current = commandTree
-    while let subcommandName = args.popFirst() {
-      // A double dash separates the subcommands from the argument information
-      if subcommandName == "--" { break }
-
-      guard let nextCommandNode = current.firstChild(withName: subcommandName)
-        else { throw ParserError.invalidState }
-      current = nextCommandNode
-    }
-
-    // Some kind of argument name is the next required element
-    guard let argToMatch = args.popFirst() else {
-      throw ParserError.invalidState
-    }
-    // Completion text is optional here
-    let completionValues = Array(args)
-
-    // Generate the argument set and parse the argument to find in the set
-    let argset = ArgumentSet(current.element, visibility: .private)
-    let parsedArgument = try! parseIndividualArg(argToMatch, at: 0).first!
-
-    // Look up the specified argument and retrieve its custom completion function
-    let completionFunction: ([String]) -> [String]
-
-    switch parsedArgument.value {
-    case .option(let parsed):
-      guard let matchedArgument = argset.first(matching: parsed),
-        case .custom(let f) = matchedArgument.completion.kind
-        else { throw ParserError.invalidState }
-      completionFunction = f
-
-    case .value(let str):
-      guard let matchedArgument = argset.firstPositional(named: str),
-        case .custom(let f) = matchedArgument.completion.kind
-        else { throw ParserError.invalidState }
-      completionFunction = f
-
-    case .terminator:
-      throw ParserError.invalidState
-    }
-
-    // Parsing and retrieval successful! We don't want to continue with any
-    // other parsing here, so after printing the result of the completion
-    // function, exit with a success code.
-    let output = completionFunction(completionValues).joined(separator: "\n")
-    throw ParserError.completionScriptCustomResponse(output)
-  }
 }
 
 // MARK: Building Command Stacks
@@ -5256,8 +5155,6 @@ enum ParserError: Error {
   case versionRequested
   case dumpHelpRequested
 
-  case completionScriptRequested(shell: String?)
-  case completionScriptCustomResponse(String)
   case unsupportedShell(String? = nil)
 
   case notImplemented
@@ -6557,20 +6454,6 @@ enum MessageInfo {
         self = .help(text: versionString)
         return
 
-      case .completionScriptRequested(let shell):
-        do {
-          let completionsGenerator = try CompletionsGenerator(command: type.asCommand, shellName: shell)
-          self = .help(text: completionsGenerator.generateCompletionScript())
-          return
-        } catch {
-          self.init(error: error, type: type)
-          return
-        }
-
-      case .completionScriptCustomResponse(let output):
-        self = .help(text: output)
-        return
-
       default:
         break
       }
@@ -6834,7 +6717,7 @@ struct ErrorMessageGenerator {
 extension ErrorMessageGenerator {
   func makeErrorMessage() -> String? {
     switch error {
-    case .helpRequested, .versionRequested, .completionScriptRequested, .completionScriptCustomResponse, .dumpHelpRequested:
+    case .helpRequested, .versionRequested, .dumpHelpRequested:
       return nil
 
     case .unsupportedShell(let shell?):
@@ -6929,16 +6812,12 @@ extension ErrorMessageGenerator {
   var unsupportedAutodetectedShell: String {
     """
     Can't autodetect a supported shell.
-    Please use --generate-completion-script=<shell> with one of:
-        \(CompletionShell.allCases.map { $0.rawValue }.joined(separator: " "))
     """
   }
 
   func unsupportedShell(_ shell: String) -> String {
     """
     Can't generate completion scripts for '\(shell)'.
-    Please use --generate-completion-script=<shell> with one of:
-        \(CompletionShell.allCases.map { $0.rawValue }.joined(separator: " "))
     """
   }
 
@@ -7425,98 +7304,6 @@ extension Tree where Element == ParsableCommand.Type {
   }
 }
 
-
-/// A shell for which the parser can generate a completion script.
-public struct CompletionShell: RawRepresentable, Hashable, CaseIterable {
-  public var rawValue: String
-
-  /// Creates a new instance from the given string.
-  public init?(rawValue: String) {
-    switch rawValue {
-    case "zsh", "bash", "fish":
-      self.rawValue = rawValue
-    default:
-      return nil
-    }
-  }
-
-  /// An instance representing `zsh`.
-  public static var zsh: CompletionShell { CompletionShell(rawValue: "zsh")! }
-
-  /// An instance representing `bash`.
-  public static var bash: CompletionShell { CompletionShell(rawValue: "bash")! }
-
-  /// An instance representing `fish`.
-  public static var fish: CompletionShell { CompletionShell(rawValue: "fish")! }
-
-  /// Returns an instance representing the current shell, if recognized.
-  public static func autodetected() -> CompletionShell? {
-#if os(Windows)
-    return nil
-#else
-    // FIXME: This retrieves the user's preferred shell, not necessarily the one currently in use.
-    guard let shellVar = getenv("SHELL") else { return nil }
-    let shellParts = String(cString: shellVar).split(separator: "/")
-    return CompletionShell(rawValue: String(shellParts.last ?? ""))
-#endif
-  }
-
-  /// An array of all supported shells for completion scripts.
-  public static var allCases: [CompletionShell] {
-    [.zsh, .bash, .fish]
-  }
-}
-
-struct CompletionsGenerator {
-  var shell: CompletionShell
-  var command: ParsableCommand.Type
-
-  init(command: ParsableCommand.Type, shell: CompletionShell?) throws {
-    guard let _shell = shell ?? .autodetected() else {
-      throw ParserError.unsupportedShell()
-    }
-
-    self.shell = _shell
-    self.command = command
-  }
-
-  init(command: ParsableCommand.Type, shellName: String?) throws {
-    if let shellName = shellName {
-      guard let shell = CompletionShell(rawValue: shellName) else {
-        throw ParserError.unsupportedShell(shellName)
-      }
-      try self.init(command: command, shell: shell)
-    } else {
-      try self.init(command: command, shell: nil)
-    }
-  }
-
-  /// Generates a Bash completion script for this generators shell and command..
-  func generateCompletionScript() -> String {
-    switch shell {
-//    case .zsh:
-//      return ZshCompletionsGenerator.generateCompletionScript(command)
-//    case .bash:
-//      return BashCompletionsGenerator.generateCompletionScript(command)
-//    case .fish:
-//      return FishCompletionsGenerator.generateCompletionScript(command)
-    default:
-      fatalError("Invalid CompletionShell: \(shell)")
-    }
-  }
-}
-
-extension ArgumentDefinition {
-  /// Returns a string with the arguments for the callback to generate custom completions for
-  /// this argument.
-  func customCompletionCall(_ commands: [ParsableCommand.Type]) -> String {
-    let subcommandNames = commands.dropFirst().map { $0._commandName }.joined(separator: " ")
-    let argumentName = names.preferredName?.synopsisString
-          ?? self.help.keys.first?.rawValue ?? "---"
-    return "---completion \(subcommandNames) -- \(argumentName)"
-  }
-}
-
 extension ParsableCommand {
   fileprivate static var compositeCommandName: [String] {
     if let superCommandName = configuration._superCommandName {
@@ -7524,14 +7311,6 @@ extension ParsableCommand {
     } else {
       return _commandName.split(separator: " ").map(String.init)
     }
-  }
-}
-
-extension Sequence where Element == ParsableCommand.Type {
-  func completionFunctionName() -> String {
-    "_" + self.flatMap { $0.compositeCommandName }
-      .uniquingAdjacentElements()
-      .joined(separator: "_")
   }
 }
 

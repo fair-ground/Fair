@@ -33,62 +33,973 @@ import AppKit
 import UIKit
 #endif
 
+protocol FairParsableCommand : AsyncParsableCommand {
+    var options: FairTool.Options { get }
 
-public class FairTool {
-    /// The name of the App & the repository; defaults to "App"
-    public let appName = AppNameValidation.defaultAppName
+    //typealias MessageHandler = ((MessageKind, Any?...) -> ())
+    var messages: MessageBuffer? { get set }
+}
 
-    public var environment: [String: String]
-    public var flags: [String: [String]]
-    public var op: Operation
-    public var trailingArguments: [String]
+final class MessageBuffer {
+    /// The list of messages
+    var messages: [(MessageKind, [Any?])] = []
 
-    let fm = FileManager.default
+    init() {
+    }
+}
 
-    public static let appSuffix = ".app"
+// Buffer contents are not really decidable, but the protocol is requires for `ParsableCommand` conformance
+extension MessageBuffer : Decodable {
+    convenience init(from decoder: Decoder) throws {
+        self.init()
+    }
+}
 
-    public init(arguments args: [String] = CommandLine.arguments, environment: [String: String] = ProcessInfo.processInfo.environment) throws {
-        self.environment = environment
-        self.flags = [:]
+/// The type of message output
+enum MessageKind {
+    case debug, info, warn, error
 
-        let firstArg = args.dropFirst().first
-
-        if firstArg == nil || firstArg == "-h" || firstArg == "--help" {
-            self.op = .help
-        } else {
-            guard let op = firstArg.flatMap(Operation.init(rawValue:)) else {
-                if firstArg?.hasPrefix("-") == true {
-                    throw Errors.badOperation(nil)
-                } else {
-                    throw Errors.badOperation(firstArg)
-                }
-            }
-            self.op = op
+    var name: String {
+        switch self {
+        case .debug: return "DEBUG"
+        case .info: return "INFO"
+        case .warn: return "WARN"
+        case .error: return "ERROR"
         }
+    }
+}
 
-        if args.count > 2 {
-            for a in 1...(args.count/2) {
-                let i = a * 2
-                if i < args.count && args[i].hasPrefix("-") {
-                    if i < args.count - 1 {
-                        let flag = String(args[i].dropFirst())
-                        self.flags[flag, default: []] += [args[i+1]]
-                    } else {
-                        // last parameter was a flag with no value
-                        throw Errors.badArgument(args[i])
-                    }
-                } else {
-                    self.trailingArguments = Array(args[i...])
-                    return
-                }
-            }
-        }
-        self.trailingArguments = []
+public struct FairTool : AsyncParsableCommand {
+    public static var configuration = CommandConfiguration(commandName: "fairtool",
+        abstract: "Manage a fair-ground ecosystem of apps.",
+        subcommands: [
+            WelcomeCommand.self,
+            ValidateCommand.self,
+            MergeCommand.self,
+            CatalogCommand.self,
+            AppcasksCommand.self,
+            ]
+            + Self.fairsealCommand
+            + Self.iconCommand
+        )
+
+    public init() {
     }
 
-    /// Fail the command and exit the tool
-    func fail<E: Error>(_ error: E) -> E {
-        return error
+    static var fairsealCommand: [AsyncParsableCommand.Type] {
+        #if canImport(Compression)
+        [FairsealCommand.self]
+        #else
+        []
+        #endif
+    }
+
+    static var iconCommand: [AsyncParsableCommand.Type] {
+        #if canImport(SwiftUI)
+        [IconCommand.self]
+        #else
+        []
+        #endif
+    }
+
+    struct Options: ParsableArguments {
+        @Option(name: [.long, .customShort("v")], help: "whether to display verbose messages.")
+        var verbose: Bool?
+
+//        @Option(name: [.long, .customShort("f")], help: "whether to force the current operation.")
+//        var force: Bool?
+
+        @Option(name: [.long, .customShort("h")], help: "the hub to use.")
+        var hub: String?
+
+        @Option(name: [.long, .customShort("g")], help: "the repository to use.")
+        var org: String?
+
+        @Option(name: [.long, .customShort("k")], help: "the token used for the hub's authentication.")
+        var token: String?
+
+        @Option(name: [.long, .customShort("a")], help: "the hub to use.")
+        var appPath: String?
+
+        @Option(name: [.long, .customShort("p")], help: "the project to use.")
+        var project: String?
+
+        @Option(name: [.long, .customShort("b")], help: "the base path.")
+        var base: String?
+
+        @Option(name: [.long, .customShort("o")], help: "the output path.")
+        var output: String?
+
+        @Option(name: [.long], help: "the path to the xcconfig containing metadata.")
+        var fairProperties: String?
+
+        @Option(name: [.long], help: "the accent color file.")
+        var accentColor: String?
+
+        @Option(name: [.long], help: "the artifact staging folder.")
+        var artifactStaging: [String] = []
+
+        @Option(name: [.long], help: "the artifact extrnsions.")
+        var artifactExtension: [String] = []
+
+        @Option(name: [.long], help: "XXX.")
+        var fairsealMatch: [String] = []
+
+        @Option(name: [.long], help: "commit ref to validate.")
+        var ref: String?
+
+        @Option(name: [.long], help: "multiplier for how much metadata ranking boost.")
+        var boostFactor: Int64?
+
+        @Option(name: [.long], help: "name of the login that issues the fairseal.")
+        var fairsealIssuer: String?
+
+        @Option(name: [.long], help: "symbol names to emboss over the icon.")
+        var iconSymbol: [String] = []
+
+        @Option(name: [.long], help: "path to appiconset/Contents.json.")
+        var appIcon: String?
+
+        @Option(name: [.long], help: "allow patterns for integrate PR names.")
+        var allowName: [String] = []
+
+        @Option(name: [.long], help: "disallow patterns for integrate PR names.")
+        var denyName: [String] = []
+
+        @Option(name: [.long], help: "allow patterns for integrate PR users")
+        var allowFrom: [String] = []
+
+        @Option(name: [.long], help: "disallow patterns for integrate PR users")
+        var denyFrom: [String] = []
+
+        @Option(name: [.long], help: "permitted license IDs.")
+        var allowLicense: [String] = []
+
+        @Option(name: [.long], help: "the IR title")
+        var integrationTitle: String?
+
+        @Option(name: [.long], help: "permitted license titles")
+        var license: [String] = []
+
+        @Option(name: [.long], help: "maximum size.")
+        var maxsize: Int?
+
+        @Option(name: [.long], help: "maximum number of Hub API requests per session.")
+        var requestLimit: Int?
+
+        @Option(name: [.long], help: "title of the generated catalog.")
+        var catalogTitle: String?
+
+        @Option(name: [.long], help: "amount of time to continue re-trying downloading a resource.")
+        var retryDuration: TimeInterval?
+
+        @Option(name: [.long], help: "backoff time for waiting to retry.")
+        var retryWait: TimeInterval = 30
+
+        @Option(name: [.long], help: "the artifact created in a trusted environment.")
+        var trustedArtifact: String?
+
+        @Option(name: [.long], help: "the artifact created in an untrusted environment.")
+        var untrustedArtifact: String?
+
+        @Option(name: [.long], help: "resource for the artifact that will be generated.")
+        var artifactURL: String?
+
+        @Option(name: [.long], help: "index markdown to save a catalog index markdown.")
+        var index: String?
+
+        @Option(name: [.long], help: "the output folder for the app casks.")
+        var caskFolder: String?
+
+    }
+
+    struct WelcomeCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "welcome", abstract: "Show the welcome message.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        mutating func run() async throws {
+            msg(.info, "Welcome to Fair Ground!")
+        }
+    }
+
+    struct ValidateCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        mutating func run() async throws {
+            msg(.info, "Validating project:", projectPathURL(path: "").path)
+            //msg(.debug, "flags:", flags)
+
+            guard let orgName = orgName else {
+                throw FairTool.Errors.badArgument("org")
+            }
+
+            // check whether we are validating as the upstream origin or
+            let isFork = try options.hub == nil || orgName != fairHub().org
+            //dbg("isFork", isFork, "hubFlag", hubFlag, "orgName", orgName, "fairHub().org", try! fairHub().org)
+
+            /// Verifies that the given plist contains the specified value
+            func check(_ plist: Plist, key: String, in expected: [String], empty: Bool = false, url: URL) throws {
+                if plist.rawValue[key] == nil && empty == true {
+                    return // permit empty values
+                }
+
+                guard let actual = plist.rawValue[key] as? NSObject else {
+                    throw FairTool.Errors.invalidPlistValue(key, expected, nil, url)
+                }
+
+                if !expected.isEmpty && !expected.map({ $0 as NSObject }).contains(actual) {
+                    throw FairTool.Errors.invalidPlistValue(key, expected, actual, url)
+                }
+            }
+
+            /// Checks that the contents at the given path match the
+            /// contents of the local resources at the same path
+            /// - Parameters:
+            ///   - path: the relative path of the resource
+            ///   - partial: whether to validate partially based on the guard line
+            ///   - warn: whether to warn rather than raise an error
+            ///   - guardLine: the string to use to split the valiation string into prefix/suffix parts
+            /// - Throws: a validation error
+            @discardableResult func compareContents(of path: String, partial: Bool, warn: Bool = false, guardLine: String? = nil) throws -> Bool {
+                msg(.debug, "  comparing \(partial ? "partial" : "exact") match:", path)
+                let projectURL = projectPathURL(path: path)
+                let projectSource = try String(contentsOf: projectURL, encoding: .utf8)
+
+                // when this is not a fork (i.e., it is the root fairground), we always validate
+                do {
+                    try compareScaffold(project: projectSource, path: path, afterLine: !isFork ? nil : partial ? guardLine : nil)
+                } catch {
+                    if warn {
+                        msg(.warn, "  failed \(partial ? "partial" : "exact") match:", path)
+                        return false // we failed validation
+                    } else {
+                        throw error
+                    }
+                }
+                return true
+            }
+
+            /// Validates that the given project source matches the given scaffold source
+            func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
+                msg(.debug, "checking:", path, "against base path:", options.base)
+                guard let scaffoldURL = basePathURL(path: path) else {
+                    throw CocoaError(.fileReadNoSuchFile)
+                }
+
+                let scaffoldSource = try String(contentsOf: scaffoldURL, encoding: .utf8)
+
+                if scaffoldSource != projectSource {
+                    // check for partial matches, which means that we only compare the header parts of the files
+                    if let guardLine = guardLine {
+                        let scaffoldParts = scaffoldSource.components(separatedBy: guardLine)
+                        let projectParts = projectSource.components(separatedBy: guardLine)
+                        if scaffoldParts.count < 2
+                            || projectParts.count < 2
+                            || scaffoldParts.last != projectParts.last {
+                            throw FairTool.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
+                        }
+                    } else {
+                        throw FairTool.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
+                    }
+                }
+            }
+
+            // the generic term for the base folder is "App-Name"
+            let appOrgName = !isFork ? "App-Name" : orgName
+
+            // 1. Check Info.plist
+            let infoProperties: Plist
+            do {
+                let path = "Info.plist"
+                msg(.debug, "comparing metadata:", path)
+                let infoPlistURL = projectPathURL(path: path)
+                let plist_dict = try Plist(url: infoPlistURL)
+
+                infoProperties = plist_dict
+
+                func checkStr(key: InfoPlistKey, in strings: [String]) throws {
+                    try check(plist_dict, key: key.plistKey, in: strings, url: infoPlistURL)
+                }
+
+                // check that the Info.plist contains the correct values for certain keys
+
+                // ensure the Info.plist uses the correct constants
+                try checkStr(key: InfoPlistKey.CFBundleName, in: ["$(PRODUCT_NAME)"])
+                try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: ["$(PRODUCT_BUNDLE_IDENTIFIER)"])
+                try checkStr(key: InfoPlistKey.CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
+                try checkStr(key: InfoPlistKey.CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
+                try checkStr(key: InfoPlistKey.CFBundleVersion, in: ["$(CURRENT_PROJECT_VERSION)"])
+                try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
+                try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
+
+                if let licenseFlag = self.licenseFlag, !licenseFlag.isEmpty {
+                    try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
+                }
+            }
+
+            // 2. Check AppFairApp.xcconfig
+            do {
+                let appOrgNameSpace = appOrgName.dehyphenated()
+                //let appID = "app." + appOrgName
+
+                guard let appName = try buildSettings()?["PRODUCT_NAME"] else {
+                    throw AppError("Missing PRODUCT_NAME in AppFairApp.xcconfig")
+                }
+
+                if appName != appOrgNameSpace {
+                    throw AppError("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“\(appName)”) to match the organization name (“\(appOrgNameSpace)”)")
+                }
+
+                guard let appVersion = try buildSettings()?["MARKETING_VERSION"] else {
+                    throw AppError("Missing MARKETING_VERSION in AppFairApp.xcconfig")
+                }
+
+                let expectedIntegrationTitle = appName + " " + appVersion
+
+                if let integrationTitle = self.integrationTitleFlag,
+                   integrationTitle != expectedIntegrationTitle {
+                    throw FairTool.Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
+                }
+
+                //let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
+                //msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
+            }
+
+            // 3. Check Sandbox.entitlements
+            do {
+                let path = "Sandbox.entitlements"
+                msg(.debug, "comparing entitlements:", path)
+                let entitlementsURL = projectPathURL(path: path)
+                try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
+            }
+
+            // 4. Check LICENSE.txt
+            try compareContents(of: "LICENSE.txt", partial: false)
+
+            // 5. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
+            try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
+
+            // 6. Check Sources/
+            try compareContents(of: "Sources/App/AppMain.swift", partial: false)
+            try compareContents(of: "Sources/App/Bundle/LICENSE.txt", partial: false)
+
+            // 7. Check Package.resolved if it exists and we've specified the hub to validate
+            if let packageResolvedData = try? load(url: projectPathURL(path: "Package.resolved")), let hubFlag = options.hub {
+                msg(.debug, "validating Package.resolved")
+                let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: packageResolvedData)
+                if let httpHost = URL(string: "https://\(hubFlag)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
+                    // all dependencies must reside at the same fairground
+                    // TODO: add include-hub/exclude-hub flags to permit cross-fairground dependency networks
+                    // e.g., permit GitLab apps depending on projects in GitHub repos
+                    let host = hubURL.deletingLastPathComponent().deletingLastPathComponent()
+                    //dbg("verifying hub host:", host)
+                    for pin in packageResolved.object.pins {
+                        if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
+                            throw FairTool.Errors.badRepository(host.absoluteString, pin.repositoryURL)
+                        }
+                    }
+                }
+            }
+
+            // also verify the hub if we have specified it in the arguments
+            if options.hub != nil {
+                try await verify(org: orgName, repo: appName, hub: fairHub())
+            }
+
+            msg(.info, "Successfully validated project:", projectPathURL(path: "").path)
+
+
+            // validate the reference
+            if let refFlag = options.ref {
+                try await validateCommit(ref: refFlag, hub: fairHub())
+            }
+        }
+
+        func verify(org: String, repo repoName: String, hub: FairHub) async throws {
+            // when the app we are validating is the actual hub's root organization, use special validation rules (such as not requiring issues)
+            msg(.info, "Validating App-Name:", org)
+
+            let response = try await hub.request(FairHub.RepositoryQuery(owner: org, name: repoName)).get().data
+            let organization = response.organization
+            let repo = organization.repository
+
+            msg(.debug, "  name:", organization.name)
+            msg(.debug, "  isInOrganization:", repo.isInOrganization)
+            msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
+            msg(.debug, "  discussion categories:", repo.discussionCategories.totalCount)
+
+            let invalid = hub.validate(org: organization)
+            if !invalid.isEmpty {
+                throw FairHub.Errors.repoInvalid(invalid, org, repoName)
+            }
+        }
+
+    }
+
+    struct MergeCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        mutating func run() async throws {
+            msg(.info, "merge")
+
+            if outputDirectoryFlag == projectPathFlag {
+                throw FairTool.Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
+            }
+
+            let outputURL = URL(fileURLWithPath: outputDirectoryFlag)
+            let projectURL = URL(fileURLWithPath: projectPathFlag)
+            if outputURL.absoluteString == projectURL.absoluteString {
+                throw FairTool.Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
+            }
+
+            // try await validate() // always validate first
+            var vc = ValidateCommand()
+            vc.options = self.options
+            try await vc.run()
+
+            /// Attempt to copy the path from the projectPath to the outputPath,
+            /// thereby selectively merging parts of the PR with a customizable transform
+            @discardableResult func pull(_ path: String, transform: ((Data) throws -> Data)? = nil) throws -> URL {
+                msg(.info, "copying", path, "from", projectURL.path, "to", outputURL.path)
+                let outputSrc = outputURL.appendingPathComponent(path)
+                msg(.debug, "outputSrc", outputSrc)
+                if fm.isDirectory(url: outputSrc) != nil {
+                    try fm.trash(url: outputSrc) // clobber the existing path if it exists
+                }
+
+                let projectSrc = projectURL.appendingPathComponent(path)
+                if let transform = transform { // only peform the transform if the closure is specified…
+                    let sourceData = try Data(contentsOf: projectSrc)
+                    try transform(sourceData).write(to: outputSrc) // transform the data and write it back out
+                } else { // …otherwise simply copy the resource
+                    try fm.copyItem(at: projectSrc, to: outputSrc)
+                }
+
+                return outputSrc
+            }
+
+            // if validation passes, we can copy up the output sources
+            try pull("Sandbox.entitlements")
+
+            // copy up the assets, sources, and other metadata
+            try pull("AppFairApp.xcconfig")
+            try pull("Info.plist")
+            try pull("Assets.xcassets")
+            try pull("README.md")
+            try pull("Sources")
+            try pull("Tests")
+
+            try pull("Package.swift") { data in
+                // We manually copy over the package validations so that we do not require that the user always keep the validations current
+
+                // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
+
+    //            guard let packageURL = self.basePathURL(path: "Package.swift") else {
+    //                throw CocoaError(.fileReadNoSuchFile)
+    //            }
+    //
+    //            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
+    //            if packageTemplate.count != 2 {
+    //                throw CocoaError(.fileReadNoSuchFile)
+    //            }
+    //
+    //            let str1 = String(data: data, encoding: .utf8) ?? ""
+    //            let str2 = packageTemplate[1]
+    //            return (str1 + str2).utf8Data
+
+                return data
+            }
+
+        }
+    }
+
+    struct CatalogCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        mutating func run() async throws {
+            try await self.catalog()
+        }
+    }
+
+    struct AppcasksCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        mutating func run() async throws {
+            msg(.info, "AppCasks")
+            try await retrying() {
+                try await createAppCasks()
+            }
+        }
+
+        private func createAppCasks() async throws {
+            let hub = try fairHub()
+
+            func output(_ data: Data, to path: String) throws {
+                if path == "-" {
+                    print(data.utf8String!)
+                } else {
+                    let file = URL(fileURLWithPath: path)
+                    try data.write(to: file)
+                }
+            }
+
+            // build the catalog filtering on specific artifact extensions
+            let catalog = try await hub.buildAppCasks(boostFactor: boostFactor)
+
+            msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
+            for apprel in catalog.apps {
+                msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
+            }
+
+            if let outputFile = options.output {
+                let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+                try output(json, to: outputFile)
+                msg(.info, "Wrote appcasks to", outputFile, json.count.localizedByteCount())
+            }
+        }
+
+
+    }
+
+    #if canImport(Compression)
+    struct FairsealCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        mutating func run() async throws {
+            msg(.info, "Fairseal")
+
+            // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
+            let fairsealThreshold = options.fairsealMatch.compactMap({ Int($0) }).first
+
+            guard let trustedArtifactFlag = trustedArtifactFlag else {
+                throw FairTool.Errors.missingFlag("-trusted-artifact")
+            }
+
+            let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
+            guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
+                throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
+            }
+
+            let untrustedArtifactLocalURL = try await fetchUntrustedArtifact()
+
+            guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
+                throw AppError("Error opening untrusted archive: \(untrustedArtifactLocalURL.absoluteString)")
+            }
+
+            if untrustedArtifactLocalURL == trustedArtifactURL {
+                throw AppError("Trusted and untrusted artifacts may not be the same")
+            }
+
+            // Load the zip entries, skipping over signature entries we are exlcuding from the comparison
+            func readEntries(_ archive: ZipArchive) -> [ZipArchive.Entry] {
+                Array(archive.makeIterator())
+                    .filter { entry in
+                        // these can be in either _CodeSignature or Contents
+                        !entry.path.hasSuffix("/CodeSignature")
+                        && !entry.path.hasSuffix("/CodeResources")
+                        && !entry.path.hasSuffix("/CodeDirectory")
+                        && !entry.path.hasSuffix("/CodeRequirements-1")
+                    }
+            }
+
+            let trustedEntries = readEntries(trustedArchive)
+            let untrustedEntries = readEntries(untrustedArchive)
+
+            if trustedEntries.count != untrustedEntries.count {
+                throw AppError("Trusted and untrusted artifact content counts do not match (\(trustedEntries.count) vs. \(untrustedEntries.count))")
+            }
+
+            let rootPaths = Set(trustedEntries.compactMap({
+                $0.path.split(separator: "/")
+                    .drop(while: { $0 == "Payload" }) // .ipa archives store Payload/App Name.app/Info.plist
+                    .first
+            }))
+
+            guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
+                throw AppError("Invalid root path in archive: \(rootPaths)")
+            }
+
+            let appName = rootPath.dropLast(Self.appSuffix.count)
+
+            // TODO: we should instead check the `CFBundleExecutable` key for the executable name
+
+            let macOSExecutable = "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+            let macOSInfo = "\(appName).app/Contents/Info.plist" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
+
+            let iOSExecutable = "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
+            let iOSInfo = "Payload/\(appName).app/Info.plist"
+
+            let executablePaths = [
+                macOSExecutable,
+                iOSExecutable,
+            ]
+
+            var infoPlist: Plist? = nil
+
+            var coreSize: UInt64 = 0 // the size of the executable itself
+
+            for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
+                if trustedEntry.path != untrustedEntry.path {
+                    throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
+                }
+
+                let entryIsMainBinary = executablePaths.contains(trustedEntry.path)
+                let entryIsInfo = trustedEntry.path == macOSInfo || trustedEntry.path == iOSInfo
+
+                if entryIsMainBinary {
+                    coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
+                }
+
+                if entryIsInfo {
+                    // parse the compiled Info.plist for processing
+                    infoPlist = try withErrorContext("parsing plist entry: \(trustedEntry.path)") {
+                        try Plist(data: trustedArchive.extractData(from: trustedEntry))
+                    }
+                }
+
+                if trustedEntry.checksum == untrustedEntry.checksum {
+                    continue
+                }
+
+                // checksum mismatch: check the actual binary contents so we can summarize the differences
+                msg(.info, "checking mismached entry: \(trustedEntry.path)")
+
+                let pathParts = trustedEntry.path.split(separator: "/")
+
+                if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
+                    // assets are not deterministically compiled; we let these pass
+                    continue
+                }
+
+                if trustedEntry.path.hasSuffix(".nib") {
+                    // nibs sometimes get compiled differently as well
+                    continue
+                }
+
+                if pathParts.dropLast().last?.hasSuffix(".storyboardc") == true {
+                    // Storyboard files sometimes get compiled differently (e.g., differences in the date in Info.plist)
+                    continue
+                }
+
+
+                //msg(.debug, "checking", trustedEntry.path)
+
+                var trustedPayload = try trustedArchive.extractData(from: trustedEntry)
+                var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
+
+                // handles the dynamic library at: Payload/App Name.app/Frameworks/App.framework/App
+                let isExecutable = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
+                || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf]) // 64-bit magic
+                || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe]) // universal magic
+                || trustedPayload.starts(with: [0xcf, 0xfa, 0xed, 0xfe, 0x0c, 0x00, 0x00, 0x01]) // dylib
+
+                let isAppBinary = entryIsMainBinary || isExecutable
+
+                // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
+#if os(macOS) // we can only launch `codesign` on macOS
+                // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
+                if isAppBinary && trustedPayload != untrustedPayload {
+                    func stripSignature(from data: Data) throws -> Data {
+                        let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
+                        try data.write(to: tmpFile)
+                        try Process.codesignStrip(url: tmpFile)
+                        return try Data(contentsOf: tmpFile) // read it back in
+                    }
+
+                    msg(.info, "stripping code signatures: \(trustedEntry.path)")
+                    trustedPayload = try stripSignature(from: trustedPayload)
+                    untrustedPayload = try stripSignature(from: untrustedPayload)
+                }
+#endif
+
+                // the signature can change the binary size
+                //            if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
+                //                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
+                //            }
+
+                if trustedPayload != untrustedPayload {
+                    msg(.info, " scanning payload differences")
+                    let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload) // .inferringMoves()
+
+                    msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex()) differences: \(diff.count)")
+                    func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
+                        IndexSet(changeSet.map({
+                            switch $0 {
+                            case .insert(let offset, _, _): return offset
+                            case .remove(let offset, _, _): return offset
+                            }
+                        }))
+                    }
+
+                    let insertionRanges = offsets(in: diff.insertions)
+                    let insertionRangeDesc = insertionRanges
+                        .rangeView
+                        .prefix(10)
+                        .map({ $0.description })
+
+                    let removalRanges = offsets(in: diff.removals)
+                    let removalRangeDesc = removalRanges
+                        .rangeView
+                        .prefix(10)
+                        .map({ $0.description })
+
+                    let totalChanges = diff.insertions.count + diff.removals.count
+                    if totalChanges > 0 {
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
+
+                        if isAppBinary {
+                            if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
+                                // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                                msg(.info, "tolerating \(totalChanges) differences for: \(error)")
+                            } else {
+                                throw error
+                            }
+                        } else {
+                            throw error
+                        }
+                    }
+                }
+            }
+
+            var assets: [FairSeal.Asset] = []
+
+            // publish the hash for the artifact binary URL
+            if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
+
+                // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
+                for stagingFolder in artifactStagingFolders {
+                    let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants, .producesRelativePathURLs])
+                        .sorting(by: \.lastPathComponent)
+                    msg(.info, "scanning assets:", artifactAssets.map(\.relativePath))
+
+                    for localURL in artifactAssets {
+                        guard let assetSize = localURL.fileSize() else {
+                            continue
+                        }
+
+                        // the published asset URL is the name of the local path relative to the download URL for the artifact
+                        let assetURL = artifactURL.deletingLastPathComponent().appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
+                        if assetURL.lastPathComponent == artifactURL.lastPathComponent {
+                            let assetHash = try Data(contentsOf: untrustedArtifactLocalURL).sha256().hex()
+                            // the primary asset uses the special hash handling
+                            msg(.info, "hash for artifact:", assetURL.lastPathComponent, assetHash)
+                            assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
+                        } else {
+                            let assetHash = try Data(contentsOf: localURL).sha256().hex()
+                            // all other artifacts are hashed directly from their local counterparts
+                            assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
+                        }
+                    }
+                }
+            }
+
+            guard let plist = infoPlist else {
+                throw AppError("Missing property list")
+            }
+
+            let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
+            let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
+            for permission in permissions {
+                msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
+            }
+
+            let tint = try? parseTintColor()
+            let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: Int(coreSize), tint: tint)
+
+            msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
+
+            // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
+            msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
+            if let postURL = try await fairHub().postFairseal(fairseal) {
+                msg(.info, "posted fairseal to:", postURL.absoluteString)
+            } else {
+                msg(.warn, "unable to post fairseal")
+            }
+
+        }
+
+        private func fetchUntrustedArtifact() async throws -> URL {
+            // if we specified the artifact as a local file, just use it directly
+            if let untrustedArtifactFlag = untrustedArtifactFlag {
+                return URL(fileURLWithPath: untrustedArtifactFlag)
+            }
+
+            guard let artifactURLFlag = self.artifactURLFlag,
+                let artifactURL = URL(string: artifactURLFlag) else {
+                throw FairTool.Errors.missingFlag("-artifact-url")
+            }
+
+            return try await fetchArtifact(url: artifactURL)
+        }
+
+        private func fetchArtifact(url artifactURL: URL) async throws -> URL {
+            try await retrying() {
+                var request = URLRequest(url: artifactURL)
+                request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+                let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
+                if let response = response as? HTTPURLResponse,
+                   (200..<300).contains(response.statusCode) { // e.g., 404
+                    msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
+                    return downloadedURL
+                } else {
+                    msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
+                    throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+                }
+            }
+        }
+    }
+    #endif
+
+    #if canImport(SwiftUI)
+    struct IconCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+
+        @MainActor mutating func run() async throws {
+            msg(.info, "icon")
+
+            assert(Thread.isMainThread, "SwiftUI can only be used from main thread")
+
+            guard let appIconPath = self.appIconPath else {
+                throw FairTool.Errors.missingFlag("-app-icon")
+            }
+
+            let appIconURL = projectPathURL(path: appIconPath)
+
+            // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
+            let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
+
+            let appName = try appNameSpace()
+            let iconColor = try parseTintIconColor()
+
+            var symbolNames = iconSymbols ?? []
+            if let symbolName = try self.buildSettings()?["ICON_SYMBOL"] {
+                symbolNames.append(symbolName)
+            }
+
+            // the minimal required icons for macOS + iOS
+            let icons = [
+                iconSet.images(idiom: "mac", scale: "2x", size: "16x16"),
+                iconSet.images(idiom: "mac", scale: "2x", size: "128x128"),
+                iconSet.images(idiom: "mac", scale: "2x", size: "256x256"),
+                iconSet.images(idiom: "mac", scale: "2x", size: "512x512"),
+                iconSet.images(idiom: "iphone", scale: "2x", size: "60x60"),
+                iconSet.images(idiom: "iphone", scale: "3x", size: "60x60"),
+                iconSet.images(idiom: "ipad", scale: "1x", size: "76x76"),
+                iconSet.images(idiom: "ipad", scale: "2x", size: "76x76"),
+                iconSet.images(idiom: "ipad", scale: "2x", size: "83.5x83.5"),
+                iconSet.images(idiom: "ios-marketing", scale: "1x", size: "1024x1024"),
+            ].joined()
+
+            var appIconSet = iconSet
+
+            for imageSet in icons {
+                let iconView = FairIconView(appName, subtitle: catalogTitleFlag, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
+
+                if imageSet.filename != nil {
+                    continue // skip any elements that have a file path specified already
+                }
+
+                // an un-specified filename will be filled in with the default app icon
+
+                let iconFile = URL(fileURLWithPath: "appicon-" + imageSet.standardPath + ".png", relativeTo: appIconURL)
+
+                let assetName = try AssetName(string: iconFile.lastPathComponent)
+
+                let size = max(assetName.width, assetName.height)
+                var scale = Double(assetName.scale ?? 1)
+                #if os(macOS)
+                if let screen = NSScreen.main, screen.backingScaleFactor > 0.0 {
+                    // there should be a better way to do this, but rendering a view seems to use the main screens scale, which on the build host seems to be 1.0 and on a macBook is 2.0; we need to alter the scale in order to generate the correctly-sized images on each host
+                    scale /= screen.backingScaleFactor
+                }
+                #endif
+
+                let span = CGFloat(size) * CGFloat(scale) // default content scale
+                let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
+                let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%
+
+                guard let pngData = iconView.padding(span * iconInset).png(bounds: bounds), pngData.count > 1024 else {
+                    throw AppError("Unable to generate PNG data")
+                }
+                try pngData.write(to: iconFile)
+                msg(.info, "output icon to: \(iconFile.path)")
+
+                appIconSet.images = appIconSet.images.map { image in
+                    var img = image
+                    if img.idiom == imageSet.idiom
+                        && img.size == imageSet.size
+                        && img.scale == imageSet.scale
+                        && img.role == imageSet.role
+                        && img.subtype == imageSet.subtype
+                        && img.filename == nil {
+                        img.filename = iconFile.lastPathComponent // update the image to have the given file name
+                    }
+                    return img
+                }
+            }
+
+            if appIconSet != iconSet {
+                // when we have changed the icon set from the origional, save it back to the asset catalog
+                msg(.info, "saving changed assets to: \(appIconURL.path)")
+                try appIconSet.json(outputFormatting: [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]).write(to: appIconURL)
+            }
+        }
+
+        func parseTintIconColor() throws -> Color? {
+            if let tint = try self.buildSettings()?["ICON_TINT"] {
+                if let hexColor = HexColor(hexString: tint) {
+                    return hexColor.sRGBColor()
+                }
+            }
+
+            // fall back to the asset catalog, if specified
+            if let accentColorFlag = options.accentColor {
+                let accentColorPath = projectPathURL(path: accentColorFlag)
+                if let rgba = try parseColorContents(url: accentColorPath) {
+                    return Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
+                }
+            }
+
+            return nil
+        }
+
+    }
+    #endif
+}
+
+fileprivate extension FairParsableCommand {
+
+    func msg(_ kind: MessageKind = .info, _ message: Any?...) {
+        let msg = message.map({ $0.flatMap(String.init(describing:)) ?? "nil" }).joined(separator: " ")
+
+        if kind == .debug && options.verbose != true {
+            return // skip debug output unless we are running verbose
+        }
+
+        if self.messages != nil {
+            self.messages!.messages.append((kind, message))
+        } else {
+            // let (checkMark, failMark) = ("✓", "X")
+            if kind == .info {
+                // info just gets printed directly
+                print(kind.name, msg)
+            } else {
+                print(kind.name, msg)
+            }
+        }
     }
 }
 
@@ -131,80 +1042,100 @@ public extension Plist {
     }
 }
 
-//extension FairHub.AppVersion {
-//    /// Extracts and validates the `CFBundleVersion` and `CFBundleShortVersionString`
-//    /// from the given `Info.plist` URL
-//    init(plistURL: URL) throws {
-//        let plist_dict = try Plist(url: plistURL)
-//        // try checkStr(key: InfoPlistKey.CFBundleVersion, is: "$(CURRENT_PROJECT_VERSION)")
-//        let buildNumberKey = InfoPlistKey.CFBundleVersion.rawValue
-//        guard let buildNumberValue = plist_dict.CFBundleVersion else {
-//            throw FairTool.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
-//        }
-//
-//        guard let buildNumber = UInt(buildNumberValue) else {
-//            throw FairTool.Errors.invalidPlistValue(buildNumberKey, [], plist_dict.CFBundleVersion as NSObject?, plistURL)
-//        }
-//
-//        // try checkStr(key: InfoPlistKey.CFBundleShortVersionString, is: "$(MARKETING_VERSION)")
-//        guard let buildVersion = plist_dict.CFBundleShortVersionString else {
-//            throw FairTool.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], plist_dict.CFBundleShortVersionString as NSObject?, plistURL)
-//        }
-//
-//        // a version number needs to be in the form 1.23.456
-//        guard let version = AppVersion(string: buildVersion) else {
-//            throw FairTool.Errors.invalidPlistValue(InfoPlistKey.CFBundleShortVersionString.rawValue, [], buildVersion as NSString, plistURL)
-//        }
-//
-//        self.init(build: buildNumber, version: version)
-//    }
-//}
+extension FairTool {
+    enum Errors : LocalizedError {
+        case missingCommand
+        case unknownCommand(_ cmd: String)
+        case badArgument(_ arg: String)
+        case badOperation(_ op: String?)
+        case missingSDK
+        case dumpPackageError
+        case invalidAppSourceHeader(_ url: URL)
+        case cannotInitNonEmptyFolder(_ url: URL)
+        case sameOutputAndProjectPath(_ output: String, _ project: String)
+        case cannotOverwriteAlteredFile(_ url: URL)
+        case invalidData(_ url: URL)
+        case invalidPlistValue(_ key: String, _ expected: [String], _ actual: NSObject?, _ url: URL)
+        case invalidContents(_ scaffoldSource: String?, _ projectSource: String?, _ path: String, _ line: Int)
+        case invalidHub(_ host: String?)
+        case badRepository(_ expectedHost: String, _ repository: String)
+        case missingArguments
+        case downloadMissing(_ url: URL)
+        case missingAppPath
+        case badApplicationsPath(_ url: URL)
+        case installAppMissing(_ appName: String, _ url: URL)
+        case installedAppExists(_ appURL: URL)
+        case processCommandUnavailable(_ command: String)
+        case matchFailed(_ arg: String)
+        case noBundleID(_ url: URL)
+        case mismatchedBundleID(_ url: URL, _ sourceID: String, _ destID: String)
+        case sandboxRequired
+        case forbiddenEntitlement(_ entitlement: String)
+        case missingUsageDescription(_ entitlement: AppEntitlement)
+        case missingFlag(_ flag: String)
+        case invalidIntegrationTitle(_ integrationName: String, _ expectedName: String)
 
-public extension FairTool {
-    enum Operation: String, CaseIterable {
-        case help
-        case welcome
-        case package
-        case walkthrough
-        case validate
-        case merge
-        case catalog
-        case appcasks
-        #if canImport(Compression)
-        case fairseal
-        #endif
-        #if canImport(SwiftUI)
-        case icon
-        #endif
-
-        var operationSummary: String {
+        public var errorDescription: String? {
             switch self {
-            case .walkthrough: return "walk-through new project steps"
-            case .help: return "display a help message"
-            case .welcome: return "perform an interactive guided walk-through"
-            case .package: return "package up an app"
-            case .validate: return "validate that the project can be successfully released"
-            case .merge: return "merge base fair-ground updates into the project"
-            case .catalog: return "build the catalog"
-            case .appcasks: return "build the enhanced appcasks catalog"
-            #if canImport(Compression)
-            case .fairseal: return "generates fairseal from trusted artifact"
-            #endif
-            #if canImport(SwiftUI)
-            case .icon: return "create an icon for the given project"
-            #endif
+            case .missingCommand: return "Missing command"
+            case .unknownCommand(let cmd): return "Unknown command \"\(cmd)\""
+            case .badArgument(let arg): return "Bad argument: \"\(arg)\""
+            case .badOperation(let op): return "Bad operation: \"\(op ?? "none")\"."
+            case .missingSDK: return "Missing SDK"
+            case .dumpPackageError: return "Error reading Package.swift"
+            case .invalidAppSourceHeader(let url): return "Invalid modification of source header at \(url.lastPathComponent)."
+            case .cannotInitNonEmptyFolder(let url): return "Folder is not empty: \(url.path)."
+            case .sameOutputAndProjectPath(let output, let project): return "The output path specified by -o (\(output)) may not be the same as the project path specified by -p (\(project))."
+            case .cannotOverwriteAlteredFile(let url): return "Cannot overwrite path \(url.relativePath) with changed contents."
+            case .invalidData(let url): return "The data at \(url.path) is invalid."
+            case .invalidPlistValue(let key, let expected, let actual, let url): return "The key \"\(key)\" at \(url.path) is invalid: expected one of \"\(expected)\" but found \"\(actual ?? ("nil" as NSString))\"."
+            case .invalidContents(_, _, let path, let line): return "The contents at \"\(path)\" does not match the contents of the original source starting at line \(line + 1)."
+            case .invalidHub(let host): return "The hub (\"\(host ?? "null")\") specified by the -h/--hub flag is invalid"
+            case .badRepository(let expectedHost, let repository): return "The pinned repository \"\(repository)\" does not match the hub (\"\(expectedHost)\") specified by the -h/--hub flag"
+            case .missingArguments: return "The operation requires at least one argument"
+            case .downloadMissing(let url): return "The download file could not be found: \(url.path)"
+            case .missingAppPath: return "The applications install path (-a/--appPath) is required"
+            case .badApplicationsPath(let url): return "The applications install path (-a/--appPath) did not exist and could not be created: \(url.path)"
+            case .installAppMissing(let appName, let url): return "The install archive was missing a root \"\(appName)\" at: \(url.path)"
+            case .installedAppExists(let appURL): return "Cannot install over existing app without update: \(appURL.path)"
+            case .processCommandUnavailable(let command): return "Platform does not support Process and therefore cannot run: \(command)"
+            case .matchFailed(let arg): return "Found no match for: \"\(arg)\""
+            case .noBundleID(let url): return "No bundle ID found for app: \"\(url.path)\""
+            case .mismatchedBundleID(let url, let sourceID, let destID): return "Update cannot change bundle ID from \"\(sourceID)\" to \"\(destID)\" in app: \(url.path)"
+            case .sandboxRequired: return "The Sandbox.entitlements must activate sandboxing with the \"com.apple.security.app-sandbox\" property"
+            case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
+            case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
+            case .missingFlag(let flag): return "The operation requires the -\(flag) flag"
+            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the AppFairApp.xcconfig file (expected: \"\(expectedName)\")"
             }
         }
+    }
+}
+
+fileprivate extension FairParsableCommand {
+    var fm: FileManager { .default }
+
+    static var appSuffix: String { ".app" }
+
+    /// The name of the App & the repository; defaults to "App"
+    var appName: String { AppNameValidation.defaultAppName }
+
+    var environment: [String: String] { ProcessInfo.processInfo.environment }
+
+    /// Fail the command and exit the tool
+    func fail<E: Error>(_ error: E) -> E {
+        return error
     }
 
     /// The flag for the hub we should use
     var appPathKey: String? {
-        flags["a"]?.first ?? flags["-appPath"]?.first
+        //flags["a"]?.first ?? flags["-appPath"]?.first
+        options.appPath
     }
 
     /// The flag for the project folder
     var projectPathFlag: String {
-        flags["p"]?.first ?? flags["-project"]?.first ?? fm.currentDirectoryPath
+        options.project ?? fm.currentDirectoryPath
     }
 
     /// Loads the data for the project file at the given relative path
@@ -212,129 +1143,80 @@ public extension FairTool {
         URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: projectPathFlag, isDirectory: true))
     }
 
-    /// The flag for the base path for merges and comparisons
-    var basePathFlag: String? {
-        flags["b"]?.first ?? flags["-base"]?.first
-    }
-
     /// Loads the data for the project file at the given relative path
     func basePathURL(path: String) -> URL? {
-        guard let basePathFlag = basePathFlag else { return nil }
+        guard let basePathFlag = options.base else { return nil }
         return URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: basePathFlag, isDirectory: true))
-    }
-
-    /// The flag for the output folder or file
-    var outputFlag: String? {
-        flags["o"]?.first ?? flags["-output"]?.first
-    }
-
-    /// The flag for the output folders or files
-    var outputFlags: [String] {
-        (flags["o"] ?? []) + (flags["-output"] ?? [])
-    }
-
-    /// The path to the `AppFairApp.xcconfig` that contains customizations for the `ICON_TINT` and `ICON_SYMBOL` flags
-    var fairPropertiesFlag: String? {
-        flags["-fair-properties"]?.first
-    }
-
-    /// The flag for the `fairseal` command indicating the accent color JSON
-    var accentColorFlag: String? {
-        flags["-accent-color"]?.first
     }
 
     /// The flag for the `fairseal` command indicating the online resource for the artifact metadata
     var artifactStagingFolders: [String] {
-        flags["-artifact-staging"] ?? []
-    }
-
-    /// The flag for the artifact extensions to filter
-    var artifactExtensionFlag: [String]? {
-        flags["-artifact-extension"]
-    }
-
-    /// The flag for fairseal validation
-    var fairsealFlag: [String]? {
-        flags["-fairseal"]
-    }
-
-    /// The flag the matching strategy for enforcing reproducible builds
-    var fairsealMatchFlag: [String]? {
-        flags["-fairseal-match"]
+        //flags["-artifact-staging"] ?? []
+        options.artifactStaging
     }
 
     /// The flag for the output folder or the current director
     var outputDirectoryFlag: String {
-        outputFlag ?? fm.currentDirectoryPath
-    }
-
-    /// The flag for the hub we should use
-    var hubFlag: String? {
-        flags["h"]?.first ?? flags["-hub"]?.first
+        options.output ?? fm.currentDirectoryPath
     }
 
     /// The flag for the repository
     var orgName: String? {
-        flags["g"]?.first ?? flags["-org"]?.first
-    }
-
-    /// The flag for the token used for the hub's authentication
-    var hubToken: String? {
-        flags["k"]?.first ?? flags["-token"]?.first ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
-    }
-
-    /// The flag for the commit ref to validate against the allow/deny list
-    var refFlag: String? {
-        flags["-ref"]?.first
+        //flags["g"]?.first ?? flags["-org"]?.first
+        options.org
     }
 
     /// The flag for the name of the login that issues the fairseal
     var fairsealIssuer: String? {
-        flags["-fairseal-issuer"]?.first
+        //flags["-fairseal-issuer"]?.first
+        options.fairsealIssuer
     }
 
     /// Symbols to emboss over the icon
     var iconSymbols: [String]? {
-        flags["-icon-symbol"]
+        //flags["-icon-symbol"]
+        options.iconSymbol
     }
 
     /// The path to `Assets.xcassets/AppIcon.appiconset/Contents.json`
     var appIconPath: String? {
-        flags["-app-icon"]?.first
+        //flags["-app-icon"]?.first
+        options.appIcon
     }
 
     /// The flag for the allow patterns for integrate PRs
     var allowName: [String]? {
-        flags["-allow-name"].flatMap(joinWhitespaceSeparated)
+        //flags["-allow-name"].flatMap(joinWhitespaceSeparated)
+        joinWhitespaceSeparated(options.allowName)
     }
 
     /// The flag for the disallow patterns for integrate PRs
     var denyName: [String]? {
-        flags["-deny-name"].flatMap(joinWhitespaceSeparated)
+        //flags["-deny-name"].flatMap(joinWhitespaceSeparated)
+        joinWhitespaceSeparated(options.denyName)
     }
 
     /// The flag for the allow patterns for integrate PRs
     var allowFrom: [String]? {
-        flags["-allow-from"].flatMap(joinWhitespaceSeparated)
+        //flags["-allow-from"].flatMap(joinWhitespaceSeparated)
+        joinWhitespaceSeparated(options.allowFrom)
     }
 
     /// The flag for the disallow patterns for integrate PRs
     var denyFrom: [String]? {
-        flags["-deny-from"].flatMap(joinWhitespaceSeparated)
+        //flags["-deny-from"].flatMap(joinWhitespaceSeparated)
+        joinWhitespaceSeparated(options.denyFrom)
     }
 
     /// The flag for the permitted license IDs
     var allowLicense: [String]? {
-        flags["-allow-license"].flatMap(joinWhitespaceSeparated)
+        //flags["-allow-license"].flatMap(joinWhitespaceSeparated)
+        joinWhitespaceSeparated(options.allowLicense)
     }
 
     /// The multiplier for how much metadata additions boost the app rankings
     var boostFactor: Int64 {
-        if let boost = flags["-boost-factor"]?.first, let boostFactor = Int64(boost) {
-            return boostFactor
-        } else {
-            return 100_000
-        }
+        options.boostFactor ?? 100_000
     }
 
     /// Allow multiple newline separated elements for a single value, which
@@ -347,100 +1229,87 @@ public extension FairTool {
             .filter { !$0.isEmpty }
     }
 
-    /// The flag whether to force the current operation
-    var forceFlag: Bool {
-        Bool(flags["f"]?.first ?? flags["-force"]?.first ?? "false") ?? false
-    }
-
-    /// The flag whether to display verbose messages
-    var verboseFlag: Bool {
-        Bool(flags["v"]?.first ?? flags["-verbose"]?.first ?? "false") ?? false
-    }
-
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
     var integrationTitleFlag: String? {
-        flags["-integration-title"]?.first
+        //flags["-integration-title"]?.first
+        options.integrationTitle
     }
 
     /// The flag specifying the permitted license titles that must
     /// appear in the `NSHumanReadableCopyright` property, such as
     /// `"GNU Affero General Public License"`
     var licenseFlag: [String]? {
-        flags["-license"]
+        //flags["-license"]
+        options.license
     }
 
     /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
     var maxsizeFlag: Int? {
-        flags["-maxsize"]?.first.flatMap({ Int($0) })
+        //flags["-maxsize"]?.first.flatMap({ Int($0) })
+        options.maxsize
     }
 
     /// The maximum number of Hub API requests that can be made for a session
     var requestLimitFlag: Int? {
-        flags["-requestLimit"]?.first.flatMap({ Int($0) })
+        //flags["-requestLimit"]?.first.flatMap({ Int($0) })
+        options.requestLimit
     }
 
     /// The title of the generated catalog
     var catalogTitleFlag: String? {
-        flags["-catalog-title"]?.first
+        //flags["-catalog-title"]?.first
+        options.catalogTitle
     }
 
     /// The amount of time to continue re-trying downloading a resource
     var retryDurationFlag: TimeInterval? {
-        flags["-retry-duration"]?.first.flatMap({ TimeInterval($0) })
+        //flags["-retry-duration"]?.first.flatMap({ TimeInterval($0) })
+        options.retryDuration
     }
 
     /// The backoff time for waiting to retry; defaults to 30 seconds
     var retryWaitFlag: TimeInterval {
-        flags["-retry-wait"]?.first.flatMap({ TimeInterval($0) }) ?? 30.0
+        //flags["-retry-wait"]?.first.flatMap({ TimeInterval($0) }) ?? 30.0
+        options.retryWait
     }
 
     /// The flag for the `fairseal` command indicating the artifact that was created in a trusted environment
     var trustedArtifactFlag: String? {
-        flags["-trusted-artifact"]?.first
+        //flags["-trusted-artifact"]?.first
+        options.trustedArtifact
     }
 
     /// The flag for the `fairseal` command indicating the artifact that was created in an untrusted environment
     var untrustedArtifactFlag: String? {
-        flags["-untrusted-artifact"]?.first
+        //flags["-untrusted-artifact"]?.first
+        options.untrustedArtifact
     }
 
     /// The flag for the `fairseal` command indicating the online resource for the artifact that will be generated
     var artifactURLFlag: String? {
-        flags["-artifact-url"]?.first
+        //flags["-artifact-url"]?.first
+        options.artifactURL
     }
 
     /// The flag for the `index` markdown to save a catalog index markdown
     var indexFlag: String? {
-        flags["-index"]?.first
+        //flags["-index"]?.first
+        options.index
     }
 
     /// The flag for the `cask-filder` indicating the output folder for the casks
     var caskFolderFlag: String? {
-        flags["-cask-folder"]?.first
-    }
-
-    var interactiveFlag: Bool {
-        Bool(flags["-interactive"]?.first ?? "true") ?? true
-    }
-
-    var ansiColorsFlag: Bool {
-        Bool(flags["-ansi-colors"]?.first ?? "true") ?? true
-    }
-
-    func validateTrailingArguments() throws -> [String] {
-        if trailingArguments.isEmpty {
-            throw Errors.missingArguments(op)
-        }
-        return trailingArguments
+        //flags["-cask-folder"]?.first
+        options.caskFolder
     }
 
     /// The hub service we should use for this tool
     func fairHub() throws -> FairHub {
-        guard let hubFlag = hubFlag else {
-            throw Errors.invalidHub(nil)
+        guard let hubFlag = options.hub else {
+            throw FairTool.Errors.invalidHub(nil)
         }
 
-        return try FairHub(hostOrg: hubFlag, authToken: hubToken, fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
+        return try FairHub(hostOrg: hubFlag, authToken: options.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
     }
 
     /// Loads the data for the output file at the given relative path
@@ -455,7 +1324,7 @@ public extension FairTool {
     /// Returns the configured applications path, attempting to create it if it doesn't exist
     func applicationsPath() throws -> URL {
         guard let appPathKey = appPathKey else {
-            throw Errors.missingAppPath
+            throw FairTool.Errors.missingAppPath
         }
 
         let appURL = URL(fileURLWithPath: appPathKey)
@@ -464,478 +1333,12 @@ public extension FairTool {
         }
 
         if fm.isDirectory(url: appURL) != true {
-            throw Errors.badApplicationsPath(appURL)
+            throw FairTool.Errors.badApplicationsPath(appURL)
         }
 
         return appURL
     }
 
-    /// A handler for messages that the tool outputs
-    typealias MessageHandler = ((MessageKind, Any?...) -> ())
-
-    /// Invokes the tool with the command-line interface
-    @MainActor func runCLI(operation: Operation? = nil, msg: MessageHandler? = nil) async throws {
-        let messenger = msg ?? { [weak self] in self?.printMessage(kind: $0, $1) }
-        switch operation ?? self.op {
-        case .help: try self.help(msg: messenger)
-        case .welcome: try self.welcome(msg: messenger)
-        case .walkthrough: try self.walkthrough(msg: messenger)
-        case .package: try self.package(msg: messenger)
-        case .validate: try await self.validate(msg: messenger)
-        case .merge: try await self.merge(msg: messenger)
-        case .catalog: try await self.catalog(msg: messenger)
-        case .appcasks: try await self.appcasks(msg: messenger)
-        #if canImport(Compression)
-        case .fairseal: try await self.fairseal(msg: messenger)
-        #endif
-        #if canImport(SwiftUI)
-        case .icon: try self.icon(msg: messenger)
-        #endif
-        }
-    }
-
-    func package(msg: MessageHandler) throws {
-        msg(.info, "package")
-    }
-
-    func walkthrough(msg: MessageHandler) throws {
-        msg(.info, "Walk-through the creation of a new fairground project")
-
-        func po(_ string: String) {
-            print(string)
-        }
-
-        func read(_ key: String, prompt: String, info: String? = nil, defaultValue: String? = nil, prompSuffix: String = ">", validation: (String) -> (String?) = { _ in nil }) throws -> String {
-            let flagKey = "-walkthrough-" + key
-            var additionalInfo = info
-            while true {
-                if let value = flags[flagKey]?.first {
-                    if let errorMessage = validation(value) {
-                        throw AppError("Invalid value: \"\(flagKey)\" = \"\(value)\": \(errorMessage)")
-                    } else {
-                        return value
-                    }
-                }
-
-                // next we prompt the user
-                if interactiveFlag == false {
-                    throw AppError("Non-interactive mode: key missing for \(flagKey)")
-                }
-
-                if let prefixInfo = additionalInfo {
-                    print(prefixInfo)
-                    print("")
-                    additionalInfo = nil // only show the additional the first time around
-                }
-                print(prompt + prompSuffix + " ", terminator: "")
-                guard let value = readLine(strippingNewline: true), !value.isEmpty else {
-                    if let defaultValue = defaultValue {
-                        return defaultValue
-                    } else {
-                        continue
-                    }
-                }
-
-                if let errorMessage = validation(value) {
-                    print("Error: " + errorMessage)
-                } else {
-                    return value
-                }
-            }
-        }
-
-        po("""
-        Welcome to the fair-ground!
-
-        This tool will guide you through the process of creating
-        and publishing a new app on the App Fair.
-
-        """)
-
-        var appNameSuggestions: [String] = []
-        appNameSuggestions += ["The first step in creating a new App Fair app is to choose a name."]
-
-        let appName = try read("app-name", prompt: "App Name", info: appNameSuggestions.joined(separator: "\n"), validation: { proposedName in
-            do {
-                try AppNameValidation.standard.validate(name: proposedName)
-                return nil
-            } catch {
-                return error.localizedDescription
-            }
-        })
-
-        let appNameSpace = appName.dehyphenated()
-        let appBundleID = "app." + appName
-        let appVersion = "0.0.1"
-        let ghrepo = "https://www.github.com/\(appName)/App/"
-
-        po("Your app will be uniquely contained in a GitHub organization.")
-        po("Create a new GitHub organization named: \(appName)")
-
-        func showURL(key: String, url urlString: String) throws {
-            if interactiveFlag == true {
-                #if os(macOS)
-                let response = try read(key, prompt: "Open \(urlString)", defaultValue: "Y", prompSuffix: " [Y/n]?")
-                if response.lowercased().hasPrefix("y") {
-                    if let url = URL(string: urlString) {
-                        NSWorkspace.shared.open(url)
-                    }
-                }
-                #else
-                po("Open URL in browser: \(urlString)")
-                #endif
-            }
-        }
-
-        func ansi(_ string: String, _ code: ANSICode = .bold) -> String {
-            if ansiColorsFlag == false {
-                return string
-            } else {
-                return string.ansi(code)
-            }
-        }
-
-        po("""
-
-        Create a new \(ansi("free")) GitHub organization named: \(appName)
-
-        """)
-        try showURL(key: "create-org", url: "https://github.com/account/organizations/new?plan=free")
-
-        //        po("""
-        //
-        //        Next, we will configure the organization.
-        //
-        //        Edit the organization's profile settings and set:
-        //
-        //            \(ansi("Public e-mail")): same as your GitHub e-mail
-        //
-        //        The e-mail address must be valid and public.
-        //
-        //        """)
-        //        try showURL(key: "set-email", url: "https://github.com/organizations/\(appName)/settings/profile")
-
-        po("""
-
-        Next, we will create your app's repository.
-
-        Fork the base appfair/App repository into the \(appName) organization.
-
-        NOTE: the fork must be in the organization, NOT your personal GitHub account.
-
-        """)
-        try showURL(key: "fork-base", url: "https://github.com/appfair/App/fork")
-
-        po("""
-
-        From the fork, click "About" and enter values for:
-
-          \(ansi("Description")) (e.g., "Tool for ABC and XYZ")
-          \(ansi("Topic")) (e.g., appfair-utilities)
-
-        """)
-        try showURL(key: "configure-project", url: "\(ghrepo)")
-
-        po("""
-
-        Edit the settings for the \(appName) fork:
-
-          \(ansi("Enable Issues"))
-          \(ansi("Enable Discussions"))
-
-        """)
-        try showURL(key: "enable-issues", url: "\(ghrepo)/settings")
-
-        po("""
-
-        Edit Info.plist and set:
-
-          \(ansi("CFBundleName")): "\(appNameSpace)"
-          \(ansi("CFBundleIdentifier")): "\(appBundleID)"
-          \(ansi("CFBundleShortVersionString")): "\(appVersion)"
-
-        """)
-        try showURL(key: "update-appname", url: "\(ghrepo)/edit/main/Info.plist")
-
-        po("""
-
-        Edit your \(ansi("README.md")) to add your project's description and documentation.
-
-        """)
-        try showURL(key: "describe-project", url: "\(ghrepo)/edit/main/README.md")
-
-        po("""
-
-        Edit the SwiftUI container and code your app. E.g.,
-
-          Text("Welcome to \(appNameSpace)!", bundle: .module, comment: "welcome text localization").font(.largeTitle)
-
-        """)
-        try showURL(key: "code-app", url: "\(ghrepo)/edit/main/Sources/App/AppContainer.swift")
-
-        po("""
-
-        Enable \(ansi("Actions")) for the fork.
-
-        """)
-        try showURL(key: "enable-actions", url: "\(ghrepo)/actions")
-
-        po("""
-
-        Draft a new release. Select "Coose a Tag" and specify: \(appVersion)
-        Click "Create new tag: on publish"
-
-        """)
-        try showURL(key: "create-release", url: "\(ghrepo)/releases/new")
-
-        po("""
-
-        Wait for Fork-Apply action to complete.
-
-        """)
-        try showURL(key: "watch-actions", url: "\(ghrepo)/actions")
-
-        po("""
-
-        View the release artifacts for \(appNameSpace) \(appVersion)
-
-        """)
-        try showURL(key: "view-releases", url: "\(ghrepo)/releases/tag/\(appVersion)")
-
-        po("""
-
-        Create a Pull Request from your fork to the base appfair/App.git repository.
-
-        Set the Pull Request title to:
-
-          \(ansi("\(appNameSpace)"))
-
-        Then select "Create Pull Request"
-        """)
-        try showURL(key: "create-pr", url: "\(ghrepo)/compare")
-
-        po("""
-
-        Open the "Checks" tab of the PR.
-        Once the Integrate-Release checks pass, the app will be available in the App Fair app to install.
-
-        """)
-        try showURL(key: "open-appfair", url: "appfair:\(appBundleID)")
-    }
-
-    func welcome(msg: MessageHandler) throws {
-        msg(.info, "Welcome to Fair Ground!")
-    }
-
-    func help(msg: MessageHandler) throws {
-        var helpMsg = """
-        Usage: fairtool <command> --flag1 value1 --package <package path> [file…]
-
-        The fairtool is the command-line interface to a fair-ground platform.
-        It enables validating, verifying, managing, and installing and updating apps.
-
-        """
-
-        print("Available commands:\n", to: &helpMsg)
-        helpMsg += "Available commands:\n"
-        for op in Operation.allCases {
-            print("  ", op.rawValue, op.operationSummary, to: &helpMsg)
-        }
-
-
-        msg(.info, helpMsg)
-    }
-
-    func validate(msg: MessageHandler) async throws {
-        msg(.info, "Validating project:", projectPathURL(path: "").path)
-        //msg(.debug, "flags:", flags)
-        //msg(.debug, "arguments:", trailingArguments)
-
-        guard let orgName = orgName else {
-            throw Errors.badArgument("org")
-        }
-
-        // check whether we are validating as the upstream origin or
-        let isFork = try hubFlag == nil || orgName != fairHub().org
-        //dbg("isFork", isFork, "hubFlag", hubFlag, "orgName", orgName, "fairHub().org", try! fairHub().org)
-
-        /// Verifies that the given plist contains the specified value
-        func check(_ plist: Plist, key: String, in expected: [String], empty: Bool = false, url: URL) throws {
-            if plist.rawValue[key] == nil && empty == true {
-                return // permit empty values
-            }
-
-            guard let actual = plist.rawValue[key] as? NSObject else {
-                throw Errors.invalidPlistValue(key, expected, nil, url)
-            }
-
-            if !expected.isEmpty && !expected.map({ $0 as NSObject }).contains(actual) {
-                throw Errors.invalidPlistValue(key, expected, actual, url)
-            }
-        }
-
-        /// Checks that the contents at the given path match the
-        /// contents of the local resources at the same path
-        /// - Parameters:
-        ///   - path: the relative path of the resource
-        ///   - partial: whether to validate partially based on the guard line
-        ///   - warn: whether to warn rather than raise an error
-        ///   - guardLine: the string to use to split the valiation string into prefix/suffix parts
-        /// - Throws: a validation error
-        @discardableResult func compareContents(of path: String, partial: Bool, warn: Bool = false, guardLine: String? = nil) throws -> Bool {
-            msg(.debug, "  comparing \(partial ? "partial" : "exact") match:", path)
-            let projectURL = projectPathURL(path: path)
-            let projectSource = try String(contentsOf: projectURL, encoding: .utf8)
-
-            // when this is not a fork (i.e., it is the root fairground), we always validate
-            do {
-                try compareScaffold(project: projectSource, path: path, afterLine: !isFork ? nil : partial ? guardLine : nil)
-            } catch {
-                if warn {
-                    msg(.warn, "  failed \(partial ? "partial" : "exact") match:", path)
-                    return false // we failed validation
-                } else {
-                    throw error
-                }
-            }
-            return true
-        }
-
-        /// Validates that the given project source matches the given scaffold source
-        func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
-            msg(.debug, "checking:", path, "against base path:", basePathFlag)
-            guard let scaffoldURL = basePathURL(path: path) else {
-                throw CocoaError(.fileReadNoSuchFile)
-            }
-
-            let scaffoldSource = try String(contentsOf: scaffoldURL, encoding: .utf8)
-
-            if scaffoldSource != projectSource {
-                // check for partial matches, which means that we only compare the header parts of the files
-                if let guardLine = guardLine {
-                    let scaffoldParts = scaffoldSource.components(separatedBy: guardLine)
-                    let projectParts = projectSource.components(separatedBy: guardLine)
-                    if scaffoldParts.count < 2
-                        || projectParts.count < 2
-                        || scaffoldParts.last != projectParts.last {
-                        throw FairTool.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
-                    }
-                } else {
-                    throw FairTool.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
-                }
-            }
-        }
-
-        // the generic term for the base folder is "App-Name"
-        let appOrgName = !isFork ? "App-Name" : orgName
-
-        // 1. Check Info.plist
-        let infoProperties: Plist
-        do {
-            let path = "Info.plist"
-            msg(.debug, "comparing metadata:", path)
-            let infoPlistURL = projectPathURL(path: path)
-            let plist_dict = try Plist(url: infoPlistURL)
-
-            infoProperties = plist_dict
-
-            func checkStr(key: InfoPlistKey, in strings: [String]) throws {
-                try check(plist_dict, key: key.plistKey, in: strings, url: infoPlistURL)
-            }
-
-            // check that the Info.plist contains the correct values for certain keys
-
-            // ensure the Info.plist uses the correct constants
-            try checkStr(key: InfoPlistKey.CFBundleName, in: ["$(PRODUCT_NAME)"])
-            try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: ["$(PRODUCT_BUNDLE_IDENTIFIER)"])
-            try checkStr(key: InfoPlistKey.CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
-            try checkStr(key: InfoPlistKey.CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
-            try checkStr(key: InfoPlistKey.CFBundleVersion, in: ["$(CURRENT_PROJECT_VERSION)"])
-            try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
-            try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
-
-            if let licenseFlag = self.licenseFlag, !licenseFlag.isEmpty {
-                try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
-            }
-        }
-
-        // 2. Check AppFairApp.xcconfig
-        do {
-            let appOrgNameSpace = appOrgName.dehyphenated()
-            //let appID = "app." + appOrgName
-
-            guard let appName = try buildSettings()?["PRODUCT_NAME"] else {
-                throw AppError("Missing PRODUCT_NAME in AppFairApp.xcconfig")
-            }
-
-            if appName != appOrgNameSpace {
-                throw AppError("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“\(appName)”) to match the organization name (“\(appOrgNameSpace)”)")
-            }
-
-            guard let appVersion = try buildSettings()?["MARKETING_VERSION"] else {
-                throw AppError("Missing MARKETING_VERSION in AppFairApp.xcconfig")
-            }
-
-            let expectedIntegrationTitle = appName + " " + appVersion
-
-            if let integrationTitle = self.integrationTitleFlag,
-               integrationTitle != expectedIntegrationTitle {
-                throw Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
-            }
-
-            //let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
-            //msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
-        }
-
-        // 3. Check Sandbox.entitlements
-        do {
-            let path = "Sandbox.entitlements"
-            msg(.debug, "comparing entitlements:", path)
-            let entitlementsURL = projectPathURL(path: path)
-            try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
-        }
-
-        // 4. Check LICENSE.txt
-        try compareContents(of: "LICENSE.txt", partial: false)
-
-        // 5. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
-        try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
-
-        // 6. Check Sources/
-        try compareContents(of: "Sources/App/AppMain.swift", partial: false)
-        try compareContents(of: "Sources/App/Bundle/LICENSE.txt", partial: false)
-
-        // 7. Check Package.resolved if it exists and we've specified the hub to validate
-        if let packageResolvedData = try? load(url: projectPathURL(path: "Package.resolved")), let hubFlag = hubFlag {
-            msg(.debug, "validating Package.resolved")
-            let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: packageResolvedData)
-            if let httpHost = URL(string: "https://\(hubFlag)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
-                // all dependencies must reside at the same fairground
-                // TODO: add include-hub/exclude-hub flags to permit cross-fairground dependency networks
-                // e.g., permit GitLab apps depending on projects in GitHub repos
-                let host = hubURL.deletingLastPathComponent().deletingLastPathComponent()
-                //dbg("verifying hub host:", host)
-                for pin in packageResolved.object.pins {
-                    if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
-                        throw Errors.badRepository(host.absoluteString, pin.repositoryURL)
-                    }
-                }
-            }
-        }
-
-        // also check the hub for the
-        if hubFlag != nil {
-            try await verify(org: orgName, repo: appName, hub: fairHub(), msg: msg)
-        }
-
-        msg(.info, "Successfully validated project:", projectPathURL(path: "").path)
-
-
-        // validate the reference
-        if let refFlag = refFlag {
-            try await validateCommit(ref: refFlag, hub: fairHub(), msg: msg)
-        }
-    }
 
     /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
     @discardableResult
@@ -945,7 +1348,7 @@ public extension FairTool {
         if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
             // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
             if !isCatalogApp {
-                throw Errors.sandboxRequired
+                throw FairTool.Errors.sandboxRequired
             }
         }
 
@@ -963,7 +1366,7 @@ public extension FairTool {
 
             // a nil usage description means the property is explicitely forbidden (e.g., "files-all")
             guard let props = entitlement.usageDescriptionProperties else {
-                throw Errors.forbiddenEntitlement(entitlement.entitlementKey)
+                throw FairTool.Errors.forbiddenEntitlement(entitlement.entitlementKey)
             }
 
             // on the other hand, an empty array means we don't require any explanation for the entitlemnent's usage (e.g., enabling JIT)
@@ -978,11 +1381,11 @@ public extension FairTool {
                 // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
                 // ?? infoProperties[$0] as? String
             }).first else {
-                throw Errors.missingUsageDescription(entitlement)
+                throw FairTool.Errors.missingUsageDescription(entitlement)
             }
 
             if usageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                throw Errors.missingUsageDescription(entitlement)
+                throw FairTool.Errors.missingUsageDescription(entitlement)
             }
 
             return (usageDescription, entitlementValue)
@@ -997,7 +1400,7 @@ public extension FairTool {
         return permissions
     }
 
-    func validateCommit(ref: String, hub: FairHub, msg: MessageHandler) async throws {
+    func validateCommit(ref: String, hub: FairHub) async throws {
         msg(.info, "Validating commit ref:", ref)
         let response = try await hub.request(FairHub.GetCommitQuery(owner: hub.org, name: appName, ref: ref)).get().data
         let author: Void = try hub.authorize(commit: response)
@@ -1005,109 +1408,10 @@ public extension FairTool {
         //msg(.info, "Validated commit author:", author)
     }
 
-    func verify(org: String, repo repoName: String, hub: FairHub, msg: MessageHandler) async throws {
-        // when the app we are validating is the actual hub's root organization, use special validation rules (such as not requiring issues)
-        msg(.info, "Validating App-Name:", org)
-
-        let response = try await hub.request(FairHub.RepositoryQuery(owner: org, name: repoName)).get().data
-        let organization = response.organization
-        let repo = organization.repository
-
-        msg(.debug, "  name:", organization.name)
-        msg(.debug, "  isInOrganization:", repo.isInOrganization)
-        msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
-        msg(.debug, "  discussion categories:", repo.discussionCategories.totalCount)
-
-        let invalid = hub.validate(org: organization)
-        if !invalid.isEmpty {
-            throw FairHub.Errors.repoInvalid(invalid, org, repoName)
-        }
-    }
-
-    /// Copies the resources from the project to the output
-    func merge(msg: MessageHandler) async throws {
-        msg(.info, "merge")
-
-        if outputDirectoryFlag == projectPathFlag {
-            throw Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
-        }
-
-        let outputURL = URL(fileURLWithPath: outputDirectoryFlag)
-        let projectURL = URL(fileURLWithPath: projectPathFlag)
-        if outputURL.absoluteString == projectURL.absoluteString {
-            throw Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
-        }
-
-        try await validate(msg: msg) // always validate first
-
-        /// Attempt to copy the path from the projectPath to the outputPath,
-        /// thereby selectively merging parts of the PR with a customizable transform
-        @discardableResult func pull(_ path: String, transform: ((Data) throws -> Data)? = nil) throws -> URL {
-            msg(.info, "copying", path, "from", projectURL.path, "to", outputURL.path)
-            let outputSrc = outputURL.appendingPathComponent(path)
-            msg(.debug, "outputSrc", outputSrc)
-            if fm.isDirectory(url: outputSrc) != nil {
-                try fm.trash(url: outputSrc) // clobber the existing path if it exists
-            }
-
-            let projectSrc = projectURL.appendingPathComponent(path)
-            if let transform = transform { // only peform the transform if the closure is specified…
-                let sourceData = try Data(contentsOf: projectSrc)
-                try transform(sourceData).write(to: outputSrc) // transform the data and write it back out
-            } else { // …otherwise simply copy the resource
-                try fm.copyItem(at: projectSrc, to: outputSrc)
-            }
-
-            return outputSrc
-        }
-
-        // if validation passes, we can copy up the output sources
-        try pull("Sandbox.entitlements")
-
-        // copy up the assets, sources, and other metadata
-        try pull("AppFairApp.xcconfig")
-        try pull("Info.plist")
-        try pull("Assets.xcassets")
-        try pull("README.md")
-        try pull("Sources")
-        try pull("Tests")
-
-        try pull("Package.swift") { data in
-            // We manually copy over the package validations so that we do not require that the user always keep the validations current
-
-            // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
-
-//            guard let packageURL = self.basePathURL(path: "Package.swift") else {
-//                throw CocoaError(.fileReadNoSuchFile)
-//            }
-//
-//            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
-//            if packageTemplate.count != 2 {
-//                throw CocoaError(.fileReadNoSuchFile)
-//            }
-//
-//            let str1 = String(data: data, encoding: .utf8) ?? ""
-//            let str2 = packageTemplate[1]
-//            return (str1 + str2).utf8Data
-
-            return data
-        }
-
-    }
-
-    func unzip(from sourceURL: URL, to destURL: URL) throws {
-        #if os(macOS)
-        try Process.ditto(from: sourceURL, to: destURL)
-        #else
-        // TODO: add unzip for iOS support
-        throw Errors.processCommandUnavailable("ditto")
-        #endif
-    }
-
     /// Returns `App-Name`
     func appOrgName() throws -> String {
         guard let orgName = orgName else {
-            throw Errors.badArgument("org")
+            throw FairTool.Errors.badArgument("org")
         }
         return orgName
     }
@@ -1123,120 +1427,9 @@ public extension FairTool {
 
     /// If the `--fair-properties` flag was specified, tries to parse the build settings
     func buildSettings() throws -> BuildSettings? {
-        guard let fairProperties = self.fairPropertiesFlag else { return nil }
+        guard let fairProperties = self.options.fairProperties else { return nil }
         return try BuildSettings(url: projectPathURL(path: fairProperties))
     }
-
-    #if canImport(SwiftUI)
-    func icon(msg: MessageHandler) throws {
-        msg(.info, "icon")
-
-        assert(Thread.isMainThread, "SwiftUI can only be used from main thread")
-
-        guard let appIconPath = self.appIconPath else {
-            throw Errors.missingFlag(self.op, "-app-icon")
-        }
-
-        let appIconURL = projectPathURL(path: appIconPath)
-
-        // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
-        let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
-
-        let appName = try appNameSpace()
-        let iconColor = try parseTintIconColor()
-
-        var symbolNames = iconSymbols ?? []
-        if let symbolName = try self.buildSettings()?["ICON_SYMBOL"] {
-            symbolNames.append(symbolName)
-        }
-
-        // the minimal required icons for macOS + iOS
-        let icons = [
-            iconSet.images(idiom: "mac", scale: "2x", size: "16x16"),
-            iconSet.images(idiom: "mac", scale: "2x", size: "128x128"),
-            iconSet.images(idiom: "mac", scale: "2x", size: "256x256"),
-            iconSet.images(idiom: "mac", scale: "2x", size: "512x512"),
-            iconSet.images(idiom: "iphone", scale: "2x", size: "60x60"),
-            iconSet.images(idiom: "iphone", scale: "3x", size: "60x60"),
-            iconSet.images(idiom: "ipad", scale: "1x", size: "76x76"),
-            iconSet.images(idiom: "ipad", scale: "2x", size: "76x76"),
-            iconSet.images(idiom: "ipad", scale: "2x", size: "83.5x83.5"),
-            iconSet.images(idiom: "ios-marketing", scale: "1x", size: "1024x1024"),
-        ].joined()
-
-        var appIconSet = iconSet
-
-        for imageSet in icons {
-            let iconView = FairIconView(appName, subtitle: catalogTitleFlag, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
-
-            if imageSet.filename != nil {
-                continue // skip any elements that have a file path specified already
-            }
-
-            // an un-specified filename will be filled in with the default app icon
-
-            let iconFile = URL(fileURLWithPath: "appicon-" + imageSet.standardPath + ".png", relativeTo: appIconURL)
-
-            let assetName = try AssetName(string: iconFile.lastPathComponent)
-
-            let size = max(assetName.width, assetName.height)
-            var scale = Double(assetName.scale ?? 1)
-            #if os(macOS)
-            if let screen = NSScreen.main, screen.backingScaleFactor > 0.0 {
-                // there should be a better way to do this, but rendering a view seems to use the main screens scale, which on the build host seems to be 1.0 and on a macBook is 2.0; we need to alter the scale in order to generate the correctly-sized images on each host
-                scale /= screen.backingScaleFactor
-            }
-            #endif
-
-            let span = CGFloat(size) * CGFloat(scale) // default content scale
-            let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
-            let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%
-
-            guard let pngData = iconView.padding(span * iconInset).png(bounds: bounds), pngData.count > 1024 else {
-                throw AppError("Unable to generate PNG data")
-            }
-            try pngData.write(to: iconFile)
-            msg(.info, "output icon to: \(iconFile.path)")
-
-            appIconSet.images = appIconSet.images.map { image in
-                var img = image
-                if img.idiom == imageSet.idiom
-                    && img.size == imageSet.size
-                    && img.scale == imageSet.scale
-                    && img.role == imageSet.role
-                    && img.subtype == imageSet.subtype
-                    && img.filename == nil {
-                    img.filename = iconFile.lastPathComponent // update the image to have the given file name
-                }
-                return img
-            }
-        }
-
-        if appIconSet != iconSet {
-            // when we have changed the icon set from the origional, save it back to the asset catalog
-            msg(.info, "saving changed assets to: \(appIconURL.path)")
-            try appIconSet.json(outputFormatting: [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]).write(to: appIconURL)
-        }
-    }
-
-    func parseTintIconColor() throws -> Color? {
-        if let tint = try self.buildSettings()?["ICON_TINT"] {
-            if let hexColor = HexColor(hexString: tint) {
-                return hexColor.sRGBColor()
-            }
-        }
-
-        // fall back to the asset catalog, if specified
-        if let accentColorFlag = accentColorFlag {
-            let accentColorPath = projectPathURL(path: accentColorFlag)
-            if let rgba = try parseColorContents(url: accentColorPath) {
-                return Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-            }
-        }
-
-        return nil
-    }
-    #endif
 
     /// Perform update checks before copying the app into the destination
     private func validateUpdate(from sourceApp: URL, to destApp: URL) throws {
@@ -1244,33 +1437,34 @@ public extension FairTool {
         let destInfo = try Plist(url: destApp.appendingPathComponent("Contents/Info.plist"))
 
         guard let sourceBundleID = sourceInfo.CFBundleIdentifier else {
-            throw Errors.noBundleID(sourceApp)
+            throw FairTool.Errors.noBundleID(sourceApp)
         }
 
         guard let destBundleID = destInfo.CFBundleIdentifier else {
-            throw Errors.noBundleID(destApp)
+            throw FairTool.Errors.noBundleID(destApp)
         }
 
         if sourceBundleID != destBundleID {
-            throw Errors.mismatchedBundleID(destApp, sourceBundleID, destBundleID)
+            throw FairTool.Errors.mismatchedBundleID(destApp, sourceBundleID, destBundleID)
         }
     }
 
     /// Retries the given operation until the `retry-duration` flag as been exceeded
-    private func retrying<T>(msg: MessageHandler, operation: () async throws -> T) async throws -> T {
+    func retrying<T>(operation: () async throws -> T) async throws -> T {
         let timeoutDate = Date().addingTimeInterval(retryDurationFlag ?? 0)
         while true {
             do {
                 return try await operation()
             } catch {
-                if try backoff(timeoutDate, error: error, msg: msg) == false {
+                // TODO: schedule on a queue rather than blocking on Thread.sleep
+                if try backoff(timeoutDate, error: error) == false {
                     throw error
                 }
             }
         }
 
         /// Backs off until the given timeout date
-        @discardableResult func backoff(_ timeoutDate: Date, error: Error?, msg: MessageHandler) throws -> Bool {
+        @discardableResult func backoff(_ timeoutDate: Date, error: Error?) throws -> Bool {
             // we we are timed out, or if we don't want to retry, then simply re-download
             if (retryDurationFlag ?? 0) <= 0 || retryWaitFlag <= 0 || Date() >= timeoutDate {
                 return false
@@ -1280,293 +1474,7 @@ public extension FairTool {
                 return true
             }
         }
-
-
     }
-
-    private func fetchArtifact(msg: MessageHandler, url artifactURL: URL) async throws -> URL {
-        try await retrying(msg: msg) {
-            var request = URLRequest(url: artifactURL)
-            request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-            let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
-            if let response = response as? HTTPURLResponse,
-               (200..<300).contains(response.statusCode) { // e.g., 404
-                msg(.info, "downloaded:", artifactURL.absoluteString, "to:", downloadedURL, "response:", response)
-                return downloadedURL
-            } else {
-                msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
-            }
-        }
-    }
-
-    private func fetchUntrustedArtifact(msg: MessageHandler) async throws -> URL {
-        // if we specified the artifact as a local file, just use it directly
-        if let untrustedArtifactFlag = untrustedArtifactFlag {
-            return URL(fileURLWithPath: untrustedArtifactFlag)
-        }
-
-        guard let artifactURLFlag = self.artifactURLFlag,
-            let artifactURL = URL(string: artifactURLFlag) else {
-            throw Errors.missingFlag(self.op, "-artifact-url")
-        }
-
-        return try await fetchArtifact(msg: msg, url: artifactURL)
-    }
-
-    #if canImport(Compression)
-    func fairseal(msg: MessageHandler) async throws {
-        msg(.info, "Fairseal")
-
-        // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
-        let fairsealThreshold = fairsealMatchFlag?.compactMap({ Int($0) }).first
-
-        guard let trustedArtifactFlag = trustedArtifactFlag else {
-            throw Errors.missingFlag(self.op, "-trusted-artifact")
-        }
-
-        let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
-        guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
-            throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
-        }
-
-        let untrustedArtifactLocalURL = try await fetchUntrustedArtifact(msg: msg)
-
-        guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
-            throw AppError("Error opening untrusted archive: \(untrustedArtifactLocalURL.absoluteString)")
-        }
-
-        if untrustedArtifactLocalURL == trustedArtifactURL {
-            throw AppError("Trusted and untrusted artifacts may not be the same")
-        }
-
-        // Load the zip entries, skipping over signature entries we are exlcuding from the comparison
-        func readEntries(_ archive: ZipArchive) -> [ZipArchive.Entry] {
-            Array(archive.makeIterator())
-                .filter { entry in
-                    // these can be in either _CodeSignature or Contents
-                    !entry.path.hasSuffix("/CodeSignature")
-                    && !entry.path.hasSuffix("/CodeResources")
-                    && !entry.path.hasSuffix("/CodeDirectory")
-                    && !entry.path.hasSuffix("/CodeRequirements-1")
-                }
-        }
-
-        let trustedEntries = readEntries(trustedArchive)
-        let untrustedEntries = readEntries(untrustedArchive)
-
-        if trustedEntries.count != untrustedEntries.count {
-            throw AppError("Trusted and untrusted artifact content counts do not match (\(trustedEntries.count) vs. \(untrustedEntries.count))")
-        }
-
-        let rootPaths = Set(trustedEntries.compactMap({
-            $0.path.split(separator: "/")
-                .drop(while: { $0 == "Payload" }) // .ipa archives store Payload/App Name.app/Info.plist
-                .first
-        }))
-
-        guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
-            throw AppError("Invalid root path in archive: \(rootPaths)")
-        }
-
-        let appName = rootPath.dropLast(Self.appSuffix.count)
-
-        // TODO: we should instead check the `CFBundleExecutable` key for the executable name
-
-        let macOSExecutable = "\(appName).app/Contents/MacOS/\(appName)" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
-        let macOSInfo = "\(appName).app/Contents/Info.plist" // macOS: e.g., Photo Box.app/Contents/MacOS/Photo Box
-
-        let iOSExecutable = "Payload/\(appName).app/\(appName)" // iOS: e.g., Photo Box.app/Photo Box
-        let iOSInfo = "Payload/\(appName).app/Info.plist"
-
-        let executablePaths = [
-            macOSExecutable,
-            iOSExecutable,
-        ]
-
-        var infoPlist: Plist? = nil
-
-        var coreSize: UInt64 = 0 // the size of the executable itself
-
-        for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
-            if trustedEntry.path != untrustedEntry.path {
-                throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
-            }
-
-            let entryIsMainBinary = executablePaths.contains(trustedEntry.path)
-            let entryIsInfo = trustedEntry.path == macOSInfo || trustedEntry.path == iOSInfo
-
-            if entryIsMainBinary {
-                coreSize = trustedEntry.uncompressedSize // the "core" size is just the size of the main binary itself
-            }
-
-            if entryIsInfo {
-                // parse the compiled Info.plist for processing
-                infoPlist = try withErrorContext("parsing plist entry: \(trustedEntry.path)") {
-                    try Plist(data: trustedArchive.extractData(from: trustedEntry))
-                }
-            }
-
-            if trustedEntry.checksum == untrustedEntry.checksum {
-                continue
-            }
-
-            // checksum mismatch: check the actual binary contents so we can summarize the differences
-            msg(.info, "checking mismached entry: \(trustedEntry.path)")
-
-            let pathParts = trustedEntry.path.split(separator: "/")
-
-            if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
-                // assets are not deterministically compiled; we let these pass
-                continue
-            }
-
-            if trustedEntry.path.hasSuffix(".nib") {
-                // nibs sometimes get compiled differently as well
-                continue
-            }
-
-            if pathParts.dropLast().last?.hasSuffix(".storyboardc") == true {
-                // Storyboard files sometimes get compiled differently (e.g., differences in the date in Info.plist)
-                continue
-            }
-
-
-            //msg(.debug, "checking", trustedEntry.path)
-
-            var trustedPayload = try trustedArchive.extractData(from: trustedEntry)
-            var untrustedPayload = try untrustedArchive.extractData(from: untrustedEntry)
-
-            // handles the dynamic library at: Payload/App Name.app/Frameworks/App.framework/App
-            let isExecutable = trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xce]) // 32-bit magic
-                || trustedPayload.starts(with: [0xfe, 0xed, 0xfa, 0xcf]) // 64-bit magic
-                || trustedPayload.starts(with: [0xca, 0xfe, 0xba, 0xbe]) // universal magic
-                || trustedPayload.starts(with: [0xcf, 0xfa, 0xed, 0xfe, 0x0c, 0x00, 0x00, 0x01]) // dylib
-
-            let isAppBinary = entryIsMainBinary || isExecutable
-
-            // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
-            #if os(macOS) // we can only launch `codesign` on macOS
-            // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
-            if isAppBinary && trustedPayload != untrustedPayload {
-                func stripSignature(from data: Data) throws -> Data {
-                    let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
-                    try data.write(to: tmpFile)
-                    try Process.codesignStrip(url: tmpFile)
-                    return try Data(contentsOf: tmpFile) // read it back in
-                }
-
-                msg(.info, "stripping code signatures: \(trustedEntry.path)")
-                trustedPayload = try stripSignature(from: trustedPayload)
-                untrustedPayload = try stripSignature(from: untrustedPayload)
-            }
-            #endif
-
-            // the signature can change the binary size
-//            if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
-//                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
-//            }
-
-            if trustedPayload != untrustedPayload {
-                msg(.info, " scanning payload differences")
-                let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload) // .inferringMoves()
-
-                msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex()) differences: \(diff.count)")
-                func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
-                    IndexSet(changeSet.map({
-                        switch $0 {
-                        case .insert(let offset, _, _): return offset
-                        case .remove(let offset, _, _): return offset
-                        }
-                    }))
-                }
-
-                let insertionRanges = offsets(in: diff.insertions)
-                let insertionRangeDesc = insertionRanges
-                    .rangeView
-                    .prefix(10)
-                    .map({ $0.description })
-
-                let removalRanges = offsets(in: diff.removals)
-                let removalRangeDesc = removalRanges
-                    .rangeView
-                    .prefix(10)
-                    .map({ $0.description })
-
-                let totalChanges = diff.insertions.count + diff.removals.count
-                if totalChanges > 0 {
-                    let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
-
-                    if isAppBinary {
-                        if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
-                            // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
-                            msg(.info, "tolerating \(totalChanges) differences for: \(error)")
-                        } else {
-                            throw error
-                        }
-                    } else {
-                        throw error
-                    }
-                }
-            }
-        }
-
-        var assets: [FairSeal.Asset] = []
-
-        // publish the hash for the artifact binary URL
-        if let artifactURLFlag = self.artifactURLFlag, let artifactURL = URL(string: artifactURLFlag) {
-
-            // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
-            for stagingFolder in artifactStagingFolders {
-                let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants, .producesRelativePathURLs])
-                    .sorting(by: \.lastPathComponent)
-                msg(.info, "scanning assets:", artifactAssets.map(\.relativePath))
-
-                for localURL in artifactAssets {
-                    guard let assetSize = localURL.fileSize() else {
-                        continue
-                    }
-
-                    // the published asset URL is the name of the local path relative to the download URL for the artifact
-                    let assetURL = artifactURL.deletingLastPathComponent().appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
-                    if assetURL.lastPathComponent == artifactURL.lastPathComponent {
-                        let assetHash = try Data(contentsOf: untrustedArtifactLocalURL).sha256().hex()
-                        // the primary asset uses the special hash handling
-                        msg(.info, "hash for artifact:", assetURL.lastPathComponent, assetHash)
-                        assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
-                    } else {
-                        let assetHash = try Data(contentsOf: localURL).sha256().hex()
-                        // all other artifacts are hashed directly from their local counterparts
-                        assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
-                    }
-                }
-            }
-        }
-
-        guard let plist = infoPlist else {
-            throw AppError("Missing property list")
-        }
-
-        let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
-        let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
-        for permission in permissions {
-            msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
-        }
-
-        let tint = try? parseTintColor()
-        let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: Int(coreSize), tint: tint)
-        
-        msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
-
-        // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
-        msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
-        if let postURL = try await fairHub().postFairseal(fairseal) {
-            msg(.info, "posted fairseal to:", postURL.absoluteString)
-        } else {
-            msg(.warn, "unable to post fairseal")
-        }
-    }
-    #endif
 
     func parseTintColor() throws -> String? {
         // first check the `AppFairApp.xcconfig` file for customization
@@ -1577,7 +1485,7 @@ public extension FairTool {
         }
 
         // fall back to the asset catalog, if any
-        if let accentColorFlag = accentColorFlag {
+        if let accentColorFlag = options.accentColor {
             let accentColorPath = projectPathURL(path: accentColorFlag)
             if let rgba = try parseColorContents(url: accentColorPath) {
                 let tintColor = String(format:"%02X%02X%02X", Int(rgba.r * 255), Int(rgba.g * 255), Int(rgba.b * 255))
@@ -1594,55 +1502,21 @@ public extension FairTool {
         try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
     }
 
-    func catalog(msg: MessageHandler) async throws {
+    func catalog() async throws {
         msg(.info, "Catalog")
-        try await retrying(msg: msg) {
-            try await createCatalog(msg: msg)
+        try await retrying() {
+            try await createCatalog()
         }
     }
 
-    func appcasks(msg: MessageHandler) async throws {
-        msg(.info, "AppCasks")
-        try await retrying(msg: msg) {
-            try await createAppCasks(msg: msg)
-        }
-    }
-
-    private func createAppCasks(msg: MessageHandler) async throws {
-        let hub = try fairHub()
-
-        func output(_ data: Data, to path: String) throws {
-            if path == "-" {
-                print(data.utf8String!)
-            } else {
-                let file = URL(fileURLWithPath: path)
-                try data.write(to: file)
-            }
-        }
-
-        // build the catalog filtering on specific artifact extensions
-        let catalog = try await hub.buildAppCasks(boostFactor: boostFactor)
-
-        msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
-        for apprel in catalog.apps {
-            msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
-        }
-
-        if let outputFile = outputFlag {
-            let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
-            try output(json, to: outputFile)
-            msg(.info, "Wrote appcasks to", outputFile, json.count.localizedByteCount())
-        }
-    }
-
-    private func createCatalog(msg: MessageHandler) async throws {
+    private func createCatalog() async throws {
         let hub = try fairHub()
 
         // whether to enforce a fairseal check before the app will be listed in the catalog
-        let fairsealCheck = fairsealFlag?.contains("skip") != true
+        let fairsealCheck = true // options.fairseal.contains("skip") != true
 
         let artifactTarget: ArtifactTarget
-        switch artifactExtensionFlag?.first ?? "zip" {
+        switch options.artifactExtension.first ?? "zip" {
         case "ipa":
             artifactTarget = ArtifactTarget(artifactType: "ipa", devices: ["iphone", "ipad"])
         case "zip", _:
@@ -1666,7 +1540,7 @@ public extension FairTool {
             msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
         }
 
-        if let outputFile = outputFlag {
+        if let outputFile = options.output {
             let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
             try output(json, to: outputFile)
             msg(.info, "Wrote catalog to", outputFile, json.count.localizedByteCount())
@@ -1675,18 +1549,18 @@ public extension FairTool {
         if let caskFolderFlag = caskFolderFlag {
             msg(.info, "Writing casks to: \(caskFolderFlag)")
             for app in catalog.apps {
-                try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease", msg: msg)
+                try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease")
             }
         }
 
         if let indexFlag = indexFlag {
-            let md = try buildAppCatalogMarkdown(msg: msg, catalog: catalog)
+            let md = try buildAppCatalogMarkdown(catalog: catalog)
             try output(md.utf8Data, to: indexFlag)
             msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
         }
     }
 
-    func buildAppCatalogMarkdown(msg: MessageHandler, catalog: FairAppCatalog) throws -> String {
+    func buildAppCatalogMarkdown(catalog: FairAppCatalog) throws -> String {
         let format = ISO8601DateFormatter()
         func fmt(_ date: Date) -> String {
             //date.localizedDate(dateStyle: .short, timeStyle: .short)
@@ -1788,7 +1662,7 @@ public extension FairTool {
         return md
     }
 
-    @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?, msg: MessageHandler) throws -> Bool {
+    @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?) throws -> Bool {
         let appNameSpace = app.name
         let appNameHyphen = app.name.rehyphenated()
 
@@ -1877,102 +1751,7 @@ end
         return true
     }
 
-
-    @discardableResult func printMessage(kind: MessageKind = .info, _ message: [Any?]) -> String {
-        let msg = message.map({ $0.flatMap(String.init(describing:)) ?? "nil" }).joined(separator: " ")
-
-        if kind == .debug && verboseFlag == false {
-            return msg // skip debug output unless we are running verbose
-        }
-
-        // let (checkMark, failMark) = ("✓", "X")
-        print(kind.name, msg)
-
-        return msg
-    }
-
-    enum MessageKind {
-        case debug, info, warn, error
-
-        var name: String {
-            switch self {
-            case .debug: return "DEBUG"
-            case .info: return "INFO"
-            case .warn: return "WARN"
-            case .error: return "ERROR"
-            }
-        }
-    }
-
-    enum Errors : LocalizedError {
-        case missingCommand
-        case unknownCommand(_ cmd: String)
-        case badArgument(_ arg: String)
-        case badOperation(_ op: String?)
-        case missingSDK
-        case dumpPackageError
-        case invalidAppSourceHeader(_ url: URL)
-        case cannotInitNonEmptyFolder(_ url: URL)
-        case sameOutputAndProjectPath(_ output: String, _ project: String)
-        case cannotOverwriteAlteredFile(_ url: URL)
-        case invalidData(_ url: URL)
-        case invalidPlistValue(_ key: String, _ expected: [String], _ actual: NSObject?, _ url: URL)
-        case invalidContents(_ scaffoldSource: String?, _ projectSource: String?, _ path: String, _ line: Int)
-        case invalidHub(_ host: String?)
-        case badRepository(_ expectedHost: String, _ repository: String)
-        case missingArguments(_ op: Operation)
-        case downloadMissing(_ url: URL)
-        case missingAppPath
-        case badApplicationsPath(_ url: URL)
-        case installAppMissing(_ appName: String, _ url: URL)
-        case installedAppExists(_ appURL: URL)
-        case processCommandUnavailable(_ command: String)
-        case matchFailed(_ op: Operation, _ arg: String)
-        case noBundleID(_ url: URL)
-        case mismatchedBundleID(_ url: URL, _ sourceID: String, _ destID: String)
-        case sandboxRequired
-        case forbiddenEntitlement(_ entitlement: String)
-        case missingUsageDescription(_ entitlement: AppEntitlement)
-        case missingFlag(_ op: Operation, _ flag: String)
-        case invalidIntegrationTitle(_ integrationName: String, _ expectedName: String)
-
-        public var errorDescription: String? {
-            switch self {
-            case .missingCommand: return "Missing command"
-            case .unknownCommand(let cmd): return "Unknown command \"\(cmd)\""
-            case .badArgument(let arg): return "Bad argument: \"\(arg)\""
-            case .badOperation(let op): return "Bad operation: \"\(op ?? "none")\". Valid operations: \(Operation.allCases.map(\.rawValue).joined(separator: ", "))"
-            case .missingSDK: return "Missing SDK"
-            case .dumpPackageError: return "Error reading Package.swift"
-            case .invalidAppSourceHeader(let url): return "Invalid modification of source header at \(url.lastPathComponent)."
-            case .cannotInitNonEmptyFolder(let url): return "Folder is not empty: \(url.path)."
-            case .sameOutputAndProjectPath(let output, let project): return "The output path specified by -o (\(output)) may not be the same as the project path specified by -p (\(project))."
-            case .cannotOverwriteAlteredFile(let url): return "Cannot overwrite path \(url.relativePath) with changed contents."
-            case .invalidData(let url): return "The data at \(url.path) is invalid."
-            case .invalidPlistValue(let key, let expected, let actual, let url): return "The key \"\(key)\" at \(url.path) is invalid: expected one of \"\(expected)\" but found \"\(actual ?? ("nil" as NSString))\"."
-            case .invalidContents(_, _, let path, let line): return "The contents at \"\(path)\" does not match the contents of the original source starting at line \(line + 1)."
-            case .invalidHub(let host): return "The hub (\"\(host ?? "null")\") specified by the -h/--hub flag is invalid"
-            case .badRepository(let expectedHost, let repository): return "The pinned repository \"\(repository)\" does not match the hub (\"\(expectedHost)\") specified by the -h/--hub flag"
-            case .missingArguments(let op): return "The operation \"\(op.rawValue)\" requires at least one argument"
-            case .downloadMissing(let url): return "The download file could not be found: \(url.path)"
-            case .missingAppPath: return "The applications install path (-a/--appPath) is required"
-            case .badApplicationsPath(let url): return "The applications install path (-a/--appPath) did not exist and could not be created: \(url.path)"
-            case .installAppMissing(let appName, let url): return "The install archive was missing a root \"\(appName)\" at: \(url.path)"
-            case .installedAppExists(let appURL): return "Cannot install over existing app without update: \(appURL.path)"
-            case .processCommandUnavailable(let command): return "Platform does not support Process and therefore cannot run: \(command)"
-            case .matchFailed(let op, let arg): return "\(op.rawValue) found no match for: \"\(arg)\""
-            case .noBundleID(let url): return "No bundle ID found for app: \"\(url.path)\""
-            case .mismatchedBundleID(let url, let sourceID, let destID): return "Update cannot change bundle ID from \"\(sourceID)\" to \"\(destID)\" in app: \(url.path)"
-            case .sandboxRequired: return "The Sandbox.entitlements must activate sandboxing with the \"com.apple.security.app-sandbox\" property"
-            case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
-            case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
-            case .missingFlag(let op, let flag): return "The operation \(op.rawValue) requires the -\(flag) flag"
-            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the AppFairApp.xcconfig file (expected: \"\(expectedName)\")"
-            }
-        }
-    }
-
-    static let packageValidationLine = "// MARK: fair-ground package validation"
+    static var packageValidationLine: String { "// MARK: fair-ground package validation" }
 
     /// Splits the two strings by newlines and returns the first non-matching line
     static func firstDifferentLine(_ source1: String, _ source2: String) -> Int {
@@ -1988,7 +1767,8 @@ end
     }
 }
 
-/// A build settings file, used to parse `AppFairApp.xcconfig`
+/// A build configuration file, used to parse `AppFairApp.xcconfig`.
+/// The format is a line-based key/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.
 public struct BuildSettings : RawRepresentable, Hashable {
     public var rawValue: [String: String]
 
@@ -2036,61 +1816,6 @@ public struct BuildSettings : RawRepresentable, Hashable {
     public subscript(path: String) -> String? {
         rawValue[path]
     }
-}
-
-
-struct ANSICode {
-    let open: String
-    let close: String
-
-    init(_ open: String, _ close: String) {
-        self.open = open
-        self.close = close
-    }
-
-    static let reset = Self("\u{001B}[0m", "")
-    static let dim = Self("\u{001B}[2m", "\u{001B}[22m")
-    static let bold = Self("\u{001B}[1m", "\u{001B}[22m")
-    static let blink = Self("\u{001B}[5m", "\u{001B}[25m")
-    static let hidden = Self("\u{001B}[8m", "\u{001B}[28m")
-    static let italic = Self("\u{001B}[3m", "\u{001B}[23m")
-    static let reverse = Self("\u{001B}[7m", "\u{001B}[27m")
-    static let underline = Self("\u{001B}[4m", "\u{001B}[24m")
-    static let strikethrough = Self("\u{001B}[9m", "\u{001B}[29m")
-
-    static let white = Self("\u{001B}[97m", "\u{001B}[0m")
-    static let black = Self("\u{001B}[30m", "\u{001B}[0m")
-    static let red = Self("\u{001B}[31m", "\u{001B}[0m")
-    static let green = Self("\u{001B}[32m", "\u{001B}[0m")
-    static let yellow = Self("\u{001B}[33m", "\u{001B}[0m")
-    static let blue = Self("\u{001B}[34m", "\u{001B}[0m")
-    static let magenta = Self("\u{001B}[35m", "\u{001B}[0m")
-    static let cyan = Self("\u{001B}[36m", "\u{001B}[0m")
-    static let lightGray = Self("\u{001B}[37m", "\u{001B}[0m")
-    static let darkGray = Self("\u{001B}[90m", "\u{001B}[0m")
-    static let lightRed = Self("\u{001B}[91m", "\u{001B}[0m")
-    static let lightGreen = Self("\u{001B}[92m", "\u{001B}[0m")
-    static let lightYellow = Self("\u{001B}[93m", "\u{001B}[0m")
-    static let lightBlue = Self("\u{001B}[94m", "\u{001B}[0m")
-    static let lightMagenta = Self("\u{001B}[95m", "\u{001B}[0m")
-    static let lightCyan = Self("\u{001B}[96m", "\u{001B}[0m")
-
-    static let whiteOn = Self("\u{001B}[107m", "\u{001B}[0m")
-    static let blackOn = Self("\u{001B}[40m", "\u{001B}[0m")
-    static let redOn = Self("\u{001B}[41m", "\u{001B}[0m")
-    static let greenOn = Self("\u{001B}[42m", "\u{001B}[0m")
-    static let yellowOn = Self("\u{001B}[43m", "\u{001B}[0m")
-    static let blueOn = Self("\u{001B}[44m", "\u{001B}[0m")
-    static let magentaOn = Self("\u{001B}[45m", "\u{001B}[0m")
-    static let cyanOn = Self("\u{001B}[46m", "\u{001B}[0m")
-    static let grayOn = Self("\u{001B}[47m", "\u{001B}[0m")
-    static let darkGrayOn = Self("\u{001B}[100m", "\u{001B}[0m")
-    static let lightRedOn = Self("\u{001B}[101m", "\u{001B}[0m")
-    static let lightGreenOn = Self("\u{001B}[102m", "\u{001B}[0m")
-    static let lightYellowOn = Self("\u{001B}[103m", "\u{001B}[0m")
-    static let lightBlueOn = Self("\u{001B}[104m", "\u{001B}[0m")
-    static let lightMagentaOn = Self("\u{001B}[105m", "\u{001B}[0m")
-    static let lightCyanOn = Self("\u{001B}[106m", "\u{001B}[0m")
 }
 
 struct HexColor : Hashable {
@@ -2311,56 +2036,6 @@ extension AppIconSet {
             && (size == nil || imageEntry.size == size)
         }
     }
-}
-
-extension String {
-    func ansi(_ codeStyle: ANSICode) -> String {
-        codeStyle.open + self.replacingOccurrences(of: ANSICode.reset.open, with: ANSICode.reset.open + codeStyle.open) + ANSICode.reset.open
-    }
-
-    func bold() -> String { ansi(ANSICode.bold) }
-    func dim() -> String { ansi(ANSICode.dim) }
-    func italic() -> String { ansi(ANSICode.italic) }
-    func underline() -> String { ansi(ANSICode.underline) }
-    func blink() -> String { ansi(ANSICode.blink) }
-    func reverse() -> String { ansi(ANSICode.reverse) }
-    func hidden() -> String { ansi(ANSICode.hidden) }
-    func strikethrough() -> String { ansi(ANSICode.strikethrough) }
-    func reset() -> String { "\u{001B}[0m" + self }
-
-    func white() -> String { ansi(ANSICode.white) }
-    func black() -> String { ansi(ANSICode.black) }
-    func red() -> String { ansi(ANSICode.red) }
-    func green() -> String { ansi(ANSICode.green) }
-    func yellow() -> String { ansi(ANSICode.yellow) }
-    func blue() -> String { ansi(ANSICode.blue) }
-    func magenta() -> String { ansi(ANSICode.magenta) }
-    func cyan() -> String { ansi(ANSICode.cyan) }
-    func lightGray() -> String { ansi(ANSICode.lightGray) }
-    func darkGray() -> String { ansi(ANSICode.darkGray) }
-    func lightRed() -> String { ansi(ANSICode.lightRed) }
-    func lightGreen() -> String { ansi(ANSICode.lightGreen) }
-    func lightYellow() -> String { ansi(ANSICode.lightYellow) }
-    func lightBlue() -> String { ansi(ANSICode.lightBlue) }
-    func lightMagenta() -> String { ansi(ANSICode.lightMagenta) }
-    func lightCyan() -> String { ansi(ANSICode.lightCyan) }
-
-    func whiteon() -> String { ansi(ANSICode.whiteOn) }
-    func blackon() -> String { ansi(ANSICode.blackOn) }
-    func redon() -> String { ansi(ANSICode.redOn) }
-    func greenon() -> String { ansi(ANSICode.greenOn) }
-    func yellowon() -> String { ansi(ANSICode.yellowOn) }
-    func blueon() -> String { ansi(ANSICode.blueOn) }
-    func magentaon() -> String { ansi(ANSICode.magentaOn) }
-    func cyanon() -> String { ansi(ANSICode.cyanOn) }
-    func grayon() -> String { ansi(ANSICode.grayOn) }
-    func darkgrayon() -> String { ansi(ANSICode.darkGrayOn) }
-    func lightredon() -> String { ansi(ANSICode.lightRedOn) }
-    func lightgreenon() -> String { ansi(ANSICode.lightGreenOn) }
-    func lightyellowon() -> String { ansi(ANSICode.lightYellowOn) }
-    func lightblueon() -> String { ansi(ANSICode.lightBlueOn) }
-    func lightmagentaon() -> String { ansi(ANSICode.lightMagentaOn) }
-    func lightcyanon() -> String { ansi(ANSICode.lightCyanOn) }
 }
 
 extension AssetName {

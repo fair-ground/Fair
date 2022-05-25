@@ -14,33 +14,8 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import Swift
 import FairApp
-import Foundation
 
-#if canImport(Glibc)
-import Glibc
-private let _exit: (Int32) -> Never = Glibc.exit
-#elseif canImport(Darwin)
-import Darwin
-private let _exit: (Int32) -> Never = Darwin.exit
-#elseif canImport(CRT)
-import CRT
-private let _exit: (Int32) -> Never = ucrt._exit
-#elseif canImport(WASILibc)
-import WASILibc
-#endif
-
-Task {
-    do {
-        let cli = try FairTool()
-        try await cli.runCLI()
-        _exit(0)
-    } catch {
-        print("fairtool error: \(error.localizedDescription)")
-        error.dumpError()
-        _exit(.init((error as NSError).code))
-    }
+@main final class FairToolMain : AsyncParsableCommand {
+    public static var configuration = FairTool.configuration
 }
-
-RunLoop.main.run()
