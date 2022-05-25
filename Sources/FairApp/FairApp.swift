@@ -825,6 +825,25 @@ public extension UsageDescriptionKeys {
         case .NSUserTrackingUsageDescription: return "User Tracking"
         case .NSNearbyInteractionAllowOnceUsageDescription:
             return "Nearby Interaction (Once)"
+        case .NSLocationDefaultAccuracyReduced: return "Location (Default Accuracy Reduced)"
+        case .NSWidgetWantsLocation: return "Widget Wants Location"
+        case .NSVoIPUsageDescription: return "VoIP"
+        case .NSNearbyInteractionUsageDescription: return "Nearby Interaction"
+        case .NSSensorKitUsageDescription: return "Sensor Kit"
+        case .NSBluetoothWhileInUseUsageDescription: return "Bluetooth (While In Use)"
+        case .NSFallDetectionUsageDescription: return "Fall Detection"
+        case .NSVideoSubscriberAccountUsageDescription: return "Video Subscriber Account"
+        case .NSGKFriendListUsageDescription: return "GameKit Friend List"
+        case .NSHealthClinicalHealthRecordsShareUsageDescription: return "Health (Clinical Health Records Share)"
+        case .NSDesktopFolderUsageDescription: return "Desktop Folder Access"
+        case .NSDocumentsFolderUsageDescription: return "Documents Folder Access"
+        case .NSDownloadsFolderUsageDescription: return "Downloads Folder Access"
+        case .NSSystemExtensionUsageDescription: return "System Extension"
+        case .NSSystemAdministrationUsageDescription: return "System Administration"
+        case .NSFileProviderDomainUsageDescription: return "File Provider Domain"
+        case .NSFileProviderPresenceUsageDescription: return "File Provider Presence"
+        case .NSNetworkVolumesUsageDescription: return "Network Volumes"
+        case .NSRemovableVolumesUsageDescription: return "Removable Volumes"
         }
     }
     #endif // canImport(SwiftUI)
@@ -854,14 +873,33 @@ public extension UsageDescriptionKeys {
         case .NSFocusStatusUsageDescription: return .eyeglasses
         case .NSLocalNetworkUsageDescription: return .network
         case .NSFaceIDUsageDescription: return .viewfinder
-        case .NSLocationUsageDescription: return .location_magnifyingglass
+        case .NSLocationUsageDescription: return .location
         case .NSLocationAlwaysUsageDescription: return .location_fill
-        case .NSLocationTemporaryUsageDescriptionDictionary: return .location
+        case .NSLocationTemporaryUsageDescriptionDictionary: return .location_circle
         case .NSLocationWhenInUseUsageDescription: return .location_north
         case .NSLocationAlwaysAndWhenInUseUsageDescription: return .location_fill_viewfinder
         case .NSUserTrackingUsageDescription: return .eyes
         case .NSNearbyInteractionAllowOnceUsageDescription:
                 return .person_badge_clock_fill
+        case .NSLocationDefaultAccuracyReduced: return .location_square_fill
+        case .NSWidgetWantsLocation: return .location_magnifyingglass
+        case .NSVoIPUsageDescription: return .network_badge_shield_half_filled
+        case .NSNearbyInteractionUsageDescription: return .person_2_wave_2
+        case .NSSensorKitUsageDescription: return .antenna_radiowaves_left_and_right
+        case .NSBluetoothWhileInUseUsageDescription: return .dot_radiowaves_right
+        case .NSFallDetectionUsageDescription: return .figure_walk
+        case .NSVideoSubscriberAccountUsageDescription: return .play_tv
+        case .NSGKFriendListUsageDescription: return .person_3_sequence
+        case .NSHealthClinicalHealthRecordsShareUsageDescription: return .cross_circle
+        case .NSDesktopFolderUsageDescription: return .dock_rectangle
+        case .NSDocumentsFolderUsageDescription: return .menubar_dock_rectangle
+        case .NSDownloadsFolderUsageDescription: return .dock_arrow_down_rectangle
+        case .NSSystemExtensionUsageDescription: return .desktopcomputer
+        case .NSSystemAdministrationUsageDescription: return .lock_laptopcomputer
+        case .NSFileProviderDomainUsageDescription: return .externaldrive_connected_to_line_below
+        case .NSFileProviderPresenceUsageDescription: return .externaldrive_badge_checkmark
+        case .NSNetworkVolumesUsageDescription: return .externaldrive_badge_wifi
+        case .NSRemovableVolumesUsageDescription: return .externaldrive
         }
     }
 }

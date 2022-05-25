@@ -638,10 +638,18 @@ public enum UsageDescriptionKeys : String, CaseIterable {
     // MARK: location
 
     case NSLocationUsageDescription
+    case NSLocationDefaultAccuracyReduced
     case NSLocationAlwaysUsageDescription
     case NSLocationTemporaryUsageDescriptionDictionary
     case NSLocationWhenInUseUsageDescription
     case NSLocationAlwaysAndWhenInUseUsageDescription
+    case NSWidgetWantsLocation
+
+    // MARK: network
+
+    case NSVoIPUsageDescription
+    case NSNearbyInteractionUsageDescription
+    case NSNearbyInteractionAllowOnceUsageDescription
 
     // MARK: voice
 
@@ -650,13 +658,20 @@ public enum UsageDescriptionKeys : String, CaseIterable {
 
     // MARK: hardware
 
+    case NSSensorKitUsageDescription
     case NSMicrophoneUsageDescription
     case NSCameraUsageDescription
-    case NSMotionUsageDescription
-    case NFCReaderUsageDescription
     case NSBluetoothUsageDescription
     case NSBluetoothAlwaysUsageDescription
     case NSBluetoothPeripheralUsageDescription
+    case NSBluetoothWhileInUseUsageDescription
+
+    case NFCReaderUsageDescription
+
+    // MARK: motion
+
+    case NSMotionUsageDescription
+    case NSFallDetectionUsageDescription
 
     // MARK: databases
 
@@ -670,9 +685,17 @@ public enum UsageDescriptionKeys : String, CaseIterable {
 
     case NSAppleMusicUsageDescription
     case NSHomeKitUsageDescription
-    //case NSVideoSubscriberAccountUsageDescription
+    case NSVideoSubscriberAccountUsageDescription
+
+    // MARK: games
+
+    case NSGKFriendListUsageDescription
+
+    // MARK: health
+
     case NSHealthShareUsageDescription
     case NSHealthUpdateUsageDescription
+    case NSHealthClinicalHealthRecordsShareUsageDescription
 
     // MARK: misc
 
@@ -680,8 +703,19 @@ public enum UsageDescriptionKeys : String, CaseIterable {
     case NSFocusStatusUsageDescription
     case NSLocalNetworkUsageDescription
     case NSFaceIDUsageDescription
-    case NSNearbyInteractionAllowOnceUsageDescription
 
+    // MARK: standard locations (macOS)
+    case NSDesktopFolderUsageDescription
+    case NSDocumentsFolderUsageDescription
+    case NSDownloadsFolderUsageDescription
+
+    // MARK: misc (macOS)
+    case NSSystemExtensionUsageDescription
+    case NSSystemAdministrationUsageDescription
+    case NSFileProviderDomainUsageDescription
+    case NSFileProviderPresenceUsageDescription
+    case NSNetworkVolumesUsageDescription
+    case NSRemovableVolumesUsageDescription
 }
 
 /// The `LSApplicationCategoryType` for an app
