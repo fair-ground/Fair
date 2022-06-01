@@ -133,20 +133,13 @@ jobs:
           export DOCC_JSON_PRETTYPRINT="YES"
           # add in the docc plugin to generate the docs
           sed -i 's;// zero dependencies;.package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0");g' Package.swift
-          swift package --allow-writing-to-directory docs \
-            generate-documentation --target FairCore \
-            --disable-indexing \
-            --transform-for-static-hosting \
-            --hosting-base-path Fair \
-            --output-path docs
+          # until https://github.com/apple/swift-docc/issues/255
+          # is implemented, we can only have a single target,
+          # so we copy all the FairCore files into FairApp
+          cp -v Sources/FairCore/*.swift Sources/FairApp
+
           swift package --allow-writing-to-directory docs \
             generate-documentation --target FairApp \
-            --disable-indexing \
-            --transform-for-static-hosting \
-            --hosting-base-path Fair \
-            --output-path docs
-          swift package --allow-writing-to-directory docs \
-            generate-documentation --target FairKit \
             --disable-indexing \
             --transform-for-static-hosting \
             --hosting-base-path Fair \
