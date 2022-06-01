@@ -95,8 +95,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: compnerd/gha-setup-swift@main
         with:
-          branch: swift-5.5-release
-          tag: 5.5-RELEASE
+          branch: swift-5.6-release
+          tag: 5.6-RELEASE
       - name: Run fairtool
         # A long-standing Windows glitch is the following error (see https://github.com/compnerd/swift-win32/issues/327):
         # TSCUtility/Triple.swift:154: Fatal error: could not determine host triple: malformed
@@ -121,18 +121,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           swift test 
-      - name: Check appfair/app/fairtool formula
-        run: |
-          brew install appfair/app/fairtool
-          fairtool welcome
 
   api-doc:
     runs-on: ubuntu-latest
+    env:
+      SWIFT_VERSION: 5.6
+
     steps:
       - name: Checkout Package
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Download Swift
+        run: wget -q https://download.swift.org/swift-$SWIFT_VERSION-release/ubuntu2004/swift-$SWIFT_VERSION-RELEASE/swift-$SWIFT_VERSION-RELEASE-ubuntu20.04.tar.gz
+
+      - name: Extract Swift
+        run: tar xzf swift-$SWIFT_VERSION-RELEASE-ubuntu20.04.tar.gz
+
+      - name: Add Swift toolchain to PATH
+        run: |
+          echo "$GITHUB_WORKSPACE/swift-$SWIFT_VERSION-RELEASE-ubuntu20.04/usr/bin" >> $GITHUB_PATH
 
       - name: Build documentation
         run: >
