@@ -59,7 +59,8 @@ final class FairToolTests: XCTestCase {
 
     func testWelcomeCommand() async throws {
         let result = try await runTool(op: FairTool.WelcomeCommand.configuration.commandName)
-        XCTAssertEqual(extract(result).first, "Welcome to Fair Ground!")
+        let output = extract(result).first
+        XCTAssertTrue(output?.hasPrefix("Welcome") == true, output ?? "")
     }
 
     func testValidateCommand() async throws {
