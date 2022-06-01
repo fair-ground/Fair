@@ -136,7 +136,7 @@ jobs:
           # until https://github.com/apple/swift-docc/issues/255
           # is implemented, we can only have a single target,
           # so we copy all the FairCore files into FairApp
-          cp -v Sources/FairCore/*.swift Sources/FairApp
+          # cp -v Sources/FairCore/*.swift Sources/FairApp
 
           swift package --allow-writing-to-directory docs \
             generate-documentation --target FairApp \
