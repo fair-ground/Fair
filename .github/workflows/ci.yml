@@ -43,22 +43,14 @@ jobs:
 
       - name: Fair Tests
         env:
-          GITHUB_CI: true # used by tests to determine load
+          FAIRHUB_API_SKIP: true # used by tests to determine load
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: swift test
 
-      - name: Generate docs
-        if: false # needs swift 5.6
+      - name: Check appfair/app/fairtool formula
         run: |
-          swift package --allow-writing-to-directory ./docs generate-documentation --target FairCore --target FairApp --output-path ./docs --transform-for-static-hosting --hosting-base-path api
-
-      - name: Update Docs
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          force_orphan: true
+          brew install appfair/app/fairtool
+          fairtool welcome
 
   ci-macOS-12:
     runs-on: macos-12
@@ -71,8 +63,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run fairtool
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: xcrun swift run fairtool welcome
 
       - name: Fair Tests
@@ -91,6 +81,12 @@ jobs:
 
       - name: Build macOS FairApp
         run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "macosx" -destination "platform=macosx"
+
+      - name: Check appfair/app/fairtool formula
+        run: |
+          brew install appfair/app/fairtool
+          fairtool welcome
+
 
   ci-windows:
     runs-on: windows-latest
@@ -125,4 +121,37 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           swift test 
+
+  api-doc:
+    runs-on: macos-12
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Merge changes from main into gh-pages
+        run: |
+          git fetch --unshallow
+          git checkout gh-pages
+          git pull
+          git merge --no-ff main -m "Auto-merge main into gh-pages"
+      
+      - name: Generate docs
+        run: swift package --allow-writing-to-directory ./docs/ generate-documentation --target FairCore --disable-indexing --transform-for-static-hosting --hosting-base-path FairCore --output-path ./docs/
+        
+      - name: Add .nojekyll file
+        run: touch ./docs/.nojekyll
+        
+      - name: Commit updated docs
+        run: |
+          git add ./docs/
+          git commit -m "Update Documentation Site"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with: 
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         branch: gh-pages
 

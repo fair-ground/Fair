@@ -33,7 +33,7 @@ final class FairHubTests: XCTestCase {
 
     /// True if we are running from GitHub CI (in which case we skip some tests to reduce load)
     var runningFromCI: Bool {
-        ProcessInfo.processInfo.environment["GITHUB_CI"] == "true"
+        ProcessInfo.processInfo.environment["FAIRHUB_API_SKIP"] == "true"
     }
 
     /// The hub that we use for testing, the so-called "git"-hub.
