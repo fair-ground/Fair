@@ -139,6 +139,18 @@ jobs:
             --transform-for-static-hosting \
             --hosting-base-path Fair \
             --output-path docs
+          swift package --allow-writing-to-directory docs \
+            generate-documentation --target FairApp \
+            --disable-indexing \
+            --transform-for-static-hosting \
+            --hosting-base-path Fair \
+            --output-path docs
+          swift package --allow-writing-to-directory docs \
+            generate-documentation --target FairKit \
+            --disable-indexing \
+            --transform-for-static-hosting \
+            --hosting-base-path Fair \
+            --output-path docs
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
