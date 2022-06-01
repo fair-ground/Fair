@@ -123,19 +123,15 @@ jobs:
           swift test 
 
   api-doc:
-    runs-on: macos-12
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build documentation
         run: |
-          xcrun swift -version
+          swift -version
           export SWIFTPM_ENABLE_COMMAND_PLUGINS=1
           export DOCC_JSON_PRETTYPRINT="YES"
-          xcrun swift package \
+          swift package \
             --allow-writing-to-directory docs \
             generate-documentation \
             --target FairCore \
