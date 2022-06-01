@@ -123,19 +123,19 @@ jobs:
           swift test 
 
   api-doc:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     env:
-      SWIFT_VERSION: 5.6
+      DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
-      - uses: fwal/setup-swift@v1
       - name: Build documentation
         run: |
-          swift -version
+          xcrun swift -version
           export SWIFTPM_ENABLE_COMMAND_PLUGINS=1
           export DOCC_JSON_PRETTYPRINT="YES"
-          swift package \
+          xcrun swift package \
             --allow-writing-to-directory docs \
             generate-documentation \
             --target FairCore \
