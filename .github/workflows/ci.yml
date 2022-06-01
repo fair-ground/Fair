@@ -127,11 +127,7 @@ jobs:
           fairtool welcome
 
   api-doc:
-    runs-on: macos-12
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       
@@ -143,7 +139,15 @@ jobs:
           git merge --no-ff main -m "Auto-merge main into gh-pages"
       
       - name: Generate docs
-        run: swift package --allow-writing-to-directory ./docs/ generate-documentation --target FairCore --disable-indexing --transform-for-static-hosting --hosting-base-path FairCore --output-path ./docs/
+        run: >
+          swift package \
+            --allow-writing-to-directory ./docs/ \
+            generate-documentation \
+            --target FairCore \
+            --disable-indexing \
+            --transform-for-static-hosting \
+            --hosting-base-path FairCore \
+            --output-path ./docs/
         
       - name: Add .nojekyll file
         run: touch ./docs/.nojekyll

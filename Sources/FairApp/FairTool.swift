@@ -218,9 +218,8 @@ public struct FairTool : AsyncParsableCommand {
         @OptionGroup var options: Options
 
         mutating func run() async throws {
-            let version = try Bundle.fairCoreInfo.get().CFBundleShortVersionString
-
-            msg(.info, "Welcome to fairtool", version)
+            let version = Bundle.fairCoreVersion
+            msg(.info, "Welcome to fairtool", version?.versionStringExtended)
         }
     }
 
@@ -1006,53 +1005,6 @@ fileprivate extension FairParsableCommand {
                 print(kind.name, msg)
             }
         }
-    }
-}
-
-public extension Plist {
-    /// The usage description dictionary for the `"FairUsage"` key.
-    var FairUsage: NSDictionary? {
-        rawValue["FairUsage"] as? NSDictionary
-    }
-
-    var CFBundleIdentifier: String? {
-        nonEmptyString(InfoPlistKey.CFBundleIdentifier.plistKey)
-    }
-
-    var CFBundleName: String? {
-        nonEmptyString(InfoPlistKey.CFBundleName.plistKey)
-    }
-
-    var CFBundleVersion: String? {
-        nonEmptyString(InfoPlistKey.CFBundleVersion.plistKey)
-    }
-
-    var CFBundleShortVersionString: String? {
-        nonEmptyString(InfoPlistKey.CFBundleShortVersionString.plistKey)
-    }
-
-    var CFBundleDisplayName: String? {
-        nonEmptyString(InfoPlistKey.CFBundleDisplayName.plistKey)
-    }
-
-    var CFBundleExecutable: String? {
-        nonEmptyString(InfoPlistKey.CFBundleExecutable.plistKey)
-    }
-
-    var DTPlatformName: String? {
-        nonEmptyString(InfoPlistKey.DTPlatformName.plistKey)
-    }
-
-    private func nonEmptyString(_ key: String) -> String? {
-        guard let value = rawValue[key] as? String else {
-            return nil
-        }
-
-        if value.isEmpty {
-            return nil
-        }
-
-        return value
     }
 }
 

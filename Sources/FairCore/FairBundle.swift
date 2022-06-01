@@ -63,9 +63,10 @@ extension Bundle {
     public static var fairCore: Bundle { Bundle.module }
 
     /// Returns the info dictionary for the `FairCore.plist` resource
-    public static var fairCoreInfo = Result {
-        try Plist(data: fairCore.loadResource(named: "FairCore.plist"))
-    }
+    public static let fairCoreInfo = Plist(rawValue: Info as NSDictionary) // Info should be generated manually with: plutil -convert swift Info.plist
+
+    /// The version of the FairCore library in use
+    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0, prerelease: false) })
 
     /// Returns all the URLs in the given folder of the bundle
     public func bundlePaths(in folder: String, includeFolders: Bool) throws -> [URL] {
@@ -95,6 +96,53 @@ extension Bundle {
     // TODO: use StringLocalizationKey for the message
     public func error(_ message: String, code: Int = 0) -> Error {
         NSError(domain: "Fair", code: code, userInfo: [NSLocalizedFailureReasonErrorKey: NSLocalizedString(message, tableName: nil, bundle: self, comment: "")])
+    }
+}
+
+public extension Plist {
+    /// The usage description dictionary for the `"FairUsage"` key.
+    var FairUsage: NSDictionary? {
+        rawValue["FairUsage"] as? NSDictionary
+    }
+
+    var CFBundleIdentifier: String? {
+        nonEmptyString(InfoPlistKey.CFBundleIdentifier.plistKey)
+    }
+
+    var CFBundleName: String? {
+        nonEmptyString(InfoPlistKey.CFBundleName.plistKey)
+    }
+
+    var CFBundleVersion: String? {
+        nonEmptyString(InfoPlistKey.CFBundleVersion.plistKey)
+    }
+
+    var CFBundleShortVersionString: String? {
+        nonEmptyString(InfoPlistKey.CFBundleShortVersionString.plistKey)
+    }
+
+    var CFBundleDisplayName: String? {
+        nonEmptyString(InfoPlistKey.CFBundleDisplayName.plistKey)
+    }
+
+    var CFBundleExecutable: String? {
+        nonEmptyString(InfoPlistKey.CFBundleExecutable.plistKey)
+    }
+
+    var DTPlatformName: String? {
+        nonEmptyString(InfoPlistKey.DTPlatformName.plistKey)
+    }
+
+    private func nonEmptyString(_ key: String) -> String? {
+        guard let value = rawValue[key] as? String else {
+            return nil
+        }
+
+        if value.isEmpty {
+            return nil
+        }
+
+        return value
     }
 }
 

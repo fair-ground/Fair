@@ -73,11 +73,6 @@ public extension Bundle {
     static func isAppFairInstalled() -> Bool {
         appFairURL(for: .main)?.canLaunchScheme() == true
     }
-
-    /// The version of the FairCore library in use
-    static var fairCoreVersion = Result {
-        try fairCoreInfo.get().CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0, prerelease: false) })
-    }
 }
 
 public extension URL {

@@ -474,17 +474,6 @@ final class FairAppTests: XCTestCase {
             .write(to: URL(fileURLWithPath: "\(NSTemporaryDirectory())/testSVGPath.png"))
         #endif
     }
-
-    func testFairCoreVersion() throws {
-        let version = try XCTUnwrap(Bundle.fairCoreVersion.get())
-        dbg("loaded fairCoreVersion:", version.versionStringExtended)
-        XCTAssertGreaterThan(version, AppVersion(major: 0, minor: 3, patch: 0, prerelease: false))
-
-        // shows the difference between the auto-generated bundle's infoDictionary and the FairCore.plist
-        // XCTAssertEqual("Fair-FairCore-resources", Bundle.fairCore.infoDictionary?["CFBundleIdentifier"] as? String) // this doesn't seem to happen on CI
-        XCTAssertEqual("org.fair-ground.Fair", try Bundle.fairCoreInfo.get().CFBundleIdentifier)
-
-    }
 }
 
 #endif
