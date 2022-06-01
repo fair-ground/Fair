@@ -132,6 +132,7 @@ jobs:
       - uses: fwal/setup-swift@v1
       - name: Build documentation
         run: |
+          swift -version
           export SWIFTPM_ENABLE_COMMAND_PLUGINS=1
           export DOCC_JSON_PRETTYPRINT="YES"
           swift package \
