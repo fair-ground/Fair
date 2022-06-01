@@ -121,6 +121,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           swift test 
+      - name: Check appfair/app/fairtool formula
+        run: |
+          brew install appfair/app/fairtool
+          fairtool welcome
 
   api-doc:
     runs-on: macos-12
