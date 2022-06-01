@@ -20,7 +20,7 @@ import FairApp
 
 final class FairToolTests: XCTestCase {
     func testTool() throws {
-        XCTAssertEqual(try runTool(["welcome"]).stdout, ["Welcome to fairtool \((try? Bundle.fairCoreVersion?.versionStringExtended) ?? "")"])
+        XCTAssertEqual(try runTool(["welcome"]).stdout, ["Welcome to fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
     }
 
     @discardableResult func runTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Bool = true) throws -> Process.CommandResult {
