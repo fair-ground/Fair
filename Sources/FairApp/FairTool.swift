@@ -83,10 +83,7 @@ public struct FairTool : AsyncParsableCommand {
             + Self.iconCommand
         )
 
-    public init() {
-    }
-
-    static var fairsealCommand: [AsyncParsableCommand.Type] {
+    private static var fairsealCommand: [AsyncParsableCommand.Type] {
         #if canImport(Compression)
         [FairsealCommand.self]
         #else
@@ -94,12 +91,15 @@ public struct FairTool : AsyncParsableCommand {
         #endif
     }
 
-    static var iconCommand: [AsyncParsableCommand.Type] {
+    private static var iconCommand: [AsyncParsableCommand.Type] {
         #if canImport(SwiftUI)
         [IconCommand.self]
         #else
         []
         #endif
+    }
+
+    public init() {
     }
 
     struct Options: ParsableArguments {
@@ -218,7 +218,9 @@ public struct FairTool : AsyncParsableCommand {
         @OptionGroup var options: Options
 
         mutating func run() async throws {
-            msg(.info, "Welcome to Fair Ground!")
+            let version = try Bundle.fairCoreInfo.get().CFBundleShortVersionString
+
+            msg(.info, "Welcome to fairtool", version)
         }
     }
 
@@ -1031,6 +1033,14 @@ public extension Plist {
 
     var CFBundleDisplayName: String? {
         nonEmptyString(InfoPlistKey.CFBundleDisplayName.plistKey)
+    }
+
+    var CFBundleExecutable: String? {
+        nonEmptyString(InfoPlistKey.CFBundleExecutable.plistKey)
+    }
+
+    var DTPlatformName: String? {
+        nonEmptyString(InfoPlistKey.DTPlatformName.plistKey)
     }
 
     private func nonEmptyString(_ key: String) -> String? {

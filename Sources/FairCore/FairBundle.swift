@@ -62,6 +62,11 @@ extension Bundle {
     /// Returns the resources bundle for `FairCore`
     public static var fairCore: Bundle { Bundle.module }
 
+    /// Returns the info dictionary for the `FairCore.plist` resource
+    public static var fairCoreInfo = Result {
+        try Plist(data: fairCore.loadResource(named: "FairCore.plist"))
+    }
+
     /// Returns all the URLs in the given folder of the bundle
     public func bundlePaths(in folder: String, includeFolders: Bool) throws -> [URL] {
         guard let bundleURL = url(forResource: folder, withExtension: nil, subdirectory: "Bundle") else {
