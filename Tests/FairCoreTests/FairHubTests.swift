@@ -31,6 +31,32 @@ final class FairHubTests: XCTestCase {
         }
     }
 
+    /// True if we are running from GitHub CI (in which case we skip some tests to reduce load)
+    var runningFromCI: Bool {
+        /// ci-linux
+        #if os(Linux)
+        if #file.hasPrefix("/home/runner/work/Fair/") {
+            return true
+        }
+        #endif
+
+        /// ci-macOS
+        #if os(macOS)
+        if #file.hasPrefix("/Users/runner/work/Fair/") {
+            return true
+        }
+        #endif
+
+        /// ci-windows
+        #if os(Windows)
+        if #file.hasPrefix("D:\\a\\Fair\\") {
+            return true
+        }
+        #endif
+
+        return false
+    }
+
     /// The hub that we use for testing, the so-called "git"-hub.
     static func hub(skipNoAuth: Bool = false) throws -> FairHub {
         if skipNoAuth == true && Self.authToken == nil {
@@ -120,9 +146,9 @@ final class FairHubTests: XCTestCase {
     }
 
     func testCatalogQuery() async throws {
-//        if ({ true }()) {
-//            throw XCTSkip("disabled to reduce API load")
-//        }
+        if runningFromCI {
+            throw XCTSkip("disabled to reduce API load")
+        }
         
         let hub = try Self.hub(skipNoAuth: true)
 
@@ -142,7 +168,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildAppCasks() async throws {
-        if ({ true }()) {
+        if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
 
@@ -161,7 +187,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildMacOSCatalog() async throws {
-        if ({ true }()) {
+        if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
 
@@ -191,7 +217,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testBuildIOSCatalog() async throws {
-        if ({ true }()) {
+        if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
 
