@@ -43,6 +43,7 @@ jobs:
 
       - name: Fair Tests
         env:
+          GITHUB_CI: true # used by tests to determine load
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: swift test
 

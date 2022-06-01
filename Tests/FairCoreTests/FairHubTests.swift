@@ -33,28 +33,7 @@ final class FairHubTests: XCTestCase {
 
     /// True if we are running from GitHub CI (in which case we skip some tests to reduce load)
     var runningFromCI: Bool {
-        /// ci-linux
-        #if os(Linux)
-        if #file.hasPrefix("/home/runner/work/Fair/") {
-            return true
-        }
-        #endif
-
-        /// ci-macOS
-        #if os(macOS)
-        if #file.hasPrefix("/Users/runner/work/Fair/") {
-            return true
-        }
-        #endif
-
-        /// ci-windows
-        #if os(Windows)
-        if #file.hasPrefix("D:\\a\\Fair\\") {
-            return true
-        }
-        #endif
-
-        return false
+        ProcessInfo.processInfo.environment["GITHUB_CI"] == "true"
     }
 
     /// The hub that we use for testing, the so-called "git"-hub.
