@@ -137,9 +137,11 @@ jobs:
             --allow-writing-to-directory docs \
             generate-documentation \
             --target FairCore \
+            --target FairApp \
+            --target FairKit \
             --disable-indexing \
             --transform-for-static-hosting \
-            --hosting-base-path FairCore \
+            --hosting-base-path Fair \
             --output-path docs
         
       - name: Add .nojekyll file
