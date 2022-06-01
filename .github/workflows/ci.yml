@@ -129,37 +129,28 @@ jobs:
   api-doc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      
-      - name: Merge changes from main into gh-pages
-        run: |
-          git fetch --unshallow
-          git checkout gh-pages
-          git pull
-          git merge --no-ff main -m "Auto-merge main into gh-pages"
-      
-      - name: Generate docs
+      - name: Checkout Package
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build documentation
         run: >
           swift package \
-            --allow-writing-to-directory ./docs/ \
+            --allow-writing-to-directory docs \
             generate-documentation \
             --target FairCore \
             --disable-indexing \
             --transform-for-static-hosting \
             --hosting-base-path FairCore \
-            --output-path ./docs/
+            --output-path docs
         
       - name: Add .nojekyll file
         run: touch ./docs/.nojekyll
         
-      - name: Commit updated docs
-        run: |
-          git add ./docs/
-          git commit -m "Update Documentation Site"
-      
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with: 
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         branch: gh-pages
+      - name: Publish documentation to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: docs
 
