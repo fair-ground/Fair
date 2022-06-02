@@ -633,7 +633,6 @@ jobs:
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
-            --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" \
             --fairseal-match 0 \
             --retry-duration 600 \
@@ -641,7 +640,7 @@ jobs:
             --artifact-staging "staging/" \
             --fair-properties "${{ env.IR_TARGET }}/AppFairApp.xcconfig" \
             --accent-color "${{ env.IR_TARGET }}/Assets.xcassets/AccentColor.colorset/Contents.json" \
-            --project . -o -
+            --project .
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
@@ -672,7 +671,6 @@ jobs:
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
-            --ref "${{ env.COMMITHASH }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
             --fairseal-match 100000 \
             --retry-duration 600 \
@@ -680,7 +678,7 @@ jobs:
             --artifact-staging "staging/" \
             --fair-properties "${{ env.IR_TARGET }}/AppFairApp.xcconfig" \
             --accent-color "${{ env.IR_TARGET }}/Assets.xcassets/AccentColor.colorset/Contents.json" \
-            --project . -o -
+            --project .
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
