@@ -454,20 +454,17 @@ jobs:
         id: get_semver_tag
         run: echo ::set-output name=semver_tag::$(xcodebuild -quiet -workspace ReleasePR/App.xcworkspace -showBuildSettings -json -scheme AppFairApp archive 2> /dev/null | jq '.[].buildSettings.MARKETING_VERSION' | cut -f 2 -d '"')
 
-      - name: Build fairtool
+      - name: Install fairtool
         run: |
-          git clone http://fair-ground.org/Fair.git
-          cd Fair
-          xcrun swift build
-          cp -v ./.build/*-apple-macosx/debug/fairtool ../fairtool
-          cd -
-          ./fairtool --help
+          brew tap appfair/app
+          brew install fairtool
+          fairtool welcome
 
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true ReleasePR/Sandbox.entitlements
-          ./fairtool validate \
+          fairtool validate \
             --base . \
             --project ReleasePR \
             --hub github.com/${{ inputs.fairground }} \
@@ -489,14 +486,14 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          ./fairtool merge --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
+          fairtool merge --verbose true --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
 
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
         
-          ./fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
+          fairtool validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
           xcrun swift package resolve
           cp -a .build/checkouts Dependencies
@@ -516,7 +513,7 @@ jobs:
       - name: "Generate Icon"
         run: |
           cd "${{ env.IR_TARGET }}"
-          ./fairtool icon --org "${{ env.ORGNAME }}" --fair-properties "AppFairApp.xcconfig" --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          fairtool icon --org "${{ env.ORGNAME }}" --fair-properties "AppFairApp.xcconfig" --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
           cd -
 
       - name: "Check platforms"
@@ -631,7 +628,7 @@ jobs:
           # client apps will use this hash to verify that the untrusted
           # release artifact that is downloaded matches the release
           # artifact that was created in the trusted environment
-          ./fairtool fairseal \
+          fairtool fairseal \
             --verbose true \
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
@@ -670,7 +667,7 @@ jobs:
 
           # Builds on iOS are currently not reproducible (help wanted!),
           # so we accept a diff tolerance of 100,000 bytes for fairseal-match
-          ./fairtool fairseal \
+          fairtool fairseal \
             --verbose true \
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
