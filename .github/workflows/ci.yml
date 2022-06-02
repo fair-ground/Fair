@@ -159,6 +159,16 @@ jobs:
           cp -R "docs-faircore/documentation/"* "docs/documentation/"
           rm -r docs-faircore
 
+          swift package --allow-writing-to-directory docs-fairtool \
+            generate-documentation --target FairTool \
+            --disable-indexing \
+            --transform-for-static-hosting \
+            --hosting-base-path Fair \
+            --output-path docs-fairtool
+          cp -R "docs-fairtool/data/documentation/"* "docs/data/documentation/"
+          cp -R "docs-fairtool/documentation/"* "docs/documentation/"
+          rm -r docs-fairtool
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
