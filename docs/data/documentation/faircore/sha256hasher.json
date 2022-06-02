@@ -1,0 +1,418 @@
+{
+  "abstract" : [
+    {
+      "text" : "An actor that can keep a running hash of a stream of bytes.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore12SHA256HasherC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SHA256Hasher"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SHA256Hasher"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "SHA256Hasher"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "actor"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SHA256Hasher"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataConsumer",
+        "doc:\/\/FairCore\/s8SendableP",
+        "doc:\/\/FairCore\/ScA"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/init()"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/final()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/reset()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/update(bytes:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/update(data:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/sha256hasher"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/ScA": {
+  "identifier" : "doc:\/\/FairCore\/ScA",
+  "title" : "_Concurrency.Actor",
+  "type" : "unresolvable"
+},
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/DataConsumer": {
+  "abstract" : [
+    {
+      "text" : "An actor that consumera data, such as a hashing function",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataConsumer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataConsumer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataConsumer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataConsumer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/dataconsumer"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher": {
+  "abstract" : [
+    {
+      "text" : "An actor that can keep a running hash of a stream of bytes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SHA256Hasher"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SHA256Hasher"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SHA256Hasher",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher/final()": {
+  "abstract" : [
+    {
+      "text" : "Complete the hash and return the digest data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "final"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/final()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "final()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher\/final()"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher\/init()"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher/reset()": {
+  "abstract" : [
+    {
+      "text" : "Clear the current hash buffer and ready it for re-use",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reset"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/reset()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reset()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher\/reset()"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher/update(bytes:)": {
+  "abstract" : [
+    {
+      "text" : "Updates the hash with the given array",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "update"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "bytes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
+    },
+    {
+      "kind" : "text",
+      "text" : "])"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/update(bytes:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "update(bytes:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher\/update(bytes:)"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher/update(data:)": {
+  "abstract" : [
+    {
+      "text" : "Updates the hash with the given data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "update"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher\/update(data:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "update(data:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher\/update(data:)"
+},
+"doc://FairCore/s8SendableP": {
+  "identifier" : "doc:\/\/FairCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

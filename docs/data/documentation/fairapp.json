@@ -40,10 +40,28 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager"
+      ],
+      "title" : "Classes"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer"
+      ],
+      "title" : "Protocols"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppError",
         "doc:\/\/FairApp\/documentation\/FairApp\/BuildSettings",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairTool",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPathOptions",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SearchBarCommands"
       ],
       "title" : "Structures"
     },
@@ -55,6 +73,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol"
       ],
       "title" : "Enumerations"
@@ -169,6 +188,218 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/buildsettings"
 },
+"doc://FairApp/documentation/FairApp/FairContainer": {
+  "abstract" : [
+    {
+      "text" : "A container for an app, which manages a single app-wide state and provides views for the ",
+      "type" : "text"
+    },
+    {
+      "code" : "rootScene",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "settingsView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/faircontainer"
+},
+"doc://FairApp/documentation/FairApp/FairContainerApp": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairContainerApp"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairContainerApp"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairContainerApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/faircontainerapp"
+},
+"doc://FairApp/documentation/FairApp/FairContentType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairContentType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairContentType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairContentType",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/faircontenttype"
+},
+"doc://FairApp/documentation/FairApp/FairContentView": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairContentView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " offers pre-defined functionality for an fair-ground App.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The default ",
+      "type" : "text"
+    },
+    {
+      "code" : ".placeholder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " content is the initial content for a new",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "app, and provides guidance for the developer on how to get started.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairContentView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairContentView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairContentView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/faircontentview"
+},
+"doc://FairApp/documentation/FairApp/FairIconView": {
+  "abstract" : [
+    {
+      "text" : "A view that generates the default icon for a FairApp, which is a squircle filled in with either the app’s path if it exists, or else the name of the app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairIconView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairIconView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairIconView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairiconview"
+},
 "doc://FairApp/documentation/FairApp/FairSymbol": {
   "abstract" : [
     {
@@ -234,6 +465,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairtool"
 },
+"doc://FairApp/documentation/FairApp/QuickAction": {
+  "abstract" : [
+    {
+      "text" : "A action that is available from an app’s icon, either the dock icon in macOS or the app’s icon in iOS",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QuickAction"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QuickAction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "QuickAction",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/quickaction"
+},
 "doc://FairApp/documentation/FairApp/SVGPath": {
   "abstract" : [
     {
@@ -267,6 +532,118 @@
   "title" : "SVGPath",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/svgpath"
+},
+"doc://FairApp/documentation/FairApp/SVGPathOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SVGPathOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SVGPathOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SVGPathOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SVGPathOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/svgpathoptions"
+},
+"doc://FairApp/documentation/FairApp/SceneManager": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SceneManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SceneManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SceneManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/scenemanager"
+},
+"doc://FairApp/documentation/FairApp/SearchBarCommands": {
+  "abstract" : [
+    {
+      "text" : "Command to select the search bar using the CMD-F keyboard shortcut",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The command will be installed in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "CommandGroupPlacement.textEditing",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " menu on macOS.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SearchBarCommands"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SearchBarCommands",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SearchBarCommands"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SearchBarCommands",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/searchbarcommands"
 },
 "doc://FairApp/documentation/FairApp/wip(_:)": {
   "abstract" : [

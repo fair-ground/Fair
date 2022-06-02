@@ -57,7 +57,7 @@
             "swift"
           ],
           "platforms" : [
-            "Linux"
+            "macOS"
           ],
           "tokens" : [
             {
@@ -84,7 +84,8 @@
         "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/SY"
+        "doc:\/\/FairApp\/SY",
+        "doc:\/\/FairApp\/7SwiftUI4ViewP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -3148,6 +3149,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/image",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/symbolName"
       ],
       "title" : "Instance Properties"
@@ -3156,7 +3158,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/Equatable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/RawRepresentable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/RawRepresentable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/View-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -3175,6 +3178,11 @@
   ]
 , 
 "references": {
+"doc://FairApp/7SwiftUI4ViewP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI4ViewP",
+  "title" : "SwiftUI.View",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SH": {
   "identifier" : "doc:\/\/FairApp\/SH",
   "title" : "Swift.Hashable",
@@ -9781,6 +9789,17 @@
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/rawrepresentable-implementations"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/View-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/View-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "View Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/view-implementations"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol/a_circle": {
   "abstract" : [
@@ -43581,6 +43600,40 @@
   "title" : "FairSymbol.i_square_fill",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/i_square_fill"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/image": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "image"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI5ImageV",
+      "text" : "Image"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/image",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "image",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/image"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol/increase_indent": {
   "abstract" : [

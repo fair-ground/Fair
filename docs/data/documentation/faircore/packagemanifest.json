@@ -57,7 +57,7 @@
             "swift"
           ],
           "platforms" : [
-            "Linux"
+            "macOS"
           ],
           "tokens" : [
             {
@@ -127,6 +127,12 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/PackageManifest\/products"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/PackageManifest\/parse(package:)"
+      ],
+      "title" : "Type Methods"
     },
     {
       "generated" : true,
@@ -607,6 +613,76 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/packagemanifest\/name"
+},
+"doc://FairCore/documentation/FairCore/PackageManifest/parse(package:)": {
+  "abstract" : [
+    {
+      "text" : "Parses the Package.swift file at the given location",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "package"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15PackageManifestV",
+      "text" : "PackageManifest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/PackageManifest\/parse(package:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parse(package:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/packagemanifest\/parse(package:)"
 },
 "doc://FairCore/documentation/FairCore/PackageManifest/platforms": {
   "abstract" : [

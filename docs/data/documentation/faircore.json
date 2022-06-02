@@ -41,8 +41,11 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/Cache",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
         "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Plist"
+        "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive"
       ],
       "title" : "Classes"
     },
@@ -93,7 +96,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/CommandConfiguration",
         "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0",
         "doc:\/\/FairCore\/documentation\/FairCore\/CompletionKind",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Crc32",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Crc32-swift.struct",
         "doc:\/\/FairCore\/documentation\/FairCore\/ExitCode",
         "doc:\/\/FairCore\/documentation\/FairCore\/FairAppCatalog",
         "doc:\/\/FairCore\/documentation\/FairCore\/FairHub",
@@ -128,7 +131,11 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/appfairMaxApps",
         "doc:\/\/FairCore\/documentation\/FairCore\/appfairName",
         "doc:\/\/FairCore\/documentation\/FairCore\/appfairRoot",
-        "doc:\/\/FairCore\/documentation\/FairCore\/assertionsEnabled"
+        "doc:\/\/FairCore\/documentation\/FairCore\/assertionsEnabled",
+        "doc:\/\/FairCore\/documentation\/FairCore\/defaultDirectoryPermissions",
+        "doc:\/\/FairCore\/documentation\/FairCore\/defaultFilePermissions",
+        "doc:\/\/FairCore\/documentation\/FairCore\/defaultReadChunkSize",
+        "doc:\/\/FairCore\/documentation\/FairCore\/defaultWriteChunkSize"
       ],
       "title" : "Variables"
     },
@@ -143,8 +150,11 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/CRC32-swift.typealias",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Consumer",
         "doc:\/\/FairCore\/documentation\/FairCore\/HubEndpointFailure",
         "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Provider",
         "doc:\/\/FairCore\/documentation\/FairCore\/Pure",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumeration",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeIndexSequence",
@@ -158,6 +168,7 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/AppCategory",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppEntitlement",
+        "doc:\/\/FairCore\/documentation\/FairCore\/CompressionMethod",
         "doc:\/\/FairCore\/documentation\/FairCore\/EmptyFeedAdditions",
         "doc:\/\/FairCore\/documentation\/FairCore\/FairCuration",
         "doc:\/\/FairCore\/documentation\/FairCore\/FairGround",
@@ -899,6 +910,40 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/bundleidentifier"
 },
+"doc://FairCore/documentation/FairCore/CRC32-swift.typealias": {
+  "abstract" : [
+    {
+      "text" : "An unsigned 32-Bit Integer representing a checksum.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CRC32"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/CRC32-swift.typealias",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CRC32"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CRC32",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/crc32-swift.typealias"
+},
 "doc://FairCore/documentation/FairCore/Cache": {
   "abstract" : [
     {
@@ -1101,7 +1146,99 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/completionkind"
 },
-"doc://FairCore/documentation/FairCore/Crc32": {
+"doc://FairCore/documentation/FairCore/CompressionMethod": {
+  "abstract" : [
+    {
+      "text" : "The compression method of an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Entry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in a ZIP ",
+      "type" : "text"
+    },
+    {
+      "code" : "Archive",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CompressionMethod"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/CompressionMethod",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CompressionMethod"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompressionMethod",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/compressionmethod"
+},
+"doc://FairCore/documentation/FairCore/Consumer": {
+  "abstract" : [
+    {
+      "text" : "A custom handler that consumes a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " object containing partial entry data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Consumer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Consumer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Consumer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Consumer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/consumer"
+},
+"doc://FairCore/documentation/FairCore/Crc32-swift.struct": {
   "abstract" : [
 
   ],
@@ -1119,7 +1256,7 @@
       "text" : "Crc32"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Crc32",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Crc32-swift.struct",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -1130,7 +1267,7 @@
   "role" : "symbol",
   "title" : "Crc32",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/crc32"
+  "url" : "\/documentation\/faircore\/crc32-swift.struct"
 },
 "doc://FairCore/documentation/FairCore/CursoredAPIRequest": {
   "abstract" : [
@@ -1709,6 +1846,40 @@
   "title" : "FairSeal",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/fairseal"
+},
+"doc://FairCore/documentation/FairCore/FileSystemObserver": {
+  "abstract" : [
+    {
+      "text" : "A watcher for changes to a folder",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemObserver"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemObserver"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FileSystemObserver",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemobserver"
 },
 "doc://FairCore/documentation/FairCore/Flag": {
   "abstract" : [
@@ -2510,6 +2681,40 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/plist"
 },
+"doc://FairCore/documentation/FairCore/Provider": {
+  "abstract" : [
+    {
+      "text" : "A custom handler that receives a position and a size that can be used to provide data from an arbitrary source.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Provider"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Provider",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Provider"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Provider",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/provider"
+},
 "doc://FairCore/documentation/FairCore/Pure": {
   "abstract" : [
     {
@@ -2585,6 +2790,40 @@
   "title" : "ResolvedPackage",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/resolvedpackage"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher": {
+  "abstract" : [
+    {
+      "text" : "An actor that can keep a running hash of a stream of bytes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SHA256Hasher"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SHA256Hasher"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SHA256Hasher",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher"
 },
 "doc://FairCore/documentation/FairCore/SeededRandomNumberGenerator": {
   "abstract" : [
@@ -3486,6 +3725,40 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xresult"
 },
+"doc://FairCore/documentation/FairCore/ZipArchive": {
+  "abstract" : [
+    {
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive"
+},
 "doc://FairCore/documentation/FairCore/appfairCaskAppsURL": {
   "abstract" : [
     {
@@ -3993,6 +4266,154 @@
   "title" : "dbg(level:_:_:_:_:_:_:_:_:_:_:_:_:functionName:fileName:lineNumber:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/dbg(level:_:_:_:_:_:_:_:_:_:_:_:_:functionname:filename:linenumber:)"
+},
+"doc://FairCore/documentation/FairCore/defaultDirectoryPermissions": {
+  "abstract" : [
+    {
+      "text" : "The default permissions for newly added directories.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "defaultDirectoryPermissions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt16V",
+      "text" : "UInt16"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/defaultDirectoryPermissions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "defaultDirectoryPermissions",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/defaultdirectorypermissions"
+},
+"doc://FairCore/documentation/FairCore/defaultFilePermissions": {
+  "abstract" : [
+    {
+      "text" : "The default permissions for newly added entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "defaultFilePermissions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt16V",
+      "text" : "UInt16"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/defaultFilePermissions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "defaultFilePermissions",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/defaultfilepermissions"
+},
+"doc://FairCore/documentation/FairCore/defaultReadChunkSize": {
+  "abstract" : [
+    {
+      "text" : "The default chunk size when reading entry data from an archive.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "defaultReadChunkSize"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/defaultReadChunkSize",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "defaultReadChunkSize",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/defaultreadchunksize"
+},
+"doc://FairCore/documentation/FairCore/defaultWriteChunkSize": {
+  "abstract" : [
+    {
+      "text" : "The default chunk size when writing entry data to an archive.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "defaultWriteChunkSize"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/defaultWriteChunkSize",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "defaultWriteChunkSize",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/defaultwritechunksize"
 },
 "doc://FairCore/documentation/FairCore/nanos()": {
   "abstract" : [

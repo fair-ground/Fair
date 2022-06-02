@@ -73,7 +73,7 @@
             "swift"
           ],
           "platforms" : [
-            "Linux"
+            "macOS"
           ],
           "tokens" : [
             {
@@ -151,7 +151,11 @@
       "identifiers" : [
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/s8SendableP"
+        "doc:\/\/FairApp\/s8SendableP",
+        "doc:\/\/FairApp\/7SwiftUI10AnimatableP",
+        "doc:\/\/FairApp\/7SwiftUI15InsettableShapeP",
+        "doc:\/\/FairApp\/7SwiftUI5ShapeP",
+        "doc:\/\/FairApp\/7SwiftUI4ViewP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -174,9 +178,19 @@
       "title" : "Initializers"
     },
     {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/cgPath"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/Equatable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/Animatable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/Equatable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/InsettableShape-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/Shape-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/View-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -195,6 +209,26 @@
   ]
 , 
 "references": {
+"doc://FairApp/7SwiftUI10AnimatableP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI10AnimatableP",
+  "title" : "SwiftUI.Animatable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/7SwiftUI15InsettableShapeP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI15InsettableShapeP",
+  "title" : "SwiftUI.InsettableShape",
+  "type" : "unresolvable"
+},
+"doc://FairApp/7SwiftUI4ViewP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI4ViewP",
+  "title" : "SwiftUI.View",
+  "type" : "unresolvable"
+},
+"doc://FairApp/7SwiftUI5ShapeP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI5ShapeP",
+  "title" : "SwiftUI.Shape",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SH": {
   "identifier" : "doc:\/\/FairApp\/SH",
   "title" : "Swift.Hashable",
@@ -250,6 +284,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/svgpath"
 },
+"doc://FairApp/documentation/FairApp/SVGPath/Animatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/Animatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Animatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/svgpath\/animatable-implementations"
+},
 "doc://FairApp/documentation/FairApp/SVGPath/Equatable-Implementations": {
   "abstract" : [
 
@@ -260,6 +305,84 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/svgpath\/equatable-implementations"
+},
+"doc://FairApp/documentation/FairApp/SVGPath/InsettableShape-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/InsettableShape-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "InsettableShape Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/svgpath\/insettableshape-implementations"
+},
+"doc://FairApp/documentation/FairApp/SVGPath/Shape-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/Shape-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Shape Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/svgpath\/shape-implementations"
+},
+"doc://FairApp/documentation/FairApp/SVGPath/View-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/View-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "View Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/svgpath\/view-implementations"
+},
+"doc://FairApp/documentation/FairApp/SVGPath/cgPath": {
+  "abstract" : [
+    {
+      "text" : "The underlying ",
+      "type" : "text"
+    },
+    {
+      "code" : "CGPath",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for the SVG string",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cgPath"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@CGPathRef",
+      "text" : "CGPath"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath\/cgPath",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cgPath",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/svgpath\/cgpath"
 },
 "doc://FairApp/documentation/FairApp/SVGPath/init(_:)": {
   "abstract" : [

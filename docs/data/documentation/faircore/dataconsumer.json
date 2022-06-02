@@ -57,7 +57,7 @@
             "swift"
           ],
           "platforms" : [
-            "Linux"
+            "macOS"
           ],
           "tokens" : [
             {
@@ -96,6 +96,14 @@
       "kind" : "relationships",
       "title" : "Inherits From",
       "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -224,6 +232,40 @@
   "title" : "update(data:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/dataconsumer\/update(data:)"
+},
+"doc://FairCore/documentation/FairCore/SHA256Hasher": {
+  "abstract" : [
+    {
+      "text" : "An actor that can keep a running hash of a stream of bytes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SHA256Hasher"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SHA256Hasher"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SHA256Hasher",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/sha256hasher"
 },
 "doc://FairCore/s8SendableP": {
   "identifier" : "doc:\/\/FairCore\/s8SendableP",
