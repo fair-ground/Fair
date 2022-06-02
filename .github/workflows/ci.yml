@@ -47,9 +47,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: swift test
 
-      - name: Check appfair/app/fairtool formula
+      - name: Check fairtool formula
         run: |
-          brew install appfair/app/fairtool
+          brew tap appfair/app
+          brew install fairtool
           fairtool welcome
 
   ci-macOS-12:
@@ -82,9 +83,10 @@ jobs:
       - name: Build macOS FairApp
         run: xcodebuild build -configuration Release -scheme "FairApp" -sdk "macosx" -destination "platform=macosx"
 
-      - name: Check appfair/app/fairtool formula
+      - name: Check fairtool formula
         run: |
-          brew install appfair/app/fairtool
+          brew tap appfair/app
+          brew install fairtool
           fairtool welcome
 
 
@@ -123,7 +125,7 @@ jobs:
           swift test 
 
   api-doc:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest # needed to be able to document SwiftUI
     steps:
       - uses: actions/checkout@v2
       - name: Build documentation
@@ -132,7 +134,7 @@ jobs:
           export SWIFTPM_ENABLE_COMMAND_PLUGINS=1
           export DOCC_JSON_PRETTYPRINT="YES"
           # add in the docc plugin to generate the docs
-          sed -i 's;// zero dependencies;.package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0");g' Package.swift
+          sed -I "" 's;// zero dependencies;.package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0");g' Package.swift
 
           swift package --allow-writing-to-directory docs \
             generate-documentation --target FairApp \
