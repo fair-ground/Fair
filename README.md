@@ -17,13 +17,7 @@ The `fairtool` is a command-line executable for macOS12.
 It is used to manage all aspects of an App distribution
 fair-ground.
 
-Quick start:
-
-```
-git clone https://github.com/fair-ground/Fair.git 
-cd Fair 
-swift run fairtool welcome
-```
+Read the [fairtool documentation](https://fair-ground.github.io/Fair/documentation/fairtool/).
 
 ## Runtime support
 
