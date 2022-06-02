@@ -105,60 +105,197 @@ public struct FairTool : AsyncParsableCommand {
     struct Options: ParsableArguments {
         @Option(name: [.long, .customShort("v")], help: "whether to display verbose messages.")
         var verbose: Bool?
+    }
 
-//        @Option(name: [.long, .customShort("f")], help: "whether to force the current operation.")
-//        var force: Bool?
-
-        @Option(name: [.long, .customShort("h")], help: "the hub to use.")
-        var hub: String?
-
-        @Option(name: [.long, .customShort("g")], help: "the repository to use.")
-        var org: String?
-
-        @Option(name: [.long, .customShort("k")], help: "the token used for the hub's authentication.")
-        var token: String?
-
-        @Option(name: [.long, .customShort("a")], help: "the hub to use.")
-        var appPath: String?
-
+    struct ProjectOptions: ParsableArguments {
         @Option(name: [.long, .customShort("p")], help: "the project to use.")
         var project: String?
-
-        @Option(name: [.long, .customShort("b")], help: "the base path.")
-        var base: String?
-
-        @Option(name: [.long, .customShort("o")], help: "the output path.")
-        var output: String?
 
         @Option(name: [.long], help: "the path to the xcconfig containing metadata.")
         var fairProperties: String?
 
-        @Option(name: [.long], help: "the accent color file.")
-        var accentColor: String?
+        /// The flag for the project folder
+        var projectPathFlag: String {
+            self.project ?? FileManager.default.currentDirectoryPath
+        }
 
-        @Option(name: [.long], help: "the artifact staging folder.")
-        var artifactStaging: [String] = []
+        /// Loads the data for the project file at the given relative path
+        func projectPathURL(path: String) -> URL {
+            URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: projectPathFlag, isDirectory: true))
+        }
 
-        @Option(name: [.long], help: "the artifact extrnsions.")
+        /// If the `--fair-properties` flag was specified, tries to parse the build settings
+        func buildSettings() throws -> BuildSettings? {
+            guard let fairProperties = self.fairProperties else { return nil }
+            return try BuildSettings(url: projectPathURL(path: fairProperties))
+        }
+    }
+
+    struct OrgOptions: ParsableArguments {
+        @Option(name: [.long, .customShort("g")], help: "the repository to use.")
+        var org: String?
+
+        /// Returns `App-Name`
+        func appOrgName() throws -> String {
+            guard let orgName = self.org else {
+                throw FairTool.Errors.badArgument("org")
+            }
+            return orgName
+        }
+
+        var isCatalogApp: Bool {
+            self.org == Bundle.catalogBrowserAppOrg
+        }
+
+        /// Returns `App Name`
+        func appNameSpace() throws -> String {
+            try appOrgName().dehyphenated()
+        }
+
+        /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
+        @discardableResult
+        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppPermission> {
+            let entitlements_dict = try Plist(url: entitlementsURL)
+
+            if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
+                // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
+                if !self.isCatalogApp {
+                    throw FairTool.Errors.sandboxRequired
+                }
+            }
+
+            var permissions: [AppPermission] = []
+
+            // Check that the given entitlement is permitted, and that entitlements that require a usage description are specified in the app's Info.plist `FairUsage` dictionary
+            func check(_ entitlement: AppEntitlement) throws -> (usage: String, value: Any)? {
+                guard let entitlementValue = entitlements_dict.rawValue[entitlement.entitlementKey] else {
+                    return nil // no entitlement set
+                }
+
+                if (entitlementValue as? NSNumber) == false {
+                    return nil // false entitlements are treated as unset
+                }
+
+                // a nil usage description means the property is explicitely forbidden (e.g., "files-all")
+                guard let props = entitlement.usageDescriptionProperties else {
+                    throw FairTool.Errors.forbiddenEntitlement(entitlement.entitlementKey)
+                }
+
+                // on the other hand, an empty array means we don't require any explanation for the entitlemnent's usage (e.g., enabling JIT)
+                if props.isEmpty {
+                    return nil
+                }
+
+                guard let usageDescription = props.compactMap({
+                    // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
+                    infoProperties.FairUsage?[$0] as? String
+
+                    // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
+                    // ?? infoProperties[$0] as? String
+                }).first else {
+                    throw FairTool.Errors.missingUsageDescription(entitlement)
+                }
+
+                if usageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    throw FairTool.Errors.missingUsageDescription(entitlement)
+                }
+
+                return (usageDescription, entitlementValue)
+            }
+
+            for entitlement in AppEntitlement.allCases {
+                if let (usage, _) = try check(entitlement) {
+                    permissions.append(AppPermission(type: entitlement, usageDescription: usage))
+                }
+            }
+
+            return permissions
+        }
+    }
+
+    struct OutputOptions: ParsableArguments {
+        @Option(name: [.long, .customShort("o")], help: "the output path.")
+        var output: String?
+
+        /// The flag for the output folder or the current director
+        var outputDirectoryFlag: String {
+            self.output ?? FileManager.default.currentDirectoryPath
+        }
+
+        /// Loads the data for the output file at the given relative path
+        func outputURL(path: String) throws -> URL {
+            URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: outputDirectoryFlag, isDirectory: true))
+        }
+    }
+
+    struct CatalogOptions: ParsableArguments {
+        @Option(name: [.long], help: "title of the generated catalog.")
+        var catalogTitle: String?
+
+        @Option(name: [.long], help: "catalog index markdown.")
+        var index: String?
+
+        @Option(name: [.long], help: "the output folder for the app casks.")
+        var caskFolder: String?
+
+        @Option(name: [.long], help: "the artifact extensions.")
         var artifactExtension: [String] = []
 
-        @Option(name: [.long], help: "the number of bytes that may differ for a build to be reproducible.")
-        var fairsealMatch: Int?
+        @Option(name: [.long], help: "maximum number of Hub API requests per session.")
+        var requestLimit: Int?
 
-        @Option(name: [.long], help: "commit ref to validate.")
-        var ref: String?
+    }
 
+    struct CasksOptions: ParsableArguments {
         @Option(name: [.long], help: "multiplier for how much metadata ranking boost.")
         var boostFactor: Int64?
+    }
+
+    struct RetryOptions: ParsableArguments {
+        @Option(name: [.long], help: "amount of time to continue re-trying downloading a resource.")
+        var retryDuration: TimeInterval?
+
+        @Option(name: [.long], help: "backoff time for waiting to retry.")
+        var retryWait: TimeInterval = 30
+
+        /// Retries the given operation until the `retry-duration` flag as been exceeded
+        func retrying<T>(operation: () async throws -> T) async throws -> T {
+            let timeoutDate = Date().addingTimeInterval(self.retryDuration ?? 0)
+            while true {
+                do {
+                    return try await operation()
+                } catch {
+                    // TODO: schedule on a queue rather than blocking on Thread.sleep
+                    if try backoff(timeoutDate, error: error) == false {
+                        throw error
+                    }
+                }
+            }
+
+            /// Backs off until the given timeout date
+            @discardableResult func backoff(_ timeoutDate: Date, error: Error?) throws -> Bool {
+                // we we are timed out, or if we don't want to retry, then simply re-download
+                if (self.retryDuration ?? 0) <= 0 || self.retryWait <= 0 || Date() >= timeoutDate {
+                    return false
+                } else {
+                    //msg(.info, "retrying operation in \(self.retryWait) seconds from \(Date()) due to error:", error)
+                    Thread.sleep(forTimeInterval: self.retryWait)
+                    return true
+                }
+            }
+        }
+
+    }
+
+    struct HubOptions: ParsableArguments {
+        @Option(name: [.long, .customShort("h")], help: "the hub to use.")
+        var hub: String?
+
+        @Option(name: [.long, .customShort("k")], help: "the token used for the hub's authentication.")
+        var token: String?
 
         @Option(name: [.long], help: "name of the login that issues the fairseal.")
         var fairsealIssuer: String?
-
-        @Option(name: [.long], help: "symbol names to emboss over the icon.")
-        var iconSymbol: [String] = []
-
-        @Option(name: [.long], help: "path to appiconset/Contents.json.")
-        var appIcon: String?
 
         @Option(name: [.long], help: "allow patterns for integrate PR names.")
         var allowName: [String] = []
@@ -175,26 +312,35 @@ public struct FairTool : AsyncParsableCommand {
         @Option(name: [.long], help: "permitted license IDs.")
         var allowLicense: [String] = []
 
-        @Option(name: [.long], help: "the IR title")
-        var integrationTitle: String?
-
         @Option(name: [.long], help: "permitted license titles")
         var license: [String] = []
 
-        @Option(name: [.long], help: "maximum size.")
-        var maxsize: Int?
 
-        @Option(name: [.long], help: "maximum number of Hub API requests per session.")
-        var requestLimit: Int?
+        /// The hub service we should use for this tool
+        func fairHub() throws -> FairHub {
+            guard let hubFlag = self.hub else {
+                throw FairTool.Errors.invalidHub(nil)
+            }
 
-        @Option(name: [.long], help: "title of the generated catalog.")
-        var catalogTitle: String?
+            return try FairHub(hostOrg: hubFlag, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
+        }
 
-        @Option(name: [.long], help: "amount of time to continue re-trying downloading a resource.")
-        var retryDuration: TimeInterval?
+    }
 
-        @Option(name: [.long], help: "backoff time for waiting to retry.")
-        var retryWait: TimeInterval = 30
+    struct ValidateOptions: ParsableArguments {
+        @Option(name: [.long], help: "the IR title")
+        var integrationTitle: String?
+
+        @Option(name: [.long, .customShort("b")], help: "the base path.")
+        var base: String?
+
+        @Option(name: [.long], help: "commit ref to validate.")
+        var ref: String?
+    }
+
+    struct SealOptions: ParsableArguments {
+        @Option(name: [.long], help: "resource for the artifact that will be generated.")
+        var artifactURL: String?
 
         @Option(name: [.long], help: "the artifact created in a trusted environment.")
         var trustedArtifact: String?
@@ -202,14 +348,22 @@ public struct FairTool : AsyncParsableCommand {
         @Option(name: [.long], help: "the artifact created in an untrusted environment.")
         var untrustedArtifact: String?
 
-        @Option(name: [.long], help: "resource for the artifact that will be generated.")
-        var artifactURL: String?
+        @Option(name: [.long], help: "the artifact staging folder.")
+        var artifactStaging: [String] = []
 
-        @Option(name: [.long], help: "catalog index markdown.")
-        var index: String?
+        @Option(name: [.long], help: "the number of bytes that may differ for a build to be reproducible.")
+        var fairsealMatch: Int?
+    }
 
-        @Option(name: [.long], help: "the output folder for the app casks.")
-        var caskFolder: String?
+    struct IconOptions: ParsableArguments {
+        @Option(name: [.long], help: "path to appiconset/Contents.json.")
+        var appIcon: String?
+
+        @Option(name: [.long], help: "symbol names to emboss over the icon.")
+        var iconSymbol: [String] = []
+
+        @Option(name: [.long], help: "the accent color file.")
+        var accentColor: String?
     }
 
     struct WelcomeCommand: FairParsableCommand {
@@ -227,17 +381,21 @@ public struct FairTool : AsyncParsableCommand {
         static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
         var messages: MessageBuffer? = nil
         @OptionGroup var options: Options
+        @OptionGroup var hubOptions: HubOptions
+        @OptionGroup var validateOptions: ValidateOptions
+        @OptionGroup var orgOptions: OrgOptions
+        @OptionGroup var projectOptions: ProjectOptions
 
         mutating func run() async throws {
-            msg(.info, "Validating project:", projectPathURL(path: "").path)
+            msg(.info, "Validating project:", projectOptions.projectPathURL(path: "").path)
             //msg(.debug, "flags:", flags)
 
-            guard let orgName = options.org else {
+            guard let orgName = orgOptions.org else {
                 throw FairTool.Errors.badArgument("org")
             }
 
             // check whether we are validating as the upstream origin or
-            let isFork = try options.hub == nil || orgName != fairHub().org
+            let isFork = try hubOptions.hub == nil || orgName != hubOptions.fairHub().org
             //dbg("isFork", isFork, "hubFlag", hubFlag, "orgName", orgName, "fairHub().org", try! fairHub().org)
 
             /// Verifies that the given plist contains the specified value
@@ -265,7 +423,7 @@ public struct FairTool : AsyncParsableCommand {
             /// - Throws: a validation error
             @discardableResult func compareContents(of path: String, partial: Bool, warn: Bool = false, guardLine: String? = nil) throws -> Bool {
                 msg(.debug, "  comparing \(partial ? "partial" : "exact") match:", path)
-                let projectURL = projectPathURL(path: path)
+                let projectURL = projectOptions.projectPathURL(path: path)
                 let projectSource = try String(contentsOf: projectURL, encoding: .utf8)
 
                 // when this is not a fork (i.e., it is the root fairground), we always validate
@@ -282,9 +440,15 @@ public struct FairTool : AsyncParsableCommand {
                 return true
             }
 
+            /// Loads the data for the project file at the given relative path
+            func basePathURL(path: String) -> URL? {
+                guard let basePathFlag = validateOptions.base else { return nil }
+                return URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: basePathFlag, isDirectory: true))
+            }
+
             /// Validates that the given project source matches the given scaffold source
             func compareScaffold(project projectSource: String, path: String, afterLine guardLine: String? = nil) throws {
-                msg(.debug, "checking:", path, "against base path:", options.base)
+                msg(.debug, "checking:", path, "against base path:", validateOptions.base)
                 guard let scaffoldURL = basePathURL(path: path) else {
                     throw CocoaError(.fileReadNoSuchFile)
                 }
@@ -315,7 +479,7 @@ public struct FairTool : AsyncParsableCommand {
             do {
                 let path = "Info.plist"
                 msg(.debug, "comparing metadata:", path)
-                let infoPlistURL = projectPathURL(path: path)
+                let infoPlistURL = projectOptions.projectPathURL(path: path)
                 let plist_dict = try Plist(url: infoPlistURL)
 
                 infoProperties = plist_dict
@@ -335,7 +499,7 @@ public struct FairTool : AsyncParsableCommand {
                 try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
                 try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
 
-                let licenseFlag = self.options.license
+                let licenseFlag = self.hubOptions.license
                 if !licenseFlag.isEmpty {
                     try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
                 }
@@ -346,7 +510,7 @@ public struct FairTool : AsyncParsableCommand {
                 let appOrgNameSpace = appOrgName.dehyphenated()
                 //let appID = "app." + appOrgName
 
-                guard let appName = try buildSettings()?["PRODUCT_NAME"] else {
+                guard let appName = try projectOptions.buildSettings()?["PRODUCT_NAME"] else {
                     throw AppError("Missing PRODUCT_NAME in AppFairApp.xcconfig")
                 }
 
@@ -354,13 +518,13 @@ public struct FairTool : AsyncParsableCommand {
                     throw AppError("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“\(appName)”) to match the organization name (“\(appOrgNameSpace)”)")
                 }
 
-                guard let appVersion = try buildSettings()?["MARKETING_VERSION"] else {
+                guard let appVersion = try projectOptions.buildSettings()?["MARKETING_VERSION"] else {
                     throw AppError("Missing MARKETING_VERSION in AppFairApp.xcconfig")
                 }
 
                 let expectedIntegrationTitle = appName + " " + appVersion
 
-                if let integrationTitle = self.options.integrationTitle,
+                if let integrationTitle = self.validateOptions.integrationTitle,
                    integrationTitle != expectedIntegrationTitle {
                     throw FairTool.Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
                 }
@@ -373,8 +537,8 @@ public struct FairTool : AsyncParsableCommand {
             do {
                 let path = "Sandbox.entitlements"
                 msg(.debug, "comparing entitlements:", path)
-                let entitlementsURL = projectPathURL(path: path)
-                try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
+                let entitlementsURL = projectOptions.projectPathURL(path: path)
+                try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
             }
 
             // 4. Check LICENSE.txt
@@ -388,7 +552,7 @@ public struct FairTool : AsyncParsableCommand {
             try compareContents(of: "Sources/App/Bundle/LICENSE.txt", partial: false)
 
             // 7. Check Package.resolved if it exists and we've specified the hub to validate
-            if let packageResolvedData = try? load(url: projectPathURL(path: "Package.resolved")), let hubFlag = options.hub {
+            if let packageResolvedData = try? load(url: projectOptions.projectPathURL(path: "Package.resolved")), let hubFlag = hubOptions.hub {
                 msg(.debug, "validating Package.resolved")
                 let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: packageResolvedData)
                 if let httpHost = URL(string: "https://\(hubFlag)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
@@ -406,16 +570,16 @@ public struct FairTool : AsyncParsableCommand {
             }
 
             // also verify the hub if we have specified it in the arguments
-            if options.hub != nil {
-                try await verify(org: orgName, repo: appName, hub: fairHub())
+            if hubOptions.hub != nil {
+                try await verify(org: orgName, repo: appName, hub: hubOptions.fairHub())
             }
 
-            msg(.info, "Successfully validated project:", projectPathURL(path: "").path)
+            msg(.info, "Successfully validated project:", projectOptions.projectPathURL(path: "").path)
 
 
             // validate the reference
-            if let refFlag = options.ref {
-                try await validateCommit(ref: refFlag, hub: fairHub())
+            if let refFlag = validateOptions.ref {
+                try await validateCommit(ref: refFlag, hub: hubOptions.fairHub())
             }
         }
 
@@ -444,18 +608,20 @@ public struct FairTool : AsyncParsableCommand {
         static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
         var messages: MessageBuffer? = nil
         @OptionGroup var options: Options
+        @OptionGroup var outputOptions: OutputOptions
+        @OptionGroup var projectOptions: ProjectOptions
 
         mutating func run() async throws {
             msg(.info, "merge")
 
-            if outputDirectoryFlag == projectPathFlag {
-                throw FairTool.Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
+            if outputOptions.outputDirectoryFlag == projectOptions.projectPathFlag {
+                throw FairTool.Errors.sameOutputAndProjectPath(outputOptions.outputDirectoryFlag, projectOptions.projectPathFlag)
             }
 
-            let outputURL = URL(fileURLWithPath: outputDirectoryFlag)
-            let projectURL = URL(fileURLWithPath: projectPathFlag)
+            let outputURL = URL(fileURLWithPath: outputOptions.outputDirectoryFlag)
+            let projectURL = URL(fileURLWithPath: projectOptions.projectPathFlag)
             if outputURL.absoluteString == projectURL.absoluteString {
-                throw FairTool.Errors.sameOutputAndProjectPath(outputDirectoryFlag, projectPathFlag)
+                throw FairTool.Errors.sameOutputAndProjectPath(outputOptions.outputDirectoryFlag, projectOptions.projectPathFlag)
             }
 
             // try await validate() // always validate first
@@ -523,26 +689,35 @@ public struct FairTool : AsyncParsableCommand {
         static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
         var messages: MessageBuffer? = nil
         @OptionGroup var options: Options
+        @OptionGroup var hubOptions: HubOptions
+        @OptionGroup var catalogOptions: CatalogOptions
+        @OptionGroup var retryOptions: RetryOptions
+        @OptionGroup var outputOptions: OutputOptions
 
         mutating func run() async throws {
             try await self.catalog()
         }
-    }
 
-    struct AppcasksCommand: FairParsableCommand {
-        static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
-
-        mutating func run() async throws {
-            msg(.info, "AppCasks")
-            try await retrying() {
-                try await createAppCasks()
+        func catalog() async throws {
+            msg(.info, "Catalog")
+            try await retryOptions.retrying() {
+                try await createCatalog()
             }
         }
 
-        private func createAppCasks() async throws {
-            let hub = try fairHub()
+        private func createCatalog() async throws {
+            let hub = try hubOptions.fairHub()
+
+            // whether to enforce a fairseal check before the app will be listed in the catalog
+            let fairsealCheck = true // options.fairseal.contains("skip") != true
+
+            let artifactTarget: ArtifactTarget
+            switch catalogOptions.artifactExtension.first ?? "zip" {
+            case "ipa":
+                artifactTarget = ArtifactTarget(artifactType: "ipa", devices: ["iphone", "ipad"])
+            case "zip", _:
+                artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
+            }
 
             func output(_ data: Data, to path: String) throws {
                 if path == "-" {
@@ -554,14 +729,73 @@ public struct FairTool : AsyncParsableCommand {
             }
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(boostFactor: boostFactor)
+            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.catalogOptions.requestLimit)
+
+            msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
+            for apprel in catalog.apps {
+                msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
+            }
+
+            if let outputFile = outputOptions.output {
+                let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+                try output(json, to: outputFile)
+                msg(.info, "Wrote catalog to", outputFile, json.count.localizedByteCount())
+            }
+
+            if let caskFolderFlag = catalogOptions.caskFolder {
+                msg(.info, "Writing casks to: \(caskFolderFlag)")
+                for app in catalog.apps {
+                    try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease")
+                }
+            }
+
+            if let indexFlag = catalogOptions.index {
+                let md = try buildAppCatalogMarkdown(catalog: catalog)
+                try output(md.utf8Data, to: indexFlag)
+                msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
+            }
+        }
+
+
+    }
+
+    struct AppcasksCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
+        var messages: MessageBuffer? = nil
+        @OptionGroup var options: Options
+        @OptionGroup var hubOptions: HubOptions
+        @OptionGroup var casksOptions: CasksOptions
+        @OptionGroup var retryOptions: RetryOptions
+        @OptionGroup var outputOptions: OutputOptions
+
+        mutating func run() async throws {
+            msg(.info, "AppCasks")
+            try await retryOptions.retrying() {
+                try await createAppCasks()
+            }
+        }
+
+        private func createAppCasks() async throws {
+            let hub = try hubOptions.fairHub()
+
+            func output(_ data: Data, to path: String) throws {
+                if path == "-" {
+                    print(data.utf8String!)
+                } else {
+                    let file = URL(fileURLWithPath: path)
+                    try data.write(to: file)
+                }
+            }
+
+            // build the catalog filtering on specific artifact extensions
+            let catalog = try await hub.buildAppCasks(boostFactor: casksOptions.boostFactor ?? 100_000)
 
             msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
             for apprel in catalog.apps {
                 msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
             }
 
-            if let outputFile = options.output {
+            if let outputFile = outputOptions.output {
                 let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
                 try output(json, to: outputFile)
                 msg(.info, "Wrote appcasks to", outputFile, json.count.localizedByteCount())
@@ -576,14 +810,20 @@ public struct FairTool : AsyncParsableCommand {
         static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
         var messages: MessageBuffer? = nil
         @OptionGroup var options: Options
+        @OptionGroup var hubOptions: HubOptions
+        @OptionGroup var sealOptions: SealOptions
+        @OptionGroup var retryOptions: RetryOptions
+        @OptionGroup var iconOptions: IconOptions
+        @OptionGroup var orgOptions: OrgOptions
+        @OptionGroup var projectOptions: ProjectOptions
 
         mutating func run() async throws {
             msg(.info, "Fairseal")
 
             // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
-            let fairsealThreshold = options.fairsealMatch
+            let fairsealThreshold = sealOptions.fairsealMatch
 
-            guard let trustedArtifactFlag = options.trustedArtifact else {
+            guard let trustedArtifactFlag = sealOptions.trustedArtifact else {
                 throw FairTool.Errors.missingFlag("-trusted-artifact")
             }
 
@@ -776,11 +1016,11 @@ public struct FairTool : AsyncParsableCommand {
             var assets: [FairSeal.Asset] = []
 
             // publish the hash for the artifact binary URL
-            if let artifactURLFlag = self.options.artifactURL, let artifactURL = URL(string: artifactURLFlag) {
+            if let artifactURLFlag = self.sealOptions.artifactURL, let artifactURL = URL(string: artifactURLFlag) {
 
                 // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
-                for stagingFolder in artifactStagingFolders {
-                    let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants, .producesRelativePathURLs])
+                for stagingFolder in sealOptions.artifactStaging {
+                    let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectOptions.projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants, .producesRelativePathURLs])
                         .sorting(by: \.lastPathComponent)
                     msg(.info, "scanning assets:", artifactAssets.map(\.relativePath))
 
@@ -809,8 +1049,8 @@ public struct FairTool : AsyncParsableCommand {
                 throw AppError("Missing property list")
             }
 
-            let entitlementsURL = projectPathURL(path: "Sandbox.entitlements")
-            let permissions = try checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
+            let entitlementsURL = projectOptions.projectPathURL(path: "Sandbox.entitlements")
+            let permissions = try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
             for permission in permissions {
                 msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
             }
@@ -822,7 +1062,7 @@ public struct FairTool : AsyncParsableCommand {
 
             // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
             msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
-            if let postURL = try await fairHub().postFairseal(fairseal) {
+            if let postURL = try await hubOptions.fairHub().postFairseal(fairseal) {
                 msg(.info, "posted fairseal to:", postURL.absoluteString)
             } else {
                 msg(.warn, "unable to post fairseal")
@@ -830,13 +1070,34 @@ public struct FairTool : AsyncParsableCommand {
 
         }
 
+        func parseTintColor() throws -> String? {
+            // first check the `AppFairApp.xcconfig` file for customization
+            if let tint = try projectOptions.buildSettings()?["ICON_TINT"] {
+                if let hexColor = HexColor(hexString: tint) {
+                    return hexColor.colorString(hashPrefix: false)
+                }
+            }
+
+            // fall back to the asset catalog, if any
+            if let accentColorFlag = iconOptions.accentColor {
+                let accentColorPath = projectOptions.projectPathURL(path: accentColorFlag)
+                if let rgba = try parseColorContents(url: accentColorPath) {
+                    let tintColor = String(format:"%02X%02X%02X", Int(rgba.r * 255), Int(rgba.g * 255), Int(rgba.b * 255))
+                    dbg("parsed tint color: \(rgba): \(tintColor)")
+                    return tintColor
+                }
+            }
+
+            return nil
+        }
+
         private func fetchUntrustedArtifact() async throws -> URL {
             // if we specified the artifact as a local file, just use it directly
-            if let untrustedArtifactFlag = options.untrustedArtifact {
+            if let untrustedArtifactFlag = sealOptions.untrustedArtifact {
                 return URL(fileURLWithPath: untrustedArtifactFlag)
             }
 
-            guard let artifactURLFlag = self.options.artifactURL,
+            guard let artifactURLFlag = self.sealOptions.artifactURL,
                 let artifactURL = URL(string: artifactURLFlag) else {
                 throw FairTool.Errors.missingFlag("-artifact-url")
             }
@@ -845,7 +1106,7 @@ public struct FairTool : AsyncParsableCommand {
         }
 
         private func fetchArtifact(url artifactURL: URL) async throws -> URL {
-            try await retrying() {
+            try await retryOptions.retrying() {
                 var request = URLRequest(url: artifactURL)
                 request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
                 let (downloadedURL, response) = try URLSession.shared.downloadSync(request)
@@ -859,6 +1120,7 @@ public struct FairTool : AsyncParsableCommand {
                 }
             }
         }
+
     }
     #endif
 
@@ -866,7 +1128,10 @@ public struct FairTool : AsyncParsableCommand {
     struct IconCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
         var messages: MessageBuffer? = nil
+        @OptionGroup var iconOptions: IconOptions
         @OptionGroup var options: Options
+        @OptionGroup var orgOptions: OrgOptions
+        @OptionGroup var projectOptions: ProjectOptions
 
         mutating func run() async throws {
             try await runOnMain()
@@ -877,20 +1142,20 @@ public struct FairTool : AsyncParsableCommand {
 
             assert(Thread.isMainThread, "SwiftUI can only be used from main thread")
 
-            guard let appIconPath = self.appIconPath else {
+            guard let appIconPath = iconOptions.appIcon else {
                 throw FairTool.Errors.missingFlag("-app-icon")
             }
 
-            let appIconURL = projectPathURL(path: appIconPath)
+            let appIconURL = projectOptions.projectPathURL(path: appIconPath)
 
             // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
             let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
 
-            let appName = try appNameSpace()
+            let appName = try orgOptions.appNameSpace()
             let iconColor = try parseTintIconColor()
 
-            var symbolNames = options.iconSymbol
-            if let symbolName = try self.buildSettings()?["ICON_SYMBOL"] {
+            var symbolNames = iconOptions.iconSymbol
+            if let symbolName = try projectOptions.buildSettings()?["ICON_SYMBOL"] {
                 symbolNames.append(symbolName)
             }
 
@@ -911,7 +1176,7 @@ public struct FairTool : AsyncParsableCommand {
             var appIconSet = iconSet
 
             for imageSet in icons {
-                let iconView = FairIconView(appName, subtitle: options.catalogTitle, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
+                let iconView = FairIconView(appName, subtitle: nil, paths: symbolNames, iconColor: iconColor, cornerRadiusFactor: imageSet.idiom == "ios-marketing" ? 0.0 : nil) // App Store icon must not have any transparency
 
                 if imageSet.filename != nil {
                     continue // skip any elements that have a file path specified already
@@ -964,15 +1229,15 @@ public struct FairTool : AsyncParsableCommand {
         }
 
         func parseTintIconColor() throws -> Color? {
-            if let tint = try self.buildSettings()?["ICON_TINT"] {
+            if let tint = try projectOptions.buildSettings()?["ICON_TINT"] {
                 if let hexColor = HexColor(hexString: tint) {
                     return hexColor.sRGBColor()
                 }
             }
 
             // fall back to the asset catalog, if specified
-            if let accentColorFlag = options.accentColor {
-                let accentColorPath = projectPathURL(path: accentColorFlag)
+            if let accentColorFlag = iconOptions.accentColor {
+                let accentColorPath = projectOptions.projectPathURL(path: accentColorFlag)
                 if let rgba = try parseColorContents(url: accentColorPath) {
                     return Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
                 }
@@ -1093,203 +1358,8 @@ fileprivate extension FairParsableCommand {
         return error
     }
 
-    /// The flag for the hub we should use
-    var appPathKey: String? {
-        //flags["a"]?.first ?? flags["-appPath"]?.first
-        options.appPath
-    }
-
-    /// The flag for the project folder
-    var projectPathFlag: String {
-        options.project ?? fm.currentDirectoryPath
-    }
-
-    /// Loads the data for the project file at the given relative path
-    func projectPathURL(path: String) -> URL {
-        URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: projectPathFlag, isDirectory: true))
-    }
-
-    /// Loads the data for the project file at the given relative path
-    func basePathURL(path: String) -> URL? {
-        guard let basePathFlag = options.base else { return nil }
-        return URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: basePathFlag, isDirectory: true))
-    }
-
-    /// The flag for the `fairseal` command indicating the online resource for the artifact metadata
-    var artifactStagingFolders: [String] {
-        //flags["-artifact-staging"] ?? []
-        options.artifactStaging
-    }
-
-    /// The flag for the output folder or the current director
-    var outputDirectoryFlag: String {
-        options.output ?? fm.currentDirectoryPath
-    }
-
-    /// The path to `Assets.xcassets/AppIcon.appiconset/Contents.json`
-    var appIconPath: String? {
-        //flags["-app-icon"]?.first
-        options.appIcon
-    }
-
-    /// The flag for the allow patterns for integrate PRs
-    var allowName: [String]? {
-        //flags["-allow-name"].flatMap(joinWhitespaceSeparated)
-        joinWhitespaceSeparated(options.allowName)
-    }
-
-    /// The flag for the disallow patterns for integrate PRs
-    var denyName: [String]? {
-        //flags["-deny-name"].flatMap(joinWhitespaceSeparated)
-        joinWhitespaceSeparated(options.denyName)
-    }
-
-    /// The flag for the allow patterns for integrate PRs
-    var allowFrom: [String]? {
-        //flags["-allow-from"].flatMap(joinWhitespaceSeparated)
-        joinWhitespaceSeparated(options.allowFrom)
-    }
-
-    /// The flag for the disallow patterns for integrate PRs
-    var denyFrom: [String]? {
-        //flags["-deny-from"].flatMap(joinWhitespaceSeparated)
-        joinWhitespaceSeparated(options.denyFrom)
-    }
-
-    /// The flag for the permitted license IDs
-    var allowLicense: [String]? {
-        //flags["-allow-license"].flatMap(joinWhitespaceSeparated)
-        joinWhitespaceSeparated(options.allowLicense)
-    }
-
-    /// The multiplier for how much metadata additions boost the app rankings
-    var boostFactor: Int64 {
-        options.boostFactor ?? 100_000
-    }
-
-    /// Allow multiple newline separated elements for a single value, which
-    /// permits us to pass multiple e-mail addresses in a single
-    /// `--allow-from` or `--deny-from` setting.
-    func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
-        addresses
-            .flatMap { $0.components(separatedBy: .whitespacesAndNewlines) }
-            .map { $0.trimmingCharacters(in: .whitespaces) }
-            .filter { !$0.isEmpty }
-    }
-
-    /// The flag specifying the IR title, which must conform to "App-Name v1.2.3"
-    var maxsizeFlag: Int? {
-        //flags["-maxsize"]?.first.flatMap({ Int($0) })
-        options.maxsize
-    }
-
-    /// The amount of time to continue re-trying downloading a resource
-    var retryDurationFlag: TimeInterval? {
-        //flags["-retry-duration"]?.first.flatMap({ TimeInterval($0) })
-        options.retryDuration
-    }
-
-    /// The backoff time for waiting to retry; defaults to 30 seconds
-    var retryWaitFlag: TimeInterval {
-        //flags["-retry-wait"]?.first.flatMap({ TimeInterval($0) }) ?? 30.0
-        options.retryWait
-    }
-
-    /// The hub service we should use for this tool
-    func fairHub() throws -> FairHub {
-        guard let hubFlag = options.hub else {
-            throw FairTool.Errors.invalidHub(nil)
-        }
-
-        return try FairHub(hostOrg: hubFlag, authToken: options.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: options.fairsealIssuer, allowName: allowName ?? [], denyName: denyName ?? [], allowFrom: allowFrom ?? [], denyFrom: denyFrom ?? [], allowLicense: allowLicense ?? [])
-    }
-
-    /// Loads the data for the output file at the given relative path
-    func outputURL(path: String) throws -> URL {
-        URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: outputDirectoryFlag, isDirectory: true))
-    }
-
     func load(url: URL) throws -> Data {
         try Data(contentsOf: url)
-    }
-
-    /// Returns the configured applications path, attempting to create it if it doesn't exist
-    func applicationsPath() throws -> URL {
-        guard let appPathKey = appPathKey else {
-            throw FairTool.Errors.missingAppPath
-        }
-
-        let appURL = URL(fileURLWithPath: appPathKey)
-        if fm.isDirectory(url: appURL) != true {
-            try fm.createDirectory(at: appURL, withIntermediateDirectories: true, attributes: [:])
-        }
-
-        if fm.isDirectory(url: appURL) != true {
-            throw FairTool.Errors.badApplicationsPath(appURL)
-        }
-
-        return appURL
-    }
-
-
-    /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
-    @discardableResult
-    func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppPermission> {
-        let entitlements_dict = try Plist(url: entitlementsURL)
-
-        if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
-            // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
-            if !isCatalogApp {
-                throw FairTool.Errors.sandboxRequired
-            }
-        }
-
-        var permissions: [AppPermission] = []
-
-        // Check that the given entitlement is permitted, and that entitlements that require a usage description are specified in the app's Info.plist `FairUsage` dictionary
-        func check(_ entitlement: AppEntitlement) throws -> (usage: String, value: Any)? {
-            guard let entitlementValue = entitlements_dict.rawValue[entitlement.entitlementKey] else {
-                return nil // no entitlement set
-            }
-
-            if (entitlementValue as? NSNumber) == false {
-                return nil // false entitlements are treated as unset
-            }
-
-            // a nil usage description means the property is explicitely forbidden (e.g., "files-all")
-            guard let props = entitlement.usageDescriptionProperties else {
-                throw FairTool.Errors.forbiddenEntitlement(entitlement.entitlementKey)
-            }
-
-            // on the other hand, an empty array means we don't require any explanation for the entitlemnent's usage (e.g., enabling JIT)
-            if props.isEmpty {
-                return nil
-            }
-
-            guard let usageDescription = props.compactMap({
-                // the usage is contained in the `FairUsage` dictionary of the Info.plist; the key is simply the entitlement name
-                infoProperties.FairUsage?[$0] as? String
-
-                // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
-                // ?? infoProperties[$0] as? String
-            }).first else {
-                throw FairTool.Errors.missingUsageDescription(entitlement)
-            }
-
-            if usageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                throw FairTool.Errors.missingUsageDescription(entitlement)
-            }
-
-            return (usageDescription, entitlementValue)
-        }
-
-        for entitlement in AppEntitlement.allCases {
-            if let (usage, _) = try check(entitlement) {
-                permissions.append(AppPermission(type: entitlement, usageDescription: usage))
-            }
-        }
-
-        return permissions
     }
 
     func validateCommit(ref: String, hub: FairHub) async throws {
@@ -1298,29 +1368,6 @@ fileprivate extension FairParsableCommand {
         let author: Void = try hub.authorize(commit: response)
         let _ = author
         //msg(.info, "Validated commit author:", author)
-    }
-
-    /// Returns `App-Name`
-    func appOrgName() throws -> String {
-        guard let orgName = options.org else {
-            throw FairTool.Errors.badArgument("org")
-        }
-        return orgName
-    }
-
-    var isCatalogApp: Bool {
-        options.org == Bundle.catalogBrowserAppOrg
-    }
-
-    /// Returns `App Name`
-    func appNameSpace() throws -> String {
-        try appOrgName().dehyphenated()
-    }
-
-    /// If the `--fair-properties` flag was specified, tries to parse the build settings
-    func buildSettings() throws -> BuildSettings? {
-        guard let fairProperties = self.options.fairProperties else { return nil }
-        return try BuildSettings(url: projectPathURL(path: fairProperties))
     }
 
     /// Perform update checks before copying the app into the destination
@@ -1341,115 +1388,9 @@ fileprivate extension FairParsableCommand {
         }
     }
 
-    /// Retries the given operation until the `retry-duration` flag as been exceeded
-    func retrying<T>(operation: () async throws -> T) async throws -> T {
-        let timeoutDate = Date().addingTimeInterval(retryDurationFlag ?? 0)
-        while true {
-            do {
-                return try await operation()
-            } catch {
-                // TODO: schedule on a queue rather than blocking on Thread.sleep
-                if try backoff(timeoutDate, error: error) == false {
-                    throw error
-                }
-            }
-        }
-
-        /// Backs off until the given timeout date
-        @discardableResult func backoff(_ timeoutDate: Date, error: Error?) throws -> Bool {
-            // we we are timed out, or if we don't want to retry, then simply re-download
-            if (retryDurationFlag ?? 0) <= 0 || retryWaitFlag <= 0 || Date() >= timeoutDate {
-                return false
-            } else {
-                msg(.info, "retrying operation in \(retryWaitFlag) seconds from \(Date()) due to error:", error)
-                Thread.sleep(forTimeInterval: retryWaitFlag)
-                return true
-            }
-        }
-    }
-
-    func parseTintColor() throws -> String? {
-        // first check the `AppFairApp.xcconfig` file for customization
-        if let tint = try self.buildSettings()?["ICON_TINT"] {
-            if let hexColor = HexColor(hexString: tint) {
-                return hexColor.colorString(hashPrefix: false)
-            }
-        }
-
-        // fall back to the asset catalog, if any
-        if let accentColorFlag = options.accentColor {
-            let accentColorPath = projectPathURL(path: accentColorFlag)
-            if let rgba = try parseColorContents(url: accentColorPath) {
-                let tintColor = String(format:"%02X%02X%02X", Int(rgba.r * 255), Int(rgba.g * 255), Int(rgba.b * 255))
-                dbg("parsed tint color: \(rgba): \(tintColor)")
-                return tintColor
-            }
-        }
-
-        return nil
-    }
-
     /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
     func parseColorContents(url: URL) throws -> (r: Double, g: Double, b: Double, a: Double)? {
         try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
-    }
-
-    func catalog() async throws {
-        msg(.info, "Catalog")
-        try await retrying() {
-            try await createCatalog()
-        }
-    }
-
-    private func createCatalog() async throws {
-        let hub = try fairHub()
-
-        // whether to enforce a fairseal check before the app will be listed in the catalog
-        let fairsealCheck = true // options.fairseal.contains("skip") != true
-
-        let artifactTarget: ArtifactTarget
-        switch options.artifactExtension.first ?? "zip" {
-        case "ipa":
-            artifactTarget = ArtifactTarget(artifactType: "ipa", devices: ["iphone", "ipad"])
-        case "zip", _:
-            artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
-        }
-
-        func output(_ data: Data, to path: String) throws {
-            if path == "-" {
-                print(data.utf8String!)
-            } else {
-                let file = URL(fileURLWithPath: path)
-                try data.write(to: file)
-            }
-        }
-
-        // build the catalog filtering on specific artifact extensions
-        let catalog = try await hub.buildCatalog(title: options.catalogTitle ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.options.requestLimit)
-
-        msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
-        for apprel in catalog.apps {
-            msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
-        }
-
-        if let outputFile = options.output {
-            let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
-            try output(json, to: outputFile)
-            msg(.info, "Wrote catalog to", outputFile, json.count.localizedByteCount())
-        }
-
-        if let caskFolderFlag = options.caskFolder {
-            msg(.info, "Writing casks to: \(caskFolderFlag)")
-            for app in catalog.apps {
-                try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease")
-            }
-        }
-
-        if let indexFlag = options.index {
-            let md = try buildAppCatalogMarkdown(catalog: catalog)
-            try output(md.utf8Data, to: indexFlag)
-            msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
-        }
     }
 
     func buildAppCatalogMarkdown(catalog: FairAppCatalog) throws -> String {
@@ -1709,6 +1650,17 @@ public struct BuildSettings : RawRepresentable, Hashable {
         rawValue[path]
     }
 }
+
+/// Allow multiple newline separated elements for a single value, which
+/// permits us to pass multiple e-mail addresses in a single
+/// `--allow-from` or `--deny-from` setting.
+private func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
+    addresses
+        .flatMap { $0.components(separatedBy: .whitespacesAndNewlines) }
+        .map { $0.trimmingCharacters(in: .whitespaces) }
+        .filter { !$0.isEmpty }
+}
+
 
 struct HexColor : Hashable {
     let r, g, b: Int
