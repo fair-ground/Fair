@@ -599,16 +599,16 @@ public struct FairTool : AsyncParsableCommand {
                 throw FairHub.Errors.repoInvalid(invalid, org, repoName)
             }
         }
-
     }
+
     struct MergeCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var outputOptions: OutputOptions
         @OptionGroup var projectOptions: ProjectOptions
-//        @OptionGroup var validateOptions: ValidateOptions
-//        @OptionGroup var orgOptions: OrgOptions
-//        @OptionGroup var hubOptions: HubOptions
+        @OptionGroup var validateOptions: ValidateOptions
+        @OptionGroup var orgOptions: OrgOptions
+        @OptionGroup var hubOptions: HubOptions
 
         mutating func run() async throws {
             msg(.info, "merge")
@@ -625,14 +625,13 @@ public struct FairTool : AsyncParsableCommand {
 
             // try await validate() // always validate first
 
-//            var vc = ValidateCommand()
-//            vc.msgOptions = self.msgOptions
-//            vc.projectOptions = self.projectOptions
-//            vc.validateOptions = self.validateOptions
-//            vc.orgOptions = self.orgOptions
-//            vc.hubOptions = self.hubOptions
-//
-//            try await vc.run()
+            var vc = ValidateCommand()
+            vc.msgOptions = self.msgOptions
+            vc.hubOptions = self.hubOptions
+            vc.validateOptions = self.validateOptions
+            vc.orgOptions = self.orgOptions
+            vc.projectOptions = self.projectOptions
+            try await vc.run()
 
             /// Attempt to copy the path from the projectPath to the outputPath,
             /// thereby selectively merging parts of the PR with a customizable transform
