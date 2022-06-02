@@ -104,7 +104,7 @@ public struct FairTool : AsyncParsableCommand {
         var verbose: Bool?
 
         //typealias MessageHandler = ((MessageKind, Any?...) -> ())
-        var messages: MessageBuffer?
+        var messages: MessageBuffer? = nil
     }
 
     struct ProjectOptions: ParsableArguments {
@@ -601,13 +601,14 @@ public struct FairTool : AsyncParsableCommand {
         }
 
     }
-
     struct MergeCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var outputOptions: OutputOptions
         @OptionGroup var projectOptions: ProjectOptions
         @OptionGroup var validateOptions: ValidateOptions
+        @OptionGroup var orgOptions: OrgOptions
+        @OptionGroup var hubOptions: HubOptions
 
         mutating func run() async throws {
             msg(.info, "merge")
@@ -627,7 +628,9 @@ public struct FairTool : AsyncParsableCommand {
             vc.msgOptions = self.msgOptions
             vc.projectOptions = self.projectOptions
             vc.validateOptions = self.validateOptions
-            //vc.outputOptions = self.outputOptions
+            vc.orgOptions = self.orgOptions
+            vc.hubOptions = self.hubOptions
+
             try await vc.run()
 
             /// Attempt to copy the path from the projectPath to the outputPath,
