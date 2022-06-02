@@ -34,10 +34,7 @@ import UIKit
 #endif
 
 protocol FairParsableCommand : AsyncParsableCommand {
-    var options: FairTool.Options { get }
-
-    //typealias MessageHandler = ((MessageKind, Any?...) -> ())
-    var messages: MessageBuffer? { get set }
+    var msgOptions: FairTool.MsgOptions { get set }
 }
 
 final class MessageBuffer {
@@ -102,9 +99,12 @@ public struct FairTool : AsyncParsableCommand {
     public init() {
     }
 
-    struct Options: ParsableArguments {
+    struct MsgOptions: ParsableArguments {
         @Option(name: [.long, .customShort("v")], help: "whether to display verbose messages.")
         var verbose: Bool?
+
+        //typealias MessageHandler = ((MessageKind, Any?...) -> ())
+        var messages: MessageBuffer?
     }
 
     struct ProjectOptions: ParsableArguments {
@@ -368,8 +368,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct WelcomeCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "welcome", abstract: "Show the welcome message.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
 
         mutating func run() async throws {
             let version = Bundle.fairCoreVersion
@@ -379,8 +378,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct ValidateCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
         @OptionGroup var validateOptions: ValidateOptions
         @OptionGroup var orgOptions: OrgOptions
@@ -606,8 +604,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct MergeCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var outputOptions: OutputOptions
         @OptionGroup var projectOptions: ProjectOptions
 
@@ -626,7 +623,9 @@ public struct FairTool : AsyncParsableCommand {
 
             // try await validate() // always validate first
             var vc = ValidateCommand()
-            vc.options = self.options
+            vc.msgOptions = self.msgOptions
+            vc.projectOptions = self.projectOptions
+            //vc.outputOptions = self.outputOptions
             try await vc.run()
 
             /// Attempt to copy the path from the projectPath to the outputPath,
@@ -687,8 +686,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct CatalogCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
         @OptionGroup var catalogOptions: CatalogOptions
         @OptionGroup var retryOptions: RetryOptions
@@ -761,8 +759,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct AppcasksCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
         @OptionGroup var casksOptions: CasksOptions
         @OptionGroup var retryOptions: RetryOptions
@@ -808,8 +805,7 @@ public struct FairTool : AsyncParsableCommand {
     #if canImport(Compression)
     struct FairsealCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
-        var messages: MessageBuffer? = nil
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
         @OptionGroup var sealOptions: SealOptions
         @OptionGroup var retryOptions: RetryOptions
@@ -1127,9 +1123,8 @@ public struct FairTool : AsyncParsableCommand {
     #if canImport(SwiftUI)
     struct IconCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
-        var messages: MessageBuffer? = nil
         @OptionGroup var iconOptions: IconOptions
-        @OptionGroup var options: Options
+        @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var orgOptions: OrgOptions
         @OptionGroup var projectOptions: ProjectOptions
 
@@ -1255,12 +1250,12 @@ fileprivate extension FairParsableCommand {
     func msg(_ kind: MessageKind = .info, _ message: Any?...) {
         let msg = message.map({ $0.flatMap(String.init(describing:)) ?? "nil" }).joined(separator: " ")
 
-        if kind == .debug && options.verbose != true {
+        if kind == .debug && msgOptions.verbose != true {
             return // skip debug output unless we are running verbose
         }
 
-        if self.messages != nil {
-            self.messages!.messages.append((kind, message))
+        if msgOptions.messages != nil {
+            msgOptions.messages!.messages.append((kind, message))
         } else {
             // let (checkMark, failMark) = ("✓", "X")
             if kind == .info {

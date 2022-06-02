@@ -29,8 +29,8 @@ final class FairToolTests: XCTestCase {
 
         // capture the output of the tool run
         let buffer = MessageBuffer()
-        asyncCommand.messages = buffer
-        defer { asyncCommand.messages = nil } // unnecessary cleanup
+        asyncCommand.msgOptions.messages = buffer
+        defer { asyncCommand.msgOptions.messages = nil } // unnecessary cleanup
         try await asyncCommand.run()
         return buffer.messages
     }
