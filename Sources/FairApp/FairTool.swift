@@ -607,6 +607,7 @@ public struct FairTool : AsyncParsableCommand {
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var outputOptions: OutputOptions
         @OptionGroup var projectOptions: ProjectOptions
+        @OptionGroup var validateOptions: ValidateOptions
 
         mutating func run() async throws {
             msg(.info, "merge")
@@ -625,6 +626,7 @@ public struct FairTool : AsyncParsableCommand {
             var vc = ValidateCommand()
             vc.msgOptions = self.msgOptions
             vc.projectOptions = self.projectOptions
+            vc.validateOptions = self.validateOptions
             //vc.outputOptions = self.outputOptions
             try await vc.run()
 

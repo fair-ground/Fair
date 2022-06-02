@@ -486,7 +486,7 @@ jobs:
           rm -rf "staging/"
           mkdir "staging/"
 
-          fairtool merge --verbose true --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
+          fairtool merge --verbose true --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
 
