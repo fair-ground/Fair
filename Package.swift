@@ -28,7 +28,7 @@ let package = Package(
         .executable(name: "fairtool", targets: ["FairTool"]),
     ],
     dependencies: [
-        // zero dependencies
+        .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
         .target(name: "FairCore", resources: [.process("Resources"), .copy("Bundle")]),

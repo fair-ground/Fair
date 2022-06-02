@@ -1,0 +1,536 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore6TreeOfP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "TreeOf"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "TreeOf"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "TreeOf"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "Linux"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "TreeOf"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOf",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOfSelf",
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfSelf"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf\/ChildType",
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf\/TreeType"
+      ],
+      "title" : "Associated Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf\/childrenKeyPath"
+      ],
+      "title" : "Type Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/treeof"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/DepthFirstTreeOf": {
+  "abstract" : [
+    {
+      "code" : "TreeOf",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " subprotocol that defines how the tree will be interpreted as a collection.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DepthFirstTreeOf"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DepthFirstTreeOf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DepthFirstTreeOf",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/depthfirsttreeof"
+},
+"doc://FairCore/documentation/FairCore/DepthFirstTreeOfSelf": {
+  "abstract" : [
+    {
+      "text" : "A depth-first tree is a tree that iterates elements depth-first.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "endIndex",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for a depth-first tree is the final index with an additional child node.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "This is merely a marker protocol to indicate how traversal behavior should perform;",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "an alternative ",
+      "type" : "text"
+    },
+    {
+      "code" : "BreadthFirstTreeOfSelf",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " could also be implemented with the same",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DepthFirstTreeOfSelf"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOfSelf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DepthFirstTreeOfSelf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DepthFirstTreeOfSelf",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/depthfirsttreeofself"
+},
+"doc://FairCore/documentation/FairCore/TreeOf": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TreeOf"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TreeOf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TreeOf",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/treeof"
+},
+"doc://FairCore/documentation/FairCore/TreeOf/ChildType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChildType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf\/ChildType",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "ChildType",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/treeof\/childtype"
+},
+"doc://FairCore/documentation/FairCore/TreeOf/TreeType": {
+  "abstract" : [
+    {
+      "text" : "The type of this tree; we only need this to be able to adopt the protocol by non-final classes, else:",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Protocol ‘TreeOf’ requirement ‘childrenKeyPath’ cannot be satisfied by a non-final class (‘NSTreeNode’) because it uses ‘Self’ in a non-parameter, non-result type position",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TreeType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf\/TreeType",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "TreeType",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/treeof\/treetype"
+},
+"doc://FairCore/documentation/FairCore/TreeOf/childrenKeyPath": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "childrenKeyPath"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s15WritableKeyPathC",
+      "text" : "WritableKeyPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "TreeType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "ChildType"
+    },
+    {
+      "kind" : "text",
+      "text" : "]>"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf\/childrenKeyPath",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "childrenKeyPath",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/treeof\/childrenkeypath"
+},
+"doc://FairCore/documentation/FairCore/TreeOfElements": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "TreeOf",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " sub-protocol that implements a BiDirectional collection",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TreeOfElements"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TreeOfElements"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TreeOfElements",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/treeofelements"
+},
+"doc://FairCore/documentation/FairCore/TreeOfSelf": {
+  "abstract" : [
+    {
+      "text" : "A TreeOfSelf is an instance that contains itself as a collection of children.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Children are accessed through the ",
+      "type" : "text"
+    },
+    {
+      "code" : "childrenKeyPath",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " mathod. Collection indexing",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "is done based on the ",
+      "type" : "text"
+    },
+    {
+      "code" : "IndexPath",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TreeOfSelf"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfSelf",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TreeOfSelf"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TreeOfSelf",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/treeofself"
+}
+}
+}

@@ -1,0 +1,753 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairCore",
+    "externalID" : "s:8FairCore0A3HubV15RepositoryOwnerV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "RepositoryOwner"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "RepositoryOwner"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "FairHub.RepositoryOwner"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "Linux"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "RepositoryOwner"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/Se",
+        "doc:\/\/FairCore\/SE",
+        "doc:\/\/FairCore\/SQ",
+        "doc:\/\/FairCore\/SH",
+        "doc:\/\/FairCore\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/init(from:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/appNameWithHyphen",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/appNameWithSpace",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/createdAt",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/email",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/hasSponsorsListing",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/isOrganization",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/isVerified",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/login",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/monthlyEstimatedSponsorsIncomeInCents",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/websiteUrl"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/TypeName"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/Decodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/Encodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/fairhub\/repositoryowner"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/SE": {
+  "identifier" : "doc:\/\/FairCore\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SH": {
+  "identifier" : "doc:\/\/FairCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SQ": {
+  "identifier" : "doc:\/\/FairCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/Se": {
+  "identifier" : "doc:\/\/FairCore\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryOwner"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryOwner"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.RepositoryOwner",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/decodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/encodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/equatable-implementations"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/TypeName": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TypeName"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/TypeName",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TypeName"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.RepositoryOwner.TypeName",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/typename"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/appNameWithHyphen": {
+  "abstract" : [
+    {
+      "text" : "The app name is simply the “Org-Name”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appNameWithHyphen"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/appNameWithHyphen",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appNameWithHyphen",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/appnamewithhyphen"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/appNameWithSpace": {
+  "abstract" : [
+    {
+      "text" : "The app name is simply the “Org-Name” without dashes: “Org Name”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appNameWithSpace"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/appNameWithSpace",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appNameWithSpace",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/appnamewithspace"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/createdAt": {
+  "abstract" : [
+    {
+      "text" : "Identifies the date and time when the object was created.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createdAt"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DateV",
+      "text" : "Date"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/createdAt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createdAt",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/createdat"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/email": {
+  "abstract" : [
+    {
+      "text" : "The organization’s public email.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "email"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/email",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "email",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/email"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/hasSponsorsListing": {
+  "abstract" : [
+    {
+      "text" : "True if this user\/organization has a GitHub Sponsors listing.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasSponsorsListing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/hasSponsorsListing",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasSponsorsListing",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/hassponsorslisting"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/init(from:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/isOrganization": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isOrganization"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/isOrganization",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isOrganization",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/isorganization"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/isVerified": {
+  "abstract" : [
+    {
+      "text" : "Whether the organization has verified its profile email and website.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isVerified"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/isVerified",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isVerified",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/isverified"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/login": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "login"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/login",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "login",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/login"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/monthlyEstimatedSponsorsIncomeInCents": {
+  "abstract" : [
+    {
+      "text" : "The estimated monthly GitHub Sponsors income for this user\/organization in cents (USD).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "monthlyEstimatedSponsorsIncomeInCents"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/monthlyEstimatedSponsorsIncomeInCents",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "monthlyEstimatedSponsorsIncomeInCents",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/monthlyestimatedsponsorsincomeincents"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner/websiteUrl": {
+  "abstract" : [
+    {
+      "text" : "The organization’s public profile URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "websiteUrl"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner\/websiteUrl",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "websiteUrl",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner\/websiteurl"
+},
+"doc://FairCore/s8SendableP": {
+  "identifier" : "doc:\/\/FairCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

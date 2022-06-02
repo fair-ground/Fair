@@ -1,0 +1,422 @@
+{
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "XResult",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is similar to a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Foundation.Result",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " except it uses ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOr",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " arity and can adopy ",
+      "type" : "text"
+    },
+    {
+      "code" : "Pure",
+      "type" : "codeVoice"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/XResult"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore7XResulta",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "typealias"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "XResult"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "XResult"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "XResult"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "Linux"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "typealias"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "XResult"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Success"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Failure"
+            },
+            {
+              "kind" : "text",
+              "text" : "> = "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore3XOrO",
+              "text" : "XOr"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Failure"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+              "text" : "Or"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Success"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Failure"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s5ErrorP",
+              "text" : "Error"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/xresult"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/XOr": {
+  "abstract" : [
+    {
+      "text" : "The basis of one of multiple possible types, equivalent to an",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "Either",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " sum type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "XOr"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "XOr"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "XOr",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or": {
+  "abstract" : [
+    {
+      "text" : "A sum type: ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOr<P>.Or<Q>",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " can hold either an ",
+      "type" : "text"
+    },
+    {
+      "code" : "P",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " or a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Q",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "E.g., ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOr<Int>.Or<String>.Or<Bool>",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " can hold either an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Int",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " or a ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " or a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Bool",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Or"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Or"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "XOr.Or",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or"
+},
+"doc://FairCore/documentation/FairCore/XResult": {
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "XResult",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is similar to a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Foundation.Result",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " except it uses ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOr",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " arity and can adopy ",
+      "type" : "text"
+    },
+    {
+      "code" : "Pure",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "XResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "XResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "XResult",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xresult"
+}
+}
+}

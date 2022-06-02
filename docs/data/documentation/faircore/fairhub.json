@@ -1,0 +1,2188 @@
+{
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore0A3HubV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "FairHub"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "FairHub"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "FairHub"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "Linux"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "FairHub"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/EndpointService",
+        "doc:\/\/FairCore\/documentation\/FairCore\/GraphQLEndpointService"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/AppCaskReleasesQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/AppCasksQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/AppOrgValidationFailure",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/CatalogQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/EdgeList",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/FindPullRequests",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/GetCommitQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/LookupPRNumberQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/NodeCount",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/NodeList",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/OID",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/PostCommentQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/ReleaseAsset",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryQuery",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/User"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/init(hostOrg:authToken:fairsealIssuer:allowName:denyName:allowFrom:denyFrom:allowLicense:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/allowFrom",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/allowLicense",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/allowName",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/authToken",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/baseURL",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/denyFrom",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/denyName",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/fairsealIssuer",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/org"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/authorize(commit:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/buildAppCasks(owner:name:excludeEmptyCasks:boostFactor:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/buildCatalog(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/endpoint(action:_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/postFairseal(_:owner:name:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/validate(org:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/validateAppName(_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/validateEmailAddress(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/CommitInfo",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/ErrorType"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/Errors"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/EndpointService-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/GraphQLEndpointService-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/fairhub"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/EndpointService": {
+  "abstract" : [
+    {
+      "text" : "A service that converts actions and parameters into an endpoint URL",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/EndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/endpointservice"
+},
+"doc://FairCore/documentation/FairCore/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub"
+},
+"doc://FairCore/documentation/FairCore/FairHub/AppCaskReleasesQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to get additional pages of releases for ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppCasksQuery",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when a fork has many releases",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCaskReleasesQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/AppCaskReleasesQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCaskReleasesQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCaskReleasesQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/appcaskreleasesquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/AppCasksQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a catalog of enhanced cask metadata",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/AppCasksQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/appcasksquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/AppOrgValidationFailure": {
+  "abstract" : [
+    {
+      "text" : "The varios reasons why an organization or repository might be invalid",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppOrgValidationFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/AppOrgValidationFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppOrgValidationFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppOrgValidationFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/apporgvalidationfailure"
+},
+"doc://FairCore/documentation/FairCore/FairHub/CatalogQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a fair-ground catalog",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CatalogQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/CatalogQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CatalogQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CatalogQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/catalogquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/CommitInfo": {
+  "abstract" : [
+    {
+      "text" : "The commit instance",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CommitInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/CommitInfo",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CommitInfo"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CommitInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/commitinfo"
+},
+"doc://FairCore/documentation/FairCore/FairHub/EdgeList": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EdgeList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/EdgeList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EdgeList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.EdgeList",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/edgelist"
+},
+"doc://FairCore/documentation/FairCore/FairHub/EndpointService-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/EndpointService-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "EndpointService Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/endpointservice-implementations"
+},
+"doc://FairCore/documentation/FairCore/FairHub/ErrorType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ErrorType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/ErrorType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ErrorType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.ErrorType",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/errortype"
+},
+"doc://FairCore/documentation/FairCore/FairHub/Errors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/Errors",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.Errors",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/errors"
+},
+"doc://FairCore/documentation/FairCore/FairHub/FindPullRequests": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FindPullRequests"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/FindPullRequests",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FindPullRequests"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.FindPullRequests",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/findpullrequests"
+},
+"doc://FairCore/documentation/FairCore/FairHub/GetCommitQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GetCommitQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/GetCommitQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GetCommitQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetCommitQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/getcommitquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/GraphQLEndpointService-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/GraphQLEndpointService-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "GraphQLEndpointService Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/graphqlendpointservice-implementations"
+},
+"doc://FairCore/documentation/FairCore/FairHub/LookupPRNumberQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LookupPRNumberQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/LookupPRNumberQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LookupPRNumberQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.LookupPRNumberQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/lookupprnumberquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/NodeCount": {
+  "abstract" : [
+    {
+      "text" : "Generic placeholder for a related collection that only has a ",
+      "type" : "text"
+    },
+    {
+      "code" : "totalCount",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " property requested",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeCount"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/NodeCount",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NodeCount"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.NodeCount",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/nodecount"
+},
+"doc://FairCore/documentation/FairCore/FairHub/NodeList": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NodeList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/NodeList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NodeList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.NodeList",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/nodelist"
+},
+"doc://FairCore/documentation/FairCore/FairHub/OID": {
+  "abstract" : [
+    {
+      "text" : "An object ID",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OID"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/OID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.OID",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/oid"
+},
+"doc://FairCore/documentation/FairCore/FairHub/PostCommentQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PostCommentQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/PostCommentQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PostCommentQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.PostCommentQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/postcommentquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/ReleaseAsset": {
+  "abstract" : [
+    {
+      "text" : "An asset returned from an API query",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ReleaseAsset"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/ReleaseAsset",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ReleaseAsset"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.ReleaseAsset",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/releaseasset"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryOwner": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryOwner"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryOwner",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryOwner"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.RepositoryOwner",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryowner"
+},
+"doc://FairCore/documentation/FairCore/FairHub/RepositoryQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/RepositoryQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.RepositoryQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/repositoryquery"
+},
+"doc://FairCore/documentation/FairCore/FairHub/User": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "User"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/User",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "User"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.User",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/user"
+},
+"doc://FairCore/documentation/FairCore/FairHub/allowFrom": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of allowed e-mail addresses",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allowFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation19NSRegularExpressionC",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/allowFrom",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allowFrom",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/allowfrom"
+},
+"doc://FairCore/documentation/FairCore/FairHub/allowLicense": {
+  "abstract" : [
+    {
+      "text" : "The license (SPDX IDs) of permitted licenses, such as: “AGPL-3.0”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allowLicense"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/allowLicense",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allowLicense",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/allowlicense"
+},
+"doc://FairCore/documentation/FairCore/FairHub/allowName": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of allowed app names",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allowName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation19NSRegularExpressionC",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/allowName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allowName",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/allowname"
+},
+"doc://FairCore/documentation/FairCore/FairHub/authToken": {
+  "abstract" : [
+    {
+      "text" : "The authorization token for this request, if any",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "authToken"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/authToken",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "authToken",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/authtoken"
+},
+"doc://FairCore/documentation/FairCore/FairHub/authorize(commit:)": {
+  "abstract" : [
+    {
+      "text" : "Checks the commit info to ensure that it is verified, and if so, returns the author information",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "authorize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "commit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV10CommitInfoa",
+      "text" : "CommitInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/authorize(commit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "authorize(commit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/authorize(commit:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/baseURL": {
+  "abstract" : [
+    {
+      "text" : "The root of the FairGround-compatible service",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/baseURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseURL",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/baseurl"
+},
+"doc://FairCore/documentation/FairCore/FairHub/buildAppCasks(owner:name:excludeEmptyCasks:boostFactor:)": {
+  "abstract" : [
+    {
+      "text" : "Generates the appcasks enhanced catalog for Homebrew Casks",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildAppCasks"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "excludeEmptyCasks"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "boostFactor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int64V",
+      "text" : "Int64"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A10AppCatalogV",
+      "text" : "FairAppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/buildAppCasks(owner:name:excludeEmptyCasks:boostFactor:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buildAppCasks(owner:name:excludeEmptyCasks:boostFactor:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/buildappcasks(owner:name:excludeemptycasks:boostfactor:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/buildCatalog(title:owner:fairsealCheck:artifactTarget:requestLimit:)": {
+  "abstract" : [
+    {
+      "text" : "Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildCatalog"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fairsealCheck"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "artifactTarget"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore14ArtifactTargetV",
+      "text" : "ArtifactTarget"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "requestLimit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A10AppCatalogV",
+      "text" : "FairAppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/buildCatalog(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buildCatalog(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/buildcatalog(title:owner:fairsealcheck:artifacttarget:requestlimit:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/denyFrom": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of disallowed e-mail addresses",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "denyFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation19NSRegularExpressionC",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/denyFrom",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "denyFrom",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/denyfrom"
+},
+"doc://FairCore/documentation/FairCore/FairHub/denyName": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of disallowed app names",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "denyName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation19NSRegularExpressionC",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/denyName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "denyName",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/denyname"
+},
+"doc://FairCore/documentation/FairCore/FairHub/endpoint(action:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "endpoint"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "action"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/endpoint(action:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "endpoint(action:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/endpoint(action:_:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/fairsealIssuer": {
+  "abstract" : [
+    {
+      "text" : "The account that is accepted as the issuer of a valid fairseal",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fairsealIssuer"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/fairsealIssuer",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fairsealIssuer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/fairsealissuer"
+},
+"doc://FairCore/documentation/FairCore/FairHub/init(hostOrg:authToken:fairsealIssuer:allowName:denyName:allowFrom:denyFrom:allowLicense:)": {
+  "abstract" : [
+    {
+      "text" : "The FairHub is initialized with a host identifier (e.g., “github.com\/appfair”) that corresponds to the hub being used.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "hostOrg"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "authToken"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fairsealIssuer"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "denyName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "denyFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowLicense"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/init(hostOrg:authToken:fairsealIssuer:allowName:denyName:allowFrom:denyFrom:allowLicense:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(hostOrg:authToken:fairsealIssuer:allowName:denyName:allowFrom:denyFrom:allowLicense:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/init(hostorg:authtoken:fairsealissuer:allowname:denyname:allowfrom:denyfrom:allowlicense:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/org": {
+  "abstract" : [
+    {
+      "text" : "The organization in the hub",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "org"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/org",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "org",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/org"
+},
+"doc://FairCore/documentation/FairCore/FairHub/postFairseal(_:owner:name:)": {
+  "abstract" : [
+    {
+      "text" : "Posts the fairseal to the most recent open PR that matches the download URL’s appOrg",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "postFairseal"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A4SealV",
+      "text" : "FairSeal"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/postFairseal(_:owner:name:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "postFairseal(_:owner:name:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/postfairseal(_:owner:name:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/validate(org:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "org"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV15RepositoryQueryV",
+      "text" : "RepositoryQuery"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV15RepositoryQueryV0E8ResponseV",
+      "text" : "QueryResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV15RepositoryQueryV0E8ResponseV12OrganizationV",
+      "text" : "Organization"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore0A3HubV23AppOrgValidationFailureV",
+      "text" : "AppOrgValidationFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/validate(org:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(org:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/validate(org:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/validateAppName(_:)": {
+  "abstract" : [
+    {
+      "text" : "Validates that the app name is included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "allow-name",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " patterns and not included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "deny-name",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " list of expressions.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateAppName"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/validateAppName(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateAppName(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/validateappname(_:)"
+},
+"doc://FairCore/documentation/FairCore/FairHub/validateEmailAddress(_:)": {
+  "abstract" : [
+    {
+      "text" : "Validates that the e-mail address is included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "allow-from",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " patterns and not included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "deny-from",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " list of expressions.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateEmailAddress"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FairHub\/validateEmailAddress(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateEmailAddress(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/fairhub\/validateemailaddress(_:)"
+},
+"doc://FairCore/documentation/FairCore/GraphQLEndpointService": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQL",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " endpoint",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/GraphQLEndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLEndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/graphqlendpointservice"
+}
+}
+}
