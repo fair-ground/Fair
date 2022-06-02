@@ -153,7 +153,7 @@ jobs:
         run: |
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
-          xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig" --output -
+          xcrun swift run -- fairtool validate --verbose true --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig"
 
       # Verifies that pages are enabled for this repository
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
@@ -482,9 +482,7 @@ jobs:
             --deny-name "${{ secrets.deny_name }}" \
             --allow-from "${{ secrets.allow_from }}" \
             --deny-from "${{ secrets.deny_from }}" \
-            --maxsize $[100 * 1024 * 1024] \
-            --verbose true \
-            --output -
+            --verbose true
 
       - name: Integrate PR
         run: |
