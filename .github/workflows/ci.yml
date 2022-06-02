@@ -125,7 +125,7 @@ jobs:
           swift test 
 
   api-doc:
-    runs-on: macos-latest # needed to be able to document SwiftUI
+    runs-on: macos-12 # needed to be able to document SwiftUI
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
     steps:
