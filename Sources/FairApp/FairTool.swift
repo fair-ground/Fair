@@ -133,15 +133,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct OrgOptions: ParsableArguments {
         @Option(name: [.long, .customShort("g")], help: "the repository to use.")
-        var org: String?
-
-        /// Returns `App-Name`
-        func appOrgName() throws -> String {
-            guard let orgName = self.org else {
-                throw FairTool.Errors.badArgument("org")
-            }
-            return orgName
-        }
+        var org: String
 
         var isCatalogApp: Bool {
             self.org == Bundle.catalogBrowserAppOrg
@@ -149,12 +141,12 @@ public struct FairTool : AsyncParsableCommand {
 
         /// Returns `App Name`
         func appNameSpace() throws -> String {
-            try appOrgName().dehyphenated()
+            self.org.dehyphenated()
         }
 
         /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
         @discardableResult
-        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppPermission> {
+        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppLegacyPermission> {
             let entitlements_dict = try Plist(url: entitlementsURL)
 
             if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
@@ -164,7 +156,7 @@ public struct FairTool : AsyncParsableCommand {
                 }
             }
 
-            var permissions: [AppPermission] = []
+            var permissions: [AppLegacyPermission] = []
 
             // Check that the given entitlement is permitted, and that entitlements that require a usage description are specified in the app's Info.plist `FairUsage` dictionary
             func check(_ entitlement: AppEntitlement) throws -> (usage: String, value: Any)? {
@@ -205,7 +197,7 @@ public struct FairTool : AsyncParsableCommand {
 
             for entitlement in AppEntitlement.allCases {
                 if let (usage, _) = try check(entitlement) {
-                    permissions.append(AppPermission(type: entitlement, usageDescription: usage))
+                    permissions.append(AppLegacyPermission(type: entitlement, usageDescription: usage))
                 }
             }
 
@@ -289,7 +281,7 @@ public struct FairTool : AsyncParsableCommand {
 
     struct HubOptions: ParsableArguments {
         @Option(name: [.long, .customShort("h")], help: "the hub to use.")
-        var hub: String?
+        var hub: String
 
         @Option(name: [.long, .customShort("k")], help: "the token used for the hub's authentication.")
         var token: String?
@@ -318,11 +310,7 @@ public struct FairTool : AsyncParsableCommand {
 
         /// The hub service we should use for this tool
         func fairHub() throws -> FairHub {
-            guard let hubFlag = self.hub else {
-                throw FairTool.Errors.invalidHub(nil)
-            }
-
-            return try FairHub(hostOrg: hubFlag, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
+            try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
         }
 
     }
@@ -388,12 +376,10 @@ public struct FairTool : AsyncParsableCommand {
             msg(.info, "Validating project:", projectOptions.projectPathURL(path: "").path)
             //msg(.debug, "flags:", flags)
 
-            guard let orgName = orgOptions.org else {
-                throw FairTool.Errors.badArgument("org")
-            }
+            let orgName = orgOptions.org
 
             // check whether we are validating as the upstream origin or
-            let isFork = try hubOptions.hub == nil || orgName != hubOptions.fairHub().org
+            let isFork = try orgName != hubOptions.fairHub().org
             //dbg("isFork", isFork, "hubFlag", hubFlag, "orgName", orgName, "fairHub().org", try! fairHub().org)
 
             /// Verifies that the given plist contains the specified value
@@ -550,10 +536,10 @@ public struct FairTool : AsyncParsableCommand {
             try compareContents(of: "Sources/App/Bundle/LICENSE.txt", partial: false)
 
             // 7. Check Package.resolved if it exists and we've specified the hub to validate
-            if let packageResolvedData = try? load(url: projectOptions.projectPathURL(path: "Package.resolved")), let hubFlag = hubOptions.hub {
+            if let packageResolvedData = try? load(url: projectOptions.projectPathURL(path: "Package.resolved")) {
                 msg(.debug, "validating Package.resolved")
                 let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: packageResolvedData)
-                if let httpHost = URL(string: "https://\(hubFlag)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
+                if let httpHost = URL(string: "https://\(hubOptions.hub)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
                     // all dependencies must reside at the same fairground
                     // TODO: add include-hub/exclude-hub flags to permit cross-fairground dependency networks
                     // e.g., permit GitLab apps depending on projects in GitHub repos
@@ -568,7 +554,7 @@ public struct FairTool : AsyncParsableCommand {
             }
 
             // also verify the hub if we have specified it in the arguments
-            if hubOptions.hub != nil {
+            if hubOptions.hub != "" {
                 try await verify(org: orgName, repo: appName, hub: hubOptions.fairHub())
             }
 
@@ -1057,7 +1043,7 @@ public struct FairTool : AsyncParsableCommand {
             }
 
             let tint = try? parseTintColor()
-            let fairseal = FairSeal(assets: assets, permissions: permissions, coreSize: Int(coreSize), tint: tint)
+            let fairseal = FairSeal(assets: assets, permissions: permissions.map(AppPermission.init), coreSize: Int(coreSize), tint: tint)
 
             msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
 
@@ -1393,7 +1379,7 @@ fileprivate extension FairParsableCommand {
         try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
     }
 
-    func buildAppCatalogMarkdown(catalog: FairAppCatalog) throws -> String {
+    func buildAppCatalogMarkdown(catalog: AppCatalog) throws -> String {
         let format = ISO8601DateFormatter()
         func fmt(_ date: Date) -> String {
             //date.localizedDate(dateStyle: .short, timeStyle: .short)
@@ -1882,6 +1868,36 @@ extension AppIconSet {
     }
 }
 
+
+/// An asset name is a convention for naming files based on the contents of the image file.
+///
+/// e.g.: `preview-iphone-800x600.mp4`
+/// e.g.: `appicon-ipad-83.5x83.5@2x.png`
+/// e.g.: `screenshot-mac-dark-1024x777.png`
+public struct AssetName : Hashable {
+    /// The base name of the application
+    public let base: String
+    /// The idiom of the image, which is context-dependent
+    public let idiom: String?
+    /// The width specified by the asset name
+    public let width: Double
+    /// The height specified by the asset name
+    public let height: Double
+    /// The scale, if specified in the asset name
+    public let scale: Int?
+    /// The file-type extension of the asset
+    public let ext: String
+
+    public init(base: String, idiom: String?, width: Double, height: Double, scale: Int?, ext: String) {
+        self.base = base
+        self.idiom = idiom
+        self.width = width
+        self.height = height
+        self.scale = scale
+        self.ext = ext
+    }
+}
+
 extension AssetName {
     /// Initialized this asset name by parsing a string in the expected form.
     /// - Parameter string: the asset path name to interpret
@@ -1942,3 +1958,24 @@ extension AssetName {
     }
 }
 
+/// The contents of a `Package.resolved` file
+public struct ResolvedPackage: Codable, Equatable {
+    public var object: Pins
+    public var version: Int
+
+    public struct Pins: Codable, Equatable {
+        public var pins: [SwiftPackage]
+    }
+
+    public struct SwiftPackage: Codable, Equatable {
+        public var package: String
+        public var repositoryURL: String
+        public var state: State
+
+        public struct State: Codable, Equatable {
+            public var branch: String?
+            public var revision: String?
+            public var version: String?
+        }
+    }
+}

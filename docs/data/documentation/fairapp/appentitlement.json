@@ -1,0 +1,4633 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairApp0B11EntitlementV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "AppEntitlement"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "AppEntitlement"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "AppEntitlement"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "AppEntitlement"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/s12CaseIterableP",
+        "doc:\/\/FairApp\/Se",
+        "doc:\/\/FairApp\/SE",
+        "doc:\/\/FairApp\/SQ",
+        "doc:\/\/FairApp\/SH",
+        "doc:\/\/FairApp\/SY",
+        "doc:\/\/FairApp\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(rawValue:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/categories",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/entitlementKey",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/isDeveloperEntitlement",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/isSecurityEntitlement",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/rawValue",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/usageDescriptionProperties"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/entitlementValue(forTask:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/isEnabled(forTask:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/app_sandbox",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/apple_events",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/application_groups",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/apsEnvironment",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_movies_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_movies_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_music_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_music_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_pictures_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_pictures_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/associatedDomains",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/audio_unit_host",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/autofillCredentialProvider",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/automaticAssesmentConfiguration",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/classKit",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/contacts",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_allow_dyld_environment_variables",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_allow_jit",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_allow_unsigned_executable_memory",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_debugger",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_disable_executable_page_protection",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_disable_library_validation",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/dataProtection",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/developerEntitlements",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_audio_input",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_audio_video_bridging",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_bluetooth",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_camera",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_firewire",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_microphone",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_serial",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_usb",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/driverKit",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/externalAccessoryConfiguration",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_absolute_path_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_absolute_path_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_all",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_bookmarks_app_scope",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_bookmarks_document_scope",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_downloads_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_downloads_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_home_relative_path_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_home_relative_path_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_user_selected_executable",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_user_selected_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_user_selected_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/gameCenter",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/get_task_allow",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/healthKit",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/healthKitCapabilities",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/homeKit",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/hotspotConfiguration",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudContainerIdentifiers",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudContainersEnvironment",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudDevelopmentContainersIdentifiers",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudKeyValueStore",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudServices",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/interAppAudio",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iokit_user_client_class",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/keychainAccessGroups",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/mach_lookup_global_name",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/mach_register_global_name",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/mailClient",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/maps",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/merchantIDs",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/multipath",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/networkExtensions",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/network_client",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/network_server",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/nfcTagReaderSessionFormats",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/passTypeIDs",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personalVPN",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personal_information_addressbook",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personal_information_calendars",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personal_information_location",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/print",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/scripting_targets",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/securityEntitlements",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/shared_preference_read_only",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/shared_preference_read_write",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/signWithApple",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/siri",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/webBrowser",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/wifiInfo"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Category"
+      ],
+      "title" : "Enumerations"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/CaseIterable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Decodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Encodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Equatable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawRepresentable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/appentitlement"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/SE": {
+  "identifier" : "doc:\/\/FairApp\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SH": {
+  "identifier" : "doc:\/\/FairApp\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SQ": {
+  "identifier" : "doc:\/\/FairApp\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SY": {
+  "identifier" : "doc:\/\/FairApp\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/Se": {
+  "identifier" : "doc:\/\/FairApp\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppEntitlement",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/CaseIterable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/CaseIterable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CaseIterable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/caseiterable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/Category": {
+  "abstract" : [
+    {
+      "text" : "The class of entitlement",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Category"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Category",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Category"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppEntitlement.Category",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/category"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/decodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/encodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/equatable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/RawRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/rawrepresentable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/app_sandbox": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may use access control technology to contain damage to the system and user data if an app is compromised.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "app_sandbox"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/app_sandbox",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "app_sandbox",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/app_sandbox"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/apple_events": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "apple_events"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/apple_events",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "apple_events",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/apple_events"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/application_groups": {
+  "abstract" : [
+    {
+      "text" : "Allows access to group containers that are shared among multiple apps produced by a single development team, and allows certain additional interprocess communication between the apps",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "application_groups"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/application_groups",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "application_groups",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/application_groups"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/apsEnvironment": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "apsEnvironment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/apsEnvironment",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "apsEnvironment",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/apsenvironment"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/assets_movies_read_only": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-only access to the Movies folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "assets_movies_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_movies_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "assets_movies_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/assets_movies_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/assets_movies_read_write": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to the Movies folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "assets_movies_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_movies_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "assets_movies_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/assets_movies_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/assets_music_read_only": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-only access to the Music folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "assets_music_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_music_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "assets_music_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/assets_music_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/assets_music_read_write": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to the Music folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "assets_music_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_music_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "assets_music_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/assets_music_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/assets_pictures_read_only": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-only access to the Pictures folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "assets_pictures_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_pictures_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "assets_pictures_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/assets_pictures_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/assets_pictures_read_write": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to the Pictures folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "assets_pictures_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_pictures_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "assets_pictures_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/assets_pictures_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/associatedDomains": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "associatedDomains"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/associatedDomains",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "associatedDomains",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/associateddomains"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/audio_unit_host": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "audio_unit_host"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/audio_unit_host",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "audio_unit_host",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/audio_unit_host"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/autofillCredentialProvider": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "autofillCredentialProvider"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/autofillCredentialProvider",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "autofillCredentialProvider",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/autofillcredentialprovider"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/automaticAssesmentConfiguration": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "automaticAssesmentConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/automaticAssesmentConfiguration",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "automaticAssesmentConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/automaticassesmentconfiguration"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/categories": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "categories"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV8CategoryO",
+      "text" : "Category"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/categories",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "categories",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/categories"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/classKit": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "classKit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/classKit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "classKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/classkit"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/contacts": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contacts"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/contacts",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contacts",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/contacts"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/cs_allow_dyld_environment_variables": {
+  "abstract" : [
+    {
+      "text" : "Allow DYLD Environment Variables Entitlement (Forbidden)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cs_allow_dyld_environment_variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_allow_dyld_environment_variables",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cs_allow_dyld_environment_variables",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/cs_allow_dyld_environment_variables"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/cs_allow_jit": {
+  "abstract" : [
+    {
+      "text" : "Allow Execution of JIT-compiled Code Entitlement",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cs_allow_jit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_allow_jit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cs_allow_jit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/cs_allow_jit"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/cs_allow_unsigned_executable_memory": {
+  "abstract" : [
+    {
+      "text" : "Allow Unsigned Executable Memory Entitlement (Forbidden)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cs_allow_unsigned_executable_memory"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_allow_unsigned_executable_memory",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cs_allow_unsigned_executable_memory",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/cs_allow_unsigned_executable_memory"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/cs_debugger": {
+  "abstract" : [
+    {
+      "text" : "Debugging Tool Entitlement",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cs_debugger"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_debugger",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cs_debugger",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/cs_debugger"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/cs_disable_executable_page_protection": {
+  "abstract" : [
+    {
+      "text" : "Disable Executable Memory Protection Entitlement (Forbidden)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cs_disable_executable_page_protection"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_disable_executable_page_protection",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cs_disable_executable_page_protection",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/cs_disable_executable_page_protection"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/cs_disable_library_validation": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app loads arbitrary plug-ins or frameworks, without requiring code signing.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/entitlements\/com_apple_security_cs_disable-library-validation",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cs_disable_library_validation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/cs_disable_library_validation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cs_disable_library_validation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/cs_disable_library_validation"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/dataProtection": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dataProtection"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/dataProtection",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "dataProtection",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/dataprotection"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/developerEntitlements": {
+  "abstract" : [
+    {
+      "text" : "All the known developer-related entitlements (typically for iOS)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "developerEntitlements"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/developerEntitlements",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "developerEntitlements",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/developerentitlements"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_audio_input": {
+  "abstract" : [
+    {
+      "text" : "Recording of audio using the built-in microphone, if available, along with access to audio input using any Core Audio API that supports audio input",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_audio_input"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_audio_input",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_audio_input",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_audio_input"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_audio_video_bridging": {
+  "abstract" : [
+    {
+      "text" : "Interaction with AVB devices by using the Audio Video Bridging framework",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "see: https:\/\/developer.apple.com\/library\/archive\/documentation\/Miscellaneous\/Reference\/EntitlementKeyReference\/Chapters\/EnablingAppSandbox.html#\/\/apple_ref\/doc\/uid\/TP40011195-CH4-SW21",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_audio_video_bridging"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_audio_video_bridging",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_audio_video_bridging",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_audio_video_bridging"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_bluetooth": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value indicating whether your app may interact with Bluetooth devices.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "see: https:\/\/developer.apple.com\/library\/archive\/documentation\/Miscellaneous\/Reference\/EntitlementKeyReference\/Chapters\/EnablingAppSandbox.html#\/\/apple_ref\/doc\/uid\/TP40011195-CH4-SW21",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_bluetooth"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_bluetooth",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_bluetooth",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_bluetooth"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_camera": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may interact with the built-in and external cameras, and capture movies and still images.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_camera"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_camera",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_camera",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_camera"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_firewire": {
+  "abstract" : [
+    {
+      "text" : "Interaction with FireWire devices (currently, does not support interaction with audio\/video devices such as DV cameras)",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "see: https:\/\/developer.apple.com\/library\/archive\/documentation\/Miscellaneous\/Reference\/EntitlementKeyReference\/Chapters\/EnablingAppSandbox.html#\/\/apple_ref\/doc\/uid\/TP40011195-CH4-SW21",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_firewire"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_firewire",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_firewire",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_firewire"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_microphone": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may use the microphone.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_microphone"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_microphone",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_microphone",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_microphone"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_serial": {
+  "abstract" : [
+    {
+      "text" : "Interaction with serial devices",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "see: https:\/\/developer.apple.com\/library\/archive\/documentation\/Miscellaneous\/Reference\/EntitlementKeyReference\/Chapters\/EnablingAppSandbox.html#\/\/apple_ref\/doc\/uid\/TP40011195-CH4-SW21",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_serial"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_serial",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_serial",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_serial"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/device_usb": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value indicating whether your app may interact with USB devices.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device_usb"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/device_usb",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device_usb",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/device_usb"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/driverKit": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "driverKit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/driverKit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "driverKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/driverkit"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/entitlementKey": {
+  "abstract" : [
+    {
+      "text" : "The key for specifying the permission in an entitlements plist",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "entitlementKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/entitlementKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "entitlementKey",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/entitlementkey"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/entitlementValue(forTask:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the value of the given entitlement for the specified task (defaulting to the current process)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "entitlementValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forTask"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecTaskRef",
+      "text" : "SecTask"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSObject",
+      "text" : "NSObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/entitlementValue(forTask:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "entitlementValue(forTask:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/entitlementvalue(fortask:)"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/externalAccessoryConfiguration": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "externalAccessoryConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/externalAccessoryConfiguration",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "externalAccessoryConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/externalaccessoryconfiguration"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_absolute_path_read_only": {
+  "abstract" : [
+    {
+      "text" : "This is an array of absolute paths beginning with a slash",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_absolute_path_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_absolute_path_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_absolute_path_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_absolute_path_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_absolute_path_read_write": {
+  "abstract" : [
+    {
+      "text" : "This is an array of absolute paths beginning with a slash",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_absolute_path_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_absolute_path_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_absolute_path_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_absolute_path_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_all": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have access to all files",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_all"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_all",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_all",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_all"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_bookmarks_app_scope": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_bookmarks_app_scope"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_bookmarks_app_scope",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_bookmarks_app_scope",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_bookmarks_app_scope"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_bookmarks_document_scope": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_bookmarks_document_scope"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_bookmarks_document_scope",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_bookmarks_document_scope",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_bookmarks_document_scope"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_downloads_read_only": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-only access to the Downloads folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_downloads_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_downloads_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_downloads_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_downloads_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_downloads_read_write": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to the Downloads folder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_downloads_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_downloads_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_downloads_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_downloads_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_home_relative_path_read_only": {
+  "abstract" : [
+    {
+      "text" : "This is an array of paths relative to the user-directory, but must begin with a slash",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_home_relative_path_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_home_relative_path_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_home_relative_path_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_home_relative_path_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_home_relative_path_read_write": {
+  "abstract" : [
+    {
+      "text" : "This is an array of paths relative to the user-directory, but must begin with a slash",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_home_relative_path_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_home_relative_path_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_home_relative_path_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_home_relative_path_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_user_selected_executable": {
+  "abstract" : [
+    {
+      "text" : "Allows apps to write executable files",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_user_selected_executable"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_user_selected_executable",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_user_selected_executable",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_user_selected_executable"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_user_selected_read_only": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-only access to files the user has selected using an Open or Save dialog.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_user_selected_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_user_selected_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_user_selected_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_user_selected_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/files_user_selected_read_write": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to files the user has selected using an Open or Save dialog.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "files_user_selected_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/files_user_selected_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "files_user_selected_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/files_user_selected_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/gameCenter": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "gameCenter"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/gameCenter",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "gameCenter",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/gamecenter"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/get_task_allow": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "get_task_allow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/get_task_allow",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "get_task_allow",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/get_task_allow"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/healthKit": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "healthKit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/healthKit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "healthKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/healthkit"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/healthKitCapabilities": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "healthKitCapabilities"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/healthKitCapabilities",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "healthKitCapabilities",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/healthkitcapabilities"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/homeKit": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "homeKit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/homeKit",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "homeKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/homekit"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/hotspotConfiguration": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hotspotConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/hotspotConfiguration",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hotspotConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/hotspotconfiguration"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/iCloudContainerIdentifiers": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iCloudContainerIdentifiers"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudContainerIdentifiers",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iCloudContainerIdentifiers",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/icloudcontaineridentifiers"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/iCloudContainersEnvironment": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iCloudContainersEnvironment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudContainersEnvironment",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iCloudContainersEnvironment",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/icloudcontainersenvironment"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/iCloudDevelopmentContainersIdentifiers": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iCloudDevelopmentContainersIdentifiers"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudDevelopmentContainersIdentifiers",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iCloudDevelopmentContainersIdentifiers",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/iclouddevelopmentcontainersidentifiers"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/iCloudKeyValueStore": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iCloudKeyValueStore"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudKeyValueStore",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iCloudKeyValueStore",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/icloudkeyvaluestore"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/iCloudServices": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iCloudServices"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudServices",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iCloudServices",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/icloudservices"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/init(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/init(_:)"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(rawValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/init(rawvalue:)"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/interAppAudio": {
+  "abstract" : [
+    {
+      "text" : "Deprecated: Inter-App Audio is deprecated in iOS 13 and is unavailable when running iPad apps in macOS.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "interAppAudio"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/interAppAudio",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "interAppAudio",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/interappaudio"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/iokit_user_client_class": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iokit_user_client_class"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iokit_user_client_class",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iokit_user_client_class",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/iokit_user_client_class"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/isDeveloperEntitlement": {
+  "abstract" : [
+    {
+      "text" : "The key begins with “developer.”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isDeveloperEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/isDeveloperEntitlement",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isDeveloperEntitlement",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/isdeveloperentitlement"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/isEnabled(forTask:)": {
+  "abstract" : [
+    {
+      "text" : "Returns true if the entitlement is enabled for the current process,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the entitlement was not set",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEnabled"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "forTask"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@SecTaskRef",
+      "text" : "SecTask"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/isEnabled(forTask:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEnabled(forTask:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/isenabled(fortask:)"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/isSecurityEntitlement": {
+  "abstract" : [
+    {
+      "text" : "The key begins with “secutiry.”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isSecurityEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/isSecurityEntitlement",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isSecurityEntitlement",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/issecurityentitlement"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/keychainAccessGroups": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "keychainAccessGroups"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/keychainAccessGroups",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "keychainAccessGroups",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/keychainaccessgroups"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/mach_lookup_global_name": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mach_lookup_global_name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/mach_lookup_global_name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mach_lookup_global_name",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/mach_lookup_global_name"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/mach_register_global_name": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mach_register_global_name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/mach_register_global_name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mach_register_global_name",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/mach_register_global_name"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/mailClient": {
+  "abstract" : [
+    {
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/entitlements\/com_apple_developer_mail-client",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mailClient"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/mailClient",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mailClient",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/mailclient"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/maps": {
+  "abstract" : [
+    {
+      "text" : "Deprecated: Using Maps no longer requires an entitlement.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "maps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/maps",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "maps",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/maps"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/merchantIDs": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "merchantIDs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/merchantIDs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "merchantIDs",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/merchantids"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/multipath": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "multipath"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/multipath",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "multipath",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/multipath"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/networkExtensions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "networkExtensions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/networkExtensions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "networkExtensions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/networkextensions"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/network_client": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value indicating whether your app may open outgoing network connections.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "network_client"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/network_client",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "network_client",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/network_client"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/network_server": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value indicating whether your app may listen for incoming network connections.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "network_server"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/network_server",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "network_server",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/network_server"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/nfcTagReaderSessionFormats": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nfcTagReaderSessionFormats"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/nfcTagReaderSessionFormats",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nfcTagReaderSessionFormats",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/nfctagreadersessionformats"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/passTypeIDs": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "passTypeIDs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/passTypeIDs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "passTypeIDs",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/passtypeids"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/personalVPN": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "personalVPN"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personalVPN",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "personalVPN",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/personalvpn"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/personal_information_addressbook": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to contacts in the user’s address book.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "personal_information_addressbook"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personal_information_addressbook",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "personal_information_addressbook",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/personal_information_addressbook"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/personal_information_calendars": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may have read-write access to the user’s calendar.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "personal_information_calendars"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personal_information_calendars",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "personal_information_calendars",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/personal_information_calendars"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/personal_information_location": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value that indicates whether the app may access location information from Location Services.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "personal_information_location"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/personal_information_location",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "personal_information_location",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/personal_information_location"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/print": {
+  "abstract" : [
+    {
+      "text" : "A Boolean value indicating whether your app may print a document.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "print"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/print",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "print",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/print"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/rawvalue"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/scripting_targets": {
+  "abstract" : [
+    {
+      "text" : "Ability to use specific AppleScript scripting access groups within a specific scriptable app",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "scripting_targets"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/scripting_targets",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "scripting_targets",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/scripting_targets"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/securityEntitlements": {
+  "abstract" : [
+    {
+      "text" : "All the known security-related entitlements (typically for macOS)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "securityEntitlements"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/securityEntitlements",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "securityEntitlements",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/securityentitlements"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/shared_preference_read_only": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "shared_preference_read_only"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/shared_preference_read_only",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "shared_preference_read_only",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/shared_preference_read_only"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/shared_preference_read_write": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "shared_preference_read_write"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/shared_preference_read_write",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "shared_preference_read_write",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/shared_preference_read_write"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/signWithApple": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "signWithApple"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/signWithApple",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "signWithApple",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/signwithapple"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/siri": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "siri"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/siri",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "siri",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/siri"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/usageDescriptionProperties": {
+  "abstract" : [
+    {
+      "text" : "The Info.plist properties that are used to explain to end-users the reason for the requested entitlement.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "In order to pass integration, each entitlement added to the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sandbox.entitlements",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file must have a corresponding usage description in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Info.plist",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "’s ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairUsage",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " dictionary that explains in plain language the reason the app will need to request that permission.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "usageDescriptionProperties"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/usageDescriptionProperties",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "usageDescriptionProperties",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/usagedescriptionproperties"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/webBrowser": {
+  "abstract" : [
+    {
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/entitlements\/com_apple_developer_web-browser",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webBrowser"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/webBrowser",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webBrowser",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/webbrowser"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/wifiInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "wifiInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/wifiInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "wifiInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/wifiinfo"
+},
+"doc://FairApp/s12CaseIterableP": {
+  "identifier" : "doc:\/\/FairApp\/s12CaseIterableP",
+  "title" : "Swift.CaseIterable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/s8SendableP": {
+  "identifier" : "doc:\/\/FairApp\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

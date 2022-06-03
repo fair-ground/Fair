@@ -1,4 +1,4 @@
-# ``FairTool``
+# ``fairtool``
 
 Utility to manage an ecosystem of apps.
 

@@ -1,0 +1,532 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/SeekableData-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "SeekableData Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt16()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt32()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt64()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt8()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt16()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt32()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt64()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt8()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUIntX()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/seekabledatahandle\/seekabledata-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle": {
+  "abstract" : [
+    {
+      "text" : "SeekableData implementation that is backed by an in-memory ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SeekableDataHandle"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SeekableDataHandle"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableDataHandle",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readInt16()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 16-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt16"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int16V",
+      "text" : "Int16"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt16()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt16()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readint16()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readInt32()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 32-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt32"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int32V",
+      "text" : "Int32"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt32()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt32()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readint32()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readInt64()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 64-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int64V",
+      "text" : "Int64"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt64()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt64()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readint64()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readInt8()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 16-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt8"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Int8V",
+      "text" : "Int8"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt8()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt8()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readint8()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readUInt16()": {
+  "abstract" : [
+    {
+      "text" : "Reads an unsigned little-endian 16-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt16"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt16V",
+      "text" : "UInt16"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt16()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt16()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readuint16()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readUInt32()": {
+  "abstract" : [
+    {
+      "text" : "Reads an unsigned little-endian 32-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt32"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt32V",
+      "text" : "UInt32"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt32()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt32()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readuint32()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readUInt64()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt64()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt64()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readuint64()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readUInt8()": {
+  "abstract" : [
+    {
+      "text" : "Reads an unsigned little-endian 8-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt8"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt8()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt8()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readuint8()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readUIntX()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUIntX"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUIntX()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUIntX()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readuintx()"
+}
+}
+}

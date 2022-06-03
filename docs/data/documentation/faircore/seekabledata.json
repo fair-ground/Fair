@@ -1,0 +1,940 @@
+{
+  "abstract" : [
+    {
+      "text" : "A handle to some data that maintains its ",
+      "type" : "text"
+    },
+    {
+      "code" : "offset",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " location and can access subsets of data",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore12SeekableDataP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SeekableData"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SeekableData"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "SeekableData"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SeekableData"
+            },
+            {
+              "kind" : "text",
+              "text" : " : AnyObject"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/offset()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readData(ofLength:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt16()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt32()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt64()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt8()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt16()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt32()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt64()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt8()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUIntX()-3bruo",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/seek(to:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset"
+      ],
+      "title" : "Type Aliases"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/seekabledata"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
+  "abstract" : [
+    {
+      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LittleEndianSeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LittleEndianSeekableData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LittleEndianSeekableData",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/littleendianseekabledata"
+},
+"doc://FairCore/documentation/FairCore/SeekableData": {
+  "abstract" : [
+    {
+      "text" : "A handle to some data that maintains its ",
+      "type" : "text"
+    },
+    {
+      "code" : "offset",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " location and can access subsets of data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SeekableData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableData",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/Offset": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Offset"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Offset"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableData.Offset",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/offset"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/offset()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "offset"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
+      "text" : "Offset"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/offset()",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "offset()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/offset()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readData(ofLength:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "ofLength"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
+      "text" : "Offset"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readData(ofLength:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "readData(ofLength:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readdata(oflength:)"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readInt16()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 16-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt16"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int16V",
+      "text" : "Int16"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt16()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt16()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readint16()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readInt32()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 32-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt32"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int32V",
+      "text" : "Int32"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt32()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt32()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readint32()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readInt64()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 64-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int64V",
+      "text" : "Int64"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt64()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt64()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readint64()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readInt8()": {
+  "abstract" : [
+    {
+      "text" : "Reads a signed little-endian 16-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readInt8"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Int8V",
+      "text" : "Int8"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readInt8()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readInt8()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readint8()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readUInt16()": {
+  "abstract" : [
+    {
+      "text" : "Reads an unsigned little-endian 16-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt16"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt16V",
+      "text" : "UInt16"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt16()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt16()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readuint16()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readUInt32()": {
+  "abstract" : [
+    {
+      "text" : "Reads an unsigned little-endian 32-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt32"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt32V",
+      "text" : "UInt32"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt32()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt32()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readuint32()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readUInt64()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt64()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt64()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readuint64()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readUInt8()": {
+  "abstract" : [
+    {
+      "text" : "Reads an unsigned little-endian 8-bit integer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUInt8"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt8()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readUInt8()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readuint8()"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/readUIntX()-3bruo": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readUIntX"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUIntX()-3bruo",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "readUIntX()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/readuintx()-3bruo"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/seek(to:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "seek"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
+      "text" : "Offset"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/seek(to:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "seek(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/seek(to:)"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle": {
+  "abstract" : [
+    {
+      "text" : "SeekableData implementation that is backed by an in-memory ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SeekableDataHandle"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SeekableDataHandle"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableDataHandle",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle"
+},
+"doc://FairCore/documentation/FairCore/SeekableFileHandle": {
+  "abstract" : [
+    {
+      "text" : "SeekableData implementation that is backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "FileHandle",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SeekableFileHandle"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SeekableFileHandle"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableFileHandle",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekablefilehandle"
+}
+}
+}

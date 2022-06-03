@@ -14,6 +14,7 @@
  */
 import Swift
 import XCTest
+@testable import FairCore
 #if canImport(SwiftUI)
 @testable import FairApp
 
@@ -43,7 +44,6 @@ final class FairToolTests: XCTestCase {
             })
     }
 
-
     func testParsePackage() throws {
         //let cwd = FileManager.default.currentDirectoryPath
         let packageFile = URL(fileURLWithPath: #file)
@@ -67,26 +67,30 @@ final class FairToolTests: XCTestCase {
         do {
             let result = try await runTool(op: FairTool.ValidateCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
-        } catch {
-            XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
+        } catch let error as CommandError {
+            // the hub key is required
+            XCTAssertEqual("\(error.parserError)", #"noValue(forKey: FairCore.InputKey(rawValue: "hub"))"#)
+            //XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
         }
     }
 
+    #if os(macOS)
     func testIconCommand() async throws {
         do {
             let result = try await runTool(op: FairTool.IconCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual(error.localizedDescription, #"The operation requires the --app-icon flag"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.IconCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
+    #endif
 
     func testMergeCommand() async throws {
         do {
             let result = try await runTool(op: FairTool.MergeCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertTrue(error.localizedDescription.hasPrefix("The output path specified"))
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.MergeCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
 
@@ -95,7 +99,7 @@ final class FairToolTests: XCTestCase {
             let result = try await runTool(op: FairTool.FairsealCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual(error.localizedDescription, #"The operation requires the --trusted-artifact flag"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.FairsealCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
@@ -104,7 +108,7 @@ final class FairToolTests: XCTestCase {
             let result = try await runTool(op: FairTool.CatalogCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual(error.localizedDescription, #"The hub ("null") specified by the -h/--hub flag is invalid"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.CatalogCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
@@ -113,7 +117,7 @@ final class FairToolTests: XCTestCase {
             let result = try await runTool(op: FairTool.AppcasksCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual(error.localizedDescription, #"The hub ("null") specified by the -h/--hub flag is invalid"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.AppcasksCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
@@ -139,3 +143,69 @@ final class FairToolTests: XCTestCase {
 
 }
 #endif
+
+
+public struct PackageManifest : Pure {
+    public var name: String
+    //public var toolsVersion: String // can be string or dict
+    public var products: [Product]
+    public var dependencies: [Dependency]
+    //public var targets: [Either<Target>.Or<String>]
+    public var platforms: [SupportedPlatform]
+    public var cModuleName: String?
+    public var cLanguageStandard: String?
+    public var cxxLanguageStandard: String?
+
+    public struct Target: Pure {
+        public enum TargetType: String, Pure {
+            case regular
+            case test
+            case system
+        }
+
+        public var `type`: TargetType
+        public var name: String
+        public var path: String?
+        public var excludedPaths: [String]?
+        //public var dependencies: [String]? // dict
+        //public var resources: [String]? // dict
+        public var settings: [String]?
+        public var cModuleName: String?
+        // public var providers: [] // apt, brew, etc.
+    }
+
+
+    public struct Product : Pure {
+        //public var `type`: ProductType // can be string or dict
+        public var name: String
+        public var targets: [String]
+
+        public enum ProductType: String, Pure, CaseIterable {
+            case library
+            case executable
+        }
+    }
+
+    public struct Dependency : Pure {
+        public var name: String?
+        public var url: String
+        //public var requirement: Requirement // revision/range/branch/exact
+    }
+
+    public struct SupportedPlatform : Pure {
+        var platformName: String
+        var version: String
+    }
+}
+
+
+extension PackageManifest {
+    /// Parses the Package.swift file at the given location
+    public static func parse(package: URL) throws -> Self {
+        let dumpPackage = try Process.execute(command: URL(fileURLWithPath: "/usr/bin/xcrun"), ["swift", "package", "dump-package", "--package-path", package.deletingLastPathComponent().path])
+        let packageJSON = dumpPackage.stdout.joined(separator: "\n")
+        let decoder = JSONDecoder()
+        return try decoder.decode(Self.self, from: Data(packageJSON.utf8))
+    }
+}
+

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "",
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
       "type" : "text"
     }
   ],
@@ -29,6 +37,25 @@
     "symbolKind" : "module",
     "title" : "FairApp"
   },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "Overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "anchor" : "Features",
+          "level" : 2,
+          "text" : "Features",
+          "type" : "heading"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -40,30 +67,73 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FileSystemDataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer"
+        "doc:\/\/FairApp\/documentation\/FairApp\/APIRequest",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CursoredAPIRequest",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CursoredAPIResponse",
+        "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper",
+        "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
+        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
+        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLAPIRequest",
+        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLEndpointService"
       ],
       "title" : "Protocols"
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlementPermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppError",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ArtifactTarget",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
         "doc:\/\/FairApp\/documentation\/FairApp\/BuildSettings",
+        "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSeal",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairTool",
+        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLCursor",
+        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLPayload",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointError",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointErrorList",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage",
         "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/SVGPathOptions",
         "doc:\/\/FairApp\/documentation\/FairApp\/SearchBarCommands"
       ],
       "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/appfairCaskAppsURL",
+        "doc:\/\/FairApp\/documentation\/FairApp\/appfairCatalogURLIOS",
+        "doc:\/\/FairApp\/documentation\/FairApp\/appfairCatalogURLMacOS",
+        "doc:\/\/FairApp\/documentation\/FairApp\/appfairMaxApps",
+        "doc:\/\/FairApp\/documentation\/FairApp\/appfairName",
+        "doc:\/\/FairApp\/documentation\/FairApp\/appfairRoot"
+      ],
+      "title" : "Variables"
     },
     {
       "identifiers" : [
@@ -73,8 +143,19 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointFailure"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol"
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairGround",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol",
+        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys"
       ],
       "title" : "Enumerations"
     }
@@ -95,7 +176,18 @@
 "references": {
 "doc://FairApp/documentation/FairApp": {
   "abstract" : [
-
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
   "kind" : "symbol",
@@ -103,6 +195,376 @@
   "title" : "FairApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/APIRequest": {
+  "abstract" : [
+    {
+      "text" : "An API request that can be either a REST GET or a POST like GraphQL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "APIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/APIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "APIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "APIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/apirequest"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundMode": {
+  "abstract" : [
+    {
+      "text" : "An element of the “background-mode” permission type",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundMode"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundMode"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBackgroundMode",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmode"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundModePermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundModePermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundModePermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBackgroundModePermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmodepermission"
+},
+"doc://FairApp/documentation/FairApp/AppBundle": {
+  "abstract" : [
+    {
+      "text" : "A structure that contains an app, whether as an expanded folder or a zip archive.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppBundle"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppBundle"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBundle",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle"
+},
+"doc://FairApp/documentation/FairApp/AppBundleErrors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppBundleErrors"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppBundleErrors"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBundleErrors",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundleerrors"
+},
+"doc://FairApp/documentation/FairApp/AppCatalog": {
+  "abstract" : [
+    {
+      "text" : "A catalog of all the available apps on the fairground.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalog"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalog",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogItem": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogItem"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogItem",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem"
+},
+"doc://FairApp/documentation/FairApp/AppCategory": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "LSApplicationCategoryType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for an app",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCategory"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCategory",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppEntitlement",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlementPermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlementPermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlementPermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlementPermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppEntitlementPermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlementpermission"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlements": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlements"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlements"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppEntitlements",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlements"
 },
 "doc://FairApp/documentation/FairApp/AppError": {
   "abstract" : [
@@ -137,6 +599,243 @@
   "title" : "AppError",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/apperror"
+},
+"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppLegacyPermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppLegacyPermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppLegacyPermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/applegacypermission"
+},
+"doc://FairApp/documentation/FairApp/AppNameValidation": {
+  "abstract" : [
+    {
+      "text" : "The strategy for validating an app’s name",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppNameValidation"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppNameValidation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppNameValidation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appnamevalidation"
+},
+"doc://FairApp/documentation/FairApp/AppNewsPost": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppNewsPost"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppNewsPost"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppNewsPost",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appnewspost"
+},
+"doc://FairApp/documentation/FairApp/AppPermission": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppPermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppPermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppPermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/apppermission"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppUsagePermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppUsagePermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUsagePermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission"
+},
+"doc://FairApp/documentation/FairApp/ArtifactTarget": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArtifactTarget"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ArtifactTarget",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArtifactTarget"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ArtifactTarget",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/artifacttarget"
+},
+"doc://FairApp/documentation/FairApp/AssetName": {
+  "abstract" : [
+    {
+      "text" : "An asset name is a convention for naming files based on the contents of the image file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AssetName"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AssetName"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AssetName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/assetname"
 },
 "doc://FairApp/documentation/FairApp/BuildSettings": {
   "abstract" : [
@@ -187,6 +886,207 @@
   "title" : "BuildSettings",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/buildsettings"
+},
+"doc://FairApp/documentation/FairApp/BundleIdentifier": {
+  "abstract" : [
+    {
+      "text" : "A type wrapper for a bundle identifier string",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BundleIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BundleIdentifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BundleIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/bundleidentifier"
+},
+"doc://FairApp/documentation/FairApp/CursoredAPIRequest": {
+  "abstract" : [
+    {
+      "text" : "A response from an API that incudes the ability to move through pages.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CursoredAPIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CursoredAPIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cursoredapirequest"
+},
+"doc://FairApp/documentation/FairApp/CursoredAPIResponse": {
+  "abstract" : [
+    {
+      "text" : "A response that returns results in batches with a cursor",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CursoredAPIResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CursoredAPIResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cursoredapiresponse"
+},
+"doc://FairApp/documentation/FairApp/DataWrapper": {
+  "abstract" : [
+    {
+      "text" : "A collection of data resources, such as a file system hierarchy or a zip archive of files.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/datawrapper"
+},
+"doc://FairApp/documentation/FairApp/DataWrapperPath": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapperPath"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapperPath"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataWrapperPath",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/datawrapperpath"
+},
+"doc://FairApp/documentation/FairApp/EndpointService": {
+  "abstract" : [
+    {
+      "text" : "A service that converts actions and parameters into an endpoint URL",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/endpointservice"
 },
 "doc://FairApp/documentation/FairApp/FairContainer": {
   "abstract" : [
@@ -366,6 +1266,74 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/faircontentview"
 },
+"doc://FairApp/documentation/FairApp/FairGround": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground is a platform for app distribution",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairGround"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairGround",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairGround"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairGround",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairground"
+},
+"doc://FairApp/documentation/FairApp/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairhub"
+},
 "doc://FairApp/documentation/FairApp/FairIconView": {
   "abstract" : [
     {
@@ -399,6 +1367,48 @@
   "title" : "FairIconView",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairiconview"
+},
+"doc://FairApp/documentation/FairApp/FairSeal": {
+  "abstract" : [
+    {
+      "text" : "The seal of the given URL, summarizing its cryptographic hash, entitlements,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "and other build-time information",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairSeal"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSeal",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairSeal"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairSeal",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairseal"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol": {
   "abstract" : [
@@ -465,6 +1475,304 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairtool"
 },
+"doc://FairApp/documentation/FairApp/FileSystemDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FileSystemDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FileSystemDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/filesystemdatawrapper"
+},
+"doc://FairApp/documentation/FairApp/GraphQLAPIRequest": {
+  "abstract" : [
+    {
+      "text" : "An API request that is expected to use GraphQL ",
+      "type" : "text"
+    },
+    {
+      "code" : "POST",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " requests.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLAPIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLAPIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLAPIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLAPIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/graphqlapirequest"
+},
+"doc://FairApp/documentation/FairApp/GraphQLCursor": {
+  "abstract" : [
+    {
+      "text" : "A cursor that represents a pointer to a page in a set of GraphQL results.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is an opaque (base-64 encoded) string.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLCursor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLCursor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLCursor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLCursor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/graphqlcursor"
+},
+"doc://FairApp/documentation/FairApp/GraphQLEndpointService": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQL",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " endpoint",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLEndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLEndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/graphqlendpointservice"
+},
+"doc://FairApp/documentation/FairApp/GraphQLPayload": {
+  "abstract" : [
+    {
+      "text" : "The payload of a successful ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQL",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " query.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLPayload"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLPayload",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLPayload"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLPayload",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/graphqlpayload"
+},
+"doc://FairApp/documentation/FairApp/HubEndpointError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubEndpointError",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hubendpointerror"
+},
+"doc://FairApp/documentation/FairApp/HubEndpointErrorList": {
+  "abstract" : [
+    {
+      "text" : "A set of one or more errors returned by the GraphQL API.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointErrorList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointErrorList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointErrorList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubEndpointErrorList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hubendpointerrorlist"
+},
+"doc://FairApp/documentation/FairApp/HubEndpointFailure": {
+  "abstract" : [
+    {
+      "text" : "Either a single error or a list of errors",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubEndpointFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hubendpointfailure"
+},
 "doc://FairApp/documentation/FairApp/QuickAction": {
   "abstract" : [
     {
@@ -498,6 +1806,48 @@
   "title" : "QuickAction",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/quickaction"
+},
+"doc://FairApp/documentation/FairApp/ResolvedPackage": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/resolvedpackage"
 },
 "doc://FairApp/documentation/FairApp/SVGPath": {
   "abstract" : [
@@ -644,6 +1994,323 @@
   "title" : "SearchBarCommands",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/searchbarcommands"
+},
+"doc://FairApp/documentation/FairApp/UsageDescriptionKeys": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UsageDescriptionKeys"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UsageDescriptionKeys"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UsageDescriptionKeys",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/usagedescriptionkeys"
+},
+"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchiveDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper"
+},
+"doc://FairApp/documentation/FairApp/appfairCaskAppsURL": {
+  "abstract" : [
+    {
+      "text" : "The canonical location of the enhanced cask app metadata",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairCaskAppsURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/appfairCaskAppsURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairCaskAppsURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfaircaskappsurl"
+},
+"doc://FairApp/documentation/FairApp/appfairCatalogURLIOS": {
+  "abstract" : [
+    {
+      "text" : "The canonical location of the iOS catalog for the Fair Ground",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairCatalogURLIOS"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/appfairCatalogURLIOS",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairCatalogURLIOS",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfaircatalogurlios"
+},
+"doc://FairApp/documentation/FairApp/appfairCatalogURLMacOS": {
+  "abstract" : [
+    {
+      "text" : "The canonical location of the catalog for the Fair Ground",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairCatalogURLMacOS"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/appfairCatalogURLMacOS",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairCatalogURLMacOS",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfaircatalogurlmacos"
+},
+"doc://FairApp/documentation/FairApp/appfairMaxApps": {
+  "abstract" : [
+    {
+      "text" : "We need an upper bound for the number of forks we can process",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "GitHub defaults to a rate limit of 5,000 requests per hour, so",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "this permits 5,000 requests as 100\/per, but doesn’t leave any",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "margin for multiple catalog runs in an hour, which can cause",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "fairseal generation to fail if the rate limit is exhausted",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairMaxApps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/appfairMaxApps",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairMaxApps",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfairmaxapps"
+},
+"doc://FairApp/documentation/FairApp/appfairName": {
+  "abstract" : [
+    {
+      "text" : "The organization name of the fair-ground: ",
+      "type" : "text"
+    },
+    {
+      "code" : "\"appfair\"",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/appfairName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfairname"
+},
+"doc://FairApp/documentation/FairApp/appfairRoot": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairRoot"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/appfairRoot",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairRoot",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfairroot"
 },
 "doc://FairApp/documentation/FairApp/wip(_:)": {
   "abstract" : [

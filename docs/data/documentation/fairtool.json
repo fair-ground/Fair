@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Utility to manage an ecosystem of apps.",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -29,114 +29,6 @@
     "symbolKind" : "module",
     "title" : "FairTool"
   },
-  "primaryContentSections" : [
-    {
-      "content" : [
-        {
-          "anchor" : "Installation",
-          "level" : 2,
-          "text" : "Installation",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "On systems with ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "https:\/\/brew.sh",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " installed, the simplest",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "way to install fairtool is with the commands:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "brew tap appfair\/app",
-            "brew install fairtool"
-          ],
-          "syntax" : null,
-          "type" : "codeListing"
-        },
-        {
-          "anchor" : "Usage",
-          "level" : 2,
-          "text" : "Usage",
-          "type" : "heading"
-        },
-        {
-          "code" : [
-            "OVERVIEW: Manage a fair-ground ecosystem of apps.",
-            "",
-            "USAGE: fairtool <subcommand>",
-            "",
-            "OPTIONS:",
-            "  -h, --help              Show help information.",
-            "",
-            "SUBCOMMANDS:",
-            "  welcome                 Show the welcome message.",
-            "  validate                Validate the project.",
-            "  merge                   Merge base fair-ground updates into the project.",
-            "  catalog                 Build the app catalog.",
-            "  appcasks                Build the enhanced appcasks catalog.",
-            "  fairseal                Generates fairseal from trusted artifact.",
-            "  icon                    Create an icon for the given project.",
-            "",
-            "  See 'fairtool help <subcommand>' for detailed help."
-          ],
-          "syntax" : null,
-          "type" : "codeListing"
-        },
-        {
-          "anchor" : "More-Info",
-          "level" : 2,
-          "text" : "More Info",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "All the functionality in this tool is also available through",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "the ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "..\/faircore\/",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    }
-  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -159,24 +51,9 @@
   ]
 , 
 "references": {
-"../faircore/": {
-  "identifier" : "..\/faircore\/",
-  "title" : "FairCore swift library",
-  "titleInlineContent" : [
-    {
-      "text" : "FairCore swift library",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "..\/faircore\/"
-},
 "doc://FairTool/documentation/FairTool": {
   "abstract" : [
-    {
-      "text" : "Utility to manage an ecosystem of apps.",
-      "type" : "text"
-    }
+
   ],
   "identifier" : "doc:\/\/FairTool\/documentation\/FairTool",
   "kind" : "symbol",
@@ -184,18 +61,6 @@
   "title" : "FairTool",
   "type" : "topic",
   "url" : "\/documentation\/fairtool"
-},
-"https://brew.sh": {
-  "identifier" : "https:\/\/brew.sh",
-  "title" : "Hombrew",
-  "titleInlineContent" : [
-    {
-      "text" : "Hombrew",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/brew.sh"
 }
 }
 }

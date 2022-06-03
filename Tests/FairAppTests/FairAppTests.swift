@@ -474,6 +474,70 @@ final class FairAppTests: XCTestCase {
             .write(to: URL(fileURLWithPath: "\(NSTemporaryDirectory())/testSVGPath.png"))
         #endif
     }
+
+
+    /// Verifies the default name validation strategy
+    func testNameValidation() throws {
+        let validate = { try AppNameValidation.standard.validate(name: $0) }
+
+        XCTAssertNoThrow(try validate("Fair-App"))
+        XCTAssertNoThrow(try validate("Awesome-Town"))
+        XCTAssertNoThrow(try validate("Fair-App"))
+        XCTAssertNoThrow(try validate("Fair-Awesome"))
+
+        XCTAssertNoThrow(try validate("ABCDEFGHIJKL-LKJIHGFEDCBA"))
+
+        XCTAssertThrowsError(try validate("ABCDEFGHIJKLM-LKJIHGFEDCBA"), "word too long")
+        XCTAssertThrowsError(try validate("ABCDEFGHIJKL-MLKJIHGFEDCBA"), "word too long")
+
+        XCTAssertNoThrow(try validate("One"), "fewer than two words should be allowed")
+        XCTAssertNoThrow(try validate("One-Two-Three"), "more than two words should be allowed")
+        XCTAssertNoThrow(try validate("App-App"), "duplicate words should be allowed")
+
+        XCTAssertThrowsError(try validate("Fair App"), "spaces are not allowed")
+        XCTAssertThrowsError(try validate("Awesome Town"), "spaces are not allowed")
+        XCTAssertThrowsError(try validate("Fair App"), "spaces are not allowed")
+        XCTAssertThrowsError(try validate("Fair Awesome"), "spaces are not allowed")
+
+        XCTAssertThrowsError(try validate("Fair-App2"), "digits in names should be not allowed")
+        XCTAssertThrowsError(try validate("Fair-1App"), "digits in names should be not allowed")
+        XCTAssertThrowsError(try validate("Lucky-App4U"), "digits in names should be not allowed")
+    }
+
+
+    func testParsePackageResolved() throws {
+        let resolved = """
+        {
+          "object": {
+            "pins": [
+              {
+                "package": "Clang_C",
+                "repositoryURL": "https://github.com/something/Clang_C.git",
+                "state": {
+                  "branch": null,
+                  "revision": "90a9574276f0fd17f02f58979423c3fd4d73b59e",
+                  "version": "1.0.2",
+                }
+              },
+              {
+                "package": "Commandant",
+                "repositoryURL": "https://github.com/something/Commandant.git",
+                "state": {
+                  "branch": null,
+                  "revision": "c281992c31c3f41c48b5036c5a38185eaec32626",
+                  "version": "0.12.0"
+                }
+              }
+            ]
+          },
+          "version": 1
+        }
+        """
+
+        let pm = try JSONDecoder().decode(ResolvedPackage.self, from: resolved.utf8Data)
+        XCTAssertEqual(2, pm.object.pins.count)
+    }
+
 }
 
 #endif
