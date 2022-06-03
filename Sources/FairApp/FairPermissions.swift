@@ -1078,7 +1078,11 @@ public class FileSystemDataWrapper : DataWrapper {
     }
 
     public func nodes(at path: Path?) throws -> [Path] {
+        #if os(Linux) || os(Windows)
+        try fm.contentsOfDirectory(at: path ?? root, includingPropertiesForKeys: [.fileSizeKey, .isDirectoryKey], options: []) // .producesRelativePathURLs unavailable
+        #else
         try fm.contentsOfDirectory(at: path ?? root, includingPropertiesForKeys: [.fileSizeKey, .isDirectoryKey], options: [.producesRelativePathURLs])
+        #endif
     }
 
     public func seekableData(at path: Path) throws -> SeekableData {
