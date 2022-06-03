@@ -149,7 +149,12 @@ public extension Plist {
 extension FileManager {
     /// Returns the deep contents of the given file URL
     public func deepContents(of url: URL, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
-        guard let walker = self.enumerator(at: url, includingPropertiesForKeys: nil, options: relativePath ? [.producesRelativePathURLs] : []) else {
+        #if os(Linux) || os(Windows)
+        let opts: FileManager.DirectoryEnumerationOptions = []
+        #else
+        let opts: FileManager.DirectoryEnumerationOptions = [.producesRelativePathURLs]
+        #endif
+        guard let walker = self.enumerator(at: url, includingPropertiesForKeys: nil, options: relativePath ? opts : []) else {
             throw CocoaError(.fileReadNoSuchFile)
         }
 
