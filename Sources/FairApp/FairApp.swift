@@ -295,13 +295,13 @@ extension FairContainer {
 
         #if os(macOS)
         print("     Sandbox: " + (AppEntitlement.app_sandbox.isEnabled() ?? false).description, to: &out)
-        for entitlement in AppEntitlement.allCases {
-            if entitlement != AppEntitlement.app_sandbox {
-                if let entitlementValue = entitlement.entitlementValue(), entitlementValue != false as NSNumber {
-                    print(" Entitlement: " + entitlement.rawValue + "=" + entitlementValue.description, to: &out)
-                }
-            }
-        }
+//        for entitlement in AppEntitlement.allCases {
+//            if entitlement != AppEntitlement.app_sandbox {
+//                if let entitlementValue = entitlement.entitlementValue(), entitlementValue != false as NSNumber {
+//                    print(" Entitlement: " + entitlement.rawValue + "=" + entitlementValue.description, to: &out)
+//                }
+//            }
+//        }
         #endif
 
         do {

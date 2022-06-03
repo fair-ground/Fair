@@ -125,34 +125,6 @@ final class FairCoreTests: XCTestCase {
         let _ = parse
     }
 
-    /// Verifies the default name validation strategy
-    func testNameValidation() throws {
-        let validate = { try AppNameValidation.standard.validate(name: $0) }
-
-        XCTAssertNoThrow(try validate("Fair-App"))
-        XCTAssertNoThrow(try validate("Awesome-Town"))
-        XCTAssertNoThrow(try validate("Fair-App"))
-        XCTAssertNoThrow(try validate("Fair-Awesome"))
-
-        XCTAssertNoThrow(try validate("ABCDEFGHIJKL-LKJIHGFEDCBA"))
-
-        XCTAssertThrowsError(try validate("ABCDEFGHIJKLM-LKJIHGFEDCBA"), "word too long")
-        XCTAssertThrowsError(try validate("ABCDEFGHIJKL-MLKJIHGFEDCBA"), "word too long")
-
-        XCTAssertNoThrow(try validate("One"), "fewer than two words should be allowed")
-        XCTAssertNoThrow(try validate("One-Two-Three"), "more than two words should be allowed")
-        XCTAssertNoThrow(try validate("App-App"), "duplicate words should be allowed")
-
-        XCTAssertThrowsError(try validate("Fair App"), "spaces are not allowed")
-        XCTAssertThrowsError(try validate("Awesome Town"), "spaces are not allowed")
-        XCTAssertThrowsError(try validate("Fair App"), "spaces are not allowed")
-        XCTAssertThrowsError(try validate("Fair Awesome"), "spaces are not allowed")
-
-        XCTAssertThrowsError(try validate("Fair-App2"), "digits in names should be not allowed")
-        XCTAssertThrowsError(try validate("Fair-1App"), "digits in names should be not allowed")
-        XCTAssertThrowsError(try validate("Lucky-App4U"), "digits in names should be not allowed")
-    }
-
     func testAppVersionParsing() {
         // TODO: test semantic version sorting
         // https://semver.org/#spec-item-11
@@ -178,56 +150,6 @@ final class FairCoreTests: XCTestCase {
         XCTAssertLessThan(AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), "a pre-release should be sorted below a non-pre-release version with the same numbers")
         XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 1, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), "a pre-release should be sorted above other non-prerelease lower versions")
         XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 1, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), "a pre-release should be sorted above other lower versions")
-    }
-
-    func testParsePackageResolved() throws {
-        let resolved = """
-        {
-          "object": {
-            "pins": [
-              {
-                "package": "Clang_C",
-                "repositoryURL": "https://github.com/something/Clang_C.git",
-                "state": {
-                  "branch": null,
-                  "revision": "90a9574276f0fd17f02f58979423c3fd4d73b59e",
-                  "version": "1.0.2",
-                }
-              },
-              {
-                "package": "Commandant",
-                "repositoryURL": "https://github.com/something/Commandant.git",
-                "state": {
-                  "branch": null,
-                  "revision": "c281992c31c3f41c48b5036c5a38185eaec32626",
-                  "version": "0.12.0"
-                }
-              }
-            ]
-          },
-          "version": 1
-        }
-        """
-
-        let pm = try JSONDecoder().decode(ResolvedPackage.self, from: resolved.utf8Data)
-        XCTAssertEqual(2, pm.object.pins.count)
-    }
-
-    func testEntitlementBitset() {
-        let allbits: UInt64 = 1125899906842620
-        let bitset = { AppEntitlement.bitsetRepresentation(for: $0) }
-
-        XCTAssertEqual(4, bitset([.app_sandbox]))
-        XCTAssertEqual([.app_sandbox], AppEntitlement.fromBitsetRepresentation(from: 4))
-
-        XCTAssertEqual(12, bitset([.app_sandbox, .network_client]))
-        XCTAssertEqual([.network_client, .app_sandbox], AppEntitlement.fromBitsetRepresentation(from: 12))
-
-        XCTAssertEqual(262156, bitset([.app_sandbox, .network_client, .files_user_selected_read_write]))
-        XCTAssertEqual([.app_sandbox, .network_client, .files_user_selected_read_write], AppEntitlement.fromBitsetRepresentation(from: 262156))
-
-        XCTAssertEqual(allbits, bitset(Set(AppEntitlement.allCases)))
-        XCTAssertEqual(Set(AppEntitlement.allCases), AppEntitlement.fromBitsetRepresentation(from: allbits))
     }
 
 #if os(macOS)

@@ -303,10 +303,10 @@ public extension URLSession {
             } else if let response = response, let data = data {
                 return (data, response)
             } else {
-                throw HubEndpointError(message: "No response or data")
+                throw URLError(.unknown)
             }
         case .timedOut:
-            throw HubEndpointError(message: "Request timed out")
+            throw URLError(.timedOut)
         }
     }
 }

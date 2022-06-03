@@ -16,6 +16,7 @@
  */
 import Swift
 import Foundation
+import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -126,7 +127,7 @@ public struct ArtifactTarget : Pure {
 
 public extension FairHub {
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, requestLimit: Int?) async throws -> FairAppCatalog {
+    func buildCatalog(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
@@ -376,12 +377,12 @@ public extension FairHub {
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
         let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURLMacOS : appfairCatalogURLIOS
-        let catalog = FairAppCatalog(name: title, identifier: org, sourceURL: catalogURL, apps: apps, news: news)
+        let catalog = AppCatalog(name: title, identifier: org, sourceURL: catalogURL, apps: apps, news: news)
         return catalog
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true, boostFactor: Int64) async throws -> FairAppCatalog {
+    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true, boostFactor: Int64) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("buildAppCasks")
 
@@ -528,7 +529,7 @@ public extension FairHub {
 
         apps.sort { rank(for: $0) > rank(for: $1) }
 
-        let catalog = FairAppCatalog(name: "Cask enhanced metadata", identifier: "appcasks", sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
+        let catalog = AppCatalog(name: "Cask enhanced metadata", identifier: "appcasks", sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
         return catalog
     }
 
@@ -929,7 +930,7 @@ public extension GraphQLEndpointService {
         // un-comment to view raw GraphQL for running in https://docs.github.com/en/graphql/overview/explorer
         // print(wip(postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\", with: "")) // for debugging post data
 
-        dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount(), (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
+        dbg("requesting:", req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
         return req
     }
 }

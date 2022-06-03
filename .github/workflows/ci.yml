@@ -51,6 +51,7 @@ jobs:
         run: |
           brew tap appfair/app
           brew install fairtool
+          ldd `which fairtool`
           fairtool welcome
 
   ci-macOS-12:

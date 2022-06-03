@@ -14,7 +14,7 @@
  */
 import Swift
 import XCTest
-@testable import FairCore
+@testable import FairApp
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -231,7 +231,7 @@ final class FairHubTests: XCTestCase {
         let (data, response) = try await URLSession.shared.fetch(request: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0))
         XCTAssertEqual(200, (response as? HTTPURLResponse)?.statusCode)
 
-        let catalog = try FairAppCatalog(json: data, dateDecodingStrategy: .iso8601)
+        let catalog = try AppCatalog(json: data, dateDecodingStrategy: .iso8601)
         XCTAssertEqual("The App Fair", catalog.name)
         dbg("loaded catalog apps:", catalog.apps.count)
     }

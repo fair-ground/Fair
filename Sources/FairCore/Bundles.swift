@@ -92,7 +92,7 @@ extension Bundle {
         }
         return try Data(contentsOf: url, options: options)
     }
-    
+
     // TODO: use StringLocalizationKey for the message
     public func error(_ message: String, code: Int = 0) -> Error {
         NSError(domain: "Fair", code: code, userInfo: [NSLocalizedFailureReasonErrorKey: NSLocalizedString(message, tableName: nil, bundle: self, comment: "")])
@@ -148,15 +148,14 @@ public extension Plist {
 
 extension FileManager {
     /// Returns the deep contents of the given file URL
-    func deepContents(of url: URL, includeFolders: Bool) throws -> [URL] {
-        guard let walker = self.enumerator(atPath: url.path) else {
+    public func deepContents(of url: URL, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
+        guard let walker = self.enumerator(at: url, includingPropertiesForKeys: nil, options: relativePath ? [.producesRelativePathURLs] : []) else {
             throw CocoaError(.fileReadNoSuchFile)
         }
 
         var paths: [URL] = []
         for path in walker {
-            if let path = path as? String {
-                let pathURL = URL(fileURLWithPath: path, relativeTo: url)
+            if let pathURL = path as? URL {
                 if includeFolders || isDirectory(url: pathURL) == false {
                     paths.append(pathURL)
                 }
@@ -165,18 +164,18 @@ extension FileManager {
 
         return paths
     }
-    
+
     /// Attempts to place the item at the given URL in the Trash on platforms that support it.
     /// An error will be thrown if the operation fails, and on platforms that support Trash, the return value will be the URL of the trashed item.
     @discardableResult public func trash(url: URL) throws -> URL? {
-	#if canImport(AppKit)
+    #if canImport(AppKit)
         var trashResult: NSURL? = nil
         try trashItem(at: url, resultingItemURL: &trashResult)
         return trashResult as URL?
-	#else
-	try removeItem(at: url)
-	return nil
-	#endif
+    #else
+    try removeItem(at: url)
+    return nil
+    #endif
     }
 
     /// Returns true if the folder is a directory, false if it is a file,
@@ -327,11 +326,11 @@ public extension Decodable {
     /// Initialized this instance from a JSON string
     init(json: Data, decoder: @autoclosure () -> JSONDecoder = JSONDecoder(), allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws {
         let decoder = decoder()
-	#if !os(Linux) && !os(Windows)
+    #if !os(Linux) && !os(Windows)
         if #available(macOS 12.0, iOS 15.0, *) {
             decoder.allowsJSON5 = allowsJSON5
         }
-	#endif
+    #endif
 
         if let dateDecodingStrategy = dateDecodingStrategy {
             decoder.dateDecodingStrategy = dateDecodingStrategy

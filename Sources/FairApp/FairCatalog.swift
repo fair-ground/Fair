@@ -18,7 +18,7 @@ import Swift
 import Foundation
 
 /// A catalog of all the available apps on the fairground.
-public struct FairAppCatalog : Pure {
+public struct AppCatalog : Pure {
     /// The name of the catalog (e.g., "App Name")
     public var name: String
     /// The identifier for the catalog (e.g., "app.App-Name")
@@ -59,7 +59,7 @@ public struct BundleIdentifier: Pure, RawRepresentable, Comparable {
     public let rawValue: String
     public init(_ rawValue: String) { self.rawValue = rawValue }
     public init(rawValue: String) { self.rawValue = rawValue }
-    
+
     public static func < (lhs: Self, rhs: Self) -> Bool {
         lhs.rawValue < rhs.rawValue
     }
@@ -170,59 +170,6 @@ public struct AppCatalogItem : Pure {
     }
 }
 
-public struct PackageManifest : Pure {
-    public var name: String
-    //public var toolsVersion: String // can be string or dict
-    public var products: [Product]
-    public var dependencies: [Dependency]
-    //public var targets: [Either<Target>.Or<String>]
-    public var platforms: [SupportedPlatform]
-    public var cModuleName: String?
-    public var cLanguageStandard: String?
-    public var cxxLanguageStandard: String?
-
-    public struct Target: Pure {
-        public enum TargetType: String, Pure {
-            case regular
-            case test
-            case system
-        }
-
-        public var `type`: TargetType
-        public var name: String
-        public var path: String?
-        public var excludedPaths: [String]?
-        //public var dependencies: [String]? // dict
-        //public var resources: [String]? // dict
-        public var settings: [String]?
-        public var cModuleName: String?
-        // public var providers: [] // apt, brew, etc.
-    }
-
-
-    public struct Product : Pure {
-        //public var `type`: ProductType // can be string or dict
-        public var name: String
-        public var targets: [String]
-
-        public enum ProductType: String, Pure, CaseIterable {
-            case library
-            case executable
-        }
-    }
-
-    public struct Dependency : Pure {
-        public var name: String?
-        public var url: String
-        //public var requirement: Requirement // revision/range/branch/exact
-    }
-
-    public struct SupportedPlatform : Pure {
-        var platformName: String
-        var version: String
-    }
-}
-
 /// The strategy for validating an app's name
 public struct AppNameValidation {
     /// The name of the default app framework
@@ -286,57 +233,6 @@ public struct AppNameValidation {
             case .nonUniqueWords(let appName):
                 return "Words must be distinct in name: \"\(appName)\""
             }
-        }
-    }
-}
-
-/// An asset name is a convention for naming files based on the contents of the image file.
-///
-/// e.g.: `preview-iphone-800x600.mp4`
-/// e.g.: `appicon-ipad-83.5x83.5@2x.png`
-/// e.g.: `screenshot-mac-dark-1024x777.png`
-public struct AssetName : Hashable {
-    /// The base name of the application
-    public let base: String
-    /// The idiom of the image, which is context-dependent
-    public let idiom: String?
-    /// The width specified by the asset name
-    public let width: Double
-    /// The height specified by the asset name
-    public let height: Double
-    /// The scale, if specified in the asset name
-    public let scale: Int?
-    /// The file-type extension of the asset
-    public let ext: String
-
-    public init(base: String, idiom: String?, width: Double, height: Double, scale: Int?, ext: String) {
-        self.base = base
-        self.idiom = idiom
-        self.width = width
-        self.height = height
-        self.scale = scale
-        self.ext = ext
-    }
-}
-
-/// The contents of a `Package.resolved` file
-public struct ResolvedPackage: Codable, Equatable {
-    public var object: Pins
-    public var version: Int
-
-    public struct Pins: Codable, Equatable {
-        public var pins: [SwiftPackage]
-    }
-
-    public struct SwiftPackage: Codable, Equatable {
-        public var package: String
-        public var repositoryURL: String
-        public var state: State
-
-        public struct State: Codable, Equatable {
-            public var branch: String?
-            public var revision: String?
-            public var version: String?
         }
     }
 }
