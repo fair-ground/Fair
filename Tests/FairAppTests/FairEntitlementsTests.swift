@@ -125,7 +125,9 @@ final class FairEntitlementsTests: XCTestCase {
                     if executable.lastPathComponent == "Docker" { continue }
                     if executable.lastPathComponent == "Transmission" { continue }
                     if executable.lastPathComponent == "Final Cut Pro" { continue }
-                    if executable.lastPathComponent == "Xcode" { continue }
+                    if executable.lastPathComponent == "Xcode" { continue } // seems to crash on CI
+                    if executable.lastPathComponent == "Firefox" { continue } // seems to crash on CI
+
 
                     //XCTAssertNoThrow(try readFile(executable.path), "executable failed: \(executable.path)")
                     do {
