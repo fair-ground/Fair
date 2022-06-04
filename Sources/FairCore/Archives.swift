@@ -17,9 +17,6 @@
 import Swift
 import Foundation
 
-#if canImport(Compression)
-import Compression
-
 @available(macOS 10.14, iOS 12.0, *)
 public extension Data {
     enum CompressionAlgorithm : String, CaseIterable, Codable {
@@ -3226,4 +3223,3 @@ extension ZipArchive {
 
 
 
-#endif // canImport(Compression)
