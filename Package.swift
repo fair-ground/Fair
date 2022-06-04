@@ -31,7 +31,8 @@ let package = Package(
         .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
     targets: [
-        .target(name: "FairCore", resources: [.process("Resources"), .copy("Bundle")]),
+        .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
+        .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources"), .copy("Bundle")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources"), .copy("Bundle")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
         .executableTarget(name: "FairTool", dependencies: ["FairApp"]),
