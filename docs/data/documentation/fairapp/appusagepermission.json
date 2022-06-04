@@ -110,10 +110,17 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/type",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/usage",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/usageDescription"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType"
+      ],
+      "title" : "Enumerations"
     },
     {
       "generated" : true,
@@ -248,6 +255,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appusagepermission\/equatable-implementations"
 },
+"doc://FairApp/documentation/FairApp/AppUsagePermission/PermissionType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PermissionType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PermissionType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUsagePermission.PermissionType",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/permissiontype"
+},
 "doc://FairApp/documentation/FairApp/AppUsagePermission/init(from:)": {
   "abstract" : [
 
@@ -344,6 +382,49 @@
   "title" : "init(usage:usageDescription:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appusagepermission\/init(usage:usagedescription:)"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission/type": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B15UsagePermissionV",
+      "text" : "AppUsagePermission"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B15UsagePermissionV0D4TypeO",
+      "text" : "PermissionType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/type",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "type",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/type"
 },
 "doc://FairApp/documentation/FairApp/AppUsagePermission/usage": {
   "abstract" : [

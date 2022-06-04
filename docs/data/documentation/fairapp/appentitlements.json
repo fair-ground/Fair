@@ -95,10 +95,16 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/loadEntitlements(fromAppBundle:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/jsum()",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/value(forKey:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/loadInfo(fromAppBundle:)"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -202,7 +208,52 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlements\/count"
 },
-"doc://FairApp/documentation/FairApp/AppEntitlements/loadEntitlements(fromAppBundle:)": {
+"doc://FairApp/documentation/FairApp/AppEntitlements/jsum()": {
+  "abstract" : [
+    {
+      "text" : "Returns the entitlement values as a codable JSum struct.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "jsum"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/jsum()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "jsum()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlements\/jsum()"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlements/loadInfo(fromAppBundle:)": {
   "abstract" : [
     {
       "text" : "Loads the entitlements from an app bundle (either a ipa zip or an expanded binary package).",
@@ -220,6 +271,14 @@
   "fragments" : [
     {
       "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "func"
     },
     {
@@ -228,7 +287,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "loadEntitlements"
+      "text" : "loadInfo"
     },
     {
       "kind" : "text",
@@ -257,7 +316,24 @@
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : " -> (info"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore5PlistC",
+      "text" : "Plist"
+    },
+    {
+      "kind" : "text",
+      "text" : ", entitlements"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
@@ -266,15 +342,15 @@
     },
     {
       "kind" : "text",
-      "text" : "]?"
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/loadEntitlements(fromAppBundle:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/loadInfo(fromAppBundle:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "loadEntitlements(fromAppBundle:)",
+  "title" : "loadInfo(fromAppBundle:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appentitlements\/loadentitlements(fromappbundle:)"
+  "url" : "\/documentation\/fairapp\/appentitlements\/loadinfo(fromappbundle:)"
 },
 "doc://FairApp/documentation/FairApp/AppEntitlements/value(forKey:)": {
   "abstract" : [

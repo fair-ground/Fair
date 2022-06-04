@@ -462,6 +462,6 @@ extension URLSession {
             // fall-back to the completion handler
             return completionHandler(url, response, error)
         }
-    }
+    }    
 }
 #endif // swift(>=5.5)

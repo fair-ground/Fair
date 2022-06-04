@@ -199,14 +199,14 @@ extension FileManager {
     /// Attempts to place the item at the given URL in the Trash on platforms that support it.
     /// An error will be thrown if the operation fails, and on platforms that support Trash, the return value will be the URL of the trashed item.
     @discardableResult public func trash(url: URL) throws -> URL? {
-    #if canImport(AppKit)
+        #if canImport(AppKit)
         var trashResult: NSURL? = nil
         try trashItem(at: url, resultingItemURL: &trashResult)
         return trashResult as URL?
-    #else
-    try removeItem(at: url)
-    return nil
-    #endif
+        #else
+        try removeItem(at: url)
+        return nil
+        #endif
     }
 
     /// Returns true if the folder is a directory, false if it is a file,
