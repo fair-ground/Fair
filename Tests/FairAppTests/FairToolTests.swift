@@ -199,13 +199,13 @@ public struct PackageManifest : Pure {
 }
 
 
-extension PackageManifest {
-    /// Parses the Package.swift file at the given location
-    public static func parse(package: URL) throws -> Self {
-        let dumpPackage = try Process.execute(command: URL(fileURLWithPath: "/usr/bin/xcrun"), ["swift", "package", "dump-package", "--package-path", package.deletingLastPathComponent().path])
-        let packageJSON = dumpPackage.stdout.joined(separator: "\n")
-        let decoder = JSONDecoder()
-        return try decoder.decode(Self.self, from: Data(packageJSON.utf8))
-    }
-}
+//extension PackageManifest {
+//    /// Parses the Package.swift file at the given location
+//    public static func parse(package: URL) throws -> Self {
+//        let dumpPackage = try Process.execute(command: URL(fileURLWithPath: "/usr/bin/xcrun"), ["swift", "package", "dump-package", "--package-path", package.deletingLastPathComponent().path])
+//        let packageJSON = dumpPackage.stdout.joined(separator: "\n")
+//        let decoder = JSONDecoder()
+//        return try decoder.decode(Self.self, from: Data(packageJSON.utf8))
+//    }
+//}
 
