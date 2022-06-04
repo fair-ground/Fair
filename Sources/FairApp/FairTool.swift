@@ -793,7 +793,6 @@ public struct FairTool : AsyncParsableCommand {
 
     }
 
-    #if canImport(Compression)
     struct FairsealCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
         @OptionGroup var msgOptions: MsgOptions
@@ -1109,7 +1108,6 @@ public struct FairTool : AsyncParsableCommand {
         }
 
     }
-    #endif
 
     #if canImport(SwiftUI)
     struct IconCommand: FairParsableCommand {
