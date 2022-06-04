@@ -16,6 +16,7 @@
  */
 import Swift
 import Foundation
+import CoreFoundation
 
 public typealias AppPermission = XOr<AppEntitlementPermission>
     .Or<AppUsagePermission>
