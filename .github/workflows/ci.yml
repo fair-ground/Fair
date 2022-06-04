@@ -51,7 +51,6 @@ jobs:
         run: |
           brew tap appfair/app
           brew install fairtool
-          ls -lah `which fairtool`
           ldd `which fairtool`
           fairtool welcome
 
