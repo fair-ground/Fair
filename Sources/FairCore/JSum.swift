@@ -232,3 +232,15 @@ extension JSum : Decodable {
         }
     }
 }
+
+#if canImport(Foundation)
+import class Foundation.JSONSerialization
+
+public extension Dictionary where Key == String, Value == Any {
+    /// Converts this instance to a JSum by serializing it to JSON and then de-serializing to a `JSum`.
+    func jsum() throws -> JSum {
+        try JSum(json: JSONSerialization.data(withJSONObject: self, options: []))
+    }
+}
+#endif
+

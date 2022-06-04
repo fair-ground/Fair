@@ -34,7 +34,7 @@ import UIKit
 #endif
 
 protocol FairParsableCommand : AsyncParsableCommand {
-    var msgOptions: FairTool.MsgOptions { get set }
+    var msgOptions: MsgOptions { get set }
 }
 
 final class MessageBuffer {
@@ -66,11 +66,57 @@ enum MessageKind {
     }
 }
 
+public struct AppCommand : AsyncParsableCommand {
+    public static var configuration = CommandConfiguration(commandName: "app",
+        abstract: "Utilities for working with app packages.",
+        subcommands: [
+            InfoCommand.self,
+        ])
+
+    public init() {
+    }
+
+    struct InfoCommand: FairParsableCommand {
+        static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).")
+        @OptionGroup var msgOptions: MsgOptions
+        @OptionGroup var downloadOptions: DownloadOptions
+
+        @Argument(help: ArgumentHelp("path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
+        var apps: [String]
+
+        mutating func run() async throws {
+            msg(.debug, "getting info from apps:", apps)
+            try await msgOptions.output(apps) { app in
+                try await extractInfo(from: downloadOptions.acquire(path: app))
+            }
+        }
+
+        private func extractInfo(from url: URL) async throws -> InfoOutput {
+            msg(.info, "extracting info: \(url)")
+            let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: url)
+
+            return try InfoOutput(path: url, info: (info.rawValue as? [String: Any])?.jsum() ?? .nul, entitlements: entitlements?.map({ try $0.jsum() }))
+        }
+
+        private struct InfoOutput : CLIEncodable {
+            var path: URL
+            var info: JSum
+            var entitlements: [JSum]?
+        }
+    }
+}
+
+fileprivate protocol CLIEncodable : Encodable {
+    // TODO: an output form of this instance that displays plain text information
+    //func outputText() throws -> [String]
+}
+
 public struct FairTool : AsyncParsableCommand {
     public static var configuration = CommandConfiguration(commandName: "fairtool",
         abstract: "Manage a fair-ground ecosystem of apps.",
         subcommands: [
             WelcomeCommand.self,
+            AppCommand.self,
             ValidateCommand.self,
             MergeCommand.self,
             CatalogCommand.self,
@@ -97,14 +143,6 @@ public struct FairTool : AsyncParsableCommand {
     }
 
     public init() {
-    }
-
-    struct MsgOptions: ParsableArguments {
-        @Option(name: [.long, .customShort("v")], help: "whether to display verbose messages.")
-        var verbose: Bool?
-
-        //typealias MessageHandler = ((MessageKind, Any?...) -> ())
-        var messages: MessageBuffer? = nil
     }
 
     struct ProjectOptions: ParsableArguments {
@@ -241,42 +279,6 @@ public struct FairTool : AsyncParsableCommand {
     struct CasksOptions: ParsableArguments {
         @Option(name: [.long], help: "multiplier for how much metadata ranking boost.")
         var boostFactor: Int64?
-    }
-
-    struct RetryOptions: ParsableArguments {
-        @Option(name: [.long], help: "amount of time to continue re-trying downloading a resource.")
-        var retryDuration: TimeInterval?
-
-        @Option(name: [.long], help: "backoff time for waiting to retry.")
-        var retryWait: TimeInterval = 30
-
-        /// Retries the given operation until the `retry-duration` flag as been exceeded
-        func retrying<T>(operation: () async throws -> T) async throws -> T {
-            let timeoutDate = Date().addingTimeInterval(self.retryDuration ?? 0)
-            while true {
-                do {
-                    return try await operation()
-                } catch {
-                    // TODO: schedule on a queue rather than blocking on Thread.sleep
-                    if try backoff(timeoutDate, error: error) == false {
-                        throw error
-                    }
-                }
-            }
-
-            /// Backs off until the given timeout date
-            @discardableResult func backoff(_ timeoutDate: Date, error: Error?) throws -> Bool {
-                // we we are timed out, or if we don't want to retry, then simply re-download
-                if (self.retryDuration ?? 0) <= 0 || self.retryWait <= 0 || Date() >= timeoutDate {
-                    return false
-                } else {
-                    //msg(.info, "retrying operation in \(self.retryWait) seconds from \(Date()) due to error:", error)
-                    Thread.sleep(forTimeInterval: self.retryWait)
-                    return true
-                }
-            }
-        }
-
     }
 
     struct HubOptions: ParsableArguments {
@@ -1236,26 +1238,69 @@ public struct FairTool : AsyncParsableCommand {
     #endif
 }
 
+struct MsgOptions: ParsableArguments {
+    @Flag(name: [.long, .customShort("v")], help: "whether to display verbose messages.")
+    var verbose: Bool = false
+
+    @Flag(name: [.long, .customShort("q")], help: "whether to be suppress output.")
+    var quiet: Bool = false
+
+    @Flag(name: [.long], help: "assemble JSON output into a top-level array.")
+    var assemble: Bool = false
+
+    //typealias MessageHandler = ((MessageKind, Any?...) -> ())
+    var messages: MessageBuffer? = nil
+
+    /// Iterates over each of the given arguments and executed the block against the arg, outputting the JSON result as it goes.
+    fileprivate func output<T, U: CLIEncodable>(_ arguments: [T], block: (T) async throws -> U) async throws {
+        if assemble { print("[") }
+        for (index, arg) in arguments.enumerated() {
+            if index > 0 {
+                if assemble { print(",") }
+            }
+            let result = try await block(arg)
+            try print(result.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
+        }
+        if assemble { print("]") }
+    }
+}
+
 fileprivate extension FairParsableCommand {
 
+    /// Output the given message to standard error
     func msg(_ kind: MessageKind = .info, _ message: Any?...) {
+        if msgOptions.quiet == true {
+            return
+        }
+
         let msg = message.map({ $0.flatMap(String.init(describing:)) ?? "nil" }).joined(separator: " ")
 
         if kind == .debug && msgOptions.verbose != true {
             return // skip debug output unless we are running verbose
         }
 
+
         if msgOptions.messages != nil {
             msgOptions.messages!.messages.append((kind, message))
         } else {
+
             // let (checkMark, failMark) = ("✓", "X")
             if kind == .info {
                 // info just gets printed directly
-                print(msg)
+                print(msg, to: &StandardErrorOutputStream.shared)
             } else {
-                print(kind.name, msg)
+                print(kind.name, msg, to: &StandardErrorOutputStream.shared)
             }
         }
+    }
+}
+
+private struct StandardErrorOutputStream: TextOutputStream {
+    static var shared = StandardErrorOutputStream()
+    let stderr = FileHandle.standardError
+
+    func write(_ string: String) {
+        stderr.write(string.utf8Data)
     }
 }
 
@@ -1328,6 +1373,75 @@ extension FairTool {
         }
     }
 }
+
+/// Options for how downloading remote files should work.
+struct DownloadOptions: ParsableArguments {
+    @Option(name: [.long], help: ArgumentHelp("location of folder for downloaded artifacts.", valueName: "dir"))
+    var cacheFolder: String?
+
+    /// Downloads a remote URL, or else returns the fule URL unadorned
+    func acquire(path: String) async throws -> URL {
+        if let url = URL(string: path), ["http", "https"].contains(url.scheme) {
+            return try await self.download(url: url)
+        } else {
+            return URL(fileURLWithPath: path)
+        }
+    }
+
+    func download(url: URL) async throws -> URL {
+        let (downloadedURL, response) = try await URLSession.shared.download(for: URLRequest(url: url))
+        guard let status = (response as? HTTPURLResponse)?.statusCode,
+              (200..<300).contains(status) else {
+            throw Bundle.module.error("Cannot download: \(url) \(response)")
+        }
+        if let cacheFolder = cacheFolder.flatMap(URL.init(fileURLWithPath:)),
+            FileManager.default.isDirectory(url: cacheFolder) == true {
+            let cacheName = url.cachePathName // the full URL download
+            let localURL = URL(fileURLWithPath: cacheName, relativeTo: cacheFolder)
+            let _ = try? FileManager.default.trash(url: localURL) // in case it exists
+            try FileManager.default.moveItem(at: downloadedURL, to: localURL)
+            return localURL
+        }
+        return downloadedURL
+    }
+}
+
+struct RetryOptions: ParsableArguments {
+    @Option(name: [.long], help: "amount of time to continue re-trying downloading a resource.")
+    var retryDuration: TimeInterval?
+
+    @Option(name: [.long], help: "backoff time for waiting to retry.")
+    var retryWait: TimeInterval = 30
+
+    /// Retries the given operation until the `retry-duration` flag as been exceeded
+    func retrying<T>(operation: () async throws -> T) async throws -> T {
+        let timeoutDate = Date().addingTimeInterval(self.retryDuration ?? 0)
+        while true {
+            do {
+                return try await operation()
+            } catch {
+                // TODO: schedule on a queue rather than blocking on Thread.sleep
+                if try backoff(timeoutDate, error: error) == false {
+                    throw error
+                }
+            }
+        }
+
+        /// Backs off until the given timeout date
+        @discardableResult func backoff(_ timeoutDate: Date, error: Error?) throws -> Bool {
+            // we we are timed out, or if we don't want to retry, then simply re-download
+            if (self.retryDuration ?? 0) <= 0 || self.retryWait <= 0 || Date() >= timeoutDate {
+                return false
+            } else {
+                //msg(.info, "retrying operation in \(self.retryWait) seconds from \(Date()) due to error:", error)
+                Thread.sleep(forTimeInterval: self.retryWait)
+                return true
+            }
+        }
+    }
+
+}
+
 
 fileprivate extension FairParsableCommand {
     var fm: FileManager { .default }

@@ -28,6 +28,9 @@ public typealias AppPermission = XOr<AppEntitlementPermission>
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppUsagePermission : Pure {
+    public enum PermissionType : String, Pure { case usage }
+    public var type: PermissionType = .usage
+
     /// The type of the permission, which maps to a `NS**UsageDescription` key in the Info.plist
     public var usage: UsageDescriptionKeys
 
@@ -42,6 +45,9 @@ public struct AppUsagePermission : Pure {
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppBackgroundModePermission : Pure {
+    public enum PermissionType : String, Pure { case backgroundMode = "background-mode" }
+    public var type: PermissionType = .backgroundMode
+
     /// The type of the permission, which maps to a `NS**UsageDescription` key in the Info.plist
     public var backgroundMode: AppBackgroundMode
 
@@ -54,6 +60,7 @@ public struct AppBackgroundModePermission : Pure {
     }
 
     public enum CodingKeys : String, CodingKey {
+        case type
         case backgroundMode = "background-mode"
         case usageDescription
     }
@@ -90,6 +97,9 @@ public struct AppLegacyPermission : Pure {
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppEntitlementPermission : Pure {
+    public enum PermissionType : String, Pure { case entitlement }
+    public var type: PermissionType = .entitlement
+
     /// The type of the permission, which maps to an entitement key
     public var entitlement: AppEntitlement
 
@@ -855,6 +865,11 @@ public struct AppEntitlements {
         values.count
     }
 
+    /// Returns the entitlement values as a codable JSum struct.
+    public func jsum() throws -> JSum {
+        try values.jsum()
+    }
+
     public func value(forKey key: AppEntitlement) -> Any? {
         values[key.rawValue]
     }
@@ -870,12 +885,18 @@ public struct AppEntitlements {
 public extension AppEntitlements {
     /// Loads the entitlements from an app bundle (either a ipa zip or an expanded binary package).
     /// Multiple entitlements will be returned when an executable is a fat binary, although they are likely to all be equal.
-    func loadEntitlements(fromAppBundle url: URL) throws -> [AppEntitlements]? {
+    static func loadInfo(fromAppBundle url: URL) throws -> (info: Plist, entitlements: [AppEntitlements]?) {
         if FileManager.default.isDirectory(url: url) == true {
-            return try AppBundle(folderAt: url).entitlements()
+            return try AppBundle(folderAt: url).loadInfo()
         } else {
-            return try AppBundle(zipArchiveAt: url).entitlements()
+            return try AppBundle(zipArchiveAt: url).loadInfo()
         }
+    }
+}
+
+extension AppBundle {
+    func loadInfo() throws -> (info: Plist, entitlements: [AppEntitlements]?) {
+        return try (infoDictionary, entitlements())
     }
 }
 
@@ -1290,7 +1311,9 @@ class MachOBinary {
             if command.cmd == MachOMagic.LC_CODE_SIGNATURE {
                 let signatureOffset: UInt32 = try binary.readUInt32()
                 //dbg("checking for sig in signatureOffset:", signatureOffset, "offset:", offset, "index:", index, "count:", cmdCount)
-                entitlements.append(try readEntitlementsFromSignature(startingAt: signatureOffset))
+                if let ent = try readEntitlementsFromSignature(startingAt: signatureOffset) {
+                    entitlements.append(ent)
+                }
             }
             try binary.seek(to: binary.offset() + .init(command.cmdsize - UInt32(MemoryLayout<LoadCommand>.size)))
         }
@@ -1340,7 +1363,7 @@ class MachOBinary {
 
     }
 
-    private func readEntitlementsFromSignature(startingAt offset: UInt32) throws -> AppEntitlements {
+    private func readEntitlementsFromSignature(startingAt offset: UInt32) throws -> AppEntitlements? {
         try binary.seek(to: .init(offset))
         let metaBlob: CSSuperBlob = try binary.readBinary()
         //dbg("checking for magic in superblob at:", offset, ":", CFSwapInt32(metaBlob.magic))
@@ -1366,7 +1389,8 @@ class MachOBinary {
             }
         }
 
-        throw Error.signatureReadingError
+        // no entitlements
+        return nil
     }
 }
 

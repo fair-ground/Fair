@@ -395,6 +395,13 @@ public extension URL {
     var contentModificationDateKey: Date? {
         singleResourceValue(forKey: .contentModificationDateKey) as? Date
     }
+
+    /// A unique name of the cache file, which can be used for storing local caches of URLs
+    var cachePathName: String {
+        let urlHash = self.absoluteString.utf8Data.sha256().hex()
+        let baseName = self.lastPathComponent
+        return urlHash + "--" + baseName
+    }
 }
 
 /// Performs the given block and, if an error occurs, enhances the error description with the given value.
