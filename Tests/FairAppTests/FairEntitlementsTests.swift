@@ -37,9 +37,11 @@ final class FairEntitlementsTests: XCTestCase {
         }
 
         dbg("test executable at:", exec.path)
+        #if !os(Linux) && !os(Windows) // binaries are not Mach-O
         let entitlements = try extractEntitlements(Data(contentsOf: exec))
         dbg("entitlements:", entitlements.first)
         XCTAssertEqual(true, entitlements.first?.value(forKey: .get_task_allow) as? Bool)
+        #endif
     }
 
     func mktmpdir() throws -> URL {
