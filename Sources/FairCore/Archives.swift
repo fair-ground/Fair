@@ -15,12 +15,12 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
-import Foundation
 #if canImport(Glibc)
 import Glibc
-#else
-import CoreFoundation
+//import struct Glibc
 #endif
+import Foundation
+import CoreFoundation
 
 #if canImport(Compression)
 @available(macOS 10.14, iOS 12.0, *)
