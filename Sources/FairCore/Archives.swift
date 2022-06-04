@@ -16,6 +16,7 @@
  */
 import Swift
 import Foundation
+import CoreFoundation
 
 #if canImport(Compression)
 @available(macOS 10.14, iOS 12.0, *)
