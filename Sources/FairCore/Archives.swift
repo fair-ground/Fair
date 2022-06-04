@@ -17,6 +17,7 @@
 import Swift
 import Foundation
 
+#if canImport(Compression)
 @available(macOS 10.14, iOS 12.0, *)
 public extension Data {
     enum CompressionAlgorithm : String, CaseIterable, Codable {
@@ -268,6 +269,7 @@ fileprivate func perform(_ config: Config, source: UnsafePointer<UInt8>, sourceS
         }
     }
 }
+#endif // canImport(Compression)
 
 
 
