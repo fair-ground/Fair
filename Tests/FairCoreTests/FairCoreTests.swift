@@ -86,19 +86,10 @@ final class FairCoreTests: XCTestCase {
         try rt(XOr<Int>.Or<Double>(123.0), equal: false)
     }
 
-    #if canImport(Compression)
-    @available(*, deprecated, message: "uses sha1(), which is deprecated")
     func testSHAHash() throws {
-        // echo -n abc | shasum -a 1 hash.txt
-        XCTAssertEqual("03cfd743661f07975fa2f1220c5194cbaff48451", "abc\n".utf8Data.sha1().hex())
-
         // echo -n abc | shasum -a 256 hash.txt
         XCTAssertEqual("edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb", "abc\n".utf8Data.sha256().hex())
-
-        // echo -n abc | shasum -a 512 hash.txt
-        XCTAssertEqual("4f285d0c0cc77286d8731798b7aae2639e28270d4166f40d769cbbdca5230714d848483d364e2f39fe6cb9083c15229b39a33615ebc6d57605f7c43f6906739d", "abc\n".utf8Data.sha512().hex())
     }
-    #endif
 
     /// Tests modeling JSON types using `XOr.Or`
     func testJSON() throws {
