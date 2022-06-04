@@ -1006,7 +1006,7 @@ public struct FairTool : AsyncParsableCommand {
 
                 // the staging folder contains raw assets (e.g., screenshots and README.md) that are included in a release
                 for stagingFolder in sealOptions.artifactStaging {
-                    let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectOptions.projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants, .producesRelativePathURLs])
+                    let artifactAssets = try FileManager.default.contentsOfDirectory(at: projectOptions.projectPathURL(path: stagingFolder), includingPropertiesForKeys: [.fileSizeKey], options: [.skipsPackageDescendants])
                         .sorting(by: \.lastPathComponent)
                     msg(.info, "scanning assets:", artifactAssets.map(\.relativePath))
 
