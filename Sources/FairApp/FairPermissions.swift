@@ -1451,9 +1451,9 @@ struct CSMagic {
 //  0x8000000a: 'ppc_64'
 //};
 
-typealias cpu_type_t = integer_t
-typealias cpu_subtype_t = integer_t
-typealias cpu_threadtype_t = integer_t
+typealias cpu_type_t = Int32
+typealias cpu_subtype_t = Int32
+typealias cpu_threadtype_t = Int32
 
 struct MachOHeader {
     var magic: UInt32 /* mach magic number identifier */
