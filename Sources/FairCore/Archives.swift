@@ -17,7 +17,9 @@
 import Swift
 #if canImport(Glibc)
 import Glibc
-//import struct Glibc
+import var Glibc.S_IFREG
+import var Glibc.S_IFDIR
+import var Glibc.S_IFLNK
 #endif
 import Foundation
 import CoreFoundation
