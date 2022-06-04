@@ -79,10 +79,10 @@ final class FairEntitlementsTests: XCTestCase {
         // it is (currently) expected that directory paths will differ slightly between the zip wrapper and the FS wrapper: the zip has a trailing slash after directory entries, and the fs doesn't have any trailing slashes
 
         dbg("dw1 paths:", dw1.paths.map(\.relativePath))
-        XCTAssertEqual(["a", "a/b.txt", "a/b", "a/b/c.txt", "a/b/c", "a/b/c/d.txt", "a.txt"], dw1.paths.map(\.relativePath))
+        XCTAssertEqual(["a", "a/b.txt", "a/b", "a/b/c.txt", "a/b/c", "a/b/c/d.txt", "a.txt"], dw1.paths.map(\.relativePath).set())
 
         dbg("dw2 paths:", dw2.paths.map(\.path))
-        XCTAssertEqual(["a/", "a/b.txt", "a/b/", "a/b/c.txt", "a/b/c/", "a/b/c/d.txt", "a.txt"], dw2.paths.map(\.path))
+        XCTAssertEqual(["a/", "a/b.txt", "a/b/", "a/b/c.txt", "a/b/c/", "a/b/c/d.txt", "a.txt"], dw2.paths.map(\.path).set())
 
         for pattern in [
             "^a/b/c.txt$",
