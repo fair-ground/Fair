@@ -15,7 +15,6 @@
 import Swift
 import XCTest
 @testable import FairCore
-#if canImport(SwiftUI)
 @testable import FairApp
 
 final class FairToolTests: XCTestCase {
@@ -44,18 +43,18 @@ final class FairToolTests: XCTestCase {
             })
     }
 
-    func testParsePackage() throws {
-        //let cwd = FileManager.default.currentDirectoryPath
-        let packageFile = URL(fileURLWithPath: #file)
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .appendingPathComponent("Package.swift")
-        XCTAssertTrue(FileManager.default.fileExists(atPath: packageFile.path))
-        let pm = try PackageManifest.parse(package: packageFile)
-        XCTAssertEqual("Fair", pm.name)
-        XCTAssertEqual(4, pm.platforms.count)
-    }
+//    func testParsePackage() throws {
+//        //let cwd = FileManager.default.currentDirectoryPath
+//        let packageFile = URL(fileURLWithPath: #file)
+//            .deletingLastPathComponent()
+//            .deletingLastPathComponent()
+//            .deletingLastPathComponent()
+//            .appendingPathComponent("Package.swift")
+//        XCTAssertTrue(FileManager.default.fileExists(atPath: packageFile.path))
+//        let pm = try PackageManifest.parse(package: packageFile)
+//        XCTAssertEqual("Fair", pm.name)
+//        XCTAssertEqual(4, pm.platforms.count)
+//    }
 
     func testWelcomeCommand() async throws {
         let result = try await runTool(op: FairTool.WelcomeCommand.configuration.commandName)
@@ -142,7 +141,6 @@ final class FairToolTests: XCTestCase {
 
 
 }
-#endif
 
 
 public struct PackageManifest : Pure {

@@ -147,27 +147,53 @@ public extension Plist {
 }
 
 extension FileManager {
-    /// Returns the deep contents of the given file URL
-    public func deepContents(of url: URL, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
-        #if os(Linux) || os(Windows)
-        let opts: FileManager.DirectoryEnumerationOptions = []
-        #else
-        let opts: FileManager.DirectoryEnumerationOptions = [.producesRelativePathURLs]
-        #endif
-        guard let walker = self.enumerator(at: url, includingPropertiesForKeys: nil, options: relativePath ? opts : []) else {
+    /// Returns the deep contents of the given file URL, with an option to preserve relative paths in the URLs.
+    public func deepContents(of parentFolder: URL, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
+        // note that we would like the relativePath option to use
+        // FileManager.DirectoryEnumerationOptions.producesRelativePathURLs
+        // but it is not available on Linux, so we need to synthesize the relative URLs ourselves
+        guard let walker = self.enumerator(at: parentFolder, includingPropertiesForKeys: [.isDirectoryKey, .isSymbolicLinkKey, .fileSizeKey], options: []) else {
             throw CocoaError(.fileReadNoSuchFile)
         }
 
         var paths: [URL] = []
-        for path in walker {
-            if let pathURL = path as? URL {
-                if includeFolders || isDirectory(url: pathURL) == false {
-                    paths.append(pathURL)
+        for case let url as URL in walker {
+            if try includeFolders || url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory != true {
+                if !relativePath {
+                    // we don't need to synthesize relative URLs
+                    paths.append(url)
+                } else {
+                    let resolvedParent = try findCommonRelative(from: url, parent: parentFolder) ?? parentFolder
+                    //dbg("parentFolder:", parentFolder, "resolvedParent:", resolvedParent)
+                    let relativePath = url.pathComponents.suffix(from: resolvedParent.pathComponents.count).joined(separator: "/")
+                    // not that the relative URL will be relative to the specified parent folder, rather than to the path that it resolves to
+                    let relativeURL = URL(fileURLWithPath: relativePath, relativeTo: parentFolder)
+                    paths.append(relativeURL)
                 }
             }
         }
 
         return paths
+    }
+
+    /// Finds a common root from the given url to the specified parent.
+    /// Handles the case where the parent may be a link to elsewhere, and the check urls are in the destination of that link
+    private func findCommonRelative(from url: URL, parent: URL) throws -> URL? {
+        // the common case where the child URL just includes the path of the parent
+        if url.path.hasPrefix(parent.path) {
+            return parent
+        }
+
+        var checkURL = url
+        var rel: URLRelationship = .contains
+        while rel == .contains {
+            try getRelationship(&rel, ofDirectoryAt: parent, toItemAt: checkURL)
+            if rel == .same {
+                return checkURL
+            }
+            checkURL = checkURL.deletingLastPathComponent()
+        }
+        return nil
     }
 
     /// Attempts to place the item at the given URL in the Trash on platforms that support it.
