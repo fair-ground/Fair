@@ -254,9 +254,7 @@ extension Data {
 /// Pure-swift SHA256 implementation
 @usableFromInline struct SHA256 {
     private typealias UInt32x8 = (UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32, UInt32)
-
-    private static
-    let table: [UInt32] = [
+    private static let table: [UInt32] = [
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
         0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
         0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -277,7 +275,7 @@ extension Data {
 
     private var h: UInt32x8
 
-    @usableFromInline var value:[UInt8] {
+    @usableFromInline var value: [UInt8] {
         var bytes: [UInt8] = []
         bytes.reserveCapacity(32)
         for word: UInt32 in [
@@ -291,7 +289,7 @@ extension Data {
                     self.h.7,
                 ] {
             withUnsafeBytes(of: word.bigEndian) {
-                for byte:UInt8 in $0 {
+                for byte: UInt8 in $0 {
                     bytes.append(byte)
                 }
             }
@@ -314,30 +312,30 @@ extension Data {
             message.append(0x00)
         }
         withUnsafeBytes(of: length.bigEndian) {
-            for byte:UInt8 in $0 {
+            for byte: UInt8 in $0 {
                 message.append(byte)
             }
         }
 
-        for start:Int in stride(from: message.startIndex, to: message.endIndex, by: 64) {
+        for start: Int in stride(from: message.startIndex, to: message.endIndex, by: 64) {
             self.update(with: message.dropFirst(start).prefix(64))
         }
     }
 
-    private mutating func update(with chunk:ArraySlice<UInt8>) {
+    private mutating func update(with chunk: ArraySlice<UInt8>) {
         assert(chunk.count == 64)
 
-        let schedule:[UInt32] = .init(unsafeUninitializedCapacity: 64) { (buffer:inout UnsafeMutableBufferPointer<UInt32>, count:inout Int) in
+        let schedule: [UInt32] = .init(unsafeUninitializedCapacity: 64) { (buffer: inout UnsafeMutableBufferPointer<UInt32>, count: inout Int) in
             count = 64
             chunk.withUnsafeBytes {
-                for (i, value):(Int, UInt32) in zip(buffer.indices, $0.bindMemory(to: UInt32.self)) {
+                for (i, value): (Int, UInt32) in zip(buffer.indices, $0.bindMemory(to: UInt32.self)) {
                     buffer[i] = .init(bigEndian: value)
                 }
             }
 
-            for i:Int in 16 ..< count {
+            for i: Int in 16 ..< count {
                 let s: (UInt32, UInt32)
-                s.0 = Self.rotate(buffer[i - 15], right:  7) ^
+                s.0 = Self.rotate(buffer[i - 15], right: 7) ^
                     Self.rotate(buffer[i - 15], right: 18) ^
                     (buffer[i - 15] >>  3 as UInt32)
                 s.1 = Self.rotate(buffer[i -  2], right: 17) ^
@@ -352,16 +350,16 @@ extension Data {
 
         for i: Int in 0..<64 {
             let s: (UInt32, UInt32)
-            s.1 = Self.rotate(e, right:  6) ^
+            s.1 = Self.rotate(e, right: 6) ^
                 Self.rotate(e, right: 11) ^
                 Self.rotate(e, right: 25)
-            s.0 = Self.rotate(a, right:  2) ^
+            s.0 = Self.rotate(a, right: 2) ^
                 Self.rotate(a, right: 13) ^
                 Self.rotate(a, right: 22)
-            let ch:UInt32 = (e & f) ^ (~e & g)
-            let temp:(UInt32, UInt32)
+            let ch: UInt32 = (e & f) ^ (~e & g)
+            let temp: (UInt32, UInt32)
             temp.0 = h &+ s.1 &+ ch &+ Self.table[i] &+ schedule[i]
-            let maj:UInt32 = (a & b) ^ (a & c) ^ (b & c)
+            let maj: UInt32 = (a & b) ^ (a & c) ^ (b & c)
             temp.1 = maj &+ s.0
 
             h = g
@@ -384,12 +382,12 @@ extension Data {
         self.h.7 &+= h
     }
 
-    private static func rotate(_ value:UInt32, right shift:Int) -> UInt32 {
+    private static func rotate(_ value: UInt32, right shift: Int) -> UInt32 {
         (value >> shift) | (value << (UInt32.bitWidth - shift))
     }
 
-    static func hmac<S, C>(_ message:S, key:C) -> [UInt8] where S: Sequence, S.Element == UInt8, C: Collection, C.Element == UInt8 {
-        let normalized:[UInt8]
+    static func hmac<S, C>(_ message: S, key: C) -> [UInt8] where S: Sequence, S.Element == UInt8, C: Collection, C.Element == UInt8 {
+        let normalized: [UInt8]
         if key.count > 64 {
             normalized = Self.init(for: key).value + repeatElement(0, count: 32)
         } else if key.count < 64 {
