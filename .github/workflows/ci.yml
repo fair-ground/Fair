@@ -93,6 +93,7 @@ jobs:
 
   ci-windows:
     runs-on: windows-latest
+    if: false # disabled for now (missing ZipArchive zlib and CFSwapInt32)
 
     steps:
       - uses: actions/checkout@v2
