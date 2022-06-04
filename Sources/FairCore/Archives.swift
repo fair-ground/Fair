@@ -281,6 +281,7 @@ fileprivate func perform(_ config: Config, source: UnsafePointer<UInt8>, sourceS
 #endif // canImport(Compression)
 
 
+#if !os(Windows) // zlib import not working on windows yet
 
 // ZipArchive is mostly based on ZIPFoundation with some patches (notably https://github.com/weichsel/ZIPFoundation/pull/187 ), which uses the following license:
 //
@@ -3232,5 +3233,5 @@ extension ZipArchive {
 #endif
 }
 
-
+#endif // #if !os(Windows)
 
