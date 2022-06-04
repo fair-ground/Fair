@@ -676,10 +676,10 @@ extension ZipArchive {
             case symlink
 
             init(mode: mode_t) {
-                switch mode & S_IFMT {
-                case S_IFDIR:
+                switch mode & CoreFoundation.S_IFMT {
+                case CoreFoundation.S_IFDIR:
                     self = .directory
-                case S_IFLNK:
+                case CoreFoundation.S_IFLNK:
                     self = .symlink
                 default:
                     self = .file
@@ -801,11 +801,11 @@ extension ZipArchive {
             case .unix, .osx:
                 let mode = mode_t(self.centralDirectoryStructure.externalFileAttributes >> 16) & S_IFMT
                 switch mode {
-                case S_IFREG:
+                case CoreFoundation.S_IFREG:
                     return .file
-                case S_IFDIR:
+                case CoreFoundation.S_IFDIR:
                     return .directory
-                case S_IFLNK:
+                case CoreFoundation.S_IFLNK:
                     return .symlink
                 default:
                     return isDirectory ? .directory : .file
@@ -1145,11 +1145,11 @@ extension FileManager {
         var typeInt: UInt16
         switch type {
         case .file:
-            typeInt = UInt16(S_IFREG)
+            typeInt = UInt16(CoreFoundation.S_IFREG)
         case .directory:
-            typeInt = UInt16(S_IFDIR)
+            typeInt = UInt16(CoreFoundation.S_IFLNK)
         case .symlink:
-            typeInt = UInt16(S_IFLNK)
+            typeInt = UInt16(CoreFoundation.S_IFLNK)
         }
         var externalFileAttributes = UInt32(typeInt|UInt16(permissions))
         externalFileAttributes = (externalFileAttributes << 16)
