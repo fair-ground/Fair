@@ -1239,10 +1239,10 @@ class MachOBinary {
         case fat(header: MachOFatHeader)
     }
 
-    private let binary: LittleEndianSeekableData
+    private let binary: SeekableData
 
     init(binary: SeekableData) throws {
-        self.binary = LittleEndianSeekableData(delegate: binary)
+        self.binary = binary.reversedEndian()
     }
 
     private func getBinaryType(fromSliceStartingAt offset: SeekableData.Offset) throws -> BinaryType? {
@@ -1450,6 +1450,10 @@ struct CSMagic {
 //  0x0000000a: 'ppc_32',
 //  0x8000000a: 'ppc_64'
 //};
+
+typealias cpu_type_t = integer_t
+typealias cpu_subtype_t = integer_t
+typealias cpu_threadtype_t = integer_t
 
 struct MachOHeader {
     var magic: UInt32 /* mach magic number identifier */

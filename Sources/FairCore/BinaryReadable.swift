@@ -19,64 +19,82 @@ import Foundation
 /// A handle to some data that maintains its `offset` location and can access subsets of data
 public protocol SeekableData : AnyObject {
     typealias Offset = UInt64
+
+    /// The current offset in the data
     func offset() throws -> Offset
+
+    /// Jump to the given offset in the data
     func seek(to offset: Offset) throws
-    func readUIntX<Result: UnsignedInteger>() throws -> Result
+
+    /// Reads raw underlying bytes
     func readData(ofLength length: Offset?) throws -> Data
+
+    /// Returns bytes expected to represent numeric data in the expected endianess of the seeker
+    func readNumericData(ofLength length: Int) throws -> Data
+
+    func readUIntX<Result: UnsignedInteger>() throws -> Result
+}
+
+public enum SeekableDataErrors : Error {
+    case dataTooSmall
+    case dataOutOfBounds
+}
+
+public extension SeekableData {
+    /// Returns a `SeekableData` instance that reverses the endianness of the underlying data reading options
+    func reversedEndian() -> SeekableData {
+        ReverseEndianSeekableData(delegate: self)
+    }
 }
 
 /// SeekableData implementation that flips the data it accesses from big-endian to little endian
-public class LittleEndianSeekableData : SeekableData {
+private class ReverseEndianSeekableData : SeekableData {
     let delegate: SeekableData
 
-    public init(delegate: SeekableData) {
+    init(delegate: SeekableData) {
         self.delegate = delegate
     }
 
-    public func readUIntX<Result: UnsignedInteger>() throws -> Result {
-        try readNumber(bigEndian: false)
+    func readUIntX<Result: UnsignedInteger>() throws -> Result {
+        try readNumber()
     }
 
-    public func offset() throws -> Offset {
+    func readNumericData(ofLength length: Int) throws -> Data {
+        try Data(delegate.readNumericData(ofLength: length).reversed())
+    }
+
+    func offset() throws -> Offset {
         try delegate.offset()
     }
 
-    public func seek(to offset: Offset) throws {
+    func seek(to offset: Offset) throws {
         try delegate.seek(to: offset)
     }
 
-    public func readData(ofLength length: Offset?) throws -> Data {
+    func readData(ofLength length: Offset?) throws -> Data {
         try delegate.readData(ofLength: length)
     }
 }
 
 public extension SeekableData {
     func readUIntX<Result: UnsignedInteger>() throws -> Result {
-        try readNumber(bigEndian: true)
+        try readNumber()
     }
 
     /// Reads a number with the given expected memory layout.
     /// - Parameter bigEndian: if true, read in big-endian order, otherwise little-endian
     /// - Returns: the number as read from the data
-    fileprivate func readNumber<Result: UnsignedInteger>(bigEndian: Bool) throws -> Result {
+    fileprivate func readNumber<Result: UnsignedInteger>() throws -> Result {
         let expected = MemoryLayout<Result>.size
-
-        let slice = try readData(ofLength: .init(expected))
-
-        if slice.count != expected {
-            throw CocoaError(.fileReadCorruptFile)
-        }
-
-        func buildResult(result: Result, element: Data.Element) -> Result {
-            (result << 8) | Result(element)
-        }
-
-        if bigEndian {
-            return slice.reduce(0, buildResult)
-        } else {
-            return slice.reversed().reduce(0, buildResult)
-        }
+        let slice = try readNumericData(ofLength: expected)
+        if slice.count != expected { throw SeekableDataErrors.dataTooSmall }
+        return slice.reduce(0, buildResult)
     }
+
+    func buildResult<Result: UnsignedInteger>(result: Result, element: Data.Element) -> Result {
+        (result << 8) | Result(element)
+    }
+
 }
 
 /// SeekableData implementation that is backed by a `FileHandle`
@@ -93,6 +111,10 @@ public class SeekableFileHandle : SeekableData {
 
     public func seek(to offset: Offset) throws {
         try handle.seek(toOffset: offset)
+    }
+
+    public func readNumericData(ofLength length: Int) throws -> Data {
+        try readData(ofLength: .init(length))
     }
 
     public func readData(ofLength length: Offset?) throws -> Data {
@@ -130,7 +152,11 @@ public class SeekableFileHandle : SeekableData {
 //            return data
 //        } else { // asyncAPIs
             if let length = length {
-                return try handle.read(upToCount: Int(truncatingIfNeeded: length)) ?? Data()
+                let data = try handle.read(upToCount: Int(truncatingIfNeeded: length)) ?? Data()
+                if data.count != length {
+                    throw SeekableDataErrors.dataTooSmall
+                }
+                return data
             } else {
                 return try handle.readToEnd() ?? Data()
             }
@@ -152,28 +178,39 @@ public class SeekableDataHandle : SeekableData {
         off
     }
 
+    public func readNumericData(ofLength length: Int) throws -> Data {
+        try readData(ofLength: .init(length))
+    }
+
     public func seek(to offset: Offset) throws {
         if offset < 0 || offset >= self.data.count {
-            throw CocoaError(.coderInvalidValue)
+            throw SeekableDataErrors.dataOutOfBounds
         }
         self.off = offset
     }
 
     @available(*, deprecated, message: "unsafe; use validating and throwing form instead")
-    public func unsafeRead<T>() -> T {
-        readData(ofLength: Offset(MemoryLayout<T>.size))
+    public func unsafeRead<T>() throws -> T {
+        try readData(ofLength: Offset(MemoryLayout<T>.size))
             .withUnsafeBytes( { $0.load(as: T.self) })
     }
 
-    public func readData(ofLength length: Offset?) -> Data {
+    public func readData(ofLength length: Offset?) throws -> Data {
         guard let length = length else {
             let remainder = data[off...]
             off += Offset(remainder.count)
             return remainder
         }
 
+        let startIndex = (Offset(data.startIndex) + off)
+        let endIndex = min(.init(data.endIndex), Offset(data.startIndex) + off + length)
+
+        if endIndex <= startIndex {
+            throw SeekableDataErrors.dataTooSmall
+        }
+
         defer { off += length }
-        let range = (Offset(data.startIndex) + off)..<(Offset(data.startIndex) + off + length)
+        let range = startIndex..<endIndex
 
         // return data.subdata(in: range) // if we don't wrap, we can get a crash when accessing raw memory: 2022-05-27 14:12:22.072709-0400 xctest[26521:9661824] Swift/UnsafeRawPointer.swift:354: Fatal error: load from misaligned raw pointer
         return data[range]
