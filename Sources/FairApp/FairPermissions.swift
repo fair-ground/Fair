@@ -17,7 +17,9 @@
 import Swift
 import Foundation
 import FairCore
+#if canImport(CoreFoundation)
 import CoreFoundation
+#endif
 
 public typealias AppPermission = XOr<AppEntitlementPermission>
     .Or<AppUsagePermission>

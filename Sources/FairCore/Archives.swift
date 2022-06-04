@@ -22,7 +22,9 @@ import var Glibc.S_IFDIR
 import var Glibc.S_IFLNK
 #endif
 import Foundation
+#if canImport(CoreFoundation)
 import CoreFoundation
+#endif
 
 #if canImport(Compression)
 @available(macOS 10.14, iOS 12.0, *)
