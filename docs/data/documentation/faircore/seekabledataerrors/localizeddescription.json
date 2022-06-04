@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "SeekableData.readUInt64()",
+      "code" : "Error.localizedDescription",
       "type" : "codeVoice"
     },
     {
@@ -17,23 +17,23 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/SeekableData-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/Error-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readUInt64()"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/localizedDescription"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore12SeekableDataPAAE10readUInt64s0F0VyKF::SYNTHESIZED::s:8FairCore24LittleEndianSeekableDataC",
+    "extendedModule" : "Swift",
+    "externalID" : "s:s5ErrorP10FoundationE20localizedDescriptionSSvp::SYNTHESIZED::s:8FairCore18SeekableDataErrorsO",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -41,24 +41,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "readUInt64"
+        "text" : "localizedDescription"
       },
       {
         "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s6UInt64V",
-        "text" : "UInt64"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       }
     ],
     "modules" : [
@@ -67,9 +59,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "readUInt64()"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "localizedDescription"
   },
   "primaryContentSections" : [
     {
@@ -84,7 +76,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "func"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -92,24 +84,28 @@
             },
             {
               "kind" : "identifier",
-              "text" : "readUInt64"
+              "text" : "localizedDescription"
             },
             {
               "kind" : "text",
-              "text" : "() "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> "
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s6UInt64V",
-              "text" : "UInt64"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -128,7 +124,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/littleendianseekabledata\/readuint64()"
+        "\/documentation\/faircore\/seekabledataerrors\/localizeddescription"
       ],
       "traits" : [
         {
@@ -153,17 +149,14 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
+"doc://FairCore/documentation/FairCore/SeekableDataErrors": {
   "abstract" : [
-    {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -171,41 +164,41 @@
     },
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataErrors"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataErrors"
     }
   ],
   "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
+  "title" : "SeekableDataErrors",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
+  "url" : "\/documentation\/faircore\/seekabledataerrors"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/SeekableData-Implementations": {
+"doc://FairCore/documentation/FairCore/SeekableDataErrors/Error-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/SeekableData-Implementations",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/Error-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "SeekableData Implementations",
+  "title" : "Error Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/seekabledata-implementations"
+  "url" : "\/documentation\/faircore\/seekabledataerrors\/error-implementations"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/readUInt64()": {
+"doc://FairCore/documentation/FairCore/SeekableDataErrors/localizedDescription": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -213,32 +206,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "readUInt64"
+      "text" : "localizedDescription"
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6UInt64V",
-      "text" : "UInt64"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readUInt64()",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/localizedDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "readUInt64()",
+  "title" : "localizedDescription",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/readuint64()"
+  "url" : "\/documentation\/faircore\/seekabledataerrors\/localizeddescription"
 }
 }
 }

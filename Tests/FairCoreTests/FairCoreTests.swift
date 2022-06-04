@@ -490,4 +490,45 @@ final class FairCoreTests: XCTestCase {
 
     }
 
+    func testBinaryReadable() throws {
+        let bytes: [UInt8] = [ 32, 232, 52, 41, 4, 0, 0, 0, 0, 1, 0, 0, 0, 33]
+
+        do { // SeekableDataHandle
+            let data = SeekableDataHandle(Data(bytes))
+            XCTAssertEqual(32, try data.readUInt8())
+            XCTAssertEqual(3895732484, try data.readUInt32())
+            XCTAssertEqual(16777216, try data.readInt64())
+            XCTAssertEqual(33, try data.readUInt8())
+            XCTAssertThrowsError(try data.readData(ofLength: 1))
+        }
+
+        do { // SeekableDataHandle & ReverseEndianSeekableData
+            let data = SeekableDataHandle(Data(bytes)).reversedEndian()
+            XCTAssertEqual(32, try data.readUInt8())
+            XCTAssertEqual(69809384, try data.readUInt32())
+            XCTAssertEqual(4294967296, try data.readInt64())
+            XCTAssertEqual(33, try data.readUInt8())
+            XCTAssertThrowsError(try data.readData(ofLength: 1))
+        }
+
+        do { // SeekableDataHandle & ReverseEndianSeekableData & ReverseEndianSeekableData
+            let data = SeekableDataHandle(Data(bytes)).reversedEndian().reversedEndian()
+            XCTAssertEqual(32, try data.readUInt8())
+            XCTAssertEqual(3895732484, try data.readUInt32())
+            XCTAssertEqual(16777216, try data.readInt64())
+            XCTAssertEqual(33, try data.readUInt8())
+            XCTAssertThrowsError(try data.readData(ofLength: 1))
+        }
+
+        do { // SeekableFileHandle
+            let file = URL(fileURLWithPath: UUID().uuidString, isDirectory: false, relativeTo: .tmpdir)
+            try Data(bytes).write(to: file)
+            let data = try SeekableFileHandle(FileHandle(forReadingFrom: file))
+            XCTAssertEqual(32, try data.readUInt8())
+            XCTAssertEqual(3895732484, try data.readUInt32())
+            XCTAssertEqual(16777216, try data.readInt64())
+            XCTAssertEqual(33, try data.readUInt8())
+            XCTAssertThrowsError(try data.readData(ofLength: 1))
+        }
+    }
 }

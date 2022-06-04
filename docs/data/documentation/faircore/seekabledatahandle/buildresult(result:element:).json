@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "SeekableData.readUIntX()",
+      "code" : "SeekableData.buildResult(result:element:)",
       "type" : "codeVoice"
     },
     {
@@ -17,19 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/SeekableData-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/SeekableData-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readUIntX()-7ft7r"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/buildResult(result:element:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore12SeekableDataPAAE9readUIntXqd__yKSURd__lF::SYNTHESIZED::s:8FairCore24LittleEndianSeekableDataC",
+    "externalID" : "s:8FairCore12SeekableDataPAAE11buildResult6result7elementqd__qd___s5UInt8VtSURd__lF::SYNTHESIZED::s:8FairCore18SeekableDataHandleC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,7 +41,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "readUIntX"
+        "text" : "buildResult"
       },
       {
         "kind" : "text",
@@ -53,15 +53,49 @@
       },
       {
         "kind" : "text",
-        "text" : ">() "
+        "text" : ">("
       },
       {
-        "kind" : "keyword",
-        "text" : "throws"
+        "kind" : "externalParam",
+        "text" : "result"
       },
       {
         "kind" : "text",
-        "text" : " -> "
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Result"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "element"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation4DataV",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation4DataV7Elementa",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -76,7 +110,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "readUIntX()"
+    "title" : "buildResult(result:element:)"
   },
   "primaryContentSections" : [
     {
@@ -99,7 +133,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "readUIntX"
+              "text" : "buildResult"
             },
             {
               "kind" : "text",
@@ -111,15 +145,49 @@
             },
             {
               "kind" : "text",
-              "text" : ">() "
+              "text" : ">("
             },
             {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "externalParam",
+              "text" : "result"
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Result"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "element"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation4DataV",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation4DataV7Elementa",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -167,7 +235,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/littleendianseekabledata\/readuintx()-7ft7r"
+        "\/documentation\/faircore\/seekabledatahandle\/buildresult(result:element:)"
       ],
       "traits" : [
         {
@@ -192,10 +260,18 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle": {
   "abstract" : [
     {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
+      "text" : "SeekableData implementation that is backed by an in-memory ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
       "type" : "text"
     }
   ],
@@ -210,34 +286,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataHandle"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataHandle"
     }
   ],
   "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
+  "title" : "SeekableDataHandle",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
+  "url" : "\/documentation\/faircore\/seekabledatahandle"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/SeekableData-Implementations": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/SeekableData-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/SeekableData-Implementations",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/SeekableData-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "SeekableData Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/seekabledata-implementations"
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/seekabledata-implementations"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/readUIntX()-7ft7r": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/buildResult(result:element:)": {
   "abstract" : [
 
   ],
@@ -252,7 +328,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "readUIntX"
+      "text" : "buildResult"
     },
     {
       "kind" : "text",
@@ -264,27 +340,61 @@
     },
     {
       "kind" : "text",
-      "text" : ">() "
+      "text" : ">("
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "externalParam",
+      "text" : "result"
     },
     {
       "kind" : "text",
-      "text" : " -> "
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "element"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV7Elementa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readUIntX()-7ft7r",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/buildResult(result:element:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "readUIntX()",
+  "title" : "buildResult(result:element:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/readuintx()-7ft7r"
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/buildresult(result:element:)"
 }
 }
 }

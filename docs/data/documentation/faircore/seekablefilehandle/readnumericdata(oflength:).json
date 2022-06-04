@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Reads an unsigned little-endian 32-bit integer",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "SeekableData.readNumericData(ofLength:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -9,19 +17,17 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/SeekableData-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readUInt32()"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle\/readNumericData(ofLength:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore12SeekableDataPAAE10readUInt32s0F0VyKF::SYNTHESIZED::s:8FairCore24LittleEndianSeekableDataC",
+    "externalID" : "s:8FairCore18SeekableFileHandleC15readNumericData8ofLength10Foundation0H0VSi_tKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,11 +39,28 @@
       },
       {
         "kind" : "identifier",
-        "text" : "readUInt32"
+        "text" : "readNumericData"
       },
       {
         "kind" : "text",
-        "text" : "() "
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "ofLength"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
       },
       {
         "kind" : "keyword",
@@ -49,8 +72,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s6UInt32V",
-        "text" : "UInt32"
+        "preciseIdentifier" : "s:10Foundation4DataV",
+        "text" : "Data"
       }
     ],
     "modules" : [
@@ -61,7 +84,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "readUInt32()"
+    "title" : "readNumericData(ofLength:)"
   },
   "primaryContentSections" : [
     {
@@ -84,11 +107,36 @@
             },
             {
               "kind" : "identifier",
-              "text" : "readUInt32"
+              "text" : "readNumericData"
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "ofLength"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "length"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
             },
             {
               "kind" : "keyword",
@@ -100,8 +148,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s6UInt32V",
-              "text" : "UInt32"
+              "preciseIdentifier" : "s:10Foundation4DataV",
+              "text" : "Data"
             }
           ]
         }
@@ -120,7 +168,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/littleendianseekabledata\/readuint32()"
+        "\/documentation\/faircore\/seekablefilehandle\/readnumericdata(oflength:)"
       ],
       "traits" : [
         {
@@ -145,11 +193,15 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
+"doc://FairCore/documentation/FairCore/SeekableFileHandle": {
   "abstract" : [
     {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
+      "text" : "SeekableData implementation that is backed by a ",
       "type" : "text"
+    },
+    {
+      "code" : "FileHandle",
+      "type" : "codeVoice"
     }
   ],
   "fragments" : [
@@ -163,39 +215,25 @@
     },
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableFileHandle"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableFileHandle"
     }
   ],
   "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
+  "title" : "SeekableFileHandle",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
+  "url" : "\/documentation\/faircore\/seekablefilehandle"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/SeekableData-Implementations": {
+"doc://FairCore/documentation/FairCore/SeekableFileHandle/readNumericData(ofLength:)": {
   "abstract" : [
 
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/SeekableData-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "SeekableData Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/seekabledata-implementations"
-},
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/readUInt32()": {
-  "abstract" : [
-    {
-      "text" : "Reads an unsigned little-endian 32-bit integer",
-      "type" : "text"
-    }
   ],
   "fragments" : [
     {
@@ -208,11 +246,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "readUInt32"
+      "text" : "readNumericData"
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "ofLength"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -224,16 +279,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6UInt32V",
-      "text" : "UInt32"
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readUInt32()",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle\/readNumericData(ofLength:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "readUInt32()",
+  "title" : "readNumericData(ofLength:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/readuint32()"
+  "url" : "\/documentation\/faircore\/seekablefilehandle\/readnumericdata(oflength:)"
 }
 }
 }

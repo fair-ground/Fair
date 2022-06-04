@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "SeekableData.seek(to:)",
+      "code" : "Error.dumpError(out:)",
       "type" : "codeVoice"
     },
     {
@@ -17,17 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/Error-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/seek(to:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/dumpError(out:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore24LittleEndianSeekableDataC4seek2toys6UInt64V_tKF",
+    "extendedModule" : "Swift",
+    "externalID" : "s:s5ErrorP8FairCoreE04dumpA03outyqd__z_ts16TextOutputStreamRd__lF::SYNTHESIZED::s:8FairCore18SeekableDataErrorsO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,41 +41,43 @@
       },
       {
         "kind" : "identifier",
-        "text" : "seek"
+        "text" : "dumpError"
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "O"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
       },
       {
         "kind" : "externalParam",
-        "text" : "to"
+        "text" : "out"
       },
       {
         "kind" : "text",
         "text" : ": "
       },
       {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore24LittleEndianSeekableDataC",
-        "text" : "LittleEndianSeekableData"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-        "text" : "Offset"
-      },
-      {
-        "kind" : "text",
-        "text" : ") "
-      },
-      {
         "kind" : "keyword",
-        "text" : "throws"
+        "text" : "inout"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "O"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -84,7 +88,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "seek(to:)"
+    "title" : "dumpError(out:)"
   },
   "primaryContentSections" : [
     {
@@ -107,43 +111,39 @@
             },
             {
               "kind" : "identifier",
-              "text" : "seek"
+              "text" : "dumpError"
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "O"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
-              "text" : "to"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "internalParam",
-              "text" : "offset"
+              "text" : "out"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore24LittleEndianSeekableDataC",
-              "text" : "LittleEndianSeekableData"
+              "kind" : "keyword",
+              "text" : "inout"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : " "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-              "text" : "Offset"
+              "text" : "O"
             },
             {
               "kind" : "text",
@@ -151,7 +151,24 @@
             },
             {
               "kind" : "keyword",
-              "text" : "throws"
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "O"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s16TextOutputStreamP",
+              "text" : "TextOutputStream"
             }
           ]
         }
@@ -170,7 +187,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/littleendianseekabledata\/seek(to:)"
+        "\/documentation\/faircore\/seekabledataerrors\/dumperror(out:)"
       ],
       "traits" : [
         {
@@ -195,17 +212,14 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
+"doc://FairCore/documentation/FairCore/SeekableDataErrors": {
   "abstract" : [
-    {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -213,23 +227,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataErrors"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataErrors"
     }
   ],
   "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
+  "title" : "SeekableDataErrors",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
+  "url" : "\/documentation\/faircore\/seekabledataerrors"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/seek(to:)": {
+"doc://FairCore/documentation/FairCore/SeekableDataErrors/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledataerrors\/error-implementations"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataErrors/dumpError(out:)": {
   "abstract" : [
 
   ],
@@ -244,80 +269,51 @@
     },
     {
       "kind" : "identifier",
-      "text" : "seek"
+      "text" : "dumpError"
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "O"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
     },
     {
       "kind" : "externalParam",
-      "text" : "to"
+      "text" : "out"
     },
     {
       "kind" : "text",
       "text" : ": "
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore24LittleEndianSeekableDataC",
-      "text" : "LittleEndianSeekableData"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-      "text" : "Offset"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
       "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/seek(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "seek(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/seek(to:)"
-},
-"doc://FairCore/documentation/FairCore/SeekableData/Offset": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "inout"
     },
     {
       "kind" : "text",
       "text" : " "
     },
     {
-      "kind" : "identifier",
-      "text" : "Offset"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "kind" : "typeIdentifier",
+      "text" : "O"
+    },
     {
-      "kind" : "identifier",
-      "text" : "Offset"
+      "kind" : "text",
+      "text" : ")"
     }
   ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/dumpError(out:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "SeekableData.Offset",
+  "title" : "dumpError(out:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekabledata\/offset"
+  "url" : "\/documentation\/faircore\/seekabledataerrors\/dumperror(out:)"
 }
 }
 }

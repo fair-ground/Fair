@@ -115,6 +115,7 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/offset()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readData(ofLength:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readNumericData(ofLength:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/seek(to:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/unsafeRead()"
       ],
@@ -369,7 +370,15 @@
     },
     {
       "kind" : "text",
-      "text" : "?) -> "
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -383,6 +392,65 @@
   "title" : "readData(ofLength:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledatahandle\/readdata(oflength:)"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readNumericData(ofLength:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "readNumericData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "ofLength"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readNumericData(ofLength:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "readNumericData(ofLength:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readnumericdata(oflength:)"
 },
 "doc://FairCore/documentation/FairCore/SeekableDataHandle/seek(to:)": {
   "abstract" : [
@@ -471,7 +539,15 @@
     },
     {
       "kind" : "text",
-      "text" : ">() -> "
+      "text" : ">() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
     },
     {
       "kind" : "typeIdentifier",

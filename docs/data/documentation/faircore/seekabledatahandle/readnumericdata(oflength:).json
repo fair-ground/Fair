@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "SeekableData.readData(ofLength:)",
+      "code" : "SeekableData.readNumericData(ofLength:)",
       "type" : "codeVoice"
     },
     {
@@ -17,17 +17,17 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readData(ofLength:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readNumericData(ofLength:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore24LittleEndianSeekableDataC04readF08ofLength10Foundation0F0Vs6UInt64VSg_tKF",
+    "externalID" : "s:8FairCore18SeekableDataHandleC011readNumericD08ofLength10Foundation0D0VSi_tKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,7 +39,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "readData"
+        "text" : "readNumericData"
       },
       {
         "kind" : "text",
@@ -55,21 +55,12 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore24LittleEndianSeekableDataC",
-        "text" : "LittleEndianSeekableData"
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
       },
       {
         "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-        "text" : "Offset"
-      },
-      {
-        "kind" : "text",
-        "text" : "?) "
+        "text" : ") "
       },
       {
         "kind" : "keyword",
@@ -93,7 +84,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "readData(ofLength:)"
+    "title" : "readNumericData(ofLength:)"
   },
   "primaryContentSections" : [
     {
@@ -116,7 +107,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "readData"
+              "text" : "readNumericData"
             },
             {
               "kind" : "text",
@@ -139,24 +130,13 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore24LittleEndianSeekableDataC",
-              "text" : "LittleEndianSeekableData"
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
             },
             {
               "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-              "text" : "Offset"
-            },
-            {
-              "kind" : "text",
-              "text" : "?) "
+              "text" : ") "
             },
             {
               "kind" : "keyword",
@@ -188,7 +168,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/littleendianseekabledata\/readdata(oflength:)"
+        "\/documentation\/faircore\/seekabledatahandle\/readnumericdata(oflength:)"
       ],
       "traits" : [
         {
@@ -213,10 +193,18 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle": {
   "abstract" : [
     {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
+      "text" : "SeekableData implementation that is backed by an in-memory ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
       "type" : "text"
     }
   ],
@@ -231,23 +219,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataHandle"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
+      "text" : "SeekableDataHandle"
     }
   ],
   "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
+  "title" : "SeekableDataHandle",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
+  "url" : "\/documentation\/faircore\/seekabledatahandle"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/readData(ofLength:)": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/readNumericData(ofLength:)": {
   "abstract" : [
 
   ],
@@ -262,7 +250,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "readData"
+      "text" : "readNumericData"
     },
     {
       "kind" : "text",
@@ -278,21 +266,12 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore24LittleEndianSeekableDataC",
-      "text" : "LittleEndianSeekableData"
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
     },
     {
       "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-      "text" : "Offset"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -308,43 +287,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/readData(ofLength:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readNumericData(ofLength:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "readData(ofLength:)",
+  "title" : "readNumericData(ofLength:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/readdata(oflength:)"
-},
-"doc://FairCore/documentation/FairCore/SeekableData/Offset": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Offset"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Offset"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SeekableData.Offset",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekabledata\/offset"
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/readnumericdata(oflength:)"
 }
 }
 }

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Returns a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SeekableData",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance that reverses the endianness of the underlying data reading options",
       "type" : "text"
     }
   ],
@@ -9,42 +17,39 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/init(delegate:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/reversedEndian()"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore24LittleEndianSeekableDataC8delegateAcA0eF0_p_tcfc",
+    "extendedModule" : "FairCore",
+    "externalID" : "s:8FairCore12SeekableDataPAAE14reversedEndianAaB_pyF",
     "fragments" : [
       {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
         "kind" : "identifier",
-        "text" : "init"
+        "text" : "reversedEndian"
       },
       {
         "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "delegate"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
+        "text" : "() -> "
       },
       {
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:8FairCore12SeekableDataP",
         "text" : "SeekableData"
-      },
-      {
-        "kind" : "text",
-        "text" : ")"
       }
     ],
     "modules" : [
@@ -53,9 +58,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Initializer",
-    "symbolKind" : "init",
-    "title" : "init(delegate:)"
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "reversedEndian()"
   },
   "primaryContentSections" : [
     {
@@ -70,29 +75,25 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "init"
+              "text" : "func"
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : " "
             },
             {
-              "kind" : "externalParam",
-              "text" : "delegate"
+              "kind" : "identifier",
+              "text" : "reversedEndian"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : "() -> "
             },
             {
               "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:8FairCore12SeekableDataP",
               "text" : "SeekableData"
-            },
-            {
-              "kind" : "text",
-              "text" : ")"
             }
           ]
         }
@@ -111,7 +112,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/littleendianseekabledata\/init(delegate:)"
+        "\/documentation\/faircore\/seekabledata\/reversedendian()"
       ],
       "traits" : [
         {
@@ -135,78 +136,6 @@
   "title" : "FairCore",
   "type" : "topic",
   "url" : "\/documentation\/faircore"
-},
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
-  "abstract" : [
-    {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
-},
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData/init(delegate:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "delegate"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
-      "text" : "SeekableData"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData\/init(delegate:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(delegate:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata\/init(delegate:)"
 },
 "doc://FairCore/documentation/FairCore/SeekableData": {
   "abstract" : [
@@ -249,6 +178,51 @@
   "title" : "SeekableData",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledata"
+},
+"doc://FairCore/documentation/FairCore/SeekableData/reversedEndian()": {
+  "abstract" : [
+    {
+      "text" : "Returns a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SeekableData",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance that reverses the endianness of the underlying data reading options",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reversedEndian"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/reversedEndian()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reversedEndian()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata\/reversedendian()"
 }
 }
 }

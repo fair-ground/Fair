@@ -62,7 +62,6 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Cache",
         "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
         "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream",
-        "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
         "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
@@ -164,6 +163,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/EmptyFeedAdditions",
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumerations",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeTraversal",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr"
@@ -1539,40 +1539,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
 },
-"doc://FairCore/documentation/FairCore/LittleEndianSeekableData": {
-  "abstract" : [
-    {
-      "text" : "SeekableData implementation that flips the data it accesses from big-endian to little endian",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/LittleEndianSeekableData",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "LittleEndianSeekableData"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "LittleEndianSeekableData",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/littleendianseekabledata"
-},
 "doc://FairCore/documentation/FairCore/NameSpecification": {
   "abstract" : [
     {
@@ -1978,6 +1944,37 @@
   "title" : "SeekableData",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledata"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataErrors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SeekableDataErrors"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SeekableDataErrors"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableDataErrors",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledataerrors"
 },
 "doc://FairCore/documentation/FairCore/SeekableDataHandle": {
   "abstract" : [

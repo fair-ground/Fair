@@ -39,6 +39,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/buildResult(result:element:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt16()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt32()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readInt64()",
@@ -47,7 +48,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt32()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt64()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUInt8()",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUIntX()"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/readUIntX()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/reversedEndian()"
       ],
       "title" : "Instance Methods"
     }
@@ -121,6 +123,89 @@
   "title" : "SeekableDataHandle",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledatahandle"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/buildResult(result:element:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "result"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "element"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV7Elementa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/buildResult(result:element:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buildResult(result:element:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/buildresult(result:element:)"
 },
 "doc://FairCore/documentation/FairCore/SeekableDataHandle/readInt16()": {
   "abstract" : [
@@ -527,6 +612,51 @@
   "title" : "readUIntX()",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledatahandle\/readuintx()"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/reversedEndian()": {
+  "abstract" : [
+    {
+      "text" : "Returns a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SeekableData",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance that reverses the endianness of the underlying data reading options",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reversedEndian"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/reversedEndian()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reversedEndian()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/reversedendian()"
 }
 }
 }

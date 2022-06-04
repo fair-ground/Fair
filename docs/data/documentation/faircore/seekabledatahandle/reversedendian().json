@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "The current offset in the data",
+      "text" : "Returns a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SeekableData",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance that reverses the endianness of the underlying data reading options",
       "type" : "text"
     }
   ],
@@ -9,17 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/SeekableData-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/offset()"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/reversedEndian()"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore12SeekableDataP6offsets6UInt64VyKF",
+    "extendedModule" : "FairCore",
+    "externalID" : "s:8FairCore12SeekableDataPAAE14reversedEndianAaB_pyF::SYNTHESIZED::s:8FairCore18SeekableDataHandleC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,32 +41,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "offset"
+        "text" : "reversedEndian"
       },
       {
         "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
+        "text" : "() -> "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-        "text" : "Offset"
+        "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+        "text" : "SeekableData"
       }
     ],
     "modules" : [
@@ -64,11 +58,10 @@
         "name" : "FairCore"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "offset()"
+    "title" : "reversedEndian()"
   },
   "primaryContentSections" : [
     {
@@ -91,33 +84,17 @@
             },
             {
               "kind" : "identifier",
-              "text" : "offset"
+              "text" : "reversedEndian"
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : "() -> "
             },
             {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> "
-            },
-            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
               "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-              "text" : "Offset"
+              "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+              "text" : "SeekableData"
             }
           ]
         }
@@ -136,7 +113,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/seekabledata\/offset()"
+        "\/documentation\/faircore\/seekabledatahandle\/reversedendian()"
       ],
       "traits" : [
         {
@@ -203,14 +180,25 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledata"
 },
-"doc://FairCore/documentation/FairCore/SeekableData/Offset": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle": {
   "abstract" : [
-
+    {
+      "text" : "SeekableData implementation that is backed by an in-memory ",
+      "type" : "text"
+    },
+    {
+      "code" : "Data",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -218,26 +206,45 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Offset"
+      "text" : "SeekableDataHandle"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Offset"
+      "text" : "SeekableDataHandle"
     }
   ],
   "role" : "symbol",
-  "title" : "SeekableData.Offset",
+  "title" : "SeekableDataHandle",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekabledata\/offset"
+  "url" : "\/documentation\/faircore\/seekabledatahandle"
 },
-"doc://FairCore/documentation/FairCore/SeekableData/offset()": {
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/SeekableData-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/SeekableData-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "SeekableData Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/seekabledata-implementations"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataHandle/reversedEndian()": {
   "abstract" : [
     {
-      "text" : "The current offset in the data",
+      "text" : "Returns a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SeekableData",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance that reverses the endianness of the underlying data reading options",
       "type" : "text"
     }
   ],
@@ -252,41 +259,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "offset"
+      "text" : "reversedEndian"
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : "() -> "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-      "text" : "Offset"
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+      "text" : "SeekableData"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/offset()",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle\/reversedEndian()",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
-  "title" : "offset()",
+  "title" : "reversedEndian()",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekabledata\/offset()"
+  "url" : "\/documentation\/faircore\/seekabledatahandle\/reversedendian()"
 }
 }
 }
