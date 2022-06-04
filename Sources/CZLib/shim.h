@@ -1,6 +1,8 @@
 #ifndef zlib_shim_h 
 #define zlib_shim_h
 
+#ifdef __unix__
+
 #import <stdio.h>
 #import <zlib.h>
 
@@ -15,6 +17,8 @@
 // [zlib] on systems without large file support, _LFS64_LARGEFILE must also be true
 #ifndef _LFS64_LARGEFILE
 #  define _LFS64_LARGEFILE 1
+#endif
+
 #endif
 
 #endif
