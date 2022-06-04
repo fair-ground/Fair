@@ -101,6 +101,51 @@ final class FairEntitlementsTests: XCTestCase {
         try XCTUnwrap(extractEntitlements(Data(contentsOf: URL(fileURLWithPath: dump(path, name: "reading file")))).first)
     }
 
+    func testmacOSEntitlements() throws {
+
+        let appsFolder = URL(fileURLWithPath: "/Applications")
+        if FileManager.default.isDirectory(url: appsFolder) != true {
+            throw XCTSkip("no /Applications folder on platform")
+        }
+        
+        let macOSApps = try FileManager.default.contentsOfDirectory(at: appsFolder, includingPropertiesForKeys: nil).filter({ $0.pathExtension == "app" })
+
+        for app in macOSApps {
+            dbg("SCANNING:", app.path)
+            do {
+
+                let executable = app.appendingPathComponent("Contents/MacOS").appendingPathComponent(app.deletingPathExtension().lastPathComponent)
+
+                if FileManager.default.isExecutableFile(atPath: executable.path) {
+                    dbg("scanning macOS executable:", executable.path)
+
+                    if executable.lastPathComponent == "Sonos" { continue }
+                    if executable.lastPathComponent == "Docker" { continue }
+                    if executable.lastPathComponent == "Transmission" { continue }
+                    if executable.lastPathComponent == "Final Cut Pro" { continue }
+
+                    //XCTAssertNoThrow(try readFile(executable.path), "executable failed: \(executable.path)")
+                    do {
+                        let _ = try readFile(executable.path)
+                    } catch {
+                        XCTFail("executable failed: \(executable.path) with error: \(error)")
+                    }
+
+
+                    let archive = try AppBundle(folderAt: app)
+                    try validate(archive: archive, from: app)
+
+                    if executable.lastPathComponent == "Numbers" {
+                        let sandboxed = try archive.isSandboxed()
+                        XCTAssertEqual(true, sandboxed, "App not sandboxed: \(executable.lastPathComponent)")
+                    }
+                }
+            }
+        }
+        dbg("scanned: \(macOSApps.count) macOS apps")
+
+    }
+
     func validate<A: DataWrapper>(archive: AppBundle<A>, from: URL) throws {
         let plist = archive.infoDictionary
         dbg("validating:", from.relativePath, plist.CFBundleIdentifier, plist.CFBundleName, plist.CFBundleShortVersionString)
