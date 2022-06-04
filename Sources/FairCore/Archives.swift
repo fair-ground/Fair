@@ -16,7 +16,11 @@
  */
 import Swift
 import Foundation
+#if canImport(Glibc)
+import Glibc
+#else
 import CoreFoundation
+#endif
 
 #if canImport(Compression)
 @available(macOS 10.14, iOS 12.0, *)
@@ -676,10 +680,10 @@ extension ZipArchive {
             case symlink
 
             init(mode: mode_t) {
-                switch mode & CoreFoundation.S_IFMT {
-                case CoreFoundation.S_IFDIR:
+                switch mode & S_IFMT {
+                case S_IFDIR:
                     self = .directory
-                case CoreFoundation.S_IFLNK:
+                case S_IFLNK:
                     self = .symlink
                 default:
                     self = .file
@@ -801,11 +805,11 @@ extension ZipArchive {
             case .unix, .osx:
                 let mode = mode_t(self.centralDirectoryStructure.externalFileAttributes >> 16) & S_IFMT
                 switch mode {
-                case CoreFoundation.S_IFREG:
+                case S_IFREG:
                     return .file
-                case CoreFoundation.S_IFDIR:
+                case S_IFDIR:
                     return .directory
-                case CoreFoundation.S_IFLNK:
+                case S_IFLNK:
                     return .symlink
                 default:
                     return isDirectory ? .directory : .file
@@ -1145,11 +1149,11 @@ extension FileManager {
         var typeInt: UInt16
         switch type {
         case .file:
-            typeInt = UInt16(CoreFoundation.S_IFREG)
+            typeInt = UInt16(S_IFREG)
         case .directory:
-            typeInt = UInt16(CoreFoundation.S_IFLNK)
+            typeInt = UInt16(S_IFDIR)
         case .symlink:
-            typeInt = UInt16(CoreFoundation.S_IFLNK)
+            typeInt = UInt16(S_IFLNK)
         }
         var externalFileAttributes = UInt32(typeInt|UInt16(permissions))
         externalFileAttributes = (externalFileAttributes << 16)
