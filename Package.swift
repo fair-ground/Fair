@@ -15,6 +15,17 @@
  */
 import PackageDescription
 
+#if canImport(Compression)
+let coreTargets: [Target] = [
+    .target(name: "FairCore", resources: [.process("Resources"), .copy("Bundle")]),
+]
+#else
+let coreTargets: [Target] = [
+    .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
+    .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources"), .copy("Bundle")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
+]
+#endif
+
 let package = Package(
     name: "Fair",
     defaultLocalization: "en",
@@ -30,9 +41,7 @@ let package = Package(
     dependencies: [
         .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0")
     ],
-    targets: [
-        .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
-        .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources"), .copy("Bundle")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
+    targets: coreTargets + [
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources"), .copy("Bundle")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
         .executableTarget(name: "FairTool", dependencies: ["FairApp"]),

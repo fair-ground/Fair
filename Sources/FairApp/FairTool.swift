@@ -793,6 +793,7 @@ public struct FairTool : AsyncParsableCommand {
 
     }
 
+    #if !os(Windows) // no ZipArchive yet
     struct FairsealCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
         @OptionGroup var msgOptions: MsgOptions
@@ -1108,7 +1109,8 @@ public struct FairTool : AsyncParsableCommand {
         }
 
     }
-
+    #endif
+    
     #if canImport(SwiftUI)
     struct IconCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")

@@ -1,7 +1,7 @@
 #ifndef zlib_shim_h 
 #define zlib_shim_h
 
-#ifdef __unix__
+#ifdef __unix__ // not yet working on windows
 
 #import <stdio.h>
 #import <zlib.h>
