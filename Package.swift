@@ -31,7 +31,13 @@ let package = Package(
         // zero dependencies
     ],
     targets: [
+        #if canImport(Compression)
         .target(name: "FairCore", resources: [.process("Resources"), .copy("Bundle")]),
+        #else
+        .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
+        .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources"), .copy("Bundle")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
+        #endif
+
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources"), .copy("Bundle")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
         .executableTarget(name: "FairTool", dependencies: ["FairApp"]),
