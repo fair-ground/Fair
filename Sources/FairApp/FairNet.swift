@@ -438,6 +438,20 @@ extension URLSession {
     }
     #endif // !os(Linux) && !os(Windows) 
 
+    /// Downloads the given file. It sohuld behave the same as the async URLSession.download function (which is missing from linux).
+    func downloadFile(for request: URLRequest) async throws -> (URL, URLResponse) {
+        return try await withCheckedThrowingContinuation { continuation in
+            downloadTaskCopy(with: request) { url, response, error in
+                if let url = url, let response = response, error == nil {
+                    continuation.resume(returning: (url, response))
+                } else {
+                    continuation.resume(throwing: error ?? URLError(.badServerResponse))
+                }
+            }
+            .resume()
+        }
+    }
+
     /// If the download from `downloadTask` is successful, the completion handler receives a URL indicating the location of the downloaded file on the local filesystem. This storage is temporary. To preserve the file, this will move it from the temporary location before returning from the completion handler.
     /// In practice, macOS seems to be inconsistent in when it ever cleans up these files, so a failure here will manifest itself in occasional missing files.
     /// This is needed for running an async operation that will still have access to the resulting file.
@@ -453,7 +467,6 @@ extension URLSession {
                     try FileManager.default.moveItem(at: temporaryLocalURL, to: destinationURL)
                     dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path)
                     return completionHandler(destinationURL, response, error)
-                       
                 }
             } catch {
                 dbg("ignoring file move error and falling back to un-copied file:", error)
@@ -462,6 +475,6 @@ extension URLSession {
             // fall-back to the completion handler
             return completionHandler(url, response, error)
         }
-    }    
+    }
 }
 #endif // swift(>=5.5)
