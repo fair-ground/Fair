@@ -91,15 +91,15 @@ public struct AppCommand : AsyncParsableCommand {
             }
         }
 
-        private func extractInfo(from url: URL) async throws -> InfoOutput {
-            msg(.info, "extracting info: \(url)")
-            let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: url)
+        private func extractInfo(from: (from: URL, local: URL)) async throws -> InfoOutput {
+            msg(.info, "extracting info: \(from.from)")
+            let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: from.local)
 
-            return try InfoOutput(path: url, info: (info.rawValue as? [String: Any])?.jsum() ?? .nul, entitlements: entitlements?.map({ try $0.jsum() }))
+            return try InfoOutput(url: from.from, info: (info.rawValue as? [String: Any])?.jsum() ?? .nul, entitlements: entitlements?.map({ try $0.jsum() }))
         }
 
         private struct InfoOutput : CLIEncodable {
-            var path: URL
+            var url: URL
             var info: JSum
             var entitlements: [JSum]?
         }
@@ -1380,11 +1380,11 @@ struct DownloadOptions: ParsableArguments {
     var cacheFolder: String?
 
     /// Downloads a remote URL, or else returns the fule URL unadorned
-    func acquire(path: String) async throws -> URL {
+    func acquire(path: String) async throws -> (from: URL, local: URL) {
         if let url = URL(string: path), ["http", "https"].contains(url.scheme) {
-            return try await self.download(url: url)
+            return (url, try await self.download(url: url))
         } else {
-            return URL(fileURLWithPath: path)
+            return (URL(fileURLWithPath: path), URL(fileURLWithPath: path))
         }
     }
 
