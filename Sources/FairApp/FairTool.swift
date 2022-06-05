@@ -1389,7 +1389,7 @@ struct DownloadOptions: ParsableArguments {
     }
 
     func download(url: URL) async throws -> URL {
-        let (downloadedURL, response) = try await URLSession.shared.download(for: URLRequest(url: url))
+        let (downloadedURL, response) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
         guard let status = (response as? HTTPURLResponse)?.statusCode,
               (200..<300).contains(status) else {
             throw Bundle.module.error("Cannot download: \(url) \(response)")
