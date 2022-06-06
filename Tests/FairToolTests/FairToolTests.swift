@@ -14,14 +14,23 @@
  */
 import Swift
 import XCTest
-import FairApp
+@testable import FairApp
 
 #if os(macOS)
 
 final class FairToolTests: XCTestCase {
-    func XXXtestTool() throws {
-        XCTAssertEqual(try runTool(["welcome"]).stdout, ["Welcome to fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
+    func testToolVersion() throws {
+        XCTAssertEqual(try runTool(["version"]).stderr, ["fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
     }
+
+    #if os(macOS)
+    /// Verified that the "fairtool app info" command will output valid JSON that correctly identifies the app.
+    func testToolAppInfo() throws {
+        let infoJSON = try runTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
+        let json = try AppCommand.InfoCommand.InfoOutput(json: infoJSON.joined().utf8Data)
+        XCTAssertEqual("com.apple.TextEdit", json.info.obj?["CFBundleIdentifier"]?.str)
+    }
+    #endif
 
     @discardableResult func runTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Bool = true) throws -> Process.CommandResult {
         try Process.execute(command: buildOutputFolder().appendingPathComponent(toolPath), args, expectSuccess: expectSuccess)

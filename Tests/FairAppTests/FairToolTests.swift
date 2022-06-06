@@ -57,15 +57,9 @@ final class FairToolTests: XCTestCase {
 //    }
 
     func testWelcomeCommand() async throws {
-        let result = try await runTool(op: FairTool.WelcomeCommand.configuration.commandName)
+        let result = try await runTool(op: FairTool.VersionCommand.configuration.commandName)
         let output = extract(result).first
-        XCTAssertTrue(output?.hasPrefix("Welcome") == true, output ?? "")
-    }
-
-    func XXXtestAppInfoCommand() async throws {
-        let result = try await runTool(op: AppCommand.configuration.commandName)
-        let output = extract(result).first
-        XCTAssertTrue(output?.hasPrefix("Welcome") == true, output ?? "")
+        XCTAssertTrue(output?.hasPrefix("fairtool") == true, output ?? "")
     }
 
     func testValidateCommand() async throws {
