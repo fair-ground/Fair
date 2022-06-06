@@ -672,7 +672,7 @@ jobs:
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
-            --fairseal-match 1000000 \
+            --fairseal-match 100000000 \
             --retry-duration 600 \
             --artifact-url "$IPAURL" \
             --artifact-staging "staging/" \
