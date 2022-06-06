@@ -64,11 +64,11 @@ final class FairToolTests: XCTestCase {
 
     func testValidateCommand() async throws {
         do {
-            let result = try await runTool(op: FairTool.ValidateCommand.configuration.commandName)
+            let result = try await runTool(op: FairCommand.ValidateCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch let error as CommandError {
             // the hub key is required
-            XCTAssertEqual("\(error.parserError)", #"noValue(forKey: FairCore.InputKey(rawValue: "hub"))"#)
+            XCTAssertEqual("\(error.parserError)", #"unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "validate")])"#)
             //XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
         }
     }
@@ -76,26 +76,26 @@ final class FairToolTests: XCTestCase {
     #if os(macOS)
     func testIconCommand() async throws {
         do {
-            let result = try await runTool(op: FairTool.IconCommand.configuration.commandName)
+            let result = try await runTool(op: FairCommand.IconCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.IconCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "icon")]))"#)
         }
     }
     #endif
 
     func testMergeCommand() async throws {
         do {
-            let result = try await runTool(op: FairTool.MergeCommand.configuration.commandName)
+            let result = try await runTool(op: FairCommand.MergeCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.MergeCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "merge")]))"#)
         }
     }
 
     func testFairsealCommand() async throws {
         do {
-            let result = try await runTool(op: FairTool.FairsealCommand.configuration.commandName)
+            let result = try await runTool(op: FairCommand.FairsealCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
             //XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.FairsealCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
@@ -104,19 +104,19 @@ final class FairToolTests: XCTestCase {
 
     func testCatalogCommand() async throws {
         do {
-            let result = try await runTool(op: FairTool.CatalogCommand.configuration.commandName)
+            let result = try await runTool(op: FairCommand.CatalogCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.CatalogCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "catalog")]))"#)
         }
     }
 
     func testAppcasksCommand() async throws {
         do {
-            let result = try await runTool(op: FairTool.AppcasksCommand.configuration.commandName)
+            let result = try await runTool(op: BrewCommand.AppCasksCommand.configuration.commandName)
             XCTAssertFalse(result.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.AppcasksCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "appcasks")]))"#)
         }
     }
 
