@@ -33,13 +33,22 @@ import AppKit
 import UIKit
 #endif
 
-protocol FairParsableCommand : AsyncParsableCommand {
+protocol FairToolCommand : AsyncParsableCommand {
     var msgOptions: MsgOptions { get set }
+}
+
+/// A specific command that can write messages (to stderr) and JSON encodable tool output (to stdout)
+protocol FairParsableCommand : FairToolCommand {
+    /// The structured output of this tool
+    associatedtype Output
 }
 
 final class MessageBuffer {
     /// The list of messages
     var messages: [(MessageKind, [Any?])] = []
+
+    /// The output that is written
+    var output: [String] = []
 
     init() {
     }
@@ -83,6 +92,7 @@ public struct FairTool : AsyncParsableCommand {
     }
 
     struct VersionCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "version", abstract: "Show the tool version.", shouldDisplay: true)
         @OptionGroup var msgOptions: MsgOptions
 
@@ -93,6 +103,7 @@ public struct FairTool : AsyncParsableCommand {
     }
 
     struct WelcomeCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "welcome", abstract: "Show the welcome message.", shouldDisplay: false)
         @OptionGroup var msgOptions: MsgOptions
 
@@ -116,6 +127,13 @@ public struct AppCommand : AsyncParsableCommand {
 
     struct InfoCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).")
+
+        struct Output : CLIEncodable, Decodable {
+            var url: URL
+            var info: JSum
+            var entitlements: [JSum]?
+        }
+
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var downloadOptions: DownloadOptions
 
@@ -129,17 +147,11 @@ public struct AppCommand : AsyncParsableCommand {
             }
         }
 
-        private func extractInfo(from: (from: URL, local: URL)) async throws -> InfoOutput {
+        private func extractInfo(from: (from: URL, local: URL)) async throws -> Output {
             msg(.info, "extracting info: \(from.from)")
             let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: from.local)
 
-            return try InfoOutput(url: from.from, info: (info.rawValue as? [String: Any])?.jsum() ?? .nul, entitlements: entitlements?.map({ try $0.jsum() }))
-        }
-
-        struct InfoOutput : CLIEncodable, Decodable {
-            var url: URL
-            var info: JSum
-            var entitlements: [JSum]?
+            return try Output(url: from.from, info: (info.rawValue as? [String: Any])?.jsum() ?? .nul, entitlements: entitlements?.map({ try $0.jsum() }))
         }
     }
 }
@@ -186,6 +198,7 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     struct ValidateCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
@@ -409,6 +422,7 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     struct MergeCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var outputOptions: OutputOptions
@@ -496,6 +510,7 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     struct CatalogCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
@@ -548,6 +563,7 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             if let indexFlag = catalogOptions.index {
+                #warning("TODO: outputOptions.write(data)")
                 func output(_ data: Data, to path: String) throws {
                     if path == "-" {
                         print(data.utf8String!)
@@ -556,7 +572,6 @@ public struct FairCommand : AsyncParsableCommand {
                         try data.write(to: file)
                     }
                 }
-
 
                 let md = try buildAppCatalogMarkdown(catalog: catalog)
                 try output(md.utf8Data, to: indexFlag)
@@ -567,6 +582,7 @@ public struct FairCommand : AsyncParsableCommand {
 
     #if !os(Windows) // no ZipArchive yet
     struct FairsealCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
@@ -885,6 +901,7 @@ public struct FairCommand : AsyncParsableCommand {
 
     #if canImport(SwiftUI)
     struct IconCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
         @OptionGroup var iconOptions: IconOptions
         @OptionGroup var msgOptions: MsgOptions
@@ -1175,6 +1192,7 @@ public struct BrewCommand : AsyncParsableCommand {
     }
 
     struct AppCasksCommand: FairParsableCommand {
+        typealias Output = Never
         static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
         @OptionGroup var msgOptions: MsgOptions
         @OptionGroup var hubOptions: HubOptions
@@ -1215,7 +1233,7 @@ public struct BrewCommand : AsyncParsableCommand {
 extension AppCatalog : CLIEncodable {
 }
 
-fileprivate protocol CLIEncodable : Encodable {
+protocol CLIEncodable : Encodable {
     // TODO: an output form of this instance that displays plain text information
     //func outputText() throws -> [String]
 }
@@ -1253,15 +1271,24 @@ struct MsgOptions: ParsableArguments {
 
     /// Iterates over each of the given arguments and executed the block against the arg, outputting the JSON result as it goes.
     fileprivate func output<T, U: CLIEncodable>(_ arguments: [T], block: (T) async throws -> U) async throws {
-        if assemble { print("[") }
+        /// Write the given message to standard out, unless the output buffer is set, in which case output is sent to the buffer
+        func write(_ value: String) {
+            if let messages = messages {
+                messages.output.append(value)
+            } else {
+                print(value)
+            }
+        }
+
+        if assemble { write("[") }
         for (index, arg) in arguments.enumerated() {
             if index > 0 {
-                if assemble { print(",") }
+                if assemble { write(",") }
             }
             let result = try await block(arg)
-            try print(result.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
+            try write(result.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
         }
-        if assemble { print("]") }
+        if assemble { write("]") }
     }
 }
 

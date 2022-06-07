@@ -281,7 +281,9 @@ public extension URLSession {
 
     /// Downloads the given URL request in the current session
     func downloadSync(_ request: URLRequest, timeout: DispatchTime = .distantFuture) throws -> (url: URL, response: URLResponse) {
-        try sync(request: request, timeout: timeout, createTask: downloadTaskCopy)
+        try sync(request: request, timeout: timeout) { request, handler in
+            downloadTaskCopy(with: request, completionHandler: handler)
+        }
     }
 
     /// Initiates the given task (either `dataTask` or `downloadTask`) and waits for completion.
@@ -455,17 +457,33 @@ extension URLSession {
     /// If the download from `downloadTask` is successful, the completion handler receives a URL indicating the location of the downloaded file on the local filesystem. This storage is temporary. To preserve the file, this will move it from the temporary location before returning from the completion handler.
     /// In practice, macOS seems to be inconsistent in when it ever cleans up these files, so a failure here will manifest itself in occasional missing files.
     /// This is needed for running an async operation that will still have access to the resulting file.
-    func downloadTaskCopy(with request: URLRequest, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+    /// - Parameters:
+    ///   - request: the request for the download
+    ///   - useContentDispositionFileName: whether to attempt to rename the file based on the file name specified in the `Content-Disposition` header, if present.
+    ///   - completionHandler: the handler to invoke when the download is complete
+    /// - Returns: the task that was initiated
+    func downloadTaskCopy(with request: URLRequest, useContentDispositionFileName: Bool = true, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         self.downloadTask(with: request) { url, response, error in
             /// Files are generally placed somewhere like: file:///var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/CFNetworkDownload_q0k6gM.tmp
             do {
                 /// We'll copy it to a temporary replacement directory with the base name matching the URL's name
                 if let temporaryLocalURL = url,
                    temporaryLocalURL.isFileURL {
+                    var pathName = temporaryLocalURL.lastPathComponent
+
+                    if useContentDispositionFileName == true,
+                       let disposition = (response as? HTTPURLResponse)?.allHeaderFields["Content-Disposition"] as? String,
+                       disposition.hasPrefix("attachment; filename="),
+                       let contentDispositionFileName = disposition.components(separatedBy: "filename=").last,
+                       contentDispositionFileName.unicodeScalars.filter(CharacterSet.urlPathAllowed.inverted.contains).isEmpty,
+                       contentDispositionFileName.contains("/") == false {
+                        pathName = contentDispositionFileName
+                    }
+
                    let tempDir = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: temporaryLocalURL, create: true)
-                    let destinationURL = tempDir.appendingPathComponent(temporaryLocalURL.lastPathComponent)
+                    let destinationURL = tempDir.appendingPathComponent(pathName)
                     try FileManager.default.moveItem(at: temporaryLocalURL, to: destinationURL)
-                    dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path)
+                    dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, destinationURL.pathSize.localizedByteCount())
                     return completionHandler(destinationURL, response, error)
                 }
             } catch {
