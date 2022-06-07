@@ -20,19 +20,19 @@ import XCTest
 
 final class FairToolTests: XCTestCase {
     func testToolVersion() throws {
-        XCTAssertEqual(try runTool(["version"]).stderr, ["fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
+        XCTAssertEqual(try invokeTool(["version"]).stderr, ["fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
     }
 
     #if os(macOS)
     /// Verified that the "fairtool app info" command will output valid JSON that correctly identifies the app.
     func testToolAppInfo() throws {
-        let infoJSON = try runTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
-        let json = try AppCommand.InfoCommand.InfoOutput(json: infoJSON.joined().utf8Data)
+        let infoJSON = try invokeTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
+        let json = try AppCommand.InfoCommand.Output(json: infoJSON.joined().utf8Data)
         XCTAssertEqual("com.apple.TextEdit", json.info.obj?["CFBundleIdentifier"]?.str)
     }
     #endif
 
-    @discardableResult func runTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Bool = true) throws -> Process.CommandResult {
+    @discardableResult func invokeTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Bool = true) throws -> Process.CommandResult {
         try Process.execute(command: buildOutputFolder().appendingPathComponent(toolPath), args, expectSuccess: expectSuccess)
     }
 

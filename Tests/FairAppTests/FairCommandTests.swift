@@ -17,22 +17,34 @@ import XCTest
 @testable import FairCore
 @testable import FairApp
 
-final class FairToolTests: XCTestCase {
+/// Tests different command options for the FairTool.
+///
+/// These tests perform tool operations in the same process, which is different from the
+/// `FairToolTests.swift`, which performs test by invoking the actual tool executable and parsing the output.
+final class FairCommandTests: XCTestCase {
     typealias ToolMessage = (kind: MessageKind, items: [Any?])
 
-    func runTool(op: String?, _ args: String...) async throws -> [ToolMessage] {
-        let arguments = (op != nil ? [op!] : []) + args
+    /// Invokes the `FairTool` with a command that expects a JSON-serialized output for a `FairParsableCommand`
+    /// The command will be invoked and the result will be deserialized into the expected structure.
+    private func runToolOutput<C: FairParsableCommand>(_ type: ParsableCommand.Type?, cmd: C.Type, _ args: String...) async throws -> (output: C.Output, messages: [(MessageKind, [Any?])]) where C.Output : Decodable {
+        let result = try await runTool(type: type?.configuration.commandName, op: C.configuration.commandName, args)
+        return (try C.Output(json: result.output.joined().utf8Data), result.messages)
+    }
+
+    /// Invokes the `FairTool` in-process using the specified arguments
+    private func runTool(type: String? = nil, op: String?, _ args: [String] = []) async throws -> (output: [String], messages: [ToolMessage]) {
+        let arguments = [type, op].compacted() + args
+
         let command = try FairTool.parseAsRoot(arguments)
-        guard var asyncCommand = command as? FairParsableCommand else {
+        guard var cmd = command as? FairToolCommand else {
             throw AppError("Bad command type: \(command)")
         }
 
         // capture the output of the tool run
         let buffer = MessageBuffer()
-        asyncCommand.msgOptions.messages = buffer
-        defer { asyncCommand.msgOptions.messages = nil } // unnecessary cleanup
-        try await asyncCommand.run()
-        return buffer.messages
+        cmd.msgOptions.messages = buffer
+        try await cmd.run()
+        return (buffer.output, buffer.messages)
     }
 
     func extract(kind: MessageKind = .info, _ messages: [ToolMessage]) -> [String] {
@@ -43,32 +55,37 @@ final class FairToolTests: XCTestCase {
             })
     }
 
-//    func testParsePackage() throws {
-//        //let cwd = FileManager.default.currentDirectoryPath
-//        let packageFile = URL(fileURLWithPath: #file)
-//            .deletingLastPathComponent()
-//            .deletingLastPathComponent()
-//            .deletingLastPathComponent()
-//            .appendingPathComponent("Package.swift")
-//        XCTAssertTrue(FileManager.default.fileExists(atPath: packageFile.path))
-//        let pm = try PackageManifest.parse(package: packageFile)
-//        XCTAssertEqual("Fair", pm.name)
-//        XCTAssertEqual(4, pm.platforms.count)
-//    }
-
-    func testWelcomeCommand() async throws {
+    func testVersionCommand() async throws {
         let result = try await runTool(op: FairTool.VersionCommand.configuration.commandName)
-        let output = extract(result).first
+        let output = extract(result.messages).first
         XCTAssertTrue(output?.hasPrefix("fairtool") == true, output ?? "")
+    }
+
+    /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
+    func testAppInfoCommandiOS() async throws {
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa")
+
+        XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(0, result.entitlements?.count, "no entitlements expected in this ios app")
+    }
+
+    /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
+    func testAppInfoCommandMacOS() async throws {
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip")
+
+        XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
+        XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
     func testValidateCommand() async throws {
         do {
-            let result = try await runTool(op: FairCommand.ValidateCommand.configuration.commandName)
-            XCTAssertFalse(result.isEmpty)
+            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.ValidateCommand.configuration.commandName)
+            XCTAssertFalse(result.messages.isEmpty)
         } catch let error as CommandError {
             // the hub key is required
-            XCTAssertEqual("\(error.parserError)", #"unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "validate")])"#)
+            XCTAssertEqual("\(error.parserError)", #"noValue(forKey: FairCore.InputKey(rawValue: "hub"))"#)
             //XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
         }
     }
@@ -76,27 +93,27 @@ final class FairToolTests: XCTestCase {
     #if os(macOS)
     func testIconCommand() async throws {
         do {
-            let result = try await runTool(op: FairCommand.IconCommand.configuration.commandName)
-            XCTAssertFalse(result.isEmpty)
+            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.IconCommand.configuration.commandName)
+            XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "icon")]))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairCommand, FairApp.FairCommand.IconCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
     #endif
 
     func testMergeCommand() async throws {
         do {
-            let result = try await runTool(op: FairCommand.MergeCommand.configuration.commandName)
-            XCTAssertFalse(result.isEmpty)
+            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.MergeCommand.configuration.commandName)
+            XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "merge")]))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairCommand, FairApp.FairCommand.MergeCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
 
     func testFairsealCommand() async throws {
         do {
-            let result = try await runTool(op: FairCommand.FairsealCommand.configuration.commandName)
-            XCTAssertFalse(result.isEmpty)
+            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.FairsealCommand.configuration.commandName)
+            XCTAssertFalse(result.messages.isEmpty)
         } catch {
             //XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.FairsealCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
@@ -104,19 +121,19 @@ final class FairToolTests: XCTestCase {
 
     func testCatalogCommand() async throws {
         do {
-            let result = try await runTool(op: FairCommand.CatalogCommand.configuration.commandName)
-            XCTAssertFalse(result.isEmpty)
+            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.CatalogCommand.configuration.commandName)
+            XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "catalog")]))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairCommand, FairApp.FairCommand.CatalogCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
     func testAppcasksCommand() async throws {
         do {
-            let result = try await runTool(op: BrewCommand.AppCasksCommand.configuration.commandName)
-            XCTAssertFalse(result.isEmpty)
+            let result = try await runTool(type: BrewCommand.configuration.commandName, op: BrewCommand.AppCasksCommand.configuration.commandName)
+            XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool], parserError: FairCore.ParserError.unexpectedExtraValues([(FairCore.InputOrigin(_elements: Set([FairCore.InputOrigin.Element.argumentIndex(0)])), "appcasks")]))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.BrewCommand, FairApp.BrewCommand.AppCasksCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
