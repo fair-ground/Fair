@@ -65,28 +65,28 @@ final class FairCommandTests: XCTestCase {
     func testAppInfoCommandiOS() async throws {
         let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa")
 
-        XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
-        XCTAssertEqual(0, result.entitlements?.count, "no entitlements expected in this ios app")
+        XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(0, result.first?.entitlements?.count, "no entitlements expected in this ios app")
     }
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
     func testAppInfoCommandMacOS() async throws {
         let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip")
 
-        XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
-        XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
-        XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-        XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
+        XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
+        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(false, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
     /// Runs "fairtool app info <url>" on a homebrew cask .app .zip file
     func testAppInfoCommandStocks() async throws {
         let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "/System/Applications/Stocks.app")
 
-        XCTAssertEqual("com.apple.stocks", result.info.obj?["CFBundleIdentifier"]?.str)
-        XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
-        XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-        XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.network.client"])
+        XCTAssertEqual("com.apple.stocks", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
+        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
     func testValidateCommand() async throws {

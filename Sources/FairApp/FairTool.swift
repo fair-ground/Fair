@@ -128,7 +128,9 @@ public struct AppCommand : AsyncParsableCommand {
     struct InfoCommand: FairParsableCommand {
         static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).")
 
-        struct Output : CLIEncodable, Decodable {
+        typealias Output = Array<InfoItem>
+
+        struct InfoItem : CLIEncodable, Decodable {
             var url: URL
             var info: JSum
             var entitlements: [JSum]?
@@ -147,11 +149,11 @@ public struct AppCommand : AsyncParsableCommand {
             }
         }
 
-        private func extractInfo(from: (from: URL, local: URL)) async throws -> Output {
+        private func extractInfo(from: (from: URL, local: URL)) async throws -> InfoItem {
             msg(.info, "extracting info: \(from.from)")
             let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: from.local)
 
-            return try Output(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
+            return try InfoItem(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
         }
     }
 }
@@ -1230,6 +1232,10 @@ public struct BrewCommand : AsyncParsableCommand {
     }
 }
 
+extension Array : CLIEncodable where Element : CLIEncodable {
+
+}
+
 extension AppCatalog : CLIEncodable {
 }
 
@@ -1269,7 +1275,7 @@ struct MsgOptions: ParsableArguments {
     /// Iterates over each of the given arguments and executed the block against the arg, outputting the JSON result as it goes.
     fileprivate func output<T, U: CLIEncodable>(_ arguments: [T], block: (T) async throws -> U) async throws {
         let assemble = true // should this be an option?
-        
+
         /// Write the given message to standard out, unless the output buffer is set, in which case output is sent to the buffer
         func write(_ value: String) {
             if let messages = messages {

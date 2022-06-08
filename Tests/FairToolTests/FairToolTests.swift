@@ -28,7 +28,7 @@ final class FairToolTests: XCTestCase {
     func testToolAppInfo() throws {
         let infoJSON = try invokeTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
         let json = try AppCommand.InfoCommand.Output(json: infoJSON.joined().utf8Data)
-        XCTAssertEqual("com.apple.TextEdit", json.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual("com.apple.TextEdit", json.first?.info.obj?["CFBundleIdentifier"]?.str)
     }
     #endif
 
