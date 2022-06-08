@@ -16,14 +16,17 @@
  */
 import Swift
 
-/// A JSum is a sum type that can represent the following associated types:
+/// A JSum is a JavaScript Union Model, which is a sum type providing
+/// an in-memory representation of a JSON-representible structure.
 ///
-/// - `Bool` (`JSum.bol`)
-/// - `String` (`JSum.str`)
-/// - `Double` (`JSum.num`)
-/// - `Array` (`JSum.arr`)
-/// - `Dictionary` (`JSum.obj`)
-/// - `nil` (`JSum.nul`)
+/// JSum can represent the following associated types:
+///
+/// - `JSum.bol`: `Bool`
+/// - `JSum.str`: `String`
+/// - `JSum.num`: `Double`
+/// - `JSum.arr`: `Array`
+/// - `JSum.obj`: `Dictionary`
+/// - `JSum.nul`: `nil`
 ///
 /// The type can be fluently represented with literals that closely match JSON, such as:
 ///
@@ -234,13 +237,100 @@ extension JSum : Decodable {
 }
 
 #if canImport(Foundation)
-import class Foundation.JSONSerialization
+import Foundation
 
-public extension Dictionary where Key == String, Value == Any {
+public struct JSumOptions : OptionSet {
+    public let rawValue: Int
+    public init(rawValue: Int) { self.rawValue = rawValue }
+
+    public static let ignoreNonEncodable = Self(rawValue: 1 << 0)
+    // public static let xxx = Self(rawValue: 1 << 1)
+}
+
+extension NSDictionary {
     /// Converts this instance to a JSum by serializing it to JSON and then de-serializing to a `JSum`.
-    func jsum() throws -> JSum {
-        try JSum(json: JSONSerialization.data(withJSONObject: self, options: []))
+    func jsum(options: JSumOptions = []) throws -> JSum {
+        // this fails when there is a <data> elemement
+        // try JSum(json: JSONSerialization.data(withJSONObject: self, options: []))
+
+        var obj = JObj()
+        for (key, value) in self {
+            if let key = key as? String, let value = value as? JSumConvertible {
+                obj[key] = try value.jsum(options: options)
+            } else {
+                if !options.contains(.ignoreNonEncodable) {
+                    throw JSumErrors.cannotEncode(nonEncodable: value)
+                }
+            }
+        }
+
+        return .obj(obj)
     }
 }
-#endif
 
+/// A type that can export itself directly as a `JSum` instance without having to cross serialization boundries.
+private protocol JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum
+}
+
+private enum JSumErrors : Error {
+    case cannotEncode(nonEncodable: Any)
+}
+
+extension NSDictionary : JSumConvertible {
+
+}
+
+extension NSArray : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        JSum.arr(try self.compactMap { item in
+            if let item = item as? JSumConvertible {
+                return try item.jsum(options: options)
+            } else {
+                if options.contains(.ignoreNonEncodable) {
+                    return nil
+                } else {
+                    throw JSumErrors.cannotEncode(nonEncodable: item)
+                }
+            }
+        })
+    }
+}
+
+extension NSString : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(self as String)
+    }
+}
+
+extension NSNull : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .nul
+    }
+}
+
+extension NSNumber : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        CFGetTypeID(self) == CFBooleanGetTypeID() ? .bol(self.boolValue) : .num(self.doubleValue)
+    }
+}
+
+extension NSData : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(base64EncodedString())
+    }
+}
+
+extension NSDate : JSumConvertible {
+    private static let fmt: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        return formatter
+    }()
+
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(Self.fmt.string(from: self as Date))
+    }
+}
+
+#endif

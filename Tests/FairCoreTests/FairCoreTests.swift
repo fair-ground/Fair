@@ -470,6 +470,115 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual(js, js2)
     }
 
+    func testJSumDictionary() throws {
+        do {
+            let dict = NSDictionary(dictionary: [
+                "t": NSDate(timeIntervalSinceReferenceDate: 0)
+            ])
+            XCTAssertEqual(["t": "2001-01-01T00:00:00Z"], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "s": "a"
+            ])
+            XCTAssertEqual(["s": "a"], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "i": 1
+            ])
+            XCTAssertEqual(["i": 1], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "d": 1.2
+            ])
+            XCTAssertEqual(["d": 1.2], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "n": NSNull()
+            ])
+            XCTAssertEqual(["n": nil], try dict.jsum())
+        }
+
+        do {
+            for b in [true, false] {
+                let dict = NSDictionary(dictionary: [
+                    "b": NSNumber(booleanLiteral: b)
+                ])
+                XCTAssertEqual(["b": .bol(b)], try dict.jsum())
+            }
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "x": "y",
+                "y": true,
+                "z": 1.2,
+            ])
+            XCTAssertEqual(["x": "y", "y": true, "z": 1.2], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "a": [true, false, "x", [], [:]]
+            ])
+            XCTAssertEqual(["a": [true, false, "x", [], [:]]], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "a": []
+            ])
+            XCTAssertEqual(["a": []], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "a": [[]]
+            ])
+            XCTAssertEqual(["a": [[]]], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "a": [[[:]]]
+            ])
+            XCTAssertEqual(["a": [[[:]]]], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "data": NSData(base64Encoded: "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA")!
+            ])
+            XCTAssertEqual(["data": "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA"], try dict.jsum())
+        }
+
+        do {
+            let dict = NSDictionary(dictionary: [
+                "q": [true, NSUUID(), 3.14159]
+            ])
+            XCTAssertThrowsError(try dict.jsum(), "expected cannotEncode error")
+            XCTAssertEqual(["q": [true, 3.14159]], try dict.jsum(options: [.ignoreNonEncodable]))
+        }
+    }
+
+    func testJSumPropertyLists() throws {
+        func plist(_ value: String) throws -> JSum {
+            try Plist(data: value.utf8Data).jsum()
+        }
+
+        // Old-school NeXTSTEP property lists
+        XCTAssertEqual(["key": "value"], try plist(#"{ "key" = "value"; }"#))
+        XCTAssertEqual(["key": ["1"]], try plist(#"{ "key" = ( "1" ); }"#))
+        // XCTAssertEqual(["key": [2.0]], try plist(#"{ "key" = ( 2 ); }"#))
+    }
+
     func testFairCoreVersion() throws {
         let version = try XCTUnwrap(Bundle.fairCoreVersion)
         dbg("loaded fairCoreVersion:", version.versionStringExtended)

@@ -79,9 +79,21 @@ final class FairCommandTests: XCTestCase {
         XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
+    /// Runs "fairtool app info <url>" on a homebrew cask .app .zip file
+    func testAppInfoCommandStocks() async throws {
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "/System/Applications/Stocks.app")
+
+        XCTAssertEqual("com.apple.stocks", result.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
+        XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.network.client"])
+    }
+
     func testValidateCommand() async throws {
         do {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.ValidateCommand.configuration.commandName)
+            // TODO:
+            // let result = try await runToolOutput(FairCommand.self, cmd: FairCommand.ValidateCommand.self, "--hub", "appfair/App")
             XCTAssertFalse(result.messages.isEmpty)
         } catch let error as CommandError {
             // the hub key is required
@@ -155,10 +167,7 @@ final class FairCommandTests: XCTestCase {
         FairTool.main(["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"])
     }
     #endif
-
-
 }
-
 
 public struct PackageManifest : Pure {
     public var name: String
