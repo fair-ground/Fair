@@ -320,6 +320,10 @@ private let falseNumber = NSNumber(value: false)
 private let trueObjCType = String(describing: trueNumber.objCType)
 private let falseObjCType = String(describing: falseNumber.objCType)
 
+#if canImport(Foundation)
+import CoreFoundation
+#endif
+
 private extension NSNumber {
     /// Returns `true` if this number represents a boolean value.
     var isBool: Bool {
