@@ -311,7 +311,35 @@ extension NSNull : JSumConvertible {
 
 extension NSNumber : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
-        CFGetTypeID(self) == CFBooleanGetTypeID() ? .bol(self.boolValue) : .num(self.doubleValue)
+        isBool ? .bol(self.boolValue) : .num(self.doubleValue)
+    }
+}
+
+private let trueNumber = NSNumber(value: true)
+private let falseNumber = NSNumber(value: false)
+private let trueObjCType = String(describing: trueNumber.objCType)
+private let falseObjCType = String(describing: falseNumber.objCType)
+
+private extension NSNumber {
+    /// Returns `true` if this number represents a boolean value.
+    var isBool: Bool {
+        get {
+#if os(Linux)
+            let type = CFNumberGetType(unsafeBitCast(self, to: CFNumber.self))
+            if type == kCFNumberSInt8Type && (self.compare(trueNumber) == ComparisonResult.orderedSame || self.compare(falseNumber) == ComparisonResult.orderedSame) {
+                return true
+            } else {
+                return false
+            }
+#else
+            let objCType = String(describing: self.objCType)
+            if (self.compare(trueNumber) == ComparisonResult.orderedSame && objCType == trueObjCType) || (self.compare(falseNumber) == ComparisonResult.orderedSame && objCType == falseObjCType) {
+                return true
+            } else {
+                return false
+            }
+#endif
+        }
     }
 }
 
