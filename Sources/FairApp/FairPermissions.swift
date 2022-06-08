@@ -867,7 +867,7 @@ public struct AppEntitlements {
 
     /// Returns the entitlement values as a codable JSum struct.
     public func jsum() throws -> JSum {
-        try values.jsum()
+        try Plist(rawValue: values as NSDictionary).jsum()
     }
 
     public func value(forKey key: AppEntitlement) -> Any? {

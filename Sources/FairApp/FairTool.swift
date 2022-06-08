@@ -151,7 +151,7 @@ public struct AppCommand : AsyncParsableCommand {
             msg(.info, "extracting info: \(from.from)")
             let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: from.local)
 
-            return try Output(url: from.from, info: (info.rawValue as? [String: Any])?.jsum() ?? .nul, entitlements: entitlements?.map({ try $0.jsum() }))
+            return try Output(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
         }
     }
 }
@@ -1263,14 +1263,13 @@ struct MsgOptions: ParsableArguments {
     @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("whether to be suppress output."))
     var quiet: Bool = false
 
-    @Flag(name: [.long], help: ArgumentHelp("assemble JSON output into a top-level array."))
-    var assemble: Bool = false
-
     //typealias MessageHandler = ((MessageKind, Any?...) -> ())
     var messages: MessageBuffer? = nil
 
     /// Iterates over each of the given arguments and executed the block against the arg, outputting the JSON result as it goes.
     fileprivate func output<T, U: CLIEncodable>(_ arguments: [T], block: (T) async throws -> U) async throws {
+        let assemble = true // should this be an option?
+        
         /// Write the given message to standard out, unless the output buffer is set, in which case output is sent to the buffer
         func write(_ value: String) {
             if let messages = messages {

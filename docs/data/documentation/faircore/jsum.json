@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "A JSum is a sum type that can represent the following associated types:",
+      "text" : "A JSum is a JavaScript Union Model, which is a sum type providing",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "an in-memory representation of a JSON-representible structure.",
       "type" : "text"
     }
   ],
@@ -86,26 +94,31 @@
           "type" : "heading"
         },
         {
+          "inlineContent" : [
+            {
+              "text" : "JSum can represent the following associated types:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
           "items" : [
             {
               "content" : [
                 {
                   "inlineContent" : [
                     {
-                      "code" : "Bool",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
-                    {
                       "code" : "JSum.bol",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ")",
+                      "text" : ": ",
                       "type" : "text"
+                    },
+                    {
+                      "code" : "Bool",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -116,21 +129,17 @@
               "content" : [
                 {
                   "inlineContent" : [
-                    {
-                      "code" : "String",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
                     {
                       "code" : "JSum.str",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ")",
+                      "text" : ": ",
                       "type" : "text"
+                    },
+                    {
+                      "code" : "String",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -141,21 +150,17 @@
               "content" : [
                 {
                   "inlineContent" : [
-                    {
-                      "code" : "Double",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
                     {
                       "code" : "JSum.num",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ")",
+                      "text" : ": ",
                       "type" : "text"
+                    },
+                    {
+                      "code" : "Double",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -166,21 +171,17 @@
               "content" : [
                 {
                   "inlineContent" : [
-                    {
-                      "code" : "Array",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
                     {
                       "code" : "JSum.arr",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ")",
+                      "text" : ": ",
                       "type" : "text"
+                    },
+                    {
+                      "code" : "Array",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -191,21 +192,17 @@
               "content" : [
                 {
                   "inlineContent" : [
-                    {
-                      "code" : "Dictionary",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
                     {
                       "code" : "JSum.obj",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ")",
+                      "text" : ": ",
                       "type" : "text"
+                    },
+                    {
+                      "code" : "Dictionary",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -217,20 +214,16 @@
                 {
                   "inlineContent" : [
                     {
-                      "code" : "nil",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " (",
-                      "type" : "text"
-                    },
-                    {
                       "code" : "JSum.nul",
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : ")",
+                      "text" : ": ",
                       "type" : "text"
+                    },
+                    {
+                      "code" : "nil",
+                      "type" : "codeVoice"
                     }
                   ],
                   "type" : "paragraph"
@@ -451,7 +444,15 @@
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
     {
-      "text" : "A JSum is a sum type that can represent the following associated types:",
+      "text" : "A JSum is a JavaScript Union Model, which is a sum type providing",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "an in-memory representation of a JSON-representible structure.",
       "type" : "text"
     }
   ],

@@ -649,6 +649,10 @@ public final class Plist : RawRepresentable, Hashable {
     public func serialize(as format: PropertyListSerialization.PropertyListFormat) throws -> Data {
         try PropertyListSerialization.data(fromPropertyList: rawValue, format: format, options: 0)
     }
+
+    public func jsum() throws -> JSum {
+        try rawValue.jsum()
+    }
 }
 
 /// `true` if assertions are enabled for the current build

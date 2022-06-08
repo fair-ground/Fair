@@ -110,6 +110,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Flag",
         "doc:\/\/FairCore\/documentation\/FairCore\/FlagExclusivity",
         "doc:\/\/FairCore\/documentation\/FairCore\/FlagInversion",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSumOptions",
         "doc:\/\/FairCore\/documentation\/FairCore\/NameSpecification",
         "doc:\/\/FairCore\/documentation\/FairCore\/Option",
         "doc:\/\/FairCore\/documentation\/FairCore\/OptionGroup",
@@ -1508,7 +1509,15 @@
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
     {
-      "text" : "A JSum is a sum type that can represent the following associated types:",
+      "text" : "A JSum is a JavaScript Union Model, which is a sum type providing",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "an in-memory representation of a JSON-representible structure.",
       "type" : "text"
     }
   ],
@@ -1538,6 +1547,37 @@
   "title" : "JSum",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
+},
+"doc://FairCore/documentation/FairCore/JSumOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSumOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSumOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSumOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsumoptions"
 },
 "doc://FairCore/documentation/FairCore/NameSpecification": {
   "abstract" : [
