@@ -330,7 +330,7 @@ private extension NSNumber {
         get {
 #if os(Linux)
             let type = CFNumberGetType(unsafeBitCast(self, to: CFNumber.self))
-            if type == kCFNumberSInt8Type && (self.compare(trueNumber) == ComparisonResult.orderedSame || self.compare(falseNumber) == ComparisonResult.orderedSame) {
+            if type == CFNumberType.sInt8Type && (self.compare(trueNumber) == ComparisonResult.orderedSame || self.compare(falseNumber) == ComparisonResult.orderedSame) {
                 return true
             } else {
                 return false
