@@ -318,18 +318,38 @@ extension Array : JSumConvertible {
     }
 }
 
-extension Dictionary : JSumConvertible where Key == String {
+extension Dictionary : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         var obj = JObj()
         obj.reserveCapacity(self.count)
         for (key, value) in self {
-            if let value = value as? JSumConvertible {
+            if let key = key as? String,
+                let value = value as? JSumConvertible {
                 obj[key] = try value.jsum(options: options)
             } else if !options.contains(.ignoreNonEncodable) {
                 throw JSumErrors.cannotEncode(nonEncodable: value)
             }
         }
         return .obj(obj)
+    }
+}
+
+extension Data : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(base64EncodedString())
+    }
+}
+
+/// A shared date formatter for JSON serialization
+private let iso8601: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withInternetDateTime]
+    return formatter
+}()
+
+extension Date : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(iso8601.string(from: self as Date))
     }
 }
 
@@ -368,6 +388,18 @@ extension NSNull : JSumConvertible {
     }
 }
 
+extension NSData : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(base64EncodedString())
+    }
+}
+
+extension NSDate : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(iso8601.string(from: self as Date))
+    }
+}
+
 extension NSNumber : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         isBool ? .bol(self.boolValue) : .num(self.doubleValue)
@@ -403,24 +435,6 @@ private extension NSNumber {
             }
 #endif
         }
-    }
-}
-
-extension NSData : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .str(base64EncodedString())
-    }
-}
-
-extension NSDate : JSumConvertible {
-    private static let fmt: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime]
-        return formatter
-    }()
-
-    func jsum(options: JSumOptions) throws -> JSum {
-        .str(Self.fmt.string(from: self as Date))
     }
 }
 
