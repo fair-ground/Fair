@@ -303,6 +303,12 @@ extension NSString : JSumConvertible {
     }
 }
 
+extension String : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(self as String)
+    }
+}
+
 extension NSNull : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         .nul
@@ -312,6 +318,24 @@ extension NSNull : JSumConvertible {
 extension NSNumber : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         isBool ? .bol(self.boolValue) : .num(self.doubleValue)
+    }
+}
+
+extension Bool : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .bol(self)
+    }
+}
+
+extension Double : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .num(self)
+    }
+}
+
+extension Int : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .num(.init(self))
     }
 }
 
