@@ -130,8 +130,8 @@ public struct FairIconView : View, Equatable {
         }
 
         let iconPath = paths.first
-        let isSymbolPath = iconPath.flatMap(FairSymbol.allNames.keys.contains)
         let svgPath = iconPath.flatMap { try? SVGPath($0) }
+        let isSymbolPath = svgPath == nil // iconPath.flatMap(FairSymbol.allNames.keys.contains)
 
         return ZStack(alignment: .center) {
             squircle
@@ -228,11 +228,13 @@ struct FairIconView_Previews: PreviewProvider {
     }
 
     static func preview(seed: UUID = UUID(), count: Int, span: CGFloat, borderRatio: CGFloat = 0.06) -> some View {
-        var rndgen = SeededRandomNumberGenerator(uuids: seed)
+//        var rndgen = SeededRandomNumberGenerator(uuids: seed)
 
-        var symbolNames = FairSymbol.allCases
-            .filter({ !$0.rawValue.hasPrefix("N") })
-            .shuffled(using: &rndgen).map(\.symbolName)
+//        var symbolNames = FairSymbol.allCases
+//            .filter({ !$0.rawValue.hasPrefix("N") })
+//            .shuffled(using: &rndgen).map(\.symbolName)
+
+        var symbolNames: [String] = [] // [FairSymbol.pc.rawValue]
 
         // the first icon should be a 1/2 circle
         symbolNames.insert("M 0 0 A 25 25 0 1 0 0 50Z", at: 0)

@@ -38,5 +38,5 @@ SUBCOMMANDS:
 ## More Info
 
 All the functionality in this tool is also available through
-the [FairCore swift library](../faircore/).
+the [FairTools swift library](../fairtools/).
 

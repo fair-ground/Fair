@@ -14,7 +14,7 @@
  */
 import Swift
 import XCTest
-@testable import FairApp
+@testable import FairTools
 
 #if os(macOS)
 

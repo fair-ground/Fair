@@ -228,10 +228,10 @@ extension FairContainer {
         //var stderr = HandleStream(stream: .standardError)
         var stdout = HandleStream(stream: .standardOutput)
 
-        let args = Array(CommandLine.arguments.dropFirst())
-        if args.first == "fairtool" && isCLI {
-            FairTool.main(args)
-        } else {
+//        let args = Array(CommandLine.arguments.dropFirst())
+//        if args.first == "fairtool" && isCLI {
+//            FairTool.main(args)
+//        } else {
             if FairCore.assertionsEnabled { // raise a warning if our app container is invalid
                 validateEntitlements()
             }
@@ -245,7 +245,7 @@ extension FairContainer {
                     dumpProcessInfo(bundle: bundle, &stdout)
                 }
             }
-        }
+//        }
     }
 
     public static func main() async throws {
@@ -660,23 +660,6 @@ extension SwiftUI.View {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
-extension SwiftUI.TextField {
-    /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
-    public func overlink(to destination: URL?, image: Image = FairSymbol.arrowshape_turn_up_right_circle_fill.image) -> some View {
-        self.overlay(alignment: .trailing) {
-            if let destination = destination {
-                Link(destination: destination) {
-                    image
-                }
-                //.padding(.horizontal) // causes a crash
-            }
-        }
-    }
-
-}
-
-
 extension ObservableObject {
     /// Create a view based on changes to this `ObservableObject`.
     /// Ths is typically unnecessary when the instance itself if being observed,
@@ -846,62 +829,343 @@ public extension UsageDescriptionKeys {
         }
     }
     #endif // canImport(SwiftUI)
+}
 
-    var icon: FairSymbol {
-        switch self {
-        case .NSSiriUsageDescription: return .ear
-        case .NSSpeechRecognitionUsageDescription: return .waveform
-        case .NSMicrophoneUsageDescription: return .mic_circle
-        case .NSCameraUsageDescription: return .camera
-        case .NSMotionUsageDescription: return .gyroscope
-        case .NFCReaderUsageDescription: return .barcode_viewfinder
-        case .NSBluetoothUsageDescription: return .cable_connector
-        case .NSBluetoothAlwaysUsageDescription: return .cable_connector_horizontal
-        case .NSBluetoothPeripheralUsageDescription: return .printer
-        case .NSRemindersUsageDescription: return .text_badge_checkmark
-        case .NSContactsUsageDescription: return .person_text_rectangle
-        case .NSCalendarsUsageDescription: return .calendar
-        case .NSPhotoLibraryAddUsageDescription: return .text_below_photo_fill
-        case .NSPhotoLibraryUsageDescription: return .photo
-        case .NSAppleMusicUsageDescription: return .music_note
-        case .NSHomeKitUsageDescription: return .house
-            //case .NSVideoSubscriberAccountUsageDescription: return .sparkles_tv
-        case .NSHealthShareUsageDescription: return .stethoscope
-        case .NSHealthUpdateUsageDescription: return .stethoscope_circle
-        case .NSAppleEventsUsageDescription: return .scroll
-        case .NSFocusStatusUsageDescription: return .eyeglasses
-        case .NSLocalNetworkUsageDescription: return .network
-        case .NSFaceIDUsageDescription: return .viewfinder
-        case .NSLocationUsageDescription: return .location
-        case .NSLocationAlwaysUsageDescription: return .location_fill
-        case .NSLocationTemporaryUsageDescriptionDictionary: return .location_circle
-        case .NSLocationWhenInUseUsageDescription: return .location_north
-        case .NSLocationAlwaysAndWhenInUseUsageDescription: return .location_fill_viewfinder
-        case .NSUserTrackingUsageDescription: return .eyes
-        case .NSNearbyInteractionAllowOnceUsageDescription:
-                return .person_badge_clock_fill
-        case .NSLocationDefaultAccuracyReduced: return .location_square_fill
-        case .NSWidgetWantsLocation: return .location_magnifyingglass
-        case .NSVoIPUsageDescription: return .network_badge_shield_half_filled
-        case .NSNearbyInteractionUsageDescription: return .person_2_wave_2
-        case .NSSensorKitUsageDescription: return .antenna_radiowaves_left_and_right
-        case .NSBluetoothWhileInUseUsageDescription: return .dot_radiowaves_right
-        case .NSFallDetectionUsageDescription: return .figure_walk
-        case .NSVideoSubscriberAccountUsageDescription: return .play_tv
-        case .NSGKFriendListUsageDescription: return .person_3_sequence
-        case .NSHealthClinicalHealthRecordsShareUsageDescription: return .cross_circle
-        case .NSDesktopFolderUsageDescription: return .dock_rectangle
-        case .NSDocumentsFolderUsageDescription: return .menubar_dock_rectangle
-        case .NSDownloadsFolderUsageDescription: return .dock_arrow_down_rectangle
-        case .NSSystemExtensionUsageDescription: return .desktopcomputer
-        case .NSSystemAdministrationUsageDescription: return .lock_laptopcomputer
-        case .NSFileProviderDomainUsageDescription: return .externaldrive_connected_to_line_below
-        case .NSFileProviderPresenceUsageDescription: return .externaldrive_badge_checkmark
-        case .NSNetworkVolumesUsageDescription: return .externaldrive_badge_wifi
-        case .NSRemovableVolumesUsageDescription: return .externaldrive
+
+/// The contents of a `Package.resolved` file
+public struct ResolvedPackage: Codable, Equatable {
+    public var object: Pins
+    public var version: Int
+
+    public struct Pins: Codable, Equatable {
+        public var pins: [SwiftPackage]
+    }
+
+    public struct SwiftPackage: Codable, Equatable {
+        public var package: String
+        public var repositoryURL: String
+        public var state: State
+
+        public struct State: Codable, Equatable {
+            public var branch: String?
+            public var revision: String?
+            public var version: String?
         }
     }
 }
+
+
+/// An asset name is a convention for naming files based on the contents of the image file.
+///
+/// e.g.: `preview-iphone-800x600.mp4`
+/// e.g.: `appicon-ipad-83.5x83.5@2x.png`
+/// e.g.: `screenshot-mac-dark-1024x777.png`
+public struct AssetName : Hashable {
+    /// The base name of the application
+    public let base: String
+    /// The idiom of the image, which is context-dependent
+    public let idiom: String?
+    /// The width specified by the asset name
+    public let width: Double
+    /// The height specified by the asset name
+    public let height: Double
+    /// The scale, if specified in the asset name
+    public let scale: Int?
+    /// The file-type extension of the asset
+    public let ext: String
+
+    public init(base: String, idiom: String?, width: Double, height: Double, scale: Int?, ext: String) {
+        self.base = base
+        self.idiom = idiom
+        self.width = width
+        self.height = height
+        self.scale = scale
+        self.ext = ext
+    }
+}
+
+extension AssetName {
+    /// Initialized this asset name by parsing a string in the expected form.
+    /// - Parameter string: the asset path name to interpret
+    public init(string: String) throws {
+        var str = string
+
+        let fail = {
+            AppError("Unable to parse asset name in the expected format: image_name-IDIOM-WxH@SCALEx.EXT")
+        }
+
+        func consume(segment char: Character, after: Bool = true) throws -> String {
+            let parts = str.split(separator: char)
+            guard let part = (after ? parts.last : parts.first), parts.count > 1 else {
+                throw AppError("Unable to parse character “\(char)” for asset name: “\(string)”")
+            }
+            str = String(after ? str.dropLast(part.count + 1) : str.dropFirst(part.count + 1))
+            return String(part)
+        }
+
+        let ext = try consume(segment: ".")
+        if !(3...4).contains(ext.count) {
+            throw fail() // extensions must be 3 or 4 characters
+        }
+
+        let scale: Int?
+        // if it ends in "@
+        if let trailing = try? consume(segment: "@") {
+            guard let s = Int(trailing.dropLast(1)), s > 0, s <= 3 else {
+                throw fail()
+            }
+            scale = s
+        } else {
+            scale = nil
+        }
+
+        guard let height = try Double(consume(segment: "x")) else {
+            throw fail()
+        }
+        guard let width = try Double(consume(segment: "-")) else {
+            throw fail()
+        }
+
+        if let imgname = try? String(consume(segment: "-", after: false)) {
+            self.init(base: imgname, idiom: str, width: width, height: height, scale: scale, ext: ext)
+        } else {
+            self.init(base: str, idiom: nil, width: width, height: height, scale: scale, ext: ext)
+        }
+    }
+
+    /// The size encoded in the asset name, applying a scaling factor if it is defined
+    public var size: CGSize {
+        if let scale = self.scale {
+            return CGSize(width: width * .init(scale), height: height * .init(scale))
+        } else {
+            return CGSize(width: width, height: height)
+        }
+
+    }
+}
+
+/// The contents of an accent color definition.
+/// Handles parsing the known variants of the `Assets.xcassets/AccentColor.colorset/Contents.json` file.
+public struct AccentColorList : Decodable {
+    public var info: Info
+    public var colors: [ColorEntry]
+
+    public struct Info: Decodable {
+        public var author: String
+        public var version: Int
+    }
+
+    public struct ColorEntry: Decodable {
+        public var idiom: String
+        public var color: ColorItem?
+        public var appearances: [Appearance]?
+    }
+
+    public struct Appearance : Decodable {
+        public var appearance: String // e.g., "luminosity"
+        public var value: String? // e.g., "dark"
+    }
+
+    public struct ColorItem : Decodable {
+        public var platform: String? // e.g., "universal"
+        public var reference: String? // e.g., "systemGreenColor"
+        public var colorspace: String?
+        public var components: ColorComponents?
+
+        public var rgba: (r: Double, g: Double, b: Double, a: Double)? {
+            func coerce(_ numberString: String) -> Double? {
+                if numberString.hasPrefix("0x") && numberString.count == 4 {
+                    guard let hexInteger = Int(numberString.dropFirst(2), radix: 16) else {
+                        return nil
+                    }
+                    return Double(hexInteger) / 255.0
+                } else if numberString.contains(".") {
+                    return Double(numberString) // 0.0-1.0
+                } else { // otherwise it is just an integer
+                    guard let numInteger = Int(numberString) else {
+                        return nil
+                    }
+                    return Double(numInteger) / 255.0
+                }
+            }
+
+            func parseColor(_ r: String, _ g: String, _ b: String, _ a: String = "0xFF") -> (Double, Double, Double, Double) {
+                (coerce(r) ?? 0.5, coerce(g) ?? 0.5, coerce(b) ?? 0.5, coerce(a) ?? 1.0)
+            }
+
+            #if canImport(SwiftUI)
+            // these system colors are (or, at least, can be) context-dependent and may change between OS verisons; we could try to grab the equivalent SwiftUI color and extract its RGB values here
+            #endif
+
+            switch reference {
+            case "systemBlueColor": return parseColor("0x00", "0x7A", "0xFF")
+            case "systemBrownColor": return parseColor("0xA2", "0x84", "0x5E")
+            case "systemCyanColor": return parseColor("0x32", "0xAD", "0xE6")
+            case "systemGrayColor": return parseColor("0x8E", "0x8E", "0x93")
+            case "systemGreenColor": return parseColor("0x34", "0xC7", "0x59")
+            case "systemIndigoColor": return parseColor("0x58", "0x56", "0xD6")
+            case "systemMintColor": return parseColor("0x00", "0xC7", "0xBE")
+            case "systemOrangeColor": return parseColor("0xFF", "0x95", "0x00")
+            case "systemPinkColor": return parseColor("0xFF", "0x2D", "0x55")
+            case "systemPurpleColor": return parseColor("0xAF", "0x52", "0xDE")
+            case "systemRedColor": return parseColor("0xFF", "0x3B", "0x30")
+            case "systemTealColor": return parseColor("0x30", "0xB0", "0xC7")
+            case "systemYellowColor": return parseColor("0xFF", "0xCC", "0x00")
+            default: break
+            }
+
+            if let components = components {
+                return parseColor(components.red, components.green, components.blue, components.alpha)
+            }
+
+            return nil // no color constant or value found
+        }
+
+        public enum CodingKeys : String, CodingKey {
+            case platform
+            case reference
+            case colorspace = "color-space"
+            case components
+        }
+    }
+
+    public struct ColorComponents : Decodable {
+        public var alpha: String // e.g. "1.000"
+        public var red: String // e.g., "0x34"
+        public var green: String // e.g., "0xC7"
+        public var blue: String // e.g. "0x59"
+    }
+
+    public var firstRGBHex: String? {
+        firstRGBAColor.flatMap { rgba in
+            String(format: "%02X%02X%02X", Int(rgba.r * 255.0), Int(rgba.g * 255.0), Int(rgba.b * 255.0))
+        }
+    }
+
+    public var firstRGBAColor: (r: Double, g: Double, b: Double, a: Double)? {
+        colors.compactMap(\.color?.rgba).first
+    }
+}
+
+/// The contents of an icon set.
+///
+/// Handles parsing the known variants of the `Assets.xcassets/AppIcon.appiconset/Contents.json` file.
+public struct AppIconSet : Equatable, Codable {
+    public var info: Info
+    public var images: [ImageEntry]
+
+    public struct Info: Equatable, Codable {
+        public var author: String
+        public var version: Int
+    }
+
+    public struct ImageEntry: Equatable, Codable {
+        public var idiom: String? // e.g., "watch"
+        public var scale: String? // e.g., "2x"
+        public var role: String? // e.g., "quickLook"
+        public var size: String? // e.g., "50x50"
+        public var subtype: String? // e.g. "38mm"
+        public var filename: String? // e.g. "172.png"
+
+        /// The path for the image, of the form: `idiom-size@scale`
+        public var standardPath: String {
+            var path = ""
+            if let idiom = idiom {
+                path += idiom + "-"
+            }
+
+            if let size = size {
+                path += size
+            }
+
+            if let scale = scale {
+                path += "@" + scale
+            }
+
+
+            return path
+        }
+    }
+}
+
+public extension AppIconSet {
+    /// Images with the matching properties
+    func images(idiom: String? = nil, scale: String? = nil, size: String? = nil) -> [ImageEntry] {
+        images.filter { imageEntry in
+            (idiom == nil || imageEntry.idiom == idiom)
+            && (scale == nil || imageEntry.scale == scale)
+            && (size == nil || imageEntry.size == size)
+        }
+    }
+}
+
+
+public struct HexColor : Hashable {
+    public let r, g, b: Int
+    public let a: Int?
+}
+
+public extension HexColor {
+    init?(hexString: String) {
+        var str = hexString.dropFirst(0)
+        if str.hasPrefix("#") {
+            str = str.dropFirst()
+        }
+
+        let chars = Array(str)
+
+        if str.count != 6 && str.count != 8 {
+            return nil
+        }
+
+        guard let red = Int(String([chars[0], chars[1]]), radix: 16) else {
+            return nil
+        }
+        self.r = red
+
+        guard let green = Int(String([chars[2], chars[3]]), radix: 16) else {
+            return nil
+        }
+        self.g = green
+
+        guard let blue = Int(String([chars[4], chars[5]]), radix: 16) else {
+            return nil
+        }
+        self.b = blue
+
+        if str.count == 8 {
+            guard let alpha = Int(String([chars[6], chars[7]]), radix: 16) else {
+                return nil
+            }
+            self.a = alpha
+        } else {
+            self.a = nil
+        }
+    }
+
+    func colorString(hashPrefix: Bool) -> String {
+        let h = hashPrefix ? "#" : ""
+        if let a = a {
+            return h + String(format: "%02X%02X%02X%02X", r, g, b, a)
+        } else {
+            return h + String(format: "%02X%02X%02X", r, g, b)
+        }
+    }
+}
+
+#if canImport(SwiftUI)
+public extension HexColor {
+    func sRGBColor() -> Color {
+        if let alpha = self.a {
+            return Color(.sRGB, red: Double(self.r) / 255.0, green: Double(self.g) / 255.0, blue: Double(self.b) / 255.0, opacity: Double(alpha) / 255.0)
+        } else {
+            return Color(.sRGB, red: Double(self.r) / 255.0, green: Double(self.g) / 255.0, blue: Double(self.b) / 255.0)
+        }
+    }
+}
+#endif
+
+
 
 /// Work-in-Progress marker
 @available(*, deprecated, message: "work in progress")

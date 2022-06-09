@@ -17,6 +17,7 @@
 import Swift
 import Foundation
 import FairCore
+import FairApp
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -33,39 +34,59 @@ import AppKit
 import UIKit
 #endif
 
-protocol FairToolCommand : AsyncParsableCommand {
+public protocol FairToolCommand : AsyncParsableCommand {
     var msgOptions: MsgOptions { get set }
 }
 
 /// A specific command that can write messages (to stderr) and JSON encodable tool output (to stdout)
-protocol FairParsableCommand : FairToolCommand {
+public protocol FairParsableCommand : FairToolCommand {
     /// The structured output of this tool
     associatedtype Output
 }
 
-final class MessageBuffer {
+/// A command that will issue an asynchronous stream of output items
+public protocol FairStructuredCommand : FairParsableCommand where Output : CLIEncodable {
+    func executeCommand() async throws -> AsyncThrowingStream<Output, Error>
+}
+
+public extension FairStructuredCommand {
+    mutating func run() async throws {
+        msgOptions.beginOutput()
+        defer { msgOptions.endOutput() }
+        var elements = try await self.executeCommand().makeAsyncIterator()
+        if let first = try await elements.next() {
+            try msgOptions.writeOutput(first)
+            while let element =  try await elements.next() {
+                msgOptions.interstitialOutput()
+                try msgOptions.writeOutput(element)
+            }
+        }
+    }
+}
+
+public final class MessageBuffer {
     /// The list of messages
-    var messages: [(MessageKind, [Any?])] = []
+    public var messages: [(MessageKind, [Any?])] = []
 
     /// The output that is written
-    var output: [String] = []
+    public var output: [String] = []
 
-    init() {
+    public init() {
     }
 }
 
 // Buffer contents are not really decidable, but the protocol is requires for `ParsableCommand` conformance
 extension MessageBuffer : Decodable {
-    convenience init(from decoder: Decoder) throws {
+    public convenience init(from decoder: Decoder) throws {
         self.init()
     }
 }
 
 /// The type of message output
-enum MessageKind {
+public enum MessageKind {
     case debug, info, warn, error
 
-    var name: String {
+    public var name: String {
         switch self {
         case .debug: return "DEBUG"
         case .info: return "INFO"
@@ -91,29 +112,34 @@ public struct FairTool : AsyncParsableCommand {
     public init() {
     }
 
-    struct VersionCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "version", abstract: "Show the tool version.", shouldDisplay: true)
-        @OptionGroup var msgOptions: MsgOptions
+    public struct VersionCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "version", abstract: "Show the tool version.", shouldDisplay: true)
+        @OptionGroup public var msgOptions: MsgOptions
 
-        mutating func run() async throws {
+        public init() {
+        }
+
+        public mutating func run() async throws {
             let version = Bundle.fairCoreVersion
             msg(.info, "fairtool", version?.versionStringExtended)
         }
     }
 
-    struct WelcomeCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "welcome", abstract: "Show the welcome message.", shouldDisplay: false)
-        @OptionGroup var msgOptions: MsgOptions
+    public struct WelcomeCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "welcome", abstract: "Show the welcome message.", shouldDisplay: false)
+        @OptionGroup public var msgOptions: MsgOptions
 
-        mutating func run() async throws {
+        public init() {
+        }
+
+        public mutating func run() async throws {
             let version = Bundle.fairCoreVersion
             msg(.info, "Welcome to fairtool", version?.versionStringExtended)
         }
     }
 }
-
 
 public struct AppCommand : AsyncParsableCommand {
     public static var configuration = CommandConfiguration(commandName: "app",
@@ -125,27 +151,33 @@ public struct AppCommand : AsyncParsableCommand {
     public init() {
     }
 
-    struct InfoCommand: FairParsableCommand {
-        static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).")
+    public struct InfoCommand: FairStructuredCommand {
+        public static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).")
 
-        typealias Output = Array<InfoItem>
+        public typealias Output = InfoItem
 
-        struct InfoItem : CLIEncodable, Decodable {
-            var url: URL
-            var info: JSum
-            var entitlements: [JSum]?
+        public struct InfoItem : CLIEncodable, Decodable {
+            public var url: URL
+            public var info: JSum
+            public var entitlements: [JSum]?
         }
 
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var downloadOptions: DownloadOptions
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var downloadOptions: DownloadOptions
 
         @Argument(help: ArgumentHelp("path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
-        var apps: [String]
+        public var apps: [String]
 
-        mutating func run() async throws {
+        public init() {
+        }
+
+        public func executeCommand() async throws -> AsyncThrowingStream<InfoItem, Error> {
             msg(.debug, "getting info from apps:", apps)
-            try await msgOptions.output(apps) { app in
-                try await extractInfo(from: downloadOptions.acquire(path: app))
+            return try await msgOptions.executeStream(apps) { app in
+                return try await extractInfo(from: downloadOptions.acquire(path: app, onDownload: { url in
+                    msg(.info, "downloading from URL:", url.absoluteString)
+                    return url
+                }))
             }
         }
 
@@ -199,16 +231,18 @@ public struct FairCommand : AsyncParsableCommand {
     public init() {
     }
 
-    struct ValidateCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var hubOptions: HubOptions
-        @OptionGroup var validateOptions: ValidateOptions
-        @OptionGroup var orgOptions: OrgOptions
-        @OptionGroup var projectOptions: ProjectOptions
+    public struct ValidateCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var hubOptions: HubOptions
+        @OptionGroup public var validateOptions: ValidateOptions
+        @OptionGroup public var orgOptions: OrgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
 
-        mutating func run() async throws {
+        public init() { }
+
+        public mutating func run() async throws {
             msg(.info, "Validating project:", projectOptions.projectPathURL(path: "").path)
             //msg(.debug, "flags:", flags)
 
@@ -423,17 +457,19 @@ public struct FairCommand : AsyncParsableCommand {
         }
     }
 
-    struct MergeCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var outputOptions: OutputOptions
-        @OptionGroup var projectOptions: ProjectOptions
-        @OptionGroup var validateOptions: ValidateOptions
-        @OptionGroup var orgOptions: OrgOptions
-        @OptionGroup var hubOptions: HubOptions
+    public struct MergeCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var outputOptions: OutputOptions
+        @OptionGroup public var projectOptions: ProjectOptions
+        @OptionGroup public var validateOptions: ValidateOptions
+        @OptionGroup public var orgOptions: OrgOptions
+        @OptionGroup public var hubOptions: HubOptions
 
-        mutating func run() async throws {
+        public init() { }
+
+        public mutating func run() async throws {
             msg(.info, "merge")
 
             if outputOptions.outputDirectoryFlag == projectOptions.projectPathFlag {
@@ -511,16 +547,18 @@ public struct FairCommand : AsyncParsableCommand {
         }
     }
 
-    struct CatalogCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var hubOptions: HubOptions
-        @OptionGroup var catalogOptions: CatalogOptions
-        @OptionGroup var retryOptions: RetryOptions
-        @OptionGroup var outputOptions: OutputOptions
+    public struct CatalogCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var hubOptions: HubOptions
+        @OptionGroup public var catalogOptions: CatalogOptions
+        @OptionGroup public var retryOptions: RetryOptions
+        @OptionGroup public var outputOptions: OutputOptions
 
-        mutating func run() async throws {
+        public init() { }
+
+        public mutating func run() async throws {
             try await self.catalog()
         }
 
@@ -583,18 +621,20 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     #if !os(Windows) // no ZipArchive yet
-    struct FairsealCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var hubOptions: HubOptions
-        @OptionGroup var sealOptions: SealOptions
-        @OptionGroup var retryOptions: RetryOptions
-        @OptionGroup var iconOptions: IconOptions
-        @OptionGroup var orgOptions: OrgOptions
-        @OptionGroup var projectOptions: ProjectOptions
+    public struct FairsealCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var hubOptions: HubOptions
+        @OptionGroup public var sealOptions: SealOptions
+        @OptionGroup public var retryOptions: RetryOptions
+        @OptionGroup public var iconOptions: IconOptions
+        @OptionGroup public var orgOptions: OrgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
 
-        mutating func run() async throws {
+        public init() { }
+
+        public mutating func run() async throws {
             msg(.info, "Fairseal")
 
             // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
@@ -902,15 +942,17 @@ public struct FairCommand : AsyncParsableCommand {
     #endif
 
     #if canImport(SwiftUI)
-    struct IconCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
-        @OptionGroup var iconOptions: IconOptions
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var orgOptions: OrgOptions
-        @OptionGroup var projectOptions: ProjectOptions
+    public struct IconCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
+        @OptionGroup public var iconOptions: IconOptions
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var orgOptions: OrgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
 
-        mutating func run() async throws {
+        public init() { }
+
+        public mutating func run() async throws {
             try await runOnMain()
         }
 
@@ -1027,72 +1069,81 @@ public struct FairCommand : AsyncParsableCommand {
     #endif
 
 
-    struct CatalogOptions: ParsableArguments {
+    public struct CatalogOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("title of the generated catalog."))
-        var catalogTitle: String?
+        public var catalogTitle: String?
 
         @Option(name: [.long], help: ArgumentHelp("catalog index markdown."))
-        var index: String?
+        public var index: String?
 
         @Option(name: [.long], help: ArgumentHelp("the output folder for the app casks."))
-        var caskFolder: String?
+        public var caskFolder: String?
 
         @Option(name: [.long], help: ArgumentHelp("the artifact extensions."))
-        var artifactExtension: [String] = []
+        public var artifactExtension: [String] = []
 
         @Option(name: [.long], help: ArgumentHelp("maximum number of Hub API requests per session."))
-        var requestLimit: Int?
+        public var requestLimit: Int?
 
+        public init() { }
     }
 
-    struct ValidateOptions: ParsableArguments {
+    public struct ValidateOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("the IR title"))
-        var integrationTitle: String?
+        public var integrationTitle: String?
 
         @Option(name: [.long, .customShort("b")], help: ArgumentHelp("the base path."))
-        var base: String?
+        public var base: String?
 
         @Option(name: [.long], help: ArgumentHelp("commit ref to validate."))
-        var ref: String?
+        public var ref: String?
+
+        public init() { }
     }
 
-    struct SealOptions: ParsableArguments {
+    public struct SealOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("resource for the artifact that will be generated."))
-        var artifactURL: String?
+        public var artifactURL: String?
 
         @Option(name: [.long], help: ArgumentHelp("the artifact created in a trusted environment."))
-        var trustedArtifact: String?
+        public var trustedArtifact: String?
 
         @Option(name: [.long], help: ArgumentHelp("the artifact created in an untrusted environment."))
-        var untrustedArtifact: String?
+        public var untrustedArtifact: String?
 
         @Option(name: [.long], help: ArgumentHelp("the artifact staging folder."))
-        var artifactStaging: [String] = []
+        public var artifactStaging: [String] = []
 
         @Option(name: [.long], help: ArgumentHelp("the number of bytes that may differ for a build to be reproducible."))
-        var fairsealMatch: Int?
+        public var fairsealMatch: Int?
+
+        public init() { }
     }
 
-    struct IconOptions: ParsableArguments {
+    public struct IconOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("path to appiconset/Contents.json."))
-        var appIcon: String?
+        public var appIcon: String?
 
         @Option(name: [.long], help: ArgumentHelp("path or symbol name to place in the icon.", valueName: "symbol"))
-        var iconSymbol: [String] = []
+        public var iconSymbol: [String] = []
 
         @Option(name: [.long], help: ArgumentHelp("the accent color file.", valueName: "color"))
-        var accentColor: String?
+        public var accentColor: String?
+
+        public init() { }
     }
 
-    struct ProjectOptions: ParsableArguments {
+    public struct ProjectOptions: ParsableArguments {
         @Option(name: [.long, .customShort("p")], help: ArgumentHelp("the project to use."))
-        var project: String?
+        public var project: String?
 
         @Option(name: [.long], help: ArgumentHelp("the path to the xcconfig containing metadata.", valueName: "xc"))
-        var fairProperties: String?
+        public var fairProperties: String?
+
+        public init() { }
 
         /// The flag for the project folder
-        var projectPathFlag: String {
+        public var projectPathFlag: String {
             self.project ?? FileManager.default.currentDirectoryPath
         }
 
@@ -1108,9 +1159,11 @@ public struct FairCommand : AsyncParsableCommand {
         }
     }
 
-    struct OrgOptions: ParsableArguments {
+    public struct OrgOptions: ParsableArguments {
         @Option(name: [.long, .customShort("g")], help: ArgumentHelp("the repository to use."))
-        var org: String
+        public var org: String
+
+        public init() { }
 
         var isCatalogApp: Bool {
             self.org == Bundle.catalogBrowserAppOrg
@@ -1193,16 +1246,18 @@ public struct BrewCommand : AsyncParsableCommand {
     public init() {
     }
 
-    struct AppCasksCommand: FairParsableCommand {
-        typealias Output = Never
-        static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
-        @OptionGroup var msgOptions: MsgOptions
-        @OptionGroup var hubOptions: HubOptions
-        @OptionGroup var casksOptions: CasksOptions
-        @OptionGroup var retryOptions: RetryOptions
-        @OptionGroup var outputOptions: OutputOptions
+    public struct AppCasksCommand: FairParsableCommand {
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var hubOptions: HubOptions
+        @OptionGroup public var casksOptions: CasksOptions
+        @OptionGroup public var retryOptions: RetryOptions
+        @OptionGroup public var outputOptions: OutputOptions
 
-        mutating func run() async throws {
+        public init() { }
+
+        public mutating func run() async throws {
             msg(.info, "AppCasks")
             try await retryOptions.retrying() {
                 try await createAppCasks()
@@ -1226,9 +1281,11 @@ public struct BrewCommand : AsyncParsableCommand {
         }
     }
 
-    struct CasksOptions: ParsableArguments {
+    public struct CasksOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("multiplier for how much metadata ranking boost."))
-        var boostFactor: Int64?
+        public var boostFactor: Int64?
+
+        public init() { }
     }
 }
 
@@ -1239,14 +1296,16 @@ extension Array : CLIEncodable where Element : CLIEncodable {
 extension AppCatalog : CLIEncodable {
 }
 
-protocol CLIEncodable : Encodable {
+public protocol CLIEncodable : Encodable {
     // TODO: an output form of this instance that displays plain text information
     //func outputText() throws -> [String]
 }
 
-struct OutputOptions: ParsableArguments {
+public struct OutputOptions: ParsableArguments {
     @Option(name: [.long, .customShort("o")], help: ArgumentHelp("the output path."))
-    var output: String = "-"
+    public var output: String = "-"
+
+    public init() { }
 
     /// The flag for the output folder or the current director
     var outputDirectoryFlag: String {
@@ -1262,73 +1321,95 @@ struct OutputOptions: ParsableArguments {
     }
 }
 
-struct MsgOptions: ParsableArguments {
+public struct MsgOptions: ParsableArguments {
     @Flag(name: [.long, .customShort("v")], help: ArgumentHelp("whether to display verbose messages."))
-    var verbose: Bool = false
+    public var verbose: Bool = false
 
     @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("whether to be suppress output."))
-    var quiet: Bool = false
+    public var quiet: Bool = false
 
-    //typealias MessageHandler = ((MessageKind, Any?...) -> ())
-    var messages: MessageBuffer? = nil
+    @Flag(name: [.long], help: ArgumentHelp("promote output array elements to top-level object output."))
+    public var promoteJSON: Bool = false
 
-    /// Iterates over each of the given arguments and executed the block against the arg, outputting the JSON result as it goes.
-    fileprivate func output<T, U: CLIEncodable>(_ arguments: [T], block: (T) async throws -> U) async throws {
-        let assemble = true // should this be an option?
+    public var messages: MessageBuffer? = nil
 
-        /// Write the given message to standard out, unless the output buffer is set, in which case output is sent to the buffer
-        func write(_ value: String) {
-            if let messages = messages {
-                messages.output.append(value)
-            } else {
-                print(value)
+    public init() {
+    }
+
+    /// Write the given message to standard out, unless the output buffer is set, in which case output is sent to the buffer
+    public func write(_ value: String) {
+        if let messages = messages {
+            messages.output.append(value)
+        } else {
+            print(value)
+        }
+    }
+
+    /// The output that comes at the beginning of a sequence of elements; an opening bracket, for JSON arrays
+    public func beginOutput() {
+        if !promoteJSON { write("[") }
+    }
+
+    /// The output that comes at the end of a sequence of elements; a closing bracket, for JSON arrays
+    public func endOutput() {
+        if !promoteJSON { write("]") }
+    }
+
+    /// The output that comes between elements; a comma, for JSON arrays
+    public func interstitialOutput() {
+        if !promoteJSON { write(",") }
+    }
+
+    func writeOutput<T: CLIEncodable>(_ item: T) throws {
+        try write(item.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
+    }
+
+    /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
+    fileprivate func executeStream<T, U: CLIEncodable>(_ arguments: [T], block: @escaping (T) async throws -> U) async throws -> AsyncThrowingStream<U, Error> {
+        return AsyncThrowingStream<U, Error>(U.self) { c in
+            Task {
+                for arg in arguments {
+                    c.yield(try await block(arg))
+                }
+                c.finish()
             }
         }
-
-        if assemble { write("[") }
-        for (index, arg) in arguments.enumerated() {
-            if index > 0 {
-                if assemble { write(",") }
-            }
-            let result = try await block(arg)
-            try write(result.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
-        }
-        if assemble { write("]") }
     }
 }
 
 
-struct HubOptions: ParsableArguments {
+public struct HubOptions: ParsableArguments {
     @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the hub to use.", valueName: "host/org"))
-    var hub: String
+    public var hub: String
 
     @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
-    var token: String?
+    public var token: String?
 
     @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal."))
-    var fairsealIssuer: String?
+    public var fairsealIssuer: String?
 
     @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR names."))
-    var allowName: [String] = []
+    public var allowName: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR names."))
-    var denyName: [String] = []
+    public var denyName: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR users"))
-    var allowFrom: [String] = []
+    public var allowFrom: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR users"))
-    var denyFrom: [String] = []
+    public var denyFrom: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("permitted license IDs."))
-    var allowLicense: [String] = []
+    public var allowLicense: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("permitted license titles"))
-    var license: [String] = []
+    public var license: [String] = []
 
+    public init() { }
 
     /// The hub service we should use for this tool
-    func fairHub() throws -> FairHub {
+    public func fairHub() throws -> FairHub {
         try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
     }
 
@@ -1444,13 +1525,16 @@ extension FairTool {
 }
 
 /// Options for how downloading remote files should work.
-struct DownloadOptions: ParsableArguments {
+public struct DownloadOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("location of folder for downloaded artifacts.", valueName: "dir"))
-    var cacheFolder: String?
+    public var cacheFolder: String?
+
+    public init() { }
 
     /// Downloads a remote URL, or else returns the fule URL unadorned
-    func acquire(path: String) async throws -> (from: URL, local: URL) {
+    func acquire(path: String, onDownload: (URL) -> (URL) = { $0 }) async throws -> (from: URL, local: URL) {
         if let url = URL(string: path), ["http", "https"].contains(url.scheme) {
+            let url = onDownload(url)
             return (url, try await self.download(url: url))
         } else {
             return (URL(fileURLWithPath: path), URL(fileURLWithPath: path))
@@ -1461,7 +1545,7 @@ struct DownloadOptions: ParsableArguments {
         let (downloadedURL, response) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
         guard let status = (response as? HTTPURLResponse)?.statusCode,
               (200..<300).contains(status) else {
-            throw Bundle.module.error("Cannot download: \(url) \(response)")
+            throw URLError(.badServerResponse)
         }
         if let cacheFolder = cacheFolder.flatMap(URL.init(fileURLWithPath:)),
             FileManager.default.isDirectory(url: cacheFolder) == true {
@@ -1475,15 +1559,17 @@ struct DownloadOptions: ParsableArguments {
     }
 }
 
-struct RetryOptions: ParsableArguments {
+public struct RetryOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("amount of time to continue re-trying downloading a resource."))
-    var retryDuration: TimeInterval?
+    public var retryDuration: TimeInterval?
 
     @Option(name: [.long], help: ArgumentHelp("backoff time for waiting to retry."))
-    var retryWait: TimeInterval = 30
+    public var retryWait: TimeInterval = 30
+
+    public init() { }
 
     /// Retries the given operation until the `retry-duration` flag as been exceeded
-    func retrying<T>(operation: () async throws -> T) async throws -> T {
+    public func retrying<T>(operation: () async throws -> T) async throws -> T {
         let timeoutDate = Date().addingTimeInterval(self.retryDuration ?? 0)
         while true {
             do {
@@ -1830,335 +1916,3 @@ private func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
         .filter { !$0.isEmpty }
 }
 
-
-struct HexColor : Hashable {
-    let r, g, b: Int
-    let a: Int?
-}
-
-extension HexColor {
-    init?(hexString: String) {
-        var str = hexString.dropFirst(0)
-        if str.hasPrefix("#") {
-            str = str.dropFirst()
-        }
-
-        let chars = Array(str)
-
-        if str.count != 6 && str.count != 8 {
-            return nil
-        }
-
-        guard let red = Int(String([chars[0], chars[1]]), radix: 16) else {
-            return nil
-        }
-        self.r = red
-
-        guard let green = Int(String([chars[2], chars[3]]), radix: 16) else {
-            return nil
-        }
-        self.g = green
-
-        guard let blue = Int(String([chars[4], chars[5]]), radix: 16) else {
-            return nil
-        }
-        self.b = blue
-
-        if str.count == 8 {
-            guard let alpha = Int(String([chars[6], chars[7]]), radix: 16) else {
-                return nil
-            }
-            self.a = alpha
-        } else {
-            self.a = nil
-        }
-    }
-
-    func colorString(hashPrefix: Bool) -> String {
-        let h = hashPrefix ? "#" : ""
-        if let a = a {
-            return h + String(format: "%02X%02X%02X%02X", r, g, b, a)
-        } else {
-            return h + String(format: "%02X%02X%02X", r, g, b)
-        }
-    }
-}
-
-#if canImport(SwiftUI)
-extension HexColor {
-    func sRGBColor() -> Color {
-        if let alpha = self.a {
-            return Color(.sRGB, red: Double(self.r) / 255.0, green: Double(self.g) / 255.0, blue: Double(self.b) / 255.0, opacity: Double(alpha) / 255.0)
-        } else {
-            return Color(.sRGB, red: Double(self.r) / 255.0, green: Double(self.g) / 255.0, blue: Double(self.b) / 255.0)
-        }
-    }
-}
-#endif
-
-/// The contents of an accent color definition.
-/// Handles parsing the known variants of the `Assets.xcassets/AccentColor.colorset/Contents.json` file.
-struct AccentColorList : Decodable {
-    var info: Info
-    var colors: [ColorEntry]
-
-    struct Info: Decodable {
-        var author: String
-        var version: Int
-    }
-
-    struct ColorEntry: Decodable {
-        var idiom: String
-        var color: ColorItem?
-        var appearances: [Appearance]?
-    }
-
-    struct Appearance : Decodable {
-        var appearance: String // e.g., "luminosity"
-        var value: String? // e.g., "dark"
-    }
-
-    struct ColorItem : Decodable {
-        var platform: String? // e.g., "universal"
-        var reference: String? // e.g., "systemGreenColor"
-        var colorspace: String?
-        var components: ColorComponents?
-
-        var rgba: (r: Double, g: Double, b: Double, a: Double)? {
-            func coerce(_ numberString: String) -> Double? {
-                if numberString.hasPrefix("0x") && numberString.count == 4 {
-                    guard let hexInteger = Int(numberString.dropFirst(2), radix: 16) else {
-                        return nil
-                    }
-                    return Double(hexInteger) / 255.0
-                } else if numberString.contains(".") {
-                    return Double(numberString) // 0.0-1.0
-                } else { // otherwise it is just an integer
-                    guard let numInteger = Int(numberString) else {
-                        return nil
-                    }
-                    return Double(numInteger) / 255.0
-                }
-            }
-
-            func parseColor(_ r: String, _ g: String, _ b: String, _ a: String = "0xFF") -> (Double, Double, Double, Double) {
-                (coerce(r) ?? 0.5, coerce(g) ?? 0.5, coerce(b) ?? 0.5, coerce(a) ?? 1.0)
-            }
-
-            #if canImport(SwiftUI)
-            // these system colors are (or, at least, can be) context-dependent and may change between OS verisons; we could try to grab the equivalent SwiftUI color and extract its RGB values here
-            #endif
-
-            switch reference {
-            case "systemBlueColor": return parseColor("0x00", "0x7A", "0xFF")
-            case "systemBrownColor": return parseColor("0xA2", "0x84", "0x5E")
-            case "systemCyanColor": return parseColor("0x32", "0xAD", "0xE6")
-            case "systemGrayColor": return parseColor("0x8E", "0x8E", "0x93")
-            case "systemGreenColor": return parseColor("0x34", "0xC7", "0x59")
-            case "systemIndigoColor": return parseColor("0x58", "0x56", "0xD6")
-            case "systemMintColor": return parseColor("0x00", "0xC7", "0xBE")
-            case "systemOrangeColor": return parseColor("0xFF", "0x95", "0x00")
-            case "systemPinkColor": return parseColor("0xFF", "0x2D", "0x55")
-            case "systemPurpleColor": return parseColor("0xAF", "0x52", "0xDE")
-            case "systemRedColor": return parseColor("0xFF", "0x3B", "0x30")
-            case "systemTealColor": return parseColor("0x30", "0xB0", "0xC7")
-            case "systemYellowColor": return parseColor("0xFF", "0xCC", "0x00")
-            default: break
-            }
-
-            if let components = components {
-                return parseColor(components.red, components.green, components.blue, components.alpha)
-            }
-
-            return nil // no color constant or value found
-        }
-
-        enum CodingKeys : String, CodingKey {
-            case platform
-            case reference
-            case colorspace = "color-space"
-            case components
-        }
-    }
-
-    struct ColorComponents : Decodable {
-        var alpha: String // e.g. "1.000"
-        var red: String // e.g., "0x34"
-        var green: String // e.g., "0xC7"
-        var blue: String // e.g. "0x59"
-    }
-
-    var firstRGBHex: String? {
-        firstRGBAColor.flatMap { rgba in
-            String(format: "%02X%02X%02X", Int(rgba.r * 255.0), Int(rgba.g * 255.0), Int(rgba.b * 255.0))
-        }
-    }
-
-    var firstRGBAColor: (r: Double, g: Double, b: Double, a: Double)? {
-        colors.compactMap(\.color?.rgba).first
-    }
-}
-
-/// The contents of an icon set.
-///
-/// Handles parsing the known variants of the `Assets.xcassets/AppIcon.appiconset/Contents.json` file.
-struct AppIconSet : Equatable, Codable {
-    var info: Info
-    var images: [ImageEntry]
-
-    struct Info: Equatable, Codable {
-        var author: String
-        var version: Int
-    }
-
-    struct ImageEntry: Equatable, Codable {
-        var idiom: String? // e.g., "watch"
-        var scale: String? // e.g., "2x"
-        var role: String? // e.g., "quickLook"
-        var size: String? // e.g., "50x50"
-        var subtype: String? // e.g. "38mm"
-        var filename: String? // e.g. "172.png"
-
-        /// The path for the image, of the form: `idiom-size@scale`
-        var standardPath: String {
-            var path = ""
-            if let idiom = idiom {
-                path += idiom + "-"
-            }
-
-            if let size = size {
-                path += size
-            }
-
-            if let scale = scale {
-                path += "@" + scale
-            }
-
-
-            return path
-        }
-    }
-}
-
-extension AppIconSet {
-    /// Images with the matching properties
-    func images(idiom: String? = nil, scale: String? = nil, size: String? = nil) -> [ImageEntry] {
-        images.filter { imageEntry in
-            (idiom == nil || imageEntry.idiom == idiom)
-            && (scale == nil || imageEntry.scale == scale)
-            && (size == nil || imageEntry.size == size)
-        }
-    }
-}
-
-
-/// An asset name is a convention for naming files based on the contents of the image file.
-///
-/// e.g.: `preview-iphone-800x600.mp4`
-/// e.g.: `appicon-ipad-83.5x83.5@2x.png`
-/// e.g.: `screenshot-mac-dark-1024x777.png`
-public struct AssetName : Hashable {
-    /// The base name of the application
-    public let base: String
-    /// The idiom of the image, which is context-dependent
-    public let idiom: String?
-    /// The width specified by the asset name
-    public let width: Double
-    /// The height specified by the asset name
-    public let height: Double
-    /// The scale, if specified in the asset name
-    public let scale: Int?
-    /// The file-type extension of the asset
-    public let ext: String
-
-    public init(base: String, idiom: String?, width: Double, height: Double, scale: Int?, ext: String) {
-        self.base = base
-        self.idiom = idiom
-        self.width = width
-        self.height = height
-        self.scale = scale
-        self.ext = ext
-    }
-}
-
-extension AssetName {
-    /// Initialized this asset name by parsing a string in the expected form.
-    /// - Parameter string: the asset path name to interpret
-    public init(string: String) throws {
-        var str = string
-
-        let fail = {
-            AppError("Unable to parse asset name in the expected format: image_name-IDIOM-WxH@SCALEx.EXT")
-        }
-
-        func consume(segment char: Character, after: Bool = true) throws -> String {
-            let parts = str.split(separator: char)
-            guard let part = (after ? parts.last : parts.first), parts.count > 1 else {
-                throw AppError("Unable to parse character “\(char)” for asset name: “\(string)”")
-            }
-            str = String(after ? str.dropLast(part.count + 1) : str.dropFirst(part.count + 1))
-            return String(part)
-        }
-
-        let ext = try consume(segment: ".")
-        if !(3...4).contains(ext.count) {
-            throw fail() // extensions must be 3 or 4 characters
-        }
-
-        let scale: Int?
-        // if it ends in "@
-        if let trailing = try? consume(segment: "@") {
-            guard let s = Int(trailing.dropLast(1)), s > 0, s <= 3 else {
-                throw fail()
-            }
-            scale = s
-        } else {
-            scale = nil
-        }
-
-        guard let height = try Double(consume(segment: "x")) else {
-            throw fail()
-        }
-        guard let width = try Double(consume(segment: "-")) else {
-            throw fail()
-        }
-
-        if let imgname = try? String(consume(segment: "-", after: false)) {
-            self.init(base: imgname, idiom: str, width: width, height: height, scale: scale, ext: ext)
-        } else {
-            self.init(base: str, idiom: nil, width: width, height: height, scale: scale, ext: ext)
-        }
-    }
-
-    /// The size encoded in the asset name, applying a scaling factor if it is defined
-    public var size: CGSize {
-        if let scale = self.scale {
-            return CGSize(width: width * .init(scale), height: height * .init(scale))
-        } else {
-            return CGSize(width: width, height: height)
-        }
-
-    }
-}
-
-/// The contents of a `Package.resolved` file
-public struct ResolvedPackage: Codable, Equatable {
-    public var object: Pins
-    public var version: Int
-
-    public struct Pins: Codable, Equatable {
-        public var pins: [SwiftPackage]
-    }
-
-    public struct SwiftPackage: Codable, Equatable {
-        public var package: String
-        public var repositoryURL: String
-        public var state: State
-
-        public struct State: Codable, Equatable {
-            public var branch: String?
-            public var revision: String?
-            public var version: String?
-        }
-    }
-}
