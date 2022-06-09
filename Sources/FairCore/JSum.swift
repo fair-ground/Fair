@@ -345,7 +345,7 @@ extension Int : JSumConvertible {
 
 extension Array : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
-        .arr(try self.compactMap({ $0 as? JSumConvertible }).map({ try jsum(options: options) }))
+        .arr(try self.compactMap({ $0 as? JSumConvertible }).map({ try $0.jsum(options: options) }))
     }
 }
 
