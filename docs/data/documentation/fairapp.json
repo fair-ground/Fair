@@ -91,40 +91,38 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCommand",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlementPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppError",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppIconSet",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/ArtifactTarget",
         "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
-        "doc:\/\/FairApp\/documentation\/FairApp\/BrewCommand",
-        "doc:\/\/FairApp\/documentation\/FairApp\/BuildSettings",
         "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairCommand",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSeal",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairTool",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol",
         "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLCursor",
         "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLPayload",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HexColor",
         "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointError",
         "doc:\/\/FairApp\/documentation\/FairApp\/HubEndpointErrorList",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage",
         "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/SVGPathOptions",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SearchBarCommands",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SourceCommand"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SearchBarCommands"
       ],
       "title" : "Structures"
     },
@@ -158,7 +156,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairGround",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol",
         "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys"
       ],
       "title" : "Enumerations"
@@ -233,6 +230,56 @@
   "title" : "APIRequest",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/apirequest"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList": {
+  "abstract" : [
+    {
+      "text" : "The contents of an accent color definition.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Handles parsing the known variants of the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Assets.xcassets\/AccentColor.colorset\/Contents.json",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AccentColorList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AccentColorList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AccentColorList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist"
 },
 "doc://FairApp/documentation/FairApp/AppBackgroundMode": {
   "abstract" : [
@@ -474,37 +521,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory"
 },
-"doc://FairApp/documentation/FairApp/AppCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcommand"
-},
 "doc://FairApp/documentation/FairApp/AppEntitlement": {
   "abstract" : [
 
@@ -634,6 +650,40 @@
   "title" : "AppError",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/apperror"
+},
+"doc://FairApp/documentation/FairApp/AppIconSet": {
+  "abstract" : [
+    {
+      "text" : "The contents of an icon set.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppIconSet"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppIconSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppIconSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppIconSet",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appiconset"
 },
 "doc://FairApp/documentation/FairApp/AppLegacyPermission": {
   "abstract" : [
@@ -872,87 +922,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/assetname"
 },
-"doc://FairApp/documentation/FairApp/BrewCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BrewCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BrewCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BrewCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BrewCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/brewcommand"
-},
-"doc://FairApp/documentation/FairApp/BuildSettings": {
-  "abstract" : [
-    {
-      "text" : "A build configuration file, used to parse ",
-      "type" : "text"
-    },
-    {
-      "code" : "AppFairApp.xcconfig",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "The format is a line-based key\/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BuildSettings"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BuildSettings",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BuildSettings"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BuildSettings",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/buildsettings"
-},
 "doc://FairApp/documentation/FairApp/BundleIdentifier": {
   "abstract" : [
     {
@@ -1153,37 +1122,6 @@
   "title" : "EndpointService",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice"
-},
-"doc://FairApp/documentation/FairApp/FairCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/faircommand"
 },
 "doc://FairApp/documentation/FairApp/FairContainer": {
   "abstract" : [
@@ -1517,7 +1455,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -1540,37 +1478,6 @@
   "title" : "FairSymbol",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol"
-},
-"doc://FairApp/documentation/FairApp/FairTool": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairTool"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairTool",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairTool"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairTool",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairtool"
 },
 "doc://FairApp/documentation/FairApp/FileSystemDataWrapper": {
   "abstract" : [
@@ -1770,6 +1677,37 @@
   "title" : "GraphQLPayload",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/graphqlpayload"
+},
+"doc://FairApp/documentation/FairApp/HexColor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HexColor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HexColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HexColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HexColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hexcolor"
 },
 "doc://FairApp/documentation/FairApp/HubEndpointError": {
   "abstract" : [
@@ -2091,37 +2029,6 @@
   "title" : "SearchBarCommands",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/searchbarcommands"
-},
-"doc://FairApp/documentation/FairApp/SourceCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SourceCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/sourcecommand"
 },
 "doc://FairApp/documentation/FairApp/UsageDescriptionKeys": {
   "abstract" : [

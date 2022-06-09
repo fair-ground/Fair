@@ -239,5 +239,79 @@ extension ForEach where Content : View {
     }
 }
 
+public extension UsageDescriptionKeys {
+    var icon: FairSymbol {
+        switch self {
+        case .NSSiriUsageDescription: return .ear
+        case .NSSpeechRecognitionUsageDescription: return .waveform
+        case .NSMicrophoneUsageDescription: return .mic_circle
+        case .NSCameraUsageDescription: return .camera
+        case .NSMotionUsageDescription: return .gyroscope
+        case .NFCReaderUsageDescription: return .barcode_viewfinder
+        case .NSBluetoothUsageDescription: return .cable_connector
+        case .NSBluetoothAlwaysUsageDescription: return .cable_connector_horizontal
+        case .NSBluetoothPeripheralUsageDescription: return .printer
+        case .NSRemindersUsageDescription: return .text_badge_checkmark
+        case .NSContactsUsageDescription: return .person_text_rectangle
+        case .NSCalendarsUsageDescription: return .calendar
+        case .NSPhotoLibraryAddUsageDescription: return .text_below_photo_fill
+        case .NSPhotoLibraryUsageDescription: return .photo
+        case .NSAppleMusicUsageDescription: return .music_note
+        case .NSHomeKitUsageDescription: return .house
+            //case .NSVideoSubscriberAccountUsageDescription: return .sparkles_tv
+        case .NSHealthShareUsageDescription: return .stethoscope
+        case .NSHealthUpdateUsageDescription: return .stethoscope_circle
+        case .NSAppleEventsUsageDescription: return .scroll
+        case .NSFocusStatusUsageDescription: return .eyeglasses
+        case .NSLocalNetworkUsageDescription: return .network
+        case .NSFaceIDUsageDescription: return .viewfinder
+        case .NSLocationUsageDescription: return .location
+        case .NSLocationAlwaysUsageDescription: return .location_fill
+        case .NSLocationTemporaryUsageDescriptionDictionary: return .location_circle
+        case .NSLocationWhenInUseUsageDescription: return .location_north
+        case .NSLocationAlwaysAndWhenInUseUsageDescription: return .location_fill_viewfinder
+        case .NSUserTrackingUsageDescription: return .eyes
+        case .NSNearbyInteractionAllowOnceUsageDescription:
+                return .person_badge_clock_fill
+        case .NSLocationDefaultAccuracyReduced: return .location_square_fill
+        case .NSWidgetWantsLocation: return .location_magnifyingglass
+        case .NSVoIPUsageDescription: return .network_badge_shield_half_filled
+        case .NSNearbyInteractionUsageDescription: return .person_2_wave_2
+        case .NSSensorKitUsageDescription: return .antenna_radiowaves_left_and_right
+        case .NSBluetoothWhileInUseUsageDescription: return .dot_radiowaves_right
+        case .NSFallDetectionUsageDescription: return .figure_walk
+        case .NSVideoSubscriberAccountUsageDescription: return .play_tv
+        case .NSGKFriendListUsageDescription: return .person_3_sequence
+        case .NSHealthClinicalHealthRecordsShareUsageDescription: return .cross_circle
+        case .NSDesktopFolderUsageDescription: return .dock_rectangle
+        case .NSDocumentsFolderUsageDescription: return .menubar_dock_rectangle
+        case .NSDownloadsFolderUsageDescription: return .dock_arrow_down_rectangle
+        case .NSSystemExtensionUsageDescription: return .desktopcomputer
+        case .NSSystemAdministrationUsageDescription: return .lock_laptopcomputer
+        case .NSFileProviderDomainUsageDescription: return .externaldrive_connected_to_line_below
+        case .NSFileProviderPresenceUsageDescription: return .externaldrive_badge_checkmark
+        case .NSNetworkVolumesUsageDescription: return .externaldrive_badge_wifi
+        case .NSRemovableVolumesUsageDescription: return .externaldrive
+        }
+    }
+}
+
+@available(macOS 12.0, iOS 15.0, *)
+extension SwiftUI.TextField {
+    /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
+    public func overlink(to destination: URL?, image: Image = FairSymbol.arrowshape_turn_up_right_circle_fill.image) -> some View {
+        self.overlay(alignment: .trailing) {
+            if let destination = destination {
+                Link(destination: destination) {
+                    image
+                }
+                //.padding(.horizontal) // causes a crash
+            }
+        }
+    }
+
+}
+
+
 
 #endif

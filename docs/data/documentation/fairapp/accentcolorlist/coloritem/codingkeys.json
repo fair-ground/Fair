@@ -1,0 +1,566 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairApp15AccentColorListV0D4ItemV10CodingKeysO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "CodingKeys"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "CodingKeys"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "AccentColorList.ColorItem.CodingKeys"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "CodingKeys"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/s9CodingKeyP",
+        "doc:\/\/FairApp\/s28CustomDebugStringConvertibleP",
+        "doc:\/\/FairApp\/s23CustomStringConvertibleP",
+        "doc:\/\/FairApp\/SQ",
+        "doc:\/\/FairApp\/SH",
+        "doc:\/\/FairApp\/SY",
+        "doc:\/\/FairApp\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/colorspace",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/components",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/platform",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/reference"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/init(intValue:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/init(rawValue:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/init(stringValue:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/CodingKey-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/Equatable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/RawRepresentable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/SH": {
+  "identifier" : "doc:\/\/FairApp\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SQ": {
+  "identifier" : "doc:\/\/FairApp\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SY": {
+  "identifier" : "doc:\/\/FairApp\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList": {
+  "abstract" : [
+    {
+      "text" : "The contents of an accent color definition.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Handles parsing the known variants of the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Assets.xcassets\/AccentColor.colorset\/Contents.json",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AccentColorList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AccentColorList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AccentColorList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ColorItem"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ColorItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AccentColorList.ColorItem",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CodingKeys"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CodingKeys"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AccentColorList.ColorItem.CodingKeys",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/CodingKey-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/CodingKey-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "CodingKey Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/codingkey-implementations"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/equatable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/RawRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/rawrepresentable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/colorspace": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "colorspace"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/colorspace",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AccentColorList.ColorItem.CodingKeys.colorspace",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/colorspace"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/components": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "components"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/components",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AccentColorList.ColorItem.CodingKeys.components",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/components"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/init(intValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "intValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/init(intValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(intValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/init(intvalue:)"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/init(rawValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/init(rawvalue:)"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/init(stringValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "stringValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/init(stringValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(stringValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/init(stringvalue:)"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/platform": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "platform"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/platform",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AccentColorList.ColorItem.CodingKeys.platform",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/platform"
+},
+"doc://FairApp/documentation/FairApp/AccentColorList/ColorItem/CodingKeys/reference": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reference"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList\/ColorItem\/CodingKeys\/reference",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "AccentColorList.ColorItem.CodingKeys.reference",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/accentcolorlist\/coloritem\/codingkeys\/reference"
+},
+"doc://FairApp/s23CustomStringConvertibleP": {
+  "identifier" : "doc:\/\/FairApp\/s23CustomStringConvertibleP",
+  "title" : "Swift.CustomStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://FairApp/s28CustomDebugStringConvertibleP": {
+  "identifier" : "doc:\/\/FairApp\/s28CustomDebugStringConvertibleP",
+  "title" : "Swift.CustomDebugStringConvertible",
+  "type" : "unresolvable"
+},
+"doc://FairApp/s8SendableP": {
+  "identifier" : "doc:\/\/FairApp\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/s9CodingKeyP": {
+  "identifier" : "doc:\/\/FairApp\/s9CodingKeyP",
+  "title" : "Swift.CodingKey",
+  "type" : "unresolvable"
+}
+}
+}

@@ -36,6 +36,7 @@ let package = Package(
         .library(name: "FairCore", targets: ["FairCore"]),
         .library(name: "FairApp", targets: ["FairApp"]),
         .library(name: "FairKit", targets: ["FairKit"]),
+        .library(name: "FairTools", targets: ["FairTools"]),
         .executable(name: "fairtool", targets: ["FairTool"]),
     ],
     dependencies: [
@@ -43,12 +44,14 @@ let package = Package(
     ],
     targets: coreTargets + [
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources"), .copy("Bundle")]),
+        .target(name: "FairTools", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
-        .executableTarget(name: "FairTool", dependencies: ["FairApp"]),
+        .executableTarget(name: "FairTool", dependencies: ["FairTools"]),
 
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources"), .copy("Bundle")]),
         .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")]),
+        .testTarget(name: "FairToolsTests", dependencies: [.target(name: "FairTools")]),
         .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")])
     ]
 )

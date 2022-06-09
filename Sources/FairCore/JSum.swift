@@ -17,7 +17,7 @@
 import Swift
 
 /// A JSum is a JavaScript Union Model, which is a sum type providing
-/// an in-memory representation of a JSON-representible structure.
+/// an in-memory representation of a JSON-representable structure.
 ///
 /// JSum can represent the following associated types:
 ///
@@ -113,7 +113,7 @@ extension JSum : ExpressibleByStringLiteral {
 }
 
 extension JSum : ExpressibleByDictionaryLiteral {
-    /// Creates a dictonary of JSum
+    /// Creates a dictionary of `String` to `JSum`
     @inlinable public init(dictionaryLiteral elements: (String, JSum)...) {
         var d: Dictionary<String, JSum> = [:]
         for (k, v) in elements { d[k] = v }
@@ -210,7 +210,7 @@ extension JSum : Decodable {
         func decode<T: Decodable>() throws -> T { try container.decode(T.self) }
         if container.decodeNil() {
             self = .nul
-        }  else {
+        } else {
             do {
                 self = try .bol(container.decode(Bool.self))
             } catch DecodingError.typeMismatch {
@@ -254,6 +254,8 @@ extension NSDictionary {
         // try JSum(json: JSONSerialization.data(withJSONObject: self, options: []))
 
         var obj = JObj()
+        obj.reserveCapacity(self.count)
+
         for (key, value) in self {
             if let key = key as? String, let value = value as? JSumConvertible {
                 obj[key] = try value.jsum(options: options)
@@ -277,7 +279,9 @@ private enum JSumErrors : Error {
     case cannotEncode(nonEncodable: Any)
 }
 
-// MARK: CoreFoundation JSumConvertible extensions (needed for Linux)
+// MARK: Non-ObjC CoreFoundation JSumConvertible extensions
+
+// these extensions are needed for NSDictionary->JSum conversions on non-ObjC platforms (Linux, Windows)
 
 extension String : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
@@ -354,7 +358,9 @@ extension Date : JSumConvertible {
 }
 
 
-// MARK: CoreFoundation JSumConvertible extensions (needed for ObjC platforms)
+// MARK: ObjC CoreFoundation JSumConvertible extensions
+
+// these extensions are needed for NSDictionary->JSum conversions on ObjC platforms (iOS, macOS)
 
 extension NSDictionary : JSumConvertible {
 

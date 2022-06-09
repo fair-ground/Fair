@@ -441,7 +441,7 @@ extension URLSession {
     #endif // !os(Linux) && !os(Windows) 
 
     /// Downloads the given file. It sohuld behave the same as the async URLSession.download function (which is missing from linux).
-    func downloadFile(for request: URLRequest) async throws -> (URL, URLResponse) {
+    public func downloadFile(for request: URLRequest) async throws -> (URL, URLResponse) {
         return try await withCheckedThrowingContinuation { continuation in
             downloadTaskCopy(with: request) { url, response, error in
                 if let url = url, let response = response, error == nil {
