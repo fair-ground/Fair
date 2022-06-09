@@ -569,14 +569,31 @@ final class FairCoreTests: XCTestCase {
     }
 
     func testJSumPropertyLists() throws {
-        func plist(_ value: String) throws -> JSum {
-            try Plist(data: value.utf8Data).jsum()
+        func plist(_ value: Data) throws -> JSum {
+            try Plist(data: value).jsum()
         }
 
-        // Old-school NeXTSTEP property lists
-        XCTAssertEqual(["key": "value"], try plist(#"{ "key" = "value"; }"#))
-        XCTAssertEqual(["key": ["1"]], try plist(#"{ "key" = ( "1" ); }"#))
-        // XCTAssertEqual(["key": [2.0]], try plist(#"{ "key" = ( 2 ); }"#))
+        // Old-school NeXTSTEP property list text format
+        XCTAssertEqual(["key": "value"], try plist(#"{ "key" = "value"; }"#.utf8Data))
+        XCTAssertEqual(["key": ["1"]], try plist(#"{ "key" = ( "1" ); }"#.utf8Data))
+        // XCTAssertEqual(["key": [2.0]], try plist(#"{ "key" = ( 2 ); }"#.utf8Data))
+
+        XCTAssertEqual(["key": ["1"]], try plist("""
+            <?xml version="1.0" encoding="UTF-8"?>
+            <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+            <plist version="1.0">
+            <dict>
+                <key>key</key>
+                <array>
+                    <string>1</string>
+                </array>
+            </dict>
+            </plist>
+            """.utf8Data))
+
+
+        // binary bplist00… data
+        XCTAssertEqual(["key": ["1"]], try plist(XCTUnwrap(Data(base64Encoded: "YnBsaXN0MDDRAQJTa2V5oQNRMQgLDxEAAAAAAAABAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAEw=="))))
     }
 
     func testFairCoreVersion() throws {
