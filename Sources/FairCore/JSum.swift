@@ -277,6 +277,8 @@ private enum JSumErrors : Error {
     case cannotEncode(nonEncodable: Any)
 }
 
+// MARK: CoreFoundation JSumConvertible extensions (needed for ObjC platforms)
+
 extension NSDictionary : JSumConvertible {
 
 }
@@ -303,12 +305,6 @@ extension NSString : JSumConvertible {
     }
 }
 
-extension String : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .str(self as String)
-    }
-}
-
 extension NSNull : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         .nul
@@ -318,6 +314,14 @@ extension NSNull : JSumConvertible {
 extension NSNumber : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         isBool ? .bol(self.boolValue) : .num(self.doubleValue)
+    }
+}
+
+// MARK: CoreFoundation JSumConvertible extensions (needed for Linux)
+
+extension String : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(self as String)
     }
 }
 
@@ -336,6 +340,12 @@ extension Double : JSumConvertible {
 extension Int : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         .num(.init(self))
+    }
+}
+
+extension Array : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .arr(try self.compactMap({ $0 as? JSumConvertible }).map({ try jsum(options: options) }))
     }
 }
 
