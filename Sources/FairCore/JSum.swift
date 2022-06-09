@@ -277,6 +277,63 @@ private enum JSumErrors : Error {
     case cannotEncode(nonEncodable: Any)
 }
 
+// MARK: CoreFoundation JSumConvertible extensions (needed for Linux)
+
+extension String : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .str(self as String)
+    }
+}
+
+extension Bool : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .bol(self)
+    }
+}
+
+extension Double : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .num(self)
+    }
+}
+
+extension Int : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        .num(.init(self))
+    }
+}
+
+extension Array : JSumConvertible {
+    func jsum(options: JSumOptions) throws -> JSum {
+        var arr: [JSum] = []
+        arr.reserveCapacity(self.count)
+        for value in self {
+            if let value = value as? JSumConvertible {
+                arr.append(try value.jsum(options: options))
+            } else if !options.contains(.ignoreNonEncodable) {
+                throw JSumErrors.cannotEncode(nonEncodable: value)
+            }
+        }
+        return .arr(arr)
+    }
+}
+
+extension Dictionary : JSumConvertible where Key == String {
+    func jsum(options: JSumOptions) throws -> JSum {
+        var obj = JObj()
+        obj.reserveCapacity(self.count)
+        for (key, value) in self {
+            if let value = value as? JSumConvertible {
+                obj[key] = try value.jsum(options: options)
+            } else if !options.contains(.ignoreNonEncodable) {
+                throw JSumErrors.cannotEncode(nonEncodable: value)
+            }
+        }
+        return .obj(obj)
+    }
+}
+
+
 // MARK: CoreFoundation JSumConvertible extensions (needed for ObjC platforms)
 
 extension NSDictionary : JSumConvertible {
@@ -314,38 +371,6 @@ extension NSNull : JSumConvertible {
 extension NSNumber : JSumConvertible {
     func jsum(options: JSumOptions) throws -> JSum {
         isBool ? .bol(self.boolValue) : .num(self.doubleValue)
-    }
-}
-
-// MARK: CoreFoundation JSumConvertible extensions (needed for Linux)
-
-extension String : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .str(self as String)
-    }
-}
-
-extension Bool : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .bol(self)
-    }
-}
-
-extension Double : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .num(self)
-    }
-}
-
-extension Int : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .num(.init(self))
-    }
-}
-
-extension Array : JSumConvertible {
-    func jsum(options: JSumOptions) throws -> JSum {
-        .arr(try self.compactMap({ $0 as? JSumConvertible }).map({ try $0.jsum(options: options) }))
     }
 }
 
