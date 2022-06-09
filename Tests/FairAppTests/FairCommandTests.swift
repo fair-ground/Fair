@@ -79,16 +79,6 @@ final class FairCommandTests: XCTestCase {
         XCTAssertEqual(false, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
-    /// Runs "fairtool app info <url>" on a homebrew cask .app .zip file
-    func testAppInfoCommandStocks() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "/System/Applications/Stocks.app")
-
-        XCTAssertEqual("com.apple.stocks", result.first?.info.obj?["CFBundleIdentifier"]?.str)
-        XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
-        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
-    }
-
     func testValidateCommand() async throws {
         do {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.ValidateCommand.configuration.commandName)
@@ -111,6 +101,21 @@ final class FairCommandTests: XCTestCase {
             XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairCommand, FairApp.FairCommand.IconCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
+
+    /// Runs "fairtool app info <url>" on a homebrew cask .app .zip file
+    func testAppInfoCommandStocks() async throws {
+        let stocksPath = "/System/Applications/Stocks.app"
+//        if !FileManager.default.itemExists(at: URL(fileURLWithPath: stocksPath)) {
+//            throw XCTSkip("no stocks app") // e.g., Linux
+//        }
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, stocksPath)
+
+        XCTAssertEqual("com.apple.stocks", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
+        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
+    }
+
     #endif
 
     func testMergeCommand() async throws {
