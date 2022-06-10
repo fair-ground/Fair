@@ -116,8 +116,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/buildRequest(for:cache:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/request(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestAsync(_:cache:retry:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:maxBatches:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestNextBatch(_:cache:batchHandler:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:batchHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -482,10 +482,18 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice\/requestasync(_:cache:retry:)"
 },
-"doc://FairApp/documentation/FairApp/EndpointService/requestBatches(_:maxBatches:)": {
+"doc://FairApp/documentation/FairApp/EndpointService/requestBatchStream(_:maxBatches:)": {
   "abstract" : [
     {
-      "text" : "Fetches the web service for the given request, following the cursor until a maximum number of batches has been retrieved",
+      "text" : "Fetches the web service for the given request, returning an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
       "type" : "text"
     }
   ],
@@ -500,7 +508,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "requestBatches"
+      "text" : "requestBatchStream"
     },
     {
       "kind" : "text",
@@ -537,23 +545,16 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : ") -> "
     },
     {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -569,17 +570,26 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:maxBatches:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatches(_:maxBatches:)",
+  "title" : "requestBatchStream(_:maxBatches:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatches(_:maxbatches:)"
+  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:)"
 },
-"doc://FairApp/documentation/FairApp/EndpointService/requestNextBatch(_:cache:batchHandler:)": {
+"doc://FairApp/documentation/FairApp/EndpointService/requestBatches(_:cache:batchHandler:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, following the cursor until the ",
@@ -613,7 +623,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "requestNextBatch"
+      "text" : "requestBatches"
     },
     {
       "kind" : "text",
@@ -752,12 +762,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestNextBatch(_:cache:batchHandler:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:batchHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestNextBatch(_:cache:batchHandler:)",
+  "title" : "requestBatches(_:cache:batchHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice\/requestnextbatch(_:cache:batchhandler:)"
+  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatches(_:cache:batchhandler:)"
 },
 "doc://FairApp/documentation/FairApp/EndpointService/session-4ys30": {
   "abstract" : [

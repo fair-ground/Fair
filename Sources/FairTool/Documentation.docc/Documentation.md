@@ -37,6 +37,5 @@ SUBCOMMANDS:
 
 ## More Info
 
-All the functionality in this tool is also available through
-the [FairTools swift library](../fairtools/).
-
+All the functionality in this tool is also available though a Swift module at
+[FairExpo](../fairexpo/).

@@ -1,0 +1,1592 @@
+{
+  "abstract" : [
+    {
+      "text" : "The state of a WebView, which holds the ",
+      "type" : "text"
+    },
+    {
+      "code" : "WKWebView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairKit\/documentation\/FairKit"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairKit12WebViewStateC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "WebViewState"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairKit"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "WebViewState"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "WebViewState"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "WebViewState"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/7Combine16ObservableObjectP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/init(initialRequest:configuration:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/canGoBack",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/canGoForward",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/errors",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/estimatedProgress",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/hasOnlySecureContent",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/isLoading",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/title",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/url",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/webView"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/createWebView()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didCommit(navigation:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didFail(navigation:provisional:error:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didFinish(navigation:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didRedirectProvisional(navigation:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didStartProvisional(navigation:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/goBack()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/goForward()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/js(_:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/load(_:)-5vkv3",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/load(_:)-6ea8w",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/navigateAction(brief:amount:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reload()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reloadAction(brief:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reportError(_:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/stopAction(brief:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/stopLoading()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/trying(block:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/zoomAction(brief:amount:minimumZoomLevel:maximumZoomLevel:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/ObservableObject-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairkit\/webviewstate"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairKit/7Combine16ObservableObjectP": {
+  "identifier" : "doc:\/\/FairKit\/7Combine16ObservableObjectP",
+  "title" : "Combine.ObservableObject",
+  "type" : "unresolvable"
+},
+"doc://FairKit/documentation/FairKit": {
+  "abstract" : [
+    {
+      "text" : "Extensions to ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairApp",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " around creating useful apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit"
+},
+"doc://FairKit/documentation/FairKit/WebViewState": {
+  "abstract" : [
+    {
+      "text" : "The state of a WebView, which holds the ",
+      "type" : "text"
+    },
+    {
+      "code" : "WKWebView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebViewState"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebViewState"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebViewState",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/ObservableObject-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/ObservableObject-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ObservableObject Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/observableobject-implementations"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/canGoBack": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canGoBack"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/canGoBack",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canGoBack",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/cangoback"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/canGoForward": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canGoForward"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/canGoForward",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canGoForward",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/cangoforward"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/createWebView()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createWebView"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@FairKit@objc(cs)WebEngineView",
+      "text" : "WebEngineView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/createWebView()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createWebView()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/createwebview()"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/didCommit(navigation:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "didCommit"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "navigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didCommit(navigation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "didCommit(navigation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/didcommit(navigation:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/didFail(navigation:provisional:error:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "didFail"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "navigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "provisional"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "error"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didFail(navigation:provisional:error:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "didFail(navigation:provisional:error:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/didfail(navigation:provisional:error:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/didFinish(navigation:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "didFinish"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "navigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didFinish(navigation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "didFinish(navigation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/didfinish(navigation:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/didRedirectProvisional(navigation:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "didRedirectProvisional"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "navigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didRedirectProvisional(navigation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "didRedirectProvisional(navigation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/didredirectprovisional(navigation:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/didStartProvisional(navigation:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "didStartProvisional"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "navigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/didStartProvisional(navigation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "didStartProvisional(navigation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/didstartprovisional(navigation:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/errors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSError",
+      "text" : "NSError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/errors",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errors",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/errors"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/estimatedProgress": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "estimatedProgress"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/estimatedProgress",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "estimatedProgress",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/estimatedprogress"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/goBack()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "goBack"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/goBack()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "goBack()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/goback()"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/goForward()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "goForward"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/goForward()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "goForward()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/goforward()"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/hasOnlySecureContent": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasOnlySecureContent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/hasOnlySecureContent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasOnlySecureContent",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/hasonlysecurecontent"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/init(initialRequest:configuration:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "initialRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKWebViewConfiguration",
+      "text" : "WKWebViewConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/init(initialRequest:configuration:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(initialRequest:configuration:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/init(initialrequest:configuration:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/isLoading": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isLoading"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/isLoading",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isLoading",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/isloading"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/js(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "js"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/js(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "js(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/js(_:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/load(_:)-5vkv3": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "load"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/load(_:)-5vkv3",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "load(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/load(_:)-5vkv3"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/load(_:)-6ea8w": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "load"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/load(_:)-6ea8w",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "load(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/load(_:)-6ea8w"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/navigateAction(brief:amount:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "navigateAction"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "brief"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "amount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/navigateAction(brief:amount:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "navigateAction(brief:amount:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/navigateaction(brief:amount:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/reload()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reload"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reload()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reload()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/reload()"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/reloadAction(brief:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reloadAction"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "brief"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reloadAction(brief:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reloadAction(brief:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/reloadaction(brief:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/reportError(_:)": {
+  "abstract" : [
+    {
+      "text" : "Register that an error occurred with the app manager",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reportError"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reportError(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reportError(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/reporterror(_:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/stopAction(brief:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stopAction"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "brief"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/stopAction(brief:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stopAction(brief:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/stopaction(brief:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/stopLoading()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stopLoading"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/stopLoading()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stopLoading()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/stoploading()"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/title": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/title",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "title",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/title"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/trying(block:)": {
+  "abstract" : [
+    {
+      "text" : "Attempts to perform the given action and adds any errors to the error list if they fail.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trying"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "block"
+    },
+    {
+      "kind" : "text",
+      "text" : ": () "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ()) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/trying(block:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trying(block:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/trying(block:)"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/url": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/url",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "url",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/url"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/webView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webView"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKWebView",
+      "text" : "WKWebView"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/webView",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/webview"
+},
+"doc://FairKit/documentation/FairKit/WebViewState/zoomAction(brief:amount:minimumZoomLevel:maximumZoomLevel:)": {
+  "abstract" : [
+    {
+      "text" : "The command for performing a zoom operation at the given amount.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "zoomAction"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "brief"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "amount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "minimumZoomLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "maximumZoomLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/zoomAction(brief:amount:minimumZoomLevel:maximumZoomLevel:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "zoomAction(brief:amount:minimumZoomLevel:maximumZoomLevel:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webviewstate\/zoomaction(brief:amount:minimumzoomlevel:maximumzoomlevel:)"
+}
+}
+}

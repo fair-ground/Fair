@@ -145,6 +145,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/buildAppCasks(owner:name:excludeEmptyCasks:boostFactor:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/buildCatalog(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/endpoint(action:_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/fetchAppStream(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/postFairseal(_:owner:name:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/validate(org:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/validateAppName(_:)",
@@ -1642,6 +1643,183 @@
   "title" : "fairsealIssuer",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairhub\/fairsealissuer"
+},
+"doc://FairApp/documentation/FairApp/FairHub/fetchAppStream(title:owner:fairsealCheck:artifactTarget:requestLimit:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchAppStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fairsealCheck"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "artifactTarget"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp14ArtifactTargetV",
+      "text" : "ArtifactTarget"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "requestLimit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:12_Concurrency24AsyncThrowingMapSequenceV",
+      "text" : "AsyncThrowingMapSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0A3HubV12CatalogQueryV",
+      "text" : "CatalogQuery"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0A3HubV12CatalogQueryV8Responsea",
+      "text" : "Response"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "]>"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/fetchAppStream(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchAppStream(title:owner:fairsealCheck:artifactTarget:requestLimit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairhub\/fetchappstream(title:owner:fairsealcheck:artifacttarget:requestlimit:)"
 },
 "doc://FairApp/documentation/FairApp/FairHub/init(hostOrg:authToken:fairsealIssuer:allowName:denyName:allowFrom:denyFrom:allowLicense:)": {
   "abstract" : [

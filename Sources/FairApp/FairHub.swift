@@ -131,23 +131,39 @@ public extension FairHub {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
+        var apps: [AppCatalogItem] = []
+        for try await app in fetchAppStream(title: title, owner: owner, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: requestLimit) {
+            apps.append(contentsOf: app)
+        }
+        let news: [AppNewsPost]? = nil
+
+        // in order to minimize catalog changes, always sort by the bundle name
+        apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
+
+        let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURLMacOS : appfairCatalogURLIOS
+        let catalog = AppCatalog(name: title, identifier: org, sourceURL: catalogURL, apps: apps, news: news)
+        return catalog
+    }
+
+    func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<FairHub.CatalogQuery.Response, Error>, [AppCatalogItem]> {
+
+        let forksResponse = self.requestBatchStream(FairHub.CatalogQuery(owner: owner, name: "App"), maxBatches: appfairMaxApps / 200)
+        let result = forksResponse.map { forks in
+            try forkResponse(forks, artifactTarget: artifactTarget)
+        }
+        return result
+    }
+
+    private func forkResponse(_ forks: FairHub.CatalogQuery.Response, artifactTarget: ArtifactTarget) throws -> [AppCatalogItem] {
         guard let fairsealIssuer = fairsealIssuer else {
             throw Errors.missingFairsealIssuer
         }
 
-        let forksResponse = try await self.requestBatches(FairHub.CatalogQuery(owner: owner, name: "App"), maxBatches: appfairMaxApps / 200)
-        if let error = forksResponse.compactMap(\.result.failureValue).first {
-            throw error
-        }
-        let forks = forksResponse
-            .compactMap(\.result.successValue)
-            .flatMap(\.data.repository.forks.nodes)
-
-        dbg("fetched forks:", forks.count)
-
+        let forkNodes = try forks.result.get().data.repository.forks.nodes
+        //print(wip("#####"), forkNodes.map(\.nameWithOwner))
         var apps: [AppCatalogItem] = []
 
-        for fork in forks  {
+        for fork in forkNodes {
             dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
             // #warning("TODO validation")
             //            let invalid = validate(org: fork.owner)
@@ -371,14 +387,7 @@ public extension FairHub {
             }
         }
 
-        let news: [AppNewsPost]? = nil
-
-        // in order to minimize catalog changes, always sort by the bundle name
-        apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
-
-        let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURLMacOS : appfairCatalogURLIOS
-        let catalog = AppCatalog(name: title, identifier: org, sourceURL: catalogURL, apps: apps, news: news)
-        return catalog
+        return apps
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
@@ -386,131 +395,127 @@ public extension FairHub {
         // all the seal hashes we will look up to validate releases
         dbg("buildAppCasks")
 
-        let forksResponse = try await self.requestBatches(FairHub.AppCasksQuery(owner: owner, name: name), maxBatches: appfairMaxApps / 200)
-        if let error = forksResponse.compactMap(\.result.failureValue).first {
-            throw error
-        }
-        let forks = forksResponse
-            .compactMap(\.result.successValue)
-            .flatMap(\.data.repository.forks.nodes)
-
-        dbg("fetched appcasks forks:", forks.count)
+        let forksResponse = self.requestBatchStream(FairHub.AppCasksQuery(owner: owner, name: name), maxBatches: appfairMaxApps / 200)
 
         var apps: [AppCatalogItem] = []
 
-        for fork in forks  {
-            dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
+        for try await forks in forksResponse {
+            let forkNodes = try forks.result.get().data.repository.forks.nodes
+            dbg("fetched appcasks forks:", forkNodes.count)
+            for fork in forkNodes {
+                dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
 
-            guard let homepage = fork.owner.websiteUrl else {
-                dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
-                continue
-            }
-
-            if fork.owner.isVerified != true {
-                dbg("skipping un-verified owner:", fork.nameWithOwner)
-                continue
-            }
-
-            let caskPrefix = "cask-"
-
-            let releases = fork.releases
-            var releaseNodes = releases.nodes
-            dbg("received release names:", releaseNodes.compactMap(\.name))
-            if releases.pageInfo?.hasNextPage == true, let releaseCursor = releases.pageInfo?.endCursor {
-                dbg("traversing release cursor:", releaseCursor)
-                let moreReleases = try await self.requestBatches(FairHub.AppCaskReleasesQuery(repositoryNodeID: fork.id, cursor: releaseCursor), maxBatches: appfairMaxApps / 200)
-                let moreReleaseNodes = moreReleases.compactMap(\.result.successValue?.data.node.releases.nodes).joined()
-                dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
-                releaseNodes.append(contentsOf: moreReleaseNodes)
-            }
-
-            for release in releaseNodes {
-                let tagName = release.tag.name
-                if !tagName.hasPrefix(caskPrefix) {
-                    dbg("tag name", tagName.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
+                guard let homepage = fork.owner.websiteUrl else {
+                    dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
                     continue
                 }
-                let appid = BundleIdentifier(release.tag.name.dropFirst(caskPrefix.count).description)
-                let releaseName = release.name ?? release.tag.name
 
-                let subtitle: String? = nil
-                let localizedDescription = release.description
-
-                dbg("  checking release tag:", appid, "name:", releaseName)
-
-                let versionDate = release.createdAt
-                let versionDescription = release.description
-
-                let beta: Bool = release.isPrerelease
-
-                let sourceIdentifier: String? = nil
-
-                func releaseAsset(named name: String) -> ReleaseAsset? {
-                    release.releaseAssets.nodes.first(where: { node in
-                        node.name == name
-                    })
+                if fork.owner.isVerified != true {
+                    dbg("skipping un-verified owner:", fork.nameWithOwner)
+                    continue
                 }
 
-                dbg("checking target:", appid, "files:", release.releaseAssets.nodes.map(\.name))
+                let caskPrefix = "cask-"
 
-                /// Returns all the asset names with the given prefix trimmed off
-                func prefixedAssetTag(_ prefix: String) -> [String] {
-                    release.releaseAssets.nodes.filter {
-                        $0.name.hasPrefix(prefix)
-                    }
-                    .map {
-                        $0.name.dropFirst(prefix.count).description
+                let releases = fork.releases
+                var releaseNodes = releases.nodes
+                dbg("received release names:", releaseNodes.compactMap(\.name))
+                if releases.pageInfo?.hasNextPage == true, let releaseCursor = releases.pageInfo?.endCursor {
+                    dbg("traversing release cursor:", releaseCursor)
+                    for try await moreReleasesNode in self.requestBatchStream(FairHub.AppCaskReleasesQuery(repositoryNodeID: fork.id, cursor: releaseCursor), maxBatches: appfairMaxApps / 200) {
+                        let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
+                        dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
+                        releaseNodes.append(contentsOf: moreReleaseNodes)
                     }
                 }
 
-                // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
-                let categories = prefixedAssetTag("category-")
-                    .compactMap(AppCategory.init(rawValue:))
-
-                let tintColor = prefixedAssetTag("tint-")
-                    .filter({ $0.count == 6 }) // needs to be a 6-digit hex code
-                    .first
-
-                let appREADME = releaseAsset(named: "README.md")
-                let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
-                let caskInstalls = releaseAsset(named: "cask-install")
-
-                let appIcon = releaseAsset(named: "AppIcon.png")
-
-                let artifactURL = homepage // not the real artifact, but we need something for the download URL; it will be ignored when we merge this catalog with the main brew catalog
-
-                let readmeURL = appREADME?.downloadUrl
-                let releaseNotesURL = appRELEASENOTES?.downloadUrl
-                let screenshotURLs = release.releaseAssets.nodes.filter { node in
-                    if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
-                        return false
+                for release in releaseNodes {
+                    let tagName = release.tag.name
+                    if !tagName.hasPrefix(caskPrefix) {
+                        dbg("tag name", tagName.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
+                        continue
                     }
-                    return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
-                }
+                    let appid = BundleIdentifier(release.tag.name.dropFirst(caskPrefix.count).description)
+                    let releaseName = release.name ?? release.tag.name
 
-                let downloadCount = caskInstalls?.downloadCount
-                let impressionCount = appIcon?.downloadCount
-                let viewCount = appREADME?.downloadCount
+                    let subtitle: String? = nil
+                    let localizedDescription = release.description
 
-                // walk through the recent releases until we find one that has a fairseal on it
+                    dbg("  checking release tag:", appid, "name:", releaseName)
 
-                let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, releaseNotesURL: releaseNotesURL, homepage: homepage)
+                    let versionDate = release.createdAt
+                    let versionDescription = release.description
 
-                // only add the cask if it has any supplemental information defined
-                if excludeEmptyCasks == false
-                    || (app.downloadCount ?? 0) > 0
-                    || app.readmeURL != nil
-                    || app.releaseNotesURL != nil
-                    || app.iconURL != nil
-                    || app.tintColor != nil
-                    || app.categories?.isEmpty == false
-                    || app.screenshotURLs?.isEmpty == false
-                {
-                    apps.append(app)
+                    let beta: Bool = release.isPrerelease
+
+                    let sourceIdentifier: String? = nil
+
+                    func releaseAsset(named name: String) -> ReleaseAsset? {
+                        release.releaseAssets.nodes.first(where: { node in
+                            node.name == name
+                        })
+                    }
+
+                    dbg("checking target:", appid, "files:", release.releaseAssets.nodes.map(\.name))
+
+                    /// Returns all the asset names with the given prefix trimmed off
+                    func prefixedAssetTag(_ prefix: String) -> [String] {
+                        release.releaseAssets.nodes.filter {
+                            $0.name.hasPrefix(prefix)
+                        }
+                        .map {
+                            $0.name.dropFirst(prefix.count).description
+                        }
+                    }
+
+                    // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
+                    let categories = prefixedAssetTag("category-")
+                        .compactMap(AppCategory.init(rawValue:))
+
+                    let tintColor = prefixedAssetTag("tint-")
+                        .filter({ $0.count == 6 }) // needs to be a 6-digit hex code
+                        .first
+
+                    let appREADME = releaseAsset(named: "README.md")
+                    let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
+                    let caskInstalls = releaseAsset(named: "cask-install")
+
+                    let appIcon = releaseAsset(named: "AppIcon.png")
+
+                    let artifactURL = homepage // not the real artifact, but we need something for the download URL; it will be ignored when we merge this catalog with the main brew catalog
+
+                    let readmeURL = appREADME?.downloadUrl
+                    let releaseNotesURL = appRELEASENOTES?.downloadUrl
+                    let screenshotURLs = release.releaseAssets.nodes.filter { node in
+                        if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
+                            return false
+                        }
+                        return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
+                    }
+
+                    let downloadCount = caskInstalls?.downloadCount
+                    let impressionCount = appIcon?.downloadCount
+                    let viewCount = appREADME?.downloadCount
+
+                    // walk through the recent releases until we find one that has a fairseal on it
+
+                    let app = AppCatalogItem(name: releaseName, bundleIdentifier: appid, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: nil, versionDate: versionDate, downloadURL: artifactURL, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, sourceIdentifier: sourceIdentifier, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, sourceSize: nil, coreSize: nil, sha256: nil, permissions: nil, metadataURL: nil, readmeURL: readmeURL, releaseNotesURL: releaseNotesURL, homepage: homepage)
+
+                    // only add the cask if it has any supplemental information defined
+                    if excludeEmptyCasks == false
+                        || (app.downloadCount ?? 0) > 0
+                        || app.readmeURL != nil
+                        || app.releaseNotesURL != nil
+                        || app.iconURL != nil
+                        || app.tintColor != nil
+                        || app.categories?.isEmpty == false
+                        || app.screenshotURLs?.isEmpty == false
+                    {
+                        apps.append(app)
+                    }
                 }
             }
         }
-
 
         // apps are ranked based on how much metadata is provided, and then their download count
         func rank(for item: AppCatalogItem) -> Int64 {
@@ -640,7 +645,7 @@ public extension FairHub {
         let nameWithOwner = appOrg + "/" + name
 
         let lookupPRsRequest = FairHub.FindPullRequests(owner: owner, name: name)
-        let appPR = try await self.requestNextBatch(lookupPRsRequest) { resultIndex, urlResponse, batch in
+        let appPR = try await self.requestBatches(lookupPRsRequest) { resultIndex, urlResponse, batch in
             try batch.result.get().data.repository.pullRequests.nodes.first { edge in
                 edge.state == "OPEN"
                 //&& edge.mergeable != "CONFLICTING"
