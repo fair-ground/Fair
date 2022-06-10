@@ -194,11 +194,11 @@ import OSLog
             ?? fileName.description
 
         let message = "\(filePath):\(lineNumber) \(funcName): \(msg)"
-	#if canImport(OSLog)
+        #if canImport(OSLog)
         os_log(level == 0 ? .debug : level == 1 ? .default : level == 2 ? .info : level == 3 ? .error : .fault, "%{public}@", message)
-	#else
-        print(level == 0 ? "debug" : level == 1 ? "default" : level == 2 ? "info" : level == 3 ? "error" : "fault", message)
-	#endif
+        #else
+        print(level == 0 ? "debug" : level == 1 ? "default" : level == 2 ? "info" : level == 3 ? "error" : "fault", message, to: &standardError)
+        #endif
     }
 }
 

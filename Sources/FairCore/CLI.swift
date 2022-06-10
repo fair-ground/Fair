@@ -2774,13 +2774,13 @@ struct _WrappedParsableCommand<P: ParsableArguments>: ParsableCommand {
   @OptionGroup var options: P
 }
 
-struct StandardError: TextOutputStream {
-  mutating func write(_ string: String) {
+@usableFromInline struct StandardError: TextOutputStream {
+  @usableFromInline mutating func write(_ string: String) {
     for byte in string.utf8 { putc(numericCast(byte), stderr) }
   }
 }
 
-var standardError = StandardError()
+@usableFromInline var standardError = StandardError()
 
 extension ParsableArguments {
   public mutating func validate() throws {}

@@ -100,7 +100,7 @@ extension EndpointService {
 
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    public func requestNextBatch<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
+    public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
         var request = request
         for requestIndex in 0... {
             let (data, urlResponse) = try await session.fetch(request: buildRequest(for: request, cache: cache))
@@ -122,19 +122,19 @@ extension EndpointService {
         return nil
     }
 
-    /// Fetches the web service for the given request, following the cursor until a maximum number of batches has been retrieved
-    public func requestBatches<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) async throws -> [A.Response] where A.Service == Self {
-        var batches: [A.Response] = []
-        let _: Bool? = try await self.requestNextBatch(request) { resultIndex, urlResponse, batch in
-//            dbg("batch response:", urlResponse, (urlResponse as? HTTPURLResponse)?.allHeaderFields)
-            batches.append(batch)
-            if batches.count >= maxBatches {
-                return false
-            } else {
-                return nil // keep going
+    /// Fetches the web service for the given request, returning an `AsyncThrowingStream` that yields batches until they are no longer available or they have passed the max batch limit.
+    public func requestBatchStream<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
+        return AsyncThrowingStream { c in
+            Task {
+                var count = 0
+                let _: Void? = try await self.requestBatches(request) { resultIndex, urlResponse, batch in
+                    c.yield(batch)
+                    count += 1
+                    return count < maxBatches ? nil : () // keep going until we have all the batches
+                }
+                c.finish()
             }
         }
-        return batches
     }
 }
 

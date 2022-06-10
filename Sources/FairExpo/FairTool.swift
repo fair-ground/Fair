@@ -34,30 +34,31 @@ import AppKit
 import UIKit
 #endif
 
-public protocol FairToolCommand : AsyncParsableCommand {
+public protocol FairMsgCommand : AsyncParsableCommand {
     var msgOptions: MsgOptions { get set }
 }
 
 /// A specific command that can write messages (to stderr) and JSON encodable tool output (to stdout)
-public protocol FairParsableCommand : FairToolCommand {
+public protocol FairParsableCommand : FairMsgCommand {
     /// The structured output of this tool
     associatedtype Output
 }
 
 /// A command that will issue an asynchronous stream of output items
-public protocol FairStructuredCommand : FairParsableCommand where Output : CLIEncodable {
+public protocol FairStructuredCommand : FairParsableCommand where Output : FairCommandOutput {
+    /// Executes the command and results a streaming result of command responses
     func executeCommand() async throws -> AsyncThrowingStream<Output, Error>
 }
 
 public extension FairStructuredCommand {
     mutating func run() async throws {
-        msgOptions.beginOutput()
-        defer { msgOptions.endOutput() }
+        msgOptions.writeOutputStart()
+        defer { msgOptions.writeOutputEnd() }
         var elements = try await self.executeCommand().makeAsyncIterator()
         if let first = try await elements.next() {
             try msgOptions.writeOutput(first)
-            while let element =  try await elements.next() {
-                msgOptions.interstitialOutput()
+            while let element = try await elements.next() {
+                msgOptions.writeOutputSeparator()
                 try msgOptions.writeOutput(element)
             }
         }
@@ -96,7 +97,7 @@ public enum MessageKind {
     }
 }
 
-public struct FairTool : AsyncParsableCommand {
+public struct FairToolCommand : AsyncParsableCommand {
     public static var configuration = CommandConfiguration(commandName: "fairtool",
         abstract: "Manage an ecosystem of apps.",
         subcommands: [
@@ -156,7 +157,7 @@ public struct AppCommand : AsyncParsableCommand {
 
         public typealias Output = InfoItem
 
-        public struct InfoItem : CLIEncodable, Decodable {
+        public struct InfoItem : FairCommandOutput, Decodable {
             public var url: URL
             public var info: JSum
             public var entitlements: [JSum]?
@@ -171,9 +172,9 @@ public struct AppCommand : AsyncParsableCommand {
         public init() {
         }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<InfoItem, Error> {
+        public func executeCommand() -> AsyncThrowingStream<InfoItem, Error> {
             msg(.debug, "getting info from apps:", apps)
-            return try await msgOptions.executeStream(apps) { app in
+            return msgOptions.executeStream(apps) { app in
                 return try await extractInfo(from: downloadOptions.acquire(path: app, onDownload: { url in
                     msg(.info, "downloading from URL:", url.absoluteString)
                     return url
@@ -259,11 +260,11 @@ public struct FairCommand : AsyncParsableCommand {
                 }
 
                 guard let actual = plist.rawValue[key] as? NSObject else {
-                    throw FairTool.Errors.invalidPlistValue(key, expected, nil, url)
+                    throw FairToolCommand.Errors.invalidPlistValue(key, expected, nil, url)
                 }
 
                 if !expected.isEmpty && !expected.map({ $0 as NSObject }).contains(actual) {
-                    throw FairTool.Errors.invalidPlistValue(key, expected, actual, url)
+                    throw FairToolCommand.Errors.invalidPlistValue(key, expected, actual, url)
                 }
             }
 
@@ -317,10 +318,10 @@ public struct FairCommand : AsyncParsableCommand {
                         if scaffoldParts.count < 2
                             || projectParts.count < 2
                             || scaffoldParts.last != projectParts.last {
-                            throw FairTool.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
+                            throw FairToolCommand.Errors.invalidContents(scaffoldParts.last, projectParts.last, path, Self.firstDifferentLine(scaffoldParts.last ?? "", projectParts.last ?? ""))
                         }
                     } else {
-                        throw FairTool.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
+                        throw FairToolCommand.Errors.invalidContents(scaffoldSource, projectSource, path, Self.firstDifferentLine(scaffoldSource, projectSource))
                     }
                 }
             }
@@ -380,7 +381,7 @@ public struct FairCommand : AsyncParsableCommand {
 
                 if let integrationTitle = self.validateOptions.integrationTitle,
                    integrationTitle != expectedIntegrationTitle {
-                    throw FairTool.Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
+                    throw FairToolCommand.Errors.invalidIntegrationTitle(integrationTitle, expectedIntegrationTitle)
                 }
 
                 //let buildVersion = try FairHub.AppBuildVersion(plistURL: infoPlistURL)
@@ -417,7 +418,7 @@ public struct FairCommand : AsyncParsableCommand {
                     //dbg("verifying hub host:", host)
                     for pin in packageResolved.object.pins {
                         if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
-                            throw FairTool.Errors.badRepository(host.absoluteString, pin.repositoryURL)
+                            throw FairToolCommand.Errors.badRepository(host.absoluteString, pin.repositoryURL)
                         }
                     }
                 }
@@ -473,13 +474,13 @@ public struct FairCommand : AsyncParsableCommand {
             msg(.info, "merge")
 
             if outputOptions.outputDirectoryFlag == projectOptions.projectPathFlag {
-                throw FairTool.Errors.sameOutputAndProjectPath(outputOptions.outputDirectoryFlag, projectOptions.projectPathFlag)
+                throw FairToolCommand.Errors.sameOutputAndProjectPath(outputOptions.outputDirectoryFlag, projectOptions.projectPathFlag)
             }
 
             let outputURL = URL(fileURLWithPath: outputOptions.outputDirectoryFlag)
             let projectURL = URL(fileURLWithPath: projectOptions.projectPathFlag)
             if outputURL.absoluteString == projectURL.absoluteString {
-                throw FairTool.Errors.sameOutputAndProjectPath(outputOptions.outputDirectoryFlag, projectOptions.projectPathFlag)
+                throw FairToolCommand.Errors.sameOutputAndProjectPath(outputOptions.outputDirectoryFlag, projectOptions.projectPathFlag)
             }
 
             // try await validate() // always validate first
@@ -584,7 +585,7 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle ?? "The App Fair", owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.catalogOptions.requestLimit)
+            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.catalogOptions.requestLimit)
 
             msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
             for apprel in catalog.apps {
@@ -641,7 +642,7 @@ public struct FairCommand : AsyncParsableCommand {
             let fairsealThreshold = sealOptions.fairsealMatch
 
             guard let trustedArtifactFlag = sealOptions.trustedArtifact else {
-                throw FairTool.Errors.missingFlag("-trusted-artifact")
+                throw FairToolCommand.Errors.missingFlag("-trusted-artifact")
             }
 
             let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
@@ -916,7 +917,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             guard let artifactURLFlag = self.sealOptions.artifactURL,
                 let artifactURL = URL(string: artifactURLFlag) else {
-                throw FairTool.Errors.missingFlag("-artifact-url")
+                throw FairToolCommand.Errors.missingFlag("-artifact-url")
             }
 
             return try await fetchArtifact(url: artifactURL)
@@ -962,7 +963,7 @@ public struct FairCommand : AsyncParsableCommand {
             assert(Thread.isMainThread, "SwiftUI can only be used from main thread")
 
             guard let appIconPath = iconOptions.appIcon else {
-                throw FairTool.Errors.missingFlag("-app-icon")
+                throw FairToolCommand.Errors.missingFlag("-app-icon")
             }
 
             let appIconURL = projectOptions.projectPathURL(path: appIconPath)
@@ -1070,13 +1071,13 @@ public struct FairCommand : AsyncParsableCommand {
 
 
     public struct CatalogOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("title of the generated catalog."))
-        public var catalogTitle: String?
+        @Option(name: [.long], help: ArgumentHelp("title of the generated catalog.", valueName: "title"))
+        public var catalogTitle: String = "App Sources"
 
         @Option(name: [.long], help: ArgumentHelp("catalog index markdown."))
         public var index: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the output folder for the app casks."))
+        @Option(name: [.long], help: ArgumentHelp("the output folder for the app casks.", valueName: "dir"))
         public var caskFolder: String?
 
         @Option(name: [.long], help: ArgumentHelp("the artifact extensions."))
@@ -1182,7 +1183,7 @@ public struct FairCommand : AsyncParsableCommand {
             if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
                 // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
                 if !self.isCatalogApp {
-                    throw FairTool.Errors.sandboxRequired
+                    throw FairToolCommand.Errors.sandboxRequired
                 }
             }
 
@@ -1200,7 +1201,7 @@ public struct FairCommand : AsyncParsableCommand {
 
                 // a nil usage description means the property is explicitely forbidden (e.g., "files-all")
                 guard let props = entitlement.usageDescriptionProperties else {
-                    throw FairTool.Errors.forbiddenEntitlement(entitlement.entitlementKey)
+                    throw FairToolCommand.Errors.forbiddenEntitlement(entitlement.entitlementKey)
                 }
 
                 // on the other hand, an empty array means we don't require any explanation for the entitlemnent's usage (e.g., enabling JIT)
@@ -1215,11 +1216,11 @@ public struct FairCommand : AsyncParsableCommand {
                     // TODO: perhaps also permit the sub-set of top-level usage description properties like "NSDesktopFolderUsageDescription", "NSDocumentsFolderUsageDescription", and "NSLocalNetworkUsageDescription"
                     // ?? infoProperties[$0] as? String
                 }).first else {
-                    throw FairTool.Errors.missingUsageDescription(entitlement)
+                    throw FairToolCommand.Errors.missingUsageDescription(entitlement)
                 }
 
                 if usageDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    throw FairTool.Errors.missingUsageDescription(entitlement)
+                    throw FairToolCommand.Errors.missingUsageDescription(entitlement)
                 }
 
                 return (usageDescription, entitlementValue)
@@ -1289,16 +1290,15 @@ public struct BrewCommand : AsyncParsableCommand {
     }
 }
 
-extension Array : CLIEncodable where Element : CLIEncodable {
-
-}
-
-extension AppCatalog : CLIEncodable {
-}
-
-public protocol CLIEncodable : Encodable {
-    // TODO: an output form of this instance that displays plain text information
+public protocol FairCommandOutput : Encodable {
+    // TODO: an output form of this instance that displays plain text information for when people don't want to see JSON output
     //func outputText() throws -> [String]
+}
+
+extension Array : FairCommandOutput where Element : FairCommandOutput {
+}
+
+extension AppCatalog : FairCommandOutput {
 }
 
 public struct OutputOptions: ParsableArguments {
@@ -1328,7 +1328,7 @@ public struct MsgOptions: ParsableArguments {
     @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("whether to be suppress output."))
     public var quiet: Bool = false
 
-    @Flag(name: [.long], help: ArgumentHelp("promote output array elements to top-level object output."))
+    @Flag(name: [.long], help: ArgumentHelp("exclude root JSON array from output."))
     public var promoteJSON: Bool = false
 
     public var messages: MessageBuffer? = nil
@@ -1346,26 +1346,26 @@ public struct MsgOptions: ParsableArguments {
     }
 
     /// The output that comes at the beginning of a sequence of elements; an opening bracket, for JSON arrays
-    public func beginOutput() {
+    public func writeOutputStart() {
         if !promoteJSON { write("[") }
     }
 
     /// The output that comes at the end of a sequence of elements; a closing bracket, for JSON arrays
-    public func endOutput() {
+    public func writeOutputEnd() {
         if !promoteJSON { write("]") }
     }
 
-    /// The output that comes between elements; a comma, for JSON arrays
-    public func interstitialOutput() {
+    /// The output that separates elements; a comma, for JSON arrays
+    public func writeOutputSeparator() {
         if !promoteJSON { write(",") }
     }
 
-    func writeOutput<T: CLIEncodable>(_ item: T) throws {
+    func writeOutput<T: FairCommandOutput>(_ item: T) throws {
         try write(item.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
     }
 
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
-    fileprivate func executeStream<T, U: CLIEncodable>(_ arguments: [T], block: @escaping (T) async throws -> U) async throws -> AsyncThrowingStream<U, Error> {
+    fileprivate func executeStream<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> U) -> AsyncThrowingStream<U, Error> {
         return AsyncThrowingStream<U, Error>(U.self) { c in
             Task {
                 for arg in arguments {
@@ -1385,22 +1385,22 @@ public struct HubOptions: ParsableArguments {
     @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
     public var token: String?
 
-    @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal."))
+    @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal.", valueName: "usr"))
     public var fairsealIssuer: String?
 
-    @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR names."))
+    @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR names.", valueName: "pattern"))
     public var allowName: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR names."))
+    @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR names.", valueName: "pattern"))
     public var denyName: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR users"))
+    @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR users", valueName: "pattern"))
     public var allowFrom: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR users"))
+    @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR users", valueName: "pattern"))
     public var denyFrom: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("permitted license IDs."))
+    @Option(name: [.long], help: ArgumentHelp("permitted license IDs.", valueName: "id"))
     public var allowLicense: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("permitted license titles"))
@@ -1454,7 +1454,7 @@ private struct StandardErrorOutputStream: TextOutputStream {
     }
 }
 
-extension FairTool {
+extension FairToolCommand {
     enum Errors : LocalizedError {
         case missingCommand
         case unknownCommand(_ cmd: String)
@@ -1631,15 +1631,15 @@ fileprivate extension FairParsableCommand {
         let destInfo = try Plist(url: destApp.appendingPathComponent("Contents/Info.plist"))
 
         guard let sourceBundleID = sourceInfo.CFBundleIdentifier else {
-            throw FairTool.Errors.noBundleID(sourceApp)
+            throw FairToolCommand.Errors.noBundleID(sourceApp)
         }
 
         guard let destBundleID = destInfo.CFBundleIdentifier else {
-            throw FairTool.Errors.noBundleID(destApp)
+            throw FairToolCommand.Errors.noBundleID(destApp)
         }
 
         if sourceBundleID != destBundleID {
-            throw FairTool.Errors.mismatchedBundleID(destApp, sourceBundleID, destBundleID)
+            throw FairToolCommand.Errors.mismatchedBundleID(destApp, sourceBundleID, destBundleID)
         }
     }
 

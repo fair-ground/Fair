@@ -15,20 +15,14 @@
 import Swift
 import XCTest
 import FairCore
-import FairTools
+import FairExpo
 
-/// Tests different command options for the FairTool.
+/// Tests different command options for the FairToolCommand.
 ///
 /// These tests perform tool operations in the same process, which is different from the
 /// `FairToolTests.swift`, which performs test by invoking the actual tool executable and parsing the output.
-final class FairCommandTests: XCTestCase {
+final class FairExpoTests: XCTestCase {
     typealias ToolMessage = (kind: MessageKind, items: [Any?])
-
-    // TODO: gather the async sequence and compare the results
-//    private func runToolOutput<C: FairStructuredCommand>(_ type: ParsableCommand.Type?, cmd: C.Type, _ args: String...) async throws -> [C.Output] {
-//        let cmd = cmd.init()
-//
-//    }
 
     /// Invokes the `FairTool` with a command that expects a JSON-serialized output for a `FairParsableCommand`
     /// The command will be invoked and the result will be deserialized into the expected structure.
@@ -41,8 +35,8 @@ final class FairCommandTests: XCTestCase {
     private func runTool(type: String? = nil, op: String?, _ args: [String] = []) async throws -> (output: [String], messages: [ToolMessage]) {
         let arguments = [type, op].compacted() + args
 
-        let command = try FairTool.parseAsRoot(arguments)
-        guard var cmd = command as? FairToolCommand else {
+        let command = try FairToolCommand.parseAsRoot(arguments)
+        guard var cmd = command as? FairMsgCommand else {
             struct NoCommandError : Error { }
             throw NoCommandError()
         }
@@ -63,7 +57,7 @@ final class FairCommandTests: XCTestCase {
     }
 
     func testVersionCommand() async throws {
-        let result = try await runTool(op: FairTool.VersionCommand.configuration.commandName)
+        let result = try await runTool(op: FairToolCommand.VersionCommand.configuration.commandName)
         let output = extract(result.messages).first
         XCTAssertTrue(output?.hasPrefix("fairtool") == true, output ?? "")
     }
@@ -86,6 +80,21 @@ final class FairCommandTests: XCTestCase {
         XCTAssertEqual(false, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
+    func XXXtestAppInfoCommandMacOSStream() async throws {
+        var cmd = try AppCommand.InfoCommand.parseAsRoot(["info"]) as! AppCommand.InfoCommand
+        cmd.apps = ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"]
+
+        for try await result in cmd.executeCommand() {
+            XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
+            XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
+            XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+            XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
+            return
+        }
+
+        XCTFail("expected at least one result")
+    }
+
     func testValidateCommand() async throws {
         do {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.ValidateCommand.configuration.commandName)
@@ -105,7 +114,7 @@ final class FairCommandTests: XCTestCase {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.IconCommand.configuration.commandName)
             XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairTools.FairTool, FairTools.FairCommand, FairTools.FairCommand.IconCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairExpo.FairToolCommand, FairExpo.FairCommand, FairExpo.FairCommand.IconCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
 
@@ -130,7 +139,7 @@ final class FairCommandTests: XCTestCase {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.MergeCommand.configuration.commandName)
             XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairTools.FairTool, FairTools.FairCommand, FairTools.FairCommand.MergeCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairExpo.FairToolCommand, FairExpo.FairCommand, FairExpo.FairCommand.MergeCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
         }
     }
 
@@ -139,7 +148,7 @@ final class FairCommandTests: XCTestCase {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.FairsealCommand.configuration.commandName)
             XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            //XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairTool, FairApp.FairTool.FairsealCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
+            //XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairApp.FairToolCommand, FairApp.FairToolCommand.FairsealCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
@@ -148,7 +157,7 @@ final class FairCommandTests: XCTestCase {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.CatalogCommand.configuration.commandName)
             XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairTools.FairTool, FairTools.FairCommand, FairTools.FairCommand.CatalogCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairExpo.FairToolCommand, FairExpo.FairCommand, FairExpo.FairCommand.CatalogCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
@@ -157,14 +166,14 @@ final class FairCommandTests: XCTestCase {
             let result = try await runTool(type: BrewCommand.configuration.commandName, op: BrewCommand.AppCasksCommand.configuration.commandName)
             XCTAssertFalse(result.messages.isEmpty)
         } catch {
-            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairTools.FairTool, FairTools.BrewCommand, FairTools.BrewCommand.AppCasksCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
+            XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairExpo.FairToolCommand, FairExpo.BrewCommand, FairExpo.BrewCommand.AppCasksCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "hub")))"#)
         }
     }
 
     #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”
     @available(macOS 11, iOS 14, *)
     func XXXtestCLIHelp() async throws {
-        FairTool.main(["help"])
+        FairToolCommand.main(["help"])
     }
     #endif
 
@@ -176,7 +185,7 @@ final class FairCommandTests: XCTestCase {
     @available(macOS 11, iOS 14, *)
     func XXXtestCLICatalog() async throws {
         //if Self.authToken == nil { throw XCTSkip("cannot run API tests without a token") }
-        FairTool.main(["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"])
+        FairToolCommand.main(["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"])
     }
     #endif
 }
