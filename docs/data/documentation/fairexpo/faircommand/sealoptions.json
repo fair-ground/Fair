@@ -110,7 +110,7 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/artifactStaging",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/artifactURL",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/fairsealMatch",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/permittedDiffs",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/trustedArtifact",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/untrustedArtifact"
       ],
@@ -323,44 +323,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/sealoptions\/artifacturl"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/SealOptions/fairsealMatch": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "fairsealMatch"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/fairsealMatch",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "fairsealMatch",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/sealoptions\/fairsealmatch"
-},
 "doc://FairExpo/documentation/FairExpo/FairCommand/SealOptions/init()": {
   "abstract" : [
 
@@ -423,6 +385,44 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/sealoptions\/init(from:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairCommand/SealOptions/permittedDiffs": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "permittedDiffs"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/SealOptions\/permittedDiffs",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "permittedDiffs",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/faircommand\/sealoptions\/permitteddiffs"
 },
 "doc://FairExpo/documentation/FairExpo/FairCommand/SealOptions/trustedArtifact": {
   "abstract" : [
