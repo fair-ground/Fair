@@ -624,7 +624,7 @@ public struct FairCommand : AsyncParsableCommand {
             msg(.info, "Fairseal")
 
             // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
-            let fairsealThreshold = sealOptions.fairsealMatch
+            let permittedDiffs = sealOptions.permittedDiffs
 
             guard let trustedArtifactFlag = sealOptions.trustedArtifact else {
                 throw FairToolCommand.Errors.missingFlag("-trusted-artifact")
@@ -721,7 +721,7 @@ public struct FairCommand : AsyncParsableCommand {
 
                 let pathParts = trustedEntry.path.split(separator: "/")
 
-                if trustedEntry.path.hasSuffix("Contents/Resources/Assets.car") {
+                if trustedEntry.lastPathComponent == "Assets.car" {
                     // assets are not deterministically compiled; we let these pass
                     continue
                 }
@@ -800,10 +800,10 @@ public struct FairCommand : AsyncParsableCommand {
 
                     let totalChanges = diff.insertions.count + diff.removals.count
                     if totalChanges > 0 {
-                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(fairsealThreshold ?? 0)")
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs ?? 0)")
 
                         if isAppBinary {
-                            if let fairsealThreshold = fairsealThreshold, totalChanges < fairsealThreshold {
+                            if let permittedDiffs = permittedDiffs, totalChanges < permittedDiffs {
                                 // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
                                 msg(.info, "tolerating \(totalChanges) differences for: \(error)")
                             } else {
@@ -1100,8 +1100,8 @@ public struct FairCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("the artifact staging folder."))
         public var artifactStaging: [String] = []
 
-        @Option(name: [.long], help: ArgumentHelp("the number of bytes that may differ for a build to be reproducible."))
-        public var fairsealMatch: Int?
+        @Option(name: [.long], help: ArgumentHelp("the number of diffs for a build to be reproducible.", valueName: "count"))
+        public var permittedDiffs: Int?
 
         public init() { }
     }

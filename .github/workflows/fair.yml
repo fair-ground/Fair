@@ -634,7 +634,7 @@ jobs:
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" \
-            --fairseal-match 0 \
+            --permitted-diffs 0 \
             --retry-duration 600 \
             --artifact-url "$ZIPURL" \
             --artifact-staging "staging/" \
@@ -665,14 +665,14 @@ jobs:
           mv -f staging/*.zip staging/.artifact_stash/ || true # don't seal the macOS zip for iOS seal
 
           # Builds on iOS are currently not reproducible (help wanted!),
-          # so we accept a diff tolerance of 100,000 bytes for fairseal-match
+          # so we accept a large diff tolerance for permitted-diffs
           fairtool fair fairseal \
             --verbose \
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
-            --fairseal-match 100000000 \
+            --permitted-diffs 100000000 \
             --retry-duration 600 \
             --artifact-url "$IPAURL" \
             --artifact-staging "staging/" \
