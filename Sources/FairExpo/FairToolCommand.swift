@@ -721,7 +721,7 @@ public struct FairCommand : AsyncParsableCommand {
 
                 let pathParts = trustedEntry.path.split(separator: "/")
 
-                if trustedEntry.lastPathComponent == "Assets.car" {
+                if pathParts.last == "Assets.car" {
                     // assets are not deterministically compiled; we let these pass
                     continue
                 }
