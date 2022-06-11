@@ -106,7 +106,6 @@ public struct FairToolCommand : AsyncParsableCommand {
             BrewCommand.self,
             SourceCommand.self,
             VersionCommand.self, // `fairtool version` shows the current version
-            WelcomeCommand.self, // TODO: deprecate, hide, and roll into VersionCommand
             ]
         )
 
@@ -124,20 +123,6 @@ public struct FairToolCommand : AsyncParsableCommand {
         public mutating func run() async throws {
             let version = Bundle.fairCoreVersion
             msg(.info, "fairtool", version?.versionStringExtended)
-        }
-    }
-
-    public struct WelcomeCommand: FairParsableCommand {
-        public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "welcome", abstract: "Show the welcome message.", shouldDisplay: false)
-        @OptionGroup public var msgOptions: MsgOptions
-
-        public init() {
-        }
-
-        public mutating func run() async throws {
-            let version = Bundle.fairCoreVersion
-            msg(.info, "Welcome to fairtool", version?.versionStringExtended)
         }
     }
 }
