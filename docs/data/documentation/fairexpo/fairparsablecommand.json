@@ -118,7 +118,9 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/IconCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MergeCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/ValidateCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand\/VersionCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand\/VersionCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -564,6 +566,68 @@
   "title" : "FairToolCommand.VersionCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairtoolcommand\/versioncommand"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CreateCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CreateCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.CreateCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.VerifyCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
 }
 }
 }

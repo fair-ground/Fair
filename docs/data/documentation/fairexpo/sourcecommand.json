@@ -102,6 +102,13 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/init()",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/init(from:)"
       ],
@@ -109,7 +116,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/configuration-3q4pd"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/configuration-3q4pd",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/experimental"
       ],
       "title" : "Type Properties"
     },
@@ -214,6 +222,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/asyncparsablecommand-implementations"
 },
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CreateCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CreateCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.CreateCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand"
+},
 "doc://FairExpo/documentation/FairExpo/SourceCommand/Decodable-Implementations": {
   "abstract" : [
 
@@ -246,6 +285,37 @@
   "title" : "ParsableCommand Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/parsablecommand-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.VerifyCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/configuration-3q4pd": {
   "abstract" : [
@@ -288,6 +358,48 @@
   "title" : "configuration",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/configuration-3q4pd"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/experimental": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "experimental"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/experimental",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "experimental",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/experimental"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/init()": {
   "abstract" : [

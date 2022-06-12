@@ -124,7 +124,7 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(false, sig.wasSignedByGitHub)
     }
 
-    func testCatalogQuery() async throws {
+    func XXXtestCatalogQuery() async throws {
         if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
@@ -231,7 +231,7 @@ final class FairHubTests: XCTestCase {
         let (data, response) = try await URLSession.shared.fetch(request: URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0))
         XCTAssertEqual(200, (response as? HTTPURLResponse)?.statusCode)
 
-        let catalog = try AppCatalog(json: data, dateDecodingStrategy: .iso8601)
+        let catalog = try AppCatalog.parse(jsonData: data)
         XCTAssertEqual("The App Fair macOS App Catalog", catalog.name)
         dbg("loaded catalog apps:", catalog.apps.count)
     }

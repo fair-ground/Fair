@@ -100,7 +100,7 @@ extension EndpointService {
 
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
+    public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
         var request = request
         for requestIndex in 0... {
             let (data, urlResponse) = try await session.fetch(request: buildRequest(for: request, cache: cache))
@@ -195,7 +195,7 @@ public extension URLRequest {
     /// - Returns: the `Data` if it downloaded and validated
     func fetch(session: URLSession = .shared, validateFragmentHash: Bool = false) async throws -> Data {
         let (data, response) = try await session.fetch(request: self)
-        try response.validateHTTPCode() // ensure the code in within the expected range
+        try response?.validateHTTPCode() // ensure the code in within the expected range
 
         #if canImport(CommonCrypto)
         if validateFragmentHash == true,
@@ -236,7 +236,14 @@ extension URLResponse {
 
 extension URLSession {
     /// Fetches the given request asynchronously, optionally validating that the response code is within the given range of HTTP codes.
-    public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse) {
+    public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse?) {
+        if let url = request.url, url.isFileURL == true {
+//            if !FileManager.default.isReadableFile(atPath: url.path) {
+//                throw CocoaError(.fileNoSuchFile)
+//            }
+            return (data: try Data(contentsOf: url), response: nil)
+        }
+
         #if os(Linux) || true 
         // the fall-through below crashes on Linux for some reason (exit code 137 at runtime); this works around it
         return try await fetchTask(request: request, validate: codes)
@@ -335,7 +342,7 @@ extension URLResponse {
 #if swift(>=5.5)
 extension URLSession {
     /// Issues a `HEAD` request for the given URL and returns the response
-    public func fetchHEAD(url: URL, cachePolicy: URLRequest.CachePolicy) async throws -> URLResponse {
+    public func fetchHEAD(url: URL, cachePolicy: URLRequest.CachePolicy) async throws -> URLResponse? {
         var request = URLRequest(url: url, cachePolicy: cachePolicy)
         request.httpMethod = "HEAD"
         let (_, response) = try await fetch(request: request)

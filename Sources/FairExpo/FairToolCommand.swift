@@ -98,8 +98,10 @@ public enum MessageKind {
 }
 
 public struct FairToolCommand : AsyncParsableCommand {
+    public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "fairtool",
         abstract: "Manage an ecosystem of apps.",
+        shouldDisplay: !experimental,
         subcommands: [
             AppCommand.self,
             FairCommand.self,
@@ -113,8 +115,11 @@ public struct FairToolCommand : AsyncParsableCommand {
     }
 
     public struct VersionCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "version", abstract: "Show the tool version.", shouldDisplay: true)
+        public static var configuration = CommandConfiguration(commandName: "version",
+                                                               abstract: "Show the fairtool version.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
 
         public init() {
@@ -128,8 +133,10 @@ public struct FairToolCommand : AsyncParsableCommand {
 }
 
 public struct AppCommand : AsyncParsableCommand {
+    public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "app",
-        abstract: "Commands for working with app packages.",
+        abstract: "App and ipa package tools.",
+        shouldDisplay: !experimental,
         subcommands: [
             InfoCommand.self,
         ])
@@ -138,7 +145,10 @@ public struct AppCommand : AsyncParsableCommand {
     }
 
     public struct InfoCommand: FairStructuredCommand {
-        public static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).")
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "info",
+            abstract: "Output information about the specified app(s).",
+            shouldDisplay: !experimental)
 
         public typealias Output = InfoItem
 
@@ -177,19 +187,73 @@ public struct AppCommand : AsyncParsableCommand {
 }
 
 public struct SourceCommand : AsyncParsableCommand {
+    public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "source",
-        abstract: "Commands for working with AltStore sources.",
+        abstract: "AltStore source management commands.",
+        shouldDisplay: !experimental,
         subcommands: [
+            CreateCommand.self,
+            VerifyCommand.self,
         ])
 
     public init() {
+    }
+
+    public struct CreateCommand: FairParsableCommand {
+        public static let experimental = false
+        public typealias Output = Never
+        public static var configuration = CommandConfiguration(commandName: "create",
+            abstract: "Create a source from the specified .ipa or .zip.",
+            shouldDisplay: !experimental)
+        @OptionGroup public var msgOptions: MsgOptions
+
+        @Argument(help: ArgumentHelp("path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
+        public var apps: [String]
+
+        public init() { }
+
+        public mutating func run() async throws {
+            msg(.info, "Creating source…")
+            //msg(.debug, "flags:", flags)
+
+        }
+    }
+
+    public struct VerifyCommand: FairStructuredCommand {
+        public static let experimental = false
+        public typealias Output = AppCatalog
+        
+        public static var configuration = CommandConfiguration(commandName: "verify",
+            abstract: "Verify the files in the specified catalog JSON.",
+            shouldDisplay: !experimental)
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var downloadOptions: DownloadOptions
+
+        @Argument(help: ArgumentHelp("path or url for catalog", valueName: "path", visibility: .default))
+        public var catalogs: [String]
+
+        public init() { }
+
+
+        public func executeCommand() async throws -> AsyncThrowingStream<AppCatalog, Error> {
+            return msgOptions.executeStream(catalogs) { catalog in
+                msg(.debug, "verifying catalog:", catalog)
+                let url = URL(string: catalog)
+
+                let catalogURL = url == nil || url?.scheme == nil ? URL(fileURLWithPath: catalog) : url!
+                let (data, _) = try await URLSession.shared.fetch(request: URLRequest(url: catalogURL))
+                return try AppCatalog.parse(jsonData: data)
+            }
+        }
     }
 }
 
 
 public struct FairCommand : AsyncParsableCommand {
+    public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "fair",
-        abstract: "Commands for working with fairground apps.",
+        abstract: "Fairground app utility commands.",
+        shouldDisplay: !experimental,
         subcommands: [
             ValidateCommand.self,
             CatalogCommand.self,
@@ -218,8 +282,11 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     public struct ValidateCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "validate", abstract: "Validate the project.")
+        public static var configuration = CommandConfiguration(commandName: "validate",
+            abstract: "Validate the project.",
+            shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var validateOptions: ValidateOptions
@@ -444,8 +511,11 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     public struct MergeCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "merge", abstract: "Merge base fair-ground updates into the project.")
+        public static var configuration = CommandConfiguration(commandName: "merge",
+            abstract: "Merge base fair-ground updates into the project.",
+            shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
         @OptionGroup public var projectOptions: ProjectOptions
@@ -534,8 +604,11 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     public struct CatalogCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "catalog", abstract: "Build the app catalog.")
+        public static var configuration = CommandConfiguration(commandName: "catalog",
+            abstract: "Build the app catalog.",
+            shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var catalogOptions: CatalogOptions
@@ -589,7 +662,7 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             if let indexFlag = catalogOptions.index {
-                #warning("TODO: outputOptions.write(data)")
+                // #warning("TODO: outputOptions.write(data)")
                 func output(_ data: Data, to path: String) throws {
                     if path == "-" {
                         print(data.utf8String!)
@@ -608,8 +681,11 @@ public struct FairCommand : AsyncParsableCommand {
 
     #if !os(Windows) // no ZipArchive yet
     public struct FairsealCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "fairseal", abstract: "Generates fairseal from trusted artifact.")
+        public static var configuration = CommandConfiguration(commandName: "fairseal",
+            abstract: "Generates fairseal from trusted artifact.",
+            shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var sealOptions: SealOptions
@@ -929,8 +1005,11 @@ public struct FairCommand : AsyncParsableCommand {
 
     #if canImport(SwiftUI)
     public struct IconCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "icon", abstract: "Create an icon for the given project.")
+        public static var configuration = CommandConfiguration(commandName: "icon",
+            abstract: "Create an icon for the given project.",
+            shouldDisplay: !experimental)
         @OptionGroup public var iconOptions: IconOptions
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var orgOptions: OrgOptions
@@ -1223,8 +1302,10 @@ public struct FairCommand : AsyncParsableCommand {
 }
 
 public struct BrewCommand : AsyncParsableCommand {
+    public static let experimental = true
     public static var configuration = CommandConfiguration(commandName: "brew",
-        abstract: "Commands for working with Homebrew casks.",
+        abstract: "Homebrew appcask configuration commands.",
+        shouldDisplay: !experimental,
         subcommands: [
             AppCasksCommand.self,
         ])
@@ -1233,8 +1314,11 @@ public struct BrewCommand : AsyncParsableCommand {
     }
 
     public struct AppCasksCommand: FairParsableCommand {
+        public static let experimental = false
         public typealias Output = Never
-        public static var configuration = CommandConfiguration(commandName: "appcasks", abstract: "Build the enhanced appcasks catalog.")
+        public static var configuration = CommandConfiguration(commandName: "appcasks",
+            abstract: "Build the enhanced appcasks catalog.",
+            shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var casksOptions: CasksOptions
@@ -1353,10 +1437,14 @@ public struct MsgOptions: ParsableArguments {
     fileprivate func executeStream<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> U) -> AsyncThrowingStream<U, Error> {
         return AsyncThrowingStream<U, Error>(U.self) { c in
             Task {
-                for arg in arguments {
-                    c.yield(try await block(arg))
+                do {
+                    for arg in arguments {
+                        c.yield(try await block(arg))
+                    }
+                    c.finish()
+                } catch {
+                    c.finish(throwing: error)
                 }
-                c.finish()
             }
         }
     }
