@@ -103,7 +103,7 @@ final class FairEntitlementsTests: XCTestCase {
         try XCTUnwrap(extractEntitlements(Data(contentsOf: URL(fileURLWithPath: dump(path, name: "reading file")))).first)
     }
 
-    func XXXtestmacOSEntitlements() throws {
+    func testMacOSEntitlements() throws {
 
         let appsFolder = URL(fileURLWithPath: "/Applications")
         if FileManager.default.isDirectory(url: appsFolder) != true {
