@@ -95,6 +95,13 @@ final class FairExpoTests: XCTestCase {
         XCTFail("expected at least one result")
     }
 
+    /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
+    func XXXtestSourceVerifyCommand() async throws {
+        let catalog = "file:///tmp/demostore.json"
+        let (result, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", catalog)
+
+    }
+
     func testValidateCommand() async throws {
         do {
             let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.ValidateCommand.configuration.commandName)

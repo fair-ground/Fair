@@ -31,6 +31,12 @@ public struct AppCatalog : Pure {
     public var news: [AppNewsPost]?
 }
 
+public extension AppCatalog {
+    static func parse(jsonData: Data) throws -> Self {
+        try AppCatalog(json: jsonData, dateDecodingStrategy: .iso8601)
+    }
+}
+
 public struct AppNewsPost : Pure {
     /// A unique identifer for the news posting
     public var identifier: String
