@@ -96,7 +96,7 @@ final class FairExpoTests: XCTestCase {
     }
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
-    func testSourceVerifyCommandMacOS() async throws {
+    func XXXtestSourceVerifyCommandMacOS() async throws {
         let catalog = "https://appfair.net/fairapps-macos.json"
         let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", "--bundle-id", "app.Stanza-Redux", catalog)
 
@@ -117,7 +117,7 @@ final class FairExpoTests: XCTestCase {
         }
     }
 
-    func testSourceVerifyCommandiOSDemo() async throws {
+    func XXXtestSourceVerifyCommandiOSDemo() async throws {
         let catalog = "file:///tmp/altstore/demostore.json"
         let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", catalog)
 
