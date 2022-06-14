@@ -98,7 +98,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/VerifyFailure",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/VerifyResult"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -207,6 +209,79 @@
   "title" : "FairCommandOutput",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommandoutput"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/VerifyFailure": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VerifyFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/VerifyFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VerifyFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.VerifyCommand.VerifyFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/verifyfailure"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/VerifyResult": {
+  "abstract" : [
+    {
+      "text" : "A single ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppCatalogItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " entry from a catalog along with a list of validation failures",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VerifyResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/VerifyResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VerifyResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.VerifyCommand.VerifyResult",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/verifyresult"
 }
 }
 }

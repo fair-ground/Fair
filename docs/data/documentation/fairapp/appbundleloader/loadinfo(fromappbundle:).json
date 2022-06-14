@@ -17,18 +17,17 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/loadInfo(fromAppBundle:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader\/loadInfo(fromAppBundle:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp0B12EntitlementsV8loadInfo04fromB6Bundle0A4Core5PlistC4info_SayACGSg12entitlementst10Foundation3URLV_tKFZ",
+    "externalID" : "s:7FairApp0B12BundleLoaderO8loadInfo04frombC00A4Core5PlistC4info_SayAA0B12EntitlementsVGSg12entitlementst10Foundation3URLV_tKFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -228,7 +227,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appentitlements\/loadinfo(fromappbundle:)"
+        "\/documentation\/fairapp\/appbundleloader\/loadinfo(fromappbundle:)"
       ],
       "traits" : [
         {
@@ -261,14 +260,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppEntitlements": {
+"doc://FairApp/documentation/FairApp/AppBundleLoader": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -276,23 +275,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppEntitlements"
+      "text" : "AppBundleLoader"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppEntitlements"
+      "text" : "AppBundleLoader"
     }
   ],
   "role" : "symbol",
-  "title" : "AppEntitlements",
+  "title" : "AppBundleLoader",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appentitlements"
+  "url" : "\/documentation\/fairapp\/appbundleloader"
 },
-"doc://FairApp/documentation/FairApp/AppEntitlements/loadInfo(fromAppBundle:)": {
+"doc://FairApp/documentation/FairApp/AppBundleLoader/loadInfo(fromAppBundle:)": {
   "abstract" : [
     {
       "text" : "Loads the entitlements from an app bundle (either a ipa zip or an expanded binary package).",
@@ -384,12 +383,43 @@
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements\/loadInfo(fromAppBundle:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader\/loadInfo(fromAppBundle:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "loadInfo(fromAppBundle:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appentitlements\/loadinfo(fromappbundle:)"
+  "url" : "\/documentation\/fairapp\/appbundleloader\/loadinfo(fromappbundle:)"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlements": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlements"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppEntitlements"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppEntitlements",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlements"
 }
 }
 }

@@ -133,6 +133,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/app_sandbox",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/apple_events",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/application_groups",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/application_identifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/apsEnvironment",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_movies_read_only",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/assets_movies_read_write",
@@ -187,6 +188,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudDevelopmentContainersIdentifiers",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudKeyValueStore",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iCloudServices",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/informationalEntitlements",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/interAppAudio",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/iokit_user_client_class",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/keychainAccessGroups",
@@ -212,6 +214,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/shared_preference_read_write",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/signWithApple",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/siri",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/teamIdentifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/webBrowser",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/wifiInfo"
       ],
@@ -547,6 +550,48 @@
   "title" : "application_groups",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlement\/application_groups"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/application_identifier": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "application_identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/application_identifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "application_identifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/application_identifier"
 },
 "doc://FairApp/documentation/FairApp/AppEntitlement/apsEnvironment": {
   "abstract" : [
@@ -3113,6 +3158,61 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlement\/icloudservices"
 },
+"doc://FairApp/documentation/FairApp/AppEntitlement/informationalEntitlements": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "informationalEntitlements"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/informationalEntitlements",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "informationalEntitlements",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/informationalentitlements"
+},
 "doc://FairApp/documentation/FairApp/AppEntitlement/init(_:)": {
   "abstract" : [
 
@@ -4458,6 +4558,48 @@
   "title" : "siri",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlement\/siri"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/teamIdentifier": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "teamIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/teamIdentifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "teamIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/teamidentifier"
 },
 "doc://FairApp/documentation/FairApp/AppEntitlement/usageDescriptionProperties": {
   "abstract" : [
