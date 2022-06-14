@@ -156,8 +156,13 @@ public struct AppEntitlement : RawRepresentable, Pure {
     public var categories: Set<Category> {
         switch self {
         case .app_sandbox:
-            return [.prerequisite]
+            return [.prerequisite, .harmless]
         case .cs_allow_jit:
+            return [.harmless]
+
+        case .teamIdentifier:
+            return [.harmless]
+        case .application_identifier:
             return [.harmless]
 
         case .cs_debugger:
@@ -167,7 +172,7 @@ public struct AppEntitlement : RawRepresentable, Pure {
         case .cs_allow_dyld_environment_variables:
             return [.volatile]
         case .cs_disable_library_validation:
-            return [.volatile]
+            return [.harmless] // [.volatile] // needs to be harmless because ad-hoc-signed executables would not otherwise be able to link to other ad-hoc-signed frameworks
         case .cs_disable_executable_page_protection:
             return [.volatile]
 
@@ -304,6 +309,18 @@ public struct AppEntitlement : RawRepresentable, Pure {
 extension AppEntitlement : CaseIterable {
     public static let allCases: Set<Self> = developerEntitlements.union(securityEntitlements)
 }
+
+
+/// Top-level entitlement keys
+public extension AppEntitlement {
+    static let application_identifier = AppEntitlement("application-identifier")
+
+    static let informationalEntitlements = Set<Self>([
+        .application_identifier,
+    ])
+}
+
+
 
 /// secutiry-specific keys
 public extension AppEntitlement {
@@ -580,6 +597,8 @@ public extension AppEntitlement {
         .driverKit,
     ])
 
+    static let teamIdentifier = AppEntitlement("com.apple.developer.team-identifier")
+
     /// https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_mail-client
     static let mailClient = AppEntitlement("com.apple.developer.mail-client")
 
@@ -855,7 +874,7 @@ public extension AppCatalogItem {
 public struct AppEntitlements {
     static let empty: AppEntitlements = AppEntitlements([:])
 
-    private let values: [String: Any]
+    public var values: [String: Any]
 
     init(_ values: [String: Any]) {
         self.values = values
@@ -882,10 +901,10 @@ public struct AppEntitlements {
     }
 }
 
-public extension AppEntitlements {
+public enum AppBundleLoader {
     /// Loads the entitlements from an app bundle (either a ipa zip or an expanded binary package).
     /// Multiple entitlements will be returned when an executable is a fat binary, although they are likely to all be equal.
-    static func loadInfo(fromAppBundle url: URL) throws -> (info: Plist, entitlements: [AppEntitlements]?) {
+    public static func loadInfo(fromAppBundle url: URL) throws -> (info: Plist, entitlements: [AppEntitlements]?) {
         if FileManager.default.isDirectory(url: url) == true {
             return try AppBundle(folderAt: url).loadInfo()
         } else {

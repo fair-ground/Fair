@@ -96,10 +96,46 @@ final class FairExpoTests: XCTestCase {
     }
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
-    func XXXtestSourceVerifyCommand() async throws {
-        let catalog = "file:///tmp/demostore.json"
-        let (result, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", catalog)
+    func testSourceVerifyCommandMacOS() async throws {
+        let catalog = "https://appfair.net/fairapps-macos.json"
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", "--bundle-id", "app.Stanza-Redux", catalog)
 
+        let result = try XCTUnwrap(results.first)
+
+        dbg("catalog:", result.prettyJSON)
+        XCTAssertEqual("Stanza Redux", result.app.name)
+        var items = try XCTUnwrap(result.failures).makeIterator()
+
+        do {
+            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
+            XCTAssertEqual(failure.type, "missing_checksum")
+        }
+
+        do {
+            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
+            XCTAssertEqual(failure.type, "invalid_size")
+        }
+    }
+
+    func testSourceVerifyCommandiOSDemo() async throws {
+        let catalog = "file:///tmp/altstore/demostore.json"
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", catalog)
+
+        let result = try XCTUnwrap(results.first)
+
+        dbg("catalog:", result.prettyJSON)
+        XCTAssertEqual("Paperback", result.app.name)
+        var items = try XCTUnwrap(result.failures).makeIterator()
+
+        do {
+            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
+            XCTAssertEqual(failure.type, "missing_checksum")
+        }
+
+        do {
+            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
+            XCTAssertEqual(failure.type, "invalid_size")
+        }
     }
 
     func testValidateCommand() async throws {

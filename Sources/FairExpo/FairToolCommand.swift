@@ -179,7 +179,7 @@ public struct AppCommand : AsyncParsableCommand {
 
         private func extractInfo(from: (from: URL, local: URL)) async throws -> InfoItem {
             msg(.info, "extracting info: \(from.from)")
-            let (info, entitlements) = try AppEntitlements.loadInfo(fromAppBundle: from.local)
+            let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: from.local)
 
             return try InfoItem(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
         }
@@ -221,29 +221,179 @@ public struct SourceCommand : AsyncParsableCommand {
 
     public struct VerifyCommand: FairStructuredCommand {
         public static let experimental = false
-        public typealias Output = AppCatalog
-        
+        public typealias Output = VerifyResult
+
+        /// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
+        public struct VerifyResult : FairCommandOutput, Pure {
+            public var app: AppCatalogItem
+            public var failures: [VerifyFailure]?
+        }
+
+        //@available(*, deprecated, message: "move into central validation code")
+        public struct VerifyFailure : FairCommandOutput, Pure {
+            /// The type of failure
+            public var type: String
+
+            /// A string describing the verification failure
+            public var message: String
+        }
+
+
         public static var configuration = CommandConfiguration(commandName: "verify",
             abstract: "Verify the files in the specified catalog JSON.",
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var downloadOptions: DownloadOptions
 
+        @Option(name: [.long], help: ArgumentHelp("verify only the specified bundle ID(s).", valueName: "id"))
+        public var bundleID: Array<String> = []
+
         @Argument(help: ArgumentHelp("path or url for catalog", valueName: "path", visibility: .default))
         public var catalogs: [String]
 
         public init() { }
 
-
-        public func executeCommand() async throws -> AsyncThrowingStream<AppCatalog, Error> {
-            return msgOptions.executeStream(catalogs) { catalog in
+        public func executeCommand() async throws -> AsyncThrowingStream<VerifyResult, Error> {
+            return msgOptions.executeStreamJoined(catalogs) { catalog in
                 msg(.debug, "verifying catalog:", catalog)
                 let url = URL(string: catalog)
 
                 let catalogURL = url == nil || url?.scheme == nil ? URL(fileURLWithPath: catalog) : url!
                 let (data, _) = try await URLSession.shared.fetch(request: URLRequest(url: catalogURL))
-                return try AppCatalog.parse(jsonData: data)
+                let catalog = try AppCatalog.parse(jsonData: data)
+                var apps = catalog.apps
+
+                // if we are filtering by bundle IDs, find ones that match
+                if !bundleID.isEmpty {
+                    let bundleIDs = bundleID.set()
+                    apps = apps.filter({ bundleIDs.contains($0.bundleIdentifier.rawValue) })
+                }
+
+                return apps.mapAsync({ try await verifyAppItem(app: $0, catalogURL: catalogURL) })
             }
+        }
+
+        func addFailure(to failures: inout [VerifyFailure], app: AppCatalogItem, _ failure: VerifyFailure) {
+            msg(.warn, "app verify failure for \(app.downloadURL.absoluteString): \(failure.type) \(failure.message)")
+            failures.append(failure)
+        }
+
+        func verifyAppItem(app: AppCatalogItem, catalogURL: URL) async throws -> VerifyResult {
+            var failures: [VerifyFailure] = []
+
+            if app.sha256 == nil {
+                addFailure(to: &failures, app: app, VerifyFailure(type: "missing_checksum", message: "App missing sha256 checksum property"))
+            }
+            if (app.size ?? 0) <= 0 {
+                addFailure(to: &failures, app: app, VerifyFailure(type: "invalid_size", message: "App size property unset or invalid"))
+            }
+
+            var url = app.downloadURL
+            if url.scheme == nil {
+                // permit URLs relative to the catalog URL
+                url = catalogURL.deletingLastPathComponent().appendingPathComponent(url.path)
+            }
+            do {
+                dbg("downloading app from URL:", url.absoluteString)
+                let (file, _) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
+                failures.append(contentsOf: await validateArtifact(app: app, file: file))
+            } catch {
+                addFailure(to: &failures, app: app, VerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"))
+            }
+            return VerifyResult(app: app, failures: failures.isEmpty ? nil : failures)
+        }
+
+        func validateArtifact(app: AppCatalogItem, file: URL) async -> [VerifyFailure] {
+            var failures: [VerifyFailure] = []
+
+            if !file.isFileURL || !FileManager.default.isReadableFile(atPath: file.path) {
+                addFailure(to: &failures, app: app, VerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL.absoluteString)"))
+                return failures
+            }
+
+            if let size = app.size {
+                if let fileSize = file.fileSize() {
+                    if size != fileSize {
+                        addFailure(to: &failures, app: app, VerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL.absoluteString)"))
+                    }
+                }
+            }
+
+            if let sha256 = app.sha256,
+                let fileData = try? Data(contentsOf: file) {
+                let fileChecksum = fileData.sha256()
+                if sha256 != fileChecksum.hex() {
+                    addFailure(to: &failures, app: app, VerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"))
+                }
+            }
+
+            func verifyInfoUsageDescriptions(_ info: Plist) {
+                let usagePermissions: [String: AppUsagePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.usage.rawValue)
+
+                // gather the list of all "*UsageDescription" keys with string values
+                // to ensure that they are all listed in the app's permissions
+                let plistPermissionKeys = info.rawValue
+                    .compactMap { key, value in
+                        (key as? String).flatMap { key in
+                            (value as? String).flatMap { value in
+                                (key, value)
+                            }
+                        }
+                    }
+                    .filter { key, value in
+                        key.hasSuffix("UsageDescription")
+                    }
+                    .dictionary(keyedBy: \.0)
+                    .compactMapValues(\.1)
+
+                for (permissionKey, permissionValue) in plistPermissionKeys {
+                    guard let catalogPermissionValue = usagePermissions[permissionKey] else {
+                        addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_missing", message: "Permission key “\(permissionKey)” is defined in Info.plist but not in catalog metadata"))
+                        continue
+                    }
+
+                    if catalogPermissionValue.usageDescription != permissionValue {
+                        addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_mismatch", message: "The usage key “\(permissionKey)” defined in Info.plist does not have a matching value in the catalog metadata"))
+                    }
+                }
+            }
+
+            func verifyEntitlements(_ entitlements: AppEntitlements) {
+                let entitlementPermissions: [AppEntitlement: AppEntitlementPermission] = (app.permissions ?? []).compactMap({ $0.infer() }).dictionary(keyedBy: \.entitlement)
+
+                for (entitlementKey, entitlementValue) in entitlements.values {
+                    if (entitlementValue as? Bool) == false {
+                        continue // an entitlement value of `false` generally signifies that it is disabled, and so does not need a usage description
+                    }
+                    let entitlement = AppEntitlement(entitlementKey)
+                    if entitlement.categories.contains(.harmless) {
+                        // skip over entitlements that are deemed "harmless" (e.g., application-identifier, com.apple.developer.team-identifier)
+                        continue
+                    }
+                    if !entitlementPermissions.keys.contains(entitlement) {
+                        addFailure(to: &failures, app: app, VerifyFailure(type: "missing_entitlement_permission", message: "Missing a permission entry for entitlement key “\(entitlementKey)”"))
+                    }
+                }
+            }
+
+            do {
+                let (info, entitlementss) = try AppBundleLoader.loadInfo(fromAppBundle: file)
+
+                // ensure each *UsageDescription Info.plist property is also surfaced in the catalog metadata permissions
+                verifyInfoUsageDescriptions(info)
+
+                if (entitlementss ?? []).isEmpty {
+                    addFailure(to: &failures, app: app, VerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"))
+                } else {
+                    for entitlements in entitlementss ?? [] {
+                        verifyEntitlements(entitlements)
+                    }
+                }
+            } catch {
+                addFailure(to: &failures, app: app, VerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information from: \(file.path) for: \(app.downloadURL.absoluteString)"))
+            }
+
+            return failures
         }
     }
 }
@@ -1435,11 +1585,18 @@ public struct MsgOptions: ParsableArguments {
 
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
     fileprivate func executeStream<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> U) -> AsyncThrowingStream<U, Error> {
+        arguments.mapAsync(block)
+    }
+
+    /// Iterates over each of the given arguments and executes the block against the arg, outputting the result as it goes.
+    fileprivate func executeStreamJoined<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> AsyncThrowingStream<U, Error>) -> AsyncThrowingStream<U, Error> {
         return AsyncThrowingStream<U, Error>(U.self) { c in
             Task {
                 do {
                     for arg in arguments {
-                        c.yield(try await block(arg))
+                        for try await item in try await block(arg) {
+                            c.yield(item)
+                        }
                     }
                     c.finish()
                 } catch {
@@ -1449,7 +1606,6 @@ public struct MsgOptions: ParsableArguments {
         }
     }
 }
-
 
 public struct HubOptions: ParsableArguments {
     @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the hub to use.", valueName: "host/org"))
@@ -1989,3 +2145,20 @@ private func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
         .filter { !$0.isEmpty }
 }
 
+extension Sequence {
+    /// Creates a new Task with the specified priority and returns an `AsyncThrowingStream` mapping over each element.
+    public func mapAsync<T>(priority: TaskPriority? = nil, _ block: @escaping (Element) async throws -> T) -> AsyncThrowingStream<T, Error> {
+        AsyncThrowingStream { c in
+            Task(priority: priority) {
+                do {
+                    for item in self {
+                        c.yield(try await block(item))
+                    }
+                    c.finish()
+                } catch {
+                    c.finish(throwing: error)
+                }
+            }
+        }
+    }
+}
