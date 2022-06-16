@@ -348,12 +348,26 @@ public struct SourceCommand : AsyncParsableCommand {
 
                 for (permissionKey, permissionValue) in plistPermissionKeys {
                     guard let catalogPermissionValue = usagePermissions[permissionKey] else {
-                        addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_missing", message: "Permission key “\(permissionKey)” is defined in Info.plist but not in catalog metadata"))
+                        addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"))
                         continue
                     }
 
                     if catalogPermissionValue.usageDescription != permissionValue {
                         addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_mismatch", message: "The usage key “\(permissionKey)” defined in Info.plist does not have a matching value in the catalog metadata"))
+                    }
+                }
+            }
+
+            func verifyBackgroundModes(_ info: Plist) {
+                guard let backgroundModes = info.rawValue["UIBackgroundModes"] as? NSArray else {
+                    return // no background modes
+                }
+
+                let backgroundPermissions: [AppBackgroundMode: AppBackgroundModePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.backgroundMode)
+
+                for backgroundMode in backgroundModes.compactMap({ $0 as? String }) {
+                    if backgroundPermissions[AppBackgroundMode(backgroundMode)] == nil {
+                        addFailure(to: &failures, app: app, VerifyFailure(type: "missing_background_mode", message: "Missing a permission entry for background mode “\(backgroundMode)”"))
                     }
                 }
             }
@@ -381,6 +395,9 @@ public struct SourceCommand : AsyncParsableCommand {
 
                 // ensure each *UsageDescription Info.plist property is also surfaced in the catalog metadata permissions
                 verifyInfoUsageDescriptions(info)
+
+                // ensure each of the background modes are documented
+                verifyBackgroundModes(info)
 
                 if (entitlementss ?? []).isEmpty {
                     addFailure(to: &failures, app: app, VerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"))

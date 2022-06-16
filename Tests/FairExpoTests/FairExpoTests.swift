@@ -117,9 +117,25 @@ final class FairExpoTests: XCTestCase {
         }
     }
 
-    func XXXtestSourceVerifyCommandiOSDemo() async throws {
-        let catalog = "file:///tmp/altstore/demostore.json"
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", catalog)
+    func testSourceVerifyCommandSources() async throws {
+        guard let url = URL(string: "https://cdn.altstore.io/file/altstore/apps.json") else {
+            return XCTFail("bad url")
+        }
+
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", url.absoluteString)
+
+        dbg("catalog:", results.prettyJSON)
+        let result = try XCTUnwrap(results.first)
+
+    }
+
+
+    func testSourceVerifyCommandiOSDemo() async throws {
+        let path = URL(fileURLWithPath: "/tmp/sources/demostore.json")
+        if !FileManager.default.isReadableFile(atPath: path.path) {
+            throw XCTSkip("Source file does not exist at: \(path)")
+        }
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", path.absoluteString)
 
         let result = try XCTUnwrap(results.first)
 

@@ -41,19 +41,19 @@ public struct AppNewsPost : Pure {
     /// A unique identifer for the news posting
     public var identifier: String
     /// The date of the news
-    public var date: Date
+    public var date: String? // e.g. "2019-09-25"
     /// The title for the news
     public var title: String
     /// A news caption
-    public var caption: String
+    public var caption: String?
     /// Whether the news item should trigger a notification by default
     public var notify: Bool?
     /// The tint color for the news item
     public var tintColor: String?
     /// A URL with more details
-    public var url: URL?
+    public var url: String?
     /// An image summarizing the news item
-    public var imageURL: URL?
+    public var imageURL: String?
     /// An app-id to which the news item refers
     public var appID: String?
     /// The source identifier
