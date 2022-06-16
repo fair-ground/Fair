@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "FairParsableCommand.Output",
+      "code" : "Decodable.init(from:)",
       "type" : "codeVoice"
     },
     {
@@ -17,30 +17,46 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Output"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/init(from:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13SourceCommandV06VerifyD0V6Outputa",
+    "externalID" : "s:8FairExpo22AppCatalogVerifyResultV4fromACs7Decoder_p_tKcfc",
     "fragments" : [
       {
-        "kind" : "keyword",
-        "text" : "typealias"
+        "kind" : "identifier",
+        "text" : "init"
       },
       {
         "kind" : "text",
-        "text" : " "
+        "text" : "("
       },
       {
-        "kind" : "identifier",
-        "text" : "Output"
+        "kind" : "externalParam",
+        "text" : "from"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s7DecoderP",
+        "text" : "Decoder"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
       }
     ],
     "modules" : [
@@ -48,16 +64,10 @@
         "name" : "FairExpo"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "Output"
-      }
-    ],
     "role" : "symbol",
-    "roleHeading" : "Type Alias",
-    "symbolKind" : "typealias",
-    "title" : "SourceCommand.VerifyCommand.Output"
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(from:)"
   },
   "primaryContentSections" : [
     {
@@ -72,25 +82,40 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "typealias"
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "from"
             },
             {
               "kind" : "text",
               "text" : " "
             },
             {
-              "kind" : "identifier",
-              "text" : "Output"
+              "kind" : "internalParam",
+              "text" : "decoder"
             },
             {
               "kind" : "text",
-              "text" : " = "
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-              "text" : "AppCatalogVerifyResult"
+              "preciseIdentifier" : "s:s7DecoderP",
+              "text" : "Decoder"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
             }
           ]
         }
@@ -109,7 +134,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/output"
+        "\/documentation\/fairexpo\/appcatalogverifyresult\/init(from:)"
       ],
       "traits" : [
         {
@@ -176,98 +201,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult/init(from:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "struct"
+      "kind" : "identifier",
+      "text" : "init"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : "("
     },
     {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
+      "kind" : "externalParam",
+      "text" : "from"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : ": "
     },
     {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand.VerifyCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/Output": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : ") "
     },
     {
-      "kind" : "identifier",
-      "text" : "Output"
+      "kind" : "keyword",
+      "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Output",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/init(from:)",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Output"
-    }
-  ],
   "role" : "symbol",
-  "title" : "SourceCommand.VerifyCommand.Output",
+  "title" : "init(from:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/output"
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult\/init(from:)"
 }
 }
 }

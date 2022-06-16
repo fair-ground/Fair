@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "FairStructuredCommand.executeCommand()",
+      "code" : "Equatable.!=(_:_:)",
       "type" : "codeVoice"
     },
     {
@@ -17,19 +17,28 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/executeCommand()"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13SourceCommandV06VerifyD0V07executeD0ScsyAA010AppCatalogE6ResultVs5Error_pGyYaKF",
+    "extendedModule" : "Swift",
+    "externalID" : "s:SQsE2neoiySbx_xtFZ::SYNTHESIZED::s:8FairExpo22AppCatalogVerifyResultV",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "keyword",
         "text" : "func"
@@ -40,41 +49,19 @@
       },
       {
         "kind" : "identifier",
-        "text" : "executeCommand"
-      },
-      {
-        "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "async"
+        "text" : "!="
       },
       {
         "kind" : "text",
         "text" : " "
       },
       {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
         "kind" : "text",
-        "text" : " -> "
+        "text" : "("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Scs",
-        "text" : "AsyncThrowingStream"
-      },
-      {
-        "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-        "text" : "AppCatalogVerifyResult"
+        "text" : "Self"
       },
       {
         "kind" : "text",
@@ -82,12 +69,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s5ErrorP",
-        "text" : "Error"
+        "text" : "Self"
       },
       {
         "kind" : "text",
-        "text" : ">"
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
       }
     ],
     "modules" : [
@@ -96,9 +87,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "executeCommand()"
+    "roleHeading" : "Operator",
+    "symbolKind" : "op",
+    "title" : "!=(_:_:)"
   },
   "primaryContentSections" : [
     {
@@ -113,6 +104,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "func"
             },
             {
@@ -121,55 +120,52 @@
             },
             {
               "kind" : "identifier",
-              "text" : "executeCommand"
-            },
-            {
-              "kind" : "text",
-              "text" : "() "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "async"
+              "text" : "!="
             },
             {
               "kind" : "text",
               "text" : " "
             },
             {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "lhs"
             },
             {
               "kind" : "text",
-              "text" : " -> "
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Scs",
-              "text" : "AsyncThrowingStream"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-              "text" : "AppCatalogVerifyResult"
+              "text" : "Self"
             },
             {
               "kind" : "text",
               "text" : ", "
             },
             {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s5ErrorP",
-              "text" : "Error"
+              "kind" : "internalParam",
+              "text" : "rhs"
             },
             {
               "kind" : "text",
-              "text" : ">"
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
             }
           ]
         }
@@ -188,7 +184,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/executecommand()"
+        "\/documentation\/fairexpo\/appcatalogverifyresult\/!=(_:_:)"
       ],
       "traits" : [
         {
@@ -255,73 +251,19 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult/!=(_:_:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "static"
     },
     {
       "kind" : "text",
       "text" : " "
     },
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand.VerifyCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/executeCommand()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
     {
       "kind" : "keyword",
       "text" : "func"
@@ -332,41 +274,19 @@
     },
     {
       "kind" : "identifier",
-      "text" : "executeCommand"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
+      "text" : "!="
     },
     {
       "kind" : "text",
       "text" : " "
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
       "kind" : "text",
-      "text" : " -> "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Scs",
-      "text" : "AsyncThrowingStream"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-      "text" : "AppCatalogVerifyResult"
+      "text" : "Self"
     },
     {
       "kind" : "text",
@@ -374,20 +294,35 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
+      "text" : "Self"
     },
     {
       "kind" : "text",
-      "text" : ">"
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/executeCommand()",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "executeCommand()",
+  "title" : "!=(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/executecommand()"
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult\/!=(_:_:)"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult\/equatable-implementations"
 }
 }
 }

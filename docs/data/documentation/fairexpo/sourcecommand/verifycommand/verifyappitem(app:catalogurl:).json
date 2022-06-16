@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "FairStructuredCommand.executeCommand()",
+      "code" : "AppCatalogVerificationAction.verifyAppItem(app:catalogURL:)",
       "type" : "codeVoice"
     },
     {
@@ -18,17 +18,19 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AppCatalogVerificationAction-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/executeCommand()"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/verifyAppItem(app:catalogURL:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13SourceCommandV06VerifyD0V07executeD0ScsyAA010AppCatalogE6ResultVs5Error_pGyYaKF",
+    "extendedModule" : "FairExpo",
+    "externalID" : "s:8FairExpo28AppCatalogVerificationActionPAAE06verifyC4Item3app10catalogURLAA0cD12VerifyResultV0aC00cdH0V_10Foundation0K0VSgtYaKF::SYNTHESIZED::s:8FairExpo13SourceCommandV06VerifyD0V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,11 +42,45 @@
       },
       {
         "kind" : "identifier",
-        "text" : "executeCommand"
+        "text" : "verifyAppItem"
       },
       {
         "kind" : "text",
-        "text" : "() "
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "app"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+        "text" : "AppCatalogItem"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "catalogURL"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) "
       },
       {
         "kind" : "keyword",
@@ -64,30 +100,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Scs",
-        "text" : "AsyncThrowingStream"
-      },
-      {
-        "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
         "text" : "AppCatalogVerifyResult"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s5ErrorP",
-        "text" : "Error"
-      },
-      {
-        "kind" : "text",
-        "text" : ">"
       }
     ],
     "modules" : [
@@ -98,7 +112,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "executeCommand()"
+    "title" : "verifyAppItem(app:catalogURL:)"
   },
   "primaryContentSections" : [
     {
@@ -121,11 +135,45 @@
             },
             {
               "kind" : "identifier",
-              "text" : "executeCommand"
+              "text" : "verifyAppItem"
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "app"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+              "text" : "AppCatalogItem"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "catalogURL"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
+            },
+            {
+              "kind" : "text",
+              "text" : "?) "
             },
             {
               "kind" : "keyword",
@@ -144,32 +192,10 @@
               "text" : " -> "
             },
             {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Scs",
-              "text" : "AsyncThrowingStream"
-            },
-            {
-              "kind" : "text",
-              "text" : "<"
-            },
-            {
               "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
               "text" : "AppCatalogVerifyResult"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s5ErrorP",
-              "text" : "Error"
-            },
-            {
-              "kind" : "text",
-              "text" : ">"
             }
           ]
         }
@@ -188,7 +214,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/executecommand()"
+        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/verifyappitem(app:catalogurl:)"
       ],
       "traits" : [
         {
@@ -317,7 +343,18 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/executeCommand()": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/AppCatalogVerificationAction-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AppCatalogVerificationAction-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "AppCatalogVerificationAction Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/appcatalogverificationaction-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/verifyAppItem(app:catalogURL:)": {
   "abstract" : [
 
   ],
@@ -332,11 +369,45 @@
     },
     {
       "kind" : "identifier",
-      "text" : "executeCommand"
+      "text" : "verifyAppItem"
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "app"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "catalogURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
     },
     {
       "kind" : "keyword",
@@ -356,38 +427,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Scs",
-      "text" : "AsyncThrowingStream"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
       "text" : "AppCatalogVerifyResult"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/executeCommand()",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/verifyAppItem(app:catalogURL:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "executeCommand()",
+  "title" : "verifyAppItem(app:catalogURL:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/executecommand()"
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/verifyappitem(app:catalogurl:)"
 }
 }
 }

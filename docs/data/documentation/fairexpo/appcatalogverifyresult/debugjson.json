@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairParsableCommand.Output",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Returns the debug form of the JSON",
       "type" : "text"
     }
   ],
@@ -17,22 +9,23 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/Encodable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Output"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/debugJSON"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13SourceCommandV06VerifyD0V6Outputa",
+    "extendedModule" : "Swift",
+    "externalID" : "s:SE8FairCoreE9debugJSONSSvp::SYNTHESIZED::s:8FairExpo22AppCatalogVerifyResultV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "typealias"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -40,7 +33,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "Output"
+        "text" : "debugJSON"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       }
     ],
     "modules" : [
@@ -48,16 +50,10 @@
         "name" : "FairExpo"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "Output"
-      }
-    ],
     "role" : "symbol",
-    "roleHeading" : "Type Alias",
-    "symbolKind" : "typealias",
-    "title" : "SourceCommand.VerifyCommand.Output"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "debugJSON"
   },
   "primaryContentSections" : [
     {
@@ -72,7 +68,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "typealias"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -80,17 +76,28 @@
             },
             {
               "kind" : "identifier",
-              "text" : "Output"
+              "text" : "debugJSON"
             },
             {
               "kind" : "text",
-              "text" : " = "
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-              "text" : "AppCatalogVerifyResult"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -109,7 +116,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/output"
+        "\/documentation\/fairexpo\/appcatalogverifyresult\/debugjson"
       ],
       "traits" : [
         {
@@ -176,45 +183,28 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult/Encodable-Implementations": {
   "abstract" : [
 
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand"
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult\/encodable-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult/debugJSON": {
   "abstract" : [
-
+    {
+      "text" : "Returns the debug form of the JSON",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -222,52 +212,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand.VerifyCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/Output": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "debugJSON"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : ": "
     },
     {
-      "kind" : "identifier",
-      "text" : "Output"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Output",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/debugJSON",
   "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Output"
-    }
-  ],
   "role" : "symbol",
-  "title" : "SourceCommand.VerifyCommand.Output",
+  "title" : "debugJSON",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/output"
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult\/debugjson"
 }
 }
 }

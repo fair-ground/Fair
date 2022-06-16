@@ -46,6 +46,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerificationAction",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairMsgCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
@@ -55,6 +56,8 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BuildSettings",
@@ -103,6 +106,110 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerificationAction": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerificationAction"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerificationAction",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerificationAction"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogVerificationAction",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogverificationaction"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyFailure": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogVerifyFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyfailure"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult": {
+  "abstract" : [
+    {
+      "text" : "A single ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppCatalogItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " entry from a catalog along with a list of validation failures",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogVerifyResult",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
 },
 "doc://FairExpo/documentation/FairExpo/AppCommand": {
   "abstract" : [

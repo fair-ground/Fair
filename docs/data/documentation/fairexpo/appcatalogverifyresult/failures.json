@@ -8,21 +8,22 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairExpo\/documentation\/FairExpo"
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/failures"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A13CommandOutputP",
+    "externalID" : "s:8FairExpo22AppCatalogVerifyResultV8failuresSayAA0cdE7FailureVGSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -30,7 +31,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "FairCommandOutput"
+        "text" : "failures"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
+        "text" : "AppCatalogVerifyFailure"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?"
       }
     ],
     "modules" : [
@@ -38,16 +52,10 @@
         "name" : "FairExpo"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "FairCommandOutput"
-      }
-    ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
-    "title" : "FairCommandOutput"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "failures"
   },
   "primaryContentSections" : [
     {
@@ -62,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -70,41 +78,26 @@
             },
             {
               "kind" : "identifier",
-              "text" : "FairCommandOutput"
+              "text" : "failures"
             },
             {
               "kind" : "text",
-              "text" : " : "
+              "text" : ": ["
             },
             {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SE",
-              "text" : "Encodable"
+              "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
+              "text" : "AppCatalogVerifyFailure"
+            },
+            {
+              "kind" : "text",
+              "text" : "]?"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairExpo\/SE"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -118,7 +111,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommandoutput"
+        "\/documentation\/fairexpo\/appcatalogverifyresult\/failures"
       ],
       "traits" : [
         {
@@ -129,11 +122,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/SE": {
-  "identifier" : "doc:\/\/FairExpo\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
@@ -221,14 +209,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/InfoItem": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult/failures": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -236,52 +224,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCommand.InfoCommand.InfoItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/infoitem"
-},
-"doc://FairExpo/documentation/FairExpo/FairCommandOutput": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "failures"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : ": ["
     },
     {
-      "kind" : "identifier",
-      "text" : "FairCommandOutput"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
+      "text" : "AppCatalogVerifyFailure"
+    },
     {
-      "kind" : "identifier",
-      "text" : "FairCommandOutput"
+      "kind" : "text",
+      "text" : "]?"
     }
   ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult\/failures",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "FairCommandOutput",
+  "title" : "failures",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommandoutput"
+  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult\/failures"
 }
 }
 }
