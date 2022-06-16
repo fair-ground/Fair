@@ -219,25 +219,9 @@ public struct SourceCommand : AsyncParsableCommand {
         }
     }
 
-    public struct VerifyCommand: FairStructuredCommand {
+    public struct VerifyCommand: FairStructuredCommand, AppCatalogVerificationAction {
         public static let experimental = false
-        public typealias Output = VerifyResult
-
-        /// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
-        public struct VerifyResult : FairCommandOutput, Pure {
-            public var app: AppCatalogItem
-            public var failures: [VerifyFailure]?
-        }
-
-        //@available(*, deprecated, message: "move into central validation code")
-        public struct VerifyFailure : FairCommandOutput, Pure {
-            /// The type of failure
-            public var type: String
-
-            /// A string describing the verification failure
-            public var message: String
-        }
-
+        public typealias Output = AppCatalogVerifyResult
 
         public static var configuration = CommandConfiguration(commandName: "verify",
             abstract: "Verify the files in the specified catalog JSON.",
@@ -253,7 +237,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<VerifyResult, Error> {
+        public func executeCommand() async throws -> AsyncThrowingStream<AppCatalogVerifyResult, Error> {
             return msgOptions.executeStreamJoined(catalogs) { catalog in
                 msg(.debug, "verifying catalog:", catalog)
                 let url = URL(string: catalog)
@@ -273,146 +257,168 @@ public struct SourceCommand : AsyncParsableCommand {
             }
         }
 
-        func addFailure(to failures: inout [VerifyFailure], app: AppCatalogItem, _ failure: VerifyFailure) {
+        public func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure) {
             msg(.warn, "app verify failure for \(app.downloadURL.absoluteString): \(failure.type) \(failure.message)")
             failures.append(failure)
         }
+    }
+}
 
-        func verifyAppItem(app: AppCatalogItem, catalogURL: URL) async throws -> VerifyResult {
-            var failures: [VerifyFailure] = []
+/// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
+public struct AppCatalogVerifyResult : FairCommandOutput, Pure {
+    public var app: AppCatalogItem
+    public var failures: [AppCatalogVerifyFailure]?
+}
 
-            if app.sha256 == nil {
-                addFailure(to: &failures, app: app, VerifyFailure(type: "missing_checksum", message: "App missing sha256 checksum property"))
-            }
-            if (app.size ?? 0) <= 0 {
-                addFailure(to: &failures, app: app, VerifyFailure(type: "invalid_size", message: "App size property unset or invalid"))
-            }
+//@available(*, deprecated, message: "move into central validation code")
+public struct AppCatalogVerifyFailure : FairCommandOutput, Pure {
+    /// The type of failure
+    public var type: String
 
-            var url = app.downloadURL
-            if url.scheme == nil {
-                // permit URLs relative to the catalog URL
-                url = catalogURL.deletingLastPathComponent().appendingPathComponent(url.path)
-            }
-            do {
-                dbg("downloading app from URL:", url.absoluteString)
-                let (file, _) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
-                failures.append(contentsOf: await validateArtifact(app: app, file: file))
-            } catch {
-                addFailure(to: &failures, app: app, VerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"))
-            }
-            return VerifyResult(app: app, failures: failures.isEmpty ? nil : failures)
+    /// A string describing the verification failure
+    public var message: String
+}
+
+public protocol AppCatalogVerificationAction {
+    func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure)
+}
+
+public extension AppCatalogVerificationAction {
+    func verifyAppItem(app: AppCatalogItem, catalogURL: URL?) async throws -> AppCatalogVerifyResult {
+        var failures: [AppCatalogVerifyFailure] = []
+
+        if app.sha256 == nil {
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_checksum", message: "App missing sha256 checksum property"))
+        }
+        if (app.size ?? 0) <= 0 {
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "invalid_size", message: "App size property unset or invalid"))
         }
 
-        func validateArtifact(app: AppCatalogItem, file: URL) async -> [VerifyFailure] {
-            var failures: [VerifyFailure] = []
+        var url = app.downloadURL
+        if url.scheme == nil {
+            // permit URLs relative to the catalog URL
+            url = catalogURL?.deletingLastPathComponent().appendingPathComponent(url.path) ?? url
+        }
+        do {
+            dbg("downloading app from URL:", url.absoluteString)
+            let (file, _) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
+            failures.append(contentsOf: await validateArtifact(app: app, file: file))
+        } catch {
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"))
+        }
+        return AppCatalogVerifyResult(app: app, failures: failures.isEmpty ? nil : failures)
+    }
 
-            if !file.isFileURL || !FileManager.default.isReadableFile(atPath: file.path) {
-                addFailure(to: &failures, app: app, VerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL.absoluteString)"))
-                return failures
-            }
+    func validateArtifact(app: AppCatalogItem, file: URL) async -> [AppCatalogVerifyFailure] {
+        var failures: [AppCatalogVerifyFailure] = []
 
-            if let size = app.size {
-                if let fileSize = file.fileSize() {
-                    if size != fileSize {
-                        addFailure(to: &failures, app: app, VerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL.absoluteString)"))
-                    }
-                }
-            }
-
-            if let sha256 = app.sha256,
-                let fileData = try? Data(contentsOf: file) {
-                let fileChecksum = fileData.sha256()
-                if sha256 != fileChecksum.hex() {
-                    addFailure(to: &failures, app: app, VerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"))
-                }
-            }
-
-            func verifyInfoUsageDescriptions(_ info: Plist) {
-                let usagePermissions: [String: AppUsagePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.usage.rawValue)
-
-                // gather the list of all "*UsageDescription" keys with string values
-                // to ensure that they are all listed in the app's permissions
-                let plistPermissionKeys = info.rawValue
-                    .compactMap { key, value in
-                        (key as? String).flatMap { key in
-                            (value as? String).flatMap { value in
-                                (key, value)
-                            }
-                        }
-                    }
-                    .filter { key, value in
-                        key.hasSuffix("UsageDescription")
-                    }
-                    .dictionary(keyedBy: \.0)
-                    .compactMapValues(\.1)
-
-                for (permissionKey, permissionValue) in plistPermissionKeys {
-                    guard let catalogPermissionValue = usagePermissions[permissionKey] else {
-                        addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"))
-                        continue
-                    }
-
-                    if catalogPermissionValue.usageDescription != permissionValue {
-                        addFailure(to: &failures, app: app, VerifyFailure(type: "usage_description_mismatch", message: "The usage key “\(permissionKey)” defined in Info.plist does not have a matching value in the catalog metadata"))
-                    }
-                }
-            }
-
-            func verifyBackgroundModes(_ info: Plist) {
-                guard let backgroundModes = info.rawValue["UIBackgroundModes"] as? NSArray else {
-                    return // no background modes
-                }
-
-                let backgroundPermissions: [AppBackgroundMode: AppBackgroundModePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.backgroundMode)
-
-                for backgroundMode in backgroundModes.compactMap({ $0 as? String }) {
-                    if backgroundPermissions[AppBackgroundMode(backgroundMode)] == nil {
-                        addFailure(to: &failures, app: app, VerifyFailure(type: "missing_background_mode", message: "Missing a permission entry for background mode “\(backgroundMode)”"))
-                    }
-                }
-            }
-
-            func verifyEntitlements(_ entitlements: AppEntitlements) {
-                let entitlementPermissions: [AppEntitlement: AppEntitlementPermission] = (app.permissions ?? []).compactMap({ $0.infer() }).dictionary(keyedBy: \.entitlement)
-
-                for (entitlementKey, entitlementValue) in entitlements.values {
-                    if (entitlementValue as? Bool) == false {
-                        continue // an entitlement value of `false` generally signifies that it is disabled, and so does not need a usage description
-                    }
-                    let entitlement = AppEntitlement(entitlementKey)
-                    if entitlement.categories.contains(.harmless) {
-                        // skip over entitlements that are deemed "harmless" (e.g., application-identifier, com.apple.developer.team-identifier)
-                        continue
-                    }
-                    if !entitlementPermissions.keys.contains(entitlement) {
-                        addFailure(to: &failures, app: app, VerifyFailure(type: "missing_entitlement_permission", message: "Missing a permission entry for entitlement key “\(entitlementKey)”"))
-                    }
-                }
-            }
-
-            do {
-                let (info, entitlementss) = try AppBundleLoader.loadInfo(fromAppBundle: file)
-
-                // ensure each *UsageDescription Info.plist property is also surfaced in the catalog metadata permissions
-                verifyInfoUsageDescriptions(info)
-
-                // ensure each of the background modes are documented
-                verifyBackgroundModes(info)
-
-                if (entitlementss ?? []).isEmpty {
-                    addFailure(to: &failures, app: app, VerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"))
-                } else {
-                    for entitlements in entitlementss ?? [] {
-                        verifyEntitlements(entitlements)
-                    }
-                }
-            } catch {
-                addFailure(to: &failures, app: app, VerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information from: \(file.path) for: \(app.downloadURL.absoluteString)"))
-            }
-
+        if !file.isFileURL || !FileManager.default.isReadableFile(atPath: file.path) {
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL.absoluteString)"))
             return failures
         }
+
+        if let size = app.size {
+            if let fileSize = file.fileSize() {
+                if size != fileSize {
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL.absoluteString)"))
+                }
+            }
+        }
+
+        if let sha256 = app.sha256,
+            let fileData = try? Data(contentsOf: file) {
+            let fileChecksum = fileData.sha256()
+            if sha256 != fileChecksum.hex() {
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"))
+            }
+        }
+
+        func verifyInfoUsageDescriptions(_ info: Plist) {
+            let usagePermissions: [String: AppUsagePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.usage.rawValue)
+
+            // gather the list of all "*UsageDescription" keys with string values
+            // to ensure that they are all listed in the app's permissions
+            let plistPermissionKeys = info.rawValue
+                .compactMap { key, value in
+                    (key as? String).flatMap { key in
+                        (value as? String).flatMap { value in
+                            (key, value)
+                        }
+                    }
+                }
+                .filter { key, value in
+                    key.hasSuffix("UsageDescription")
+                }
+                .dictionary(keyedBy: \.0)
+                .compactMapValues(\.1)
+
+            for (permissionKey, permissionValue) in plistPermissionKeys {
+                guard let catalogPermissionValue = usagePermissions[permissionKey] else {
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"))
+                    continue
+                }
+
+                if catalogPermissionValue.usageDescription != permissionValue {
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_mismatch", message: "The usage key “\(permissionKey)” defined in Info.plist does not have a matching value in the catalog metadata"))
+                }
+            }
+        }
+
+        func verifyBackgroundModes(_ info: Plist) {
+            guard let backgroundModes = info.rawValue["UIBackgroundModes"] as? NSArray else {
+                return // no background modes
+            }
+
+            let backgroundPermissions: [AppBackgroundMode: AppBackgroundModePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.backgroundMode)
+
+            for backgroundMode in backgroundModes.compactMap({ $0 as? String }) {
+                if backgroundPermissions[AppBackgroundMode(backgroundMode)] == nil {
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_background_mode", message: "Missing a permission entry for background mode “\(backgroundMode)”"))
+                }
+            }
+        }
+
+        func verifyEntitlements(_ entitlements: AppEntitlements) {
+            let entitlementPermissions: [AppEntitlement: AppEntitlementPermission] = (app.permissions ?? []).compactMap({ $0.infer() }).dictionary(keyedBy: \.entitlement)
+
+            for (entitlementKey, entitlementValue) in entitlements.values {
+                if (entitlementValue as? Bool) == false {
+                    continue // an entitlement value of `false` generally signifies that it is disabled, and so does not need a usage description
+                }
+                let entitlement = AppEntitlement(entitlementKey)
+                if entitlement.categories.contains(.harmless) {
+                    // skip over entitlements that are deemed "harmless" (e.g., application-identifier, com.apple.developer.team-identifier)
+                    continue
+                }
+                if !entitlementPermissions.keys.contains(entitlement) {
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_entitlement_permission", message: "Missing a permission entry for entitlement key “\(entitlementKey)”"))
+                }
+            }
+        }
+
+        do {
+            let (info, entitlementss) = try AppBundleLoader.loadInfo(fromAppBundle: file)
+
+            // ensure each *UsageDescription Info.plist property is also surfaced in the catalog metadata permissions
+            verifyInfoUsageDescriptions(info)
+
+            // ensure each of the background modes are documented
+            verifyBackgroundModes(info)
+
+            if (entitlementss ?? []).isEmpty {
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"))
+            } else {
+                for entitlements in entitlementss ?? [] {
+                    verifyEntitlements(entitlements)
+                }
+            }
+        } catch {
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information from: \(file.path) for: \(app.downloadURL.absoluteString)"))
+        }
+
+        return failures
     }
+
 }
 
 

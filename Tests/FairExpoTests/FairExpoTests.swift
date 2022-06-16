@@ -122,13 +122,12 @@ final class FairExpoTests: XCTestCase {
             return XCTFail("bad url")
         }
 
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", url.absoluteString)
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--bundle-id", "com.rileytestut.Delta", "--verbose", url.absoluteString)
 
         dbg("catalog:", results.prettyJSON)
         let result = try XCTUnwrap(results.first)
 
     }
-
 
     func testSourceVerifyCommandiOSDemo() async throws {
         let path = URL(fileURLWithPath: "/tmp/sources/demostore.json")
