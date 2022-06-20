@@ -405,7 +405,7 @@ public extension AppCatalogVerificationAction {
             // ensure each of the background modes are documented
             verifyBackgroundModes(info)
 
-            if (entitlementss ?? []).isEmpty {
+            if entitlementss == nil {
                 addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"))
             } else {
                 for entitlements in entitlementss ?? [] {
@@ -413,7 +413,7 @@ public extension AppCatalogVerificationAction {
                 }
             }
         } catch {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information from: \(file.path) for: \(app.downloadURL.absoluteString)"))
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information for \(app.downloadURL.absoluteString): \(error)"))
         }
 
         return failures
