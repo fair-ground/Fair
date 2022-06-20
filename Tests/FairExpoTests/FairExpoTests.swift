@@ -118,39 +118,15 @@ final class FairExpoTests: XCTestCase {
     }
 
     func testSourceVerifyCommandSources() async throws {
-        guard let url = URL(string: "https://cdn.altstore.io/file/altstore/apps.json") else {
+        guard let url = URL(string: "https://appfair.net/fairapps-ios.json") else {
             return XCTFail("bad url")
         }
 
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--bundle-id", "com.rileytestut.Delta", "--verbose", url.absoluteString)
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--bundle-id", "app.Cloud-Cuckoo", "--verbose", url.absoluteString)
 
         dbg("catalog:", results.prettyJSON)
         let result = try XCTUnwrap(results.first)
-
-    }
-
-    func testSourceVerifyCommandiOSDemo() async throws {
-        let path = URL(fileURLWithPath: "/tmp/sources/demostore.json")
-        if !FileManager.default.isReadableFile(atPath: path.path) {
-            throw XCTSkip("Source file does not exist at: \(path)")
-        }
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", path.absoluteString)
-
-        let result = try XCTUnwrap(results.first)
-
-        dbg("catalog:", result.prettyJSON)
-        XCTAssertEqual("Paperback", result.app.name)
-        var items = try XCTUnwrap(result.failures).makeIterator()
-
-        do {
-            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
-            XCTAssertEqual(failure.type, "missing_checksum")
-        }
-
-        do {
-            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
-            XCTAssertEqual(failure.type, "invalid_size")
-        }
+        let _ = result
     }
 
     func testValidateCommand() async throws {
@@ -162,7 +138,7 @@ final class FairExpoTests: XCTestCase {
         } catch { // let error as CommandError {
             // the hub key is required
             // XCTAssertEqual("\(error.parserError)", #"noValue(forKey: FairCore.InputKey(rawValue: "hub"))"#)
-            //XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
+            // XCTAssertEqual(error.localizedDescription, #"Bad argument: "org""#)
         }
     }
 

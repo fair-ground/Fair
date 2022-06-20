@@ -57,10 +57,7 @@ final class FairHubTests: XCTestCase {
         let hub = try Self.hub(skipNoAuth: true)
         do {
             do {
-                let start = CFAbsoluteTimeGetCurrent()
                 let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
-                let end = CFAbsoluteTimeGetCurrent()
-                dbg("request time:", end - start)
 
                 XCTAssertNil(response.result.successValue, "request should not have succeeded")
                 if response.result.failureValue?.isRateLimitError != true {
