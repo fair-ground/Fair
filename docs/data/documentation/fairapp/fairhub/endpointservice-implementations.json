@@ -49,8 +49,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/buildRequest(for:cache:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/request(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestAsync(_:cache:retry:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatchStream(_:maxBatches:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatches(_:cache:batchHandler:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatches(_:cache:interleaveDelay:batchHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -406,7 +406,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairhub\/requestasync(_:cache:retry:)"
 },
-"doc://FairApp/documentation/FairApp/FairHub/requestBatchStream(_:maxBatches:)": {
+"doc://FairApp/documentation/FairApp/FairHub/requestBatchStream(_:maxBatches:cache:interleaveDelay:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, returning an ",
@@ -469,7 +469,50 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -506,14 +549,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatchStream(_:maxBatches:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatchStream(_:maxBatches:)",
+  "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairhub\/requestbatchstream(_:maxbatches:)"
+  "url" : "\/documentation\/fairapp\/fairhub\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
 },
-"doc://FairApp/documentation/FairApp/FairHub/requestBatches(_:cache:batchHandler:)": {
+"doc://FairApp/documentation/FairApp/FairHub/requestBatches(_:cache:interleaveDelay:batchHandler:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, following the cursor until the ",
@@ -605,6 +648,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "batchHandler"
     },
     {
@@ -686,12 +746,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatches(_:cache:batchHandler:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatches(_:cache:interleaveDelay:batchHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatches(_:cache:batchHandler:)",
+  "title" : "requestBatches(_:cache:interleaveDelay:batchHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairhub\/requestbatches(_:cache:batchhandler:)"
+  "url" : "\/documentation\/fairapp\/fairhub\/requestbatches(_:cache:interleavedelay:batchhandler:)"
 },
 "doc://FairApp/documentation/FairApp/FairHub/session": {
   "abstract" : [

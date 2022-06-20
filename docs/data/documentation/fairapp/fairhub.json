@@ -162,6 +162,12 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/backoffCodes"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/Errors"
       ],
       "title" : "Enumerations"
@@ -1155,6 +1161,51 @@
   "title" : "authorize(commit:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairhub\/authorize(commit:)"
+},
+"doc://FairApp/documentation/FairApp/FairHub/backoffCodes": {
+  "abstract" : [
+    {
+      "text" : "The hardwired code that returns an HTTP error but contains information about backing off",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "backoffCodes"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation8IndexSetV",
+      "text" : "IndexSet"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/backoffCodes",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "backoffCodes",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairhub\/backoffcodes"
 },
 "doc://FairApp/documentation/FairApp/FairHub/baseURL": {
   "abstract" : [

@@ -25,19 +25,18 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/EndpointService-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatches(_:cache:batchHandler:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:interleaveDelay:batchHandler:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp15EndpointServicePAAE14requestBatches_5cache12batchHandlerqd__Sgqd_0__So23NSURLRequestCachePolicyVSgAGSi_So13NSURLResponseCSg8ResponseQyd_0_tKXEtYaK0D0Qyd_0_RszAA18CursoredAPIRequestRd_0_r0_lF::SYNTHESIZED::s:7FairApp0A3HubV",
+    "externalID" : "s:7FairApp15EndpointServicePAAE14requestBatches_5cache15interleaveDelay12batchHandlerqd__Sgqd_0__So23NSURLRequestCachePolicyVSgSdSgAHSi_So13NSURLResponseCSg8ResponseQyd_0_tKXEtYaK0D0Qyd_0_RszAA18CursoredAPIRequestRd_0_r0_lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -100,6 +99,23 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
         "text" : "CachePolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "interleaveDelay"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:@T@NSTimeInterval",
+        "text" : "TimeInterval"
       },
       {
         "kind" : "text",
@@ -196,7 +212,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "requestBatches(_:cache:batchHandler:)"
+    "title" : "requestBatches(_:cache:interleaveDelay:batchHandler:)"
   },
   "primaryContentSections" : [
     {
@@ -290,6 +306,23 @@
             {
               "kind" : "text",
               "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "interleaveDelay"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:@T@NSTimeInterval",
+              "text" : "TimeInterval"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = 1.0, "
             },
             {
               "kind" : "externalParam",
@@ -436,7 +469,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/fairhub\/requestbatches(_:cache:batchhandler:)"
+        "\/documentation\/fairapp\/endpointservice\/requestbatches(_:cache:interleavedelay:batchhandler:)"
       ],
       "traits" : [
         {
@@ -503,17 +536,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cursoredapirequest"
 },
-"doc://FairApp/documentation/FairApp/FairHub": {
+"doc://FairApp/documentation/FairApp/EndpointService": {
   "abstract" : [
     {
-      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "text" : "A service that converts actions and parameters into an endpoint URL",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -521,34 +554,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FairHub"
+      "text" : "EndpointService"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FairHub"
+      "text" : "EndpointService"
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub",
+  "title" : "EndpointService",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairhub"
+  "url" : "\/documentation\/fairapp\/endpointservice"
 },
-"doc://FairApp/documentation/FairApp/FairHub/EndpointService-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/EndpointService-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "EndpointService Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairhub\/endpointservice-implementations"
-},
-"doc://FairApp/documentation/FairApp/FairHub/requestBatches(_:cache:batchHandler:)": {
+"doc://FairApp/documentation/FairApp/EndpointService/requestBatches(_:cache:interleaveDelay:batchHandler:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, following the cursor until the ",
@@ -640,6 +662,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "batchHandler"
     },
     {
@@ -721,12 +760,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatches(_:cache:batchHandler:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:interleaveDelay:batchHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatches(_:cache:batchHandler:)",
+  "title" : "requestBatches(_:cache:interleaveDelay:batchHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairhub\/requestbatches(_:cache:batchhandler:)"
+  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatches(_:cache:interleavedelay:batchhandler:)"
 }
 }
 }

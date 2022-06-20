@@ -113,6 +113,11 @@ public struct FairHub : GraphQLEndpointService {
             }
         }
     }
+
+
+    /// The hardwired code that returns an HTTP error but contains information about backing off
+    public static var backoffCodes: IndexSet { IndexSet([403]) }
+
 }
 
 public struct ArtifactTarget : Pure {

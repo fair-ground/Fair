@@ -17,18 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService"
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/EndpointService-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp15EndpointServicePAAE18requestBatchStream_10maxBatchesScsy8ResponseQyd__s5Error_pGqd___Sit0D0Qyd__RszAA18CursoredAPIRequestRd__lF",
+    "externalID" : "s:7FairApp15EndpointServicePAAE18requestBatchStream_10maxBatches5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___SiSo23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA18CursoredAPIRequestRd__lF::SYNTHESIZED::s:7FairApp0A3HubV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -77,7 +78,50 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> "
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "cache"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation10URLRequestV",
+        "text" : "URLRequest"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+        "text" : "CachePolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "interleaveDelay"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:@T@NSTimeInterval",
+        "text" : "TimeInterval"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -122,7 +166,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "requestBatchStream(_:maxBatches:)"
+    "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
   },
   "primaryContentSections" : [
     {
@@ -198,7 +242,50 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> "
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "cache"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation10URLRequestV",
+              "text" : "URLRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+              "text" : "CachePolicy"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "interleaveDelay"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:@T@NSTimeInterval",
+              "text" : "TimeInterval"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = 1.0) -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -297,7 +384,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:)"
+        "\/documentation\/fairapp\/fairhub\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
       ],
       "traits" : [
         {
@@ -364,17 +451,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cursoredapirequest"
 },
-"doc://FairApp/documentation/FairApp/EndpointService": {
+"doc://FairApp/documentation/FairApp/FairHub": {
   "abstract" : [
     {
-      "text" : "A service that converts actions and parameters into an endpoint URL",
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -382,23 +469,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "EndpointService"
+      "text" : "FairHub"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "EndpointService"
+      "text" : "FairHub"
     }
   ],
   "role" : "symbol",
-  "title" : "EndpointService",
+  "title" : "FairHub",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice"
+  "url" : "\/documentation\/fairapp\/fairhub"
 },
-"doc://FairApp/documentation/FairApp/EndpointService/requestBatchStream(_:maxBatches:)": {
+"doc://FairApp/documentation/FairApp/FairHub/EndpointService-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/EndpointService-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "EndpointService Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairhub\/endpointservice-implementations"
+},
+"doc://FairApp/documentation/FairApp/FairHub/requestBatchStream(_:maxBatches:cache:interleaveDelay:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, returning an ",
@@ -461,7 +559,50 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -498,12 +639,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatchStream(_:maxBatches:)",
+  "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:)"
+  "url" : "\/documentation\/fairapp\/fairhub\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
 }
 }
 }

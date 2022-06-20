@@ -27,6 +27,9 @@ public protocol EndpointService {
 
     /// Creates a request for the given `APIRequest`
     func buildRequest<A: APIRequest>(for request: A, cache: URLRequest.CachePolicy?) throws -> URLRequest where A.Service == Self
+
+    /// The codes that returns an HTTP error but contains information about backing off and re-trying an operation
+    static var backoffCodes: IndexSet { get }
 }
 
 /// An API request that can be either a REST GET or a POST like GraphQL.
@@ -98,13 +101,16 @@ extension EndpointService {
         try await decode(data: try session.fetch(request: buildRequest(for: request, cache: nil)).data)
     }
 
-
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
+    public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
         var request = request
         for requestIndex in 0... {
-            let (data, urlResponse) = try await session.fetch(request: buildRequest(for: request, cache: cache))
-            // dbg("batch response:", data.utf8String)
+            if requestIndex > 0, let interleaveDelay = interleaveDelay {
+                // rest between requests
+                try await Task.sleep(nanoseconds: .init(interleaveDelay * 1_000_000_000))
+            }
+
+            let (data, urlResponse) = try await fetchBatch(buildRequest(for: request, cache: cache))
             let batch: A.Response = try decode(data: data)
 
             if let stopValue = try batchHandler(requestIndex, urlResponse, batch) {
@@ -122,17 +128,60 @@ extension EndpointService {
         return nil
     }
 
+    /// Fetches the given batch, optionally retrying when a failure response contains one of the retry codes.
+    /// - Parameters:
+    ///   - request: the request to fetch
+    ///   - retryCount: the number of times we should attempt to fetch the resource
+    ///
+    /// - Note: the retry mechanism only works with the generic "Retry-After" header. Custom endpoint-specific
+    ///         rate limit handling (like GitHub's `x-ratelimit-limit`, `x-ratelimit-limit-remaining`, `x-ratelimit-limit-reset` headers)
+    ///         are not yet supported.
+    private func fetchBatch(_ request: URLRequest, retryCount: Int = 10) async throws -> (Data, URLResponse?) {
+        var codes = IndexSet(200..<300)
+        codes.formUnion(Self.backoffCodes)
+        var retryCount = max(retryCount, 1)
+        var seenCodes: Set<Int> = []
+        while retryCount > 0 {
+            retryCount -= 1
+
+            let (data, response) = try await session.fetch(request: request, validate: .init(codes))
+            dbg("batch response:", response)
+            dbg("batch data:", data.utf8String)
+
+            // rate limit exceeded will have a 403 error, a RetryDuration header, and a payload like:
+            // { "documentation_url": "https://docs.github.com/en/free-pro-team@latest/rest/overview/resources-in-the-rest-api#secondary-rate-limits", "message": "You have exceeded a secondary rate limit. Please wait a few minutes before you try again." }
+
+            // from https://docs.github.com/en/rest/guides/best-practices-for-integrators#dealing-with-secondary-rate-limits: “When you have been limited, use the Retry-After response header to slow down. The value of the Retry-After header will always be an integer, representing the number of seconds you should wait before making requests again. For example, Retry-After: 30 means you should wait 30 seconds before sending more requests.”
+            if let response = response as? HTTPURLResponse,
+               Self.backoffCodes.contains(response.statusCode),
+               let retryAfter = response.value(forHTTPHeaderField: "Retry-After"),
+               let retryAfterSeconds = Double(retryAfter) {
+                seenCodes.insert(response.statusCode)
+                dbg("backing off for \(retryAfterSeconds) seconds and re-trying \(retryCount) more times…")
+                try await Task.sleep(nanoseconds: .init(retryAfterSeconds * 1_000_000_000))
+            } else {
+                return (data, response)
+            }
+        }
+
+        throw AppError("Resource at returned code: \(seenCodes.sorted())")
+    }
+
     /// Fetches the web service for the given request, returning an `AsyncThrowingStream` that yields batches until they are no longer available or they have passed the max batch limit.
-    public func requestBatchStream<A: CursoredAPIRequest>(_ request: A, maxBatches: Int) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
+    public func requestBatchStream<A: CursoredAPIRequest>(_ request: A, maxBatches: Int, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
         return AsyncThrowingStream { c in
             Task {
-                var count = 0
-                let _: Void? = try await self.requestBatches(request) { resultIndex, urlResponse, batch in
-                    c.yield(batch)
-                    count += 1
-                    return count < maxBatches ? nil : () // keep going until we have all the batches
+                do {
+                    var count = 0
+                    let _: Void? = try await self.requestBatches(request, cache: cache, interleaveDelay: interleaveDelay) { resultIndex, urlResponse, batch in
+                        c.yield(batch)
+                        count += 1
+                        return count < maxBatches ? nil : () // keep going until we have all the batches
+                    }
+                    c.finish()
+                } catch {
+                    c.finish(throwing: error)
                 }
-                c.finish()
             }
         }
     }
@@ -175,11 +224,11 @@ public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResp
 public extension URLResponse {
     func validateHTTPCode(inRange: Range<Int> = 200..<300) throws {
         guard let httpResponse = self as? HTTPURLResponse else {
-            throw Bundle.module.error("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
+            throw AppError("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
         }
 
         if !inRange.contains(httpResponse.statusCode) {
-            throw Bundle.module.error("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
+            throw AppError("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
         }
     }
 }
@@ -202,7 +251,7 @@ public extension URLRequest {
             let fragmentHash = self.url?.fragment {
             let dataHash = data.sha256().hex()
             if dataHash != fragmentHash {
-                throw Bundle.module.error("Hash mismatch for \(self.url?.absoluteString ?? ""): \(fragmentHash) vs. \(dataHash)")
+                throw AppError("Hash mismatch for \(self.url?.absoluteString ?? ""): \(fragmentHash) vs. \(dataHash)")
             }
         }
         #endif
@@ -214,20 +263,22 @@ public extension URLRequest {
 
 extension URLResponse {
     public struct InvalidHTTPCode : Error {
-        public let code: Int?
+        public let code: Int
+        //public let response: HTTPURLResponse
     }
 
     /// Attempts to validate the status code in the given range and throws an error if they fail.
-    func validating(codes: Range<Int>?) throws -> Self {
+    func validating(codes: IndexSet?) throws -> Self {
         guard let codes = codes else {
             return self // no validation
         }
-        guard let code = (self as? HTTPURLResponse)?.statusCode else {
-            throw InvalidHTTPCode(code: nil)
+
+        guard let httpResponse = self as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
         }
 
-        if !codes.contains(code) {
-            throw InvalidHTTPCode(code: code)
+        if !codes.contains(httpResponse.statusCode) {
+            throw InvalidHTTPCode(code: httpResponse.statusCode)
         }
 
         return self // the response is valid
@@ -236,29 +287,16 @@ extension URLResponse {
 
 extension URLSession {
     /// Fetches the given request asynchronously, optionally validating that the response code is within the given range of HTTP codes.
-    public func fetch(request: URLRequest, validate codes: Range<Int>? = 200..<300) async throws -> (data: Data, response: URLResponse?) {
+    public func fetch(request: URLRequest, validate codes: IndexSet? = IndexSet(200..<300)) async throws -> (data: Data, response: URLResponse?) {
         if let url = request.url, url.isFileURL == true {
-//            if !FileManager.default.isReadableFile(atPath: url.path) {
-//                throw CocoaError(.fileNoSuchFile)
-//            }
             return (data: try Data(contentsOf: url), response: nil)
-        }
-
-        #if os(Linux) || true 
-        // the fall-through below crashes on Linux for some reason (exit code 137 at runtime); this works around it
-        return try await fetchTask(request: request, validate: codes)
-        #else
-        if #available(macOS 12.0, iOS 15.0, *) {
-            let response = try await data(for: request, delegate: nil) // iOS 15+ built-in async `data`
-            return (response.0, try response.1.validating(codes: codes))
         } else {
             return try await fetchTask(request: request, validate: codes)
         }
-        #endif
     }
 
     /// A shim for async URL download for back-ported async/await without corresponding URLSession API support
-    private func fetchTask(request: URLRequest, validate codes: Range<Int>?) async throws -> (data: Data, response: URLResponse) {
+    private func fetchTask(request: URLRequest, validate codes: IndexSet?) async throws -> (data: Data, response: URLResponse) {
         return try await withCheckedThrowingContinuation { continuation in
             dataTask(with: request) { data, response, error in
                 if let data = data, let response = response, error == nil {

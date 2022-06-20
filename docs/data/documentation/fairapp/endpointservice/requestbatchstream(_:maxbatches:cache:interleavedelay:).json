@@ -1,23 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Fetches the web service for the given request, following the cursor until the ",
+      "text" : "Fetches the web service for the given request, returning an ",
       "type" : "text"
     },
     {
-      "code" : "batchHandler",
+      "code" : "AsyncThrowingStream",
       "type" : "codeVoice"
     },
     {
-      "text" : " returns a non-",
-      "type" : "text"
-    },
-    {
-      "code" : "nil",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " response; the first response element will be returned",
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
       "type" : "text"
     }
   ],
@@ -31,12 +23,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:batchHandler:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp15EndpointServicePAAE14requestBatches_5cache12batchHandlerqd__Sgqd_0__So23NSURLRequestCachePolicyVSgAGSi_So13NSURLResponseCSg8ResponseQyd_0_tKXEtYaK0D0Qyd_0_RszAA18CursoredAPIRequestRd_0_r0_lF",
+    "externalID" : "s:7FairApp15EndpointServicePAAE18requestBatchStream_10maxBatches5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___SiSo23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA18CursoredAPIRequestRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -48,19 +40,11 @@
       },
       {
         "kind" : "identifier",
-        "text" : "requestBatches"
+        "text" : "requestBatchStream"
       },
       {
         "kind" : "text",
         "text" : "<"
-      },
-      {
-        "kind" : "genericParameter",
-        "text" : "T"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
       },
       {
         "kind" : "genericParameter",
@@ -73,6 +57,23 @@
       {
         "kind" : "typeIdentifier",
         "text" : "A"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "maxBatches"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
       },
       {
         "kind" : "text",
@@ -106,29 +107,29 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "batchHandler"
+        "text" : "interleaveDelay"
       },
       {
         "kind" : "text",
-        "text" : ": ("
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
+        "preciseIdentifier" : "c:@T@NSTimeInterval",
+        "text" : "TimeInterval"
       },
       {
         "kind" : "text",
-        "text" : ", "
+        "text" : "?) -> "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "c:objc(cs)NSURLResponse",
-        "text" : "URLResponse"
+        "preciseIdentifier" : "s:Scs",
+        "text" : "AsyncThrowingStream"
       },
       {
         "kind" : "text",
-        "text" : "?, "
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
@@ -144,47 +145,16 @@
       },
       {
         "kind" : "text",
-        "text" : ") "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
+        "text" : ", "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "T"
+        "preciseIdentifier" : "s:s5ErrorP",
+        "text" : "Error"
       },
       {
         "kind" : "text",
-        "text" : "?) "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "async"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "T"
-      },
-      {
-        "kind" : "text",
-        "text" : "?"
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -195,7 +165,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "requestBatches(_:cache:batchHandler:)"
+    "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
   },
   "primaryContentSections" : [
     {
@@ -218,19 +188,11 @@
             },
             {
               "kind" : "identifier",
-              "text" : "requestBatches"
+              "text" : "requestBatchStream"
             },
             {
               "kind" : "text",
               "text" : "<"
-            },
-            {
-              "kind" : "genericParameter",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
             },
             {
               "kind" : "genericParameter",
@@ -266,6 +228,23 @@
             },
             {
               "kind" : "externalParam",
+              "text" : "maxBatches"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
               "text" : "cache"
             },
             {
@@ -292,29 +271,29 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "batchHandler"
+              "text" : "interleaveDelay"
             },
             {
               "kind" : "text",
-              "text" : ": ("
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
+              "preciseIdentifier" : "c:@T@NSTimeInterval",
+              "text" : "TimeInterval"
             },
             {
               "kind" : "text",
-              "text" : ", "
+              "text" : "? = 1.0) -> "
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "c:objc(cs)NSURLResponse",
-              "text" : "URLResponse"
+              "preciseIdentifier" : "s:Scs",
+              "text" : "AsyncThrowingStream"
             },
             {
               "kind" : "text",
-              "text" : "?, "
+              "text" : "<"
             },
             {
               "kind" : "typeIdentifier",
@@ -330,47 +309,16 @@
             },
             {
               "kind" : "text",
-              "text" : ") "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> "
+              "text" : ", "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "T"
+              "preciseIdentifier" : "s:s5ErrorP",
+              "text" : "Error"
             },
             {
               "kind" : "text",
-              "text" : "?) "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "async"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : "? "
+              "text" : "> "
             },
             {
               "kind" : "keyword",
@@ -435,7 +383,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/endpointservice\/requestbatches(_:cache:batchhandler:)"
+        "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
       ],
       "traits" : [
         {
@@ -536,26 +484,18 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice"
 },
-"doc://FairApp/documentation/FairApp/EndpointService/requestBatches(_:cache:batchHandler:)": {
+"doc://FairApp/documentation/FairApp/EndpointService/requestBatchStream(_:maxBatches:cache:interleaveDelay:)": {
   "abstract" : [
     {
-      "text" : "Fetches the web service for the given request, following the cursor until the ",
+      "text" : "Fetches the web service for the given request, returning an ",
       "type" : "text"
     },
     {
-      "code" : "batchHandler",
+      "code" : "AsyncThrowingStream",
       "type" : "codeVoice"
     },
     {
-      "text" : " returns a non-",
-      "type" : "text"
-    },
-    {
-      "code" : "nil",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " response; the first response element will be returned",
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
       "type" : "text"
     }
   ],
@@ -570,19 +510,11 @@
     },
     {
       "kind" : "identifier",
-      "text" : "requestBatches"
+      "text" : "requestBatchStream"
     },
     {
       "kind" : "text",
       "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "genericParameter",
@@ -595,6 +527,23 @@
     {
       "kind" : "typeIdentifier",
       "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "maxBatches"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
     },
     {
       "kind" : "text",
@@ -628,29 +577,29 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "batchHandler"
+      "text" : "interleaveDelay"
     },
     {
       "kind" : "text",
-      "text" : ": ("
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSURLResponse",
-      "text" : "URLResponse"
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
     },
     {
       "kind" : "text",
-      "text" : "?, "
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -666,55 +615,24 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : ", "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "T"
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
     },
     {
       "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:batchHandler:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatches(_:cache:batchHandler:)",
+  "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatches(_:cache:batchhandler:)"
+  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
 }
 }
 }
