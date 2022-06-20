@@ -529,7 +529,7 @@ extension URLSession {
                    let tempDir = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: temporaryLocalURL, create: true)
                     let destinationURL = tempDir.appendingPathComponent(pathName)
                     try FileManager.default.moveItem(at: temporaryLocalURL, to: destinationURL)
-                    dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, destinationURL.pathSize.localizedByteCount())
+                    dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, destinationURL.pathSize?.localizedByteCount())
                     return completionHandler(destinationURL, response, error)
                 }
             } catch {

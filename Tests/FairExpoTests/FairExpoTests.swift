@@ -82,17 +82,29 @@ final class FairExpoTests: XCTestCase {
 
     func XXXtestAppInfoCommandMacOSStream() async throws {
         var cmd = try AppCommand.InfoCommand.parseAsRoot(["info"]) as! AppCommand.InfoCommand
-        cmd.apps = ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"]
+
+        cmd.apps = []
+
+        cmd.apps += ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"]
+        cmd.apps += ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"]
+
+        var count = 0
 
         for try await result in cmd.executeCommand() {
-            XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
-            XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
-            XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-            XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
-            return
+            //XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
+            XCTAssertNotNil(result.info.obj?["CFBundleIdentifier"]?.str)
+
+            if cmd.apps.first?.hasSuffix("macOS.zip") == true {
+                XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
+                XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
+                XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
+            }
+            //return
+
+            count += 1
         }
 
-        XCTFail("expected at least one result")
+        XCTAssertGreaterThan(count, 0, "expected at least one result")
     }
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.

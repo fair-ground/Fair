@@ -164,7 +164,7 @@ public class SeekableFileHandle : SeekableData {
     }
 }
 
-/// SeekableData implementation that is backed by an in-memory `Data` instance
+/// SeekableData implementation that is backed by a `Data` instance, which may be in-memory or mapped to a file.
 public class SeekableDataHandle : SeekableData {
     let data: Data
     private(set) var off: Offset
