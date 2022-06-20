@@ -963,9 +963,15 @@ public class AppBundle<Source: DataWrapper> {
     }
 }
 
-public enum AppBundleErrors : Error {
+public enum AppBundleErrors : Error, LocalizedError {
     /// The Info.plist is missing from the archive
     case missingInfo
+
+    public var failureReason: String? {
+        switch self {
+        case .missingInfo: return "Missing Info.plist in application bundle"
+        }
+    }
 }
 
 public extension AppBundle {
@@ -1005,16 +1011,16 @@ public extension AppBundle {
     private static func readInfo(source: Source) throws -> (Plist, parent: Source.Path, node: Source.Path)? {
         // dbg("reading info node from:", fs.containerURL.path)
         let rootNodes = try source.nodes(at: nil)
-        // dbg("rootNodes:", rootNodes.map(\.pathName))
+        dbg("rootNodes:", rootNodes.map(\.pathName))
 
         func loadInfoPlist(from node: Source.Path) throws -> (Plist, parent: Source.Path, node: Source.Path)? {
-            dbg("attempting to load Info.plist from:", node.pathName)
+            //dbg("attempting to load Info.plist from:", node.pathName)
             let contents = try source.nodes(at: node)
-            guard let infoNode = contents.first(where: { $0.pathName == "Info.plist" }) else {
+            guard let infoNode = contents.first(where: { $0.pathComponents.last == "Info.plist" }) else {
                 // dbg("missing Info.plist node from:", contents.map(\.pathName))
                 return nil
             }
-            // dbg("found Info.plist node:", infoNode.pathName, "from:", contents.map(\.pathName))
+            dbg("found Info.plist node:", infoNode.pathName, "from:", contents.map(\.pathName))
 
             return try (Plist(data: source.seekableData(at: infoNode).readData(ofLength: nil)), parent: node, node: infoNode)
         }
@@ -1087,15 +1093,17 @@ public protocol DataWrapperPath {
     /// The name of this path relative to the root of the file system
     var pathName: String { get }
     /// The size of the element represented by this path
-    var pathSize: UInt64 { get }
+    var pathSize: UInt64? { get }
     /// True if the path is a directory
     var pathIsDirectory: Bool { get }
 }
 
-public extension DataWrapper {
-    /// All non-directory paths in this wrapper
-    var filePaths: [Path] {
-        paths.filter({ $0.pathIsDirectory == false })
+extension DataWrapperPath {
+    /// The individual components of this path.
+    ///
+    /// - TODO: on Windows do we need to use backslash?
+    var pathComponents: [String] {
+        (pathName as NSString).pathComponents
     }
 }
 
@@ -1154,7 +1162,7 @@ extension FileSystemDataWrapper.Path : DataWrapperPath {
         self.relativePath
     }
 
-    public var pathSize: UInt64 {
+    public var pathSize: UInt64? {
         (try? self.resourceValues(forKeys: [.fileSizeKey]).fileSize).flatMap({ .init($0) }) ?? 0
     }
 
@@ -1166,13 +1174,48 @@ extension FileSystemDataWrapper.Path : DataWrapperPath {
 // MARK: ZipArchiveDataWrapper
 
 public class ZipArchiveDataWrapper : DataWrapper {
-    public typealias Path = ZipArchive.Entry
+    public typealias Path = ZipArchivePath
     let archive: ZipArchive
-    public let paths: [ZipArchive.Entry]
+    public let paths: [ZipArchivePath]
+
+    public struct ZipArchivePath : DataWrapperPath {
+        let path: String
+        public let pathIsDirectory: Bool
+        fileprivate let entry: ZipArchive.Entry?
+
+        public var pathName: String {
+            self.path
+        }
+
+        public var pathSize: UInt64? {
+            entry?.uncompressedSize
+        }
+    }
 
     public init(archive: ZipArchive) {
         self.archive = archive
-        self.paths = archive.array()
+
+        var paths = archive.map { entry in
+            ZipArchivePath(path: entry.path, pathIsDirectory: entry.type == .directory, entry: entry)
+        }
+
+        // find all the paths that do not have a directory entry and synthesize a folder for it, since zip file are not guaranteed to have a proper directory entry for each file entry
+        var allPaths = paths.map(\.path).set()
+        let parentPaths = allPaths.map(\.deletingLastPathComponent).set()
+        for parentPath in parentPaths.sorted() {
+            var path = parentPath
+            while !path.isEmpty {
+                // zip file directories always end in a slash
+                let pathWithSlash = path // path.hasSuffix("/") ? path : (path + "/") // TODO
+                if allPaths.insert(pathWithSlash).inserted == true {
+                    // synthesize a directory entry
+                    //dbg("synthesizing parent directory:", parentPath)
+                    paths.append(ZipArchivePath(path: pathWithSlash, pathIsDirectory: true, entry: nil))
+                }
+                path = path.deletingLastPathComponent
+            }
+        }
+        self.paths = paths
     }
 
     public var containerURL: URL {
@@ -1180,42 +1223,49 @@ public class ZipArchiveDataWrapper : DataWrapper {
     }
 
     public func parent(of path: Path) throws -> Path? {
-        let pathParts = path.path.split(separator: "/")
-        return self.paths.first(where: {
-            $0.pathIsDirectory && path.path.hasPrefix($0.path) && $0.path.split(separator: "/").count == pathParts.count - 1
+        paths.first(where: { p in
+            path.path.deletingLastPathComponent == p.path
         })
     }
 
     public func nodes(at path: Path?) throws -> [Path] {
         if let parentPath = path {
-            let pathParts = parentPath.path.split(separator: "/")
-
             // brute-force scan all the entries; this should be made into a tree
-            return paths.filter({
-                $0.path.hasPrefix(parentPath.path) && $0.path.split(separator: "/").count == pathParts.count + 1
+            return paths.filter({ p in
+                p.path.deletingLastPathComponent == parentPath.path
             })
         } else {
-            // there isn't always a separate root "Payload/" directory entry; a valid zip might instead contain just a root-level "Payload/MyApp.app/" entry
-            let minPath = paths.map({ $0.path.split(separator: "/").count }).min()
-
-            let rootEntries = paths.filter({
-                $0.path.split(separator: "/").count == minPath // all top-level entries
+            let rootEntries = paths.filter({ p in
+                p.pathComponents.count == 1 // all top-level entries
             })
 
-            //dbg("root entries:", rootEntries.map(\.path))
+            dbg("root entries:", rootEntries.map(\.path))
             return rootEntries
         }
     }
 
     public func seekableData(at path: Path) throws -> SeekableData {
-        SeekableDataHandle(try archive.extractData(from: path))
+        guard let entry = path.entry else {
+            throw AppError("path was not backed by a zip entry")
+        }
+        return SeekableDataHandle(try archive.extractData(from: entry))
     }
-
 
     public func find(pathsMatching expression: NSRegularExpression) -> [Path] {
         paths.filter { path in
             expression.firstMatch(in: path.path, range: path.path.span) != nil
         }
+    }
+}
+
+// Utilities from NSString cast
+private extension String {
+    var deletingLastPathComponent: String {
+        (self as NSString).deletingLastPathComponent
+    }
+
+    var lastPathComponent: String {
+        (self as NSString).lastPathComponent
     }
 }
 
@@ -1225,21 +1275,6 @@ extension AppBundle where Source == ZipArchiveDataWrapper {
             throw URLError(.badURL)
         }
         try self.init(source: ZipArchiveDataWrapper(archive: zip))
-    }
-}
-
-extension ZipArchiveDataWrapper.Path : DataWrapperPath {
-    public var pathName: String {
-        // Zip archive paths are always the full name
-        self.path.split(separator: "/").last.flatMap(String.init) ?? self.path
-    }
-
-    public var pathSize: UInt64 {
-        self.uncompressedSize
-    }
-
-    public var pathIsDirectory: Bool {
-        self.type == .directory
     }
 }
 

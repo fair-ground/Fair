@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "DataWrapper.paths",
+      "code" : "DataWrapperPath.pathIsDirectory",
       "type" : "codeVoice"
     },
     {
@@ -17,17 +17,18 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper"
+        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/ZipArchivePath"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/paths"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/ZipArchivePath\/pathIsDirectory"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp21ZipArchiveDataWrapperC5pathsSayAC0cD4PathVGvp",
+    "externalID" : "s:7FairApp21ZipArchiveDataWrapperC0cD4PathV15pathIsDirectorySbvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,29 +40,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "paths"
+        "text" : "pathIsDirectory"
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp21ZipArchiveDataWrapperC",
-        "text" : "ZipArchiveDataWrapper"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp21ZipArchiveDataWrapperC0cD4PathV",
-        "text" : "ZipArchivePath"
-      },
-      {
-        "kind" : "text",
-        "text" : "]"
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
       }
     ],
     "modules" : [
@@ -72,7 +60,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "paths"
+    "title" : "pathIsDirectory"
   },
   "primaryContentSections" : [
     {
@@ -95,31 +83,16 @@
             },
             {
               "kind" : "identifier",
-              "text" : "paths"
+              "text" : "pathIsDirectory"
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp21ZipArchiveDataWrapperC",
-              "text" : "ZipArchiveDataWrapper"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/ZipArchivePath",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp21ZipArchiveDataWrapperC0cD4PathV",
-              "text" : "ZipArchivePath"
-            },
-            {
-              "kind" : "text",
-              "text" : "]"
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
             }
           ]
         }
@@ -138,7 +111,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/ziparchivedatawrapper\/paths"
+        "\/documentation\/fairapp\/ziparchivedatawrapper\/ziparchivepath\/pathisdirectory"
       ],
       "traits" : [
         {
@@ -233,7 +206,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/ziparchivedatawrapper\/ziparchivepath"
 },
-"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper/paths": {
+"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper/ZipArchivePath/pathIsDirectory": {
   "abstract" : [
 
   ],
@@ -248,37 +221,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "paths"
+      "text" : "pathIsDirectory"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp21ZipArchiveDataWrapperC",
-      "text" : "ZipArchiveDataWrapper"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp21ZipArchiveDataWrapperC0cD4PathV",
-      "text" : "ZipArchivePath"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/paths",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/ZipArchivePath\/pathIsDirectory",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "paths",
+  "title" : "pathIsDirectory",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper\/paths"
+  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper\/ziparchivepath\/pathisdirectory"
 }
 }
 }

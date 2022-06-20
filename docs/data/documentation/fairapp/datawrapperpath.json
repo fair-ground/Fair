@@ -78,6 +78,16 @@
       "kind" : "declarations"
     }
   ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/ZipArchivePath"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -267,6 +277,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:s6UInt64V",
       "text" : "UInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath\/pathSize",
@@ -276,6 +290,37 @@
   "title" : "pathSize",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/datawrapperpath\/pathsize"
+},
+"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper/ZipArchivePath": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchivePath"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/ZipArchivePath",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchivePath"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchiveDataWrapper.ZipArchivePath",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper\/ziparchivepath"
 }
 }
 }

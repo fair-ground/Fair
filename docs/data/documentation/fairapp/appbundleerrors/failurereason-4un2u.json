@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "All non-directory paths in this wrapper",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "LocalizedError.failureReason",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -9,18 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/LocalizedError-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper\/filePaths"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/failureReason-4un2u"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp11DataWrapperPAAE9filePathsSay4PathQzGvp",
+    "extendedModule" : "Foundation",
+    "externalID" : "s:10Foundation14LocalizedErrorPAAE13failureReasonSSSgvp::SYNTHESIZED::s:7FairApp0B12BundleErrorsO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -32,27 +41,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "filePaths"
+        "text" : "failureReason"
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Path"
-      },
-      {
-        "kind" : "text",
-        "text" : "]"
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -63,7 +65,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "filePaths"
+    "title" : "failureReason"
   },
   "primaryContentSections" : [
     {
@@ -86,27 +88,20 @@
             },
             {
               "kind" : "identifier",
-              "text" : "filePaths"
+              "text" : "failureReason"
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Self"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Path"
-            },
-            {
-              "kind" : "text",
-              "text" : "] { "
+              "text" : "? { "
             },
             {
               "kind" : "keyword",
@@ -133,7 +128,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/datawrapper\/filepaths"
+        "\/documentation\/fairapp\/appbundleerrors\/failurereason-4un2u"
       ],
       "traits" : [
         {
@@ -166,17 +161,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/DataWrapper": {
+"doc://FairApp/documentation/FairApp/AppBundleErrors": {
   "abstract" : [
-    {
-      "text" : "A collection of data resources, such as a file system hierarchy or a zip archive of files.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -184,28 +176,36 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DataWrapper"
+      "text" : "AppBundleErrors"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "DataWrapper"
+      "text" : "AppBundleErrors"
     }
   ],
   "role" : "symbol",
-  "title" : "DataWrapper",
+  "title" : "AppBundleErrors",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/datawrapper"
+  "url" : "\/documentation\/fairapp\/appbundleerrors"
 },
-"doc://FairApp/documentation/FairApp/DataWrapper/filePaths": {
+"doc://FairApp/documentation/FairApp/AppBundleErrors/LocalizedError-Implementations": {
   "abstract" : [
-    {
-      "text" : "All non-directory paths in this wrapper",
-      "type" : "text"
-    }
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundleerrors\/localizederror-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppBundleErrors/failureReason-4un2u": {
+  "abstract" : [
+
   ],
   "fragments" : [
     {
@@ -218,35 +218,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "filePaths"
+      "text" : "failureReason"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Path"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper\/filePaths",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/failureReason-4un2u",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "filePaths",
+  "title" : "failureReason",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/datawrapper\/filepaths"
+  "url" : "\/documentation\/fairapp\/appbundleerrors\/failurereason-4un2u"
 }
 }
 }

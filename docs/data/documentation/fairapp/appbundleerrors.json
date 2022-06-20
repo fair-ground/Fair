@@ -81,6 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/10Foundation14LocalizedErrorP",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/s5ErrorP",
         "doc:\/\/FairApp\/SH",
@@ -107,10 +108,17 @@
       "title" : "Enumeration Cases"
     },
     {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/failureReason-71ef8"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/Equatable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/Error-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/Error-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/LocalizedError-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -129,6 +137,11 @@
   ]
 , 
 "references": {
+"doc://FairApp/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/FairApp\/10Foundation14LocalizedErrorP",
+  "title" : "Foundation.LocalizedError",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SH": {
   "identifier" : "doc:\/\/FairApp\/SH",
   "title" : "Swift.Hashable",
@@ -213,6 +226,55 @@
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundleerrors\/error-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppBundleErrors/LocalizedError-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundleerrors\/localizederror-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppBundleErrors/failureReason-71ef8": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "failureReason"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/failureReason-71ef8",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "failureReason",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundleerrors\/failurereason-71ef8"
 },
 "doc://FairApp/documentation/FairApp/AppBundleErrors/missingInfo": {
   "abstract" : [

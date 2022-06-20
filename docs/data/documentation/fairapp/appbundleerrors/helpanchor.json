@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "All non-directory paths in this wrapper",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "LocalizedError.helpAnchor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -9,19 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper",
-        "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/DataWrapper-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/LocalizedError-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/filePaths"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/helpAnchor"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp11DataWrapperPAAE9filePathsSay4PathQzGvp::SYNTHESIZED::s:7FairApp21ZipArchiveDataWrapperC",
+    "extendedModule" : "Foundation",
+    "externalID" : "s:10Foundation14LocalizedErrorPAAE10helpAnchorSSSgvp::SYNTHESIZED::s:7FairApp0B12BundleErrorsO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,27 +41,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "filePaths"
+        "text" : "helpAnchor"
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Self"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Path"
-      },
-      {
-        "kind" : "text",
-        "text" : "]"
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -64,7 +65,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "filePaths"
+    "title" : "helpAnchor"
   },
   "primaryContentSections" : [
     {
@@ -87,27 +88,20 @@
             },
             {
               "kind" : "identifier",
-              "text" : "filePaths"
+              "text" : "helpAnchor"
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Self"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Path"
-            },
-            {
-              "kind" : "text",
-              "text" : "] { "
+              "text" : "? { "
             },
             {
               "kind" : "keyword",
@@ -134,7 +128,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/ziparchivedatawrapper\/filepaths"
+        "\/documentation\/fairapp\/appbundleerrors\/helpanchor"
       ],
       "traits" : [
         {
@@ -167,14 +161,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper": {
+"doc://FairApp/documentation/FairApp/AppBundleErrors": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -182,39 +176,36 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ZipArchiveDataWrapper"
+      "text" : "AppBundleErrors"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ZipArchiveDataWrapper"
+      "text" : "AppBundleErrors"
     }
   ],
   "role" : "symbol",
-  "title" : "ZipArchiveDataWrapper",
+  "title" : "AppBundleErrors",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper"
+  "url" : "\/documentation\/fairapp\/appbundleerrors"
 },
-"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper/DataWrapper-Implementations": {
+"doc://FairApp/documentation/FairApp/AppBundleErrors/LocalizedError-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/DataWrapper-Implementations",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/LocalizedError-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "DataWrapper Implementations",
+  "title" : "LocalizedError Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper\/datawrapper-implementations"
+  "url" : "\/documentation\/fairapp\/appbundleerrors\/localizederror-implementations"
 },
-"doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper/filePaths": {
+"doc://FairApp/documentation/FairApp/AppBundleErrors/helpAnchor": {
   "abstract" : [
-    {
-      "text" : "All non-directory paths in this wrapper",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -227,35 +218,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "filePaths"
+      "text" : "helpAnchor"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Path"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper\/filePaths",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors\/helpAnchor",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "filePaths",
+  "title" : "helpAnchor",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/ziparchivedatawrapper\/filepaths"
+  "url" : "\/documentation\/fairapp\/appbundleerrors\/helpanchor"
 }
 }
 }
