@@ -1951,7 +1951,7 @@ fileprivate extension FairParsableCommand {
     static var appSuffix: String { ".app" }
 
     /// The name of the App & the repository; defaults to "App"
-    var appName: String { AppNameValidation.defaultAppName }
+    var appName: String { Bundle.appfairDefaultAppName }
 
     var environment: [String: String] { ProcessInfo.processInfo.environment }
 

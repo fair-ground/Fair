@@ -51,20 +51,33 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairMsgCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService"
       ],
       "title" : "Protocols"
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalog",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogItem",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNameValidation",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNewsPost",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactTarget",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BuildSettings",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BundleIdentifier",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/DownloadOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointError",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointErrorList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MsgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/OutputOptions",
@@ -75,6 +88,24 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsURL",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCatalogURLIOS",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCatalogURLMacOS",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairMaxApps",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairName",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairRoot"
+      ],
+      "title" : "Variables"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairGround",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageKind"
       ],
       "title" : "Enumerations"
@@ -108,6 +139,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
+"doc://FairExpo/documentation/FairExpo/AppCatalog": {
+  "abstract" : [
+    {
+      "text" : "A catalog of all the available apps on the fairground.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalog",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalog"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalog",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalog"
+},
 "doc://FairExpo/documentation/FairExpo/AppCatalogCreateAction": {
   "abstract" : [
 
@@ -138,6 +203,37 @@
   "title" : "AppCatalogCreateAction",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogcreateaction"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogItem": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogItem"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogItem",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogitem"
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogVerificationAction": {
   "abstract" : [
@@ -274,6 +370,102 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand"
 },
+"doc://FairExpo/documentation/FairExpo/AppNameValidation": {
+  "abstract" : [
+    {
+      "text" : "The strategy for validating an app’s name",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppNameValidation"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNameValidation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppNameValidation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppNameValidation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appnamevalidation"
+},
+"doc://FairExpo/documentation/FairExpo/AppNewsPost": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppNewsPost"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNewsPost",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppNewsPost"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppNewsPost",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appnewspost"
+},
+"doc://FairExpo/documentation/FairExpo/ArtifactTarget": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArtifactTarget"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactTarget",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArtifactTarget"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ArtifactTarget",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/artifacttarget"
+},
 "doc://FairExpo/documentation/FairExpo/BrewCommand": {
   "abstract" : [
 
@@ -354,6 +546,40 @@
   "title" : "BuildSettings",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/buildsettings"
+},
+"doc://FairExpo/documentation/FairExpo/BundleIdentifier": {
+  "abstract" : [
+    {
+      "text" : "A type wrapper for a bundle identifier string",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BundleIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BundleIdentifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BundleIdentifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BundleIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/bundleidentifier"
 },
 "doc://FairExpo/documentation/FairExpo/DownloadOptions": {
   "abstract" : [
@@ -451,6 +677,74 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommandoutput"
 },
+"doc://FairExpo/documentation/FairExpo/FairGround": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground is a platform for app distribution",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairGround"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairGround",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairGround"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairGround",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairground"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub"
+},
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [
 
@@ -516,6 +810,48 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairparsablecommand"
 },
+"doc://FairExpo/documentation/FairExpo/FairSeal": {
+  "abstract" : [
+    {
+      "text" : "The seal of the given URL, summarizing its cryptographic hash, entitlements,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "and other build-time information",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairSeal"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairSeal"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairSeal",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal"
+},
 "doc://FairExpo/documentation/FairExpo/FairStructuredCommand": {
   "abstract" : [
     {
@@ -580,6 +916,231 @@
   "title" : "FairToolCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairtoolcommand"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest": {
+  "abstract" : [
+    {
+      "text" : "An API request that is expected to use GraphQL ",
+      "type" : "text"
+    },
+    {
+      "code" : "POST",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " requests.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLAPIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLAPIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLAPIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLEndpointService": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQL",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " endpoint",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLEndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLEndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlendpointservice"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLPayload": {
+  "abstract" : [
+    {
+      "text" : "The payload of a successful ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQL",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " query.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLPayload"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLPayload"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLPayload",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlpayload"
+},
+"doc://FairExpo/documentation/FairExpo/HubEndpointError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubEndpointError",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/hubendpointerror"
+},
+"doc://FairExpo/documentation/FairExpo/HubEndpointErrorList": {
+  "abstract" : [
+    {
+      "text" : "A set of one or more errors returned by the GraphQL API.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointErrorList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointErrorList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointErrorList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubEndpointErrorList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/hubendpointerrorlist"
+},
+"doc://FairExpo/documentation/FairExpo/HubEndpointFailure": {
+  "abstract" : [
+    {
+      "text" : "Either a single error or a list of errors",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubEndpointFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubEndpointFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/hubendpointfailure"
 },
 "doc://FairExpo/documentation/FairExpo/HubOptions": {
   "abstract" : [
@@ -800,6 +1361,261 @@
   "title" : "SourceCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand"
+},
+"doc://FairExpo/documentation/FairExpo/appfairCaskAppsURL": {
+  "abstract" : [
+    {
+      "text" : "The canonical location of the enhanced cask app metadata",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairCaskAppsURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairCaskAppsURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfaircaskappsurl"
+},
+"doc://FairExpo/documentation/FairExpo/appfairCatalogURLIOS": {
+  "abstract" : [
+    {
+      "text" : "The canonical location of the iOS catalog for the Fair Ground",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairCatalogURLIOS"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCatalogURLIOS",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairCatalogURLIOS",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfaircatalogurlios"
+},
+"doc://FairExpo/documentation/FairExpo/appfairCatalogURLMacOS": {
+  "abstract" : [
+    {
+      "text" : "The canonical location of the catalog for the Fair Ground",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairCatalogURLMacOS"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCatalogURLMacOS",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairCatalogURLMacOS",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfaircatalogurlmacos"
+},
+"doc://FairExpo/documentation/FairExpo/appfairMaxApps": {
+  "abstract" : [
+    {
+      "text" : "We need an upper bound for the number of forks we can process",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "GitHub defaults to a rate limit of 5,000 requests per hour, so",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "this permits 5,000 requests as 100\/per, but doesn’t leave any",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "margin for multiple catalog runs in an hour, which can cause",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "fairseal generation to fail if the rate limit is exhausted",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairMaxApps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairMaxApps",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairMaxApps",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfairmaxapps"
+},
+"doc://FairExpo/documentation/FairExpo/appfairName": {
+  "abstract" : [
+    {
+      "text" : "The organization name of the fair-ground: ",
+      "type" : "text"
+    },
+    {
+      "code" : "\"appfair\"",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfairname"
+},
+"doc://FairExpo/documentation/FairExpo/appfairRoot": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairRoot"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairRoot",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairRoot",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfairroot"
 }
 }
 }

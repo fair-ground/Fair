@@ -335,6 +335,24 @@ extension String {
 }
 #endif
 
+fileprivate extension CharacterSet {
+    static let urlQueryValueAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+
+        var allowed = CharacterSet.urlQueryAllowed
+        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        return allowed
+    }()
+}
+
+extension String {
+    /// `addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)`
+    public var escapedURLTerm: String {
+        addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? self
+    }
+}
+
 public extension Data {
     /// The UTF8-encoded String for this data
     @inlinable var utf8String: String? {

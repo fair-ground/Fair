@@ -9,14 +9,6 @@
       "type" : "codeVoice"
     }
   ],
-  "defaultImplementationsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLEndpointService\/buildRequest(for:cache:)"
-      ],
-      "title" : "GraphQLEndpointService Implementations"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -401,7 +393,6 @@
       "type" : "codeVoice"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -490,98 +481,6 @@
   "title" : "buildRequest(for:cache:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice\/buildrequest(for:cache:)"
-},
-"doc://FairApp/documentation/FairApp/GraphQLEndpointService/buildRequest(for:cache:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "buildRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "for"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "cache"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV",
-      "text" : "URLRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
-      "text" : "CachePolicy"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV",
-      "text" : "URLRequest"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLEndpointService\/buildRequest(for:cache:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "buildRequest(for:cache:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/graphqlendpointservice\/buildrequest(for:cache:)"
 }
 }
 }

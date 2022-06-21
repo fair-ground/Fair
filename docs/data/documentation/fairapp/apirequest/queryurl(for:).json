@@ -5,14 +5,6 @@
       "type" : "text"
     }
   ],
-  "defaultImplementationsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLAPIRequest\/queryURL(for:)"
-      ],
-      "title" : "GraphQLAPIRequest Implementations"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -241,7 +233,6 @@
       "type" : "text"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -296,67 +287,6 @@
   "title" : "queryURL(for:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/apirequest\/queryurl(for:)"
-},
-"doc://FairApp/documentation/FairApp/GraphQLAPIRequest/queryURL(for:)": {
-  "abstract" : [
-    {
-      "text" : "GraphQL requests all use the same query endpoint",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "queryURL"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "for"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Service"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLAPIRequest\/queryURL(for:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "queryURL(for:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/graphqlapirequest\/queryurl(for:)"
 }
 }
 }

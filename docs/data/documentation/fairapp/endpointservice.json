@@ -78,24 +78,6 @@
       "kind" : "declarations"
     }
   ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLEndpointService"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherited By",
-      "type" : "inheritedBy"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairHub"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
-    }
-  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -255,7 +237,6 @@
       "type" : "codeVoice"
     }
   ],
-  "defaultImplementations" : 1,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -919,82 +900,6 @@
   "title" : "session",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice\/session-4ys30"
-},
-"doc://FairApp/documentation/FairApp/FairHub": {
-  "abstract" : [
-    {
-      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairHub"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairHub",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairHub"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairhub"
-},
-"doc://FairApp/documentation/FairApp/GraphQLEndpointService": {
-  "abstract" : [
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphQL",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " endpoint",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "GraphQLEndpointService"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/GraphQLEndpointService",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "GraphQLEndpointService"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "GraphQLEndpointService",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/graphqlendpointservice"
 }
 }
 }

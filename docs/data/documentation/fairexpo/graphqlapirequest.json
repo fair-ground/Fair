@@ -1,0 +1,609 @@
+{
+  "abstract" : [
+    {
+      "text" : "An API request that is expected to use GraphQL ",
+      "type" : "text"
+    },
+    {
+      "code" : "POST",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " requests.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo17GraphQLAPIRequestP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLAPIRequest"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "GraphQLAPIRequest"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "GraphQLAPIRequest"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "GraphQLAPIRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp10APIRequestP",
+              "text" : "APIRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Service"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo0A3HubV",
+              "text" : "FairHub"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/7FairApp10APIRequestP"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PostCommentQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryQuery"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryURL(for:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/graphqlapirequest"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/7FairApp10APIRequestP": {
+  "identifier" : "doc:\/\/FairExpo\/7FairApp10APIRequestP",
+  "title" : "FairApp.APIRequest",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to get additional pages of releases for ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppCasksQuery",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when a fork has many releases",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCaskReleasesQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCaskReleasesQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCaskReleasesQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a catalog of enhanced cask metadata",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a fair-ground catalog",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CatalogQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CatalogQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CatalogQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FindPullRequests"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FindPullRequests"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.FindPullRequests",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GetCommitQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GetCommitQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetCommitQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/LookupPRNumberQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LookupPRNumberQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LookupPRNumberQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.LookupPRNumberQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/lookupprnumberquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/PostCommentQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PostCommentQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PostCommentQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PostCommentQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.PostCommentQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/postcommentquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/RepositoryQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.RepositoryQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/repositoryquery"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest": {
+  "abstract" : [
+    {
+      "text" : "An API request that is expected to use GraphQL ",
+      "type" : "text"
+    },
+    {
+      "code" : "POST",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " requests.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLAPIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLAPIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLAPIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest/queryURL(for:)": {
+  "abstract" : [
+    {
+      "text" : "GraphQL requests all use the same query endpoint",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "queryURL"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Service"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryURL(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "queryURL(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest\/queryurl(for:)"
+}
+}
+}
