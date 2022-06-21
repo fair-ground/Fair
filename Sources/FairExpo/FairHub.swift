@@ -16,7 +16,7 @@
  */
 import Swift
 import Foundation
-import FairCore
+import FairApp
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -1994,13 +1994,6 @@ public extension FairHub {
     typealias CommitInfo = FairHub.GetCommitQuery.QueryResponse
 }
 
-extension String {
-    /// `addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)`
-    public var escapedURLTerm: String {
-        addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? self
-    }
-}
-
 fileprivate extension Dictionary {
     func percentEncoded() -> Data? {
         return map { key, value in
@@ -2011,17 +2004,6 @@ fileprivate extension Dictionary {
         .joined(separator: "&")
         .data(using: .utf8)
     }
-}
-
-fileprivate extension CharacterSet {
-    static let urlQueryValueAllowed: CharacterSet = {
-        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-        let subDelimitersToEncode = "!$&'()*+,;="
-
-        var allowed = CharacterSet.urlQueryAllowed
-        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-        return allowed
-    }()
 }
 
 /// An API request that is expected to use GraphQL `POST` requests.

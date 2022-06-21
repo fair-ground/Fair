@@ -30,6 +30,9 @@ public extension Bundle {
     /// The org name of the catalog browser app itself
     static let catalogBrowserAppOrg = "App-Fair"
 
+    /// The name of the default app framework
+    static let appfairDefaultAppName = "App"
+
     /// e.g: `appfair://update/app.Abc-Xyz`
     static let catalogBrowserAppScheme = catalogBrowserAppOrg.replacingOccurrences(of: "-", with: "").lowercased()
 
@@ -92,6 +95,9 @@ public extension URL {
         return false
         #endif
     }
+}
+
+public extension URL {
 
     /// Returns the URL for this app's hub page
     static func fairHubURL(_ path: String? = nil) -> URL? {
@@ -105,7 +111,7 @@ public extension URL {
 
         return baseURL
             .appendingPathComponent(appOrgName)
-            .appendingPathComponent(AppNameValidation.defaultAppName)
+            .appendingPathComponent(Bundle.appfairDefaultAppName)
             .appendingPathComponent(path ?? "")
     }
 }

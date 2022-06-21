@@ -870,67 +870,6 @@ public enum AppCategory : String, CaseIterable, Identifiable, Pure {
 }
 
 
-public extension AppCatalogItem {
-
-    /// The hyphenated form of this app's name
-    var appNameHyphenated: String {
-        self.name.rehyphenated()
-    }
-
-    /// The official landing page for the app
-    var landingPage: URL! {
-        URL(string: "https://\(appNameHyphenated).github.io/App/")
-    }
-
-    /// Returns the URL to this app's home page
-    var baseURL: URL! {
-        URL(string: "https://github.com/\(appNameHyphenated)/App/")
-    }
-
-    /// The e-mail address for contacting the developer
-    var developerEmail: String? {
-        developerName // TODO: parse out
-    }
-
-    /// Returns the URL to this app's home page
-    var sourceURL: URL! {
-        baseURL.appendingPathExtension("git")
-    }
-
-    var issuesURL: URL! {
-        URL(string: "issues", relativeTo: baseURL)
-    }
-
-    var discussionsURL: URL! {
-        URL(string: "discussions", relativeTo: baseURL)
-    }
-
-    var releasesURL: URL! {
-        URL(string: "releases/", relativeTo: baseURL)
-    }
-
-    var developerURL: URL! {
-        queryURL(type: "users", term: developerEmail ?? "")
-    }
-
-    var fairsealURL: URL! {
-        queryURL(type: "issues", term: sha256 ?? "")
-    }
-
-    /// Builds a general query
-    private func queryURL(type: String, term: String) -> URL! {
-        URL(string: "https://github.com/search?type=" + type.escapedURLTerm + "&q=" + term.escapedURLTerm)
-    }
-
-    var fileSize: Int? {
-        size
-    }
-
-    var appCategories: [AppCategory] {
-        self.categories?.compactMap(AppCategory.init(metadataID:)) ?? []
-    }
-}
-
 public struct AppEntitlements {
     static let empty: AppEntitlements = AppEntitlements([:])
 
