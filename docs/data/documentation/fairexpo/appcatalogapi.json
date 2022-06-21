@@ -14,15 +14,15 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogCreateAction"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo22AppCatalogCreateActionP",
+    "externalID" : "s:8FairExpo13AppCatalogAPIC",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "class"
       },
       {
         "kind" : "text",
@@ -30,7 +30,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "AppCatalogCreateAction"
+        "text" : "AppCatalogAPI"
       }
     ],
     "modules" : [
@@ -41,13 +41,13 @@
     "navigatorTitle" : [
       {
         "kind" : "identifier",
-        "text" : "AppCatalogCreateAction"
+        "text" : "AppCatalogAPI"
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
-    "title" : "AppCatalogCreateAction"
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "AppCatalogAPI"
   },
   "primaryContentSections" : [
     {
@@ -62,7 +62,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "final"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "class"
             },
             {
               "kind" : "text",
@@ -70,22 +78,12 @@
             },
             {
               "kind" : "identifier",
-              "text" : "AppCatalogCreateAction"
+              "text" : "AppCatalogAPI"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -99,15 +97,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogCreateAction\/catalogApp(url:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/shared"
+      ],
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/appcatalogcreateaction"
+        "\/documentation\/fairexpo\/appcatalogapi"
       ],
       "traits" : [
         {
@@ -132,14 +136,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/AppCatalogCreateAction": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -147,23 +151,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCatalogCreateAction"
+      "text" : "AppCatalogAPI"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogCreateAction",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppCatalogCreateAction"
+      "text" : "AppCatalogAPI"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCatalogCreateAction",
+  "title" : "AppCatalogAPI",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogcreateaction"
+  "url" : "\/documentation\/fairexpo\/appcatalogapi"
 },
-"doc://FairExpo/documentation/FairExpo/AppCatalogCreateAction/catalogApp(url:)": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/catalogApp(url:)": {
   "abstract" : [
 
   ],
@@ -223,21 +227,29 @@
       "text" : "AppCatalogItem"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogCreateAction\/catalogApp(url:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "catalogApp(url:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogcreateaction\/catalogapp(url:)"
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/catalogapp(url:)"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/shared": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -245,21 +257,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CreateCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "shared"
+    },
     {
-      "kind" : "identifier",
-      "text" : "CreateCommand"
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13AppCatalogAPIC",
+      "text" : "AppCatalogAPI"
     }
   ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/shared",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "SourceCommand.CreateCommand",
+  "title" : "shared",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand"
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/shared"
 }
 }
 }
