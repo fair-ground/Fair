@@ -651,7 +651,9 @@ public struct UsageDescriptionKeys : RawRepresentable, Pure {
     public init(rawValue name: String) {
         self.rawValue = name
     }
+}
 
+public extension UsageDescriptionKeys {
 
     // MARK: tracking
     static let NSUserTrackingUsageDescription = UsageDescriptionKeys("NSUserTrackingUsageDescription")
@@ -1056,7 +1058,7 @@ public extension AppBundle {
         guard let executableName = infoDictionary.CFBundleExecutable else {
             return nil
         }
-        
+
         // check first for macOS convention executable "AppName.app/Contents/MacOS/CFBundleExecutable"
         let folder = try self.source.nodes(at: infoParentNode).first(where: { $0.pathIsDirectory && $0.pathName.lastPathComponent == "MacOS" }) ?? infoParentNode
 
