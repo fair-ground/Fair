@@ -16,6 +16,9 @@
  */
 import Swift
 import FairApp
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// A catalog of all the available apps on the fairground.
 public struct AppCatalog : Pure {
