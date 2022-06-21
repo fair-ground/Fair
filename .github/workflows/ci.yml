@@ -50,10 +50,10 @@ jobs:
       - name: Check fairtool formula
         run: |
           brew tap appfair/app
-          brew install fairtool
+          brew install fairtool-head
           fairtool version
+          brew test fairtool-head
           ldd `which fairtool`
-          brew test fairtool
 
   ci-macOS-12:
     runs-on: macos-12
@@ -88,9 +88,9 @@ jobs:
       - name: Check fairtool formula
         run: |
           brew tap appfair/app
-          brew install fairtool
+          brew install fairtool-head
           fairtool version
-          brew test fairtool
+          brew test fairtool-head
 
   ci-windows:
     runs-on: windows-latest
