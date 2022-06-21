@@ -11,6 +11,9 @@ for free and open-source native apps written in SwiftUI.
 
 Browse the [API documentation](https://fair-ground.github.io/Fair/documentation/faircore/) for details.
 
+Note that until version 1.0 is released,
+minor releases may include API-breaking changes.
+
 ## fairtool
 
 The `fairtool` is a command-line executable for macOS12.

@@ -199,9 +199,10 @@ public struct SourceCommand : AsyncParsableCommand {
     public init() {
     }
 
-    public struct CreateCommand: FairParsableCommand {
+    public struct CreateCommand: FairStructuredCommand {
         public static let experimental = false
-        public typealias Output = Never
+        public typealias Output = AppCatalogItem
+
         public static var configuration = CommandConfiguration(commandName: "create",
             abstract: "Create a source from the specified .ipa or .zip.",
             shouldDisplay: !experimental)
@@ -212,10 +213,67 @@ public struct SourceCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public mutating func run() async throws {
-            msg(.info, "Creating source…")
-            //msg(.debug, "flags:", flags)
+        public func executeCommand() async throws -> AsyncThrowingStream<Output, Error> {
+            return msgOptions.executeStream(apps) { app in
+                msg(.info, "creating app catalog:", app)
+                let url = URL(fileOrScheme: app)
+                let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
 
+                let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
+
+                guard let bundleID = info.CFBundleIdentifier else {
+                    throw AppError("Missing CFBundleIdentifier for \(app)")
+                }
+
+                guard let bundleName = info.CFBundleDisplayName ?? info.CFBundleName else {
+                    throw AppError("Missing CFBundleDisplayName for \(app)")
+                }
+
+                // AppCatalogItem(name: <#T##String#>, bundleIdentifier: <#T##BundleIdentifier#>, subtitle: <#T##String?#>, developerName: <#T##String?#>, localizedDescription: <#T##String?#>, size: <#T##Int?#>, version: <#T##String?#>, versionDate: <#T##Date?#>, downloadURL: <#T##URL#>, iconURL: <#T##URL?#>, screenshotURLs: <#T##[URL]?#>, versionDescription: <#T##String?#>, tintColor: <#T##String?#>, beta: <#T##Bool?#>, sourceIdentifier: <#T##String?#>, categories: <#T##[String]?#>, downloadCount: <#T##Int?#>, impressionCount: <#T##Int?#>, viewCount: <#T##Int?#>, starCount: <#T##Int?#>, watcherCount: <#T##Int?#>, issueCount: <#T##Int?#>, sourceSize: <#T##Int?#>, coreSize: <#T##Int?#>, sha256: <#T##String?#>, permissions: <#T##[AppPermission]?#>, metadataURL: <#T##URL?#>, readmeURL: <#T##URL?#>, releaseNotesURL: <#T##URL?#>, homepage: <#T##URL?#>)
+
+                var item = AppCatalogItem(name: bundleName, bundleIdentifier: BundleIdentifier(bundleID), downloadURL: url)
+                item.version = info.CFBundleShortVersionString
+                item.size = localURL.fileSize()
+                item.developerName = info.rawValue["NSHumanReadableCopyright"] as? String
+
+                item.subtitle = "SUBTITLE"
+                item.localizedDescription = "DESCRIPTION" // maybe check for a README file in the .ipa?
+                item.versionDescription = "VERSION DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
+
+                // item.iconURL = … // if we were ambitious, we could try to extract the icon from the artifact and embed a data: url
+                // item.tintColor = … // if we were ambitious, we could parse the assets and extract the tint color
+
+                item.screenshotURLs = [] // maybe check for a folder in the .ipa?
+
+                item.versionDate = localURL.creationDate
+
+                var permissions: [AppPermission] = []
+                for (key, value) in info.usageDescriptions {
+                    permissions.append(AppPermission(AppUsagePermission(usage: UsageDescriptionKeys(key), usageDescription: value)))
+                }
+
+                for backgroundMode in info.backgroundModes ?? [] {
+                    permissions.append(AppPermission(AppBackgroundModePermission(backgroundMode: AppBackgroundMode(backgroundMode), usageDescription: "USAGE DESCRIPTION")))
+                }
+
+                for (key, value) in entitlements?.first?.values ?? [:] {
+                    if ((value as? Bool) ?? true) != false {
+                        let entitlement = AppEntitlement(key)
+                        // we don't need to document harmless entitlements
+                        if !entitlement.categories.contains(.harmless) {
+                            permissions.append(AppPermission(AppEntitlementPermission(entitlement: entitlement, usageDescription: "USAGE DESCRIPTION")))
+                        }
+                    }
+                }
+
+                item.permissions = permissions.isEmpty ? nil : permissions
+
+                item.sha256 = try Data(contentsOf: localURL, options: .mappedIfSafe).sha256().hex() // without alwaysMapped or mappedIfSafe, memory seems to grow
+
+                return item
+
+                // return apps.mapAsync({ try await verifyAppItem(app: $0, catalogURL: catalogURL) })
+            }
         }
     }
 
@@ -237,7 +295,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<AppCatalogVerifyResult, Error> {
+        public func executeCommand() async throws -> AsyncThrowingStream<Output, Error> {
             return msgOptions.executeStreamJoined(catalogs) { catalog in
                 msg(.debug, "verifying catalog:", catalog)
                 let url = URL(string: catalog)
@@ -262,6 +320,23 @@ public struct SourceCommand : AsyncParsableCommand {
             failures.append(failure)
         }
     }
+}
+
+public extension URL {
+    init(fileOrScheme: String) {
+        guard let url = URL(string: fileOrScheme) else {
+            self = URL(fileURLWithPath: fileOrScheme)
+            return
+        }
+
+        if url.scheme == nil {
+            self = URL(fileURLWithPath: fileOrScheme)
+        } else {
+            self = url
+        }
+    }
+}
+extension AppCatalogItem : FairCommandOutput {
 }
 
 /// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
@@ -336,23 +411,7 @@ public extension AppCatalogVerificationAction {
         func verifyInfoUsageDescriptions(_ info: Plist) {
             let usagePermissions: [String: AppUsagePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.usage.rawValue)
 
-            // gather the list of all "*UsageDescription" keys with string values
-            // to ensure that they are all listed in the app's permissions
-            let plistPermissionKeys = info.rawValue
-                .compactMap { key, value in
-                    (key as? String).flatMap { key in
-                        (value as? String).flatMap { value in
-                            (key, value)
-                        }
-                    }
-                }
-                .filter { key, value in
-                    key.hasSuffix("UsageDescription")
-                }
-                .dictionary(keyedBy: \.0)
-                .compactMapValues(\.1)
-
-            for (permissionKey, permissionValue) in plistPermissionKeys {
+            for (permissionKey, permissionValue) in info.usageDescriptions {
                 guard let catalogPermissionValue = usagePermissions[permissionKey] else {
                     addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"))
                     continue
@@ -365,13 +424,13 @@ public extension AppCatalogVerificationAction {
         }
 
         func verifyBackgroundModes(_ info: Plist) {
-            guard let backgroundModes = info.rawValue["UIBackgroundModes"] as? NSArray else {
+            guard let backgroundModes = info.backgroundModes else {
                 return // no background modes
             }
 
             let backgroundPermissions: [AppBackgroundMode: AppBackgroundModePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.backgroundMode)
 
-            for backgroundMode in backgroundModes.compactMap({ $0 as? String }) {
+            for backgroundMode in backgroundModes {
                 if backgroundPermissions[AppBackgroundMode(backgroundMode)] == nil {
                     addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_background_mode", message: "Missing a permission entry for background mode “\(backgroundMode)”"))
                 }
@@ -421,6 +480,31 @@ public extension AppCatalogVerificationAction {
 
 }
 
+
+extension Plist {
+    /// A map of all the "*UsageDescription*" properties that have string values
+    var usageDescriptions: [String: String] {
+        // gather the list of all "*UsageDescription" keys with string values
+        // to ensure that they are all listed in the app's permissions
+        self.rawValue
+            .compactMap { key, value in
+                (key as? String).flatMap { key in
+                    (value as? String).flatMap { value in
+                        (key, value)
+                    }
+                }
+            }
+            .filter { key, value in
+                key.hasSuffix("UsageDescription")
+            }
+            .dictionary(keyedBy: \.0)
+            .compactMapValues(\.1)
+    }
+
+    var backgroundModes: [String]? {
+        (self.rawValue["UIBackgroundModes"] as? NSArray)?.compactMap({ $0 as? String })
+    }
+}
 
 public struct FairCommand : AsyncParsableCommand {
     public static let experimental = false
@@ -1084,12 +1168,12 @@ public struct FairCommand : AsyncParsableCommand {
                         // the published asset URL is the name of the local path relative to the download URL for the artifact
                         let assetURL = artifactURL.deletingLastPathComponent().appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
                         if assetURL.lastPathComponent == artifactURL.lastPathComponent {
-                            let assetHash = try Data(contentsOf: untrustedArtifactLocalURL).sha256().hex()
+                            let assetHash = try Data(contentsOf: untrustedArtifactLocalURL, options: .mappedIfSafe).sha256().hex()
                             // the primary asset uses the special hash handling
                             msg(.info, "hash for artifact:", assetURL.lastPathComponent, assetHash)
                             assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
                         } else {
-                            let assetHash = try Data(contentsOf: localURL).sha256().hex()
+                            let assetHash = try Data(contentsOf: localURL, options: .mappedIfSafe).sha256().hex()
                             // all other artifacts are hashed directly from their local counterparts
                             assets.append(FairSeal.Asset(url: assetURL, size: assetSize, sha256: assetHash))
                         }
@@ -1603,7 +1687,7 @@ public struct MsgOptions: ParsableArguments {
     }
 
     func writeOutput<T: FairCommandOutput>(_ item: T) throws {
-        try write(item.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]).utf8String ?? "")
+        try write(item.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String ?? "")
     }
 
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.

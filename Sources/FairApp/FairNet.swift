@@ -487,7 +487,7 @@ extension URLSession {
     #endif // !os(Linux) && !os(Windows) 
 
     /// Downloads the given file. It should behave the same as the async URLSession.download function (which is missing from linux).
-    public func downloadFile(for request: URLRequest) async throws -> (URL, URLResponse) {
+    public func downloadFile(for request: URLRequest) async throws -> (localURL: URL, response: URLResponse) {
         return try await withCheckedThrowingContinuation { continuation in
             downloadTaskCopy(with: request) { url, response, error in
                 if let url = url, let response = response, error == nil {
@@ -529,6 +529,12 @@ extension URLSession {
                    let tempDir = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: temporaryLocalURL, create: true)
                     let destinationURL = tempDir.appendingPathComponent(pathName)
                     try FileManager.default.moveItem(at: temporaryLocalURL, to: destinationURL)
+
+                    if let lastModifiedDate = response?.lastModifiedDate {
+                        // preserve Last-Modified by transferring the date to the item
+                        try FileManager.default.setAttributes([.creationDate : lastModifiedDate], ofItemAtPath: destinationURL.path)
+                    }
+
                     dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, destinationURL.pathSize?.localizedByteCount())
                     return completionHandler(destinationURL, response, error)
                 }
