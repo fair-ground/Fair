@@ -826,6 +826,7 @@ public extension UsageDescriptionKeys {
         case .NSFileProviderPresenceUsageDescription: return "File Provider Presence"
         case .NSNetworkVolumesUsageDescription: return "Network Volumes"
         case .NSRemovableVolumesUsageDescription: return "Removable Volumes"
+        default: return .init(self.rawValue)
         }
     }
     #endif // canImport(SwiftUI)

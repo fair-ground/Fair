@@ -56,8 +56,10 @@ final class FairEntitlementsTests: XCTestCase {
     /// Saves the given data to the specified path beneath the given URL
     @discardableResult func save(data: Data, to path: String, in rootURL: URL) throws -> URL {
         let outputURL = URL(fileURLWithPath: path, isDirectory: false, relativeTo: rootURL)
+        dbg("saving to:", outputURL.path)
         try FileManager.default.createDirectory(at: outputURL.deletingLastPathComponent(), withIntermediateDirectories: true)
         try data.write(to: outputURL)
+        dbg("wrote to:", outputURL.path)
         return outputURL
     }
 

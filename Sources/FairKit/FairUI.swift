@@ -292,6 +292,7 @@ public extension UsageDescriptionKeys {
         case .NSFileProviderPresenceUsageDescription: return .externaldrive_badge_checkmark
         case .NSNetworkVolumesUsageDescription: return .externaldrive_badge_wifi
         case .NSRemovableVolumesUsageDescription: return .externaldrive
+        default: return .questionmark_circle
         }
     }
 }

@@ -26,9 +26,9 @@ final class FairExpoTests: XCTestCase {
 
     /// Invokes the `FairTool` with a command that expects a JSON-serialized output for a `FairParsableCommand`
     /// The command will be invoked and the result will be deserialized into the expected structure.
-    private func runToolOutput<C: FairParsableCommand>(_ type: ParsableCommand.Type?, cmd: C.Type, _ args: String...) async throws -> (output: [C.Output], messages: [(MessageKind, [Any?])]) where C.Output : Decodable {
+    private func runToolOutput<C: FairParsableCommand>(_ type: ParsableCommand.Type?, cmd: C.Type, _ args: [String]) async throws -> (output: [C.Output], messages: [(MessageKind, [Any?])]) where C.Output : Decodable {
         let result = try await runTool(type: type?.configuration.commandName, op: C.configuration.commandName, args)
-        return (try [C.Output](json: result.output.joined().utf8Data), result.messages)
+        return (try [C.Output](json: result.output.joined().utf8Data, dateDecodingStrategy: .iso8601), result.messages)
     }
 
     /// Invokes the `FairTool` in-process using the specified arguments
@@ -64,7 +64,7 @@ final class FairExpoTests: XCTestCase {
 
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
     func testAppInfoCommandiOS() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa")
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(0, result.first?.entitlements?.count, "no entitlements expected in this ios app")
@@ -72,7 +72,7 @@ final class FairExpoTests: XCTestCase {
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
     func testAppInfoCommandMacOS() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip")
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
@@ -80,11 +80,10 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual(false, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
-    func XXXtestAppInfoCommandMacOSStream() async throws {
+    func testAppInfoCommandMacOSStream() async throws {
         var cmd = try AppCommand.InfoCommand.parseAsRoot(["info"]) as! AppCommand.InfoCommand
 
         cmd.apps = []
-
         cmd.apps += ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"]
         cmd.apps += ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"]
 
@@ -108,25 +107,25 @@ final class FairExpoTests: XCTestCase {
     }
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
-    func XXXtestSourceVerifyCommandMacOS() async throws {
+    func testSourceVerifyCommandMacOS() async throws {
         let catalog = "https://appfair.net/fairapps-macos.json"
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--verbose", "--bundle-id", "app.Stanza-Redux", catalog)
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--verbose", "--bundle-id", "app.Cloud-Cuckoo", catalog])
 
         let result = try XCTUnwrap(results.first)
 
         dbg("catalog:", result.prettyJSON)
-        XCTAssertEqual("Stanza Redux", result.app.name)
-        var items = try XCTUnwrap(result.failures).makeIterator()
+        XCTAssertEqual("Cloud Cuckoo", result.app.name)
+//        var items = try XCTUnwrap(result.failures).makeIterator()
 
-        do {
-            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
-            XCTAssertEqual(failure.type, "missing_checksum")
-        }
+//        do {
+//            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
+//            XCTAssertEqual(failure.type, "missing_checksum")
+//        }
 
-        do {
-            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
-            XCTAssertEqual(failure.type, "invalid_size")
-        }
+//        do {
+//            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
+//            XCTAssertEqual(failure.type, "invalid_size")
+//        }
     }
 
     func testSourceVerifyCommandSources() async throws {
@@ -134,11 +133,28 @@ final class FairExpoTests: XCTestCase {
             return XCTFail("bad url")
         }
 
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, "--bundle-id", "app.Cloud-Cuckoo", "--verbose", url.absoluteString)
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--bundle-id", "app.Cloud-Cuckoo", "--verbose", url.absoluteString])
 
         dbg("catalog:", results.prettyJSON)
         let result = try XCTUnwrap(results.first)
-        let _ = result
+
+        dbg("catalog:", result.prettyJSON)
+        XCTAssertEqual("Cloud Cuckoo", result.app.name)
+    }
+
+    func testSourceCreateCommand() async throws {
+//        let paths = ["https://github.com/Tune-Out/App/releases/latest/download/Tune-Out-iOS.ipa", "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip", "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"]
+        let paths = (try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: "/opt/src/ipas/"), includingPropertiesForKeys: nil).filter({ $0.pathExtension == "ipa" }).map(\.path)) ?? []
+
+        if paths.isEmpty {
+            throw XCTSkip("No local testing .ipa files")
+        }
+
+        let args = paths.shuffled().prefix(10)
+
+        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.CreateCommand.self, ["--verbose"] + args)
+
+        dbg("source:", try? results.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String)
     }
 
     func testValidateCommand() async throws {
@@ -170,7 +186,7 @@ final class FairExpoTests: XCTestCase {
 //        if !FileManager.default.itemExists(at: URL(fileURLWithPath: stocksPath)) {
 //            throw XCTSkip("no stocks app") // e.g., Linux
 //        }
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, stocksPath)
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, [stocksPath])
 
         XCTAssertEqual("com.apple.stocks", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")

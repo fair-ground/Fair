@@ -73,8 +73,26 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-        "text" : "AppCatalogVerifyResult"
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+        "text" : "SourceCommand"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV06VerifyD0V",
+        "text" : "VerifyCommand"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV06VerifyD0V6Outputa",
+        "text" : "Output"
       },
       {
         "kind" : "text",
@@ -153,10 +171,30 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-              "text" : "AppCatalogVerifyResult"
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+              "text" : "SourceCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV06VerifyD0V",
+              "text" : "VerifyCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Output",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV06VerifyD0V6Outputa",
+              "text" : "Output"
             },
             {
               "kind" : "text",
@@ -212,48 +250,6 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
-},
-"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult": {
-  "abstract" : [
-    {
-      "text" : "A single ",
-      "type" : "text"
-    },
-    {
-      "code" : "AppCatalogItem",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " entry from a catalog along with a list of validation failures",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerifyResult"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerifyResult"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogVerifyResult",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand": {
   "abstract" : [
@@ -317,6 +313,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
 },
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/Output": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Output"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Output",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Output"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.VerifyCommand.Output",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/output"
+},
 "doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/executeCommand()": {
   "abstract" : [
 
@@ -365,8 +392,26 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
-      "text" : "AppCatalogVerifyResult"
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+      "text" : "SourceCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV06VerifyD0V",
+      "text" : "VerifyCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV06VerifyD0V6Outputa",
+      "text" : "Output"
     },
     {
       "kind" : "text",

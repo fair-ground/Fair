@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp20UsageDescriptionKeysO",
+    "externalID" : "s:7FairApp20UsageDescriptionKeysV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "enum"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Enumeration",
-    "symbolKind" : "enum",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "UsageDescriptionKeys"
   },
   "primaryContentSections" : [
@@ -62,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "enum"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -81,7 +81,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/Se",
         "doc:\/\/FairApp\/SE",
         "doc:\/\/FairApp\/SQ",
@@ -103,6 +102,20 @@
 
   ],
   "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/init(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/init(rawValue:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/description",
+        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/rawValue"
+      ],
+      "title" : "Instance Properties"
+    },
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NFCReaderUsageDescription",
@@ -154,19 +167,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSVoIPUsageDescription",
         "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSWidgetWantsLocation"
       ],
-      "title" : "Enumeration Cases"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/init(rawValue:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/description"
-      ],
-      "title" : "Instance Properties"
+      "title" : "Type Properties"
     },
     {
       "generated" : true,
@@ -247,7 +248,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -311,7 +312,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -320,12 +329,21 @@
     {
       "kind" : "identifier",
       "text" : "NFCReaderUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NFCReaderUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NFCReaderUsageDescription",
+  "title" : "NFCReaderUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nfcreaderusagedescription"
 },
@@ -336,7 +354,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -345,12 +371,21 @@
     {
       "kind" : "identifier",
       "text" : "NSAppleEventsUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSAppleEventsUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSAppleEventsUsageDescription",
+  "title" : "NSAppleEventsUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsappleeventsusagedescription"
 },
@@ -361,7 +396,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -370,12 +413,21 @@
     {
       "kind" : "identifier",
       "text" : "NSAppleMusicUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSAppleMusicUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSAppleMusicUsageDescription",
+  "title" : "NSAppleMusicUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsapplemusicusagedescription"
 },
@@ -386,7 +438,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -395,12 +455,21 @@
     {
       "kind" : "identifier",
       "text" : "NSBluetoothAlwaysUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSBluetoothAlwaysUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSBluetoothAlwaysUsageDescription",
+  "title" : "NSBluetoothAlwaysUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsbluetoothalwaysusagedescription"
 },
@@ -411,7 +480,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -420,12 +497,21 @@
     {
       "kind" : "identifier",
       "text" : "NSBluetoothPeripheralUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSBluetoothPeripheralUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSBluetoothPeripheralUsageDescription",
+  "title" : "NSBluetoothPeripheralUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsbluetoothperipheralusagedescription"
 },
@@ -436,7 +522,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -445,12 +539,21 @@
     {
       "kind" : "identifier",
       "text" : "NSBluetoothUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSBluetoothUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSBluetoothUsageDescription",
+  "title" : "NSBluetoothUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsbluetoothusagedescription"
 },
@@ -461,7 +564,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -470,12 +581,21 @@
     {
       "kind" : "identifier",
       "text" : "NSBluetoothWhileInUseUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSBluetoothWhileInUseUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSBluetoothWhileInUseUsageDescription",
+  "title" : "NSBluetoothWhileInUseUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsbluetoothwhileinuseusagedescription"
 },
@@ -486,7 +606,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -495,12 +623,21 @@
     {
       "kind" : "identifier",
       "text" : "NSCalendarsUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSCalendarsUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSCalendarsUsageDescription",
+  "title" : "NSCalendarsUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nscalendarsusagedescription"
 },
@@ -511,7 +648,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -520,12 +665,21 @@
     {
       "kind" : "identifier",
       "text" : "NSCameraUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSCameraUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSCameraUsageDescription",
+  "title" : "NSCameraUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nscamerausagedescription"
 },
@@ -536,7 +690,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -545,12 +707,21 @@
     {
       "kind" : "identifier",
       "text" : "NSContactsUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSContactsUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSContactsUsageDescription",
+  "title" : "NSContactsUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nscontactsusagedescription"
 },
@@ -561,7 +732,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -570,12 +749,21 @@
     {
       "kind" : "identifier",
       "text" : "NSDesktopFolderUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSDesktopFolderUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSDesktopFolderUsageDescription",
+  "title" : "NSDesktopFolderUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsdesktopfolderusagedescription"
 },
@@ -586,7 +774,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -595,12 +791,21 @@
     {
       "kind" : "identifier",
       "text" : "NSDocumentsFolderUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSDocumentsFolderUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSDocumentsFolderUsageDescription",
+  "title" : "NSDocumentsFolderUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsdocumentsfolderusagedescription"
 },
@@ -611,7 +816,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -620,12 +833,21 @@
     {
       "kind" : "identifier",
       "text" : "NSDownloadsFolderUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSDownloadsFolderUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSDownloadsFolderUsageDescription",
+  "title" : "NSDownloadsFolderUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsdownloadsfolderusagedescription"
 },
@@ -636,7 +858,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -645,12 +875,21 @@
     {
       "kind" : "identifier",
       "text" : "NSFaceIDUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSFaceIDUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSFaceIDUsageDescription",
+  "title" : "NSFaceIDUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsfaceidusagedescription"
 },
@@ -661,7 +900,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -670,12 +917,21 @@
     {
       "kind" : "identifier",
       "text" : "NSFallDetectionUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSFallDetectionUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSFallDetectionUsageDescription",
+  "title" : "NSFallDetectionUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsfalldetectionusagedescription"
 },
@@ -686,7 +942,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -695,12 +959,21 @@
     {
       "kind" : "identifier",
       "text" : "NSFileProviderDomainUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSFileProviderDomainUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSFileProviderDomainUsageDescription",
+  "title" : "NSFileProviderDomainUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsfileproviderdomainusagedescription"
 },
@@ -711,7 +984,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -720,12 +1001,21 @@
     {
       "kind" : "identifier",
       "text" : "NSFileProviderPresenceUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSFileProviderPresenceUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSFileProviderPresenceUsageDescription",
+  "title" : "NSFileProviderPresenceUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsfileproviderpresenceusagedescription"
 },
@@ -736,7 +1026,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -745,12 +1043,21 @@
     {
       "kind" : "identifier",
       "text" : "NSFocusStatusUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSFocusStatusUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSFocusStatusUsageDescription",
+  "title" : "NSFocusStatusUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsfocusstatususagedescription"
 },
@@ -761,7 +1068,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -770,12 +1085,21 @@
     {
       "kind" : "identifier",
       "text" : "NSGKFriendListUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSGKFriendListUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSGKFriendListUsageDescription",
+  "title" : "NSGKFriendListUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsgkfriendlistusagedescription"
 },
@@ -786,7 +1110,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -795,12 +1127,21 @@
     {
       "kind" : "identifier",
       "text" : "NSHealthClinicalHealthRecordsShareUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSHealthClinicalHealthRecordsShareUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSHealthClinicalHealthRecordsShareUsageDescription",
+  "title" : "NSHealthClinicalHealthRecordsShareUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nshealthclinicalhealthrecordsshareusagedescription"
 },
@@ -811,7 +1152,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -820,12 +1169,21 @@
     {
       "kind" : "identifier",
       "text" : "NSHealthShareUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSHealthShareUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSHealthShareUsageDescription",
+  "title" : "NSHealthShareUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nshealthshareusagedescription"
 },
@@ -836,7 +1194,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -845,12 +1211,21 @@
     {
       "kind" : "identifier",
       "text" : "NSHealthUpdateUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSHealthUpdateUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSHealthUpdateUsageDescription",
+  "title" : "NSHealthUpdateUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nshealthupdateusagedescription"
 },
@@ -861,7 +1236,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -870,12 +1253,21 @@
     {
       "kind" : "identifier",
       "text" : "NSHomeKitUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSHomeKitUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSHomeKitUsageDescription",
+  "title" : "NSHomeKitUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nshomekitusagedescription"
 },
@@ -886,7 +1278,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -895,12 +1295,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocalNetworkUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocalNetworkUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocalNetworkUsageDescription",
+  "title" : "NSLocalNetworkUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocalnetworkusagedescription"
 },
@@ -911,7 +1320,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -920,12 +1337,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocationAlwaysAndWhenInUseUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocationAlwaysAndWhenInUseUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocationAlwaysAndWhenInUseUsageDescription",
+  "title" : "NSLocationAlwaysAndWhenInUseUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocationalwaysandwheninuseusagedescription"
 },
@@ -936,7 +1362,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -945,12 +1379,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocationAlwaysUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocationAlwaysUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocationAlwaysUsageDescription",
+  "title" : "NSLocationAlwaysUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocationalwaysusagedescription"
 },
@@ -961,7 +1404,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -970,12 +1421,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocationDefaultAccuracyReduced"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocationDefaultAccuracyReduced",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocationDefaultAccuracyReduced",
+  "title" : "NSLocationDefaultAccuracyReduced",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocationdefaultaccuracyreduced"
 },
@@ -986,7 +1446,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -995,12 +1463,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocationTemporaryUsageDescriptionDictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocationTemporaryUsageDescriptionDictionary",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocationTemporaryUsageDescriptionDictionary",
+  "title" : "NSLocationTemporaryUsageDescriptionDictionary",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocationtemporaryusagedescriptiondictionary"
 },
@@ -1011,7 +1488,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1020,12 +1505,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocationUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocationUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocationUsageDescription",
+  "title" : "NSLocationUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocationusagedescription"
 },
@@ -1036,7 +1530,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1045,12 +1547,21 @@
     {
       "kind" : "identifier",
       "text" : "NSLocationWhenInUseUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSLocationWhenInUseUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSLocationWhenInUseUsageDescription",
+  "title" : "NSLocationWhenInUseUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nslocationwheninuseusagedescription"
 },
@@ -1061,7 +1572,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1070,12 +1589,21 @@
     {
       "kind" : "identifier",
       "text" : "NSMicrophoneUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSMicrophoneUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSMicrophoneUsageDescription",
+  "title" : "NSMicrophoneUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsmicrophoneusagedescription"
 },
@@ -1086,7 +1614,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1095,12 +1631,21 @@
     {
       "kind" : "identifier",
       "text" : "NSMotionUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSMotionUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSMotionUsageDescription",
+  "title" : "NSMotionUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsmotionusagedescription"
 },
@@ -1111,7 +1656,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1120,12 +1673,21 @@
     {
       "kind" : "identifier",
       "text" : "NSNearbyInteractionAllowOnceUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSNearbyInteractionAllowOnceUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSNearbyInteractionAllowOnceUsageDescription",
+  "title" : "NSNearbyInteractionAllowOnceUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsnearbyinteractionallowonceusagedescription"
 },
@@ -1136,7 +1698,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1145,12 +1715,21 @@
     {
       "kind" : "identifier",
       "text" : "NSNearbyInteractionUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSNearbyInteractionUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSNearbyInteractionUsageDescription",
+  "title" : "NSNearbyInteractionUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsnearbyinteractionusagedescription"
 },
@@ -1161,7 +1740,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1170,12 +1757,21 @@
     {
       "kind" : "identifier",
       "text" : "NSNetworkVolumesUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSNetworkVolumesUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSNetworkVolumesUsageDescription",
+  "title" : "NSNetworkVolumesUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsnetworkvolumesusagedescription"
 },
@@ -1186,7 +1782,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1195,12 +1799,21 @@
     {
       "kind" : "identifier",
       "text" : "NSPhotoLibraryAddUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSPhotoLibraryAddUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSPhotoLibraryAddUsageDescription",
+  "title" : "NSPhotoLibraryAddUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsphotolibraryaddusagedescription"
 },
@@ -1211,7 +1824,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1220,12 +1841,21 @@
     {
       "kind" : "identifier",
       "text" : "NSPhotoLibraryUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSPhotoLibraryUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSPhotoLibraryUsageDescription",
+  "title" : "NSPhotoLibraryUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsphotolibraryusagedescription"
 },
@@ -1236,7 +1866,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1245,12 +1883,21 @@
     {
       "kind" : "identifier",
       "text" : "NSRemindersUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSRemindersUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSRemindersUsageDescription",
+  "title" : "NSRemindersUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsremindersusagedescription"
 },
@@ -1261,7 +1908,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1270,12 +1925,21 @@
     {
       "kind" : "identifier",
       "text" : "NSRemovableVolumesUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSRemovableVolumesUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSRemovableVolumesUsageDescription",
+  "title" : "NSRemovableVolumesUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsremovablevolumesusagedescription"
 },
@@ -1286,7 +1950,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1295,12 +1967,21 @@
     {
       "kind" : "identifier",
       "text" : "NSSensorKitUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSSensorKitUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSSensorKitUsageDescription",
+  "title" : "NSSensorKitUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nssensorkitusagedescription"
 },
@@ -1311,7 +1992,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1320,12 +2009,21 @@
     {
       "kind" : "identifier",
       "text" : "NSSiriUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSSiriUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSSiriUsageDescription",
+  "title" : "NSSiriUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nssiriusagedescription"
 },
@@ -1336,7 +2034,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1345,12 +2051,21 @@
     {
       "kind" : "identifier",
       "text" : "NSSpeechRecognitionUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSSpeechRecognitionUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSSpeechRecognitionUsageDescription",
+  "title" : "NSSpeechRecognitionUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsspeechrecognitionusagedescription"
 },
@@ -1361,7 +2076,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1370,12 +2093,21 @@
     {
       "kind" : "identifier",
       "text" : "NSSystemAdministrationUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSSystemAdministrationUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSSystemAdministrationUsageDescription",
+  "title" : "NSSystemAdministrationUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nssystemadministrationusagedescription"
 },
@@ -1386,7 +2118,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1395,12 +2135,21 @@
     {
       "kind" : "identifier",
       "text" : "NSSystemExtensionUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSSystemExtensionUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSSystemExtensionUsageDescription",
+  "title" : "NSSystemExtensionUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nssystemextensionusagedescription"
 },
@@ -1411,7 +2160,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1420,12 +2177,21 @@
     {
       "kind" : "identifier",
       "text" : "NSUserTrackingUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSUserTrackingUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSUserTrackingUsageDescription",
+  "title" : "NSUserTrackingUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsusertrackingusagedescription"
 },
@@ -1436,7 +2202,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1445,12 +2219,21 @@
     {
       "kind" : "identifier",
       "text" : "NSVideoSubscriberAccountUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSVideoSubscriberAccountUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSVideoSubscriberAccountUsageDescription",
+  "title" : "NSVideoSubscriberAccountUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsvideosubscriberaccountusagedescription"
 },
@@ -1461,7 +2244,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1470,12 +2261,21 @@
     {
       "kind" : "identifier",
       "text" : "NSVoIPUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSVoIPUsageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSVoIPUsageDescription",
+  "title" : "NSVoIPUsageDescription",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nsvoipusagedescription"
 },
@@ -1486,7 +2286,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1495,12 +2303,21 @@
     {
       "kind" : "identifier",
       "text" : "NSWidgetWantsLocation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
+      "text" : "UsageDescriptionKeys"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/NSWidgetWantsLocation",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "UsageDescriptionKeys.NSWidgetWantsLocation",
+  "title" : "NSWidgetWantsLocation",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/nswidgetwantslocation"
 },
@@ -1549,6 +2366,36 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/description"
 },
+"doc://FairApp/documentation/FairApp/UsageDescriptionKeys/init(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/init(_:)"
+},
 "doc://FairApp/documentation/FairApp/UsageDescriptionKeys/init(rawValue:)": {
   "abstract" : [
 
@@ -1560,7 +2407,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?("
+      "text" : "("
     },
     {
       "kind" : "externalParam",
@@ -1587,10 +2434,39 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/init(rawvalue:)"
 },
-"doc://FairApp/s12CaseIterableP": {
-  "identifier" : "doc:\/\/FairApp\/s12CaseIterableP",
-  "title" : "Swift.CaseIterable",
-  "type" : "unresolvable"
+"doc://FairApp/documentation/FairApp/UsageDescriptionKeys/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKeys\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/usagedescriptionkeys\/rawvalue"
 },
 "doc://FairApp/s8SendableP": {
   "identifier" : "doc:\/\/FairApp\/s8SendableP",

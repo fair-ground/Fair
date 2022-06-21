@@ -641,92 +641,152 @@ public extension AppEntitlement {
 }
 
 
-public enum UsageDescriptionKeys : String, CaseIterable, Pure {
+public struct UsageDescriptionKeys : RawRepresentable, Pure {
+    public let rawValue: String
+
+    public init(_ name: String) {
+        self.rawValue = name
+    }
+
+    public init(rawValue name: String) {
+        self.rawValue = name
+    }
+}
+
+public extension UsageDescriptionKeys {
 
     // MARK: tracking
-    case NSUserTrackingUsageDescription
+    static let NSUserTrackingUsageDescription = UsageDescriptionKeys("NSUserTrackingUsageDescription")
+
 
     // MARK: location
 
-    case NSLocationUsageDescription
-    case NSLocationDefaultAccuracyReduced
-    case NSLocationAlwaysUsageDescription
-    case NSLocationTemporaryUsageDescriptionDictionary
-    case NSLocationWhenInUseUsageDescription
-    case NSLocationAlwaysAndWhenInUseUsageDescription
-    case NSWidgetWantsLocation
+    static let NSLocationUsageDescription = UsageDescriptionKeys("NSLocationUsageDescription")
+
+    static let NSLocationDefaultAccuracyReduced = UsageDescriptionKeys("NSLocationDefaultAccuracyReduced")
+
+    static let NSLocationAlwaysUsageDescription = UsageDescriptionKeys("NSLocationAlwaysUsageDescription")
+
+    static let NSLocationTemporaryUsageDescriptionDictionary = UsageDescriptionKeys("NSLocationTemporaryUsageDescriptionDictionary")
+
+    static let NSLocationWhenInUseUsageDescription = UsageDescriptionKeys("NSLocationWhenInUseUsageDescription")
+
+    static let NSLocationAlwaysAndWhenInUseUsageDescription = UsageDescriptionKeys("NSLocationAlwaysAndWhenInUseUsageDescription")
+
+    static let NSWidgetWantsLocation = UsageDescriptionKeys("NSWidgetWantsLocation")
+
 
     // MARK: network
 
-    case NSVoIPUsageDescription
-    case NSNearbyInteractionUsageDescription
-    case NSNearbyInteractionAllowOnceUsageDescription
+    static let NSVoIPUsageDescription = UsageDescriptionKeys("NSVoIPUsageDescription")
+
+    static let NSNearbyInteractionUsageDescription = UsageDescriptionKeys("NSNearbyInteractionUsageDescription")
+
+    static let NSNearbyInteractionAllowOnceUsageDescription = UsageDescriptionKeys("NSNearbyInteractionAllowOnceUsageDescription")
+
 
     // MARK: voice
 
-    case NSSiriUsageDescription
-    case NSSpeechRecognitionUsageDescription
+    static let NSSiriUsageDescription = UsageDescriptionKeys("NSSiriUsageDescription")
+
+    static let NSSpeechRecognitionUsageDescription = UsageDescriptionKeys("NSSpeechRecognitionUsageDescription")
+
 
     // MARK: hardware
 
-    case NSSensorKitUsageDescription
-    case NSMicrophoneUsageDescription
-    case NSCameraUsageDescription
-    case NSBluetoothUsageDescription
-    case NSBluetoothAlwaysUsageDescription
-    case NSBluetoothPeripheralUsageDescription
-    case NSBluetoothWhileInUseUsageDescription
+    static let NSSensorKitUsageDescription = UsageDescriptionKeys("NSSensorKitUsageDescription")
 
-    case NFCReaderUsageDescription
+    static let NSMicrophoneUsageDescription = UsageDescriptionKeys("NSMicrophoneUsageDescription")
+
+    static let NSCameraUsageDescription = UsageDescriptionKeys("NSCameraUsageDescription")
+
+    static let NSBluetoothUsageDescription = UsageDescriptionKeys("NSBluetoothUsageDescription")
+
+    static let NSBluetoothAlwaysUsageDescription = UsageDescriptionKeys("NSBluetoothAlwaysUsageDescription")
+
+    static let NSBluetoothPeripheralUsageDescription = UsageDescriptionKeys("NSBluetoothPeripheralUsageDescription")
+
+    static let NSBluetoothWhileInUseUsageDescription = UsageDescriptionKeys("NSBluetoothWhileInUseUsageDescription")
+
+
+    static let NFCReaderUsageDescription = UsageDescriptionKeys("NFCReaderUsageDescription")
+
 
     // MARK: motion
 
-    case NSMotionUsageDescription
-    case NSFallDetectionUsageDescription
+    static let NSMotionUsageDescription = UsageDescriptionKeys("NSMotionUsageDescription")
+
+    static let NSFallDetectionUsageDescription = UsageDescriptionKeys("NSFallDetectionUsageDescription")
+
 
     // MARK: databases
 
-    case NSRemindersUsageDescription
-    case NSContactsUsageDescription
-    case NSCalendarsUsageDescription
-    case NSPhotoLibraryAddUsageDescription
-    case NSPhotoLibraryUsageDescription
+    static let NSRemindersUsageDescription = UsageDescriptionKeys("NSRemindersUsageDescription")
+
+    static let NSContactsUsageDescription = UsageDescriptionKeys("NSContactsUsageDescription")
+
+    static let NSCalendarsUsageDescription = UsageDescriptionKeys("NSCalendarsUsageDescription")
+
+    static let NSPhotoLibraryAddUsageDescription = UsageDescriptionKeys("NSPhotoLibraryAddUsageDescription")
+
+    static let NSPhotoLibraryUsageDescription = UsageDescriptionKeys("NSPhotoLibraryUsageDescription")
+
 
     // MARK: services
 
-    case NSAppleMusicUsageDescription
-    case NSHomeKitUsageDescription
-    case NSVideoSubscriberAccountUsageDescription
+    static let NSAppleMusicUsageDescription = UsageDescriptionKeys("NSAppleMusicUsageDescription")
+
+    static let NSHomeKitUsageDescription = UsageDescriptionKeys("NSHomeKitUsageDescription")
+
+    static let NSVideoSubscriberAccountUsageDescription = UsageDescriptionKeys("NSVideoSubscriberAccountUsageDescription")
+
 
     // MARK: games
 
-    case NSGKFriendListUsageDescription
+    static let NSGKFriendListUsageDescription = UsageDescriptionKeys("NSGKFriendListUsageDescription")
+
 
     // MARK: health
 
-    case NSHealthShareUsageDescription
-    case NSHealthUpdateUsageDescription
-    case NSHealthClinicalHealthRecordsShareUsageDescription
+    static let NSHealthShareUsageDescription = UsageDescriptionKeys("NSHealthShareUsageDescription")
+
+    static let NSHealthUpdateUsageDescription = UsageDescriptionKeys("NSHealthUpdateUsageDescription")
+
+    static let NSHealthClinicalHealthRecordsShareUsageDescription = UsageDescriptionKeys("NSHealthClinicalHealthRecordsShareUsageDescription")
+
 
     // MARK: misc
 
-    case NSAppleEventsUsageDescription
-    case NSFocusStatusUsageDescription
-    case NSLocalNetworkUsageDescription
-    case NSFaceIDUsageDescription
+    static let NSAppleEventsUsageDescription = UsageDescriptionKeys("NSAppleEventsUsageDescription")
+
+    static let NSFocusStatusUsageDescription = UsageDescriptionKeys("NSFocusStatusUsageDescription")
+
+    static let NSLocalNetworkUsageDescription = UsageDescriptionKeys("NSLocalNetworkUsageDescription")
+
+    static let NSFaceIDUsageDescription = UsageDescriptionKeys("NSFaceIDUsageDescription")
+
 
     // MARK: standard locations (macOS)
-    case NSDesktopFolderUsageDescription
-    case NSDocumentsFolderUsageDescription
-    case NSDownloadsFolderUsageDescription
+    static let NSDesktopFolderUsageDescription = UsageDescriptionKeys("NSDesktopFolderUsageDescription")
+
+    static let NSDocumentsFolderUsageDescription = UsageDescriptionKeys("NSDocumentsFolderUsageDescription")
+
+    static let NSDownloadsFolderUsageDescription = UsageDescriptionKeys("NSDownloadsFolderUsageDescription")
+
 
     // MARK: misc (macOS)
-    case NSSystemExtensionUsageDescription
-    case NSSystemAdministrationUsageDescription
-    case NSFileProviderDomainUsageDescription
-    case NSFileProviderPresenceUsageDescription
-    case NSNetworkVolumesUsageDescription
-    case NSRemovableVolumesUsageDescription
+    static let NSSystemExtensionUsageDescription = UsageDescriptionKeys("NSSystemExtensionUsageDescription")
+
+    static let NSSystemAdministrationUsageDescription = UsageDescriptionKeys("NSSystemAdministrationUsageDescription")
+
+    static let NSFileProviderDomainUsageDescription = UsageDescriptionKeys("NSFileProviderDomainUsageDescription")
+
+    static let NSFileProviderPresenceUsageDescription = UsageDescriptionKeys("NSFileProviderPresenceUsageDescription")
+
+    static let NSNetworkVolumesUsageDescription = UsageDescriptionKeys("NSNetworkVolumesUsageDescription")
+
+    static let NSRemovableVolumesUsageDescription = UsageDescriptionKeys("NSRemovableVolumesUsageDescription")
+
 }
 
 /// The `LSApplicationCategoryType` for an app
@@ -998,10 +1058,11 @@ public extension AppBundle {
         guard let executableName = infoDictionary.CFBundleExecutable else {
             return nil
         }
-        // check first for macOS convention executable "AppName.app/Contents/MacOS/CFBundleExecutable"
-        let folder = try self.source.nodes(at: infoParentNode).first(where: { $0.pathIsDirectory && $0.pathName == "MacOS" }) ?? infoParentNode
 
-        guard let execNode = try self.source.nodes(at: folder).first(where: { $0.pathName == executableName }) else {
+        // check first for macOS convention executable "AppName.app/Contents/MacOS/CFBundleExecutable"
+        let folder = try self.source.nodes(at: infoParentNode).first(where: { $0.pathIsDirectory && $0.pathName.lastPathComponent == "MacOS" }) ?? infoParentNode
+
+        guard let execNode = try self.source.nodes(at: folder).first(where: { $0.pathName.lastPathComponent == executableName }) else {
             return nil
         }
 
@@ -1020,13 +1081,13 @@ public extension AppBundle {
                 // dbg("missing Info.plist node from:", contents.map(\.pathName))
                 return nil
             }
-            dbg("found Info.plist node:", infoNode.pathName, "from:", contents.map(\.pathName))
+            dbg("found Info.plist node:", infoNode.pathName) // , "from:", contents.map(\.pathName))
 
             return try (Plist(data: source.seekableData(at: infoNode).readData(ofLength: nil)), parent: node, node: infoNode)
         }
 
         if let contentsNode = rootNodes.first(where: {
-            $0.pathIsDirectory && $0.pathName == "Contents"
+            $0.pathIsDirectory && $0.pathName.lastPathComponent == "Contents"
         }) {
             // dbg("contentsNode", contentsNode)
             // check the "Contents/Info.plist" convention (macOS)
@@ -1034,7 +1095,7 @@ public extension AppBundle {
         }
 
         for payloadNode in rootNodes.filter({
-            $0.pathIsDirectory && ($0.pathName == "Payload" || $0.pathName == "Wrapper")
+            $0.pathIsDirectory && ($0.pathName.lastPathComponent == "Payload" || $0.pathName.lastPathComponent == "Wrapper")
         }) {
             // dbg("payloadNode", payloadNode)
             // check the "Payload/App Name.app/Info.plist" convention
@@ -1052,12 +1113,13 @@ public extension AppBundle {
         for appNode in rootNodes.filter({
             $0.pathIsDirectory && $0.pathName.hasSuffix(".app")
         }) {
-            dbg("appNode", appNode)
             // check the "App Name.app/Info.plist" convention
             let appContents = try source.nodes(at: appNode)
 
+            dbg("appNode:", appNode.pathName, "appContents:", appContents.map(\.pathName))
+
             if let contentsNode = appContents.first(where: {
-                $0.pathIsDirectory && $0.pathName == "Contents"
+                $0.pathIsDirectory && $0.pathName.lastPathComponent == "Contents"
             }) {
                 // dbg("contentsNode", contentsNode)
                 // check the "AppName.app/Contents/Info.plist" convention (macOS)
@@ -1103,7 +1165,10 @@ extension DataWrapperPath {
     ///
     /// - TODO: on Windows do we need to use backslash?
     var pathComponents: [String] {
-        (pathName as NSString).pathComponents
+        // (pathName as NSString).pathComponents // not correct: will return "/" elements when they are at the beginning or else
+        pathName
+            .split(separator: "/", omittingEmptySubsequences: true)
+            .map(\.description)
     }
 }
 
@@ -1129,6 +1194,7 @@ public class FileSystemDataWrapper : DataWrapper {
         path.deletingLastPathComponent()
     }
 
+    /// FileManager nodes
     public func nodes(at path: Path?) throws -> [Path] {
         #if os(Linux) || os(Windows)
         try fm.contentsOfDirectory(at: path ?? root, includingPropertiesForKeys: [.fileSizeKey, .isDirectoryKey], options: []) // .producesRelativePathURLs unavailable
@@ -1196,7 +1262,7 @@ public class ZipArchiveDataWrapper : DataWrapper {
         self.archive = archive
 
         var paths = archive.map { entry in
-            ZipArchivePath(path: entry.path, pathIsDirectory: entry.type == .directory, entry: entry)
+            ZipArchivePath(path: entry.path.deletingTrailingSlash, pathIsDirectory: entry.type == .directory, entry: entry)
         }
 
         // find all the paths that do not have a directory entry and synthesize a folder for it, since zip file are not guaranteed to have a proper directory entry for each file entry
@@ -1205,12 +1271,10 @@ public class ZipArchiveDataWrapper : DataWrapper {
         for parentPath in parentPaths.sorted() {
             var path = parentPath
             while !path.isEmpty {
-                // zip file directories always end in a slash
-                let pathWithSlash = path // path.hasSuffix("/") ? path : (path + "/") // TODO
-                if allPaths.insert(pathWithSlash).inserted == true {
+                if allPaths.insert(path).inserted == true {
                     // synthesize a directory entry
-                    //dbg("synthesizing parent directory:", parentPath)
-                    paths.append(ZipArchivePath(path: pathWithSlash, pathIsDirectory: true, entry: nil))
+                    // dbg("synthesizing parent directory:", parentPath)
+                    paths.append(ZipArchivePath(path: path.deletingTrailingSlash, pathIsDirectory: true, entry: nil))
                 }
                 path = path.deletingLastPathComponent
             }
@@ -1228,6 +1292,7 @@ public class ZipArchiveDataWrapper : DataWrapper {
         })
     }
 
+    /// ZipArchive nodes
     public func nodes(at path: Path?) throws -> [Path] {
         if let parentPath = path {
             // brute-force scan all the entries; this should be made into a tree
@@ -1260,6 +1325,14 @@ public class ZipArchiveDataWrapper : DataWrapper {
 
 // Utilities from NSString cast
 private extension String {
+    var deletingTrailingSlash: String {
+        var str = self
+        while str.last == "/" {
+            str = String(str.dropLast())
+        }
+        return str
+    }
+
     var deletingLastPathComponent: String {
         (self as NSString).deletingLastPathComponent
     }

@@ -87,6 +87,7 @@
         "doc:\/\/FairExpo\/8FairCore15ParsableCommandP",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairMsgCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
         "doc:\/\/FairExpo\/Se"
       ],
       "kind" : "relationships",
@@ -119,7 +120,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/run()-6a73z"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/executeCommand()"
       ],
       "title" : "Instance Methods"
     },
@@ -141,6 +142,7 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/AsyncParsableCommand-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/Decodable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/FairStructuredCommand-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/ParsableArguments-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/ParsableCommand-Implementations"
       ],
@@ -260,6 +262,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairparsablecommand"
 },
+"doc://FairExpo/documentation/FairExpo/FairStructuredCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that will issue an asynchronous stream of output items",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairStructuredCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairStructuredCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairStructuredCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairstructuredcommand"
+},
 "doc://FairExpo/documentation/FairExpo/SourceCommand": {
   "abstract" : [
 
@@ -343,6 +379,17 @@
   "title" : "Decodable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/decodable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/FairStructuredCommand-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/FairStructuredCommand-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "FairStructuredCommand Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/fairstructuredcommand-implementations"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/Output": {
   "abstract" : [
@@ -476,6 +523,96 @@
   "title" : "configuration",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/configuration-4fear"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/executeCommand()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "executeCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+      "text" : "SourceCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV06CreateD0V",
+      "text" : "CreateCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV06CreateD0V6Outputa",
+      "text" : "Output"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/executeCommand()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "executeCommand()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/executecommand()"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/experimental": {
   "abstract" : [
@@ -615,47 +752,6 @@
   "title" : "msgOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/msgoptions"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/run()-6a73z": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "run"
-    },
-    {
-      "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/run()-6a73z",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "run()",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/run()-6a73z"
 }
 }
 }
