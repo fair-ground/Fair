@@ -90,11 +90,16 @@ final class FairEntitlementsTests: XCTestCase {
 
         // it is (currently) expected that directory paths will differ slightly between the zip wrapper and the FS wrapper: the zip has a trailing slash after directory entries, and the fs doesn't have any trailing slashes
 
-        dbg("dw1 paths:", dw1.paths.map(\.relativePath))
-        XCTAssertEqual(["a", "a/b.txt", "a/b", "a/b/c.txt", "a/b/c", "a/b/c/d.txt", "a.txt"], dw1.paths.map(\.relativePath).set())
+        let dw1Paths = dw1.paths.map(\.pathName)
+        let dw2Paths = dw2.paths.map(\.pathName)
 
-        dbg("dw2 paths:", dw2.paths.map(\.path))
-        XCTAssertEqual(["a/", "a/b.txt", "a/b/", "a/b/c.txt", "a/b/c/", "a/b/c/d.txt", "a.txt"], dw2.paths.map(\.path).set())
+        dbg("dw1 paths:", dw1Paths)
+        XCTAssertEqual(["a", "a/b.txt", "a/b", "a/b/c.txt", "a/b/c", "a/b/c/d.txt", "a.txt"], dw1Paths.set())
+
+        dbg("dw2 paths:", dw2Paths)
+        XCTAssertEqual(["a", "a/b.txt", "a/b", "a/b/c.txt", "a/b/c", "a/b/c/d.txt", "a.txt"], dw2Paths.set())
+
+        XCTAssertEqual(dw1Paths.set(), dw2Paths.set(), "zip and fs data wrapper paths should have been identical")
 
         for pattern in [
             "^a/b/c.txt$",
@@ -109,7 +114,7 @@ final class FairEntitlementsTests: XCTestCase {
         }
     }
 
-    func readFile(_ path: String) throws -> AppEntitlements {
+    func readEntitlements(_ path: String) throws -> AppEntitlements {
         try XCTUnwrap(extractEntitlements(Data(contentsOf: URL(fileURLWithPath: dump(path, name: "reading file")))).first)
     }
 
@@ -139,13 +144,12 @@ final class FairEntitlementsTests: XCTestCase {
                     if executable.lastPathComponent == "Firefox" { continue } // seems to crash on CI
 
 
-                    //XCTAssertNoThrow(try readFile(executable.path), "executable failed: \(executable.path)")
+                    //XCTAssertNoThrow(try readEntitlements(executable.path), "executable failed: \(executable.path)")
                     do {
-                        let _ = try readFile(executable.path)
+                        let _ = try readEntitlements(executable.path)
                     } catch {
                         XCTFail("executable failed: \(executable.path) with error: \(error)")
                     }
-
 
                     let archive = try AppBundle(folderAt: app)
                     try validate(archive: archive, from: app)
