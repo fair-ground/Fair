@@ -67,7 +67,7 @@ public extension FairStructuredCommand {
 
 public final class MessageBuffer {
     /// The list of messages
-    public var messages: [(MessageKind, [Any?])] = []
+    public var messages: [MessagePayload] = []
 
     /// The output that is written
     public var output: [String] = []
@@ -82,6 +82,8 @@ extension MessageBuffer : Decodable {
         self.init()
     }
 }
+
+public typealias MessagePayload = (MessageKind, [Any?])
 
 /// The type of message output
 public enum MessageKind {
@@ -222,7 +224,7 @@ public struct SourceCommand : AsyncParsableCommand {
         }
     }
 
-    public struct VerifyCommand: FairStructuredCommand, AppCatalogVerificationAction {
+    public struct VerifyCommand: FairStructuredCommand {
         public static let experimental = false
         public typealias Output = AppCatalogVerifyResult
 
@@ -256,13 +258,8 @@ public struct SourceCommand : AsyncParsableCommand {
                     apps = apps.filter({ bundleIDs.contains($0.bundleIdentifier.rawValue) })
                 }
 
-                return apps.mapAsync({ try await verifyAppItem(app: $0, catalogURL: catalogURL) })
+                return apps.mapAsync({ try await AppCatalogAPI.shared.verifyAppItem(app: $0, catalogURL: catalogURL, msg: { msg($0, $1) }) })
             }
-        }
-
-        public func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure) {
-            msg(.warn, "app verify failure for \(app.downloadURL.absoluteString): \(failure.type) \(failure.message)")
-            failures.append(failure)
         }
     }
 }
@@ -308,8 +305,13 @@ public final class AppCatalogAPI {
 
 public extension AppCatalogAPI {
     func catalogApp(url: URL) async throws -> AppCatalogItem {
+        dbg("url:", url)
         let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
-
+        dbg("localURL:", localURL)
+        if !FileManager.default.isReadableFile(atPath: localURL.path) {
+            throw AppError("Cannot read file at \(localURL.path)")
+        }
+        
         let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
 
         guard let bundleID = info.CFBundleIdentifier else {
@@ -367,19 +369,21 @@ public extension AppCatalogAPI {
 
 }
 
-public protocol AppCatalogVerificationAction {
-    func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure)
-}
+public extension AppCatalogAPI {
+    private func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure, msg: ((MessagePayload) -> ())?) {
+        msg?((.warn, ["app verify failure for \(app.downloadURL.absoluteString): \(failure.type) \(failure.message)"]))
+        failures.append(failure)
+    }
 
-public extension AppCatalogVerificationAction {
-    func verifyAppItem(app: AppCatalogItem, catalogURL: URL?) async throws -> AppCatalogVerifyResult {
+
+    func verifyAppItem(app: AppCatalogItem, catalogURL: URL?, msg: ((MessagePayload) -> ())? = nil) async throws -> AppCatalogVerifyResult {
         var failures: [AppCatalogVerifyFailure] = []
 
         if app.sha256 == nil {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_checksum", message: "App missing sha256 checksum property"))
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_checksum", message: "App missing sha256 checksum property"), msg: msg)
         }
         if (app.size ?? 0) <= 0 {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "invalid_size", message: "App size property unset or invalid"))
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "invalid_size", message: "App size property unset or invalid"), msg: msg)
         }
 
         var url = app.downloadURL
@@ -392,23 +396,23 @@ public extension AppCatalogVerificationAction {
             let (file, _) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
             failures.append(contentsOf: await validateArtifact(app: app, file: file))
         } catch {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"))
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"), msg: msg)
         }
         return AppCatalogVerifyResult(app: app, failures: failures.isEmpty ? nil : failures)
     }
 
-    func validateArtifact(app: AppCatalogItem, file: URL) async -> [AppCatalogVerifyFailure] {
+    func validateArtifact(app: AppCatalogItem, file: URL, msg: ((MessagePayload) -> ())? = nil) async -> [AppCatalogVerifyFailure] {
         var failures: [AppCatalogVerifyFailure] = []
 
         if !file.isFileURL || !FileManager.default.isReadableFile(atPath: file.path) {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL.absoluteString)"))
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL.absoluteString)"), msg: msg)
             return failures
         }
 
         if let size = app.size {
             if let fileSize = file.fileSize() {
                 if size != fileSize {
-                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL.absoluteString)"))
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL.absoluteString)"), msg: msg)
                 }
             }
         }
@@ -417,7 +421,7 @@ public extension AppCatalogVerificationAction {
             let fileData = try? Data(contentsOf: file) {
             let fileChecksum = fileData.sha256()
             if sha256 != fileChecksum.hex() {
-                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"))
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"), msg: msg)
             }
         }
 
@@ -426,12 +430,12 @@ public extension AppCatalogVerificationAction {
 
             for (permissionKey, permissionValue) in info.usageDescriptions {
                 guard let catalogPermissionValue = usagePermissions[permissionKey] else {
-                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"))
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"), msg: msg)
                     continue
                 }
 
                 if catalogPermissionValue.usageDescription != permissionValue {
-                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_mismatch", message: "The usage key “\(permissionKey)” defined in Info.plist does not have a matching value in the catalog metadata"))
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_mismatch", message: "The usage key “\(permissionKey)” defined in Info.plist does not have a matching value in the catalog metadata"), msg: msg)
                 }
             }
         }
@@ -445,7 +449,7 @@ public extension AppCatalogVerificationAction {
 
             for backgroundMode in backgroundModes {
                 if backgroundPermissions[AppBackgroundMode(backgroundMode)] == nil {
-                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_background_mode", message: "Missing a permission entry for background mode “\(backgroundMode)”"))
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_background_mode", message: "Missing a permission entry for background mode “\(backgroundMode)”"), msg: msg)
                 }
             }
         }
@@ -463,7 +467,7 @@ public extension AppCatalogVerificationAction {
                     continue
                 }
                 if !entitlementPermissions.keys.contains(entitlement) {
-                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_entitlement_permission", message: "Missing a permission entry for entitlement key “\(entitlementKey)”"))
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_entitlement_permission", message: "Missing a permission entry for entitlement key “\(entitlementKey)”"), msg: msg)
                 }
             }
         }
@@ -478,14 +482,14 @@ public extension AppCatalogVerificationAction {
             verifyBackgroundModes(info)
 
             if entitlementss == nil {
-                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"))
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"), msg: msg)
             } else {
                 for entitlements in entitlementss ?? [] {
                     verifyEntitlements(entitlements)
                 }
             }
         } catch {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information for \(app.downloadURL.absoluteString): \(error)"))
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information for \(app.downloadURL.absoluteString): \(error)"), msg: msg)
         }
 
         return failures

@@ -1,29 +1,28 @@
 {
   "abstract" : [
     {
-      "text" : "The list of messages",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageBuffer"
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageBuffer\/messages"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13MessageBufferC8messagesSayAA0C4KindO_SayypSgGtGvp",
+    "externalID" : "s:8FairExpo14MessagePayloada",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "typealias"
       },
       {
         "kind" : "text",
@@ -31,20 +30,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "messages"
-      },
-      {
-        "kind" : "text",
-        "text" : ": ["
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo14MessagePayloada",
         "text" : "MessagePayload"
-      },
-      {
-        "kind" : "text",
-        "text" : "]"
       }
     ],
     "modules" : [
@@ -52,10 +38,16 @@
         "name" : "FairExpo"
       }
     ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "MessagePayload"
+      }
+    ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "messages"
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "MessagePayload"
   },
   "primaryContentSections" : [
     {
@@ -70,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "typealias"
             },
             {
               "kind" : "text",
@@ -78,21 +70,29 @@
             },
             {
               "kind" : "identifier",
-              "text" : "messages"
-            },
-            {
-              "kind" : "text",
-              "text" : ": ["
-            },
-            {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo14MessagePayloada",
               "text" : "MessagePayload"
             },
             {
               "kind" : "text",
-              "text" : "]"
+              "text" : " = ("
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageKind",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo11MessageKindO",
+              "text" : "MessageKind"
+            },
+            {
+              "kind" : "text",
+              "text" : ", ["
+            },
+            {
+              "kind" : "keyword",
+              "text" : "Any"
+            },
+            {
+              "kind" : "text",
+              "text" : "?])"
             }
           ]
         }
@@ -111,7 +111,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/messagebuffer\/messages"
+        "\/documentation\/fairexpo\/messagepayload"
       ],
       "traits" : [
         {
@@ -136,48 +136,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/MessageBuffer": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MessageBuffer"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageBuffer",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MessageBuffer"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MessageBuffer",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/messagebuffer"
-},
-"doc://FairExpo/documentation/FairExpo/MessageBuffer/messages": {
+"doc://FairExpo/documentation/FairExpo/MessageKind": {
   "abstract" : [
     {
-      "text" : "The list of messages",
+      "text" : "The type of message output",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -185,28 +154,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "messages"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo14MessagePayloada",
-      "text" : "MessagePayload"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
+      "text" : "MessageKind"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageBuffer\/messages",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageKind",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MessageKind"
+    }
+  ],
   "role" : "symbol",
-  "title" : "messages",
+  "title" : "MessageKind",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/messagebuffer\/messages"
+  "url" : "\/documentation\/fairexpo\/messagekind"
 },
 "doc://FairExpo/documentation/FairExpo/MessagePayload": {
   "abstract" : [

@@ -47,7 +47,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerificationAction",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairMsgCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
@@ -99,7 +98,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload"
       ],
       "title" : "Type Aliases"
     },
@@ -234,37 +234,6 @@
   "title" : "AppCatalogItem",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogitem"
-},
-"doc://FairExpo/documentation/FairExpo/AppCatalogVerificationAction": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerificationAction"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerificationAction",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerificationAction"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogVerificationAction",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogverificationaction"
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogVerifyFailure": {
   "abstract" : [
@@ -1237,6 +1206,37 @@
   "title" : "MessageKind",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/messagekind"
+},
+"doc://FairExpo/documentation/FairExpo/MessagePayload": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MessagePayload"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MessagePayload"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MessagePayload",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/messagepayload"
 },
 "doc://FairExpo/documentation/FairExpo/MsgOptions": {
   "abstract" : [

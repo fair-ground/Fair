@@ -82,7 +82,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerificationAction",
         "doc:\/\/FairExpo\/8FairCore20AsyncParsableCommandP",
         "doc:\/\/FairExpo\/8FairCore17ParsableArgumentsP",
         "doc:\/\/FairExpo\/8FairCore15ParsableCommandP",
@@ -123,7 +122,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/addFailure(to:app:_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/executeCommand()"
       ],
       "title" : "Instance Methods"
@@ -144,7 +142,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AppCatalogVerificationAction-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AsyncParsableCommand-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/Decodable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/FairStructuredCommand-Implementations",
@@ -201,37 +198,6 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
-},
-"doc://FairExpo/documentation/FairExpo/AppCatalogVerificationAction": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerificationAction"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerificationAction",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerificationAction"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogVerificationAction",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogverificationaction"
 },
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [
@@ -394,17 +360,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/AppCatalogVerificationAction-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AppCatalogVerificationAction-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "AppCatalogVerificationAction Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/appcatalogverificationaction-implementations"
-},
 "doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/AsyncParsableCommand-Implementations": {
   "abstract" : [
 
@@ -490,86 +445,6 @@
   "title" : "ParsableCommand Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/parsablecommand-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/addFailure(to:app:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "addFailure"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
-      "text" : "AppCatalogVerifyFailure"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "app"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo14AppCatalogItemV",
-      "text" : "AppCatalogItem"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
-      "text" : "AppCatalogVerifyFailure"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/addFailure(to:app:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "addFailure(to:app:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/addfailure(to:app:_:)"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/bundleID": {
   "abstract" : [

@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "AppCatalogVerificationAction.validateArtifact(app:file:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -17,20 +9,18 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AppCatalogVerificationAction-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/validateArtifact(app:file:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/validateArtifact(app:file:msg:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo28AppCatalogVerificationActionPAAE16validateArtifact3app4fileSayAA0cD13VerifyFailureVGAA0cD4ItemV_10Foundation3URLVtYaF::SYNTHESIZED::s:8FairExpo13SourceCommandV06VerifyD0V",
+    "externalID" : "s:8FairExpo13AppCatalogAPIC16validateArtifact3app4file3msgSayAA0cD13VerifyFailureVGAA0cD4ItemV_10Foundation3URLVyAA11MessageKindO_SayypSgGt_tcSgtYaF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -80,7 +70,24 @@
       },
       {
         "kind" : "text",
-        "text" : ") "
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "msg"
+      },
+      {
+        "kind" : "text",
+        "text" : ": (("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo14MessagePayloada",
+        "text" : "MessagePayload"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> ())?) "
       },
       {
         "kind" : "keyword",
@@ -108,7 +115,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "validateArtifact(app:file:)"
+    "title" : "validateArtifact(app:file:msg:)"
   },
   "primaryContentSections" : [
     {
@@ -170,7 +177,25 @@
             },
             {
               "kind" : "text",
-              "text" : ") "
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "msg"
+            },
+            {
+              "kind" : "text",
+              "text" : ": (("
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo14MessagePayloada",
+              "text" : "MessagePayload"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> ())? = nil) "
             },
             {
               "kind" : "keyword",
@@ -207,7 +232,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/validateartifact(app:file:)"
+        "\/documentation\/fairexpo\/appcatalogapi\/validateartifact(app:file:msg:)"
       ],
       "traits" : [
         {
@@ -231,6 +256,134 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogAPI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogAPI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogapi"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/validateArtifact(app:file:msg:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateArtifact"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "app"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo14AppCatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "file"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "msg"
+    },
+    {
+      "kind" : "text",
+      "text" : ": (("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo14MessagePayloada",
+      "text" : "MessagePayload"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ())?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
+      "text" : "AppCatalogVerifyFailure"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/validateArtifact(app:file:msg:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateArtifact(app:file:msg:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/validateartifact(app:file:msg:)"
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogItem": {
   "abstract" : [
@@ -294,14 +447,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogverifyfailure"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand": {
+"doc://FairExpo/documentation/FairExpo/MessagePayload": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -309,143 +462,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SourceCommand"
+      "text" : "MessagePayload"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SourceCommand"
+      "text" : "MessagePayload"
     }
   ],
   "role" : "symbol",
-  "title" : "SourceCommand",
+  "title" : "MessagePayload",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VerifyCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand.VerifyCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/AppCatalogVerificationAction-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/AppCatalogVerificationAction-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "AppCatalogVerificationAction Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/appcatalogverificationaction-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/validateArtifact(app:file:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "validateArtifact"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "app"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo14AppCatalogItemV",
-      "text" : "AppCatalogItem"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "file"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo23AppCatalogVerifyFailureV",
-      "text" : "AppCatalogVerifyFailure"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/validateArtifact(app:file:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "validateArtifact(app:file:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/validateartifact(app:file:)"
+  "url" : "\/documentation\/fairexpo\/messagepayload"
 }
 }
 }
