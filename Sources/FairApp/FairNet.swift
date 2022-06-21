@@ -487,9 +487,9 @@ extension URLSession {
     #endif // !os(Linux) && !os(Windows) 
 
     /// Downloads the given file. It should behave the same as the async URLSession.download function (which is missing from linux).
-    public func downloadFile(for request: URLRequest) async throws -> (localURL: URL, response: URLResponse) {
+    public func downloadFile(for request: URLRequest, useContentDispositionFileName: Bool = true, useLastModifiedDate: Bool = true) async throws -> (localURL: URL, response: URLResponse) {
         return try await withCheckedThrowingContinuation { continuation in
-            downloadTaskCopy(with: request) { url, response, error in
+            downloadTaskCopy(with: request, useContentDispositionFileName: useContentDispositionFileName, useLastModifiedDate: useLastModifiedDate) { url, response, error in
                 if let url = url, let response = response, error == nil {
                     continuation.resume(returning: (url, response))
                 } else {
@@ -506,9 +506,10 @@ extension URLSession {
     /// - Parameters:
     ///   - request: the request for the download
     ///   - useContentDispositionFileName: whether to attempt to rename the file based on the file name specified in the `Content-Disposition` header, if present.
+    ///   - useLastModifiedDate: whether to transfer the server's reported "Last-Modified" header to set the creation time of the file.
     ///   - completionHandler: the handler to invoke when the download is complete
     /// - Returns: the task that was initiated
-    func downloadTaskCopy(with request: URLRequest, useContentDispositionFileName: Bool = true, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
+    func downloadTaskCopy(with request: URLRequest, useContentDispositionFileName: Bool = true, useLastModifiedDate: Bool = true, completionHandler: @escaping (URL?, URLResponse?, Error?) -> Void) -> URLSessionDownloadTask {
         self.downloadTask(with: request) { url, response, error in
             /// Files are generally placed somewhere like: file:///var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/CFNetworkDownload_q0k6gM.tmp
             do {
@@ -530,9 +531,9 @@ extension URLSession {
                     let destinationURL = tempDir.appendingPathComponent(pathName)
                     try FileManager.default.moveItem(at: temporaryLocalURL, to: destinationURL)
 
-                    if let lastModifiedDate = response?.lastModifiedDate {
+                    if useLastModifiedDate == true, let lastModifiedDate = response?.lastModifiedDate {
                         // preserve Last-Modified by transferring the date to the item
-                        try FileManager.default.setAttributes([.creationDate : lastModifiedDate], ofItemAtPath: destinationURL.path)
+                        try? FileManager.default.setAttributes([.creationDate : lastModifiedDate, .modificationDate : lastModifiedDate], ofItemAtPath: destinationURL.path)
                     }
 
                     dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, destinationURL.pathSize?.localizedByteCount())
