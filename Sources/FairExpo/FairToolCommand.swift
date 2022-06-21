@@ -199,7 +199,7 @@ public struct SourceCommand : AsyncParsableCommand {
     public init() {
     }
 
-    public struct CreateCommand: FairStructuredCommand {
+    public struct CreateCommand: FairStructuredCommand, AppCatalogCreateAction {
         public static let experimental = false
         public typealias Output = AppCatalogItem
 
@@ -217,62 +217,7 @@ public struct SourceCommand : AsyncParsableCommand {
             return msgOptions.executeStream(apps) { app in
                 msg(.info, "creating app catalog:", app)
                 let url = URL(fileOrScheme: app)
-                let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
-
-                let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
-
-                guard let bundleID = info.CFBundleIdentifier else {
-                    throw AppError("Missing CFBundleIdentifier for \(app)")
-                }
-
-                guard let bundleName = info.CFBundleDisplayName ?? info.CFBundleName else {
-                    throw AppError("Missing CFBundleDisplayName for \(app)")
-                }
-
-                // AppCatalogItem(name: <#T##String#>, bundleIdentifier: <#T##BundleIdentifier#>, subtitle: <#T##String?#>, developerName: <#T##String?#>, localizedDescription: <#T##String?#>, size: <#T##Int?#>, version: <#T##String?#>, versionDate: <#T##Date?#>, downloadURL: <#T##URL#>, iconURL: <#T##URL?#>, screenshotURLs: <#T##[URL]?#>, versionDescription: <#T##String?#>, tintColor: <#T##String?#>, beta: <#T##Bool?#>, sourceIdentifier: <#T##String?#>, categories: <#T##[String]?#>, downloadCount: <#T##Int?#>, impressionCount: <#T##Int?#>, viewCount: <#T##Int?#>, starCount: <#T##Int?#>, watcherCount: <#T##Int?#>, issueCount: <#T##Int?#>, sourceSize: <#T##Int?#>, coreSize: <#T##Int?#>, sha256: <#T##String?#>, permissions: <#T##[AppPermission]?#>, metadataURL: <#T##URL?#>, readmeURL: <#T##URL?#>, releaseNotesURL: <#T##URL?#>, homepage: <#T##URL?#>)
-
-                var item = AppCatalogItem(name: bundleName, bundleIdentifier: BundleIdentifier(bundleID), downloadURL: url)
-                item.version = info.CFBundleShortVersionString
-                item.size = localURL.fileSize()
-                item.developerName = info.rawValue["NSHumanReadableCopyright"] as? String
-
-                item.subtitle = "SUBTITLE"
-                item.localizedDescription = "DESCRIPTION" // maybe check for a README file in the .ipa?
-                item.versionDescription = "VERSION DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
-
-                // item.iconURL = … // if we were ambitious, we could try to extract the icon from the artifact and embed a data: url
-                // item.tintColor = … // if we were ambitious, we could parse the assets and extract the tint color
-
-                item.screenshotURLs = [] // maybe check for a folder in the .ipa?
-
-                item.versionDate = localURL.creationDate
-
-                var permissions: [AppPermission] = []
-                for (key, value) in info.usageDescriptions {
-                    permissions.append(AppPermission(AppUsagePermission(usage: UsageDescriptionKeys(key), usageDescription: value)))
-                }
-
-                for backgroundMode in info.backgroundModes ?? [] {
-                    permissions.append(AppPermission(AppBackgroundModePermission(backgroundMode: AppBackgroundMode(backgroundMode), usageDescription: "USAGE DESCRIPTION")))
-                }
-
-                for (key, value) in entitlements?.first?.values ?? [:] {
-                    if ((value as? Bool) ?? true) != false {
-                        let entitlement = AppEntitlement(key)
-                        // we don't need to document harmless entitlements
-                        if !entitlement.categories.contains(.harmless) {
-                            permissions.append(AppPermission(AppEntitlementPermission(entitlement: entitlement, usageDescription: "USAGE DESCRIPTION")))
-                        }
-                    }
-                }
-
-                item.permissions = permissions.isEmpty ? nil : permissions
-
-                item.sha256 = try Data(contentsOf: localURL, options: .mappedIfSafe).sha256().hex() // without alwaysMapped or mappedIfSafe, memory seems to grow
-
-                return item
-
-                // return apps.mapAsync({ try await verifyAppItem(app: $0, catalogURL: catalogURL) })
+                return try await catalogApp(url: url)
             }
         }
     }
@@ -352,6 +297,72 @@ public struct AppCatalogVerifyFailure : FairCommandOutput, Pure {
 
     /// A string describing the verification failure
     public var message: String
+}
+
+public protocol AppCatalogCreateAction {
+}
+
+public extension AppCatalogCreateAction {
+    func catalogApp(url: URL) async throws -> AppCatalogItem {
+        let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
+
+        let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
+
+        guard let bundleID = info.CFBundleIdentifier else {
+            throw AppError("Missing CFBundleIdentifier for \(url.absoluteString)")
+        }
+
+        guard let bundleName = info.CFBundleDisplayName ?? info.CFBundleName else {
+            throw AppError("Missing CFBundleDisplayName for \(url.absoluteString)")
+        }
+
+        // AppCatalogItem(name: <#T##String#>, bundleIdentifier: <#T##BundleIdentifier#>, subtitle: <#T##String?#>, developerName: <#T##String?#>, localizedDescription: <#T##String?#>, size: <#T##Int?#>, version: <#T##String?#>, versionDate: <#T##Date?#>, downloadURL: <#T##URL#>, iconURL: <#T##URL?#>, screenshotURLs: <#T##[URL]?#>, versionDescription: <#T##String?#>, tintColor: <#T##String?#>, beta: <#T##Bool?#>, sourceIdentifier: <#T##String?#>, categories: <#T##[String]?#>, downloadCount: <#T##Int?#>, impressionCount: <#T##Int?#>, viewCount: <#T##Int?#>, starCount: <#T##Int?#>, watcherCount: <#T##Int?#>, issueCount: <#T##Int?#>, sourceSize: <#T##Int?#>, coreSize: <#T##Int?#>, sha256: <#T##String?#>, permissions: <#T##[AppPermission]?#>, metadataURL: <#T##URL?#>, readmeURL: <#T##URL?#>, releaseNotesURL: <#T##URL?#>, homepage: <#T##URL?#>)
+
+        var item = AppCatalogItem(name: bundleName, bundleIdentifier: BundleIdentifier(bundleID), downloadURL: url)
+        item.version = info.CFBundleShortVersionString
+        item.size = localURL.fileSize()
+        item.developerName = info.rawValue["NSHumanReadableCopyright"] as? String
+
+        item.subtitle = "SUBTITLE"
+        item.localizedDescription = "DESCRIPTION" // maybe check for a README file in the .ipa?
+        item.versionDescription = "VERSION DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
+
+        // item.iconURL = … // if we were ambitious, we could try to extract the icon from the artifact and embed a data: url
+        // item.tintColor = … // if we were ambitious, we could parse the assets and extract the tint color
+
+        item.screenshotURLs = [] // maybe check for a folder in the .ipa?
+
+        item.versionDate = localURL.creationDate
+
+        var permissions: [AppPermission] = []
+        for (key, value) in info.usageDescriptions {
+            permissions.append(AppPermission(AppUsagePermission(usage: UsageDescriptionKeys(key), usageDescription: value)))
+        }
+
+        for backgroundMode in info.backgroundModes ?? [] {
+            permissions.append(AppPermission(AppBackgroundModePermission(backgroundMode: AppBackgroundMode(backgroundMode), usageDescription: "USAGE DESCRIPTION")))
+        }
+
+        for (key, value) in entitlements?.first?.values ?? [:] {
+            if ((value as? Bool) ?? true) != false {
+                let entitlement = AppEntitlement(key)
+                // we don't need to document harmless entitlements
+                if !entitlement.categories.contains(.harmless) {
+                    permissions.append(AppPermission(AppEntitlementPermission(entitlement: entitlement, usageDescription: "USAGE DESCRIPTION")))
+                }
+            }
+        }
+
+        item.permissions = permissions.isEmpty ? nil : permissions
+
+        item.sha256 = try Data(contentsOf: localURL, options: .mappedIfSafe).sha256().hex() // without alwaysMapped or mappedIfSafe, memory seems to grow
+
+        return item
+
+        // return apps.mapAsync({ try await verifyAppItem(app: $0, catalogURL: catalogURL) })
+
+    }
+
 }
 
 public protocol AppCatalogVerificationAction {
