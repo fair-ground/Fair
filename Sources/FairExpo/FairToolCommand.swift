@@ -199,7 +199,7 @@ public struct SourceCommand : AsyncParsableCommand {
     public init() {
     }
 
-    public struct CreateCommand: FairStructuredCommand, AppCatalogCreateAction {
+    public struct CreateCommand: FairStructuredCommand {
         public static let experimental = false
         public typealias Output = AppCatalogItem
 
@@ -217,7 +217,7 @@ public struct SourceCommand : AsyncParsableCommand {
             return msgOptions.executeStream(apps) { app in
                 msg(.info, "creating app catalog:", app)
                 let url = URL(fileOrScheme: app)
-                return try await catalogApp(url: url)
+                return try await AppCatalogAPI.shared.catalogApp(url: url)
             }
         }
     }
@@ -299,10 +299,14 @@ public struct AppCatalogVerifyFailure : FairCommandOutput, Pure {
     public var message: String
 }
 
-public protocol AppCatalogCreateAction {
+public final class AppCatalogAPI {
+    public static let shared = AppCatalogAPI()
+
+    private init() {
+    }
 }
 
-public extension AppCatalogCreateAction {
+public extension AppCatalogAPI {
     func catalogApp(url: URL) async throws -> AppCatalogItem {
         let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
 
@@ -315,9 +319,7 @@ public extension AppCatalogCreateAction {
         guard let bundleName = info.CFBundleDisplayName ?? info.CFBundleName else {
             throw AppError("Missing CFBundleDisplayName for \(url.absoluteString)")
         }
-
-        // AppCatalogItem(name: <#T##String#>, bundleIdentifier: <#T##BundleIdentifier#>, subtitle: <#T##String?#>, developerName: <#T##String?#>, localizedDescription: <#T##String?#>, size: <#T##Int?#>, version: <#T##String?#>, versionDate: <#T##Date?#>, downloadURL: <#T##URL#>, iconURL: <#T##URL?#>, screenshotURLs: <#T##[URL]?#>, versionDescription: <#T##String?#>, tintColor: <#T##String?#>, beta: <#T##Bool?#>, sourceIdentifier: <#T##String?#>, categories: <#T##[String]?#>, downloadCount: <#T##Int?#>, impressionCount: <#T##Int?#>, viewCount: <#T##Int?#>, starCount: <#T##Int?#>, watcherCount: <#T##Int?#>, issueCount: <#T##Int?#>, sourceSize: <#T##Int?#>, coreSize: <#T##Int?#>, sha256: <#T##String?#>, permissions: <#T##[AppPermission]?#>, metadataURL: <#T##URL?#>, readmeURL: <#T##URL?#>, releaseNotesURL: <#T##URL?#>, homepage: <#T##URL?#>)
-
+        
         var item = AppCatalogItem(name: bundleName, bundleIdentifier: BundleIdentifier(bundleID), downloadURL: url)
         item.version = info.CFBundleShortVersionString
         item.size = localURL.fileSize()
