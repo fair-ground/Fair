@@ -114,13 +114,16 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/apps",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/msgOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/msgOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/sourceOptions"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/executeCommand()"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/executeCommand()",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/writeCommandEnd()",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/writeCommandStart()"
       ],
       "title" : "Instance Methods"
     },
@@ -752,6 +755,102 @@
   "title" : "msgOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/msgoptions"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/sourceOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sourceOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+      "text" : "SourceOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/sourceOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sourceOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/sourceoptions"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/writeCommandEnd()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeCommandEnd"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/writeCommandEnd()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeCommandEnd()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/writecommandend()"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/writeCommandStart()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeCommandStart"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/writeCommandStart()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "writeCommandStart()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/writecommandstart()"
 }
 }
 }

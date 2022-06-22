@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "ParsableCommand.run()",
+      "code" : "FairStructuredCommand.writeCommandStart()",
       "type" : "codeVoice"
     },
     {
@@ -18,19 +18,17 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/ParsableCommand-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/run()-3mthp"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/writeCommandStart()"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore15ParsableCommandPAAE3runyyKF::SYNTHESIZED::s:8FairExpo13SourceCommandV06CreateD0V",
+    "externalID" : "s:8FairExpo13SourceCommandV06CreateD0V05writeD5StartyyKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -42,7 +40,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "run"
+        "text" : "writeCommandStart"
       },
       {
         "kind" : "text",
@@ -61,7 +59,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "run()"
+    "title" : "writeCommandStart()"
   },
   "primaryContentSections" : [
     {
@@ -76,14 +74,6 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "mutating"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
               "text" : "func"
             },
             {
@@ -92,7 +82,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "run"
+              "text" : "writeCommandStart"
             },
             {
               "kind" : "text",
@@ -119,7 +109,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/createcommand\/run()-3mthp"
+        "\/documentation\/fairexpo\/sourcecommand\/createcommand\/writecommandstart()"
       ],
       "traits" : [
         {
@@ -206,18 +196,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/ParsableCommand-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/ParsableCommand-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ParsableCommand Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/parsablecommand-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/run()-3mthp": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/writeCommandStart()": {
   "abstract" : [
 
   ],
@@ -232,7 +211,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "run"
+      "text" : "writeCommandStart"
     },
     {
       "kind" : "text",
@@ -243,12 +222,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/run()-3mthp",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/writeCommandStart()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "run()",
+  "title" : "writeCommandStart()",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/run()-3mthp"
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/writecommandstart()"
 }
 }
 }

@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairStructuredCommand.run()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -18,23 +10,21 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/FairStructuredCommand-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/run()-6crd1"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/sourceOptions"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo0A17StructuredCommandPAAE3runyyYaKF::SYNTHESIZED::s:8FairExpo13SourceCommandV06CreateD0V",
+    "externalID" : "s:8FairExpo13SourceCommandV06CreateD0V13sourceOptionsAA0cG0Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -42,23 +32,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "run"
+        "text" : "sourceOptions"
       },
       {
         "kind" : "text",
-        "text" : "() "
+        "text" : ": "
       },
       {
-        "kind" : "keyword",
-        "text" : "async"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+        "text" : "SourceOptions"
       }
     ],
     "modules" : [
@@ -67,9 +50,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "run()"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "sourceOptions"
   },
   "primaryContentSections" : [
     {
@@ -84,15 +67,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "mutating"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "func"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -100,15 +75,25 @@
             },
             {
               "kind" : "identifier",
-              "text" : "run"
+              "text" : "sourceOptions"
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+              "text" : "SourceOptions"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
             },
             {
               "kind" : "keyword",
-              "text" : "async"
+              "text" : "get"
             },
             {
               "kind" : "text",
@@ -116,7 +101,11 @@
             },
             {
               "kind" : "keyword",
-              "text" : "throws"
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -135,7 +124,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/sourcecommand\/createcommand\/run()-6crd1"
+        "\/documentation\/fairexpo\/sourcecommand\/createcommand\/sourceoptions"
       ],
       "traits" : [
         {
@@ -222,25 +211,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand"
 },
-"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/FairStructuredCommand-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/FairStructuredCommand-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "FairStructuredCommand Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/fairstructuredcommand-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/run()-6crd1": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/sourceOptions": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -248,31 +226,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "run"
+      "text" : "sourceOptions"
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : ": "
     },
     {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+      "text" : "SourceOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/sourceOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sourceOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/sourceoptions"
+},
+"doc://FairExpo/documentation/FairExpo/SourceOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
       "kind" : "keyword",
-      "text" : "async"
+      "text" : "struct"
     },
     {
       "kind" : "text",
       "text" : " "
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "identifier",
+      "text" : "SourceOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/CreateCommand\/run()-6crd1",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SourceOptions"
+    }
+  ],
   "role" : "symbol",
-  "title" : "run()",
+  "title" : "SourceOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/createcommand\/run()-6crd1"
+  "url" : "\/documentation\/fairexpo\/sourceoptions"
 }
 }
 }

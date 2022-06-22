@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "FairStructuredCommand.run()",
+      "code" : "FairStructuredCommand.writeCommandEnd()",
       "type" : "codeVoice"
     },
     {
@@ -17,20 +17,20 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/FairStructuredCommand-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/FairStructuredCommand-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/run()-9vhg"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/writeCommandEnd()"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo0A17StructuredCommandPAAE3runyyYaKF::SYNTHESIZED::s:8FairExpo10AppCommandV04InfoD0V",
+    "externalID" : "s:8FairExpo0A17StructuredCommandPAAE05writeD3EndyyF::SYNTHESIZED::s:8FairExpo13SourceCommandV06VerifyD0V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -42,23 +42,11 @@
       },
       {
         "kind" : "identifier",
-        "text" : "run"
+        "text" : "writeCommandEnd"
       },
       {
         "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "async"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
+        "text" : "()"
       }
     ],
     "modules" : [
@@ -69,7 +57,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "run()"
+    "title" : "writeCommandEnd()"
   },
   "primaryContentSections" : [
     {
@@ -84,14 +72,6 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "mutating"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
               "text" : "func"
             },
             {
@@ -100,23 +80,11 @@
             },
             {
               "kind" : "identifier",
-              "text" : "run"
+              "text" : "writeCommandEnd"
             },
             {
               "kind" : "text",
-              "text" : "() "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "async"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
+              "text" : "()"
             }
           ]
         }
@@ -135,7 +103,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/appcommand\/infocommand\/run()-9vhg"
+        "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/writecommandend()"
       ],
       "traits" : [
         {
@@ -160,7 +128,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand": {
   "abstract" : [
 
   ],
@@ -175,23 +143,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCommand"
+      "text" : "SourceCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppCommand"
+      "text" : "SourceCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCommand",
+  "title" : "SourceCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand"
+  "url" : "\/documentation\/fairexpo\/sourcecommand"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand": {
   "abstract" : [
 
   ],
@@ -206,34 +174,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "InfoCommand"
+      "text" : "VerifyCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "InfoCommand"
+      "text" : "VerifyCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCommand.InfoCommand",
+  "title" : "SourceCommand.VerifyCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand"
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/FairStructuredCommand-Implementations": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/FairStructuredCommand-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/FairStructuredCommand-Implementations",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/FairStructuredCommand-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "FairStructuredCommand Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/fairstructuredcommand-implementations"
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/fairstructuredcommand-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/run()-9vhg": {
+"doc://FairExpo/documentation/FairExpo/SourceCommand/VerifyCommand/writeCommandEnd()": {
   "abstract" : [
 
   ],
@@ -248,31 +216,19 @@
     },
     {
       "kind" : "identifier",
-      "text" : "run"
+      "text" : "writeCommandEnd"
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/run()-9vhg",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/VerifyCommand\/writeCommandEnd()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "run()",
+  "title" : "writeCommandEnd()",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/run()-9vhg"
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/verifycommand\/writecommandend()"
 }
 }
 }

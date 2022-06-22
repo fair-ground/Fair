@@ -28,7 +28,9 @@ final class FairExpoTests: XCTestCase {
     /// The command will be invoked and the result will be deserialized into the expected structure.
     private func runToolOutput<C: FairParsableCommand>(_ type: ParsableCommand.Type?, cmd: C.Type, _ args: [String]) async throws -> (output: [C.Output], messages: [(MessageKind, [Any?])]) where C.Output : Decodable {
         let result = try await runTool(type: type?.configuration.commandName, op: C.configuration.commandName, args)
-        return (try [C.Output](json: result.output.joined().utf8Data, dateDecodingStrategy: .iso8601), result.messages)
+        let output = result.output.joined()
+        //dbg("output:", output)
+        return (try [C.Output](json: output.utf8Data, dateDecodingStrategy: .iso8601), result.messages)
     }
 
     /// Invokes the `FairTool` in-process using the specified arguments
@@ -152,9 +154,14 @@ final class FairExpoTests: XCTestCase {
 
         let args = paths.shuffled().prefix(10)
 
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.CreateCommand.self, ["--verbose"] + args)
+        // doesn't work because it expects an array output
+        // let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.CreateCommand.self, ["--verbose"] + args)
 
-        dbg("source:", try? results.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String)
+        let result = try await runTool(type: "source", op: SourceCommand.CreateCommand.configuration.commandName, Array(args))
+        let output = result.output.joined()
+        //dbg("output:", output)
+        let catalog = try AppCatalog(json: output.utf8Data, dateDecodingStrategy: .iso8601)
+        dbg("catalog:", try? catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String)
     }
 
     func testValidateCommand() async throws {

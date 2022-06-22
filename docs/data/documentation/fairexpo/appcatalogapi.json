@@ -97,8 +97,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApps(urls:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:options:clearDownload:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApps(urls:options:clearDownload:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/verifyAppItem(app:catalogURL:msg:)"
       ],
       "title" : "Instance Methods"
@@ -169,7 +169,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogapi"
 },
-"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/catalogApp(url:)": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/catalogApp(url:options:clearDownload:)": {
   "abstract" : [
     {
       "text" : "Create a catalog item for an individual artifact.",
@@ -208,6 +208,40 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+      "text" : "SourceOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "clearDownload"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
       "text" : ") "
     },
     {
@@ -232,14 +266,14 @@
       "text" : "AppCatalogItem"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:options:clearDownload:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "catalogApp(url:)",
+  "title" : "catalogApp(url:options:clearDownload:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogapi\/catalogapp(url:)"
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/catalogapp(url:options:cleardownload:)"
 },
-"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/catalogApps(urls:)": {
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/catalogApps(urls:options:clearDownload:)": {
   "abstract" : [
     {
       "text" : "Create a catalog of multiple artifacts.",
@@ -278,7 +312,41 @@
     },
     {
       "kind" : "text",
-      "text" : "]) "
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+      "text" : "SourceOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "clearDownload"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -302,12 +370,12 @@
       "text" : "AppCatalog"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApps(urls:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApps(urls:options:clearDownload:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "catalogApps(urls:)",
+  "title" : "catalogApps(urls:options:clearDownload:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogapi\/catalogapps(urls:)"
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/catalogapps(urls:options:cleardownload:)"
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogAPI/shared": {
   "abstract" : [
