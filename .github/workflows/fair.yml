@@ -149,11 +149,17 @@ jobs:
           swift package resolve
           cp Package.resolved Sources/App/Resources/
 
+      - name: Install fairtool
+        run: |
+          brew tap appfair/app
+          brew install fairtool-head
+          fairtool version
+
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
-          xcrun swift run -- fairtool fair validate --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig"
+          fairtool fair validate --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig"
 
       # Verifies that pages are enabled for this repository
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
@@ -161,7 +167,7 @@ jobs:
 
       - name: "Generate Icon"
         run: |
-          xcrun swift run -- fairtool fair icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          fairtool fair icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
@@ -457,7 +463,7 @@ jobs:
       - name: Install fairtool
         run: |
           brew tap appfair/app
-          brew install fairtool
+          brew install fairtool-head
           fairtool version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
