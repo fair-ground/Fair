@@ -301,10 +301,18 @@ public final class AppCatalogAPI {
 
     private init() {
     }
-}
 
-public extension AppCatalogAPI {
-    func catalogApp(url: URL) async throws -> AppCatalogItem {
+    /// Create a catalog of multiple artifacts.
+    public func catalogApps(urls: [URL]) async throws -> AppCatalog {
+        var items: [AppCatalogItem] = []
+        for url in urls {
+            items.append(try await catalogApp(url: url))
+        }
+        return AppCatalog(name: "CATALOG", identifier: "IDENTIFIER", apps: items)
+    }
+
+    /// Create a catalog item for an individual artifact.
+    public func catalogApp(url: URL) async throws -> AppCatalogItem {
         dbg("url:", url)
         let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
         dbg("localURL:", localURL)
@@ -367,16 +375,13 @@ public extension AppCatalogAPI {
 
     }
 
-}
-
-public extension AppCatalogAPI {
     private func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure, msg: ((MessagePayload) -> ())?) {
         msg?((.warn, ["app verify failure for \(app.downloadURL.absoluteString): \(failure.type) \(failure.message)"]))
         failures.append(failure)
     }
 
 
-    func verifyAppItem(app: AppCatalogItem, catalogURL: URL?, msg: ((MessagePayload) -> ())? = nil) async throws -> AppCatalogVerifyResult {
+    public func verifyAppItem(app: AppCatalogItem, catalogURL: URL?, msg: ((MessagePayload) -> ())? = nil) async throws -> AppCatalogVerifyResult {
         var failures: [AppCatalogVerifyFailure] = []
 
         if app.sha256 == nil {
