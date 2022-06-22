@@ -48,12 +48,18 @@ public protocol FairParsableCommand : FairMsgCommand {
 public protocol FairStructuredCommand : FairParsableCommand where Output : FairCommandOutput {
     /// Executes the command and results a streaming result of command responses
     func executeCommand() async throws -> AsyncThrowingStream<Output, Error>
+
+    func writeCommandStart() throws
+    func writeCommandEnd() throws
 }
 
 public extension FairStructuredCommand {
-    mutating func run() async throws {
+    func writeCommandStart() { }
+    func writeCommandEnd() { }
+
+    func run() async throws {
+        try writeCommandStart()
         msgOptions.writeOutputStart()
-        defer { msgOptions.writeOutputEnd() }
         var elements = try await self.executeCommand().makeAsyncIterator()
         if let first = try await elements.next() {
             try msgOptions.writeOutput(first)
@@ -62,6 +68,8 @@ public extension FairStructuredCommand {
                 try msgOptions.writeOutput(element)
             }
         }
+        msgOptions.writeOutputEnd()
+        try writeCommandEnd()
     }
 }
 
@@ -210,6 +218,8 @@ public struct SourceCommand : AsyncParsableCommand {
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
 
+        @OptionGroup public var sourceOptions: SourceOptions
+
         @Argument(help: ArgumentHelp("path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
         public var apps: [String]
 
@@ -219,8 +229,35 @@ public struct SourceCommand : AsyncParsableCommand {
             return msgOptions.executeStream(apps) { app in
                 msg(.info, "creating app catalog:", app)
                 let url = URL(fileOrScheme: app)
-                return try await AppCatalogAPI.shared.catalogApp(url: url)
+                return try await AppCatalogAPI.shared.catalogApp(url: url, options: sourceOptions, clearDownload: true)
             }
+        }
+
+        public func writeCommandStart() throws {
+            if msgOptions.promoteJSON == true {
+                return // skip generating enclosure
+            }
+            var catalog = AppCatalog(name: sourceOptions.catalogName ?? "CATALOG_NAME", identifier: sourceOptions.catalogIdentifier ?? "CATALOG_IDENTIFIER", apps: [])
+
+            if let catalogSource = sourceOptions.catalogSourceURL,
+               let catalogSourceURL = URL(string: catalogSource) {
+                catalog.sourceURL = catalogSourceURL
+            }
+
+            // trim out the "apps" array and tack it onto the end of the output so we
+            // can stream the apps afterwards
+            if let json = try catalog.json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String?.replacingOccurrences(of: #""apps":[],"#, with: "").dropLast() {
+                // since we want to retain the streaming apps array behavior, we just hardwire the JSON we spit out initially
+                // it will be followed by the async array of apps
+                msgOptions.write(json + #","apps":"#)
+            }
+        }
+
+        public func writeCommandEnd() {
+            if msgOptions.promoteJSON == true {
+                return // skip generating enclosure
+            }
+            msgOptions.write("}")
         }
     }
 
@@ -303,23 +340,31 @@ public final class AppCatalogAPI {
     }
 
     /// Create a catalog of multiple artifacts.
-    public func catalogApps(urls: [URL]) async throws -> AppCatalog {
+    public func catalogApps(urls: [URL], options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalog {
         var items: [AppCatalogItem] = []
         for url in urls {
-            items.append(try await catalogApp(url: url))
+            items.append(try await catalogApp(url: url, options: options, clearDownload: clearDownload))
         }
         return AppCatalog(name: "CATALOG", identifier: "IDENTIFIER", apps: items)
     }
 
     /// Create a catalog item for an individual artifact.
-    public func catalogApp(url: URL) async throws -> AppCatalogItem {
+    public func catalogApp(url: URL, options: SourceOptions?, clearDownload: Bool) async throws -> AppCatalogItem {
         dbg("url:", url)
-        let localURL = url.isFileURL ? url : try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL
+        let (downloaded, localURL) = url.isFileURL ? (false, url) : (true, try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL)
         dbg("localURL:", localURL)
         if !FileManager.default.isReadableFile(atPath: localURL.path) {
             throw AppError("Cannot read file at \(localURL.path)")
         }
-        
+
+        defer {
+            // if we downloaded the IPA in order to scan it, remove it once we are done
+            if clearDownload && downloaded {
+                dbg("removing temporary download file: \(localURL.path)")
+                try? FileManager.default.removeItem(at: localURL)
+            }
+        }
+
         let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
 
         guard let bundleID = info.CFBundleIdentifier else {
@@ -333,11 +378,15 @@ public final class AppCatalogAPI {
         var item = AppCatalogItem(name: bundleName, bundleIdentifier: BundleIdentifier(bundleID), downloadURL: url)
         item.version = info.CFBundleShortVersionString
         item.size = localURL.fileSize()
-        item.developerName = info.rawValue["NSHumanReadableCopyright"] as? String
 
-        item.subtitle = "SUBTITLE"
-        item.localizedDescription = "DESCRIPTION" // maybe check for a README file in the .ipa?
-        item.versionDescription = "VERSION DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
+
+        let defvalue = { options?.defaultValue(from: $0, bundleIdentifier: bundleID) }
+
+        item.subtitle = defvalue(\.appSubtitle) ?? "SUBTITLE"
+        item.developerName = defvalue(\.appDeveloperName) ?? "DEVELOPER_NAME"
+        item.downloadURL = defvalue(\.appDownloadURL).flatMap(URL.init(string:)) ?? url
+        item.localizedDescription = defvalue(\.appLocalizedDescription) ?? "LOCALIZED_DESCRIPTION" // maybe check for a README file in the .ipa?
+        item.versionDescription = defvalue(\.appVersionDescription) ?? "VERSION_DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
 
         // item.iconURL = … // if we were ambitious, we could try to extract the icon from the artifact and embed a data: url
         // item.tintColor = … // if we were ambitious, we could parse the assets and extract the tint color
@@ -1666,6 +1715,50 @@ public struct OutputOptions: ParsableArguments {
         } else {
             try data.write(to: URL(fileURLWithPath: output))
         }
+    }
+}
+
+public struct SourceOptions: ParsableArguments {
+    @Option(help: ArgumentHelp("the name of the catalog.", valueName: "name"))
+    public var catalogName: String?
+
+    @Option(help: ArgumentHelp("the identifier of the catalog.", valueName: "id"))
+    public var catalogIdentifier: String?
+
+    @Option(help: ArgumentHelp("the source URL of the catalog.", valueName: "url"))
+    public var catalogSourceURL: String?
+
+    // Per-app arguments
+
+    @Option(help: ArgumentHelp("the default description(s) for the app(s).", valueName: "desc"))
+    public var appLocalizedDescription: [String] = []
+
+    @Option(help: ArgumentHelp("the default versionDescription for the app(s).", valueName: "desc"))
+    public var appVersionDescription: [String] = []
+
+    @Option(help: ArgumentHelp("the default subtitle(s) for the app(s).", valueName: "title"))
+    public var appSubtitle: [String] = []
+
+    @Option(help: ArgumentHelp("the default developer name(s) for the app(s).", valueName: "email"))
+    public var appDeveloperName: [String] = []
+
+    @Option(help: ArgumentHelp("the download URLfor the app(s).", valueName: "URL"))
+    public var appDownloadURL: [String] = []
+
+    public init() {
+    }
+
+    public func defaultValue(from path: KeyPath<Self, [String]>, bundleIdentifier: String?) -> String? {
+        let options = self[keyPath: path]
+
+        // if we specified a bundle identifier, return the first element
+        if let bundleIdentifier = bundleIdentifier,
+           let field = options.first(where: { $0.hasPrefix(bundleIdentifier + "=") }) {
+            return field.dropFirst(bundleIdentifier.count + 1).description
+        }
+
+        // otherwise, return the first default with an equals
+        return options.first(where: { $0.contains("=") == false })
     }
 }
 
