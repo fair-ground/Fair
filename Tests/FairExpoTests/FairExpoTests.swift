@@ -15,6 +15,7 @@
 import Swift
 import XCTest
 import FairCore
+import FairApp
 import FairExpo
 
 /// Tests different command options for the FairToolCommand.

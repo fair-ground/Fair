@@ -30,6 +30,14 @@ public struct AppCatalog : Pure {
     public var apps: [AppCatalogItem]
     /// Any news items for the catalog
     public var news: [AppNewsPost]?
+
+    public init(name: String, identifier: String, sourceURL: URL? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil) {
+        self.name = name
+        self.identifier = identifier
+        self.sourceURL = sourceURL
+        self.apps = apps
+        self.news = news
+    }
 }
 
 public extension AppCatalog {
