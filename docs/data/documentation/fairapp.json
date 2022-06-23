@@ -92,14 +92,19 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AccentColorList",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlementPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppError",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppIconSet",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
+        "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
@@ -420,6 +425,71 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundleloader"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog": {
+  "abstract" : [
+    {
+      "text" : "A catalog of all the available apps on the fairground.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalog"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalog",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogItem": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogItem"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogItem",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem"
+},
 "doc://FairApp/documentation/FairApp/AppCategory": {
   "abstract" : [
     {
@@ -668,6 +738,71 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/applegacypermission"
 },
+"doc://FairApp/documentation/FairApp/AppNameValidation": {
+  "abstract" : [
+    {
+      "text" : "The strategy for validating an app’s name",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppNameValidation"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppNameValidation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppNameValidation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appnamevalidation"
+},
+"doc://FairApp/documentation/FairApp/AppNewsPost": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppNewsPost"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppNewsPost"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppNewsPost",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appnewspost"
+},
 "doc://FairApp/documentation/FairApp/AppPermission": {
   "abstract" : [
 
@@ -766,6 +901,40 @@
   "title" : "AssetName",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/assetname"
+},
+"doc://FairApp/documentation/FairApp/BundleIdentifier": {
+  "abstract" : [
+    {
+      "text" : "A type wrapper for a bundle identifier string",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BundleIdentifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BundleIdentifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BundleIdentifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/bundleidentifier"
 },
 "doc://FairApp/documentation/FairApp/CursoredAPIRequest": {
   "abstract" : [

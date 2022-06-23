@@ -58,17 +58,12 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalog",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogItem",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNameValidation",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNewsPost",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactTarget",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BuildSettings",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/BundleIdentifier",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/DownloadOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
@@ -140,40 +135,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/AppCatalog": {
-  "abstract" : [
-    {
-      "text" : "A catalog of all the available apps on the fairground.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalog"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalog",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalog"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalog",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalog"
-},
 "doc://FairExpo/documentation/FairExpo/AppCatalogAPI": {
   "abstract" : [
 
@@ -204,37 +165,6 @@
   "title" : "AppCatalogAPI",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogapi"
-},
-"doc://FairExpo/documentation/FairExpo/AppCatalogItem": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogitem"
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogVerifyFailure": {
   "abstract" : [
@@ -339,71 +269,6 @@
   "title" : "AppCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand"
-},
-"doc://FairExpo/documentation/FairExpo/AppNameValidation": {
-  "abstract" : [
-    {
-      "text" : "The strategy for validating an app’s name",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppNameValidation"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNameValidation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppNameValidation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppNameValidation",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appnamevalidation"
-},
-"doc://FairExpo/documentation/FairExpo/AppNewsPost": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppNewsPost"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppNewsPost",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppNewsPost"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppNewsPost",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appnewspost"
 },
 "doc://FairExpo/documentation/FairExpo/ArtifactTarget": {
   "abstract" : [
@@ -516,40 +381,6 @@
   "title" : "BuildSettings",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/buildsettings"
-},
-"doc://FairExpo/documentation/FairExpo/BundleIdentifier": {
-  "abstract" : [
-    {
-      "text" : "A type wrapper for a bundle identifier string",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BundleIdentifier"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BundleIdentifier",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BundleIdentifier"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BundleIdentifier",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/bundleidentifier"
 },
 "doc://FairExpo/documentation/FairExpo/DownloadOptions": {
   "abstract" : [

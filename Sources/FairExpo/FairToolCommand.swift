@@ -388,6 +388,11 @@ public final class AppCatalogAPI {
         item.localizedDescription = defvalue(\.appLocalizedDescription) ?? "LOCALIZED_DESCRIPTION" // maybe check for a README file in the .ipa?
         item.versionDescription = defvalue(\.appVersionDescription) ?? "VERSION_DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
 
+        // TODO: look into why this never seems to be present in the app's Info.plist
+        if let appCategory = info.rawValue[InfoPlistKey.LSApplicationCategoryType.plistKey] as? String {
+            item.categories = [appCategory]
+        }
+
         // item.iconURL = … // if we were ambitious, we could try to extract the icon from the artifact and embed a data: url
         // item.tintColor = … // if we were ambitious, we could parse the assets and extract the tint color
 
