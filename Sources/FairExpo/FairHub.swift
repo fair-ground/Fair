@@ -2070,7 +2070,8 @@ extension AppCatalog {
             let identifier = "release-" + bundleID + "-" + (diff.new.version ?? "new")
             let title = fmt(title)
             let caption = ""
-            var post = AppNewsPost(identifier: identifier, date: Date().ISO8601Format(), title: title, caption: caption)
+            let date = ISO8601DateFormatter().string(from: Date())
+            var post = AppNewsPost(identifier: identifier, date: date, title: title, caption: caption)
             post.appID = bundleID
             news.append(post)
         }
