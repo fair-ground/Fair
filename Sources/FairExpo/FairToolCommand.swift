@@ -136,6 +136,7 @@ public struct FairToolCommand : AsyncParsableCommand {
         }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             let version = Bundle.fairCoreVersion
             msg(.info, "fairtool", version?.versionStringExtended)
         }
@@ -322,7 +323,7 @@ public struct SourceCommand : AsyncParsableCommand {
         public var newsItems: Int?
 
         @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
-        public var postTitle: String
+        public var postTitle: String // TODO: should we distinguish between new apps (to a catalog) vs. version changes? E.g., postTitleNew="New App Available on the Fairground: Firefox VERSION" and postTitleRelease="New Version of Firefox (VERSION) now available on the Fairground"
 
         @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
         public var postBody: String?
@@ -336,13 +337,28 @@ public struct SourceCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             msg(.info, "posting changes from: \(fromCatalog) to \(toCatalog)")
             let fromCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
             var toCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: toCatalog)))
             let diffs = AppCatalog.newReleases(from: fromCatalog, to: toCatalog)
+
+            // copy over the news from the previous catalog…
+            toCatalog.news = fromCatalog.news
+
+            // … then add items for each of the new releases, purging duplicates as needed
             toCatalog.addNews(for: diffs, title: postTitle, url: postURL, limit: newsItems)
+            
             let json = try outputOptions.writeCatalog(toCatalog)
             msg(.info, "Wrote catalog to", json.count.localizedByteCount())
+        }
+    }
+}
+
+extension FairMsgCommand {
+    func warnExperimental(_ experimental: Bool) {
+        if experimental {
+            msg(.warn, "the \(Self.configuration.commandName ?? "") command is experimental and may change in minor releases")
         }
     }
 }
@@ -687,6 +703,7 @@ public struct FairCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             msg(.info, "Validating project:", projectOptions.projectPathURL(path: "").path)
             //msg(.debug, "flags:", flags)
 
@@ -917,6 +934,7 @@ public struct FairCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             msg(.info, "merge")
 
             if outputOptions.outputDirectoryFlag == projectOptions.projectPathFlag {
@@ -1009,6 +1027,7 @@ public struct FairCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             try await self.catalog()
         }
 
@@ -1088,6 +1107,7 @@ public struct FairCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             msg(.info, "Fairseal")
 
             // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
@@ -1409,6 +1429,7 @@ public struct FairCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             try await runOnMain()
         }
 
@@ -1719,6 +1740,7 @@ public struct BrewCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            warnExperimental(Self.experimental)
             msg(.info, "AppCasks")
             try await retryOptions.retrying() {
                 try await createAppCasks()
@@ -1928,7 +1950,7 @@ public struct HubOptions: ParsableArguments {
 
 }
 
-fileprivate extension FairParsableCommand {
+fileprivate extension FairMsgCommand {
 
     /// Output the given message to standard error
     func msg(_ kind: MessageKind = .info, _ message: Any?...) {
