@@ -281,11 +281,6 @@ final class FairExpoTests: XCTestCase {
             let cat = try await fetch("https://flyinghead.github.io/flycast-builds/altstore.json")
             XCTAssertNotEqual(0, cat.apps.count)
         }
-
-        do {
-            let cat = try await fetch("https://altstore.oatmealdome.me")
-            XCTAssertNotEqual(0, cat.apps.count)
-        }
     }
 
     func testCatalogPost() throws {
