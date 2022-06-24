@@ -103,7 +103,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost\/init(from:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost\/init(from:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost\/init(identifier:date:title:caption:notify:tintColor:url:imageURL:appID:sourceIdentifier:)"
       ],
       "title" : "Initializers"
     },
@@ -321,10 +322,6 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost\/caption",
@@ -362,10 +359,6 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost\/date",
@@ -494,6 +487,197 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appnewspost\/init(from:)"
+},
+"doc://FairApp/documentation/FairApp/AppNewsPost/init(identifier:date:title:caption:notify:tintColor:url:imageURL:appID:sourceIdentifier:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "date"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "caption"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "notify"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "tintColor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "imageURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appID"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "sourceIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost\/init(identifier:date:title:caption:notify:tintColor:url:imageURL:appID:sourceIdentifier:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(identifier:date:title:caption:notify:tintColor:url:imageURL:appID:sourceIdentifier:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appnewspost\/init(identifier:date:title:caption:notify:tintcolor:url:imageurl:appid:sourceidentifier:)"
 },
 "doc://FairApp/documentation/FairApp/AppNewsPost/notify": {
   "abstract" : [

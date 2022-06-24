@@ -1,0 +1,546 @@
+{
+  "abstract" : [
+    {
+      "text" : "Causes the view to change its ",
+      "type" : "text"
+    },
+    {
+      "code" : "SymbolVariants",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when it is hovered.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The animation only works with ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolRenderingMode(.hierarchical)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairKit\/documentation\/FairKit",
+        "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton",
+        "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/View-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/hoverSymbol(activeVariant:inactiveVariant:animation:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "SwiftUI",
+    "externalID" : "s:7SwiftUI4ViewP7FairKitE11hoverSymbol13activeVariant08inactiveI09animationAA15ModifiedContentVyxAD05HoverG8ModifierVGAA0G8VariantsV_AoA9AnimationVSgtF::SYNTHESIZED::s:7FairKit12TeaserButtonV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "hoverSymbol"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "activeVariant"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+        "text" : "SymbolVariants"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "inactiveVariant"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+        "text" : "SymbolVariants"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "animation"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+        "text" : "Animation"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+        "text" : "ModifiedContent"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairKit19HoverSymbolModifierV",
+        "text" : "HoverSymbolModifier"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairKit"
+      }
+    ],
+    "platforms" : [
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "introducedAt" : "15.0",
+        "name" : "iOS",
+        "unavailable" : false
+      },
+      {
+        "beta" : false,
+        "deprecated" : false,
+        "introducedAt" : "12.0",
+        "name" : "macOS",
+        "unavailable" : false
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "hoverSymbol(activeVariant:inactiveVariant:animation:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "hoverSymbol"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "activeVariant"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+              "text" : "SymbolVariants"
+            },
+            {
+              "kind" : "text",
+              "text" : " = SymbolVariants.fill, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "inactiveVariant"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+              "text" : "SymbolVariants"
+            },
+            {
+              "kind" : "text",
+              "text" : " = SymbolVariants.none, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "animation"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+              "text" : "Animation"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = .default) -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+              "text" : "ModifiedContent"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/HoverSymbolModifier",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairKit19HoverSymbolModifierV",
+              "text" : "HoverSymbolModifier"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairkit\/teaserbutton\/hoversymbol(activevariant:inactivevariant:animation:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairKit/documentation/FairKit": {
+  "abstract" : [
+    {
+      "text" : "Extensions to ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairApp",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " around creating useful apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit"
+},
+"doc://FairKit/documentation/FairKit/HoverSymbolModifier": {
+  "abstract" : [
+    {
+      "text" : "A modifier that changes the ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolVariant",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " based on whether it is hovered over.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HoverSymbolModifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/HoverSymbolModifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HoverSymbolModifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HoverSymbolModifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/hoversymbolmodifier"
+},
+"doc://FairKit/documentation/FairKit/TeaserButton": {
+  "abstract" : [
+    {
+      "text" : "A button that wraps an action with a check for whether the feature is available yet",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TeaserButton"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TeaserButton"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TeaserButton",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/teaserbutton"
+},
+"doc://FairKit/documentation/FairKit/TeaserButton/View-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/View-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "View Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/teaserbutton\/view-implementations"
+},
+"doc://FairKit/documentation/FairKit/TeaserButton/hoverSymbol(activeVariant:inactiveVariant:animation:)": {
+  "abstract" : [
+    {
+      "text" : "Causes the view to change its ",
+      "type" : "text"
+    },
+    {
+      "code" : "SymbolVariants",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when it is hovered.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The animation only works with ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolRenderingMode(.hierarchical)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hoverSymbol"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "activeVariant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inactiveVariant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "animation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+      "text" : "Animation"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit19HoverSymbolModifierV",
+      "text" : "HoverSymbolModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/hoverSymbol(activeVariant:inactiveVariant:animation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hoverSymbol(activeVariant:inactiveVariant:animation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/teaserbutton\/hoversymbol(activevariant:inactivevariant:animation:)"
+}
+}
+}

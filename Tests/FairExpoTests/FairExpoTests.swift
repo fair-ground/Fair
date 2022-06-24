@@ -258,6 +258,60 @@ final class FairExpoTests: XCTestCase {
         FairToolCommand.main(["fairtool", "catalog", "--org", "App-Fair", "--fairseal-issuer", "appfairbot", "--hub", "github.com/appfair", "--token", Self.authToken ?? "", "--output", "/tmp/fairapps-\(UUID().uuidString).json"])
     }
     #endif
+
+    /// Ensures that the catalog verifies against various public sources
+    func testExternalCatalogVerification() async throws {
+        /// downloads the catalog at the given URL and ensures that it parses correctly
+        let fetch = { url in try AppCatalog.parse(jsonData: await URLSession.shared.fetch(request: URLRequest(url: URL(string: dump(url, name: "downloading catalog from: \(url)"))!)).data) }
+
+        do {
+            let cat = try await fetch("https://apps.altstore.io")
+            XCTAssertNotEqual(0, cat.apps.count)
+        }
+
+        do {
+            let cat = try await fetch("https://alt.getutm.app")
+            XCTAssertNotEqual(0, cat.apps.count)
+        }
+
+        do {
+            let cat = try await fetch("https://flyinghead.github.io/flycast-builds/altstore.json")
+            XCTAssertNotEqual(0, cat.apps.count)
+        }
+
+        do {
+            let cat = try await fetch("https://altstore.oatmealdome.me")
+            XCTAssertNotEqual(0, cat.apps.count)
+        }
+    }
+
+    func testCatalogPost() throws {
+        let pre = try Bundle.module.loadBundleResource(named: "fairapps-pre.json")
+        let post = try Bundle.module.loadBundleResource(named: "fairapps-post.json")
+        XCTAssertNotEqual(pre, post)
+
+        let cat1 = try AppCatalog.parse(jsonData: pre)
+        let cat2 = try AppCatalog.parse(jsonData: post)
+        XCTAssertNotEqual(cat1, cat2)
+
+        let diffs = AppCatalog.newReleases(from: cat1, to: cat2)
+        let diff = try XCTUnwrap(diffs.first, "should have been differences between catalogs")
+        XCTAssertEqual(1, diffs.count, "should have been only a single difference")
+
+        XCTAssertEqual("0.9.75", diff.new.version)
+        XCTAssertEqual("0.9.74", diff.old?.version)
+
+        let title = "New Release: #(appname) v#(appversion)"
+        
+        var cat2Post = cat2
+        cat2Post.addNews(for: diffs, title: title, limit: 0)
+        XCTAssertEqual(cat2Post, cat2)
+        cat2Post.addNews(for: diffs, title: title, limit: 1)
+        XCTAssertNotEqual(cat2Post, cat2)
+        XCTAssertEqual("release-app.Cloud-Cuckoo-0.9.75", cat2Post.news?.first?.identifier)
+        XCTAssertEqual("New Release: Cloud Cuckoo v0.9.75", cat2Post.news?.first?.title)
+        XCTAssertEqual("app.Cloud-Cuckoo", cat2Post.news?.first?.appID)
+    }
 }
 
 public struct PackageManifest : Pure {

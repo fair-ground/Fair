@@ -648,4 +648,11 @@ final class FairCoreTests: XCTestCase {
             XCTAssertThrowsError(try data.readData(ofLength: 1))
         }
     }
+
+    func testTemplating() throws {
+        XCTAssertEqual("XXX", "XXX".replacing(variables: [:]))
+        XCTAssertEqual("Abc XXX 123", "Abc #(var) 123".replacing(variables: ["var": "XXX"]))
+        XCTAssertEqual("result", "#(v3#(v2#(v1)))".replacing(variables: ["v1": "P", "v2P": "Q", "v3Q": "result"]))
+    }
+
 }

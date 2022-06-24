@@ -2042,3 +2042,67 @@ private extension String {
     }
 }
 
+
+extension AppCatalogItem {
+    public struct Diff {
+        public let new: AppCatalogItem
+        public let old: AppCatalogItem?
+    }
+}
+
+extension AppCatalog {
+    /// Takes the differences from two catalogs and adds them to the postings with the given formats and limits.
+    public mutating func addNews(for diffs: [AppCatalogItem.Diff], title: String, url: String? = nil, limit: Int? = nil) {
+        var news: [AppNewsPost] = self.news ?? []
+        for diff in diffs {
+            let bundleID = diff.new.bundleIdentifier.rawValue
+
+            let fmt = { (str: String) in
+                str.replacing(variables: [
+                    "appname": diff.new.name,
+                    "appname_hyphenated": diff.new.appNameHyphenated,
+                    "appbundleid": bundleID,
+                    "appversion": diff.new.version,
+                ].compactMapValues({ $0 }))
+            }
+
+            // a unique identifier for the item
+            let identifier = "release-" + bundleID + "-" + (diff.new.version ?? "new")
+            let title = fmt(title)
+            let caption = ""
+            var post = AppNewsPost(identifier: identifier, date: Date().ISO8601Format(), title: title, caption: caption)
+            post.appID = bundleID
+            news.append(post)
+        }
+
+        // trim down the news count until we are at the limit
+        self.news = limit == 0 ? nil : news.count > (limit ?? .max) ? news.suffix(limit ?? .max) : news.isEmpty ? nil : news
+    }
+
+    /// Compare two catalogs and report the changes that indicate version changes between catalog entries with the same bundle identifier
+    public static func newReleases(from oldcat: AppCatalog, to newcat: AppCatalog, comparator: (_ new: AppCatalogItem, _ old: AppCatalogItem?) -> Bool = { $0.version != $1?.version }) -> [AppCatalogItem.Diff] {
+        let oldapps = oldcat.apps.filter { $0.beta != true }
+        let newapps = newcat.apps.filter { $0.beta != true }
+
+        let oldids = oldapps.map(\.bundleIdentifier)
+        let newids = newapps.map(\.bundleIdentifier)
+
+        let oldmap = oldapps.dictionary(keyedBy: \.bundleIdentifier)
+        let newmap = newapps.dictionary(keyedBy: \.bundleIdentifier)
+
+        var diffs: [AppCatalogItem.Diff] = []
+        for appid in (oldids + newids).distinct() {
+            guard let newapp = newmap[appid] else {
+                // the app has been removed; not newsworthy
+                continue
+            }
+
+            let oldapp: AppCatalogItem? = oldmap[appid]
+            if comparator(newapp, oldapp) {
+                diffs.append(AppCatalogItem.Diff(new: newapp, old: oldapp))
+            }
+        }
+
+        return diffs
+    }
+}
