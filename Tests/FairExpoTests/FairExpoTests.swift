@@ -17,6 +17,9 @@ import XCTest
 import FairCore
 import FairApp
 import FairExpo
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// Tests different command options for the FairToolCommand.
 ///
@@ -302,7 +305,7 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual("0.9.74", diff.old?.version)
 
         let title = "New Release: #(appname) v#(appversion)"
-        
+
         var cat2Post = cat2
         cat2Post.addNews(for: diffs, title: title, limit: 0)
         XCTAssertEqual(cat2Post, cat2)
