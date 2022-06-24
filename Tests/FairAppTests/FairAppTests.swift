@@ -508,6 +508,24 @@ final class FairAppTests: XCTestCase {
         XCTAssertEqual(2, pm.object.pins.count)
     }
 
+    /// Ensures that a bare-bones minimal catalog can be loaded
+    func testParseCatalog() throws {
+        let catalog = try AppCatalog.parse(jsonData: """
+        {
+          "name": "My Catalog",
+          "identifier": "a.b.c",
+          "apps": [
+            {
+              "name": "My App",
+              "bundleIdentifier": "x.y.z",
+              "downloadURL": "https://www.example.com/MyApp.ipa"
+            }
+          ]
+        }
+        """.utf8Data)
+
+        XCTAssertEqual("My App", catalog.apps.first?.name)
+    }
 }
 
 #endif

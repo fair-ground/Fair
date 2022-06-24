@@ -93,7 +93,14 @@ public extension Sequence where Element : Hashable {
     @inlinable func set() -> Set<Element> {
         Set(self)
     }
+
+    /// Returns the elements of this sequence by filtering out elements that are equatable to any earlier instance.
+    @inlinable func distinct() -> [Element] {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
+    }
 }
+
 
 public extension Sequence {
     /// Crrates a dictionary keying on the given `key`.
@@ -350,6 +357,17 @@ extension String {
     /// `addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed)`
     public var escapedURLTerm: String {
         addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? self
+    }
+}
+
+extension String {
+    /// Replaces the variables by substituting `#(key)` instances with the corresponding value in the `variables` map.
+    public func replacing(variables: [String: String], varPrefix: String = "#(", varSuffix: String = ")") -> String {
+        var str = self
+        for (key, value) in variables.sorted(by: { $0.key < $1.key }) {
+            str = str.replacingOccurrences(of: varPrefix + key + varSuffix, with: value)
+        }
+        return str
     }
 }
 

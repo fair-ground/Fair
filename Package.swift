@@ -48,10 +48,10 @@ let package = Package(
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources"), .copy("Bundle")]),
         .executableTarget(name: "FairTool", dependencies: ["FairExpo"]),
 
-        .testTarget(name: "FairCoreTests", dependencies: ["FairCore"]),
+        .testTarget(name: "FairCoreTests", dependencies: ["FairCore"], resources: [.process("Resources"), .copy("Bundle")]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources"), .copy("Bundle")]),
-        .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")]),
-        .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")]),
-        .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")])
+        .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")], resources: [.process("Resources"), .copy("Bundle")]),
+        .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources"), .copy("Bundle")]),
+        .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")], resources: [.process("Resources"), .copy("Bundle")])
     ]
 )

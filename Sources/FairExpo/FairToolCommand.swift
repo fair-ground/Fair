@@ -204,6 +204,7 @@ public struct SourceCommand : AsyncParsableCommand {
         subcommands: [
             CreateCommand.self,
             VerifyCommand.self,
+            PostReleaseCommand.self,
         ])
 
     public init() {
@@ -299,6 +300,59 @@ public struct SourceCommand : AsyncParsableCommand {
             }
         }
     }
+
+    public struct PostReleaseCommand: FairParsableCommand {
+        public static let experimental = true
+        public typealias Output = AppNewsPost
+
+        public static var configuration = CommandConfiguration(commandName: "postrelease",
+            abstract: "Compare sources and post app version changes.",
+            shouldDisplay: !experimental)
+        @OptionGroup public var msgOptions: MsgOptions
+
+        @OptionGroup public var outputOptions: OutputOptions
+
+        @Option(name: [.long], help: ArgumentHelp("the source catalog.", valueName: "src"))
+        public var fromCatalog: String
+
+        @Option(name: [.long], help: ArgumentHelp("the destination catalog.", valueName: "dest"))
+        public var toCatalog: String
+
+        @Option(name: [.long], help: ArgumentHelp("limit number of news items.", valueName: "limit"))
+        public var newsItems: Int?
+
+        @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
+        public var postTitle: String
+
+        @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
+        public var postBody: String?
+
+        @Option(name: [.long], help: ArgumentHelp("the app id for the post.", valueName: "appid"))
+        public var postAppID: String?
+
+        @Option(name: [.long], help: ArgumentHelp("the post URL format.", valueName: "format"))
+        public var postURL: String?
+
+        public init() { }
+
+        public mutating func run() async throws {
+            msg(.info, "posting changes from: \(fromCatalog) to \(toCatalog)")
+            let fromCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
+            var toCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: toCatalog)))
+            let diffs = AppCatalog.newReleases(from: fromCatalog, to: toCatalog)
+            toCatalog.addNews(for: diffs, title: postTitle, url: postURL, limit: newsItems)
+            let json = try outputOptions.writeCatalog(toCatalog)
+            msg(.info, "Wrote catalog to", json.count.localizedByteCount())
+        }
+    }
+}
+
+extension OutputOptions {
+    func writeCatalog(_ catalog: AppCatalog) throws -> Data {
+        let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+        try self.write(json)
+        return json
+    }
 }
 
 public extension URL {
@@ -315,7 +369,11 @@ public extension URL {
         }
     }
 }
+
 extension AppCatalogItem : FairCommandOutput {
+}
+
+extension AppNewsPost : FairCommandOutput {
 }
 
 /// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
@@ -1678,8 +1736,7 @@ public struct BrewCommand : AsyncParsableCommand {
                 msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
             }
 
-            let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
-            try outputOptions.write(json)
+            let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote appcasks to", outputOptions.output, json.count.localizedByteCount())
         }
     }

@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
-import FairApp
+import FairCore
 import Foundation
 
 /// A catalog of all the available apps on the fairground.
@@ -41,6 +41,7 @@ public struct AppCatalog : Pure {
 }
 
 public extension AppCatalog {
+    /// Parses the `AppCatalog` with the expected parameters (i.e., date encoding as iso8601).
     static func parse(jsonData: Data) throws -> Self {
         try AppCatalog(json: jsonData, dateDecodingStrategy: .iso8601)
     }
@@ -50,11 +51,11 @@ public struct AppNewsPost : Pure {
     /// A unique identifer for the news posting
     public var identifier: String
     /// The date of the news
-    public var date: String? // e.g. "2019-09-25"
+    public var date: String // can be either "2022-05-05" or "2020-04-10T13:30:00-07:00"
     /// The title for the news
     public var title: String
     /// A news caption
-    public var caption: String?
+    public var caption: String
     /// Whether the news item should trigger a notification by default
     public var notify: Bool?
     /// The tint color for the news item
@@ -67,6 +68,19 @@ public struct AppNewsPost : Pure {
     public var appID: String?
     /// The source identifier
     public var sourceIdentifier: String?
+
+    public init(identifier: String, date: String, title: String, caption: String, notify: Bool? = nil, tintColor: String? = nil, url: String? = nil, imageURL: String? = nil, appID: String? = nil, sourceIdentifier: String? = nil) {
+        self.identifier = identifier
+        self.date = date
+        self.title = title
+        self.caption = caption
+        self.notify = notify
+        self.tintColor = tintColor
+        self.url = url
+        self.imageURL = imageURL
+        self.appID = appID
+        self.sourceIdentifier = sourceIdentifier
+    }
 }
 
 public extension AppCatalogItem {
