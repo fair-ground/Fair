@@ -2073,6 +2073,8 @@ extension AppCatalog {
             let date = ISO8601DateFormatter().string(from: Date())
             var post = AppNewsPost(identifier: identifier, date: date, title: title, caption: caption)
             post.appID = bundleID
+            // clear out any older news postings with the same bundle id
+            news = news.filter({ $0.appID != bundleID })
             news.append(post)
         }
 
