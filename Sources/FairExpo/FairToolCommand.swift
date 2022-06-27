@@ -965,6 +965,7 @@ public struct FairCommand : AsyncParsableCommand {
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
         @OptionGroup public var projectOptions: ProjectOptions
+        @OptionGroup public var regOptions: RegOptions
         @OptionGroup public var validateOptions: ValidateOptions
         @OptionGroup public var orgOptions: OrgOptions
         @OptionGroup public var hubOptions: HubOptions
@@ -993,6 +994,7 @@ public struct FairCommand : AsyncParsableCommand {
             vc.validateOptions = self.validateOptions
             vc.orgOptions = self.orgOptions
             vc.projectOptions = self.projectOptions
+            vc.regOptions = self.regOptions
             try await vc.run()
 
             /// Attempt to copy the path from the projectPath to the outputPath,
