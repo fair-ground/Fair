@@ -136,15 +136,14 @@ final class FairEntitlementsTests: XCTestCase {
                 if FileManager.default.isExecutableFile(atPath: executable.path) {
                     dbg("scanning macOS executable:", executable.path)
 
-                    if executable.lastPathComponent == "Sonos" { continue }
-                    if executable.lastPathComponent == "Docker" { continue }
-                    if executable.lastPathComponent == "Transmission" { continue }
-                    if executable.lastPathComponent == "Final Cut Pro" { continue }
                     if executable.lastPathComponent == "Xcode" { continue } // seems to crash on CI
                     if executable.lastPathComponent == "Firefox" { continue } // seems to crash on CI
+                    if executable.lastPathComponent == "Final Cut Pro" { continue }
+                    if executable.lastPathComponent == "Docker" { continue }
+                    if executable.lastPathComponent == "Sonos" { continue }
+                    if executable.lastPathComponent == "Hex Fiend" { continue }
+                    if executable.lastPathComponent == "Transmission" { continue }
 
-
-                    //XCTAssertNoThrow(try readEntitlements(executable.path), "executable failed: \(executable.path)")
                     do {
                         let _ = try readEntitlements(executable.path)
                     } catch {

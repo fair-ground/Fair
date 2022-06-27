@@ -243,6 +243,16 @@ final class FairExpoTests: XCTestCase {
         }
     }
 
+    func testFetchCaskInfo() async throws {
+        let (casks, _) = try await HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint).fetchCasks()
+        XCTAssertGreaterThan(casks.count, 4_000, "too few casks") // 4_021 at last count
+    }
+
+    func testFetchCaskStats() async throws {
+        let stats = try await HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint).fetchAppStats()
+        XCTAssertGreaterThan(stats.total_count, 500_000, "too few casks") // 889272 at last count
+    }
+
     #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”
     @available(macOS 11, iOS 14, *)
     func XXXtestCLIHelp() async throws {
