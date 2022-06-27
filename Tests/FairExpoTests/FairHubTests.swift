@@ -43,7 +43,8 @@ final class FairHubTests: XCTestCase {
             throw XCTSkip("cannot run API tests without a token")
         }
 
-        return try FairHub(hostOrg: "github.com/" + org, authToken: authToken, fairsealIssuer: "appfairbot", allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+        //let reg = FairReg(fairsealIssuer: "appfairbot", allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+        return try FairHub(hostOrg: "github.com/" + org, authToken: authToken)
     }
 
     /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
@@ -186,7 +187,7 @@ final class FairHubTests: XCTestCase {
 
         func buildCatalog() async throws {
             let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, requestLimit: nil)
+            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, reg: FairReg(), requestLimit: nil)
             let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
             dbg("catalog", names.sorted())
 
@@ -216,7 +217,8 @@ final class FairHubTests: XCTestCase {
 
         func buildCatalog() async throws {
             let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
-            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, requestLimit: nil)
+            let reg = try FairReg() // fairsealIssuer: "appfairbot", allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, reg: reg, requestLimit: nil)
             let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
             dbg("catalog", names.sorted())
 

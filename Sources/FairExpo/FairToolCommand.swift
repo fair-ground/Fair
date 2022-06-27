@@ -350,7 +350,7 @@ public struct SourceCommand : AsyncParsableCommand {
             toCatalog.addNews(for: diffs, title: postTitle, url: postURL, limit: newsItems)
             
             let json = try outputOptions.writeCatalog(toCatalog)
-            msg(.info, "Wrote catalog to", json.count.localizedByteCount())
+            msg(.info, "posted", diffs.count, "changes to catalog", json.count.localizedByteCount(), "old items:", fromCatalog.news?.count ?? 0, "new items:", toCatalog.news?.count ?? 0)
         }
     }
 }
@@ -495,6 +495,8 @@ public final class AppCatalogAPI {
 
         item.permissions = permissions.isEmpty ? nil : permissions
 
+        // benchmarking a catalog of 88 apps: 17.9 seconds without any hashing, 35.48 seconds with Data(contentsOfURL:).sha256() hashing, 1,492.87 seconds (release config) with async URLSession.shared.sha256(for:) hashing
+        //item.sha256 = try await URLSession.shared.sha256(for: localURL).hex() // 42 times slower!
         item.sha256 = try Data(contentsOf: localURL, options: .mappedIfSafe).sha256().hex() // without alwaysMapped or mappedIfSafe, memory seems to grow
 
         return item
@@ -630,6 +632,39 @@ public final class AppCatalogAPI {
 
 }
 
+extension URLSession {
+    /// Asynchronously generate a SHA-256 for the contents of this URL (experimental and slow).
+    @available(*, deprecated, message: "42x slower than Data(contentsOfURL:).sha256()")
+    func sha256(for url: URL, hashBufferSize: Int = 1024 * 1024) async throws -> Data {
+        let (asyncBytes, _) = try await self.bytes(for: URLRequest(url: url))
+
+        var bytes = Data()
+        bytes.reserveCapacity(hashBufferSize)
+
+        let hasher = SHA256Hasher()
+
+        func flushBuffer(_ bytesCount: Int64) async throws {
+            try Task.checkCancellation()
+            await hasher.update(data: bytes) // update the running hash
+            bytes.removeAll(keepingCapacity: true) // clear the buffer
+        }
+
+        var bytesCount: Int64 = 0
+        for try await byte in asyncBytes {
+            bytesCount += 1
+            bytes.append(byte)
+            if bytes.count == hashBufferSize {
+                try await flushBuffer(bytesCount)
+            }
+        }
+        if !bytes.isEmpty {
+            try await flushBuffer(bytesCount)
+        }
+
+        let sha256 = await hasher.final()
+        return sha256
+    }
+}
 
 extension Plist {
     /// A map of all the "*UsageDescription*" properties that have string values
@@ -696,9 +731,11 @@ public struct FairCommand : AsyncParsableCommand {
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
+        @OptionGroup public var regOptions: RegOptions
         @OptionGroup public var validateOptions: ValidateOptions
         @OptionGroup public var orgOptions: OrgOptions
         @OptionGroup public var projectOptions: ProjectOptions
+
 
         public init() { }
 
@@ -814,7 +851,7 @@ public struct FairCommand : AsyncParsableCommand {
                 try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
                 try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
 
-                let licenseFlag = self.hubOptions.license
+                let licenseFlag = self.regOptions.license
                 if !licenseFlag.isEmpty {
                     try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
                 }
@@ -911,7 +948,8 @@ public struct FairCommand : AsyncParsableCommand {
             msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
             msg(.debug, "  discussion categories:", repo.discussionCategories.totalCount)
 
-            let invalid = hub.validate(org: organization)
+            let reg = try self.regOptions.fairReg()
+            let invalid = hub.validate(org: organization, reg: reg)
             if !invalid.isEmpty {
                 throw FairHub.Errors.repoInvalid(invalid, org, repoName)
             }
@@ -1020,6 +1058,7 @@ public struct FairCommand : AsyncParsableCommand {
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
+        @OptionGroup public var regOptions: RegOptions
         @OptionGroup public var catalogOptions: CatalogOptions
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
@@ -1052,8 +1091,10 @@ public struct FairCommand : AsyncParsableCommand {
                 artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
             }
 
+            let reg = try regOptions.fairReg()
+
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, requestLimit: self.catalogOptions.requestLimit)
+            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, reg: reg, requestLimit: self.catalogOptions.requestLimit)
 
             msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
             for apprel in catalog.apps {
@@ -1737,6 +1778,9 @@ public struct BrewCommand : AsyncParsableCommand {
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
+//        @Option(name: [.long], help: ArgumentHelp("the maximum number of apps to include.", valueName: "count"))
+//        public var maxCount: Int?
+
         public init() { }
 
         public mutating func run() async throws {
@@ -1753,18 +1797,13 @@ public struct BrewCommand : AsyncParsableCommand {
             // build the catalog filtering on specific artifact extensions
             let catalog = try await hub.buildAppCasks(boostFactor: casksOptions.boostFactor ?? 100_000)
 
-            msg(.debug, "appcasks:", catalog.apps.count) // , "valid:", catalog.count)
-            for apprel in catalog.apps {
-                msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
-            }
-
             let json = try outputOptions.writeCatalog(catalog)
-            msg(.info, "Wrote appcasks to", outputOptions.output, json.count.localizedByteCount())
+            msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
         }
     }
 
     public struct CasksOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("multiplier for how much metadata ranking boost."))
+        @Option(name: [.long], help: ArgumentHelp("multiplier for ranking boost from metadata presence.", valueName: "factor"))
         public var boostFactor: Int64?
 
         public init() { }
@@ -1853,7 +1892,7 @@ public struct MsgOptions: ParsableArguments {
     @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("whether to be suppress output."))
     public var quiet: Bool = false
 
-    @Flag(name: [.long], help: ArgumentHelp("exclude root JSON array from output."))
+    @Flag(name: [.long, .customShort("J")], help: ArgumentHelp("exclude root JSON array from output."))
     public var promoteJSON: Bool = false
 
     public var messages: MessageBuffer? = nil
@@ -1913,13 +1952,7 @@ public struct MsgOptions: ParsableArguments {
     }
 }
 
-public struct HubOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the hub to use.", valueName: "host/org"))
-    public var hub: String
-
-    @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
-    public var token: String?
-
+public struct RegOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal.", valueName: "usr"))
     public var fairsealIssuer: String?
 
@@ -1941,13 +1974,28 @@ public struct HubOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("permitted license titles"))
     public var license: [String] = []
 
+    public init() {
+
+    }
+
+    func fairReg() throws -> FairReg {
+        try FairReg(fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
+    }
+}
+
+public struct HubOptions: ParsableArguments {
+    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the hub to use.", valueName: "host/org"))
+    public var hub: String
+
+    @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
+    public var token: String?
+
     public init() { }
 
     /// The hub service we should use for this tool
     public func fairHub() throws -> FairHub {
-        try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
+        try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"])
     }
-
 }
 
 fileprivate extension FairMsgCommand {
@@ -2095,10 +2143,10 @@ public struct DownloadOptions: ParsableArguments {
 }
 
 public struct RetryOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("amount of time to continue re-trying downloading a resource."))
+    @Option(name: [.long], help: ArgumentHelp("amount of time to continue re-trying downloading a resource.", valueName: "secs"))
     public var retryDuration: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("backoff time for waiting to retry."))
+    @Option(name: [.long], help: ArgumentHelp("backoff time for waiting to retry.", valueName: "secs"))
     public var retryWait: TimeInterval = 30
 
     public init() { }

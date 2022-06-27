@@ -1,0 +1,310 @@
+{
+  "abstract" : [
+    {
+      "text" : "Fetches the cask stats and populates it in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "stats",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " property",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/fetchAppStats()"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairExpo",
+    "externalID" : "s:8FairExpo11HomebrewAPIV13fetchAppStatsAA04CaskG0VyYaKF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "fetchAppStats"
+      },
+      {
+        "kind" : "text",
+        "text" : "() "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "async"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo9CaskStatsV",
+        "text" : "CaskStats"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "fetchAppStats()"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "fetchAppStats"
+            },
+            {
+              "kind" : "text",
+              "text" : "() "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "async"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo9CaskStatsV",
+              "text" : "CaskStats"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/homebrewapi\/fetchappstats()"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/CaskStats": {
+  "abstract" : [
+    {
+      "code" : "{\"category\":\"cask_install\",\"total_items\":6190,\"start_date\":\"2021-12-05\",\"end_date\":\"2022-01-04\",\"total_count\":894812,\"items\":[{\"number\":1,\"cask\":\"google-chrome\",\"count\":\"34,530\",\"percent\":\"3.86\"},{\"number\":2,\"cask\":\"iterm2\",\"count\":\"31,096\",\"percent\":\"3.48\"},{\"number\":6190,\"cask\":\"zulufx11\",\"count\":\"1\",\"percent\":\"0\"}]}",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "https:\/\/formulae.brew.sh\/docs\/api\/#list-analytics-events-for-all-cask-formulae",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskStats"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskStats"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CaskStats",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskstats"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI": {
+  "abstract" : [
+    {
+      "text" : "The collection of URLs associated with a Homebrew API",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HomebrewAPI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HomebrewAPI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HomebrewAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/fetchAppStats()": {
+  "abstract" : [
+    {
+      "text" : "Fetches the cask stats and populates it in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "stats",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " property",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchAppStats"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo9CaskStatsV",
+      "text" : "CaskStats"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/fetchAppStats()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchAppStats()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/fetchappstats()"
+}
+}
+}

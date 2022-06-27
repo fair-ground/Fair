@@ -64,17 +64,21 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactTarget",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BuildSettings",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/DownloadOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointError",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointErrorList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MsgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/OutputOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/RegOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/RetryOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions"
@@ -381,6 +385,87 @@
   "title" : "BuildSettings",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/buildsettings"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem": {
+  "abstract" : [
+    {
+      "text" : "A Homebrew Cask, as defined by the API specification at ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskItem"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CaskItem",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem"
+},
+"doc://FairExpo/documentation/FairExpo/CaskStats": {
+  "abstract" : [
+    {
+      "code" : "{\"category\":\"cask_install\",\"total_items\":6190,\"start_date\":\"2021-12-05\",\"end_date\":\"2022-01-04\",\"total_count\":894812,\"items\":[{\"number\":1,\"cask\":\"google-chrome\",\"count\":\"34,530\",\"percent\":\"3.86\"},{\"number\":2,\"cask\":\"iterm2\",\"count\":\"31,096\",\"percent\":\"3.48\"},{\"number\":6190,\"cask\":\"zulufx11\",\"count\":\"1\",\"percent\":\"0\"}]}",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "https:\/\/formulae.brew.sh\/docs\/api\/#list-analytics-events-for-all-cask-formulae",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskStats"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskStats"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CaskStats",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskstats"
 },
 "doc://FairExpo/documentation/FairExpo/DownloadOptions": {
   "abstract" : [
@@ -844,6 +929,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlpayload"
 },
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI": {
+  "abstract" : [
+    {
+      "text" : "The collection of URLs associated with a Homebrew API",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HomebrewAPI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HomebrewAPI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HomebrewAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi"
+},
 "doc://FairExpo/documentation/FairExpo/HubEndpointError": {
   "abstract" : [
 
@@ -1131,6 +1250,37 @@
   "title" : "OutputOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/outputoptions"
+},
+"doc://FairExpo/documentation/FairExpo/RegOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RegOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/RegOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RegOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RegOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/regoptions"
 },
 "doc://FairExpo/documentation/FairExpo/RetryOptions": {
   "abstract" : [
@@ -1479,6 +1629,18 @@
   "title" : "appfairRoot",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appfairroot"
+},
+"https://formulae.brew.sh/docs/api/#get-formula-metadata-for-a-cask-formula": {
+  "identifier" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+  "title" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+  "titleInlineContent" : [
+    {
+      "text" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula"
 }
 }
 }

@@ -376,6 +376,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
 
                     if let window = NSApp.keyWindow ?? NSApp.mainWindow ?? NSApp.windows.first {
                         if let screenshot = window.takeSnapshot() {
+                            dbg("created screenshot dimensions:", screenshot.size)
                             NSPasteboard.general.writeObjects([screenshot])
                         }
                     }

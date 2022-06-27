@@ -1,0 +1,734 @@
+{
+  "abstract" : [
+    {
+      "text" : "The collection of URLs associated with a Homebrew API",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo11HomebrewAPIV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "HomebrewAPI"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "HomebrewAPI"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "HomebrewAPI"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "HomebrewAPI"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/init(caskAPIEndpoint:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskAPIEndpoint",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskList",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskMetadataBase",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskSourceBase",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStats30",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStats365",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStats90",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStatsBase",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/formulaList"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/fetchAppStats()",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/fetchCasks()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/defaultEndpoint"
+      ],
+      "title" : "Type Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/homebrewapi"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI": {
+  "abstract" : [
+    {
+      "text" : "The collection of URLs associated with a Homebrew API",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HomebrewAPI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HomebrewAPI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HomebrewAPI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskAPIEndpoint": {
+  "abstract" : [
+    {
+      "text" : "The base endpoint for casks",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskAPIEndpoint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskAPIEndpoint",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskAPIEndpoint",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/caskapiendpoint"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskList": {
+  "abstract" : [
+    {
+      "text" : "The list of casks",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskList"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskList",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/casklist"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskMetadataBase": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskMetadataBase"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskMetadataBase",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskMetadataBase",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/caskmetadatabase"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskSourceBase": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskSourceBase"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskSourceBase",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskSourceBase",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/casksourcebase"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskStats30": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskStats30"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStats30",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskStats30",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/caskstats30"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskStats365": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskStats365"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStats365",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskStats365",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/caskstats365"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskStats90": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskStats90"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStats90",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskStats90",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/caskstats90"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/caskStatsBase": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "caskStatsBase"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/caskStatsBase",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "caskStatsBase",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/caskstatsbase"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/defaultEndpoint": {
+  "abstract" : [
+    {
+      "text" : "The default base for the cask API",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "defaultEndpoint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/defaultEndpoint",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "defaultEndpoint",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/defaultendpoint"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/fetchAppStats()": {
+  "abstract" : [
+    {
+      "text" : "Fetches the cask stats and populates it in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "stats",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " property",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchAppStats"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo9CaskStatsV",
+      "text" : "CaskStats"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/fetchAppStats()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchAppStats()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/fetchappstats()"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/fetchCasks()": {
+  "abstract" : [
+    {
+      "text" : "Fetches the cask list and populates it in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "casks",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " property",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fetchCasks"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> (casks"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sa",
+      "text" : "Array"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo8CaskItemV",
+      "text" : "CaskItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, response"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSURLResponse",
+      "text" : "URLResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/fetchCasks()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fetchCasks()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/fetchcasks()"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/formulaList": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formulaList"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/formulaList",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formulaList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/formulalist"
+},
+"doc://FairExpo/documentation/FairExpo/HomebrewAPI/init(caskAPIEndpoint:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "caskAPIEndpoint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI\/init(caskAPIEndpoint:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(caskAPIEndpoint:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/homebrewapi\/init(caskapiendpoint:)"
+}
+}
+}

@@ -1,0 +1,369 @@
+{
+  "abstract" : [
+    {
+      "text" : "A target for the app, typically part of a hetergeneous array when the installed name of the app differs from the canonical name of the app",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "E.g.: ",
+      "type" : "text"
+    },
+    {
+      "code" : "[\"Eclipse.app\", { \"target\": \"Nodeclipse.app\" } ]",
+      "type" : "codeVoice"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo8CaskItemV14ArtifactTargetV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ArtifactTarget"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ArtifactTarget"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "CaskItem.ArtifactTarget"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ArtifactTarget"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/Se",
+        "doc:\/\/FairExpo\/SQ"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/init(from:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/target"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/Decodable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/caskitem\/artifacttarget"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/SQ": {
+  "identifier" : "doc:\/\/FairExpo\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/Se": {
+  "identifier" : "doc:\/\/FairExpo\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem": {
+  "abstract" : [
+    {
+      "text" : "A Homebrew Cask, as defined by the API specification at ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskItem"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CaskItem",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem/ArtifactTarget": {
+  "abstract" : [
+    {
+      "text" : "A target for the app, typically part of a hetergeneous array when the installed name of the app differs from the canonical name of the app",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "E.g.: ",
+      "type" : "text"
+    },
+    {
+      "code" : "[\"Eclipse.app\", { \"target\": \"Nodeclipse.app\" } ]",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArtifactTarget"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArtifactTarget"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CaskItem.ArtifactTarget",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem\/artifacttarget"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem/ArtifactTarget/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem\/artifacttarget\/decodable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem/ArtifactTarget/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem\/artifacttarget\/equatable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem/ArtifactTarget/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem\/artifacttarget\/init(from:)"
+},
+"doc://FairExpo/documentation/FairExpo/CaskItem/ArtifactTarget/target": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "target"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem\/ArtifactTarget\/target",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "target",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskitem\/artifacttarget\/target"
+},
+"https://formulae.brew.sh/docs/api/#get-formula-metadata-for-a-cask-formula": {
+  "identifier" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+  "title" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+  "titleInlineContent" : [
+    {
+      "text" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/formulae.brew.sh\/docs\/api\/#get-formula-metadata-for-a-cask-formula"
+}
+}
+}
