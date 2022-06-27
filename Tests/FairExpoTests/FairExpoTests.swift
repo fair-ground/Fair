@@ -209,11 +209,11 @@ final class FairExpoTests: XCTestCase {
 
     func testMergeCommand() async throws {
         do {
-            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.MergeCommand.configuration.commandName, ["--verbose", "--hub", "github.com/appfair", "--org", "Cloud-Cuckoo", "--token", "XXX", "--base", "XXX", "--fair-properties", "Info.plist", "--project", "XXX"])
+            let result = try await runTool(type: FairCommand.configuration.commandName, op: FairCommand.MergeCommand.configuration.commandName, ["--verbose", "--hub", "github.com/appfair", "--org", "Cloud-Cuckoo", "--token", "XXX", "--base", "XXX", "--project", "XXX", "--fair-properties", "Info.plist"])
             XCTAssertFalse(result.messages.isEmpty)
         } catch {
             //XCTAssertEqual("\(error)", #"CommandError(commandStack: [FairExpo.FairToolCommand, FairExpo.FairCommand, FairExpo.FairCommand.MergeCommand], parserError: FairCore.ParserError.noValue(forKey: FairCore.InputKey(rawValue: "org")))"#)
-            XCTAssertTrue("\(error)".contains("no such file"), "unexpected ex")
+            XCTAssertTrue("\(error)".contains("file"), "unexpected error: \(error)")
         }
     }
 
