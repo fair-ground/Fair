@@ -34,12 +34,13 @@ jobs:
           prerelease: contains(github.ref, '-')
 
       - name: Update Homebrew formula with latest release
-        uses: NSHipster/update-homebrew-formula-action@main
+        uses: marcprux/update-homebrew-formula-action@main
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_FAIRTOOL_PUBLISH_TOKEN }}
         with:
           repository: fair-ground/Fair
           tap: appfair/homebrew-app
+          name: fairtool
           formula: Formula/fairtool.rb
 
   bottle_macos:
@@ -89,12 +90,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: [bottle_macos, bottle_linux]
     steps:
-      - uses: NSHipster/update-homebrew-formula-action@main
+      - uses: marcprux/update-homebrew-formula-action@main
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_FAIRTOOL_PUBLISH_TOKEN }}
         with:
           repository: fair-ground/Fair
           tap: appfair/homebrew-app
+          name: fairtool
           formula: Formula/fairtool.rb
           message: |
               Add bottles for fairtool ${{ needs.release.outputs.current_version }}
