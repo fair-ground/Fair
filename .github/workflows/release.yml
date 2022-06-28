@@ -18,6 +18,7 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - name: Get Changelog Entries
+        if: false
         id: changelog
         uses: mindsers/changelog-reader-action@v2
         with:
@@ -28,7 +29,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          body: ${{ steps.changelog.outputs.changes }}
           draft: false
           prerelease: contains(github.ref, '-')
 
