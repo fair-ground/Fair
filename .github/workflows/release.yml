@@ -80,8 +80,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: ./fairtool--${{ needs.release.outputs.current_version }}.linux.bottle.tar.gz
-          asset_name: fairtool-${{ needs.release.outputs.current_version }}.linux.bottle.tar.gz
+          asset_path: ./fairtool--${{ needs.release.outputs.current_version }}.linux.bottle.1.tar.gz
+          asset_name: fairtool-${{ needs.release.outputs.current_version }}.linux.bottle.1.tar.gz
           asset_content_type: application/gzip
 
   update_bottle:
@@ -97,6 +97,6 @@ jobs:
           tap: appfair/homebrew-app
           formula: Formula/fairtool.rb
           message: |
-              Add macOS bottle for fairtool ${{ github.ref }}
+              Add bottles for fairtool ${{ needs.release.outputs.current_version }}
 
 

@@ -51,9 +51,8 @@ jobs:
         run: |
           brew tap appfair/app
           brew install fairtool-head
-          fairtool version
           brew test fairtool-head
-          ldd `which fairtool`
+          fairtool-head version
 
   ci-macOS-12:
     runs-on: macos-12
@@ -89,8 +88,8 @@ jobs:
         run: |
           brew tap appfair/app
           brew install fairtool-head
-          fairtool version
           brew test fairtool-head
+          fairtool-head version
 
   ci-windows:
     runs-on: windows-latest
