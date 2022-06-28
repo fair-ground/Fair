@@ -10,6 +10,9 @@ jobs:
     name: Create a release on GitHub
 
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      current_version: ${{ steps.get_version.outputs.current_version }}
 
     steps:
       - name: Checkout
@@ -17,7 +20,7 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+        run: echo ::set-output name=current_version::${GITHUB_REF#refs/tags/}
 
       - name: Create Release
         id: create_release
@@ -39,7 +42,7 @@ jobs:
           tap: appfair/homebrew-app
           formula: Formula/fairtool.rb
 
-  build_bottle_macos:
+  bottle_macos:
     name: Build Homebrew bottle (macOS)
     runs-on: macos-12
     needs: [release]
@@ -55,15 +58,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./fairtool--${{ github.ref }}.monterey.bottle.tar.gz
-          asset_name: fairtool-${{ github.ref }}.monterey.bottle.tar.gz
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: ./fairtool--${{ needs.release.outputs.current_version }}.monterey.bottle.tar.gz
+          asset_name: fairtool-${{ needs.release.outputs.current_version }}.monterey.bottle.tar.gz
           asset_content_type: application/gzip
 
   update_bottle:
     name: Update formula with bottles
     runs-on: ubuntu-latest
-    needs: [build_bottle_macos]
+    needs: [bottle_macos]
     steps:
       - uses: NSHipster/update-homebrew-formula-action@main
         env:
