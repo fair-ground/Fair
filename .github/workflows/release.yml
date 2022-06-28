@@ -14,16 +14,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
-      - name: Get Changelog Entries
-        if: false
-        id: changelog
-        uses: mindsers/changelog-reader-action@v2
-        with:
-          version: ${{ steps.get_version.outputs.VERSION }}
-          path: ./Changelog.md
+
       - name: Create Release
         uses: actions/create-release@v1
         env:
@@ -33,4 +28,13 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: contains(github.ref, '-')
+
+      - name: Update Homebrew formula with latest release
+        uses: NSHipster/update-homebrew-formula-action@main
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_FAIRTOOL_PUBLISH_TOKEN }}
+        with:
+          repository: fair-ground/Fair
+          tap: appfair/homebrew-app
+          formula: Formula/fairtool.rb
 
