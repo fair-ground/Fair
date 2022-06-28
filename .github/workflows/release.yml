@@ -44,24 +44,24 @@ jobs:
     runs-on: macos-12
     needs: [release]
     steps:
-      - name: Build a bottle using Homebrew
+      - name: Build bottle
         run: |
           brew tap appfair/app
           brew install --build-bottle --verbose appfair/app/fairtool
           brew bottle fairtool
 
-      - name: Upload the bottle to the GitHub release
+      - name: Upload bottle
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./fairtool--${{ github.event.release.tag_name }}.monterey.bottle.tar.gz
-          asset_name: fairtool-${{ github.event.release.tag_name }}.monterey.bottle.tar.gz
+          asset_path: ./fairtool--${{ github.ref }}.monterey.bottle.tar.gz
+          asset_name: fairtool-${{ github.ref }}.monterey.bottle.tar.gz
           asset_content_type: application/gzip
 
-  update_formula_bottle:
-    name: Update the Homebrew formula with bottles
+  update_bottle:
+    name: Update formula with bottles
     runs-on: ubuntu-latest
     needs: [build_bottle_macos]
     steps:
@@ -73,6 +73,6 @@ jobs:
           tap: appfair/homebrew-app
           formula: Formula/fairtool.rb
           message: |
-              Add macOS bottle for fairtool ${{ github.event.release.tag_name }}
+              Add macOS bottle for fairtool ${{ github.ref }}
 
 

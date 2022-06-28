@@ -152,7 +152,7 @@ jobs:
       - name: Install fairtool
         run: |
           brew tap appfair/app
-          brew install fairtool-head
+          brew install fairtool
           fairtool version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
@@ -463,7 +463,7 @@ jobs:
       - name: Install fairtool
         run: |
           brew tap appfair/app
-          brew install fairtool-head
+          brew install fairtool
           fairtool version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
