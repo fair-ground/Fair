@@ -146,7 +146,7 @@ extension EndpointService {
 
             let (data, response) = try await session.fetch(request: request, validate: .init(codes))
             dbg("batch response:", response)
-            dbg("batch data:", data.utf8String)
+            //dbg("batch data:", data.utf8String)
 
             // rate limit exceeded will have a 403 error, a RetryDuration header, and a payload like:
             // { "documentation_url": "https://docs.github.com/en/free-pro-team@latest/rest/overview/resources-in-the-rest-api#secondary-rate-limits", "message": "You have exceeded a secondary rate limit. Please wait a few minutes before you try again." }
@@ -297,6 +297,11 @@ extension URLSession {
 
     /// A shim for async URL download for back-ported async/await without corresponding URLSession API support
     private func fetchTask(request: URLRequest, validate codes: IndexSet?) async throws -> (data: Data, response: URLResponse) {
+        // testing synchronous version
+        //var response: URLResponse? = nil
+        //let data = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
+        //return (data, response!)
+
         return try await withCheckedThrowingContinuation { continuation in
             dataTask(with: request) { data, response, error in
                 if let data = data, let response = response, error == nil {

@@ -66,10 +66,8 @@ public struct AppNewsPost : Pure {
     public var imageURL: String?
     /// An app-id to which the news item refers
     public var appID: String?
-    /// The source identifier
-    public var sourceIdentifier: String?
 
-    public init(identifier: String, date: String, title: String, caption: String, notify: Bool? = nil, tintColor: String? = nil, url: String? = nil, imageURL: String? = nil, appID: String? = nil, sourceIdentifier: String? = nil) {
+    public init(identifier: String, date: String, title: String, caption: String, notify: Bool? = nil, tintColor: String? = nil, url: String? = nil, imageURL: String? = nil, appID: String? = nil) {
         self.identifier = identifier
         self.date = date
         self.title = title
@@ -79,7 +77,6 @@ public struct AppNewsPost : Pure {
         self.url = url
         self.imageURL = imageURL
         self.appID = appID
-        self.sourceIdentifier = sourceIdentifier
     }
 }
 
@@ -185,8 +182,6 @@ public struct AppCatalogItem : Pure {
     public var tintColor: String?
     /// Whether to app is beta or not
     public var beta: Bool?
-    /// The source identifier of the app
-    public var sourceIdentifier: String?
 
     /// The categories assigned to this app
     public var categories: [String]?
@@ -204,8 +199,7 @@ public struct AppCatalogItem : Pure {
     public var forkCount: Int?
     /// The number of issues for this project
     public var issueCount: Int?
-    /// The total size of the source assets for this project
-    public var sourceSize: Int?
+
     /// The size of the core code
     public var coreSize: Int?
 
@@ -227,7 +221,7 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's homepage
     public var homepage: URL?
 
-    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, sourceIdentifier: String? = nil, categories: [String]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, sourceSize: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil) {
+    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [String]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -242,7 +236,6 @@ public struct AppCatalogItem : Pure {
         self.versionDescription = versionDescription
         self.tintColor = tintColor
         self.beta = beta
-        self.sourceIdentifier = sourceIdentifier
         self.categories = categories
         self.downloadCount = downloadCount
         self.impressionCount = impressionCount
@@ -250,7 +243,6 @@ public struct AppCatalogItem : Pure {
         self.starCount = starCount
         self.watcherCount = watcherCount
         self.issueCount = issueCount
-        self.sourceSize = sourceSize
         self.coreSize = coreSize
         self.sha256 = sha256
         self.permissions = permissions
