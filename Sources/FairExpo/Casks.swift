@@ -24,7 +24,7 @@ import FoundationNetworking
 /// The collection of URLs associated with a Homebrew API
 public struct HomebrewAPI {
     /// The default base for the cask API
-    public static let defaultEndpoint = URL(string: "https://formulae.brew.sh/api/")!
+    public static let defaultEndpoint = URL(string: "https://formulae.brew.sh/api/cask.json")!
 
     /// The default Homebrew APPI
     // public static let `default` = Self(caskAPIEndpoint: Self.defaultCaskAPIEndpoint)

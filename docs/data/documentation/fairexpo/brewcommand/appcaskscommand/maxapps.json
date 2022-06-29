@@ -1,25 +1,26 @@
 {
   "abstract" : [
     {
-      "text" : "The total size of the source assets for this project",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem"
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/sourceSize"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/maxApps"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV10sourceSizeSiSgvp",
+    "externalID" : "s:8FairExpo11BrewCommandV08AppCasksD0V7maxAppsSiSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +32,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "sourceSize"
+        "text" : "maxApps"
       },
       {
         "kind" : "text",
@@ -49,13 +50,13 @@
     ],
     "modules" : [
       {
-        "name" : "FairApp"
+        "name" : "FairExpo"
       }
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "sourceSize"
+    "title" : "maxApps"
   },
   "primaryContentSections" : [
     {
@@ -78,7 +79,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "sourceSize"
+              "text" : "maxApps"
             },
             {
               "kind" : "text",
@@ -91,7 +92,23 @@
             },
             {
               "kind" : "text",
-              "text" : "?"
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -110,7 +127,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/sourcesize"
+        "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/maxapps"
       ],
       "traits" : [
         {
@@ -121,29 +138,21 @@
   ]
 , 
 "references": {
-"doc://FairApp/documentation/FairApp": {
+"doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
-      "text" : "Library build atop ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairCore",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to facilitate working with fair-ground apps.",
+      "text" : "Library of utilities to manage an ecosystem of apps.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
   "kind" : "symbol",
   "role" : "collection",
-  "title" : "FairApp",
+  "title" : "FairExpo",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp"
+  "url" : "\/documentation\/fairexpo"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand": {
   "abstract" : [
 
   ],
@@ -158,28 +167,56 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCatalogItem"
+      "text" : "BrewCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppCatalogItem"
+      "text" : "BrewCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCatalogItem",
+  "title" : "BrewCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem"
+  "url" : "\/documentation\/fairexpo\/brewcommand"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem/sourceSize": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand": {
   "abstract" : [
+
+  ],
+  "fragments" : [
     {
-      "text" : "The total size of the source assets for this project",
-      "type" : "text"
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksCommand"
     }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BrewCommand.AppCasksCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand"
+},
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/maxApps": {
+  "abstract" : [
+
   ],
   "fragments" : [
     {
@@ -192,7 +229,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "sourceSize"
+      "text" : "maxApps"
     },
     {
       "kind" : "text",
@@ -208,12 +245,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/sourceSize",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/maxApps",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "sourceSize",
+  "title" : "maxApps",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/sourcesize"
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/maxapps"
 }
 }
 }

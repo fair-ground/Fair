@@ -322,6 +322,9 @@ public struct SourceCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("limit number of news items.", valueName: "limit"))
         public var newsItems: Int?
 
+        @Flag(name: [.long], help: ArgumentHelp("update version date for new versions.", valueName: "update"))
+        public var updateVersionDate: Bool = false
+
         @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
         public var postTitle: String // TODO: should we distinguish between new apps (to a catalog) vs. version changes? E.g., postTitleNew="New App Available on the Fairground: Firefox VERSION" and postTitleRelease="New Version of Firefox (VERSION) now available on the Fairground"
 
@@ -337,6 +340,8 @@ public struct SourceCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
+            let date = Calendar.current.startOfDay(for: Date())
+
             warnExperimental(Self.experimental)
             msg(.info, "posting changes from: \(fromCatalog) to \(toCatalog)")
             let fromCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
@@ -348,6 +353,10 @@ public struct SourceCommand : AsyncParsableCommand {
 
             // … then add items for each of the new releases, purging duplicates as needed
             toCatalog.addNews(for: diffs, title: postTitle, url: postURL, limit: newsItems)
+
+            if updateVersionDate {
+                toCatalog.updateVersionDates(for: diffs, with: date)
+            }
             
             let json = try outputOptions.writeCatalog(toCatalog)
             msg(.info, "posted", diffs.count, "changes to catalog", json.count.localizedByteCount(), "old items:", fromCatalog.news?.count ?? 0, "new items:", toCatalog.news?.count ?? 0)
@@ -1780,14 +1789,14 @@ public struct BrewCommand : AsyncParsableCommand {
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
-//        @Option(name: [.long], help: ArgumentHelp("the maximum number of apps to include.", valueName: "count"))
-//        public var maxCount: Int?
+        @Option(name: [.long], help: ArgumentHelp("the maximum number of apps to include.", valueName: "count"))
+        public var maxApps: Int?
 
         public init() { }
 
         public mutating func run() async throws {
             warnExperimental(Self.experimental)
-            msg(.info, "AppCasks")
+            msg(.info, "Generating appcasks app source catalog")
             try await retryOptions.retrying() {
                 try await createAppCasks()
             }
@@ -1797,7 +1806,7 @@ public struct BrewCommand : AsyncParsableCommand {
             let hub = try hubOptions.fairHub()
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(boostFactor: casksOptions.boostFactor ?? 100_000)
+            let catalog = try await hub.buildAppCasks(maxApps: maxApps, boostFactor: casksOptions.boostFactor)
 
             let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())

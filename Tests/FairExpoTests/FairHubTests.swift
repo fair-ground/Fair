@@ -150,17 +150,35 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(resultResults[0].count, resultResults[2].count)
     }
 
+    /// Debugging slow connections to GH API
+//    func XXXtestGHAPISpeed() async throws {
+//        let token = wip("XXX")
+//        var req = URLRequest(url: URL(string: "https://api.github.com/graphql")!)
+//        req.addValue("token \(token)", forHTTPHeaderField: "Authorization")
+//        req.addValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
+//        req.httpMethod = "POST"
+//        req.httpBody = #"{"query":"query { viewer { login } }"}  "#.data(using: .utf8)
+//
+//        // dbg("requesting:", req.cURL(pretty: false))
+//        let t1 = DispatchTime.now().uptimeNanoseconds
+//        var response: URLResponse?
+//        let data = try NSURLConnection.sendSynchronousRequest(req, returning: &response)
+//        //let (data, response) = try await URLSession.shared.data(for: req)
+//        let t2 = DispatchTime.now().uptimeNanoseconds
+//        print("response in:", Double(t2 - t1) / 1_000_000_000, data.count, response)
+//    }
+
     func testBuildAppCasks() async throws {
         if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
 
-        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(boostFactor: 1000)
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(maxApps: 10, mergeCasksURL: HomebrewAPI.defaultEndpoint, boostFactor: 1000)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
         dbg("catalog", names.sorted())
 
-        XCTAssertTrue(names.contains("coteditor"))
+        XCTAssertTrue(names.contains("CotEditor"))
         XCTAssertTrue(ids.contains(.init("coteditor")))
 
         XCTAssertGreaterThanOrEqual(names.count, 1)
@@ -308,4 +326,3 @@ final class FairHubTests: XCTestCase {
 
 }
 #endif // os(Windows)
-
