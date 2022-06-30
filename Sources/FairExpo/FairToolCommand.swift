@@ -310,8 +310,8 @@ public struct SourceCommand : AsyncParsableCommand {
             abstract: "Compare sources and post app version changes.",
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
-
         @OptionGroup public var outputOptions: OutputOptions
+        @OptionGroup public var indexOptions: IndexingOptions
 
         @Option(name: [.long], help: ArgumentHelp("the source catalog.", valueName: "src"))
         public var fromCatalog: String
@@ -326,16 +326,16 @@ public struct SourceCommand : AsyncParsableCommand {
         public var updateVersionDate: Bool = false
 
         @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
-        public var postTitle: String
+        public var postTitle: String?
 
         @Option(name: [.long], help: ArgumentHelp("the post title format for updates.", valueName: "format"))
-        public var postTitleUpdate: String
+        public var postTitleUpdate: String?
 
         @Option(name: [.long], help: ArgumentHelp("the post caption format for new releases.", valueName: "format"))
-        public var postCaption: String
+        public var postCaption: String?
 
         @Option(name: [.long], help: ArgumentHelp("the post caption format for updates.", valueName: "format"))
-        public var postCaptionUpdate: String
+        public var postCaptionUpdate: String?
 
         @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
         public var postBody: String?
@@ -374,6 +374,8 @@ public struct SourceCommand : AsyncParsableCommand {
             
             let json = try outputOptions.writeCatalog(dstCatalog)
             msg(.info, "posted", diffs.count, "changes to catalog", json.count.localizedByteCount(), "old items:", srcCatalog.news?.count ?? 0, "new items:", dstCatalog.news?.count ?? 0)
+
+            try indexOptions.writeCatalogIndex(dstCatalog)
         }
     }
 }
@@ -1136,22 +1138,6 @@ public struct FairCommand : AsyncParsableCommand {
                     try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease")
                 }
             }
-
-            if let indexFlag = catalogOptions.index {
-                // #warning("TODO: outputOptions.write(data)")
-                func output(_ data: Data, to path: String) throws {
-                    if path == "-" {
-                        print(data.utf8String!)
-                    } else {
-                        let file = URL(fileURLWithPath: path)
-                        try data.write(to: file)
-                    }
-                }
-
-                let md = try buildAppCatalogMarkdown(catalog: catalog)
-                try output(md.utf8Data, to: indexFlag)
-                msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
-            }
         }
     }
 
@@ -1611,13 +1597,9 @@ public struct FairCommand : AsyncParsableCommand {
     }
     #endif
 
-
     public struct CatalogOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("title of the generated catalog.", valueName: "title"))
         public var catalogTitle: String = "App Sources"
-
-        @Option(name: [.long], help: ArgumentHelp("catalog index markdown."))
-        public var index: String?
 
         @Option(name: [.long], help: ArgumentHelp("the output folder for the app casks.", valueName: "dir"))
         public var caskFolder: String?
@@ -1848,6 +1830,35 @@ public struct BrewCommand : AsyncParsableCommand {
     }
 }
 
+
+public struct IndexingOptions: ParsableArguments {
+    @Option(name: [.long], help: ArgumentHelp("catalog index markdown file to generate."))
+    public var markdownIndex: String?
+
+    public init() { }
+
+    func writeCatalogIndex(_ catalog: AppCatalog) throws {
+        guard let indexFlag = self.markdownIndex else {
+            return
+        }
+
+        // #warning("TODO: outputOptions.write(data)")
+        func output(_ data: Data, to path: String) throws {
+            if path == "-" {
+                print(data.utf8String!)
+            } else {
+                let file = URL(fileURLWithPath: path)
+                try data.write(to: file)
+            }
+        }
+
+        let md = try catalog.buildAppCatalogMarkdown()
+        try output(md.utf8Data, to: indexFlag)
+        //msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
+    }
+}
+
+
 public protocol FairCommandOutput : Encodable {
     // TODO: an output form of this instance that displays plain text information for when people don't want to see JSON output
     //func outputText() throws -> [String]
@@ -1859,6 +1870,113 @@ extension Array : FairCommandOutput where Element : FairCommandOutput {
 extension AppCatalog : FairCommandOutput {
 }
 
+private extension AppCatalog {
+    func buildAppCatalogMarkdown() throws -> String {
+        let catalog = self
+
+        let format = ISO8601DateFormatter()
+        func fmt(_ date: Date) -> String {
+            //date.localizedDate(dateStyle: .short, timeStyle: .short)
+            format.string(from: date)
+        }
+
+        func pre(_ string: String) -> String {
+            "`" + string + "`"
+        }
+
+        var md = """
+            ---
+            layout: catalog
+            ---
+
+            <style>
+            table {
+                border-collapse: collapse;
+            }
+
+            td, th {
+                border: 1px solid black;
+                white-space: nowrap;
+            }
+
+            th, td {
+                padding: 5px;
+            }
+
+            tr:nth-child(even) {
+                background-color: Lightgreen;
+            }
+            </style>
+
+            | name | version | imps | views | dls | size | stars | issues | date | category |
+            | ---: | :------ | ---: | ----: | --: | :--- | -----:| -----: | ---- | :------- |
+
+            """
+
+        for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
+            let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
+
+            let v = app.version ?? ""
+            var version = v
+            if app.beta == true {
+                version += "β"
+            }
+
+            md += "| "
+            md += "[`\(app.name)`](\(app.homepage?.absoluteString ?? landingPage))"
+
+            md += " | "
+            if let relURL = URL(string: v, relativeTo: app.releasesURL) {
+                md += "[`\(pre(version))`](\(relURL.absoluteString))"
+            } else {
+                md += "`\(pre(version))`"
+            }
+
+            md += " | "
+            md += pre((app.impressionCount ?? 0).description)
+
+            md += " | "
+            md += pre((app.viewCount ?? 0).description)
+
+            md += " | "
+            md += pre((app.downloadCount ?? 0).description)
+
+            md += " | "
+            md += pre((app.size ?? 0).localizedByteCount())
+
+            md += " | "
+            md += pre((app.starCount ?? 0).description)
+
+            md += " | "
+            let issueCount = (app.issueCount ?? 0)
+            if issueCount > 0, let issuesURL = app.issuesURL {
+                md += "[`\(pre(issueCount.description))`](\(issuesURL.absoluteString))"
+            } else {
+                md += pre(issueCount.description)
+            }
+
+            md += " | "
+            md += pre(fmt(app.versionDate ?? .distantPast))
+
+            md += " | "
+            if let category = app.appCategories.first {
+                md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
+            }
+
+            md += " |\n"
+        }
+
+        md += """
+
+            <center><small><code>{{ site.time | date_to_xmlschema }}</code></small></center>
+
+            """
+
+        return md
+    }
+
+
+}
 public struct OutputOptions: ParsableArguments {
     @Option(name: [.long, .customShort("o")], help: ArgumentHelp("the output path."))
     public var output: String = "-"
@@ -2267,108 +2385,6 @@ fileprivate extension FairParsableCommand {
     /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
     func parseColorContents(url: URL) throws -> (r: Double, g: Double, b: Double, a: Double)? {
         try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
-    }
-
-    func buildAppCatalogMarkdown(catalog: AppCatalog) throws -> String {
-        let format = ISO8601DateFormatter()
-        func fmt(_ date: Date) -> String {
-            //date.localizedDate(dateStyle: .short, timeStyle: .short)
-            format.string(from: date)
-        }
-
-        func pre(_ string: String) -> String {
-            "`" + string + "`"
-        }
-
-        var md = """
-            ---
-            layout: catalog
-            ---
-
-            <style>
-            table {
-                border-collapse: collapse;
-            }
-
-            td, th {
-                border: 1px solid black;
-                white-space: nowrap;
-            }
-
-            th, td {
-                padding: 5px;
-            }
-
-            tr:nth-child(even) {
-                background-color: Lightgreen;
-            }
-            </style>
-
-            | name | version | imps | views | dls | size | stars | issues | date | category |
-            | ---: | :------ | ---: | ----: | --: | :--- | -----:| -----: | ---- | :------- |
-
-            """
-
-        for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
-            let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
-
-            let v = app.version ?? ""
-            var version = v
-            if app.beta == true {
-                version += "β"
-            }
-
-            md += "| "
-            md += "[`\(app.name)`](\(landingPage))"
-
-            md += " | "
-            if let relURL = URL(string: v, relativeTo: app.releasesURL) {
-                md += "[`\(pre(version))`](\(relURL.absoluteString))"
-            } else {
-                md += "`\(pre(version))`"
-            }
-
-            md += " | "
-            md += pre((app.impressionCount ?? 0).description)
-
-            md += " | "
-            md += pre((app.viewCount ?? 0).description)
-
-            md += " | "
-            md += pre((app.downloadCount ?? 0).description)
-
-            md += " | "
-            md += pre((app.size ?? 0).localizedByteCount())
-
-            md += " | "
-            md += pre((app.starCount ?? 0).description)
-
-            md += " | "
-            let issueCount = (app.issueCount ?? 0)
-            if issueCount > 0, let issuesURL = app.issuesURL {
-                md += "[`\(pre(issueCount.description))`](\(issuesURL.absoluteString))"
-            } else {
-                md += pre(issueCount.description)
-            }
-
-            md += " | "
-            md += pre(fmt(app.versionDate ?? .distantPast))
-
-            md += " | "
-            if let category = app.appCategories.first {
-                md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
-            }
-
-            md += " |\n"
-        }
-
-        md += """
-
-            <center><small>`{{ site.time | date_to_xmlschema }}`</small></center>
-
-            """
-
-        return md
     }
 
     @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?) throws -> Bool {
