@@ -139,7 +139,7 @@ final class FairHubTests: XCTestCase {
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.CatalogQuery.QueryResponse.BaseRepository.Repository]] = []
         for _ in 1...3 {
-            let results = hub.requestBatchStream(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 8...18)), maxBatches: .max)
+            let results = hub.sendCursoredRequest(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 8...18)))
             for try await result in results {
                 let forks = try result.get().data.repository.forks.nodes
                 resultResults.append(forks)
@@ -173,17 +173,23 @@ final class FairHubTests: XCTestCase {
 //            throw XCTSkip("disabled to reduce API load")
 //        }
 
-        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(maxApps: 10, mergeCasksURL: HomebrewAPI.defaultEndpoint, boostFactor: 1000)
+        let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
+        let maxApps: Int? = 233 // _000_000
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
         dbg("catalog", names.sorted())
+
+        if let maxApps = maxApps {
+            XCTAssertEqual(ids.count, maxApps)
+        }
 
         XCTAssertTrue(names.contains("CotEditor"))
         XCTAssertTrue(ids.contains(.init("coteditor")))
 
         XCTAssertGreaterThanOrEqual(names.count, 1)
 
-        dbg(catalog.prettyJSON)
+        //dbg(catalog.prettyJSON)
         dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 

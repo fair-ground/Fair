@@ -42,11 +42,70 @@ public let appfairCatalogURLIOS = URL(string: "fairapps-ios.json", relativeTo: a
 /// The canonical location of the enhanced cask app metadata
 public let appfairCaskAppsURL = URL(string: "appcasks.json", relativeTo: appfairRoot)!
 
+public let appfairCaskAppsName = "App Fair AppCasks"
+public let appfairCaskAppsIdentifier = "net.appfair.appcasks"
+
 /// A `GraphQL` endpoint
 public protocol GraphQLEndpointService : EndpointService {
     /// The default headers that will be sent with a request
     var requestHeaders: [String: String] { get }
 }
+
+/// A Fair Ground based on an online git service such as GitHub or GitLab.
+public struct FairHub : GraphQLEndpointService {
+    public typealias ErrorType = HubEndpointFailure
+
+    /// The root of the FairGround-compatible service
+    public var baseURL: URL
+
+    /// The organization in the hub
+    public var org: String
+
+    /// The authorization token for this request, if any
+    public var authToken: String?
+
+    /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
+    public init(hostOrg: String, authToken: String? = nil) throws {
+        guard let url = URL(string: "https://api." + hostOrg) else {
+            throw Errors.badHostOrg(hostOrg)
+        }
+
+        self.org = url.lastPathComponent
+        self.baseURL = url.deletingLastPathComponent()
+        self.authToken = authToken
+
+        if org.isEmpty {
+            throw Errors.emptyOrganization(url)
+        }
+        if self.baseURL.path != "/" {
+            throw Errors.notTopLevelURL(url)
+        }
+        if self.baseURL.scheme != "https" {
+            throw Errors.badURLScheme(url)
+        }
+        if let authToken = authToken {
+            if authToken.isEmpty {
+                throw Errors.emptyAuthToken
+            }
+        }
+    }
+
+
+    /// The hardwired code that returns an HTTP error but contains information about backing off
+    public static var backoffCodes: IndexSet { IndexSet([403]) }
+
+}
+
+public struct ArtifactTarget : Pure {
+    public let artifactType: String
+    public let devices: Array<String>
+
+    public init(artifactType: String, devices: Array<String>) {
+        self.artifactType = artifactType
+        self.devices = devices
+    }
+}
+
 
 struct FairReg {
     /// The account that is accepted as the issuer of a valid fairseal
@@ -117,61 +176,6 @@ struct FairReg {
 
 }
 
-/// A Fair Ground based on an online git service such as GitHub or GitLab.
-public struct FairHub : GraphQLEndpointService {
-    public typealias ErrorType = HubEndpointFailure
-
-    /// The root of the FairGround-compatible service
-    public var baseURL: URL
-
-    /// The organization in the hub
-    public var org: String
-
-    /// The authorization token for this request, if any
-    public var authToken: String?
-
-    /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
-    public init(hostOrg: String, authToken: String? = nil) throws {
-        guard let url = URL(string: "https://api." + hostOrg) else {
-            throw Errors.badHostOrg(hostOrg)
-        }
-
-        self.org = url.lastPathComponent
-        self.baseURL = url.deletingLastPathComponent()
-        self.authToken = authToken
-
-        if org.isEmpty {
-            throw Errors.emptyOrganization(url)
-        }
-        if self.baseURL.path != "/" {
-            throw Errors.notTopLevelURL(url)
-        }
-        if self.baseURL.scheme != "https" {
-            throw Errors.badURLScheme(url)
-        }
-        if let authToken = authToken {
-            if authToken.isEmpty {
-                throw Errors.emptyAuthToken
-            }
-        }
-    }
-
-
-    /// The hardwired code that returns an HTTP error but contains information about backing off
-    public static var backoffCodes: IndexSet { IndexSet([403]) }
-
-}
-
-public struct ArtifactTarget : Pure {
-    public let artifactType: String
-    public let devices: Array<String>
-
-    public init(artifactType: String, devices: Array<String>) {
-        self.artifactType = artifactType
-        self.devices = devices
-    }
-}
-
 extension FairHub {
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
     func buildCatalog(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, reg: FairReg, requestLimit: Int?) async throws -> AppCatalog {
@@ -192,16 +196,16 @@ extension FairHub {
         return catalog
     }
 
-    func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, reg: FairReg, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<FairHub.CatalogQuery.Response, Error>, [AppCatalogItem]> {
+    func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, reg: FairReg, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogQuery.Response, Error>, [AppCatalogItem]> {
 
-        let forksResponse = self.requestBatchStream(FairHub.CatalogQuery(owner: owner, name: "App"), maxBatches: appfairMaxApps / 200)
+        let forksResponse = self.sendCursoredRequest(CatalogQuery(owner: owner, name: "App"))
         let result = forksResponse.map { forks in
             try forkResponse(forks, artifactTarget: artifactTarget, reg: reg)
         }
         return result
     }
 
-    private func forkResponse(_ forks: FairHub.CatalogQuery.Response, artifactTarget: ArtifactTarget, reg: FairReg) throws -> [AppCatalogItem] {
+    private func forkResponse(_ forks: CatalogQuery.Response, artifactTarget: ArtifactTarget, reg: FairReg) throws -> [AppCatalogItem] {
         guard let fairsealIssuer = reg.fairsealIssuer else {
             throw Errors.missingFairsealIssuer
         }
@@ -220,7 +224,7 @@ extension FairHub {
             let appTitle = fork.owner.appNameWithSpace // un-hyphenated name
             let appid = fork.owner.appNameWithHyphen
 
-            let bundleIdentifier = BundleIdentifier("app." + appid)
+            let bundleIdentifier = "app." + appid
             let subtitle = fork.description ?? ""
             let localizedDescription = fork.description ?? "" // these should be different; perhaps extract the first paragraph from the README?
 
@@ -299,7 +303,7 @@ extension FairHub {
                 } else {
                     developerInfo = devEmail
                 }
-                let versionDate = release.createdAt
+                //let versionDate = release.createdAt
                 let versionDescription = release.description
                 let iconURL = release.releaseAssets.nodes.first { asset in
                     asset.name == "\(appid).png" // e.g. "Fair-Skies.png"
@@ -401,7 +405,7 @@ extension FairHub {
 
                     // walk through the recent releases until we find one that has a fairseal on it
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: nil, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.isEmpty ? nil : screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
 
 
                     if beta == true {
@@ -432,10 +436,13 @@ extension FairHub {
         return apps
     }
 
+    typealias Fork = AppCasksQuery.QueryResponse.BaseRepository.Repository
+
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, boostFactor: Int64? = 100_000) async throws -> AppCatalog {
+    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
-        dbg("building appcasks with maxApps:", maxApps)
+        let boost = boostFactor ?? 10_000
+        dbg("building appcasks with maxApps:", maxApps, "boost:", boost)
 
         struct CaskCatalog {
             let casks: [String: CaskItem]
@@ -444,146 +451,19 @@ extension FairHub {
             }
         }
 
-        async let casks = CaskCatalog(mergeCasksURL == nil ? [] : HomebrewAPI(caskAPIEndpoint: mergeCasksURL ?? HomebrewAPI.defaultEndpoint).fetchCasks().casks)
+        let api = HomebrewAPI(caskAPIEndpoint: mergeCasksURL ?? HomebrewAPI.defaultEndpoint)
+
+        // if we specified catalog metadata to merge in, start fetching it now
+        async let casks = CaskCatalog(mergeCasksURL == nil ? [] : api.fetchCasks().casks)
+        async let stats = caskStatsURL == nil ? nil : api.fetchCaskStats(url: caskStatsURL!)
 
         var apps: [AppCatalogItem] = []
 
-        let caskPrefix = "cask-"
-
-        /// Adds the given cask result to the list of app catalog items
-        func addReleases(fork: FairHub.AppCasksQuery.QueryResponse.BaseRepository.Repository, _ releaseNodes: [AppCasksQuery.QueryResponse.BaseRepository.Repository.Release], casks: CaskCatalog) -> Bool {
-            let releaseNodes = fork.releases.nodes
-
-            for release in releaseNodes {
-                let token = release.tag.name.dropFirst(caskPrefix.count).description
-                let cask = casks.casks[token]
-
-                let tagName = release.tag.name
-                if !tagName.hasPrefix(caskPrefix) {
-                    dbg("tag name", tagName.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
-                    continue
-                }
-
-                let caskName = cask?.name.first ?? release.name ?? release.tag.name
-                let homepage = (cask?.homepage ?? fork.homepageUrl).flatMap(URL.init(string:))
-                let downloadURL = (cask?.url ?? cask?.homepage).flatMap(URL.init(string:))
-                let checksum = cask?.checksum?.count == 64 ? cask?.checksum : nil
-                let version = cask?.version
-
-                let subtitle: String? = nil
-                let localizedDescription = release.description
-
-                dbg("  checking release token:", token, "name:", caskName)
-
-                let versionDate = release.createdAt
-                let versionDescription = release.description
-
-                let beta: Bool = release.isPrerelease
-
-                func releaseAsset(named name: String) -> ReleaseAsset? {
-                    release.releaseAssets.nodes.first(where: { node in
-                        node.name == name
-                    })
-                }
-
-                dbg("checking target token:", token, "files:", release.releaseAssets.nodes.map(\.name))
-
-                /// Returns all the asset names with the given prefix trimmed off
-                func prefixedAssetTag(_ prefix: String) -> [String] {
-                    release.releaseAssets.nodes.filter {
-                        $0.name.hasPrefix(prefix)
-                    }
-                    .map {
-                        $0.name.dropFirst(prefix.count).description
-                    }
-                }
-
-                // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
-                let categories = prefixedAssetTag("category-")
-                    .compactMap(AppCategory.init(rawValue:))
-
-                let tintColor = prefixedAssetTag("tint-")
-                    .filter({ $0.count == 6 }) // needs to be a 6-digit hex code
-                    .first
-
-                let appREADME = releaseAsset(named: "README.md")
-                let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
-                let caskInstalls = releaseAsset(named: "cask-install")
-
-                let appIcon = releaseAsset(named: "AppIcon.png")
-
-
-                let readmeURL = appREADME?.downloadUrl
-                let releaseNotesURL = appRELEASENOTES?.downloadUrl
-                let screenshotURLs = release.releaseAssets.nodes.filter { node in
-                    if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
-                        return false
-                    }
-                    return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
-                }
-
-                let downloadCount = caskInstalls?.downloadCount
-                let impressionCount = appIcon?.downloadCount
-                let viewCount = appREADME?.downloadCount
-
-                // walk through the recent releases until we find one that has a fairseal on it
-
-                let app = AppCatalogItem(name: caskName, bundleIdentifier: BundleIdentifier(token), subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: version, versionDate: versionDate, downloadURL: downloadURL ?? appfairRoot, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, categories: categories.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, coreSize: nil, sha256: checksum, permissions: nil, metadataURL: nil, readmeURL: readmeURL, releaseNotesURL: releaseNotesURL, homepage: homepage)
-
-                // only add the cask if it has any supplemental information defined
-                if excludeEmptyCasks == false
-                    || (app.downloadCount ?? 0) > 0
-                    || app.readmeURL != nil
-                    || app.releaseNotesURL != nil
-                    || app.iconURL != nil
-                    || app.tintColor != nil
-                    || app.categories?.isEmpty == false
-                    || app.screenshotURLs?.isEmpty == false
-                {
-                    apps.append(app)
-                    if let maxApps = maxApps, apps.count >= maxApps {
-                        dbg("stopping due to maxapps:", maxApps)
-                        return false
-                    }
-                }
-            }
-
-            return true
-        }
-
-        for try await forks in requestBatchStream(FairHub.AppCasksQuery(owner: owner, name: name), maxBatches: appfairMaxApps / 200) {
+        for try await forks in sendCursoredRequest(AppCasksQuery(owner: owner, name: name)) {
             let forkNodes = try forks.result.get().data.repository.forks.nodes
             dbg("fetched appcasks forks:", forkNodes.count)
             for fork in forkNodes {
-                if apps.count >= maxApps ?? .max { break }
-
-                dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
-
-                guard let _ = fork.owner.websiteUrl else {
-                    dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
-                    continue
-                }
-
-                if fork.owner.isVerified != true {
-                    dbg("skipping un-verified owner:", fork.nameWithOwner)
-                    continue
-                }
-
-                let releases = fork.releases
-                let caskCatalog = try await casks
-                dbg("received release names:", releases.nodes.compactMap(\.name))
-                if addReleases(fork: fork, releases.nodes, casks: caskCatalog) == true {
-                    if releases.pageInfo?.hasNextPage == true, let releaseCursor = releases.pageInfo?.endCursor {
-                        dbg("traversing release cursor:", releaseCursor)
-                        for try await moreReleasesNode in self.requestBatchStream(FairHub.AppCaskReleasesQuery(repositoryNodeID: fork.id, cursor: releaseCursor), maxBatches: appfairMaxApps / 200) {
-                            let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
-                            dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
-                            if addReleases(fork: fork, moreReleaseNodes, casks: caskCatalog) == false {
-                                break
-                            }
-                        }
-                    }
-                }
+                try await addAppForkReleases(fork, caskCatalog: await casks, stats: await stats)
             }
 
             if let maxApps = maxApps, apps.count >= maxApps {
@@ -592,30 +472,188 @@ extension FairHub {
             }
         }
 
+        func addAppForkReleases(_ fork: Fork, caskCatalog: CaskCatalog?, stats: CaskStats?) async throws {
+            if apps.count >= maxApps ?? .max {
+                return dbg("not adding app beyond max:", maxApps)
+            }
+
+            dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
+
+            guard let _ = fork.owner.websiteUrl else {
+                return dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
+            }
+
+            if fork.owner.isVerified != true {
+                return dbg("skipping un-verified owner:", fork.nameWithOwner)
+            }
+
+            dbg("received release names:", fork.releases.nodes.compactMap(\.name))
+            if addReleases(fork: fork, fork.releases.nodes, casks: caskCatalog, stats: stats) == true {
+                if fork.releases.pageInfo?.hasNextPage == true,
+                    let releaseCursor = fork.releases.pageInfo?.endCursor {
+                    dbg("traversing release cursor:", releaseCursor)
+                    for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: fork.id, cursor: releaseCursor)) {
+                        let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
+                        dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
+                        if addReleases(fork: fork, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
+                            return
+                        }
+                    }
+                }
+            }
+        }
+
+        /// Adds the given cask result to the list of app catalog items
+        func addReleases(fork: Fork, _ releaseNodes: [Fork.Release], casks: CaskCatalog?, stats: CaskStats?) -> Bool {
+            for release in releaseNodes {
+                let caskPrefix = "cask-"
+                if !release.tag.name.hasPrefix(caskPrefix) {
+                    dbg("tag name", release.tag.name.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
+                    continue
+                }
+
+                let token = release.tag.name.dropFirst(caskPrefix.count).description
+                let cask = casks?.casks[token]
+                if casks != nil && cask == nil {
+                    dbg("  filtering app missing from casks:", token)
+                    continue
+                }
+
+                if let app = createApp(token: token, release: release, fork: fork, cask: cask, stats: stats) {
+                    // only add the cask if it has any supplemental information defined
+                    if excludeEmptyCasks == false
+                        || (app.downloadCount ?? 0) > 0
+                        || app.readmeURL != nil
+                        || app.releaseNotesURL != nil
+                        || app.iconURL != nil
+                        || app.tintColor != nil
+                        || app.categories?.isEmpty == false
+                        || app.screenshotURLs?.isEmpty == false
+                    {
+                        apps.append(app)
+                        if let maxApps = maxApps, apps.count >= maxApps {
+                            dbg("stopping due to maxapps:", maxApps)
+                            return false
+                        }
+                    }
+                }
+            }
+
+            return true
+        }
+
         // apps are ranked based on how much metadata is provided, and then their download count
         func rank(for item: AppCatalogItem) -> Int64 {
-            // the base ranking is the number of downloads (represented by the number of times cask-install has been hit)
-            var ranking = Int64(item.downloadCount ?? 0)
+            var ranking: Int64 = 0
 
-            if let boostFactor = boostFactor {
-                // each bit of metadata for a cask boosts its position in the rankings
-                if item.readmeURL != nil { ranking += boostFactor }
-                if item.iconURL != nil { ranking += boostFactor }
-                if item.tintColor != nil { ranking += boostFactor }
-                if item.categories?.isEmpty == false { ranking += boostFactor }
-                if item.screenshotURLs?.isEmpty == false { ranking += boostFactor }
+            // the base ranking is the number of downloads
+            ranking += Int64(item.downloadCount ?? 0)
+
+            // each bit of metadata for a cask boosts its position in the rankings
+            if item.readmeURL != nil { ranking += boost }
+            if item.iconURL != nil { ranking += boost }
+            // if item.tintColor != nil { ranking += boost }
+            if item.categories?.isEmpty == false { ranking += boost }
+            if item.screenshotURLs?.isEmpty == false { ranking += boost }
+
+            // add in explicit boosts
+            if let boostMap = boostMap,
+                let boostCount = boostMap[item.bundleIdentifier] {
+                ranking += .init(boostCount) * boost
             }
 
             return ranking
         }
 
+        // now check for any items that are in the casks list but do not have an appcasks fork
+        let forkedApps = apps.map(\.bundleIdentifier).set()
+        let caskMap = try await casks.casks
+        let caskStats = try await stats
+        if !caskMap.isEmpty {
+            for (token, cask) in caskMap.sorting(by: \.0).filter({ !forkedApps.contains($0.key) }) {
+                if let maxApps = maxApps, apps.count >= maxApps {
+                    continue
+                }
+                let app = createApp(token: token, release: nil, fork: nil, cask: cask, stats: caskStats)
+                dbg("created app:", app)
+            }
+        }
+
         apps.sort { rank(for: $0) > rank(for: $1) }
 
-        let catalog = AppCatalog(name: "Cask enhanced metadata", identifier: "appcasks", sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
+        let catalog = AppCatalog(name: appfairCaskAppsName, identifier: appfairCaskAppsIdentifier, sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
         return catalog
     }
 
-    internal func validate(org: FairHub.RepositoryQuery.QueryResponse.Organization, reg: FairReg) -> AppOrgValidationFailure {
+    private func createApp(token: String, release: Fork.Release?, fork: Fork?, cask: CaskItem?, stats: CaskStats?) -> AppCatalogItem? {
+        let caskName = cask?.name.first ?? release?.name ?? release?.tag.name ?? token
+        let homepage = (cask?.homepage ?? fork?.homepageUrl).flatMap(URL.init(string:))
+        let downloadURL = (cask?.url ?? cask?.homepage).flatMap(URL.init(string:))
+        let checksum = cask?.checksum?.count == 64 ? cask?.checksum : nil
+        let version = cask?.version
+        let subtitle = cask?.desc
+        let localizedDescription = release?.description ?? cask?.desc
+        let versionDate: Date? = nil // release.createdAt // not the right thing
+        let versionDescription = release?.description
+        let beta: Bool = release?.isPrerelease == true
+
+        func releaseAsset(named name: String) -> ReleaseAsset? {
+            release?.releaseAssets.nodes.first(where: { node in
+                node.name == name
+            })
+        }
+
+        dbg("checking target token:", token, "name:", caskName, "files:", release?.releaseAssets.nodes.map(\.name))
+
+        /// Returns all the asset names with the given prefix trimmed off
+        func prefixedAssetTag(_ prefix: String) -> [String]? {
+            release?.releaseAssets.nodes.filter {
+                $0.name.hasPrefix(prefix)
+            }
+            .map {
+                $0.name.dropFirst(prefix.count).description
+            }
+        }
+
+        // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
+        let categories = prefixedAssetTag("category-")?
+            .compactMap(AppCategory.init(rawValue:))
+
+        let tintColor = prefixedAssetTag("tint-")?
+            .filter({ $0.count == 6 }) // needs to be a 6-digit hex code
+            .first
+
+        let appREADME = releaseAsset(named: "README.md")
+        let readmeURL = appREADME?.downloadUrl
+        let viewCount = appREADME?.downloadCount
+
+        let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
+        let releaseNotesURL = appRELEASENOTES?.downloadUrl
+
+        let appIcon = releaseAsset(named: "AppIcon.png")
+        let impressionCount = appIcon?.downloadCount
+
+        let caskInstalls = releaseAsset(named: "cask-install")
+        var downloadCount = caskInstalls?.downloadCount ?? 0
+        if let stats = stats {
+            if let count = stats.formulae?[token]?.first?.count {
+                downloadCount += count
+            }
+        }
+
+        let screenshotURLs = release?.releaseAssets.nodes.filter { node in
+            if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
+                return false
+            }
+            return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
+        }
+
+        let app = AppCatalogItem(name: caskName, bundleIdentifier: token, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: version, versionDate: versionDate, downloadURL: downloadURL ?? appfairRoot, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs?.isEmpty != false ? nil : screenshotURLs?.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, categories: categories?.isEmpty != false ? nil : categories?.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, coreSize: nil, sha256: checksum, permissions: nil, metadataURL: nil, readmeURL: readmeURL, releaseNotesURL: releaseNotesURL, homepage: homepage)
+        return app
+    }
+
+
+    internal func validate(org: RepositoryQuery.QueryResponse.Organization, reg: FairReg) -> AppOrgValidationFailure {
         let repo = org.repository
         let isOrigin = org.login == appfairName
         var invalid: AppOrgValidationFailure = []
@@ -721,7 +759,7 @@ extension FairHub {
 
         let nameWithOwner = appOrg + "/" + name
 
-        let lookupPRsRequest = FairHub.FindPullRequests(owner: owner, name: name)
+        let lookupPRsRequest = FindPullRequests(owner: owner, name: name)
         let appPR = try await self.requestBatches(lookupPRsRequest) { resultIndex, urlResponse, batch in
             try batch.result.get().data.repository.pullRequests.nodes.first { edge in
                 edge.state == "OPEN"
@@ -737,7 +775,7 @@ extension FairHub {
 
         let sealJSON = try fairseal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
         let sealComment = "```\n" + (sealJSON.utf8String ?? "") + "\n```"
-        let postResponse = try await self.request(FairHub.PostCommentQuery(id: appPR.id, comment: sealComment)).get()
+        let postResponse = try await self.request(PostCommentQuery(id: appPR.id, comment: sealComment)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
 
         dbg("posted fairseal for:", fairseal.assets.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)
@@ -788,7 +826,7 @@ extension FairHub {
         case valueDenied(String?)
         case mismatchedEmail(String?, String?)
         case invalidSealHash(String?)
-        case repoInvalid(_ reasons: FairHub.AppOrgValidationFailure, _ org: String, _ repo: String)
+        case repoInvalid(_ reasons: AppOrgValidationFailure, _ org: String, _ repo: String)
         case missingFairsealIssuer
 
         public var errorDescription: String? {
@@ -2027,7 +2065,7 @@ public extension FairHub {
     }
 
     /// The commit instance
-    typealias CommitInfo = FairHub.GetCommitQuery.QueryResponse
+    typealias CommitInfo = GetCommitQuery.QueryResponse
 }
 
 fileprivate extension Dictionary {
@@ -2104,7 +2142,7 @@ extension AppCatalog {
     public mutating func addNews(for diffs: [AppCatalogItem.Diff], title: String, url: String? = nil, limit: Int? = nil) {
         var news: [AppNewsPost] = self.news ?? []
         for diff in diffs {
-            let bundleID = diff.new.bundleIdentifier.rawValue
+            let bundleID = diff.new.bundleIdentifier
 
             let fmt = { (str: String) in
                 str.replacing(variables: [

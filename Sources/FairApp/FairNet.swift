@@ -102,7 +102,7 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
+    @discardableResult public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
         var request = request
         for requestIndex in 0... {
             if requestIndex > 0, let interleaveDelay = interleaveDelay {
@@ -157,7 +157,7 @@ extension EndpointService {
                let retryAfter = response.value(forHTTPHeaderField: "Retry-After"),
                let retryAfterSeconds = Double(retryAfter) {
                 seenCodes.insert(response.statusCode)
-                dbg("backing off for \(retryAfterSeconds) seconds and re-trying \(retryCount) more times…")
+                dbg("backing off for \(retryAfterSeconds) seconds and re-trying \(retryCount) more times due to response status \(response.statusCode)")
                 try await Task.sleep(nanoseconds: .init(retryAfterSeconds * 1_000_000_000))
             } else {
                 return (data, response)
@@ -168,15 +168,13 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, returning an `AsyncThrowingStream` that yields batches until they are no longer available or they have passed the max batch limit.
-    public func requestBatchStream<A: CursoredAPIRequest>(_ request: A, maxBatches: Int, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
+    public func sendCursoredRequest<A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
         return AsyncThrowingStream { c in
             Task {
                 do {
-                    var count = 0
-                    let _: Void? = try await self.requestBatches(request, cache: cache, interleaveDelay: interleaveDelay) { resultIndex, urlResponse, batch in
+                    let _: Never? = try await self.requestBatches(request, cache: cache, interleaveDelay: interleaveDelay) { resultIndex, urlResponse, batch in
                         c.yield(batch)
-                        count += 1
-                        return count < maxBatches ? nil : () // keep going until we have all the batches
+                        return nil
                     }
                     c.finish()
                 } catch {

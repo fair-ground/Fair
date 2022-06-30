@@ -142,22 +142,11 @@ public extension AppCatalogItem {
 }
 
 
-/// A type wrapper for a bundle identifier string
-public struct BundleIdentifier: Pure, RawRepresentable, Comparable {
-    public let rawValue: String
-    public init(_ rawValue: String) { self.rawValue = rawValue }
-    public init(rawValue: String) { self.rawValue = rawValue }
-
-    public static func < (lhs: Self, rhs: Self) -> Bool {
-        lhs.rawValue < rhs.rawValue
-    }
-}
-
 public struct AppCatalogItem : Pure {
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
     /// The identifier for the app (e.g., "app.Cloud-Cuckoo")
-    public var bundleIdentifier: BundleIdentifier
+    public var bundleIdentifier: String
     /// A subtitle
     public var subtitle: String?
     /// The real name and e-mail address of the developer of the app
@@ -221,7 +210,7 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's homepage
     public var homepage: URL?
 
-    public init(name: String, bundleIdentifier: BundleIdentifier, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [String]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil) {
+    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [String]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle

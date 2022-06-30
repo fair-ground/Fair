@@ -68,12 +68,15 @@ public extension HomebrewAPI {
 
     /// Fetches the cask stats and populates it in the `stats` property
     func fetchAppStats() async throws -> CaskStats {
-        let url = self.caskStats30
+        try await fetchCaskStats(url: caskStats30)
+    }
+
+    func fetchCaskStats(url: URL) async throws -> CaskStats {
         dbg("loading cask stats:", url.absoluteString)
         let data = try await URLRequest(url: url).fetch()
 
         dbg("loaded cask stats", data.count.localizedByteCount(), "from url:", url)
-        return try CaskStats(json: data)
+        return try CaskStats(json: data, dateDecodingStrategy: .iso8601)
     }
 
 }
@@ -189,8 +192,11 @@ public struct CaskStats : Equatable, Decodable {
     /// E.g., `894812`
     public var total_count: Int
 
-    /// Note that the docs call this `items`(see [API Docs](https://formulae.brew.sh/docs/api/#response-5)), but the API returns `formulae`.
-    public var formulae: [String: [Stat]]
+    /// `cask-install` category has `formulae`, but regular `install` has `items`.
+    /// (see [API Docs](https://formulae.brew.sh/docs/api/#response-5))
+    public var formulae: [String: [Stat]]?
+
+    public var items: [String: [Stat]]?
 
     /// `{"number":1,"cask":"google-chrome","count":"34,530","percent":"3.86"}`
     public struct Stat : Equatable, Decodable {
@@ -200,7 +206,7 @@ public struct CaskStats : Equatable, Decodable {
         public init(from decoder: Decoder) throws {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             self.cask = try values.decode(String.self, forKey: .cask)
-            /// The `count` field should be a number, but is appears to be a numeric string (US localized with commas), but since it ought to be a number and maybe someday will be, also permit a number
+            /// The `count` field should be a number, but it appears to be a numeric string (US localized with commas), but since it ought to be a number and maybe someday will be, also permit a number
             do {
                 self.count = try values.decode(Int.self, forKey: .count)
             } catch {
