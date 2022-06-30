@@ -30,8 +30,9 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          draft: true
+          draft: false
           prerelease: contains(github.ref, '-')
+          # draft: true # we would like to publish a draft, but brew needs the release to be publis
 
       - name: Update formula release
         uses: marcprux/update-homebrew-formula-action@main
