@@ -1,29 +1,28 @@
 {
   "abstract" : [
     {
-      "text" : "The identifier for the app (e.g., “app.Cloud-Cuckoo”)",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem"
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/bundleIdentifier"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsName"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV16bundleIdentifierSSvp",
+    "externalID" : "s:8FairExpo19appfairCaskAppsNameSSvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -31,7 +30,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "bundleIdentifier"
+        "text" : "appfairCaskAppsName"
       },
       {
         "kind" : "text",
@@ -45,13 +44,13 @@
     ],
     "modules" : [
       {
-        "name" : "FairApp"
+        "name" : "FairExpo"
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "bundleIdentifier"
+    "roleHeading" : "Global Variable",
+    "symbolKind" : "var",
+    "title" : "appfairCaskAppsName"
   },
   "primaryContentSections" : [
     {
@@ -66,7 +65,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -74,7 +73,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "bundleIdentifier"
+              "text" : "appfairCaskAppsName"
             },
             {
               "kind" : "text",
@@ -102,7 +101,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/bundleidentifier"
+        "\/documentation\/fairexpo\/appfaircaskappsname"
       ],
       "traits" : [
         {
@@ -113,36 +112,28 @@
   ]
 , 
 "references": {
-"doc://FairApp/documentation/FairApp": {
+"doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
-      "text" : "Library build atop ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairCore",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to facilitate working with fair-ground apps.",
+      "text" : "Library of utilities to manage an ecosystem of apps.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
   "kind" : "symbol",
   "role" : "collection",
-  "title" : "FairApp",
+  "title" : "FairExpo",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp"
+  "url" : "\/documentation\/fairexpo"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem": {
+"doc://FairExpo/documentation/FairExpo/appfairCaskAppsName": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -150,41 +141,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCatalogItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem"
-},
-"doc://FairApp/documentation/FairApp/AppCatalogItem/bundleIdentifier": {
-  "abstract" : [
-    {
-      "text" : "The identifier for the app (e.g., “app.Cloud-Cuckoo”)",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bundleIdentifier"
+      "text" : "appfairCaskAppsName"
     },
     {
       "kind" : "text",
@@ -196,12 +153,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/bundleIdentifier",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bundleIdentifier",
+  "title" : "appfairCaskAppsName",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/bundleidentifier"
+  "url" : "\/documentation\/fairexpo\/appfaircaskappsname"
 }
 }
 }

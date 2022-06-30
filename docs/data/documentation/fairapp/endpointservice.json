@@ -98,8 +98,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/buildRequest(for:cache:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/request(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestAsync(_:cache:retry:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:interleaveDelay:batchHandler:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatches(_:cache:interleaveDelay:batchHandler:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/sendCursoredRequest(_:cache:interleaveDelay:)"
       ],
       "title" : "Instance Methods"
     },
@@ -515,156 +515,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice\/requestasync(_:cache:retry:)"
 },
-"doc://FairApp/documentation/FairApp/EndpointService/requestBatchStream(_:maxBatches:cache:interleaveDelay:)": {
-  "abstract" : [
-    {
-      "text" : "Fetches the web service for the given request, returning an ",
-      "type" : "text"
-    },
-    {
-      "code" : "AsyncThrowingStream",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "requestBatchStream"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "maxBatches"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "cache"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV",
-      "text" : "URLRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
-      "text" : "CachePolicy"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "interleaveDelay"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:@T@NSTimeInterval",
-      "text" : "TimeInterval"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Scs",
-      "text" : "AsyncThrowingStream"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Response"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
-},
 "doc://FairApp/documentation/FairApp/EndpointService/requestBatches(_:cache:interleaveDelay:batchHandler:)": {
   "abstract" : [
     {
@@ -861,6 +711,139 @@
   "title" : "requestBatches(_:cache:interleaveDelay:batchHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice\/requestbatches(_:cache:interleavedelay:batchhandler:)"
+},
+"doc://FairApp/documentation/FairApp/EndpointService/sendCursoredRequest(_:cache:interleaveDelay:)": {
+  "abstract" : [
+    {
+      "text" : "Fetches the web service for the given request, returning an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sendCursoredRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Response"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/sendCursoredRequest(_:cache:interleaveDelay:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sendCursoredRequest(_:cache:interleaveDelay:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/endpointservice\/sendcursoredrequest(_:cache:interleavedelay:)"
 },
 "doc://FairApp/documentation/FairApp/EndpointService/session-4ys30": {
   "abstract" : [

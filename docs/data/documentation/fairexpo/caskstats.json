@@ -123,6 +123,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/category",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/end_date",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/formulae",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/items",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/start_date",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/total_count",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/total_items"
@@ -359,12 +360,40 @@
 "doc://FairExpo/documentation/FairExpo/CaskStats/formulae": {
   "abstract" : [
     {
-      "text" : "Note that the docs call this ",
+      "code" : "cask-install",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " category has ",
+      "type" : "text"
+    },
+    {
+      "code" : "formulae",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", but regular ",
+      "type" : "text"
+    },
+    {
+      "code" : "install",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " has ",
       "type" : "text"
     },
     {
       "code" : "items",
       "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
     },
     {
       "text" : "(see ",
@@ -376,15 +405,7 @@
       "type" : "reference"
     },
     {
-      "text" : "), but the API returns ",
-      "type" : "text"
-    },
-    {
-      "code" : "formulae",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : ")",
       "type" : "text"
     }
   ],
@@ -430,7 +451,7 @@
     },
     {
       "kind" : "text",
-      "text" : "]]"
+      "text" : "]]?"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/formulae",
@@ -481,6 +502,62 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/caskstats\/init(from:)"
+},
+"doc://FairExpo/documentation/FairExpo/CaskStats/items": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "items"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo9CaskStatsV",
+      "text" : "CaskStats"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo9CaskStatsV4StatV",
+      "text" : "Stat"
+    },
+    {
+      "kind" : "text",
+      "text" : "]]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats\/items",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "items",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/caskstats\/items"
 },
 "doc://FairExpo/documentation/FairExpo/CaskStats/start_date": {
   "abstract" : [

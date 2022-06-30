@@ -23,12 +23,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/sendCursoredRequest(_:cache:interleaveDelay:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp15EndpointServicePAAE18requestBatchStream_10maxBatches5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___SiSo23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA18CursoredAPIRequestRd__lF",
+    "externalID" : "s:7FairApp15EndpointServicePAAE19sendCursoredRequest_5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___So23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA0F10APIRequestRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,7 +40,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "requestBatchStream"
+        "text" : "sendCursoredRequest"
       },
       {
         "kind" : "text",
@@ -57,23 +57,6 @@
       {
         "kind" : "typeIdentifier",
         "text" : "A"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "maxBatches"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
       },
       {
         "kind" : "text",
@@ -165,7 +148,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
+    "title" : "sendCursoredRequest(_:cache:interleaveDelay:)"
   },
   "primaryContentSections" : [
     {
@@ -188,7 +171,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "requestBatchStream"
+              "text" : "sendCursoredRequest"
             },
             {
               "kind" : "text",
@@ -221,23 +204,6 @@
             {
               "kind" : "typeIdentifier",
               "text" : "A"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "maxBatches"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
             },
             {
               "kind" : "text",
@@ -383,7 +349,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
+        "\/documentation\/fairapp\/endpointservice\/sendcursoredrequest(_:cache:interleavedelay:)"
       ],
       "traits" : [
         {
@@ -484,7 +450,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/endpointservice"
 },
-"doc://FairApp/documentation/FairApp/EndpointService/requestBatchStream(_:maxBatches:cache:interleaveDelay:)": {
+"doc://FairApp/documentation/FairApp/EndpointService/sendCursoredRequest(_:cache:interleaveDelay:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, returning an ",
@@ -510,7 +476,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "requestBatchStream"
+      "text" : "sendCursoredRequest"
     },
     {
       "kind" : "text",
@@ -527,23 +493,6 @@
     {
       "kind" : "typeIdentifier",
       "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "maxBatches"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
     },
     {
       "kind" : "text",
@@ -627,12 +576,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/EndpointService\/sendCursoredRequest(_:cache:interleaveDelay:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
+  "title" : "sendCursoredRequest(_:cache:interleaveDelay:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/endpointservice\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
+  "url" : "\/documentation\/fairapp\/endpointservice\/sendcursoredrequest(_:cache:interleavedelay:)"
 }
 }
 }

@@ -24,12 +24,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/sendCursoredRequest(_:cache:interleaveDelay:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp15EndpointServicePAAE18requestBatchStream_10maxBatches5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___SiSo23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA18CursoredAPIRequestRd__lF::SYNTHESIZED::s:8FairExpo0A3HubV",
+    "externalID" : "s:7FairApp15EndpointServicePAAE19sendCursoredRequest_5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___So23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA0F10APIRequestRd__lF::SYNTHESIZED::s:8FairExpo0A3HubV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,7 +41,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "requestBatchStream"
+        "text" : "sendCursoredRequest"
       },
       {
         "kind" : "text",
@@ -58,23 +58,6 @@
       {
         "kind" : "typeIdentifier",
         "text" : "A"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "maxBatches"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
       },
       {
         "kind" : "text",
@@ -166,7 +149,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)"
+    "title" : "sendCursoredRequest(_:cache:interleaveDelay:)"
   },
   "primaryContentSections" : [
     {
@@ -189,7 +172,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "requestBatchStream"
+              "text" : "sendCursoredRequest"
             },
             {
               "kind" : "text",
@@ -222,23 +205,6 @@
             {
               "kind" : "typeIdentifier",
               "text" : "A"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "maxBatches"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
             },
             {
               "kind" : "text",
@@ -383,7 +349,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/fairhub\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
+        "\/documentation\/fairexpo\/fairhub\/sendcursoredrequest(_:cache:interleavedelay:)"
       ],
       "traits" : [
         {
@@ -453,7 +419,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/endpointservice-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/requestBatchStream(_:maxBatches:cache:interleaveDelay:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/sendCursoredRequest(_:cache:interleaveDelay:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, returning an ",
@@ -479,7 +445,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "requestBatchStream"
+      "text" : "sendCursoredRequest"
     },
     {
       "kind" : "text",
@@ -496,23 +462,6 @@
     {
       "kind" : "typeIdentifier",
       "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "maxBatches"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
     },
     {
       "kind" : "text",
@@ -596,12 +545,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/sendCursoredRequest(_:cache:interleaveDelay:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestBatchStream(_:maxBatches:cache:interleaveDelay:)",
+  "title" : "sendCursoredRequest(_:cache:interleaveDelay:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/requestbatchstream(_:maxbatches:cache:interleavedelay:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/sendcursoredrequest(_:cache:interleavedelay:)"
 }
 }
 }

@@ -1,27 +1,26 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the pretty-printed form of the JSON",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
-        "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier\/Encodable-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier\/prettyJSON"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/mergeCaskStats"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE10prettyJSONSSvp::SYNTHESIZED::s:7FairApp16BundleIdentifierV",
+    "externalID" : "s:8FairExpo11BrewCommandV08AppCasksD0V14mergeCaskStatsSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,7 +32,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "prettyJSON"
+        "text" : "mergeCaskStats"
       },
       {
         "kind" : "text",
@@ -43,17 +42,21 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:SS",
         "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
       {
-        "name" : "FairApp"
+        "name" : "FairExpo"
       }
     ],
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "prettyJSON"
+    "title" : "mergeCaskStats"
   },
   "primaryContentSections" : [
     {
@@ -76,7 +79,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "prettyJSON"
+              "text" : "mergeCaskStats"
             },
             {
               "kind" : "text",
@@ -89,11 +92,19 @@
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : "? { "
             },
             {
               "kind" : "keyword",
               "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
             },
             {
               "kind" : "text",
@@ -116,7 +127,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/bundleidentifier\/prettyjson"
+        "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/mergecaskstats"
       ],
       "traits" : [
         {
@@ -127,34 +138,23 @@
   ]
 , 
 "references": {
-"doc://FairApp/documentation/FairApp": {
+"doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
-      "text" : "Library build atop ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairCore",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to facilitate working with fair-ground apps.",
+      "text" : "Library of utilities to manage an ecosystem of apps.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
   "kind" : "symbol",
   "role" : "collection",
-  "title" : "FairApp",
+  "title" : "FairExpo",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp"
+  "url" : "\/documentation\/fairexpo"
 },
-"doc://FairApp/documentation/FairApp/BundleIdentifier": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand": {
   "abstract" : [
-    {
-      "text" : "A type wrapper for a bundle identifier string",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -167,39 +167,56 @@
     },
     {
       "kind" : "identifier",
-      "text" : "BundleIdentifier"
+      "text" : "BrewCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "BundleIdentifier"
+      "text" : "BrewCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "BundleIdentifier",
+  "title" : "BrewCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/bundleidentifier"
+  "url" : "\/documentation\/fairexpo\/brewcommand"
 },
-"doc://FairApp/documentation/FairApp/BundleIdentifier/Encodable-Implementations": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/bundleidentifier\/encodable-implementations"
-},
-"doc://FairApp/documentation/FairApp/BundleIdentifier/prettyJSON": {
-  "abstract" : [
+  "fragments" : [
     {
-      "text" : "Returns the pretty-printed form of the JSON",
-      "type" : "text"
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksCommand"
     }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BrewCommand.AppCasksCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand"
+},
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/mergeCaskStats": {
+  "abstract" : [
+
   ],
   "fragments" : [
     {
@@ -212,7 +229,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "prettyJSON"
+      "text" : "mergeCaskStats"
     },
     {
       "kind" : "text",
@@ -222,14 +239,18 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/BundleIdentifier\/prettyJSON",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/mergeCaskStats",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "prettyJSON",
+  "title" : "mergeCaskStats",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/bundleidentifier\/prettyjson"
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/mergecaskstats"
 }
 }
 }

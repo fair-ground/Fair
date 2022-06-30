@@ -294,7 +294,7 @@ public struct SourceCommand : AsyncParsableCommand {
                 // if we are filtering by bundle IDs, find ones that match
                 if !bundleID.isEmpty {
                     let bundleIDs = bundleID.set()
-                    apps = apps.filter({ bundleIDs.contains($0.bundleIdentifier.rawValue) })
+                    apps = apps.filter({ bundleIDs.contains($0.bundleIdentifier) })
                 }
 
                 return apps.mapAsync({ try await AppCatalogAPI.shared.verifyAppItem(app: $0, catalogURL: catalogURL, msg: { msg($0, $1) }) })
@@ -458,7 +458,7 @@ public final class AppCatalogAPI {
             throw AppError("Missing CFBundleDisplayName for \(url.absoluteString)")
         }
         
-        var item = AppCatalogItem(name: bundleName, bundleIdentifier: BundleIdentifier(bundleID), downloadURL: url)
+        var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
         item.version = info.CFBundleShortVersionString
         item.size = localURL.fileSize()
 
@@ -1794,8 +1794,11 @@ public struct BrewCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("the endpoint containing additional metadata.", valueName: "url"))
         public var mergeCaskInfo: String?
 
+        @Option(name: [.long], help: ArgumentHelp("the endpoint containing cask stats.", valueName: "url"))
+        public var mergeCaskStats: String?
+
         @Option(name: [.long], help: ArgumentHelp("app ids to boost in catalog.", valueName: "apps"))
-        public var boostApps: [String] = []
+        public var boostApps: [String] = [] // each string can also delimit multiple apps with a "|" separator
 
         @Option(name: [.long], help: ArgumentHelp("ranking increase for boosted apps.", valueName: "factor"))
         public var boostFactor: Int64?
@@ -1814,8 +1817,16 @@ public struct BrewCommand : AsyncParsableCommand {
         private func createAppCasks() async throws {
             let hub = try hubOptions.fairHub()
 
+            let appids = boostApps
+                .map { $0.split(separator: "|") }
+                .joined()
+                .map { (String($0), 1) }
+
+            // sum up duplicate boosts to get the count
+            let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
+
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), boostFactor: boostFactor)
+            let catalog = try await hub.buildAppCasks(maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
 
             let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
