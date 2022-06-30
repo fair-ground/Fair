@@ -197,15 +197,11 @@ extension FairHub {
     }
 
     func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, reg: FairReg, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogQuery.Response, Error>, [AppCatalogItem]> {
-
-        let forksResponse = self.sendCursoredRequest(CatalogQuery(owner: owner, name: "App"))
-        let result = forksResponse.map { forks in
-            try forkResponse(forks, artifactTarget: artifactTarget, reg: reg)
-        }
-        return result
+        sendCursoredRequest(CatalogQuery(owner: owner, name: "App"))
+            .map { forks in try createAppsFromForm(forks, artifactTarget: artifactTarget, reg: reg) }
     }
 
-    private func forkResponse(_ forks: CatalogQuery.Response, artifactTarget: ArtifactTarget, reg: FairReg) throws -> [AppCatalogItem] {
+    private func createAppsFromForm(_ forks: CatalogQuery.Response, artifactTarget: ArtifactTarget, reg: FairReg) throws -> [AppCatalogItem] {
         guard let fairsealIssuer = reg.fairsealIssuer else {
             throw Errors.missingFairsealIssuer
         }
@@ -303,7 +299,7 @@ extension FairHub {
                 } else {
                     developerInfo = devEmail
                 }
-                //let versionDate = release.createdAt
+                let versionDate = release.createdAt
                 let versionDescription = release.description
                 let iconURL = release.releaseAssets.nodes.first { asset in
                     asset.name == "\(appid).png" // e.g. "Fair-Skies.png"
@@ -403,11 +399,10 @@ extension FairHub {
 
                     let size = appArtifact.size
 
+                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.isEmpty ? nil : screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
+
+
                     // walk through the recent releases until we find one that has a fairseal on it
-
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: nil, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.isEmpty ? nil : screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
-
-
                     if beta == true {
                         if !fairsealBetaFound {
                             apps.append(app)
@@ -2125,6 +2120,19 @@ extension AppCatalogItem {
 }
 
 extension AppCatalog {
+
+    /// Transfers version date information from the source catalog to this catalog for each bundle identifier
+    public mutating func importVersionDates(from sourceCatalog: AppCatalog) {
+        let srcMap = sourceCatalog.apps.dictionary(keyedBy: \.bundleIdentifier)
+
+        for (index, item) in self.apps.enumerated() {
+            if let oldApp = srcMap[item.bundleIdentifier] {
+                self.apps[index].versionDate = oldApp.versionDate
+            }
+        }
+
+    }
+
     /// Update the version date to the current date for each item that has changed
     public mutating func updateVersionDates(for diffs: [AppCatalogItem.Diff], with date: Date) {
         let diffMap = diffs.dictionary(keyedBy: \.new.bundleIdentifier)
@@ -2138,27 +2146,42 @@ extension AppCatalog {
         }
     }
 
+    struct NewsItemFormat {
+        var postTitle: String?
+        var postTitleUpdate: String?
+        var postCaption: String?
+        var postCaptionUpdate: String?
+        var postBody: String?
+        var postAppID: String?
+        var postURL: String?
+    }
+
     /// Takes the differences from two catalogs and adds them to the postings with the given formats and limits.
-    public mutating func addNews(for diffs: [AppCatalogItem.Diff], title: String, url: String? = nil, limit: Int? = nil) {
+    mutating func addNews(for diffs: [AppCatalogItem.Diff], format: NewsItemFormat, limit: Int? = nil) {
         var news: [AppNewsPost] = self.news ?? []
         for diff in diffs {
             let bundleID = diff.new.bundleIdentifier
 
-            let fmt = { (str: String) in
-                str.replacing(variables: [
+            let fmt = { (str: String?) in
+                str?.replacing(variables: [
                     "appname": diff.new.name,
                     "appname_hyphenated": diff.new.appNameHyphenated,
                     "appbundleid": bundleID,
                     "appversion": diff.new.version,
+                    "oldappversion": diff.old?.version,
                 ].compactMapValues({ $0 }))
             }
 
+            let updatesExistingApp = diff.old != nil
+
             // a unique identifier for the item
             let identifier = "release-" + bundleID + "-" + (diff.new.version ?? "new")
-            let title = fmt(title)
-            let caption = ""
+            let title = fmt(updatesExistingApp ? format.postTitleUpdate : format.postTitle)
+            let caption = fmt(updatesExistingApp ? format.postCaptionUpdate : format.postCaption)
+
             let date = ISO8601DateFormatter().string(from: Date())
-            var post = AppNewsPost(identifier: identifier, date: date, title: title, caption: caption)
+            var post = AppNewsPost(identifier: identifier, date: date, title: (title ?? "New Release: \(diff.new.name) \(diff.new.version ?? "")").trimmed(), caption: caption ?? "")
+
             post.appID = bundleID
             // clear out any older news postings with the same bundle id
             news = news.filter({ $0.appID != bundleID })
@@ -2170,7 +2193,7 @@ extension AppCatalog {
     }
 
     /// Compare two catalogs and report the changes that indicate version changes between catalog entries with the same bundle identifier
-    public static func newReleases(from oldcat: AppCatalog, to newcat: AppCatalog, comparator: (_ new: AppCatalogItem, _ old: AppCatalogItem?) -> Bool = { $0.version != $1?.version }) -> [AppCatalogItem.Diff] {
+    static func newReleases(from oldcat: AppCatalog, to newcat: AppCatalog, comparator: (_ new: AppCatalogItem, _ old: AppCatalogItem?) -> Bool = { $0.version != $1?.version }) -> [AppCatalogItem.Diff] {
         let oldapps = oldcat.apps.filter { $0.beta != true }
         let newapps = newcat.apps.filter { $0.beta != true }
 

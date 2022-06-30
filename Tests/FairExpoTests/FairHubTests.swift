@@ -193,35 +193,37 @@ final class FairHubTests: XCTestCase {
         dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
+    private func checkApp(_ id: String, catalog: AppCatalog) {
+        guard let app = catalog.apps.first(where: { $0.bundleIdentifier == "app.Tune-Out" }) else {
+            return XCTFail("no app")
+        }
+
+        XCTAssertNotNil(app.subtitle, "missing subtitle in app: \(app.bundleIdentifier)")
+        XCTAssertNotNil(app.version, "missing version in app: \(app.bundleIdentifier)")
+        XCTAssertNotNil(app.versionDate, "missing versionDate in app: \(app.bundleIdentifier)")
+        XCTAssertNotNil(app.sha256, "missing sha256 in app: \(app.bundleIdentifier)")
+        XCTAssertNotNil(app.downloadCount, "missing downloadCount in app: \(app.bundleIdentifier)")
+        XCTAssertNotNil(app.categories, "missing categories in app: \(app.bundleIdentifier)")
+    }
+
     func testBuildMacOSCatalog() async throws {
-        if runningFromCI {
-            throw XCTSkip("disabled to reduce API load")
-        }
+//        if runningFromCI {
+//            throw XCTSkip("disabled to reduce API load")
+//        }
 
-        //for _ in 1...3 {
-        //    do {
-        //        return try buildCatalog()
-        //    } catch {
-        //        dbg("retrying error:", error)
-        //    }
-        //}
-        try await buildCatalog() // fail for real this time
+        let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
+        let reg = try FairReg(fairsealIssuer: "appfairbot") // , allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, reg: reg, requestLimit: nil)
+        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+        dbg("catalog", names.sorted())
 
-        func buildCatalog() async throws {
-            let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-            let reg = try FairReg(fairsealIssuer: "appfairbot") // , allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
-            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, reg: reg, requestLimit: nil)
-            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-            dbg("catalog", names.sorted())
+        XCTAssertFalse(names.contains("App"))
 
-            XCTAssertFalse(names.contains("App"))
+        checkApp("app.App-Fair", catalog: catalog)
+        checkApp("app.Cloud-Cuckoo", catalog: catalog)
+        checkApp("app.Tune-Out", catalog: catalog)
 
-            XCTAssertTrue(names.contains("App Fair"))
-            XCTAssertTrue(names.contains("Tune Out"))
-            XCTAssertGreaterThanOrEqual(names.count, 3)
-
-            dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
-        }
+        dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
     func testBuildIOSCatalog() async throws {
@@ -229,30 +231,18 @@ final class FairHubTests: XCTestCase {
             throw XCTSkip("disabled to reduce API load")
         }
 
-        //for _ in 1...3 {
-        //    do {
-        //        return try buildCatalog()
-        //    } catch {
-        //        dbg("retrying error:", error)
-        //    }
-        //}
-        try await buildCatalog() // fail for real this time
+        let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
+        let reg = try FairReg(fairsealIssuer: "appfairbot") // , allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, reg: reg, requestLimit: nil)
+        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+        dbg("catalog", names.sorted())
 
-        func buildCatalog() async throws {
-            let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
-            let reg = try FairReg(fairsealIssuer: "appfairbot") // , allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
-            let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, reg: reg, requestLimit: nil)
-            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-            dbg("catalog", names.sorted())
+        XCTAssertFalse(names.contains("App"))
 
-            XCTAssertFalse(names.contains("App"))
+        checkApp("app.Cloud-Cuckoo", catalog: catalog)
+        checkApp("app.Tune-Out", catalog: catalog)
 
-            //XCTAssertFalse(names.contains("App Fair")) // App Fair should not be in iOS cataloa
-            XCTAssertTrue(names.contains("Tune Out"))
-            XCTAssertGreaterThanOrEqual(names.count, 3)
-
-            dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
-        }
+        dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
     func testFetchCatalog() async throws {

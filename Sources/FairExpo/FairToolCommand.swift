@@ -326,7 +326,16 @@ public struct SourceCommand : AsyncParsableCommand {
         public var updateVersionDate: Bool = false
 
         @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
-        public var postTitle: String // TODO: should we distinguish between new apps (to a catalog) vs. version changes? E.g., postTitleNew="New App Available on the Fairground: Firefox VERSION" and postTitleRelease="New Version of Firefox (VERSION) now available on the Fairground"
+        public var postTitle: String
+
+        @Option(name: [.long], help: ArgumentHelp("the post title format for updates.", valueName: "format"))
+        public var postTitleUpdate: String
+
+        @Option(name: [.long], help: ArgumentHelp("the post caption format for new releases.", valueName: "format"))
+        public var postCaption: String
+
+        @Option(name: [.long], help: ArgumentHelp("the post caption format for updates.", valueName: "format"))
+        public var postCaptionUpdate: String
 
         @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
         public var postBody: String?
@@ -344,22 +353,27 @@ public struct SourceCommand : AsyncParsableCommand {
 
             warnExperimental(Self.experimental)
             msg(.info, "posting changes from: \(fromCatalog) to \(toCatalog)")
-            let fromCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
-            var toCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: toCatalog)))
-            let diffs = AppCatalog.newReleases(from: fromCatalog, to: toCatalog)
+            let srcCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
+
+            var dstCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: toCatalog)))
+            dstCatalog.news = srcCatalog.news
+            if updateVersionDate {
+                dstCatalog.importVersionDates(from: srcCatalog)
+            }
+
+            let diffs = AppCatalog.newReleases(from: srcCatalog, to: dstCatalog)
 
             // copy over the news from the previous catalog…
-            toCatalog.news = fromCatalog.news
 
             // … then add items for each of the new releases, purging duplicates as needed
-            toCatalog.addNews(for: diffs, title: postTitle, url: postURL, limit: newsItems)
+            dstCatalog.addNews(for: diffs, format: AppCatalog.NewsItemFormat(), limit: newsItems)
 
             if updateVersionDate {
-                toCatalog.updateVersionDates(for: diffs, with: date)
+                dstCatalog.updateVersionDates(for: diffs, with: date)
             }
             
-            let json = try outputOptions.writeCatalog(toCatalog)
-            msg(.info, "posted", diffs.count, "changes to catalog", json.count.localizedByteCount(), "old items:", fromCatalog.news?.count ?? 0, "new items:", toCatalog.news?.count ?? 0)
+            let json = try outputOptions.writeCatalog(dstCatalog)
+            msg(.info, "posted", diffs.count, "changes to catalog", json.count.localizedByteCount(), "old items:", srcCatalog.news?.count ?? 0, "new items:", dstCatalog.news?.count ?? 0)
         }
     }
 }
