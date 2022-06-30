@@ -260,9 +260,14 @@ public extension URLRequest {
 }
 
 extension URLResponse {
-    public struct InvalidHTTPCode : Error {
+    public struct InvalidHTTPCode : Error, LocalizedError {
         public let code: Int
         //public let response: HTTPURLResponse
+
+        public var failureReason: String? {
+            //NSLocalizedString("Invalud Cide", bundle: .module, comment: "invalid code error")
+            "Invalid HTTP Response: \(code)"
+        }
     }
 
     /// Attempts to validate the status code in the given range and throws an error if they fail.

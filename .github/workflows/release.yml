@@ -120,6 +120,7 @@ jobs:
           message: |
               Add bottles for fairtool ${{ needs.release.outputs.current_version }}
       - name: Publish release
+        if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
