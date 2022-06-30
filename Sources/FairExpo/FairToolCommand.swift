@@ -1874,6 +1874,9 @@ private extension AppCatalog {
     func buildAppCatalogMarkdown() throws -> String {
         let catalog = self
 
+        // a hack to distinguish between fairapps and appcasks
+        let isFairApp = catalog.sourceURL?.absoluteString.contains("appcasks") != true
+
         let format = ISO8601DateFormatter()
         func fmt(_ date: Date?) -> String {
             guard let date = date else { return "" }
@@ -1883,7 +1886,7 @@ private extension AppCatalog {
 
         func pre(_ string: String?, limit: Int = .max) -> String {
             guard let string = string else { return "" }
-            return "`" + string.prefix(limit) + "`"
+            return "`" + string.prefix(limit) + (string.count > limit ? "…" : "") + "`"
         }
 
         var md = """
@@ -1925,17 +1928,19 @@ private extension AppCatalog {
             }
 
             md += "| "
-            md += "[`\(app.name)`](\(app.homepage?.absoluteString ?? landingPage))"
+            md += "[`\(pre(app.name, limit: 80))`](\(app.homepage?.absoluteString ?? landingPage))"
 
             md += " | "
-            if let relURL = URL(string: v, relativeTo: app.releasesURL) {
+            if version.isEmpty {
+                // no output
+            } else if let relURL = URL(string: v, relativeTo: app.releasesURL), isFairApp == true {
                 md += "[`\(pre(version, limit: 25))`](\(relURL.absoluteString))"
             } else {
                 md += "`\(pre(version, limit: 25))`"
             }
 
             md += " | "
-            md += pre((app.downloadCount ?? 0).description)
+            md += pre(app.downloadCount?.description)
 
             md += " | "
             md += pre(fmt(app.versionDate))
@@ -1944,13 +1949,13 @@ private extension AppCatalog {
             md += pre(app.size?.localizedByteCount())
 
             md += " | "
-            md += pre((app.impressionCount ?? 0).description)
+            md += pre(app.impressionCount?.description)
 
             md += " | "
-            md += pre((app.viewCount ?? 0).description)
+            md += pre(app.viewCount?.description)
 
             md += " | "
-            md += pre((app.starCount ?? 0).description)
+            md += pre(app.starCount?.description)
 
             md += " | "
             let issueCount = (app.issueCount ?? 0)
@@ -1962,7 +1967,11 @@ private extension AppCatalog {
 
             md += " | "
             if let category = app.appCategories.first {
-                md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
+                if isFairApp {
+                    md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
+                } else {
+                    md += pre(category.rawValue)
+                }
             }
 
             md += " |\n"
