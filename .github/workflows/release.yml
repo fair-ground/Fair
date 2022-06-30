@@ -51,7 +51,8 @@ jobs:
     steps:
       - name: Build bottle (x86_64)
         run: |
-          HOMEBREW_FAIRTOOL_ARCH="x86_64" brew install --build-bottle --verbose appfair/app/fairtool
+          #HOMEBREW_FAIRTOOL_ARCH="x86_64" 
+          brew install --build-bottle --verbose appfair/app/fairtool
           file `which fairtool`
           fairtool version
           brew bottle appfair/app/fairtool --no-rebuild
