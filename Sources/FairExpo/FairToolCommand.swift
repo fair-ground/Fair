@@ -1785,12 +1785,21 @@ public struct BrewCommand : AsyncParsableCommand {
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
-        @OptionGroup public var casksOptions: CasksOptions
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
         @Option(name: [.long], help: ArgumentHelp("the maximum number of apps to include.", valueName: "count"))
         public var maxApps: Int?
+
+        @Option(name: [.long], help: ArgumentHelp("the endpoint containing additional metadata.", valueName: "url"))
+        public var mergeCaskInfo: String?
+
+        @Option(name: [.long], help: ArgumentHelp("app ids to boost in catalog.", valueName: "apps"))
+        public var boostApps: [String] = []
+
+        @Option(name: [.long], help: ArgumentHelp("ranking increase for boosted apps.", valueName: "factor"))
+        public var boostFactor: Int64?
+
 
         public init() { }
 
@@ -1806,18 +1815,11 @@ public struct BrewCommand : AsyncParsableCommand {
             let hub = try hubOptions.fairHub()
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(maxApps: maxApps, boostFactor: casksOptions.boostFactor)
+            let catalog = try await hub.buildAppCasks(maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), boostFactor: boostFactor)
 
             let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
         }
-    }
-
-    public struct CasksOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("multiplier for ranking boost from metadata presence.", valueName: "factor"))
-        public var boostFactor: Int64?
-
-        public init() { }
     }
 }
 
