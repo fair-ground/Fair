@@ -16,7 +16,7 @@ import Swift
 import XCTest
 import FairCore
 import FairApp
-import FairExpo
+@testable import FairExpo
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -310,15 +310,17 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual("0.9.75", diff.new.version)
         XCTAssertEqual("0.9.74", diff.old?.version)
 
-        let title = "New Release: #(appname) v#(appversion)"
+        let fmt = AppCatalog.NewsItemFormat(postTitle: "New Release: #(appname) VERSION #(appversion)", postTitleUpdate: "Updated Release: #(appname) #(appversion)", postCaption: "#(appname) version #(appversion) has been released", postCaptionUpdate: "#(appname) version #(appversion) has been updated from #(oldappversion)", postBody: "NEW RELEASE", postAppID: nil, postURL: nil)
 
         var cat2Post = cat2
-        cat2Post.addNews(for: diffs, title: title, limit: 0)
+        cat2Post.addNews(for: diffs, format: fmt, limit: 0)
         XCTAssertEqual(cat2Post, cat2)
-        cat2Post.addNews(for: diffs, title: title, limit: 1)
+        cat2Post.addNews(for: diffs, format: fmt, limit: 1)
         XCTAssertNotEqual(cat2Post, cat2)
+
         XCTAssertEqual("release-app.Cloud-Cuckoo-0.9.75", cat2Post.news?.first?.identifier)
-        XCTAssertEqual("New Release: Cloud Cuckoo v0.9.75", cat2Post.news?.first?.title)
+        XCTAssertEqual("Updated Release: Cloud Cuckoo 0.9.75", cat2Post.news?.first?.title)
+        XCTAssertEqual("Cloud Cuckoo version 0.9.75 has been updated from 0.9.74", cat2Post.news?.first?.caption)
         XCTAssertEqual("app.Cloud-Cuckoo", cat2Post.news?.first?.appID)
     }
 }
