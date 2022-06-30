@@ -1875,13 +1875,15 @@ private extension AppCatalog {
         let catalog = self
 
         let format = ISO8601DateFormatter()
-        func fmt(_ date: Date) -> String {
-            //date.localizedDate(dateStyle: .short, timeStyle: .short)
-            format.string(from: date)
+        func fmt(_ date: Date?) -> String {
+            guard let date = date else { return "" }
+            //return date.localizedDate(dateStyle: .short, timeStyle: .short)
+            return format.string(from: date)
         }
 
-        func pre(_ string: String) -> String {
-            "`" + string + "`"
+        func pre(_ string: String?, limit: Int = .max) -> String {
+            guard let string = string else { return "" }
+            return "`" + string.prefix(limit) + "`"
         }
 
         var md = """
@@ -1908,12 +1910,12 @@ private extension AppCatalog {
             }
             </style>
 
-            | name | version | imps | views | dls | size | stars | issues | date | category |
-            | ---: | :------ | ---: | ----: | --: | :--- | -----:| -----: | ---- | :------- |
+            | name | version | dls | date | size | imps | views | stars | issues | category |
+            | ---: | :------ | --: | ---- | :--- | ---: | ----: | -----:| -----: | :------- |
 
             """
 
-        for app in catalog.apps.sorting(by: \.versionDate, ascending: false) {
+        for app in catalog.apps {
             let landingPage = "https://\(app.name.rehyphenated()).github.io/App/"
 
             let v = app.version ?? ""
@@ -1927,22 +1929,25 @@ private extension AppCatalog {
 
             md += " | "
             if let relURL = URL(string: v, relativeTo: app.releasesURL) {
-                md += "[`\(pre(version))`](\(relURL.absoluteString))"
+                md += "[`\(pre(version, limit: 25))`](\(relURL.absoluteString))"
             } else {
-                md += "`\(pre(version))`"
+                md += "`\(pre(version, limit: 25))`"
             }
+
+            md += " | "
+            md += pre((app.downloadCount ?? 0).description)
+
+            md += " | "
+            md += pre(fmt(app.versionDate))
+
+            md += " | "
+            md += pre(app.size?.localizedByteCount())
 
             md += " | "
             md += pre((app.impressionCount ?? 0).description)
 
             md += " | "
             md += pre((app.viewCount ?? 0).description)
-
-            md += " | "
-            md += pre((app.downloadCount ?? 0).description)
-
-            md += " | "
-            md += pre((app.size ?? 0).localizedByteCount())
 
             md += " | "
             md += pre((app.starCount ?? 0).description)
@@ -1954,9 +1959,6 @@ private extension AppCatalog {
             } else {
                 md += pre(issueCount.description)
             }
-
-            md += " | "
-            md += pre(fmt(app.versionDate ?? .distantPast))
 
             md += " | "
             if let category = app.appCategories.first {
