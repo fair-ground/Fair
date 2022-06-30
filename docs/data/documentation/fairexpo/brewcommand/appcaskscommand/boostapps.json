@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "Decodable.init(from:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -18,46 +10,42 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/CasksOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/CasksOptions\/init(from:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/boostApps"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo11BrewCommandV12CasksOptionsV4fromAEs7Decoder_p_tKcfc",
+    "externalID" : "s:8FairExpo11BrewCommandV08AppCasksD0V9boostAppsSaySSGvp",
     "fragments" : [
       {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
         "kind" : "identifier",
-        "text" : "init"
+        "text" : "boostApps"
       },
       {
         "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "from"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s7DecoderP",
-        "text" : "Decoder"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : ") "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -66,9 +54,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Initializer",
-    "symbolKind" : "init",
-    "title" : "init(from:)"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "boostApps"
   },
   "primaryContentSections" : [
     {
@@ -83,40 +71,44 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "init"
-            },
-            {
-              "kind" : "text",
-              "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "from"
+              "text" : "var"
             },
             {
               "kind" : "text",
               "text" : " "
             },
             {
-              "kind" : "internalParam",
-              "text" : "decoder"
+              "kind" : "identifier",
+              "text" : "boostApps"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s7DecoderP",
-              "text" : "Decoder"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : ") "
+              "text" : "] { "
             },
             {
               "kind" : "keyword",
-              "text" : "throws"
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -135,7 +127,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/brewcommand\/casksoptions\/init(from:)"
+        "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/boostapps"
       ],
       "traits" : [
         {
@@ -191,7 +183,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/brewcommand"
 },
-"doc://FairExpo/documentation/FairExpo/BrewCommand/CasksOptions": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand": {
   "abstract" : [
 
   ],
@@ -206,63 +198,59 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CasksOptions"
+      "text" : "AppCasksCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/CasksOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CasksOptions"
+      "text" : "AppCasksCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "BrewCommand.CasksOptions",
+  "title" : "BrewCommand.AppCasksCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/brewcommand\/casksoptions"
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand"
 },
-"doc://FairExpo/documentation/FairExpo/BrewCommand/CasksOptions/init(from:)": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/boostApps": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
       "kind" : "identifier",
-      "text" : "init"
+      "text" : "boostApps"
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "from"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7DecoderP",
-      "text" : "Decoder"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/CasksOptions\/init(from:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/boostApps",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(from:)",
+  "title" : "boostApps",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/brewcommand\/casksoptions\/init(from:)"
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/boostapps"
 }
 }
 }

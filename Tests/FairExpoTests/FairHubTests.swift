@@ -169,9 +169,9 @@ final class FairHubTests: XCTestCase {
 //    }
 
     func testBuildAppCasks() async throws {
-        if runningFromCI {
-            throw XCTSkip("disabled to reduce API load")
-        }
+//        if runningFromCI {
+//            throw XCTSkip("disabled to reduce API load")
+//        }
 
         let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(maxApps: 10, mergeCasksURL: HomebrewAPI.defaultEndpoint, boostFactor: 1000)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))

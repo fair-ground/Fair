@@ -112,9 +112,11 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/casksOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/boostApps",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/boostFactor",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/hubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/maxApps",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/mergeCaskInfo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/msgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/outputOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/retryOptions"
@@ -336,7 +338,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/parsablecommand-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/casksOptions": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/boostApps": {
   "abstract" : [
 
   ],
@@ -351,7 +353,45 @@
     },
     {
       "kind" : "identifier",
-      "text" : "casksOptions"
+      "text" : "boostApps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/boostApps",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "boostApps",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/boostapps"
+},
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/boostFactor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "boostFactor"
     },
     {
       "kind" : "text",
@@ -359,25 +399,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo11BrewCommandV",
-      "text" : "BrewCommand"
+      "preciseIdentifier" : "s:s5Int64V",
+      "text" : "Int64"
     },
     {
       "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo11BrewCommandV12CasksOptionsV",
-      "text" : "CasksOptions"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/casksOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/boostFactor",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "casksOptions",
+  "title" : "boostFactor",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/casksoptions"
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/boostfactor"
 },
 "doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/configuration-2c0cq": {
   "abstract" : [
@@ -597,6 +632,44 @@
   "title" : "maxApps",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/maxapps"
+},
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/mergeCaskInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mergeCaskInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/mergeCaskInfo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mergeCaskInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/mergecaskinfo"
 },
 "doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/msgOptions": {
   "abstract" : [
