@@ -655,4 +655,46 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual("result", "#(v3#(v2#(v1)))".replacing(variables: ["v1": "P", "v2P": "Q", "v3Q": "result"]))
     }
 
+    private func randomData(count: Int) -> Data {
+        Data((1...count).map({ _ in UInt8.random(in: (.min)...(.max)) }))
+    }
+
+    /// Checks that the SHA1 hex from random data matches between the internal implementation and the CommonCrypto one
+    func testSHA1Implementation() {
+        for _ in 1...100 {
+            let data = randomData(count: Int.random(in: 1...10000))
+            let sha1a = data.sha1()
+            let sha1b = data.sha1Internal()
+            XCTAssertEqual(sha1a.hex(), sha1b.hex())
+        }
+    }
+
+    /// Checks that the SHA256 hex from random data matches between the internal implementation and the CommonCrypto one
+    func testSHA256Implementation() {
+        for _ in 1...100 {
+            let data = randomData(count: Int.random(in: 1...10000))
+            let sha256a = data.sha256()
+            let sha256b = data.sha256Internal()
+            XCTAssertEqual(sha256a.hex(), sha256b.hex())
+        }
+    }
+
+    /// Checks that the HMAC hex from random data matches between the internal implementation and the CommonCrypto one
+    func testHMACImplementation() {
+        for _ in 1...100 {
+            let data = randomData(count: Int.random(in: 1...100_000))
+            let kdata = randomData(count: Int.random(in: 1...1_000))
+            let hmac1 = data.hmacSHA1(key: kdata)
+            let hmac2 = data.hmacSHA1Internal(key: kdata)
+            XCTAssertEqual(hmac1.hex(), hmac2.hex())
+        }
+    }
+
+    /// https://en.wikipedia.org/wiki/HMAC#Examples
+    func testHMACSSHA1() {
+        let msg = "The quick brown fox jumps over the lazy dog"
+        let key = "key"
+        let sha1 = msg.utf8Data.hmacSHA1(key: key.utf8Data)
+        XCTAssertEqual("de7c9b85b8b78aa6bc8a7a36f70a90701c9db4d9", sha1.hex())
+    }
 }

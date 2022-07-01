@@ -18,35 +18,78 @@ import Swift
 import Foundation
 
 @available(macOS 10.14, iOS 12.0, *)
-public extension Data {
+extension Data {
     /// Returns the hex format for this data
-    @inlinable func hex() -> String {
+    @inlinable public func hex() -> String {
         map { String(format: "%02hhx", $0) }.joined()
     }
 
     /// Calculate the Adler32 checksum of the data.
-    @inlinable func adler32() -> Adler32 {
+    @inlinable public func adler32() -> Adler32 {
         var res = Adler32()
         res.advance(withChunk: self)
         return res
     }
 
     /// Calculate the Crc32 checksum of the data.
-    @inlinable func crc32() -> Crc32 {
+    @inlinable public func crc32() -> Crc32 {
         var res = Crc32()
         res.advance(withChunk: self)
         return res
     }
 
-    @inlinable func sha256() -> Data {
+    /// Generates a SHA1 digest of this data
+    @inlinable public func sha1() -> Data {
         #if canImport(CommonCrypto)
-        var digest = [UInt8](repeating: 0, count:Int(CC_SHA256_DIGEST_LENGTH))
+        var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        _ = withUnsafeBytes { CC_SHA1($0.baseAddress, CC_LONG(self.count), &digest) }
+        return Data(digest)
+        #else
+        // on Linux & Windows, fall back to a slower pure swift implementation
+        return sha1Internal()
+        #endif
+    }
+
+    /// Generates a SHA1 digest of this data using an internal implementation rather than CommonCrypto's
+    @usableFromInline func sha1Internal() -> Data {
+        return Data(SHA1(self).calculate())
+    }
+
+    /// Generates a SHA256 digest of this data
+    @inlinable public func sha256() -> Data {
+        #if canImport(CommonCrypto)
+        var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
         _ = withUnsafeBytes { CC_SHA256($0.baseAddress, CC_LONG(self.count), &digest) }
         return Data(digest)
         #else
         // on Linux & Windows, fall back to a slower pure swift implementation
-        Data(SHA256(for: self).value)
+        return sha256Internal()
         #endif
+    }
+
+    /// Generates a SHA256 digest of this data using an internal implementation rather than CommonCrypto's
+    @usableFromInline func sha256Internal() -> Data {
+        Data(SHA256(for: self).value)
+    }
+
+    @inlinable public func hmacSHA1(key: Data) -> Data {
+        #if canImport(CommonCrypto)
+        var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        let keylen = key.count
+        let datalen = self.count
+        withUnsafeBytes { dataptr in
+            key.withUnsafeBytes { keyptr in
+                CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA1), keyptr.baseAddress, keylen, dataptr.baseAddress, datalen, &digest)
+            }
+        }
+        return Data(digest)
+        #else
+        return hmacSHA1Internal(key)
+        #endif
+    }
+
+    @usableFromInline func hmacSHA1Internal(key: Data) -> Data {
+        Data(HMAC(key: key.array(), variant: .sha1).authenticate(array()))
     }
 }
 
@@ -243,13 +286,145 @@ public struct Adler32: CustomStringConvertible {
 
 @available(macOS 10.14, iOS 12.0, *)
 extension Data {
-    func withUnsafeBytes<ResultType, ContentType>(_ body: (UnsafePointer<ContentType>) throws -> ResultType) rethrows -> ResultType {
+    @usableFromInline func withUnsafeBytes<ResultType, ContentType>(_ body: (UnsafePointer<ContentType>) throws -> ResultType) rethrows -> ResultType {
         try self.withUnsafeBytes({ (rawBufferPointer: UnsafeRawBufferPointer) -> ResultType in
             try body(rawBufferPointer.bindMemory(to: ContentType.self).baseAddress!)
         })
     }
 }
 
+/// Pure-swift SHA1 implementation
+@usableFromInline final class SHA1 {
+    private static let table: [UInt32] = [0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0]
+    private var message: [UInt8]
+
+    @usableFromInline init(_ message: Data) {
+        self.message = message.array()
+    }
+
+    @usableFromInline init(_ message: [UInt8]) {
+        self.message = message
+    }
+
+    func prepare(_ message: [UInt8], _ blockSize: Int, _ allowance: Int) -> [UInt8] {
+        var tmp = message
+        tmp.append(0x80) // append one bit (byte with one bit) to message
+
+        // append "0" bit until message length in bits ≡ 448 (mod 512)
+        var msgLength = tmp.count
+        var counter = 0
+
+        while msgLength % blockSize != (blockSize - allowance) {
+            counter += 1
+            msgLength += 1
+        }
+        tmp += [UInt8](repeating: 0, count: counter)
+        return tmp
+    }
+
+    @usableFromInline func calculate() -> [UInt8] {
+        var tmp = self.prepare(self.message, 64, 64 / 8)
+        var hh = Self.table
+
+        tmp += (self.message.count * 8).bytes(64 / 8)
+
+        // Process the message in successive 512-bit chunks:
+        let chunkSizeBytes = 512 / 8 // 64
+        for chunk in ChunkSequence(data: tmp, chunkSize: chunkSizeBytes) {
+            // break chunk into sixteen 32-bit words M[j], 0 ≤ j ≤ 15, big-endian
+            // Extend the sixteen 32-bit words into eighty 32-bit words:
+            var M: [UInt32] = [UInt32](repeating: 0, count: 80)
+            for x in 0..<M.count {
+                switch x {
+                case 0...15:
+
+                    let memorySize = MemoryLayout<UInt32>.size
+                    let start = chunk.startIndex + (x * memorySize)
+                    let end = start + memorySize
+                    let le = chunk[start..<end].toUInt32
+                    M[x] = le.bigEndian
+                default:
+                    M[x] = rotateLeft(M[x-3] ^ M[x-8] ^ M[x-14] ^ M[x-16], n: 1)
+                }
+            }
+
+            var A = hh[0]
+            var B = hh[1]
+            var C = hh[2]
+            var D = hh[3]
+            var E = hh[4]
+
+            // Main loop
+            for j in 0...79 {
+                var f: UInt32 = 0
+                var k: UInt32 = 0
+
+                switch j {
+                case 0...19:
+                    f = (B & C) | ((~B) & D)
+                    k = 0x5A827999
+                case 20...39:
+                    f = B ^ C ^ D
+                    k = 0x6ED9EBA1
+                case 40...59:
+                    f = (B & C) | (B & D) | (C & D)
+                    k = 0x8F1BBCDC
+                case 60...79:
+                    f = B ^ C ^ D
+                    k = 0xCA62C1D6
+                default:
+                    break
+                }
+
+                let temp = (rotateLeft(A, n: 5) &+ f &+ E &+ M[j] &+ k) & 0xffffffff
+                E = D
+                D = C
+                C = rotateLeft(B, n: 30)
+                B = A
+                A = temp
+            }
+
+            hh[0] = (hh[0] &+ A) & 0xffffffff
+            hh[1] = (hh[1] &+ B) & 0xffffffff
+            hh[2] = (hh[2] &+ C) & 0xffffffff
+            hh[3] = (hh[3] &+ D) & 0xffffffff
+            hh[4] = (hh[4] &+ E) & 0xffffffff
+        }
+
+        // Produce the final hash value (big-endian) as a 160 bit number:
+        var result = [UInt8]()
+        result.reserveCapacity(hh.count / 4)
+        hh.forEach {
+            let item = $0.bigEndian
+            result += [UInt8(item & 0xff), UInt8((item >> 8) & 0xff), UInt8((item >> 16) & 0xff), UInt8((item >> 24) & 0xff)]
+        }
+
+        return result
+    }
+
+    private func rotateLeft(_ v: UInt32, n: UInt32) -> UInt32 {
+        return ((v << n) & 0xFFFFFFFF) | (v >> (32 - n))
+    }
+
+    private struct ChunkSequence<D: RandomAccessCollection>: Sequence where D.Index == Int {
+        let data: D
+        let chunkSize: Int
+
+        func makeIterator() -> AnyIterator<D.SubSequence> {
+            var offset = data.startIndex
+            return AnyIterator {
+                let end = Swift.min(self.chunkSize, self.data.count - offset)
+                let result = self.data[offset..<offset + end]
+                offset = offset.advanced(by: result.count)
+                if result.isEmpty {
+                    return nil
+                } else {
+                    return result
+                }
+            }
+        }
+    }
+}
 
 /// Pure-swift SHA256 implementation
 @usableFromInline struct SHA256 {
@@ -278,16 +453,7 @@ extension Data {
     @usableFromInline var value: [UInt8] {
         var bytes: [UInt8] = []
         bytes.reserveCapacity(32)
-        for word: UInt32 in [
-                    self.h.0,
-                    self.h.1,
-                    self.h.2,
-                    self.h.3,
-                    self.h.4,
-                    self.h.5,
-                    self.h.6,
-                    self.h.7,
-                ] {
+        for word: UInt32 in [h.0, h.1, h.2, h.3, h.4, h.5, h.6, h.7] {
             withUnsafeBytes(of: word.bigEndian) {
                 for byte: UInt8 in $0 {
                     bytes.append(byte)
@@ -385,19 +551,221 @@ extension Data {
     private static func rotate(_ value: UInt32, right shift: Int) -> UInt32 {
         (value >> shift) | (value << (UInt32.bitWidth - shift))
     }
+}
 
-    static func hmac<S, C>(_ message: S, key: C) -> [UInt8] where S: Sequence, S.Element == UInt8, C: Collection, C.Element == UInt8 {
-        let normalized: [UInt8]
-        if key.count > 64 {
-            normalized = Self.init(for: key).value + repeatElement(0, count: 32)
-        } else if key.count < 64 {
-            normalized = .init(key) + repeatElement(0, count: 64 - key.count)
-        } else {
-            normalized = .init(key)
+
+public final class HMAC {
+    public enum Variant {
+        /// We only support SHA1
+        case sha1
+
+        var digestLength: Int {
+            switch self {
+            case .sha1: return 160 / 8
+            }
         }
 
-        let inner: [UInt8] = normalized.map{ $0 ^ 0x36 },
-            outer: [UInt8] = normalized.map{ $0 ^ 0x5c }
-        return Self.init(for: outer + Self.init(for: inner + message).value).value
+        func calculateHash(_ bytes: Array<UInt8>) -> Array<UInt8> {
+            switch self {
+            case .sha1: return Data(bytes).sha1().array()
+            }
+        }
+
+        func blockSize() -> Int {
+            switch self {
+            case .sha1: return 64
+            }
+        }
+    }
+
+    var key: Array<UInt8>
+    let variant: Variant
+
+    public init(key: Array<UInt8>, variant: HMAC.Variant = .sha1) {
+        self.variant = variant
+        self.key = key
+
+        if key.count > variant.blockSize() {
+            let hash = variant.calculateHash(key)
+            self.key = hash
+        }
+
+        if key.count < variant.blockSize() {
+            self.key = zeropad(to: key, blockSize: variant.blockSize())
+        }
+    }
+
+    @inlinable func zeropad(to bytes: Array<UInt8>, blockSize: Int) -> Array<UInt8> {
+        let paddingCount = blockSize - (bytes.count % blockSize)
+        if paddingCount > 0 {
+            return bytes + Array<UInt8>(repeating: 0, count: paddingCount)
+        } else {
+            return bytes
+        }
+    }
+
+    public func authenticate(_ bytes: Array<UInt8>) -> Array<UInt8> {
+        var opad = Array<UInt8>(repeating: 0x5c, count: variant.blockSize())
+        for idx in self.key.indices {
+            opad[idx] = self.key[idx] ^ opad[idx]
+        }
+        var ipad = Array<UInt8>(repeating: 0x36, count: variant.blockSize())
+        for idx in self.key.indices {
+            ipad[idx] = self.key[idx] ^ ipad[idx]
+        }
+
+        let hash = self.variant.calculateHash(ipad + bytes)
+        return self.variant.calculateHash(opad + hash)
+    }
+}
+
+private extension Collection where Self.Iterator.Element == UInt8, Self.Index == Int {
+    var toUInt32: UInt32 {
+        assert(self.count > 3)
+        // XXX optimize do the job only for the first one...
+        return toUInt32Array()[0]
+    }
+
+    func toUInt32Array() -> [UInt32] {
+        var result = [UInt32]()
+        result.reserveCapacity(16)
+        for idx in stride(from: self.startIndex, to: self.endIndex, by: MemoryLayout<UInt32>.size) {
+            var val: UInt32 = 0
+            val |= self.count > 3 ? UInt32(self[idx.advanced(by: 3)]) << 24 : 0
+            val |= self.count > 2 ? UInt32(self[idx.advanced(by: 2)]) << 16 : 0
+            val |= self.count > 1 ? UInt32(self[idx.advanced(by: 1)]) << 8  : 0
+            //swiftlint:disable:next empty_count
+            val |= self.count > 0 ? UInt32(self[idx]) : 0
+            result.append(val)
+        }
+
+        return result
+    }
+
+}
+
+private extension Int {
+    func bytes(_ totalBytes: Int = MemoryLayout<Int>.size) -> [UInt8] {
+        arrayOfBytes(self, length: totalBytes)
+    }
+
+    func arrayOfBytes<T>(_ value: T, length: Int? = nil) -> [UInt8] {
+        let totalBytes = length ?? MemoryLayout<T>.size
+
+        let valuePointer = UnsafeMutablePointer<T>.allocate(capacity: 1)
+        valuePointer.pointee = value
+
+        let bytesPointer = UnsafeMutablePointer<UInt8>(OpaquePointer(valuePointer))
+        var bytes = [UInt8](repeating: 0, count: totalBytes)
+        for j in 0..<Swift.min(MemoryLayout<T>.size, totalBytes) {
+            bytes[totalBytes - 1 - j] = (bytesPointer + j).pointee
+        }
+
+        valuePointer.deinitialize(count: 1)
+        valuePointer.deallocate()
+
+        return bytes
+    }
+}
+
+
+/// A simple OAuth1 header generator
+public enum OAuth1 {
+    private static let oauthVersion = "1.0"
+    private static let oauthSignatureMethod = "HMAC-SHA1"
+
+    public struct Info : Hashable {
+        public var consumerKey: String
+        public var consumerSecret: String
+        public var oauthToken: String?
+        public var oauthTokenSecret: String?
+        public var oauthTimestamp: Date?
+        public var oauthNonce: String?
+
+        public init(consumerKey: String, consumerSecret: String, oauthToken: String? = nil, oauthTokenSecret: String? = nil, oauthTimestamp: Date? = nil, oauthNonce: String? = nil) {
+            self.consumerKey = consumerKey
+            self.consumerSecret = consumerSecret
+            self.oauthToken = oauthToken
+            self.oauthTokenSecret = oauthTokenSecret
+            self.oauthTimestamp = oauthTimestamp
+            self.oauthNonce = oauthNonce
+        }
+
+        /// The map of parameters for this auth request
+        var parameterMap: [String: String] {
+            var params: [String: String] = [:]
+            params["oauth_version"] = oauthVersion
+            params["oauth_signature_method"] = oauthSignatureMethod
+            params["oauth_consumer_key"] = self.consumerKey
+            params["oauth_timestamp"] = String(Int((self.oauthTimestamp ?? Date()).timeIntervalSince1970))
+            params["oauth_nonce"] = self.oauthNonce ?? UUID().uuidString
+
+            if let oauthToken = self.oauthToken {
+                params["oauth_token"] = oauthToken
+            }
+            return params
+        }
+    }
+
+    /// Creates an authorization header that can be set in the "Authorization" header of a request
+    public static func authHeader(for method: String, url: URL, parameters: [String: String] = [:], info: Info) -> String {
+        var params = info.parameterMap
+        for (key, value) in parameters where key.hasPrefix("oauth_") {
+            params.updateValue(value, forKey: key)
+        }
+
+        let allParams = params.merging(parameters) { $1 }
+
+        params["oauth_signature"] = oauthSignature(for: method, url: url, parameters: allParams, consumerSecret: info.consumerSecret, oauthTokenSecret: info.oauthTokenSecret)
+
+        let authComponents = params.asQueryString.components(separatedBy: "&").sorted()
+
+        var headerParts = [String]()
+        for component in authComponents {
+            let subcomponent = component.components(separatedBy: "=")
+            if subcomponent.count == 2 {
+                headerParts.append("\(subcomponent[0])=\"\(subcomponent[1])\"")
+            }
+        }
+
+        return "OAuth " + headerParts.joined(separator: ", ")
+    }
+
+    private static func oauthSignature(for method: String, url: URL, parameters: [String: String], consumerSecret: String, oauthTokenSecret: String?) -> String {
+        let tokenSecret = oauthTokenSecret?.urlEncoded ?? ""
+        let signingKey = consumerSecret.urlEncoded + "&" + tokenSecret
+        let params = parameters.asQueryString.components(separatedBy: "&").sorted()
+        let paramStr = params.joined(separator: "&")
+        let encodedParamStr = paramStr.urlEncoded
+        let encodedURL = url.absoluteString.urlEncoded
+        let sig = method + "&" + encodedURL + "&" + encodedParamStr
+        let sha1 = sig.utf8Data.hmacSHA1(key: signingKey.utf8Data)
+        return sha1.base64EncodedString(options: [])
+    }
+}
+
+private extension Dictionary where Key == String, Value == String {
+    var asQueryString: String {
+        var parts = [String]()
+        for (key, value) in self {
+            let keyString = key.urlEncoded
+            let valueString = value.urlEncoded
+            let query: String = "\(keyString)=\(valueString)"
+            parts.append(query)
+        }
+
+        return parts.joined(separator: "&")
+    }
+}
+
+private extension String {
+    private static let urlEncodedCharacterSet: CharacterSet = {
+        var set = CharacterSet.alphanumerics
+        set.insert(charactersIn: "-._~")
+        return set
+    }()
+
+    var urlEncoded: String {
+        return addingPercentEncoding(withAllowedCharacters: Self.urlEncodedCharacterSet)!
     }
 }

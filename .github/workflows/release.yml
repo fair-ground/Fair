@@ -56,6 +56,8 @@ jobs:
           file `which fairtool`
           fairtool version
           brew bottle --no-rebuild --verbose appfair/app/fairtool
+          ls -la *.gz
+          brew remove appfair/app/fairtool
 
       - name: Upload bottle (x86_64)
         uses: actions/upload-release-asset@v1.0.1
@@ -69,11 +71,12 @@ jobs:
 
       - name: Build bottle (arm64)
         run: |
-          brew remove appfair/app/fairtool || true
           HOMEBREW_FAIRTOOL_ARCH="arm64" brew install --build-bottle --verbose appfair/app/fairtool
           file `which fairtool`
           # fairtool version # no reverse-rosetta
           brew bottle --no-rebuild --verbose appfair/app/fairtool
+          ls -la *.gz
+          brew remove appfair/app/fairtool
 
       - name: Upload bottle (arm64)
         uses: actions/upload-release-asset@v1.0.1
@@ -96,6 +99,8 @@ jobs:
           brew install --build-bottle --verbose appfair/app/fairtool
           fairtool version
           brew bottle --no-rebuild --verbose appfair/app/fairtool
+          ls -la *.gz
+          brew remove appfair/app/fairtool
 
       - name: Upload bottle
         uses: actions/upload-release-asset@v1.0.1
@@ -109,7 +114,7 @@ jobs:
 
   update_bottle:
     name: Add bottles to formula
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: [bottle_macos, bottle_linux]
     steps:
       - uses: marcprux/update-homebrew-formula-action@main

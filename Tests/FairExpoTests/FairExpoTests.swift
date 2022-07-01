@@ -310,7 +310,17 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual("0.9.75", diff.new.version)
         XCTAssertEqual("0.9.74", diff.old?.version)
 
-        let fmt = AppCatalog.NewsItemFormat(postTitle: "New Release: #(appname) VERSION #(appversion)", postTitleUpdate: "Updated Release: #(appname) #(appversion)", postCaption: "#(appname) version #(appversion) has been released", postCaptionUpdate: "#(appname) version #(appversion) has been updated from #(oldappversion)", postBody: "NEW RELEASE", postAppID: nil, postURL: nil)
+        struct NewsFormat : NewsItemFormat {
+            var postTitle: String?
+            var postTitleUpdate: String?
+            var postCaption: String?
+            var postCaptionUpdate: String?
+            var postBody: String?
+            var postAppID: String?
+            var postURL: String?
+        }
+
+        let fmt = NewsFormat(postTitle: "New Release: #(appname) VERSION #(appversion)", postTitleUpdate: "Updated Release: #(appname) #(appversion)", postCaption: "#(appname) version #(appversion) has been released", postCaptionUpdate: "#(appname) version #(appversion) has been updated from #(oldappversion)", postBody: "NEW RELEASE", postAppID: nil, postURL: nil)
 
         var cat2Post = cat2
         cat2Post.addNews(for: diffs, format: fmt, limit: 0)
@@ -378,14 +388,37 @@ public struct PackageManifest : Pure {
     }
 }
 
+class TweetTests : XCTestCase {
+    let oauth_consumer_key: String? = nil // wip("XXX")
+    let oauth_consumer_secret: String? = nil // wip("XXX")
+    let oauth_token: String? = nil // wip("XXX")
+    let oauth_token_secret: String? = nil // wip("XXX")
 
-//extension PackageManifest {
-//    /// Parses the Package.swift file at the given location
-//    public static func parse(package: URL) throws -> Self {
-//        let dumpPackage = try Process.execute(command: URL(fileURLWithPath: "/usr/bin/xcrun"), ["swift", "package", "dump-package", "--package-path", package.deletingLastPathComponent().path])
-//        let packageJSON = dumpPackage.stdout.joined(separator: "\n")
-//        let decoder = JSONDecoder()
-//        return try decoder.decode(Self.self, from: Data(packageJSON.utf8))
-//    }
-//}
+    func testPostTweet() async throws {
+        let msg = "Hello World: \((100...999).randomElement()!)"
+        guard let oauth_consumer_key = oauth_consumer_key,
+              let oauth_consumer_secret = oauth_consumer_secret,
+              let oauth_token = oauth_token,
+              let oauth_token_secret = oauth_token_secret else {
+            throw XCTSkip("skipping test due to missing auth information")
+              }
 
+        let info = OAuth1.Info(consumerKey: oauth_consumer_key, consumerSecret: oauth_consumer_secret, oauthToken: oauth_token, oauthTokenSecret: oauth_token_secret)
+
+        do {
+            let response = try await Tweeter.post(text: msg, auth: info)
+            dbg("received response:", response)
+            XCTAssertEqual(response.response?.data.text, msg)
+        }
+
+        // duplicate tweets are forbidden
+        do {
+            let response = try await Tweeter.post(text: msg, auth: info)
+            dbg("received response:", response)
+            XCTAssertEqual(403, response.error?.status)
+            XCTAssertEqual("Forbidden", response.error?.title)
+            XCTAssertEqual("You are not allowed to create a Tweet with duplicate content.", response.error?.detail)
+        }
+
+    }
+}

@@ -2146,52 +2146,6 @@ extension AppCatalog {
         }
     }
 
-    struct NewsItemFormat {
-        var postTitle: String?
-        var postTitleUpdate: String?
-        var postCaption: String?
-        var postCaptionUpdate: String?
-        var postBody: String?
-        var postAppID: String?
-        var postURL: String?
-    }
-
-    /// Takes the differences from two catalogs and adds them to the postings with the given formats and limits.
-    mutating func addNews(for diffs: [AppCatalogItem.Diff], format: NewsItemFormat, limit: Int? = nil) {
-        var news: [AppNewsPost] = self.news ?? []
-        for diff in diffs {
-            let bundleID = diff.new.bundleIdentifier
-
-            let fmt = { (str: String?) in
-                str?.replacing(variables: [
-                    "appname": diff.new.name,
-                    "appname_hyphenated": diff.new.appNameHyphenated,
-                    "appbundleid": bundleID,
-                    "appversion": diff.new.version,
-                    "oldappversion": diff.old?.version,
-                ].compactMapValues({ $0 }))
-            }
-
-            let updatesExistingApp = diff.old != nil
-
-            // a unique identifier for the item
-            let identifier = "release-" + bundleID + "-" + (diff.new.version ?? "new")
-            let title = fmt(updatesExistingApp ? format.postTitleUpdate : format.postTitle)
-            let caption = fmt(updatesExistingApp ? format.postCaptionUpdate : format.postCaption)
-
-            let date = ISO8601DateFormatter().string(from: Date())
-            var post = AppNewsPost(identifier: identifier, date: date, title: (title ?? "New Release: \(diff.new.name) \(diff.new.version ?? "")").trimmed(), caption: caption ?? "")
-
-            post.appID = bundleID
-            // clear out any older news postings with the same bundle id
-            news = news.filter({ $0.appID != bundleID })
-            news.append(post)
-        }
-
-        // trim down the news count until we are at the limit
-        self.news = limit == 0 ? nil : news.count > (limit ?? .max) ? news.suffix(limit ?? .max) : news.isEmpty ? nil : news
-    }
-
     /// Compare two catalogs and report the changes that indicate version changes between catalog entries with the same bundle identifier
     static func newReleases(from oldcat: AppCatalog, to newcat: AppCatalog, comparator: (_ new: AppCatalogItem, _ old: AppCatalogItem?) -> Bool = { $0.version != $1?.version }) -> [AppCatalogItem.Diff] {
         let oldapps = oldcat.apps.filter { $0.beta != true }

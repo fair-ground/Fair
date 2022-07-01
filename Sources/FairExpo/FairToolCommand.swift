@@ -116,6 +116,7 @@ public struct FairToolCommand : AsyncParsableCommand {
             AppCommand.self,
             FairCommand.self,
             BrewCommand.self,
+            SocialCommand.self,
             SourceCommand.self,
             VersionCommand.self, // `fairtool version` shows the current version
             ]
@@ -180,7 +181,7 @@ public struct AppCommand : AsyncParsableCommand {
 
         public func executeCommand() -> AsyncThrowingStream<InfoItem, Error> {
             msg(.debug, "getting info from apps:", apps)
-            return msgOptions.executeStream(apps) { app in
+            return executeStream(apps) { app in
                 return try await extractInfo(from: downloadOptions.acquire(path: app, onDownload: { url in
                     msg(.info, "downloading from URL:", url.absoluteString)
                     return url
@@ -228,7 +229,7 @@ public struct SourceCommand : AsyncParsableCommand {
         public init() { }
 
         public func executeCommand() async throws -> AsyncThrowingStream<Output, Error> {
-            return msgOptions.executeStream(apps) { app in
+            return executeStream(apps) { app in
                 msg(.info, "creating app catalog:", app)
                 let url = URL(fileOrScheme: app)
                 return try await AppCatalogAPI.shared.catalogApp(url: url, options: sourceOptions, clearDownload: true)
@@ -312,6 +313,8 @@ public struct SourceCommand : AsyncParsableCommand {
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
         @OptionGroup public var indexOptions: IndexingOptions
+        @OptionGroup public var newsOptions: NewsOptions
+        @OptionGroup public var tweetOptions: TweetOptions
 
         @Option(name: [.long], help: ArgumentHelp("the source catalog.", valueName: "src"))
         public var fromCatalog: String
@@ -324,27 +327,6 @@ public struct SourceCommand : AsyncParsableCommand {
 
         @Flag(name: [.long], help: ArgumentHelp("update version date for new versions.", valueName: "update"))
         public var updateVersionDate: Bool = false
-
-        @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
-        public var postTitle: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the post title format for updates.", valueName: "format"))
-        public var postTitleUpdate: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the post caption format for new releases.", valueName: "format"))
-        public var postCaption: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the post caption format for updates.", valueName: "format"))
-        public var postCaptionUpdate: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
-        public var postBody: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the app id for the post.", valueName: "appid"))
-        public var postAppID: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the post URL format.", valueName: "format"))
-        public var postURL: String?
 
         public init() { }
 
@@ -366,7 +348,7 @@ public struct SourceCommand : AsyncParsableCommand {
             // copy over the news from the previous catalog…
 
             // … then add items for each of the new releases, purging duplicates as needed
-            dstCatalog.addNews(for: diffs, format: AppCatalog.NewsItemFormat(), limit: newsItems)
+            dstCatalog.addNews(for: diffs, format: newsOptions, limit: newsItems)
 
             if updateVersionDate {
                 dstCatalog.updateVersionDates(for: diffs, with: date)
@@ -377,7 +359,152 @@ public struct SourceCommand : AsyncParsableCommand {
 
             try indexOptions.writeCatalogIndex(dstCatalog)
         }
+
+
     }
+}
+
+protocol NewsItemFormat {
+    var postTitle: String? { get }
+    var postTitleUpdate: String? { get }
+    var postCaption: String? { get }
+    var postCaptionUpdate: String? { get }
+    var postBody: String? { get }
+    var postAppID: String? { get }
+    var postURL: String? { get }
+}
+
+extension AppCatalog {
+    /// Takes the differences from two catalogs and adds them to the postings with the given formats and limits.
+    mutating func addNews(for diffs: [AppCatalogItem.Diff], format: NewsItemFormat, limit: Int? = nil) {
+        var news: [AppNewsPost] = self.news ?? []
+        for diff in diffs {
+            let bundleID = diff.new.bundleIdentifier
+
+            let fmt = { (str: String?) in
+                str?.replacing(variables: [
+                    "appname": diff.new.name,
+                    "appname_hyphenated": diff.new.appNameHyphenated,
+                    "appbundleid": bundleID,
+                    "appversion": diff.new.version,
+                    "oldappversion": diff.old?.version,
+                ].compactMapValues({ $0 }))
+            }
+
+            let updatesExistingApp = diff.old != nil
+
+            // a unique identifier for the item
+            let identifier = "release-" + bundleID + "-" + (diff.new.version ?? "new")
+            let title = fmt(updatesExistingApp ? format.postTitleUpdate : format.postTitle)
+            let caption = fmt(updatesExistingApp ? format.postCaptionUpdate : format.postCaption)
+
+            let date = ISO8601DateFormatter().string(from: Date())
+            var post = AppNewsPost(identifier: identifier, date: date, title: (title ?? "New Release: \(diff.new.name) \(diff.new.version ?? "")").trimmed(), caption: caption ?? "")
+
+            post.appID = bundleID
+            // clear out any older news postings with the same bundle id
+            news = news.filter({ $0.appID != bundleID })
+            news.append(post)
+        }
+
+        // trim down the news count until we are at the limit
+        self.news = (limit ?? 0) == 0 ? nil : news.count > (limit ?? .max) ? news.suffix(limit ?? .max) : news.isEmpty ? nil : news
+    }
+}
+
+/// A very simple Twitter client for posting messages (and nothing else).
+public enum Tweeter {
+    /// Posts the given message
+    public static func post(text: String, reply_settings: String? = nil, quote_tweet_id: TweetID? = nil, in_reply_to_tweet_id: TweetID? = nil, direct_message_deep_link: String? = nil, auth: OAuth1.Info) async throws -> PostResponse {
+        // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
+        let url = URL(string: "https://api.twitter.com/2/tweets")!
+
+        let method = "POST"
+        var req = URLRequest(url: url)
+        req.httpMethod = method
+        req.setValue(OAuth1.authHeader(for: method, url: url, info: auth), forHTTPHeaderField: "Authorization")
+
+        struct Post : Encodable {
+            var text: String
+            var reply_settings: String?
+            var quote_tweet_id: TweetID?
+            var direct_message_deep_link: String?
+
+            // TODO:
+            // let for_super_followers_only: Bool
+            // let geo.place_id: String
+            // let media.media_ids: [String]
+            // let media.tagged_user_ids: [String]
+            // let poll.duration_minutes: [String]
+            // let poll.options: [String]
+
+            var reply: Reply?
+
+            struct Reply : Encodable {
+                var in_reply_to_tweet_id: TweetID
+
+                /// Please note that `in_reply_to_tweet_id` needs to be in the request if `exclude_reply_user_ids` is present.
+                var exclude_reply_user_ids: [String]?
+            }
+        }
+
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        var post = Post(text: text, reply_settings: reply_settings, quote_tweet_id: quote_tweet_id, direct_message_deep_link: direct_message_deep_link, reply: nil)
+        if let in_reply_to_tweet_id = in_reply_to_tweet_id {
+            post.reply = .init(in_reply_to_tweet_id: in_reply_to_tweet_id, exclude_reply_user_ids: nil)
+        }
+        req.httpBody = try post.json()
+
+        let (data, response) = try await URLSession.shared.fetch(request: req, validate: nil) // [201]) // 201 Created is the only valid response code
+        dbg("received posting response:", response)
+        dbg("received posting data:", data.utf8String ?? "")
+        let responseItem = try PostResponse(json: data)
+        return responseItem
+    }
+
+    /// A Twitter ID is a numeric string like "1542958914332934147"
+    public struct TweetID : RawCodable {
+        public typealias RawValue = String // XOr<String>.Or<UInt64>
+        public let rawValue: RawValue
+
+        public init(rawValue: RawValue) {
+            self.rawValue = rawValue
+        }
+    }
+
+    /// The response to a tweet can be either success or an error
+    public struct PostResponse : RawCodable {
+        public typealias RawValue = XOr<TweetPostedResponse>.Or<TweetPostedError>
+        public let rawValue: RawValue
+
+        public init(rawValue: RawValue) {
+            self.rawValue = rawValue
+        }
+
+        /// The error if it was unsuccessful
+        public var error: TweetPostedError? { rawValue.infer() }
+
+        /// The tweet response, if it is not an error
+        public var response: TweetPostedResponse? { rawValue.infer() }
+    }
+
+    public struct TweetPostedResponse : Codable {
+        public let data: Payload
+        public struct Payload : Codable {
+            public let id: TweetID
+            public let text: String
+        }
+    }
+
+    /// {"detail":"You are not allowed to create a Tweet with duplicate content.","type":"about:blank","title":"Forbidden","status":403}
+    public struct TweetPostedError : Codable {
+        public let type: String
+        public let title: String
+        public let detail: String
+        public let status: Int
+    }
+
 }
 
 extension FairMsgCommand {
@@ -1830,6 +1957,128 @@ public struct BrewCommand : AsyncParsableCommand {
     }
 }
 
+public struct SocialCommand : AsyncParsableCommand {
+    public static let experimental = true
+    public static var configuration = CommandConfiguration(commandName: "social",
+        abstract: "Social media utilities.",
+        shouldDisplay: !experimental,
+        subcommands: [
+            TweetCommand.self,
+        ])
+
+    public init() {
+    }
+
+    public struct TweetCommand: FairStructuredCommand {
+        public static let experimental = false
+
+        public typealias Output = Tweeter.PostResponse
+
+        public static var configuration = CommandConfiguration(commandName: "tweet",
+            abstract: "Post a tweet.",
+            shouldDisplay: !experimental)
+
+        @OptionGroup public var tweetOptions: TweetOptions
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var delayOptions: DelayOptions
+
+        @Flag(name: [.long], help: ArgumentHelp("whether tweets should be grouped into a single conversation."))
+        public var conversation: Bool = false
+
+        @Argument(help: ArgumentHelp("the contents of the tweet", valueName: "body", visibility: .default))
+        public var body: [String]
+
+        public init() { }
+
+        public func executeCommand() async throws -> AsyncThrowingStream<Tweeter.PostResponse, Error> {
+            warnExperimental(Self.experimental)
+            let auth = try tweetOptions.createAuth()
+
+            var initialTweetID: Tweeter.TweetID? = nil
+
+            return executeSeries(body, initialValue: nil) { body, prev in
+                msg(.info, "tweeting body:", body)
+                if let prev = prev {
+                    initialTweetID = initialTweetID ?? prev.response?.data.id // remember just the initial tweet id
+                    if conversation {
+                        msg(.info, "conversation tweet id: \(initialTweetID?.rawValue ?? "")")
+                    }
+                    // wait in between success postings
+                    try await delayOptions.sleepTask() {
+                        msg(.info, "pausing between tweets for: \($0) seconds")
+                    }
+                }
+
+                return try await Tweeter.post(text: body, in_reply_to_tweet_id: conversation ? initialTweetID : nil, auth: auth)
+            }
+        }
+    }
+}
+
+extension Tweeter.PostResponse : FairCommandOutput {
+}
+
+/// Authentication options for Twitter CLI
+public struct TweetOptions: ParsableArguments {
+    @Option(name: [.long], help: ArgumentHelp("oauth consumer key for sending tweets.", valueName: "key"))
+    public var twitterConsumerKey: String?
+
+    @Option(name: [.long], help: ArgumentHelp("oauth consumer secret for sending tweets.", valueName: "secret"))
+    public var twitterConsumerSecret: String?
+
+    @Option(name: [.long], help: ArgumentHelp("oauth token for sending tweets.", valueName: "token"))
+    public var twitterToken: String?
+
+    @Option(name: [.long], help: ArgumentHelp("oauth token secret for sending tweets.", valueName: "secret"))
+    public var twitterTokenSecret: String?
+
+    public init() { }
+
+    private func check(_ propValue: String?, env: String, option: String) throws -> String {
+        if let propValue = propValue { return propValue }
+        if let envValue = ProcessInfo.processInfo.environment[env] { return envValue }
+        throw AppError("Must specify either option --\(option) or environment variable: \(env)")
+    }
+
+    func createAuth(parameters: [String : String] = [:]) throws -> OAuth1.Info {
+        try OAuth1.Info(consumerKey: check(twitterConsumerKey, env: "FAIRTOOL_TWITTER_CONSUMER_KEY", option: "twitter-consumer-key"),
+                        consumerSecret: check(twitterConsumerSecret, env: "FAIRTOOL_TWITTER_CONSUMER_SECRET", option: "twitter-consumer-secret"),
+                        oauthToken: check(twitterToken, env: "FAIRTOOL_TWITTER_TOKEN", option: "twitter-token"),
+                        oauthTokenSecret: check(twitterTokenSecret, env: "FAIRTOOL_TWITTER_TOKEN_SECRET", option: "twitter-token-secret"),
+                        oauthTimestamp: nil,
+                        oauthNonce: nil)
+    }
+}
+
+
+public struct NewsOptions: ParsableArguments, NewsItemFormat {
+    @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
+    public var postTitle: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the post title format for updates.", valueName: "format"))
+    public var postTitleUpdate: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the post caption format for new releases.", valueName: "format"))
+    public var postCaption: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the post caption format for updates.", valueName: "format"))
+    public var postCaptionUpdate: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
+    public var postBody: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the tweet body format.", valueName: "format"))
+    public var tweetBody: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the app id for the post.", valueName: "appid"))
+    public var postAppID: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the post URL format.", valueName: "format"))
+    public var postURL: String?
+
+    public init() { }
+
+}
 
 public struct IndexingOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("catalog index markdown file to generate."))
@@ -2052,6 +2301,17 @@ public struct SourceOptions: ParsableArguments {
     }
 }
 
+/// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
+fileprivate func executeStream<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> U) -> AsyncThrowingStream<U, Error> {
+    arguments.mapAsync(block)
+}
+
+/// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
+fileprivate func executeSeries<T, U: FairCommandOutput>(_ arguments: [T], initialValue: U?, block: @escaping (T, U?) async throws -> U) -> AsyncThrowingStream<U, Error> {
+    arguments.reduceAsync(initialResult: initialValue, block)
+}
+
+
 public struct MsgOptions: ParsableArguments {
     @Flag(name: [.long, .customShort("v")], help: ArgumentHelp("whether to display verbose messages."))
     public var verbose: Bool = false
@@ -2093,11 +2353,6 @@ public struct MsgOptions: ParsableArguments {
 
     func writeOutput<T: FairCommandOutput>(_ item: T) throws {
         try write(item.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String ?? "")
-    }
-
-    /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
-    fileprivate func executeStream<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> U) -> AsyncThrowingStream<U, Error> {
-        arguments.mapAsync(block)
     }
 
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the result as it goes.
@@ -2306,6 +2561,31 @@ public struct DownloadOptions: ParsableArguments {
             return localURL
         }
         return downloadedURL
+    }
+}
+
+public struct DelayOptions: ParsableArguments {
+    @Option(name: [.long], help: ArgumentHelp("amount of time to wait between operations.", valueName: "secs"))
+    public var delay: TimeInterval?
+
+    @Option(name: [.long], help: ArgumentHelp("min amount of time to wait between operations.", valueName: "secs"))
+    public var delayMin: TimeInterval?
+
+    @Option(name: [.long], help: ArgumentHelp("max amount of time to wait between operations.", valueName: "secs"))
+    public var delayMax: TimeInterval?
+
+    public init() { }
+
+    /// Delays this task, first invoking the block with the time interval that will be delayed
+    func sleepTask(_ block: ((TimeInterval) throws -> ())? = nil) async throws {
+        if let delay = delay {
+            try block?(delay)
+            try await Task.sleep(nanoseconds: .init(delay * 1_000_000_000))
+        } else if let delayMin = delayMin, let delayMax = delayMax, delayMax > delayMin {
+            let delay = TimeInterval.random(in: delayMin...delayMax)
+            try block?(delay)
+            try await Task.sleep(nanoseconds: .init(delay * 1_000_000_000))
+        }
     }
 }
 
@@ -2572,6 +2852,25 @@ extension Sequence {
                 do {
                     for item in self {
                         c.yield(try await block(item))
+                    }
+                    c.finish()
+                } catch {
+                    c.finish(throwing: error)
+                }
+            }
+        }
+    }
+
+    /// Creates a new Task with the specified priority and returns an `AsyncThrowingStream` invoking the block with the initial element.
+    public func reduceAsync<Result>(priority: TaskPriority? = nil, initialResult: Result?, _ nextPartialResult: @escaping (Element, Result?) async throws -> Result) -> AsyncThrowingStream<Result, Error> {
+        AsyncThrowingStream { c in
+            Task(priority: priority) {
+                do {
+                    var previousValue = initialResult
+                    for item in self {
+                        let value = try await nextPartialResult(item, previousValue)
+                        c.yield(value)
+                        previousValue = value
                     }
                     c.finish()
                 } catch {

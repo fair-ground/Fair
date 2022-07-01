@@ -691,6 +691,52 @@ public final class Plist : RawRepresentable, Hashable {
     }
 }
 
+/// A type that permits items to be initialized non-optionally
+public protocol RawInitializable : RawRepresentable {
+    init(rawValue: RawValue)
+}
+
+public extension RawInitializable {
+    /// Delegate optional initializer to the guaranteed initializer.
+    /// - Parameter rawValue: the value to store in the representable
+    init?(rawValue: RawValue) {
+        self.init(rawValue: rawValue)
+    }
+}
+
+/// A `RawDecodable` is a `RawInitializable` with a `Decodable` `RawValue`.
+/// Implementations of this type will decode their `rawValue` payload directly, rather than from an objec with a "rawValue" property.
+public protocol RawDecodable : RawInitializable, Decodable where RawValue : Decodable {
+}
+
+/// A `RawDecodable` is a `RawRepresentable` with an `Encodable` `RawValue`.
+/// Implementations of this type will encode their `rawValue` payload directly, rather than to an objec with a "rawValue" property.
+public protocol RawEncodable : RawRepresentable, Encodable where RawValue : Encodable {
+}
+
+/// A RawCodable is a simple `RawRepresentable` wrapper except its coding
+/// will store the underlying value directly rather than keyed as "rawValue",
+/// thus requiring that the `init(rawValue:)` be non-failable; it is useful
+/// as a codable typesafe wrapper for some general type like UUID where the
+/// Codable implementation does not automatically use the underlying type (like
+/// it does with primitives and Strings)
+public typealias RawCodable = RawDecodable & RawEncodable
+
+public extension RawDecodable {
+    /// A `RawCodable` deserializes from the underlying type's decoding with any intermediate wrapper
+    init(from decoder: Decoder) throws {
+        try self.init(rawValue: RawValue(from: decoder))
+    }
+}
+
+public extension RawEncodable {
+    /// A `RawCodable` serializes to the underlying type's encoding with any intermediate wrapper
+    func encode(to encoder: Encoder) throws {
+        try rawValue.encode(to: encoder)
+    }
+}
+
+
 /// `true` if assertions are enabled for the current build
 public let assertionsEnabled: Bool = {
     var enabled = false
