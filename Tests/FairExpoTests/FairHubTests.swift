@@ -169,9 +169,10 @@ final class FairHubTests: XCTestCase {
 //    }
 
     func testBuildAppCasks() async throws {
-//        if runningFromCI {
-//            throw XCTSkip("disabled to reduce API load")
-//        }
+        if runningFromCI {
+            // this quickly exhausts the API limit for the default actions token
+            throw XCTSkip("disabled to reduce API load")
+        }
 
         let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
         let maxApps: Int? = 233 // _000_000
