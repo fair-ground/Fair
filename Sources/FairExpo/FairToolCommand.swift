@@ -1878,15 +1878,15 @@ private extension AppCatalog {
         let isFairApp = catalog.sourceURL?.absoluteString.contains("appcasks") != true
 
         let format = ISO8601DateFormatter()
-        func fmt(_ date: Date?) -> String {
-            guard let date = date else { return "" }
+        func fmt(_ date: Date?) -> String? {
+            guard let date = date else { return nil }
             //return date.localizedDate(dateStyle: .short, timeStyle: .short)
             return format.string(from: date)
         }
 
         func pre(_ string: String?, limit: Int = .max) -> String {
-            guard let string = string else { return "" }
-            return "`" + string.prefix(limit) + (string.count > limit ? "…" : "") + "`"
+            guard let string = string, !string.isEmpty else { return "" }
+            return "`" + string.prefix(limit - 1) + (string.count > limit ? "…" : "") + "`"
         }
 
         var md = """
@@ -1928,7 +1928,7 @@ private extension AppCatalog {
             }
 
             md += "| "
-            md += "[`\(pre(app.name, limit: 80))`](\(app.homepage?.absoluteString ?? landingPage))"
+            md += "[`\(pre(app.name, limit: 50))`](\(app.homepage?.absoluteString ?? landingPage))"
 
             md += " | "
             if version.isEmpty {
