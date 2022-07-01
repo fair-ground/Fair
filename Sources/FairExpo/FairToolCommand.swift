@@ -1928,7 +1928,7 @@ private extension AppCatalog {
             }
 
             md += "| "
-            md += "[`\(pre(app.name, limit: 50))`](\(app.homepage?.absoluteString ?? landingPage))"
+            md += "[`\(pre(app.name, limit: 25))`](\(app.homepage?.absoluteString ?? landingPage))"
 
             md += " | "
             if version.isEmpty {

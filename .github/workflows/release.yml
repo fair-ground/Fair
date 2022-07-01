@@ -55,7 +55,7 @@ jobs:
           brew install --build-bottle --verbose appfair/app/fairtool
           file `which fairtool`
           fairtool version
-          brew bottle appfair/app/fairtool --no-rebuild
+          brew bottle --no-rebuild --verbose appfair/app/fairtool
 
       - name: Upload bottle (x86_64)
         uses: actions/upload-release-asset@v1.0.1
@@ -73,7 +73,7 @@ jobs:
           HOMEBREW_FAIRTOOL_ARCH="arm64" brew install --build-bottle --verbose appfair/app/fairtool
           file `which fairtool`
           # fairtool version # no reverse-rosetta
-          brew bottle appfair/app/fairtool --no-rebuild
+          brew bottle --no-rebuild --verbose appfair/app/fairtool
 
       - name: Upload bottle (arm64)
         uses: actions/upload-release-asset@v1.0.1
@@ -95,7 +95,7 @@ jobs:
           brew tap appfair/app
           brew install --build-bottle --verbose appfair/app/fairtool
           fairtool version
-          brew bottle appfair/app/fairtool --no-rebuild
+          brew bottle --no-rebuild --verbose appfair/app/fairtool
 
       - name: Upload bottle
         uses: actions/upload-release-asset@v1.0.1
