@@ -84,7 +84,7 @@ extension Data {
         }
         return Data(digest)
         #else
-        return hmacSHA1Internal(key)
+        return hmacSHA1Internal(key: key)
         #endif
     }
 
