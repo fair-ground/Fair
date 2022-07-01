@@ -66,6 +66,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BuildSettings",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/DelayOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/DownloadOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
@@ -78,11 +79,14 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/IndexingOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MsgOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/OutputOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/RegOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/RetryOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SocialCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions"
       ],
       "title" : "Structures"
     },
@@ -109,7 +113,8 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairGround",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageKind"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageKind",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/Tweeter"
       ],
       "title" : "Enumerations"
     }
@@ -469,6 +474,37 @@
   "title" : "CaskStats",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/caskstats"
+},
+"doc://FairExpo/documentation/FairExpo/DelayOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DelayOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/DelayOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DelayOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DelayOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/delayoptions"
 },
 "doc://FairExpo/documentation/FairExpo/DownloadOptions": {
   "abstract" : [
@@ -1254,6 +1290,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/msgoptions"
 },
+"doc://FairExpo/documentation/FairExpo/NewsOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NewsOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NewsOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NewsOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/newsoptions"
+},
 "doc://FairExpo/documentation/FairExpo/OutputOptions": {
   "abstract" : [
 
@@ -1347,6 +1414,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/retryoptions"
 },
+"doc://FairExpo/documentation/FairExpo/SocialCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SocialCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SocialCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SocialCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SocialCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/socialcommand"
+},
 "doc://FairExpo/documentation/FairExpo/SourceCommand": {
   "abstract" : [
 
@@ -1408,6 +1506,74 @@
   "title" : "SourceOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourceoptions"
+},
+"doc://FairExpo/documentation/FairExpo/TweetOptions": {
+  "abstract" : [
+    {
+      "text" : "Authentication options for Twitter CLI",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TweetOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TweetOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TweetOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/tweetoptions"
+},
+"doc://FairExpo/documentation/FairExpo/Tweeter": {
+  "abstract" : [
+    {
+      "text" : "A very simple Twitter client for posting messages (and nothing else).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Tweeter"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/Tweeter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Tweeter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tweeter",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/tweeter"
 },
 "doc://FairExpo/documentation/FairExpo/appfairCaskAppsIdentifier": {
   "abstract" : [

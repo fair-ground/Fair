@@ -116,15 +116,10 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/indexOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/msgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/newsItems",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/newsOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/outputOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postAppID",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postBody",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postCaption",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postCaptionUpdate",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postTitle",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postTitleUpdate",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postURL",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/toCatalog",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/tweetOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/updateVersionDate"
       ],
       "title" : "Instance Properties"
@@ -696,6 +691,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/newsitems"
 },
+"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/newsOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "newsOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo11NewsOptionsV",
+      "text" : "NewsOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/newsOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "newsOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/newsoptions"
+},
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/outputOptions": {
   "abstract" : [
 
@@ -729,272 +758,6 @@
   "title" : "outputOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/outputoptions"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postAppID": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postAppID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postAppID",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postAppID",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/postappid"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postBody": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postBody"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postBody",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postBody",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/postbody"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postCaption": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postCaption"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postCaption",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postCaption",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/postcaption"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postCaptionUpdate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postCaptionUpdate"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postCaptionUpdate",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postCaptionUpdate",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/postcaptionupdate"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postTitle": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postTitle"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postTitle",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postTitle",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/posttitle"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postTitleUpdate": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postTitleUpdate"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postTitleUpdate",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postTitleUpdate",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/posttitleupdate"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/postURL": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "postURL"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/postURL",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "postURL",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/posturl"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/run()-5pe0l": {
   "abstract" : [
@@ -1070,6 +833,40 @@
   "title" : "toCatalog",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/tocatalog"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/tweetOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "tweetOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo12TweetOptionsV",
+      "text" : "TweetOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/PostReleaseCommand\/tweetOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "tweetOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/postreleasecommand\/tweetoptions"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/updateVersionDate": {
   "abstract" : [

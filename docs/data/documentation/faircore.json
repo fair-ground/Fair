@@ -61,6 +61,7 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/Cache",
         "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
+        "doc:\/\/FairCore\/documentation\/FairCore\/HMAC",
         "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
         "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
@@ -80,6 +81,9 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/ExpressibleByArgument",
         "doc:\/\/FairCore\/documentation\/FairCore\/ParsableArguments",
         "doc:\/\/FairCore\/documentation\/FairCore\/ParsableCommand",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
@@ -150,6 +154,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
         "doc:\/\/FairCore\/documentation\/FairCore\/Provider",
         "doc:\/\/FairCore\/documentation\/FairCore\/Pure",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawCodable",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumeration",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeIndexSequence",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeNodeIterator",
@@ -164,6 +169,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/EmptyFeedAdditions",
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+        "doc:\/\/FairCore\/documentation\/FairCore\/OAuth1",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumerations",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeTraversal",
@@ -1376,6 +1382,37 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/flaginversion"
 },
+"doc://FairCore/documentation/FairCore/HMAC": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HMAC"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/HMAC",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HMAC"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HMAC",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/hmac"
+},
 "doc://FairCore/documentation/FairCore/HandleStream": {
   "abstract" : [
     {
@@ -1620,6 +1657,40 @@
   "title" : "NameSpecification",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/namespecification"
+},
+"doc://FairCore/documentation/FairCore/OAuth1": {
+  "abstract" : [
+    {
+      "text" : "A simple OAuth1 header generator",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OAuth1"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/OAuth1",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OAuth1"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OAuth1",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/oauth1"
 },
 "doc://FairCore/documentation/FairCore/Option": {
   "abstract" : [
@@ -1866,6 +1937,294 @@
   "title" : "Pure",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/pure"
+},
+"doc://FairCore/documentation/FairCore/RawCodable": {
+  "abstract" : [
+    {
+      "text" : "A RawCodable is a simple ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " wrapper except its coding",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "will store the underlying value directly rather than keyed as “rawValue”,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "thus requiring that the ",
+      "type" : "text"
+    },
+    {
+      "code" : "init(rawValue:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " be non-failable; it is useful",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "as a codable typesafe wrapper for some general type like UUID where the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Codable implementation does not automatically use the underlying type (like",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "it does with primitives and Strings)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawCodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawCodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawCodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawCodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawcodable"
+},
+"doc://FairCore/documentation/FairCore/RawDecodable": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawDecodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Implementations of this type will decode their ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " payload directly, rather than from an objec with a “rawValue” property.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawDecodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawDecodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawDecodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawdecodable"
+},
+"doc://FairCore/documentation/FairCore/RawEncodable": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawDecodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Implementations of this type will encode their ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " payload directly, rather than to an objec with a “rawValue” property.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawEncodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawEncodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawEncodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawencodable"
+},
+"doc://FairCore/documentation/FairCore/RawInitializable": {
+  "abstract" : [
+    {
+      "text" : "A type that permits items to be initialized non-optionally",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawInitializable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawInitializable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawInitializable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawinitializable"
 },
 "doc://FairCore/documentation/FairCore/SHA256Hasher": {
   "abstract" : [
