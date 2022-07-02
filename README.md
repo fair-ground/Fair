@@ -7,6 +7,10 @@ The Fair package is used to power app distribution networks such as
 [appfair.net](https://appfair.net), as well as the end-user applications
 that interface with them such as [App Fair.app](https://appfair.app).
 
+- [fairtool](#fairtool)
+- [Fair Swift Modules](#fair-swift-modules)
+- [Swift Package Manager](#swift-package-manager)
+
 ## fairtool
 
 The functionality of the `Fair` module can best be illustrated by the
@@ -450,7 +454,7 @@ URLs online, as well as generate default catalog entries for
 application artifacts.
 
 
-## Fair Library
+## Fair Swift Modules
 
 The `fairtool` is powered by the `Fair` package, which is a
 zero-dependency cross-platform set of modules written in Swift.
