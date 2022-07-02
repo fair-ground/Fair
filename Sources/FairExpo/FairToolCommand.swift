@@ -396,6 +396,7 @@ extension NewsItemFormat {
                     "appname": diff.new.name,
                     "appname_hyphenated": diff.new.appNameHyphenated,
                     "appbundleid": bundleID,
+                    "apptoken": bundleID, // currently stored in "bundleID", but should it be moved?
                     "appversion": diff.new.version,
                     "oldappversion": diff.old?.version,
                 ].compactMapValues({ $0 }))
