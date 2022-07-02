@@ -6,10 +6,6 @@ This library is used to power app distribution networks such as
 [https://appfair.net](https://appfair.net), as well as the end-user applications
 that utilize them such as [https://appfair.app](https://appfair.app).
 
-The remainder of this document is geared towards developers and integrators.
-For end-users on macOS, you may want to start by downloading and running
-[App Fair.app](https://appfair.app).
-
 ## fairtool
 
 The functionality of the `Fair` module can best be illustrated by the
@@ -93,7 +89,6 @@ app's primary executable.
       "BuildMachineOSBuild" : "20A241133",
       "CFBundleDevelopmentRegion" : "English",
       "CFBundleExecutable" : "Calculator",
-      "CFBundleGetInfoString" : "10.14, Copyright © 2000-2018, Apple Inc.",
       "CFBundleHelpBookFolder" : "Calculator.help",
       "CFBundleHelpBookName" : "com.apple.Calculator.help",
       "CFBundleIconFile" : "AppIcon",
@@ -143,8 +138,8 @@ output for each processor architectures in the Mach-O binary.
 The fairtool can also output the same information for an unencrypted
 iOS .ipa file, either a local file or a remote URL:
 
-```json
-% fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
+```json5
+// fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
 
 [
   {
