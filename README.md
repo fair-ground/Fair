@@ -397,9 +397,25 @@ application artifacts.
 
 ## Fair Library
 
-The `fairtool` is powered by the `Fair` library, which is a
+The `fairtool` is powered by the `Fair` package, which is a
 zero-dependency cross-platform set of modules written in Swift.
+There are four top-level modules in the package:
 
+### FairCore
+
+See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/faircore/).
+
+### FairApp
+
+See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/fairapp/).
+
+### FairExpo
+
+See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/fairexpo/).
+
+### FairKit
+
+See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/fairkit/).
 
 
 ## Swift Package Manager usage
