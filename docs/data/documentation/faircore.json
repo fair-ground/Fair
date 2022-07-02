@@ -89,8 +89,6 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfSelf",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeRoot",
-        "doc:\/\/FairCore\/documentation\/FairCore\/WebFeedAdditions",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XMLNodeExpressible",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOrType"
       ],
       "title" : "Protocols"
@@ -123,7 +121,6 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoHeader",
         "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoV0",
         "doc:\/\/FairCore\/documentation\/FairCore\/ValidationError",
-        "doc:\/\/FairCore\/documentation\/FairCore\/WebFeed",
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode"
       ],
       "title" : "Structures"
@@ -166,7 +163,6 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/CompressionMethod",
-        "doc:\/\/FairCore\/documentation\/FairCore\/EmptyFeedAdditions",
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
         "doc:\/\/FairCore\/documentation\/FairCore\/OAuth1",
@@ -1077,44 +1073,6 @@
   "title" : "DepthFirstTreeOfSelf",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/depthfirsttreeofself"
-},
-"doc://FairCore/documentation/FairCore/EmptyFeedAdditions": {
-  "abstract" : [
-    {
-      "text" : "An empty default additions protocol implementation for ",
-      "type" : "text"
-    },
-    {
-      "code" : "WebFeedAdditions",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EmptyFeedAdditions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/EmptyFeedAdditions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EmptyFeedAdditions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EmptyFeedAdditions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/emptyfeedadditions"
 },
 "doc://FairCore/documentation/FairCore/EnumerableFlag": {
   "abstract" : [
@@ -2987,86 +2945,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/validationerror"
 },
-"doc://FairCore/documentation/FairCore/WebFeed": {
-  "abstract" : [
-    {
-      "text" : "An RSS web feed document outline with a generic ",
-      "type" : "text"
-    },
-    {
-      "code" : "WebFeedAdditions",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " parameters allowing extension points for the various elements.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "WebFeed"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/WebFeed",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "WebFeed"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "WebFeed",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/webfeed"
-},
-"doc://FairCore/documentation/FairCore/WebFeedAdditions": {
-  "abstract" : [
-    {
-      "text" : "Contains optional structures that can hold additional data in the outline of a ",
-      "type" : "text"
-    },
-    {
-      "code" : "WebFeed",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "WebFeedAdditions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/WebFeedAdditions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "WebFeedAdditions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "WebFeedAdditions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/webfeedadditions"
-},
 "doc://FairCore/documentation/FairCore/XMLNode": {
   "abstract" : [
     {
@@ -3108,40 +2986,6 @@
   "title" : "XMLNode",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xmlnode"
-},
-"doc://FairCore/documentation/FairCore/XMLNodeExpressible": {
-  "abstract" : [
-    {
-      "text" : "An instance that can be created from an XML node",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "XMLNodeExpressible"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XMLNodeExpressible",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "XMLNodeExpressible"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XMLNodeExpressible",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xmlnodeexpressible"
 },
 "doc://FairCore/documentation/FairCore/XOr": {
   "abstract" : [

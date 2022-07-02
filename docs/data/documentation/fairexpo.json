@@ -52,7 +52,9 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeedAdditions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/XMLNodeExpressible"
       ],
       "title" : "Protocols"
     },
@@ -86,7 +88,8 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SocialCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeed"
       ],
       "title" : "Structures"
     },
@@ -105,6 +108,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppcastFeed",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload"
       ],
@@ -112,6 +116,8 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppcastWebFeedAdditions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EmptyFeedAdditions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairGround",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageKind",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/Tweeter"
@@ -281,6 +287,79 @@
   "title" : "AppCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand"
+},
+"doc://FairExpo/documentation/FairExpo/AppcastFeed": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppcastFeed"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppcastFeed",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppcastFeed"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppcastFeed",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcastfeed"
+},
+"doc://FairExpo/documentation/FairExpo/AppcastWebFeedAdditions": {
+  "abstract" : [
+    {
+      "text" : "Additional properties for various elements of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebFeed",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppcastWebFeedAdditions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppcastWebFeedAdditions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppcastWebFeedAdditions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppcastWebFeedAdditions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcastwebfeedadditions"
 },
 "doc://FairExpo/documentation/FairExpo/ArtifactTarget": {
   "abstract" : [
@@ -539,6 +618,44 @@
   "title" : "DownloadOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/downloadoptions"
+},
+"doc://FairExpo/documentation/FairExpo/EmptyFeedAdditions": {
+  "abstract" : [
+    {
+      "text" : "An empty default additions protocol implementation for ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebFeedAdditions",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EmptyFeedAdditions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EmptyFeedAdditions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EmptyFeedAdditions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EmptyFeedAdditions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/emptyfeedadditions"
 },
 "doc://FairExpo/documentation/FairExpo/FairCommand": {
   "abstract" : [
@@ -1574,6 +1691,120 @@
   "title" : "Tweeter",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/tweeter"
+},
+"doc://FairExpo/documentation/FairExpo/WebFeed": {
+  "abstract" : [
+    {
+      "text" : "An RSS web feed document outline with a generic ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebFeedAdditions",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " parameters allowing extension points for the various elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebFeed"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeed",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebFeed"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebFeed",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/webfeed"
+},
+"doc://FairExpo/documentation/FairExpo/WebFeedAdditions": {
+  "abstract" : [
+    {
+      "text" : "Contains optional structures that can hold additional data in the outline of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "WebFeed",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WebFeedAdditions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeedAdditions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WebFeedAdditions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebFeedAdditions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/webfeedadditions"
+},
+"doc://FairExpo/documentation/FairExpo/XMLNodeExpressible": {
+  "abstract" : [
+    {
+      "text" : "An instance that can be created from an XML node",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "XMLNodeExpressible"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/XMLNodeExpressible",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "XMLNodeExpressible"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "XMLNodeExpressible",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/xmlnodeexpressible"
 },
 "doc://FairExpo/documentation/FairExpo/appfairCaskAppsIdentifier": {
   "abstract" : [
