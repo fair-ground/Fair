@@ -66,9 +66,8 @@ and output a JSON representation of the contents of the app's
 `Info.plist` along with the entitlements embedded within the 
 app's primary executable.
 
-```json
-% fairtool app info /System/Applications/Calculator.app
-
+```json5
+// fairtool app info /System/Applications/Calculator.app
 [
   {
     "entitlements" : [
@@ -140,7 +139,6 @@ iOS .ipa file, either a local file or a remote URL:
 
 ```json5
 // fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
-
 [
   {
     "entitlements" : [
@@ -251,6 +249,60 @@ privacy-sensitive operations the app is capable of performing), you might run:
 "This app needs access to the camera"
 "This app needs access to the microphone"
 ```
+
+Another useful application might be to download and check the
+version of an online app download. For example:
+
+```
+% fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip | jq '.[].info.CFBundleShortVersionString'
+
+downloading from URL: https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip
+extracting info: https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip
+
+"0.9.95"
+```
+
+#### Multi-line JSON output
+
+When the fairtool command outputs JSON, it does it as a single top-level
+array with one  element for each command line argument.
+This allows the output to be produced as each (potentially slow) resources is
+acquired and analyzed.
+
+For example, the following command may take some time to complete:
+
+```
+% fairtool app info /System/Applications/*.app | jq '.[].info.CFBundleName'
+
+"App Store"
+"Automator"
+"Books"
+…
+"TV"
+"TextEdit"
+"Time Machine"
+"VoiceMemos"
+```
+
+
+The end result will not be printed until the command has completed,
+since `jq` is waiting for the entire result before it will process
+the command.
+
+You can, instead, "promote" the JSON output from an embedded array
+to the straight output of raw JSON objects using the `-J` flag,
+which will then enable `jq` to process them as they are produced.
+
+Contrast this command with the one above:
+
+```
+% fairtool app info -J /System/Applications/*.app | jq '.info.CFBundleName'
+```
+
+The output will be the same, but the latter command with the `-J`
+flag will output each element in turn as it is downloaded.
+This can be especially important when checking potentially slow
+access to online resources, or when processing may archives at once.
 
 ### fairtool online 
 
