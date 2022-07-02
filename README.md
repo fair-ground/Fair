@@ -382,6 +382,57 @@ An example of the catalog output is as follows:
 
 ```
 
+
+### fairtool source verify
+
+The `fairtool source verify` can be used to check the validity of the
+apps in a JSON catalog.
+
+For example:
+
+```shell
+% fairtool source create https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa > catalog.json
+
+% fairtool source verify catalog.json
+
+[
+  {
+    "app": {
+      "bundleIdentifier": "app.Cloud-Cuckoo"
+      "sha256": "56e748bf053aff8612702ba9f1aa13031ef0c29313cc4047e3176b9ba8526686",
+      "size": 5136274
+    }
+  }
+]
+```
+
+If, for example, the resource at the `downloadURL` no longer matches the
+SHA256 checksum or file size, the catalog's validation errors 
+would look like:
+
+```json
+[
+  {
+    "app": {
+      "bundleIdentifier": "app.Cloud-Cuckoo"
+      "size": 5136274,
+      "sha256": "56e748bf053aff8612702ba9f1aa13031ef0c29313cc4047e3176b9ba8526686"
+    },
+    "failures": [
+      {
+        "type": "size_mismatch",
+        "message": "Download size mismatch (5136274 vs. 5052688) from: https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"
+      },
+      {
+        "type": "checksum_failed",
+        "message": "Checksum mismatch (56e748bf053aff8612702ba9f1aa13031ef0c29313cc4047e3176b9ba8526686 vs. 07e74b8db6eed309a6cdc92e40d5f7b7fd00922126f8ff49085516dd052ffa3a) from: https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"
+      }
+    ]
+  }
+]
+```
+
+
 #### App Source Catalog
 
 The format of the catalog and the meaning of the various properties is described
@@ -390,9 +441,11 @@ at [https://appfair.net/#app-source-catalog](https://appfair.net/#app-source-cat
 
 ### fairtool online 
 
-An experimental web service with limited functionality is available at
+An experimental web service with a subset of the 
+fairtool's functionality is available at:
 [https://fairtool.herokuapp.com](https://fairtool.herokuapp.com).
-The service can be used to inspect the properties of .app .zip and .ipa
+
+This service can be used to inspect the properties of `.app` `.zip` and `.ipa`
 URLs online, as well as generate default catalog entries for
 application artifacts.
 
@@ -426,7 +479,7 @@ See the [documentation for FairCore](https://fair-ground.github.io/Fair/document
 
 The `FairApp` module contains the necessary functionality for
 building and distributing an app on a fair ground such as
-[appfair.net](https://appfair.net).
+[appfair.net](https://appfair.net). `FairApp` depends on `FairCore`.
 
 Important types are
 [AppCatalog](https://fair-ground.github.io/Fair/documentation/fairapp/appcatalog),
@@ -438,18 +491,29 @@ See the [documentation for FairApp](https://fair-ground.github.io/Fair/documenta
 
 ### FairExpo
 
-The `FairExpo` module
+The `FairExpo` module provides a cross-platform set of networking
+protocols, such as utilities for interacting with a
+[GraphQLEndpointService](https://fair-ground.github.io/Fair/documentation/fairexpo/graphqlendpointservice),
+getting metadata from the
+[HomebrewAPI](https://fair-ground.github.io/Fair/documentation/fairexpo/homebrewapi/),
+and creating and verifying App Source catalogs with the
+[https://fair-ground.github.io/Fair/documentation/fairexpo/appcatalogapi](AppCatalogAPI).
 
+ `FairExpo` depends on `FairApp`.
+ 
 See the [documentation for FairExpo](https://fair-ground.github.io/Fair/documentation/fairexpo/).
 
 ### FairKit
 
-The `FairKit` module
+The `FairKit` module contains optional SwiftUI Views and enhancements,
+such as a SwiftUI [WebView](https://fair-ground.github.io/Fair/documentation/fairkit/webview).
+
+ `FairKit` depends on `FairApp`.
 
 See the [documentation for FairKit](https://fair-ground.github.io/Fair/documentation/fairkit/).
 
 
-## Swift Package Manager usage
+## Swift Package Manager
 
 In order to add the Fair module to an existing package named "App",
 
