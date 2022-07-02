@@ -15,7 +15,7 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
-
+import FairCore
 import struct Foundation.Data
 
 /// An RSS web feed document outline with a generic `WebFeedAdditions` parameters allowing extension points for the various elements.
@@ -188,4 +188,122 @@ extension WebFeed : Sendable where Additions.FeedAdditions : Sendable, Additions
 extension WebFeed.Channel : Sendable where Additions.ChannelAdditions : Sendable, Additions.EnclosureAdditions : Sendable, Additions.ItemAdditions : Sendable { }
 extension WebFeed.Channel.Item : Sendable where Additions.EnclosureAdditions : Sendable, Additions.ItemAdditions : Sendable { }
 extension WebFeed.Channel.Enclosure : Sendable where Additions.EnclosureAdditions : Sendable { }
+
+
+
+public typealias AppcastFeed = WebFeed<AppcastWebFeedAdditions>
+
+/// Additional properties for various elements of a `WebFeed`.
+public enum AppcastWebFeedAdditions : WebFeedAdditions {
+    public typealias FeedAdditions = Never
+    public typealias ChannelAdditions = Never
+    static let sparkle = "http://www.andymatuschak.org/xml-namespaces/sparkle"
+
+
+    /// Appcast-specific attributes for `<item>` nodes
+    ///
+    /// ```
+    /// SUAppcastElementVersion = SUAppcastAttributeVersion;
+    /// SUAppcastElementShortVersionString = SUAppcastAttributeShortVersionString;
+    /// SUAppcastElementCriticalUpdate = @"sparkle:criticalUpdate";
+    /// SUAppcastElementDeltas = @"sparkle:deltas";
+    /// SUAppcastElementMinimumAutoupdateVersion = @"sparkle:minimumAutoupdateVersion";
+    /// SUAppcastElementMinimumSystemVersion = @"sparkle:minimumSystemVersion";
+    /// SUAppcastElementMaximumSystemVersion = @"sparkle:maximumSystemVersion";
+    /// SUAppcastElementReleaseNotesLink = @"sparkle:releaseNotesLink";
+    /// SUAppcastElementFullReleaseNotesLink = @"sparkle:fullReleaseNotesLink";
+    /// SUAppcastElementTags = @"sparkle:tags";
+    /// SUAppcastElementPhasedRolloutInterval = @"sparkle:phasedRolloutInterval";
+    /// SUAppcastElementInformationalUpdate = @"sparkle:informationalUpdate";
+    /// SUAppcastElementChannel = @"sparkle:channel";
+    /// SUAppcastElementBelowVersion = @"sparkle:belowVersion";
+    /// SUAppcastElementIgnoreSkippedUpgradesBelowVersion = @"sparkle:ignoreSkippedUpgradesBelowVersion";
+    /// ```
+    public struct ItemAdditions : XMLNodeExpressible, Hashable {
+        var version: String?
+        var shortVersionString: String?
+        var criticalUpdate: String?
+        var minimumAutoupdateVersion: String?
+        var minimumSystemVersion: String?
+        var maximumSystemVersion: String?
+        var releaseNotesLink: String?
+        var fullReleaseNotesLink: String?
+        var phasedRolloutInterval: String?
+        var informationalUpdate: String?
+        var channel: String?
+        var belowVersion: String?
+        var ignoreSkippedUpgradesBelowVersion: String?
+        var tags: [FairCore.XMLNode]?
+        var deltas: [AppcastFeed.Channel.Enclosure]?
+
+        public init?(node: FairCore.XMLNode) throws {
+            let element = { node.childElements(named: $0, namespaceURI: sparkle).first?.childContentTrimmed }
+
+            self.version = element("version")
+            self.shortVersionString = element("shortVersionString")
+            self.criticalUpdate = element("criticalUpdate")
+            self.minimumAutoupdateVersion = element("minimumAutoupdateVersion")
+            self.minimumSystemVersion = element("minimumSystemVersion")
+            self.maximumSystemVersion = element("maximumSystemVersion")
+            self.releaseNotesLink = element("releaseNotesLink")
+            self.fullReleaseNotesLink = element("fullReleaseNotesLink")
+            self.phasedRolloutInterval = element("phasedRolloutInterval")
+            self.informationalUpdate = element("informationalUpdate")
+            self.channel = element("channel")
+            self.belowVersion = element("belowVersion")
+            self.ignoreSkippedUpgradesBelowVersion = element("ignoreSkippedUpgradesBelowVersion")
+
+            self.tags = node.childElements(named: "tags", namespaceURI: sparkle).flatMap(\.elementChildren).array()
+            self.deltas = try node.childElements(named: "deltas", namespaceURI: sparkle).flatMap(\.elementChildren).compactMap(AppcastFeed.Channel.Enclosure.init)
+        }
+    }
+
+    /// Appcast-specific attributes for `<enclosure>` nodes:
+    ///
+    /// ```
+    /// SUAppcastAttributeDeltaFrom = @"sparkle:deltaFrom";
+    /// SUAppcastAttributeDSASignature = @"sparkle:dsaSignature";
+    /// SUAppcastAttributeEDSignature = @"sparkle:edSignature";
+    /// SUAppcastAttributeShortVersionString = @"sparkle:shortVersionString";
+    /// SUAppcastAttributeVersion = @"sparkle:version";
+    /// SUAppcastAttributeOsType = @"sparkle:os";
+    /// SUAppcastAttributeInstallationType = @"sparkle:installationType";
+    /// ```
+    public struct EnclosureAdditions : XMLNodeExpressible, Hashable {
+        var version: String?
+        var shortVersionString: String?
+        var edSignature: String?
+        var dsaSignature: String?
+        var deltaFrom: String?
+        var installationType: String?
+        var os: String?
+
+        public init?(node: FairCore.XMLNode) throws {
+            let attr = { node.attributeValue(key: $0, namespaceURI: sparkle) }
+            self.version = attr("version")
+            self.shortVersionString = attr("shortVersionString")
+            self.edSignature = attr("edSignature")
+            self.dsaSignature = attr("dsaSignature")
+            self.deltaFrom = attr("deltaFrom")
+            self.installationType = attr("installationType")
+            self.os = attr("os")
+        }
+    }
+}
+
+extension WebFeed.Channel.Item where Additions == AppcastWebFeedAdditions {
+
+    /// https://sparkle-project.org/documentation/api-reference/Classes/SUAppcastItem.html#/c:objc(cs)SUAppcastItem(py)displayVersionString
+    var displayVersionString: String? {
+
+        enclosures.compactMap(\.shortVersionString).first
+    }
+}
+
+extension WebFeed.Channel.Enclosure where Additions == AppcastWebFeedAdditions {
+    var version: String? { additions?.version }
+    var shortVersionString: String? { additions?.shortVersionString }
+    var edSignature: String? { additions?.edSignature }
+    var dsaSignature: String? { additions?.dsaSignature }
+}
 

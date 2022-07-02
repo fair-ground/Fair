@@ -422,6 +422,7 @@ extension NewsItemFormat {
             if let tweet = tweet, let twitterAuth = twitterAuth {
                 tweetLimit = tweetLimit - 1
                 if tweetLimit >= 0 {
+                    // TODO: convert error to warning (will need a msg handler)
                     responses.append(try await Tweeter.post(text: tweet, auth: twitterAuth))
                 }
             }
