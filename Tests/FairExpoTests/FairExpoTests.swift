@@ -294,7 +294,7 @@ final class FairExpoTests: XCTestCase {
         }
     }
 
-    func testCatalogPost() throws {
+    func testCatalogPost() async throws {
         let pre = try Bundle.module.loadBundleResource(named: "fairapps-pre.json")
         let post = try Bundle.module.loadBundleResource(named: "fairapps-post.json")
         XCTAssertNotEqual(pre, post)
@@ -318,14 +318,17 @@ final class FairExpoTests: XCTestCase {
             var postBody: String?
             var postAppID: String?
             var postURL: String?
+            var tweetBody: String?
         }
 
-        let fmt = NewsFormat(postTitle: "New Release: #(appname) VERSION #(appversion)", postTitleUpdate: "Updated Release: #(appname) #(appversion)", postCaption: "#(appname) version #(appversion) has been released", postCaptionUpdate: "#(appname) version #(appversion) has been updated from #(oldappversion)", postBody: "NEW RELEASE", postAppID: nil, postURL: nil)
+        let fmt = NewsFormat(postTitle: "New Release: #(appname) VERSION #(appversion)", postTitleUpdate: "Updated Release: #(appname) #(appversion)", postCaption: "#(appname) version #(appversion) has been released", postCaptionUpdate: "#(appname) version #(appversion) has been updated from #(oldappversion)", postBody: "NEW RELEASE", tweetBody: "New Release on the App Fair: #(appname) #(appversion) - https://appfair.app/fair?app=#(appname_hyphenated)")
+
+        let twitterAuth: OAuth1.Info? = nil // wip(OAuth1.Info(consumerKey: "XXX", consumerSecret: "XXX", oauthToken: "XXX", oauthTokenSecret: "XXX"))
 
         var cat2Post = cat2
-        cat2Post.addNews(for: diffs, format: fmt, limit: 0)
+        _ = try await fmt.postUpdates(to: &cat2Post, with: diffs)
         XCTAssertEqual(cat2Post, cat2)
-        cat2Post.addNews(for: diffs, format: fmt, limit: 1)
+        _ = try await fmt.postUpdates(to: &cat2Post, with: diffs, twitterAuth: twitterAuth, newsLimit: 1, tweetLimit: 1)
         XCTAssertNotEqual(cat2Post, cat2)
 
         XCTAssertEqual("release-app.Cloud-Cuckoo-0.9.75", cat2Post.news?.first?.identifier)
