@@ -29,7 +29,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A3HubV13AppCasksQueryV0F8ResponseV9endCursor0aD013GraphQLCursorVSgvp",
+    "externalID" : "s:8FairExpo0A3HubV13AppCasksQueryV0F8ResponseV9endCursorAA13GraphQLCursorVSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,7 +49,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp13GraphQLCursorV",
+        "preciseIdentifier" : "s:8FairExpo13GraphQLCursorV",
         "text" : "GraphQLCursor"
       },
       {
@@ -95,8 +95,9 @@
               "text" : ": "
             },
             {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLCursor",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp13GraphQLCursorV",
+              "preciseIdentifier" : "s:8FairExpo13GraphQLCursorV",
               "text" : "GraphQLCursor"
             },
             {
@@ -275,7 +276,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp13GraphQLCursorV",
+      "preciseIdentifier" : "s:8FairExpo13GraphQLCursorV",
       "text" : "GraphQLCursor"
     },
     {
@@ -289,6 +290,48 @@
   "title" : "endCursor",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery\/queryresponse\/endcursor"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLCursor": {
+  "abstract" : [
+    {
+      "text" : "A cursor that represents a pointer to a page in a set of GraphQL results.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is an opaque (base-64 encoded) string.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLCursor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLCursor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLCursor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLCursor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlcursor"
 }
 }
 }

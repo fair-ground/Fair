@@ -83,7 +83,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/7FairApp10APIRequestP",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/APIRequest",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest"
       ],
       "kind" : "relationships",
@@ -140,11 +140,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/7FairApp10APIRequestP": {
-  "identifier" : "doc:\/\/FairExpo\/7FairApp10APIRequestP",
-  "title" : "FairApp.APIRequest",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
@@ -158,6 +153,40 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/APIRequest": {
+  "abstract" : [
+    {
+      "text" : "An API request that can be either a REST GET or a POST like GraphQL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "APIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/APIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "APIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "APIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/apirequest"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub": {
   "abstract" : [

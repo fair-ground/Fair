@@ -1,10 +1,10 @@
 The `fairtool` is a cross-platform (Linux & macOS) command-line utility for 
 managing an ecosystem of apps.
-It is powered by the Fair Swift package, which is a zero-dependency 
-cross-platform (Linux, macOS, & iOS) set of modules licensed under the GNU AGPL.
+It is powered by the Fair package, which is a zero-dependency 
+cross-platform (Linux, macOS, & iOS) set of Swift 5.6 modules.
 
 The Fair package is used to power app distribution networks such as 
-[https://appfair.net](https://appfair.net), as well as the end-user applications
+[appfair.net](https://appfair.net), as well as the end-user applications
 that interface with them such as [App Fair.app](https://appfair.app).
 
 ## fairtool
@@ -382,6 +382,8 @@ An example of the catalog output is as follows:
 
 ```
 
+#### App Source Catalog
+
 The format of the catalog and the meaning of the various properties is described
 at [https://appfair.net/#app-source-catalog](https://appfair.net/#app-source-catalog).
 
@@ -403,19 +405,48 @@ There are four top-level modules in the package:
 
 ### FairCore
 
+The `FairCore` module is the lowest-level set of data structures and
+algorithms shared throughout the package.
+It supports macOS 12+, iOS 15+, and Linux (Windows is close,
+but needs a fix for missing zlib; Android is TBD).
+
+Some notable types that are used throughout the `Fair*` modules are
+[JSum](https://fair-ground.github.io/Fair/documentation/faircore/jsum/)
+and
+[XOr](https://fair-ground.github.io/Fair/documentation/faircore/xor/).
+
+FairCore also contains utilities for 
+[zip file handling](https://fair-ground.github.io/Fair/documentation/faircore/ziparchive)
+and 
+[XML parsing](https://fair-ground.github.io/Fair/documentation/faircore/xmlnode).
+
 See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/faircore/).
 
 ### FairApp
 
-See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/fairapp/).
+The `FairApp` module contains the necessary functionality for
+building and distributing an app on a fair ground such as
+[appfair.net](https://appfair.net).
+
+Important types are
+[AppCatalog](https://fair-ground.github.io/Fair/documentation/fairapp/appcatalog),
+which is a serialized form of the [App Source Catalog](#app-source-catalog) format,
+[AppBundle](https://fair-ground.github.io/Fair/documentation/fairapp/appbundle),
+which is an abstraction of the packing of an iOS or macOS app.
+
+See the [documentation for FairApp](https://fair-ground.github.io/Fair/documentation/fairapp/).
 
 ### FairExpo
 
-See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/fairexpo/).
+The `FairExpo` module
+
+See the [documentation for FairExpo](https://fair-ground.github.io/Fair/documentation/fairexpo/).
 
 ### FairKit
 
-See the [documentation for FairCore](https://fair-ground.github.io/Fair/documentation/fairkit/).
+The `FairKit` module
+
+See the [documentation for FairKit](https://fair-ground.github.io/Fair/documentation/fairkit/).
 
 
 ## Swift Package Manager usage

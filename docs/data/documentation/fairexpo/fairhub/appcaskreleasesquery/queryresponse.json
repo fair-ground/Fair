@@ -83,7 +83,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/7FairApp19CursoredAPIResponseP",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
         "doc:\/\/FairExpo\/Se",
         "doc:\/\/FairExpo\/SE",
         "doc:\/\/FairExpo\/SQ",
@@ -148,11 +148,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/7FairApp19CursoredAPIResponseP": {
-  "identifier" : "doc:\/\/FairExpo\/7FairApp19CursoredAPIResponseP",
-  "title" : "FairApp.CursoredAPIResponse",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/SE": {
   "identifier" : "doc:\/\/FairExpo\/SE",
   "title" : "Swift.Encodable",
@@ -186,6 +181,40 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIResponse": {
+  "abstract" : [
+    {
+      "text" : "A response that returns results in batches with a cursor",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CursoredAPIResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapiresponse"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub": {
   "abstract" : [
@@ -415,7 +444,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp13GraphQLCursorV",
+      "preciseIdentifier" : "s:8FairExpo13GraphQLCursorV",
       "text" : "GraphQLCursor"
     },
     {

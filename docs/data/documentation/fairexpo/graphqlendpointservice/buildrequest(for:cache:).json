@@ -17,8 +17,8 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService\/EndpointService-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/buildRequest(for:cache:)"
       ]
     ]
   },
@@ -29,7 +29,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo22GraphQLEndpointServicePAAE12buildRequest3for5cache10Foundation10URLRequestVqd___So23NSURLRequestCachePolicyVSgtK0E0Qyd__Rsz0A3App10APIRequestRd__lF",
+    "externalID" : "s:8FairExpo22GraphQLEndpointServicePAAE12buildRequest3for5cache10Foundation10URLRequestVqd___So23NSURLRequestCachePolicyVSgtK0E0Qyd__RszAA10APIRequestRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -264,8 +264,9 @@
               "text" : " : "
             },
             {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/APIRequest",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp10APIRequestP",
+              "preciseIdentifier" : "s:8FairExpo10APIRequestP",
               "text" : "APIRequest"
             }
           ]
@@ -310,18 +311,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/GraphQLEndpointService": {
+"doc://FairExpo/documentation/FairExpo/APIRequest": {
   "abstract" : [
     {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "GraphQL",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " endpoint",
+      "text" : "An API request that can be either a REST GET or a POST like GraphQL.",
       "type" : "text"
     }
   ],
@@ -336,32 +329,156 @@
     },
     {
       "kind" : "identifier",
-      "text" : "GraphQLEndpointService"
+      "text" : "APIRequest"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/APIRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "GraphQLEndpointService"
+      "text" : "APIRequest"
     }
   ],
   "role" : "symbol",
-  "title" : "GraphQLEndpointService",
+  "title" : "APIRequest",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlendpointservice"
+  "url" : "\/documentation\/fairexpo\/apirequest"
 },
-"doc://FairExpo/documentation/FairExpo/GraphQLEndpointService/EndpointService-Implementations": {
+"doc://FairExpo/documentation/FairExpo/EndpointService": {
   "abstract" : [
-
+    {
+      "text" : "A service that converts actions and parameters into an endpoint URL",
+      "type" : "text"
+    }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService\/EndpointService-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "EndpointService Implementations",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EndpointService",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlendpointservice\/endpointservice-implementations"
+  "url" : "\/documentation\/fairexpo\/endpointservice"
+},
+"doc://FairExpo/documentation/FairExpo/EndpointService/buildRequest(for:cache:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a request for the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "APIRequest",
+      "type" : "codeVoice"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/buildRequest(for:cache:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "buildRequest(for:cache:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/endpointservice\/buildrequest(for:cache:)"
 },
 "doc://FairExpo/documentation/FairExpo/GraphQLEndpointService/buildRequest(for:cache:)": {
   "abstract" : [

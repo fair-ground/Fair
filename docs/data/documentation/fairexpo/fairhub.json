@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/7FairApp15EndpointServiceP",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService"
       ],
       "kind" : "relationships",
@@ -174,11 +174,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/7FairApp15EndpointServiceP": {
-  "identifier" : "doc:\/\/FairExpo\/7FairApp15EndpointServiceP",
-  "title" : "FairApp.EndpointService",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
@@ -192,6 +187,40 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/EndpointService": {
+  "abstract" : [
+    {
+      "text" : "A service that converts actions and parameters into an endpoint URL",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/endpointservice"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub": {
   "abstract" : [

@@ -85,8 +85,9 @@
               "text" : " : "
             },
             {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp15EndpointServiceP",
+              "preciseIdentifier" : "s:8FairExpo15EndpointServiceP",
               "text" : "EndpointService"
             }
           ]
@@ -98,7 +99,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/7FairApp15EndpointServiceP"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -133,13 +134,6 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService\/GraphQLResponse"
       ],
       "title" : "Type Aliases"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService\/EndpointService-Implementations"
-      ],
-      "title" : "Default Implementations"
     }
   ],
   "variants" : [
@@ -156,11 +150,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/7FairApp15EndpointServiceP": {
-  "identifier" : "doc:\/\/FairExpo\/7FairApp15EndpointServiceP",
-  "title" : "FairApp.EndpointService",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
@@ -174,6 +163,40 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/EndpointService": {
+  "abstract" : [
+    {
+      "text" : "A service that converts actions and parameters into an endpoint URL",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EndpointService"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EndpointService",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/endpointservice"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub": {
   "abstract" : [
@@ -250,17 +273,6 @@
   "title" : "GraphQLEndpointService",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlendpointservice"
-},
-"doc://FairExpo/documentation/FairExpo/GraphQLEndpointService/EndpointService-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService\/EndpointService-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "EndpointService Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlendpointservice\/endpointservice-implementations"
 },
 "doc://FairExpo/documentation/FairExpo/GraphQLEndpointService/GraphQLResponse": {
   "abstract" : [

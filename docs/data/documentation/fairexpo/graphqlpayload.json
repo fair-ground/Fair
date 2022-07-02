@@ -173,7 +173,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/7FairApp19CursoredAPIResponseP",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
         "doc:\/\/FairExpo\/Se",
         "doc:\/\/FairExpo\/SE",
         "doc:\/\/FairExpo\/SQ",
@@ -231,11 +231,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/7FairApp19CursoredAPIResponseP": {
-  "identifier" : "doc:\/\/FairExpo\/7FairApp19CursoredAPIResponseP",
-  "title" : "FairApp.CursoredAPIResponse",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/SE": {
   "identifier" : "doc:\/\/FairExpo\/SE",
   "title" : "Swift.Encodable",
@@ -269,6 +264,104 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIResponse": {
+  "abstract" : [
+    {
+      "text" : "A response that returns results in batches with a cursor",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "T",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CursoredAPIResponse",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Decodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Encodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Hashable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Sendable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CursoredAPIResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapiresponse"
 },
 "doc://FairExpo/documentation/FairExpo/GraphQLPayload": {
   "abstract" : [

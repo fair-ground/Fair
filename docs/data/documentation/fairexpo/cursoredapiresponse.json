@@ -1,0 +1,482 @@
+{
+  "abstract" : [
+    {
+      "text" : "A response that returns results in batches with a cursor",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo19CursoredAPIResponseP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "CursoredAPIResponse"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "CursoredAPIResponse"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "CursoredAPIResponse"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "CursoredAPIResponse"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/QueryResponse",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery\/QueryResponse",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery\/QueryResponse",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/elementCount",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/endCursor"
+      ],
+      "title" : "Instance Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/cursoredapiresponse"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIResponse": {
+  "abstract" : [
+    {
+      "text" : "A response that returns results in batches with a cursor",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CursoredAPIResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapiresponse"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIResponse/elementCount": {
+  "abstract" : [
+    {
+      "text" : "The number of elements in this response batch",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "elementCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/elementCount",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "elementCount",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapiresponse\/elementcount"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIResponse/endCursor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "endCursor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13GraphQLCursorV",
+      "text" : "GraphQLCursor"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/endCursor",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "endCursor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapiresponse\/endcursor"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery/QueryResponse": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/QueryResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCaskReleasesQuery.QueryResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery\/queryresponse"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksQuery/QueryResponse": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery\/QueryResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksQuery.QueryResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery\/queryresponse"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogQuery/QueryResponse": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery\/QueryResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CatalogQuery.QueryResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogquery\/queryresponse"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests/QueryResponse": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.FindPullRequests.QueryResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLPayload": {
+  "abstract" : [
+    {
+      "text" : "The payload of a successful ",
+      "type" : "text"
+    },
+    {
+      "code" : "GraphQL",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " query.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "T",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CursoredAPIResponse",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Decodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Encodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Hashable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Sendable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLPayload"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLPayload"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLPayload",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlpayload"
+}
+}
+}
