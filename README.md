@@ -8,7 +8,16 @@ The Fair package is used to power app distribution networks such as
 that interface with them such as [App Fair.app](https://appfair.app).
 
 - [fairtool](#fairtool)
+  - [Installation](#fairtool)
+  - [Show information about an app](#fairtool-app-info-fileapp)
+  - [JSON Output](#fairtool-json-output)
+  - [Creating an App Source Catalog](#fairtool-source-create)
+  - [Verifying an App against a Source Catalog](#fairtool-source-verify)
 - [Fair Swift Modules](#fair-swift-modules)
+  - [FairCore](#faircore)
+  - [FairApp](#fairapp)
+  - [FairExpo](#fairexpo)
+  - [FairKit](#fairkit)
 - [Swift Package Manager](#swift-package-manager)
 
 ## fairtool

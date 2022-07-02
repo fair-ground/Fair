@@ -59,6 +59,22 @@ jobs:
           ls -la *.gz
           brew remove appfair/app/fairtool
 
+      # There's something hinky with the bottling process;
+      # about 1/2 the time it produces a very corrupt binary
+      # that will yield the error:
+      #   exec format error: fairtool
+      # This step will extract the binary and make sure it
+      # can really be run before continuing with the 
+      # bottling process.
+      - name: Verify bottle (x86_64)
+        run: |
+          cp -a fairtool--*.bottle.tar.gz /tmp/
+          cd /tmp/
+          tar xvzf fairtool--*.bottle.tar.gz
+          file ./fairtool/*/bin/fairtool
+          ./fairtool/*/bin/fairtool version
+          cd -
+
       - name: Upload bottle (x86_64)
         uses: actions/upload-release-asset@v1.0.1
         env:
