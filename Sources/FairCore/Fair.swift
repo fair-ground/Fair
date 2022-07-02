@@ -456,6 +456,7 @@ public func withErrorContext<T>(_ info: @autoclosure () -> String, key: String =
     }
 }
 
+
 public extension Error {
     /// Insert the given info into the user info dictionary key, pre-pending it to an existing message if it already exists.
     /// Note that this will lose the existing error type and wrap it in an `NSError`.
@@ -471,11 +472,6 @@ public extension Error {
 
         let nserr2 = NSError(domain: nserr.domain, code: nserr.code, userInfo: errorDic)
         return nserr2
-    }
-
-    func dumpError() {
-        var out = HandleStream(stream: .standardOutput)
-        dumpError(out: &out)
     }
 
     func dumpError<O: TextOutputStream>(out: inout O) {

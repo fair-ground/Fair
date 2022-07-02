@@ -15,15 +15,15 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 import Swift
+import Foundation
+#if canImport(CoreFoundation)
+import CoreFoundation
+#endif
 #if canImport(Glibc)
 import Glibc
 import var Glibc.S_IFREG
 import var Glibc.S_IFDIR
 import var Glibc.S_IFLNK
-#endif
-import Foundation
-#if canImport(CoreFoundation)
-import CoreFoundation
 #endif
 
 #if canImport(Compression)

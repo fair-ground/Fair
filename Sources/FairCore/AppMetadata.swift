@@ -14,12 +14,6 @@
  You should have received a copy of the GNU Affero General Public License
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import Swift
-import Foundation
-#if canImport(QuartzCore)
-import QuartzCore
-#endif
-
 /// https://developer.apple.com/documentation/bundleresources/information_property_list/bundle_configuration
 public enum InfoPlistKey : String, CaseIterable, Hashable {
     case CFBundleIdentifier // e.g., "app.My-App"

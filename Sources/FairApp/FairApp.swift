@@ -337,6 +337,13 @@ extension FairContainer {
     }
 }
 
+public extension Error {
+    func dumpError() {
+        var out = HandleStream(stream: .standardOutput)
+        dumpError(out: &out)
+    }
+}
+
 @available(macOS 12.0, iOS 15.0, *)
 public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
