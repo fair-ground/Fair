@@ -1,10 +1,11 @@
 The `fairtool` is a cross-platform (Linux & macOS) command-line utility for 
 managing an ecosystem of apps.
-It is powered by the Fair library, which is a zero-dependency 
-cross-platform (Linux, macOS, & iOS) Swift 5.6 module licensed under the GNU AGPL.
-This library is used to power app distribution networks such as 
+It is powered by the Fair Swift package, which is a zero-dependency 
+cross-platform (Linux, macOS, & iOS) set of modules licensed under the GNU AGPL.
+
+The Fair package is used to power app distribution networks such as 
 [https://appfair.net](https://appfair.net), as well as the end-user applications
-that utilize them such as [https://appfair.app](https://appfair.app).
+that interface with them such as [App Fair.app](https://appfair.app).
 
 ## fairtool
 
@@ -316,7 +317,8 @@ This catalog format is supported by app installation tools like
 The tool has the following options:
 
 ```
-marc@zap Fair % fairtool source create --help 
+% fairtool source create --help 
+
 OVERVIEW: Create a source from the specified .ipa or .zip.
 
 USAGE: fairtool source create [--verbose] [--quiet] [--promote-json] [--catalog-name <name>] [--catalog-identifier <id>] [--catalog-source-url <url>] [--app-localized-description <desc> ...] [--app-version-description <desc> ...] [--app-subtitle <title> ...] [--app-developer-name <email> ...] [--app-download-url <URL> ...] [<apps> ...]
