@@ -1,16 +1,21 @@
-# Fair
-
 The `fairtool` is a cross-platform (Linux & macOS) command-line utility for 
 managing an ecosystem of apps.
 It is powered by the Fair library, which is a zero-dependency 
-cross-platform (Linux, macOS, & iOS) Swift 5.6 module published under the AGPL.
+cross-platform (Linux, macOS, & iOS) Swift 5.6 module licensed under the GNU AGPL.
+This library is used to power app distribution networks such as 
+[https://appfair.net](https://appfair.net), as well as the end-user applications
+that utilize them such as [https://appfair.app](https://appfair.app).
+
+The remainder of this document is geared towards developers and integrators.
+For end-users on macOS, you may want to start by downloading and running
+[App Fair.app](https://appfair.app).
 
 ## fairtool
 
 The functionality of the `Fair` module can best be illustrated by the
-capabilities of the `fairtool`. The easiest way to get started with the
-utility for users of [Homebrew](https://brew.sh) on macOS (12+) or Linux
-is to run the commands:
+capabilities of the `fairtool`, which is a command-line utility for
+macOS (12+) and Linux. The easiest way to get started with the
+utility for [Homebrew](https://brew.sh) users is to run the commands:
 
 ```shell
 % brew tap appfair/app
@@ -247,7 +252,6 @@ privacy-sensitive operations the app is capable of performing), you might run:
 ```
 % fairtool app info /Applications/Signal.app | jq '.[].info | with_entries(select(.key|match("UsageDescription")))[]'
 
-"This app needs access to Bluetooth"
 "This app needs access to Bluetooth"
 "This app needs access to the camera"
 "This app needs access to the microphone"
