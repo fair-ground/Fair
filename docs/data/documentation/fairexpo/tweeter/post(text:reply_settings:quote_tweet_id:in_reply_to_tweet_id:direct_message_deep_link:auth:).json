@@ -1,8 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "Posts the given message",
+      "text" : "Posts the given message, returning a response like:",
       "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "{\"data\":{\"id\":\"1543033216067567616\",\"text\":\"New Release: Cloud Cuckoo 0.9.75 - https:\/\/t.co\/pris66nrlj\"}}",
+      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
@@ -562,8 +570,16 @@
 "doc://FairExpo/documentation/FairExpo/Tweeter/post(text:reply_settings:quote_tweet_id:in_reply_to_tweet_id:direct_message_deep_link:auth:)": {
   "abstract" : [
     {
-      "text" : "Posts the given message",
+      "text" : "Posts the given message, returning a response like:",
       "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "{\"data\":{\"id\":\"1543033216067567616\",\"text\":\"New Release: Cloud Cuckoo 0.9.75 - https:\/\/t.co\/pris66nrlj\"}}",
+      "type" : "codeVoice"
     }
   ],
   "fragments" : [

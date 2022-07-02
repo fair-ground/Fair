@@ -331,7 +331,7 @@ public struct SourceCommand : AsyncParsableCommand {
         public init() { }
 
         public mutating func run() async throws {
-            let date = Calendar.current.startOfDay(for: Date())
+            let date = Date() // Calendar.current.startOfDay(for: Date())
 
             warnExperimental(Self.experimental)
             msg(.info, "posting changes from: \(fromCatalog) to \(toCatalog)")
@@ -343,12 +343,17 @@ public struct SourceCommand : AsyncParsableCommand {
                 dstCatalog.importVersionDates(from: srcCatalog)
             }
 
+            // copy over the news from the previous catalog…
             let diffs = AppCatalog.newReleases(from: srcCatalog, to: dstCatalog)
 
-            // copy over the news from the previous catalog…
+            // if we want to tweet the changes, make sure we have the necessary auth info
+            let twitterAuth = self.newsOptions.tweetBody == nil ? nil : try self.tweetOptions.createAuth()
 
             // … then add items for each of the new releases, purging duplicates as needed
-            dstCatalog.addNews(for: diffs, format: newsOptions, limit: newsItems)
+            let tweets = try await newsOptions.postUpdates(to: &dstCatalog, with: diffs, twitterAuth: twitterAuth, newsLimit: newsItems, tweetLimit: nil)
+            if !tweets.isEmpty {
+                msg(.info, "posted tweets:", tweets.map(\.debugJSON))
+            }
 
             if updateVersionDate {
                 dstCatalog.updateVersionDates(for: diffs, with: date)
@@ -372,12 +377,17 @@ protocol NewsItemFormat {
     var postBody: String? { get }
     var postAppID: String? { get }
     var postURL: String? { get }
+    var tweetBody: String? { get }
 }
 
-extension AppCatalog {
+extension NewsItemFormat {
     /// Takes the differences from two catalogs and adds them to the postings with the given formats and limits.
-    mutating func addNews(for diffs: [AppCatalogItem.Diff], format: NewsItemFormat, limit: Int? = nil) {
-        var news: [AppNewsPost] = self.news ?? []
+    /// Also sends out updates to various channels, such as Twitter (experimental) and ATOM (planned)
+    func postUpdates(to catalog: inout AppCatalog, with diffs: [AppCatalogItem.Diff], twitterAuth: OAuth1.Info? = nil, newsLimit: Int? = nil, tweetLimit: Int? = nil) async throws -> [Tweeter.PostResponse] {
+        var tweetLimit = tweetLimit ?? .max
+        var responses: [Tweeter.PostResponse] = []
+
+        var news: [AppNewsPost] = catalog.news ?? []
         for diff in diffs {
             let bundleID = diff.new.bundleIdentifier
 
@@ -395,26 +405,39 @@ extension AppCatalog {
 
             // a unique identifier for the item
             let identifier = "release-" + bundleID + "-" + (diff.new.version ?? "new")
-            let title = fmt(updatesExistingApp ? format.postTitleUpdate : format.postTitle)
-            let caption = fmt(updatesExistingApp ? format.postCaptionUpdate : format.postCaption)
+            let title = fmt(updatesExistingApp ? self.postTitleUpdate : self.postTitle)
+            let caption = fmt(updatesExistingApp ? self.postCaptionUpdate : self.postCaption)
+            let tweet = fmt(updatesExistingApp ? self.tweetBody : self.tweetBody) // TODO: different update
+
+            let postTitle = (title ?? "New Release: \(diff.new.name) \(diff.new.version ?? "")").trimmed()
 
             let date = ISO8601DateFormatter().string(from: Date())
-            var post = AppNewsPost(identifier: identifier, date: date, title: (title ?? "New Release: \(diff.new.name) \(diff.new.version ?? "")").trimmed(), caption: caption ?? "")
+            var post = AppNewsPost(identifier: identifier, date: date, title: postTitle, caption: caption ?? "")
 
             post.appID = bundleID
             // clear out any older news postings with the same bundle id
             news = news.filter({ $0.appID != bundleID })
             news.append(post)
+
+            if let tweet = tweet, let twitterAuth = twitterAuth {
+                tweetLimit = tweetLimit - 1
+                if tweetLimit >= 0 {
+                    responses.append(try await Tweeter.post(text: tweet, auth: twitterAuth))
+                }
+            }
         }
 
         // trim down the news count until we are at the limit
-        self.news = (limit ?? 0) == 0 ? nil : news.count > (limit ?? .max) ? news.suffix(limit ?? .max) : news.isEmpty ? nil : news
+        catalog.news = (newsLimit ?? 0) == 0 ? nil : news.count > (newsLimit ?? .max) ? news.suffix(newsLimit ?? .max) : news.isEmpty ? nil : news
+
+        return responses
     }
 }
 
 /// A very simple Twitter client for posting messages (and nothing else).
 public enum Tweeter {
-    /// Posts the given message
+    /// Posts the given message, returning a response like:
+    /// `{"data":{"id":"1543033216067567616","text":"New Release: Cloud Cuckoo 0.9.75 - https://t.co/pris66nrlj"}}`
     public static func post(text: String, reply_settings: String? = nil, quote_tweet_id: TweetID? = nil, in_reply_to_tweet_id: TweetID? = nil, direct_message_deep_link: String? = nil, auth: OAuth1.Info) async throws -> PostResponse {
         // https://developer.twitter.com/en/docs/twitter-api/tweets/manage-tweets/api-reference/post-tweets
         let url = URL(string: "https://api.twitter.com/2/tweets")!
