@@ -9,7 +9,7 @@ that interface with them such as [App Fair.app](https://appfair.app).
 
 - [fairtool](#fairtool)
   - [Installation](#fairtool)
-  - [Show information about an app](#fairtool-app-info-fileapp)
+  - [Display app info](#fairtool-app-info-fileapp)
   - [JSON Output](#fairtool-json-output)
   - [Creating an App Source Catalog](#fairtool-source-create)
   - [Verifying an App against a Source Catalog](#fairtool-source-verify)
@@ -19,6 +19,7 @@ that interface with them such as [App Fair.app](https://appfair.app).
   - [FairExpo](#fairexpo)
   - [FairKit](#fairkit)
 - [Swift Package Manager](#swift-package-manager)
+- [Roadmap](#roadmap)
 
 ## fairtool
 
@@ -566,4 +567,15 @@ let package = Package(
     ]
 )
 ```
+
+## Roadmap
+
+Until version 1.0 is achieved, minor and patch releases
+can and will break source compatibility.
+If this causes problems, pin your dependency to a specific version.
+Binary compatibility is never guaranteed.
+
+
+
+
 
