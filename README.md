@@ -132,7 +132,7 @@ the binary. Note that in the case of multi-architecture binaries
 output for each processor architectures in the Mach-O binary.
 
 
-### fairtool app info _file_.ipa
+### fairtool app info _url_.ipa
 
 The fairtool can also output the same information for an unencrypted
 iOS .ipa file, either a local file or a remote URL:
@@ -286,7 +286,7 @@ For example, the following command may take some time to complete:
 
 
 The end result will not be printed until the command has completed,
-since `jq` is waiting for the entire result before it will process
+since `jq` is waiting for the entire array before it will process
 the command.
 
 You can, instead, "promote" the JSON output from an embedded array
@@ -303,6 +303,86 @@ The output will be the same, but the latter command with the `-J`
 flag will output each element in turn as it is downloaded.
 This can be especially important when checking potentially slow
 access to online resources, or when processing may archives at once.
+
+
+### fairtool source create
+
+The `fairtool source create` command will analyze the information
+from `fairtool app info` and generate an App Source Catalog JSON blob. 
+This catalog format is supported by app installation tools like
+[The App Fair](https://appfair.app) on macOS and
+[AltStore](https://altstore.io) on iOS.
+
+The tool has the following options:
+
+```
+marc@zap Fair % fairtool source create --help 
+OVERVIEW: Create a source from the specified .ipa or .zip.
+
+USAGE: fairtool source create [--verbose] [--quiet] [--promote-json] [--catalog-name <name>] [--catalog-identifier <id>] [--catalog-source-url <url>] [--app-localized-description <desc> ...] [--app-version-description <desc> ...] [--app-subtitle <title> ...] [--app-developer-name <email> ...] [--app-download-url <URL> ...] [<apps> ...]
+
+ARGUMENTS:
+  <apps>                  path(s) or url(s) for app folders or ipa archives
+
+OPTIONS:
+  -v, --verbose           whether to display verbose messages.
+  -q, --quiet             whether to be suppress output.
+  -J, --promote-json      exclude root JSON array from output.
+  --catalog-name <name>   the name of the catalog.
+  --catalog-identifier <id>
+                          the identifier of the catalog.
+  --catalog-source-url <url>
+                          the source URL of the catalog.
+  --app-localized-description <desc>
+                          the default description(s) for the app(s).
+  --app-version-description <desc>
+                          the default versionDescription for the app(s).
+  --app-subtitle <title>  the default subtitle(s) for the app(s).
+  --app-developer-name <email>
+                          the default developer name(s) for the app(s).
+  --app-download-url <URL>
+                          the download URLfor the app(s).
+  -h, --help              Show help information.
+```
+
+An example of the catalog output is as follows:
+
+```json5
+// fairtool source create https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
+
+{
+  "identifier": "CATALOG_IDENTIFIER",
+  "name": "CATALOG_NAME",
+  "apps": [
+    {
+      "bundleIdentifier": "app.Cloud-Cuckoo",
+      "developerName": "DEVELOPER_NAME",
+      "downloadURL": "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa",
+      "localizedDescription": "LOCALIZED_DESCRIPTION",
+      "name": "Cloud Cuckoo",
+      "permissions": [
+        {
+          "type": "usage",
+          "usage": "NSAppleEventsUsageDescription",
+          "usageDescription": "AppleScript can be used by this app."
+        }
+      ],
+      "screenshotURLs": [],
+      "sha256": "56e748bf053aff8612702ba9f1aa13031ef0c29313cc4047e3176b9ba8526686",
+      "size": 5136274,
+      "subtitle": "SUBTITLE",
+      "version": "0.9.95",
+      "versionDate": "2022-07-02T04:57:53Z",
+      "versionDescription": "VERSION_DESCRIPTION"
+    }
+  ]
+}
+
+```
+
+The format of the catalog and the meaning of the various properties is described
+at [https://appfair.net/#app-source-catalog](https://appfair.net/#app-source-catalog).
+
 
 ### fairtool online 
 
