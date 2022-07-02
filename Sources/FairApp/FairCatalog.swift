@@ -210,7 +210,10 @@ public struct AppCatalogItem : Pure {
     /// The URL for the app's homepage
     public var homepage: URL?
 
-    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [String]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil) {
+    /// The summary of the entitlements that are enabled for this app
+    public var fundingLinks: [AppFundingLink]?
+
+    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [String]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -239,7 +242,17 @@ public struct AppCatalogItem : Pure {
         self.readmeURL = readmeURL
         self.releaseNotesURL = releaseNotesURL
         self.homepage = homepage
+        self.fundingLinks = fundingLinks
     }
+}
+
+public struct AppFundingLink : Pure {
+    /// E.g., "GITHUB" or "PATREON"
+    public var platform: String
+    /// E.g., https://patreon.com/SomeCreator" or https://github.com/Some-App-Org
+    public var url: URL
+    /// The description
+    public var localizedDescription: String?
 }
 
 /// The strategy for validating an app's name

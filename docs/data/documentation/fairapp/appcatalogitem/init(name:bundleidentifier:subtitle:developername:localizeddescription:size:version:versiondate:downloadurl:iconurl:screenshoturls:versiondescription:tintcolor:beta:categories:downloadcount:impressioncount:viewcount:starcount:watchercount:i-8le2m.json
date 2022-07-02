@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV4name16bundleIdentifier8subtitle13developerName20localizedDescription4size7version0N4Date11downloadURL04iconQ014screenshotURLs0nL09tintColor4beta10categories0P5Count010impressionY004viewY004starY007watcherY005issueY08coreSize6sha25611permissions08metadataQ006readmeQ0012releaseNotesQ08homepageACSS_S2SSgA4_A4_SiSgA4_10Foundation0O0VSgA6_0Q0VA11_SgSayA11_GSgA4_A4_SbSgSaySSGSgA5_A5_A5_A5_A5_A5_A5_A4_Say0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_A22_yA22_yAA0B15UsagePermissionV_AA0B24BackgroundModePermissionVG_AA0B16LegacyPermissionVGGGSgA12_A12_A12_A12_tcfc",
+    "externalID" : "s:7FairApp0B11CatalogItemV4name16bundleIdentifier8subtitle13developerName20localizedDescription4size7version0N4Date11downloadURL04iconQ014screenshotURLs0nL09tintColor4beta10categories0P5Count010impressionY004viewY004starY007watcherY005issueY08coreSize6sha25611permissions08metadataQ006readmeQ0012releaseNotesQ08homepage12fundingLinksACSS_S2SSgA5_A5_SiSgA5_10Foundation0O0VSgA7_0Q0VA12_SgSayA12_GSgA5_A5_SbSgSaySSGSgA6_A6_A6_A6_A6_A6_A6_A5_Say0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_A23_yA23_yAA0B15UsagePermissionV_AA0B24BackgroundModePermissionVG_AA0B16LegacyPermissionVGGGSgA13_A13_A13_A13_SayAA0B11FundingLinkVGSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -503,7 +503,24 @@
       },
       {
         "kind" : "text",
-        "text" : "?)"
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "fundingLinks"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp0B11FundingLinkV",
+        "text" : "AppFundingLink"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?)"
       }
     ],
     "modules" : [
@@ -514,7 +531,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:)"
+    "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:)"
   },
   "primaryContentSections" : [
     {
@@ -1010,7 +1027,25 @@
             },
             {
               "kind" : "text",
-              "text" : "? = nil)"
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "fundingLinks"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp0B11FundingLinkV",
+              "text" : "AppFundingLink"
+            },
+            {
+              "kind" : "text",
+              "text" : "]? = nil)"
             }
           ]
         }
@@ -1029,7 +1064,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:downloadcount:impressioncount:viewcount:starcount:watchercount:i-k53m"
+        "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:downloadcount:impressioncount:viewcount:starcount:watchercount:i-8le2m"
       ],
       "traits" : [
         {
@@ -1093,7 +1128,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:)": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:)": {
   "abstract" : [
 
   ],
@@ -1580,15 +1615,63 @@
     },
     {
       "kind" : "text",
-      "text" : "?)"
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fundingLinks"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11FundingLinkV",
+      "text" : "AppFundingLink"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:)",
+  "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:downloadcount:impressioncount:viewcount:starcount:watchercount:i-k53m"
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:downloadcount:impressioncount:viewcount:starcount:watchercount:i-8le2m"
+},
+"doc://FairApp/documentation/FairApp/AppFundingLink": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingLink"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingLink"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppFundingLink",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundinglink"
 },
 "doc://FairApp/documentation/FairApp/AppPermission": {
   "abstract" : [
