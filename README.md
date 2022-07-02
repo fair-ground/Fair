@@ -238,7 +238,25 @@ iOS .ipa file, either a local file or a remote URL:
 ]
 ```
 
+### fairtool JSON output
 
+Most of the fairtool's informational operations will output
+well-formed JSON. This is so it can be used in conjunction with
+other tools.
+
+One such tools is the popular `jq` utility, which can be used to format,
+filter, and re-structure JSON. For example, to example an app's
+"*UsageDescription" properties (which will give insight into which
+privacy-sensitive operations the app is capable of performing), you might run:
+
+```
+% fairtool app info /Applications/Signal.app | jq '.[].info | with_entries(select(.key|match("UsageDescription")))[]'
+
+"This app needs access to Bluetooth"
+"This app needs access to Bluetooth"
+"This app needs access to the camera"
+"This app needs access to the microphone"
+```
 
 
 ## Runtime support
