@@ -12,7 +12,7 @@ capabilities of the `fairtool`. The easiest way to get started with the
 utility for users of [Homebrew](https://brew.sh) on macOS (12+) or Linux
 is to run the commands:
 
-```
+```shell
 % brew tap appfair/app
 
 ==> Tapping appfair/app
@@ -35,7 +35,7 @@ fairtool 0.4.36
 Alternatively, if you have a Swift 5.6 compiler installed,
 you can build and run from the source:
 
-```
+```shell
 % git clone https://fair-ground.org/Fair.git
 
 Cloning into 'Fair'...
@@ -65,7 +65,7 @@ and output a JSON representation of the contents of the app's
 `Info.plist` along with the entitlements embedded within the 
 app's primary executable.
 
-```
+```json
 % fairtool app info /System/Applications/Calculator.app
 
 [
@@ -138,7 +138,7 @@ output for each processor architectures in the Mach-O binary.
 The fairtool can also output the same information for an unencrypted
 iOS .ipa file, either a local file or a remote URL:
 
-```
+```json
 % fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
 
 [
@@ -192,11 +192,6 @@ iOS .ipa file, either a local file or a remote URL:
       "DTSDKName" : "iphoneos15.2",
       "DTXcode" : "1321",
       "DTXcodeBuild" : "13C100",
-      "FairUsage" : {
-        "com.apple.security.files.user-selected.read-only" : "This app needs to read local files in   order to load user-selected books",
-        "com.apple.security.files.user-selected.read-write" : "This app needs to read and write files   in order to…",
-        "com.apple.security.network.client" : "This app needs to access the network in order to   download books"
-      },
       "ITSAppUsesNonExemptEncryption" : false,
       "LSApplicationQueriesSchemes" : [
         "appfair"
@@ -245,7 +240,7 @@ well-formed JSON. This is so it can be used in conjunction with
 other tools.
 
 One such tools is the popular `jq` utility, which can be used to format,
-filter, and re-structure JSON. For example, to example an app's
+filter, and re-structure JSON. For example, to examine an app's
 "*UsageDescription" properties (which will give insight into which
 privacy-sensitive operations the app is capable of performing), you might run:
 
@@ -258,26 +253,58 @@ privacy-sensitive operations the app is capable of performing), you might run:
 "This app needs access to the microphone"
 ```
 
+### fairtool online 
 
-## Runtime support
+An experimental web service with limited functionality is available at
+[https://fairtool.herokuapp.com](https://fairtool.herokuapp.com).
+The service can be used to inspect the properties of .app .zip and .ipa
+URLs online, as well as generate default catalog entries for
+application artifacts.
 
 
-Swift Package Manager usage:
+## Fair Library
+
+The `fairtool` is powered by the `Fair` library, which is a
+zero-dependency cross-platform set of modules written in Swift.
+
+
+
+## Swift Package Manager usage
+
+In order to add the Fair module to an existing package named "App",
+
 
 ```swift
-// swift-tools-version:5.5
+// swift-tools-version: 5.6
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "App",
-    defaultLocalization: "en",
     platforms: [ .macOS(.v12), .iOS(.v15) ],
-    products: [ .library(name: "App", targets: ["App"]) ],
+    products: [
+        // Products define the executables and libraries a package produces, and make them visible to other packages.
+        .library(
+            name: "App",
+            targets: ["App"]),
+    ],
     dependencies: [
-        .package(name: "Fair", url: "https://fair-ground.org/Fair.git", .branch("main")), 
+        // Dependencies declare other packages that this package depends on.
+        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://fair-ground.org/Fair.git", from: "0.4.0"), 
     ],
     targets: [
-        .target(name: "App", dependencies: [ .product(name: "FairApp", package: "Fair") ], resources: [.process("Resources"), .copy("Bundle")]),
+        .target(name: "App", dependencies: [
+            // platform-native support for Fair apps (macOS, iOS, Linux)
+            .product(name: "FairApp", package: "Fair"),
+            // low-level data structures and utilities (macOS, iOS, Linux)
+            .product(name: "FairCore", package: "Fair"),
+            // optional networking utilities (macOS, iOS, Linux)
+            .product(name: "FairExpo", package: "Fair"),
+            // optional SwiftUI enhancements (macOS, iOS)
+            .product(name: "FairKit", package: "Fair"),
+        ]),
         .testTarget(name: "AppTests", dependencies: ["App"]),
     ]
 )
