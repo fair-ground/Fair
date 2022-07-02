@@ -114,7 +114,7 @@ jobs:
 
   update_bottle:
     name: Add bottles to formula
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: [bottle_macos, bottle_linux]
     steps:
       - uses: marcprux/update-homebrew-formula-action@main
