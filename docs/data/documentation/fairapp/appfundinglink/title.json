@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the pretty-printed form of the JSON",
+      "text" : "The title of this funding, such as “Support this Creator on Patreon” or “Sponsor the Developer on GitHub”.",
       "type" : "text"
     }
   ],
@@ -9,19 +9,17 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/Encodable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/prettyJSON"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/title"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE10prettyJSONSSvp::SYNTHESIZED::s:7FairApp0B11FundingLinkV",
+    "externalID" : "s:7FairApp0B11FundingLinkV5titleSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -33,7 +31,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "prettyJSON"
+        "text" : "title"
       },
       {
         "kind" : "text",
@@ -43,6 +41,10 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:SS",
         "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -53,7 +55,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "prettyJSON"
+    "title" : "title"
   },
   "primaryContentSections" : [
     {
@@ -76,7 +78,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "prettyJSON"
+              "text" : "title"
             },
             {
               "kind" : "text",
@@ -89,15 +91,7 @@
             },
             {
               "kind" : "text",
-              "text" : " { "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "?"
             }
           ]
         }
@@ -116,7 +110,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appfundinglink\/prettyjson"
+        "\/documentation\/fairapp\/appfundinglink\/title"
       ],
       "traits" : [
         {
@@ -183,21 +177,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink"
 },
-"doc://FairApp/documentation/FairApp/AppFundingLink/Encodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appfundinglink\/encodable-implementations"
-},
-"doc://FairApp/documentation/FairApp/AppFundingLink/prettyJSON": {
+"doc://FairApp/documentation/FairApp/AppFundingLink/title": {
   "abstract" : [
     {
-      "text" : "Returns the pretty-printed form of the JSON",
+      "text" : "The title of this funding, such as “Support this Creator on Patreon” or “Sponsor the Developer on GitHub”.",
       "type" : "text"
     }
   ],
@@ -212,7 +195,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "prettyJSON"
+      "text" : "title"
     },
     {
       "kind" : "text",
@@ -222,14 +205,18 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/prettyJSON",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/title",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "prettyJSON",
+  "title" : "title",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appfundinglink\/prettyjson"
+  "url" : "\/documentation\/fairapp\/appfundinglink\/title"
 }
 }
 }

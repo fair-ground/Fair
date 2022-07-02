@@ -69,6 +69,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle",
         "doc:\/\/FairApp\/documentation\/FairApp\/FileSystemDataWrapper",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
         "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
         "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper"
@@ -625,7 +626,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingLink": {
   "abstract" : [
-
+    {
+      "text" : "A link to a particular funding platform.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1235,6 +1239,52 @@
   "title" : "FileSystemDataWrapper",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/filesystemdatawrapper"
+},
+"doc://FairApp/documentation/FairApp/HandleStream": {
+  "abstract" : [
+    {
+      "text" : "A simple pass-through from ",
+      "type" : "text"
+    },
+    {
+      "code" : "FileHandle",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ",
+      "type" : "text"
+    },
+    {
+      "code" : "TextOutputStream",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HandleStream"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HandleStream"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HandleStream",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/handlestream"
 },
 "doc://FairApp/documentation/FairApp/HexColor": {
   "abstract" : [

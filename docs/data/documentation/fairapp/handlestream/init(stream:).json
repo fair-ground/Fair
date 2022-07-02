@@ -8,29 +8,29 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream"
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream\/stream"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream\/init(stream:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore12HandleStreamC6streamSo06NSFileC0Cvp",
+    "externalID" : "s:7FairApp12HandleStreamC6streamACSo06NSFileC0C_tcfc",
     "fragments" : [
       {
-        "kind" : "keyword",
-        "text" : "let"
+        "kind" : "identifier",
+        "text" : "init"
       },
       {
         "kind" : "text",
-        "text" : " "
+        "text" : "("
       },
       {
-        "kind" : "identifier",
+        "kind" : "externalParam",
         "text" : "stream"
       },
       {
@@ -41,17 +41,21 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "c:objc(cs)NSFileHandle",
         "text" : "FileHandle"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
       {
-        "name" : "FairCore"
+        "name" : "FairApp"
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "stream"
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(stream:)"
   },
   "primaryContentSections" : [
     {
@@ -66,14 +70,14 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "let"
+              "text" : "init"
             },
             {
               "kind" : "text",
-              "text" : " "
+              "text" : "("
             },
             {
-              "kind" : "identifier",
+              "kind" : "externalParam",
               "text" : "stream"
             },
             {
@@ -84,6 +88,10 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "c:objc(cs)NSFileHandle",
               "text" : "FileHandle"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
             }
           ]
         }
@@ -102,7 +110,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/handlestream\/stream"
+        "\/documentation\/fairapp\/handlestream\/init(stream:)"
       ],
       "traits" : [
         {
@@ -113,21 +121,29 @@
   ]
 , 
 "references": {
-"doc://FairCore/documentation/FairCore": {
+"doc://FairApp/documentation/FairApp": {
   "abstract" : [
     {
-      "text" : "The core library for fair-ground apps and tools.",
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
   "kind" : "symbol",
   "role" : "collection",
-  "title" : "FairCore",
+  "title" : "FairApp",
   "type" : "topic",
-  "url" : "\/documentation\/faircore"
+  "url" : "\/documentation\/fairapp"
 },
-"doc://FairCore/documentation/FairCore/HandleStream": {
+"doc://FairApp/documentation/FairApp/HandleStream": {
   "abstract" : [
     {
       "text" : "A simple pass-through from ",
@@ -160,7 +176,7 @@
       "text" : "HandleStream"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -171,23 +187,23 @@
   "role" : "symbol",
   "title" : "HandleStream",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/handlestream"
+  "url" : "\/documentation\/fairapp\/handlestream"
 },
-"doc://FairCore/documentation/FairCore/HandleStream/stream": {
+"doc://FairApp/documentation/FairApp/HandleStream/init(stream:)": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "let"
+      "kind" : "identifier",
+      "text" : "init"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : "("
     },
     {
-      "kind" : "identifier",
+      "kind" : "externalParam",
       "text" : "stream"
     },
     {
@@ -198,14 +214,18 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "c:objc(cs)NSFileHandle",
       "text" : "FileHandle"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream\/stream",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream\/init(stream:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "stream",
+  "title" : "init(stream:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/handlestream\/stream"
+  "url" : "\/documentation\/fairapp\/handlestream\/init(stream:)"
 }
 }
 }

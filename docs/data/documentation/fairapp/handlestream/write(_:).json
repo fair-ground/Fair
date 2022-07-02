@@ -16,18 +16,18 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream"
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream\/write(_:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream\/write(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore12HandleStreamC5writeyySSF",
+    "externalID" : "s:7FairApp12HandleStreamC5writeyySSF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,7 +57,7 @@
     ],
     "modules" : [
       {
-        "name" : "FairCore"
+        "name" : "FairApp"
       }
     ],
     "role" : "symbol",
@@ -134,7 +134,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/handlestream\/write(_:)"
+        "\/documentation\/fairapp\/handlestream\/write(_:)"
       ],
       "traits" : [
         {
@@ -145,21 +145,29 @@
   ]
 , 
 "references": {
-"doc://FairCore/documentation/FairCore": {
+"doc://FairApp/documentation/FairApp": {
   "abstract" : [
     {
-      "text" : "The core library for fair-ground apps and tools.",
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
       "type" : "text"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
   "kind" : "symbol",
   "role" : "collection",
-  "title" : "FairCore",
+  "title" : "FairApp",
   "type" : "topic",
-  "url" : "\/documentation\/faircore"
+  "url" : "\/documentation\/fairapp"
 },
-"doc://FairCore/documentation/FairCore/HandleStream": {
+"doc://FairApp/documentation/FairApp/HandleStream": {
   "abstract" : [
     {
       "text" : "A simple pass-through from ",
@@ -192,7 +200,7 @@
       "text" : "HandleStream"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -203,9 +211,9 @@
   "role" : "symbol",
   "title" : "HandleStream",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/handlestream"
+  "url" : "\/documentation\/fairapp\/handlestream"
 },
-"doc://FairCore/documentation/FairCore/HandleStream/write(_:)": {
+"doc://FairApp/documentation/FairApp/HandleStream/write(_:)": {
   "abstract" : [
 
   ],
@@ -236,12 +244,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/HandleStream\/write(_:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream\/write(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "write(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/handlestream\/write(_:)"
+  "url" : "\/documentation\/fairapp\/handlestream\/write(_:)"
 }
 }
 }

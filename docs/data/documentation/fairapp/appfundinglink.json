@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A link to a particular funding platform.",
       "type" : "text"
     }
   ],
@@ -111,6 +111,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/localizedDescription",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/platform",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/title",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/url"
       ],
       "title" : "Instance Properties"
@@ -183,7 +184,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingLink": {
   "abstract" : [
-
+    {
+      "text" : "A link to a particular funding platform.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -365,10 +369,51 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink\/platform"
 },
+"doc://FairApp/documentation/FairApp/AppFundingLink/title": {
+  "abstract" : [
+    {
+      "text" : "The title of this funding, such as “Support this Creator on Patreon” or “Sponsor the Developer on GitHub”.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/title",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "title",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundinglink\/title"
+},
 "doc://FairApp/documentation/FairApp/AppFundingLink/url": {
   "abstract" : [
     {
-      "text" : "E.g., https:\/\/patreon.com\/SomeCreator” or https:\/\/github.com\/Some-App-Org",
+      "text" : "E.g., https:\/\/patreon.com\/SomeCreator or https:\/\/github.com\/Some-App-Org",
       "type" : "text"
     }
   ],

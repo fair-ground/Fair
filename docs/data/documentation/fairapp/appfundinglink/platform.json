@@ -89,6 +89,31 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This list should be harmonized with the funding platforms defined in ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#fundingplatform",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -137,7 +162,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingLink": {
   "abstract" : [
-
+    {
+      "text" : "A link to a particular funding platform.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -202,6 +230,18 @@
   "title" : "platform",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink\/platform"
+},
+"https://docs.github.com/en/graphql/reference/enums#fundingplatform": {
+  "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#fundingplatform",
+  "title" : "FundingPlatform",
+  "titleInlineContent" : [
+    {
+      "text" : "FundingPlatform",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#fundingplatform"
 }
 }
 }

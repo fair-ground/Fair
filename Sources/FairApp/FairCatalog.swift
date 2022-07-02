@@ -246,11 +246,17 @@ public struct AppCatalogItem : Pure {
     }
 }
 
+/// A link to a particular funding platform.
+///
 public struct AppFundingLink : Pure {
     /// E.g., "GITHUB" or "PATREON"
+    ///
+    /// This list should be harmonized with the funding platforms defined in [FundingPlatform](https://docs.github.com/en/graphql/reference/enums#fundingplatform)
     public var platform: String
-    /// E.g., https://patreon.com/SomeCreator" or https://github.com/Some-App-Org
+    /// E.g., https://patreon.com/SomeCreator or https://github.com/Some-App-Org
     public var url: URL
+    /// The title of this funding, such as "Support this Creator on Patreon" or "Sponsor the Developer on GitHub".
+    public var title: String?
     /// The description
     public var localizedDescription: String?
 }
