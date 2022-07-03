@@ -600,7 +600,7 @@ public final class AppCatalogAPI {
     }
 
     /// Create a catalog item for an individual artifact.
-    public func catalogApp(url: URL, options: SourceOptions?, clearDownload: Bool) async throws -> AppCatalogItem {
+    public func catalogApp(url: URL, options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalogItem {
         dbg("url:", url)
         let (downloaded, localURL) = url.isFileURL ? (false, url) : (true, try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL)
         dbg("localURL:", localURL)
@@ -625,11 +625,12 @@ public final class AppCatalogAPI {
         guard let bundleName = info.CFBundleDisplayName ?? info.CFBundleName else {
             throw AppError("Missing CFBundleDisplayName for \(url.absoluteString)")
         }
-        
-        var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
+
+        //var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
+        var item = try info.appCatalogInfo(appName: bundleName, bundleID: bundleID, downloadURL: url)
+
         item.version = info.CFBundleShortVersionString
         item.size = localURL.fileSize()
-
 
         let defvalue = { options?.defaultValue(from: $0, bundleIdentifier: bundleID) }
 

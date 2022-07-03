@@ -18,7 +18,11 @@ import Swift
 import FairCore
 import Foundation
 
-/// A catalog of all the available apps on the fairground.
+// MARK: Serializable Structures
+
+/// A catalog of apps, consisting of a ``name``, ``identifier``,
+/// individual ``AppCatalogItem`` instances for each app indexed by this catalog,
+/// as well as optional ``AppNewsPost`` items.
 public struct AppCatalog : Pure {
     /// The name of the catalog (e.g., "App Name")
     public var name: String
@@ -47,101 +51,7 @@ public extension AppCatalog {
     }
 }
 
-public struct AppNewsPost : Pure {
-    /// A unique identifer for the news posting
-    public var identifier: String
-    /// The date of the news
-    public var date: String // can be either "2022-05-05" or "2020-04-10T13:30:00-07:00"
-    /// The title for the news
-    public var title: String
-    /// A news caption
-    public var caption: String
-    /// Whether the news item should trigger a notification by default
-    public var notify: Bool?
-    /// The tint color for the news item
-    public var tintColor: String?
-    /// A URL with more details
-    public var url: String?
-    /// An image summarizing the news item
-    public var imageURL: String?
-    /// An app-id to which the news item refers
-    public var appID: String?
-
-    public init(identifier: String, date: String, title: String, caption: String, notify: Bool? = nil, tintColor: String? = nil, url: String? = nil, imageURL: String? = nil, appID: String? = nil) {
-        self.identifier = identifier
-        self.date = date
-        self.title = title
-        self.caption = caption
-        self.notify = notify
-        self.tintColor = tintColor
-        self.url = url
-        self.imageURL = imageURL
-        self.appID = appID
-    }
-}
-
-public extension AppCatalogItem {
-
-    /// The hyphenated form of this app's name
-    var appNameHyphenated: String {
-        self.name.rehyphenated()
-    }
-
-    /// The official landing page for the app
-    var landingPage: URL! {
-        URL(string: "https://\(appNameHyphenated).github.io/App/")
-    }
-
-    /// Returns the URL to this app's home page
-    var baseURL: URL! {
-        URL(string: "https://github.com/\(appNameHyphenated)/App/")
-    }
-
-    /// The e-mail address for contacting the developer
-    var developerEmail: String? {
-        developerName // TODO: parse out
-    }
-
-    /// Returns the URL to this app's home page
-    var sourceURL: URL! {
-        baseURL.appendingPathExtension("git")
-    }
-
-    var issuesURL: URL! {
-        URL(string: "issues", relativeTo: baseURL)
-    }
-
-    var discussionsURL: URL! {
-        URL(string: "discussions", relativeTo: baseURL)
-    }
-
-    var releasesURL: URL! {
-        URL(string: "releases/", relativeTo: baseURL)
-    }
-
-    var developerURL: URL! {
-        queryURL(type: "users", term: developerEmail ?? "")
-    }
-
-    var fairsealURL: URL! {
-        queryURL(type: "issues", term: sha256 ?? "")
-    }
-
-    /// Builds a general query
-    private func queryURL(type: String, term: String) -> URL! {
-        URL(string: "https://github.com/search?type=" + type.escapedURLTerm + "&q=" + term.escapedURLTerm)
-    }
-
-    var fileSize: Int? {
-        size
-    }
-
-    var appCategories: [AppCategory] {
-        self.categories?.compactMap(AppCategory.init(metadataID:)) ?? []
-    }
-}
-
-
+/// An individual App Source Catalog item, defining the name, identifier, and downloadURL of an application archive.
 public struct AppCatalogItem : Pure {
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
@@ -247,19 +157,236 @@ public struct AppCatalogItem : Pure {
 }
 
 /// A link to a particular funding platform.
-///
 public struct AppFundingLink : Pure {
     /// E.g., "GITHUB" or "PATREON"
     ///
     /// This list should be harmonized with the funding platforms defined in [FundingPlatform](https://docs.github.com/en/graphql/reference/enums#fundingplatform)
-    public var platform: String
+    public var platform: AppFundingPlatform
     /// E.g., https://patreon.com/SomeCreator or https://github.com/Some-App-Org
     public var url: URL
     /// The title of this funding, such as "Support this Creator on Patreon" or "Sponsor the Developer on GitHub".
-    public var title: String?
+    public var localizedTitle: String?
     /// The description
     public var localizedDescription: String?
 }
+
+public struct AppFundingPlatform : Pure, RawCodable {
+    public var rawValue: String
+    public init(rawValue: String) { self.rawValue = rawValue }
+}
+
+
+public struct AppNewsPost : Pure {
+    /// A unique identifer for the news posting
+    public var identifier: String
+    /// The date of the news
+    public var date: String // can be either "2022-05-05" or "2020-04-10T13:30:00-07:00"
+    /// The title for the news
+    public var title: String
+    /// A news caption
+    public var caption: String
+    /// Whether the news item should trigger a notification by default
+    public var notify: Bool?
+    /// The tint color for the news item
+    public var tintColor: String?
+    /// A URL with more details
+    public var url: String?
+    /// An image summarizing the news item
+    public var imageURL: String?
+    /// An app-id to which the news item refers
+    public var appID: String?
+
+    public init(identifier: String, date: String, title: String, caption: String, notify: Bool? = nil, tintColor: String? = nil, url: String? = nil, imageURL: String? = nil, appID: String? = nil) {
+        self.identifier = identifier
+        self.date = date
+        self.title = title
+        self.caption = caption
+        self.notify = notify
+        self.tintColor = tintColor
+        self.url = url
+        self.imageURL = imageURL
+        self.appID = appID
+    }
+}
+
+
+// MARK: Extensions
+
+
+extension AppFundingPlatform : CaseIterable {
+    /// All the known and supported funding platforms
+    public static let allCases: [AppFundingPlatform] = [
+        .COMMUNITY_BRIDGE,
+        .GITHUB,
+        .ISSUEHUNT,
+        .KO_FI,
+        .LIBERAPAY,
+        .OPEN_COLLECTIVE,
+        .OTECHIE,
+        .PATREON,
+        .TIDELIFT,
+        //.CUSTOM
+    ]
+
+    /// Community Bridge funding platform: [https://funding.communitybridge.org](https://funding.communitybridge.org)
+    public static let COMMUNITY_BRIDGE = AppFundingPlatform(rawValue: "COMMUNITY_BRIDGE")
+
+    /// GitHub funding platform. [https://github.com/](https://github.com/)
+    public static let GITHUB = AppFundingPlatform(rawValue: "GITHUB")
+
+    /// IssueHunt funding platform. [https://issuehunt.io](https://issuehunt.io)
+    public static let ISSUEHUNT = AppFundingPlatform(rawValue: "ISSUEHUNT")
+
+    /// Ko-fi funding platform. [https://ko-fi.com](https://ko-fi.com)
+    public static let KO_FI = AppFundingPlatform(rawValue: "KO_FI")
+
+    /// Liberapay funding platform. [https://liberapay.com](https://liberapay.com)
+    public static let LIBERAPAY = AppFundingPlatform(rawValue: "LIBERAPAY")
+
+    /// Open Collective funding platform. [https://opencollective.com](https://opencollective.com)
+    public static let OPEN_COLLECTIVE = AppFundingPlatform(rawValue: "OPEN_COLLECTIVE")
+
+    /// Otechie funding platform. [https://otechie.com](https://otechie.com)
+    public static let OTECHIE = AppFundingPlatform(rawValue: "OTECHIE")
+
+    /// Patreon funding platform. [https://patreon.com](https://patreon.com)
+    public static let PATREON = AppFundingPlatform(rawValue: "PATREON")
+
+    /// Tidelift funding platform. [https://tidelift.com](https://tidelift.com)
+    public static let TIDELIFT = AppFundingPlatform(rawValue: "TIDELIFT")
+
+    /// Custom funding platform. Not supported
+    @available(*, unavailable, message: "custom funding sources are not supported")
+    static let CUSTOM = AppFundingPlatform(rawValue: "CUSTOM")
+
+
+    /// The name of the funding platform, for all known and supported platforms
+    public var platformName: String? {
+        switch self {
+        case .GITHUB: return "GitHub"
+        case .PATREON: return "Patreon"
+        case _: return nil
+        }
+    }
+
+    /// Checks that the given link is valid for the known funding platform
+    public func serviceIdentifier(from url: URL) -> String? {
+        func trimming(_ source: String) -> String? {
+            let urlString = url.absoluteString
+            if !urlString.hasPrefix(source) { return nil }
+            return urlString.dropFirst(source.count).description
+        }
+
+        switch self {
+        case .GITHUB: return trimming("https://github.com/") // USERNAME
+        case .COMMUNITY_BRIDGE: return trimming("https://funding.communitybridge.org/projects/") // PROJECT-NAME
+        case .ISSUEHUNT: return trimming("https://issuehunt.io/r/") // USERNAME
+        case .KO_FI: return trimming("https://ko-fi.com/") // USERNAME
+        case .LIBERAPAY: return trimming("https://liberapay.com/") // USERNAME
+        case .OPEN_COLLECTIVE: return trimming("https://opencollective.com/") // USERNAME
+        case .OTECHIE: return trimming("https://otechie.com/") // USERNAME
+        case .PATREON: return trimming("https://patreon.com/") // USERNAME
+        case .TIDELIFT: return trimming("https://tidelift.com/funding/github/") // PLATFORM-NAME/PACKAGE-NAME
+        case _: return nil // unknown platform is never valid
+        }
+    }
+
+    /// A URL is valid for a specific funding source if it matches a known pattern
+    public func isValidURL(_ url: URL) -> Bool {
+        serviceIdentifier(from: url) != nil
+    }
+
+}
+
+extension AppFundingLink {
+    /// Checks that the given link is valid for the known funding platform
+    public func isValidFundingURL() -> Bool {
+        self.platform.isValidURL(self.url)
+    }
+
+    public var fundingURL: URL? {
+        guard let id = self.platform.serviceIdentifier(from: self.url) else {
+            return nil // not a supported platform
+        }
+
+        switch self.platform {
+        case .GITHUB: return URL(string: "http://github.com/sponsors/\(id)")
+        default: return self.url // default platform just uses the identifier link directly
+        }
+    }
+}
+
+extension AppCatalogItem {
+    var fundingLinksValidated: [AppFundingLink]? {
+        self.fundingLinks?.filter({ $0.isValidFundingURL() })
+    }
+}
+
+
+public extension AppCatalogItem {
+
+    /// The hyphenated form of this app's name
+    var appNameHyphenated: String {
+        self.name.rehyphenated()
+    }
+
+    /// The official landing page for the app
+    var landingPage: URL! {
+        URL(string: "https://\(appNameHyphenated).github.io/App/")
+    }
+
+    /// Returns the URL to this app's home page
+    var baseURL: URL! {
+        URL(string: "https://github.com/\(appNameHyphenated)/App/")
+    }
+
+    /// The e-mail address for contacting the developer
+    var developerEmail: String? {
+        developerName // TODO: parse out
+    }
+
+    /// Returns the URL to this app's home page
+    var sourceURL: URL! {
+        baseURL.appendingPathExtension("git")
+    }
+
+    var issuesURL: URL! {
+        URL(string: "issues", relativeTo: baseURL)
+    }
+
+    var discussionsURL: URL! {
+        URL(string: "discussions", relativeTo: baseURL)
+    }
+
+    var releasesURL: URL! {
+        URL(string: "releases/", relativeTo: baseURL)
+    }
+
+    var developerURL: URL! {
+        queryURL(type: "users", term: developerEmail ?? "")
+    }
+
+    var fairsealURL: URL! {
+        queryURL(type: "issues", term: sha256 ?? "")
+    }
+
+    /// Builds a general query
+    private func queryURL(type: String, term: String) -> URL! {
+        URL(string: "https://github.com/search?type=" + type.escapedURLTerm + "&q=" + term.escapedURLTerm)
+    }
+
+    var fileSize: Int? {
+        size
+    }
+
+    var appCategories: [AppCategory] {
+        self.categories?.compactMap(AppCategory.init(metadataID:)) ?? []
+    }
+}
+
+
+
+// MARK: Utilities
 
 /// The strategy for validating an app's name
 public struct AppNameValidation {

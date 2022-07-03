@@ -94,6 +94,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/starts(with:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/starts(with:by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/suffix(_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/uniquing(by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/withContiguousStorageIfAvailable(_:)"
       ],
       "title" : "Instance Methods"
@@ -4389,6 +4390,119 @@
   "title" : "underestimatedCount",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/ziparchive\/underestimatedcount"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/uniquing(by:)": {
+  "abstract" : [
+    {
+      "text" : "Derives an array from this sequence ensuring that the value at the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Hashable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "keyPath",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " has not yet been uniquely seen.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "uniquing"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "by"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7KeyPathC",
+      "text" : "KeyPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/uniquing(by:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "uniquing(by:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/uniquing(by:)"
 },
 "doc://FairCore/documentation/FairCore/ZipArchive/withContiguousStorageIfAvailable(_:)": {
   "abstract" : [

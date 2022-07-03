@@ -96,6 +96,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppError",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppIconSet",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
@@ -390,7 +391,59 @@
 "doc://FairApp/documentation/FairApp/AppCatalog": {
   "abstract" : [
     {
-      "text" : "A catalog of all the available apps on the fairground.",
+      "text" : "A catalog of apps, consisting of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ", ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ",",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "individual ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " instances for each app indexed by this catalog,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "as well as optional ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " items.",
       "type" : "text"
     }
   ],
@@ -421,9 +474,86 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog/identifier": {
+  "abstract" : [
+    {
+      "text" : "The identifier for the catalog (e.g., “app.App-Name”)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "identifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/identifier"
+},
+"doc://FairApp/documentation/FairApp/AppCatalog/name": {
+  "abstract" : [
+    {
+      "text" : "The name of the catalog (e.g., “App Name”)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "name",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/name"
+},
 "doc://FairApp/documentation/FairApp/AppCatalogItem": {
   "abstract" : [
-
+    {
+      "text" : "An individual App Source Catalog item, defining the name, identifier, and downloadURL of an application archive.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -657,6 +787,37 @@
   "title" : "AppFundingLink",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink"
+},
+"doc://FairApp/documentation/FairApp/AppFundingPlatform": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingPlatform"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingPlatform"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppFundingPlatform",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundingplatform"
 },
 "doc://FairApp/documentation/FairApp/AppIconSet": {
   "abstract" : [

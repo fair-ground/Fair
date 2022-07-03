@@ -109,12 +109,19 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/fundingURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/localizedDescription",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/localizedTitle",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/platform",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/title",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/url"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/isValidFundingURL()"
+      ],
+      "title" : "Instance Methods"
     },
     {
       "generated" : true,
@@ -249,6 +256,44 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink\/equatable-implementations"
 },
+"doc://FairApp/documentation/FairApp/AppFundingLink/fundingURL": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fundingURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/fundingURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fundingURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundinglink\/fundingurl"
+},
 "doc://FairApp/documentation/FairApp/AppFundingLink/init(from:)": {
   "abstract" : [
 
@@ -291,6 +336,43 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink\/init(from:)"
 },
+"doc://FairApp/documentation/FairApp/AppFundingLink/isValidFundingURL()": {
+  "abstract" : [
+    {
+      "text" : "Checks that the given link is valid for the known funding platform",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isValidFundingURL"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/isValidFundingURL()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isValidFundingURL()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundinglink\/isvalidfundingurl()"
+},
 "doc://FairApp/documentation/FairApp/AppFundingLink/localizedDescription": {
   "abstract" : [
     {
@@ -332,6 +414,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink\/localizeddescription"
 },
+"doc://FairApp/documentation/FairApp/AppFundingLink/localizedTitle": {
+  "abstract" : [
+    {
+      "text" : "The title of this funding, such as “Support this Creator on Patreon” or “Sponsor the Developer on GitHub”.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "localizedTitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/localizedTitle",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "localizedTitle",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundinglink\/localizedtitle"
+},
 "doc://FairApp/documentation/FairApp/AppFundingLink/platform": {
   "abstract" : [
     {
@@ -358,8 +481,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B15FundingPlatformV",
+      "text" : "AppFundingPlatform"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/platform",
@@ -368,47 +491,6 @@
   "title" : "platform",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundinglink\/platform"
-},
-"doc://FairApp/documentation/FairApp/AppFundingLink/title": {
-  "abstract" : [
-    {
-      "text" : "The title of this funding, such as “Support this Creator on Patreon” or “Sponsor the Developer on GitHub”.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "title"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink\/title",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "title",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appfundinglink\/title"
 },
 "doc://FairApp/documentation/FairApp/AppFundingLink/url": {
   "abstract" : [
