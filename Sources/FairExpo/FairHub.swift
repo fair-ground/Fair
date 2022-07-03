@@ -897,6 +897,8 @@ public struct FairSeal : Pure {
     public var tint: String?
     /// The sealed assets
     public var assets: [Asset]
+    /// The AppSource metadata from the Info.plist
+    public var appSource: AppCatalogItem?
 
     public struct Asset : Pure {
         /// The asset's URL
@@ -913,9 +915,10 @@ public struct FairSeal : Pure {
         }
     }
 
-    public init(assets: [Asset], permissions: [AppPermission], coreSize: Int?, tint: String?) {
+    public init(assets: [Asset], permissions: [AppPermission], appSource: AppCatalogItem?, coreSize: Int?, tint: String?) {
         self.assets = assets
         self.permissions = permissions
+        self.appSource = appSource
         self.coreSize = coreSize
         self.tint = tint
         self.fairsealVersion = Version.allCases.last
