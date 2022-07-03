@@ -117,12 +117,12 @@ extension Plist {
     }
 
     private func createCatalogInfo(appName: String, bundleID: String, downloadURL: URL) throws -> AppCatalogItem {
-        let dict = NSMutableDictionary(dictionary: self.rawValue)
+        let dict = self.rawValue
 
         // inject the mandatory properties
-        dict["name"] = appName
-        dict["bundleIdentifier"] = bundleID
-        dict["downloadURL"] = downloadURL.absoluteString
+        dict.setValue(appName, forKey: "name")
+        dict.setValue(bundleID, forKey: "bundleIdentifier")
+        dict.setValue(downloadURL.absoluteString, forKey: "downloadURL")
 
         // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
         var item = try AppCatalogItem(json: Plist(rawValue: dict).jsum().json())
