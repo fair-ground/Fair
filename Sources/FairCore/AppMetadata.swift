@@ -66,7 +66,7 @@ public enum InfoPlistKey : String, CaseIterable, Hashable {
 }
 
 /// A version of an app with a `major`, `minor`, and `patch` component.
-public struct AppVersion : Hashable, Comparable {
+public struct AppVersion : Pure, Comparable {
     /// The lowest possible version that can exist
     public static let min = AppVersion(major: .min, minor: .min, patch: .min, prerelease: true)
     /// The highest possible version that can exist

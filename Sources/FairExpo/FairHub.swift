@@ -64,8 +64,14 @@ public struct FairHub : GraphQLEndpointService {
     /// The authorization token for this request, if any
     public var authToken: String?
 
+    /// The username of the issuer of the fairseal, user for querying purposes
+    public var fairsealIssuer: String?
+
+    /// The signing key for the seal data, used to authenticate payloads
+    public var fairsealKey: Data?
+
     /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
-    public init(hostOrg: String, authToken: String? = nil) throws {
+    public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String?, fairsealKey: Data?) throws {
         guard let url = URL(string: "https://api." + hostOrg) else {
             throw Errors.badHostOrg(hostOrg)
         }
@@ -73,6 +79,8 @@ public struct FairHub : GraphQLEndpointService {
         self.org = url.lastPathComponent
         self.baseURL = url.deletingLastPathComponent()
         self.authToken = authToken
+        self.fairsealIssuer = fairsealIssuer
+        self.fairsealKey = fairsealKey
 
         if org.isEmpty {
             throw Errors.emptyOrganization(url)
@@ -106,84 +114,78 @@ public struct ArtifactTarget : Pure {
     }
 }
 
-
-struct FairReg {
-    /// The account that is accepted as the issuer of a valid fairseal
-    var fairsealIssuer: String?
-
-    /// The regular expression patterns of allowed app names
-    var allowName: [NSRegularExpression]
-
-    /// The regular expression patterns of disallowed app names
-    var denyName: [NSRegularExpression]
-
-    /// The regular expression patterns of allowed e-mail addresses
-    var allowFrom: [NSRegularExpression]
-
-    /// The regular expression patterns of disallowed e-mail addresses
-    var denyFrom: [NSRegularExpression]
-
-    /// The license (SPDX IDs) of permitted licenses, such as: "AGPL-3.0"
-    var allowLicense: [String]
-
-    init(fairsealIssuer: String? = nil, allowName: [String] = [], denyName: [String] = [], allowFrom: [String] = [], denyFrom: [String] = [], allowLicense: [String] = []) throws {
-        self.fairsealIssuer = fairsealIssuer
-
-        let regexs = { try NSRegularExpression(pattern: $0, options: [.caseInsensitive]) }
-        self.allowFrom = try allowFrom.map(regexs)
-        self.denyFrom = try denyFrom.map(regexs)
-        self.allowName = try allowName.map(regexs)
-        self.denyName = try denyName.map(regexs)
-
-        self.allowLicense = allowLicense
-    }
-
-    /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
-    func validateAppName(_ name: String?) throws {
-        guard let name = name, try permitted(value: name, allow: allowName, deny: denyName) == true else {
-            throw FairHub.Errors.invalidName(name)
-        }
-    }
-
-    private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) throws -> Bool {
-        func matches(pattern: NSRegularExpression) -> Bool {
-            pattern.firstMatch(in: value, options: [], range: value.span) != nil
-        }
-
-        // if we specified an allow list, then at least one of the patterns must match the email
-        if !allow.isEmpty {
-            guard let _ = allow.first(where: matches) else {
-                throw FairHub.Errors.valueNotAllowed(value)
-            }
-        }
-
-        // conversely, if we specified a deny list, then all the addresses must not match
-        if !deny.isEmpty {
-            if let _ = deny.first(where: matches) {
-                throw FairHub.Errors.valueDenied(value)
-            }
-        }
-
-        return true
-    }
-
-    /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
-    func validateEmailAddress(_ email: String?) throws {
-//        guard let email = email, try permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
-//            throw Errors.invalidEmail(email)
-//        }
-    }
-
-}
-
 extension FairHub {
+    struct ProjectConfiguration {
+        /// The regular expression patterns of allowed app names
+        var allowName: [NSRegularExpression]
+
+        /// The regular expression patterns of disallowed app names
+        var denyName: [NSRegularExpression]
+
+        /// The regular expression patterns of allowed e-mail addresses
+        var allowFrom: [NSRegularExpression]
+
+        /// The regular expression patterns of disallowed e-mail addresses
+        var denyFrom: [NSRegularExpression]
+
+        /// The license (SPDX IDs) of permitted licenses, such as: "AGPL-3.0"
+        var allowLicense: [String]
+
+        init(allowName: [String] = [], denyName: [String] = [], allowFrom: [String] = [], denyFrom: [String] = [], allowLicense: [String] = []) throws {
+            let regexs = { try NSRegularExpression(pattern: $0, options: [.caseInsensitive]) }
+            self.allowFrom = try allowFrom.map(regexs)
+            self.denyFrom = try denyFrom.map(regexs)
+            self.allowName = try allowName.map(regexs)
+            self.denyName = try denyName.map(regexs)
+
+            self.allowLicense = allowLicense
+        }
+
+        /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
+        func validateAppName(_ name: String?) throws {
+            guard let name = name, try permitted(value: name, allow: allowName, deny: denyName) == true else {
+                throw FairHub.Errors.invalidName(name)
+            }
+        }
+
+        private func permitted(value: String, allow: [NSRegularExpression], deny: [NSRegularExpression]) throws -> Bool {
+            func matches(pattern: NSRegularExpression) -> Bool {
+                pattern.firstMatch(in: value, options: [], range: value.span) != nil
+            }
+
+            // if we specified an allow list, then at least one of the patterns must match the email
+            if !allow.isEmpty {
+                guard let _ = allow.first(where: matches) else {
+                    throw FairHub.Errors.valueNotAllowed(value)
+                }
+            }
+
+            // conversely, if we specified a deny list, then all the addresses must not match
+            if !deny.isEmpty {
+                if let _ = deny.first(where: matches) {
+                    throw FairHub.Errors.valueDenied(value)
+                }
+            }
+
+            return true
+        }
+
+        /// Validates that the e-mail address is included in the `allow-from` patterns and not included in the `deny-from` list of expressions.
+        func validateEmailAddress(_ email: String?) throws {
+    //        guard let email = email, try permitted(value: email, allow: allowFrom, deny: denyFrom) == true else {
+    //            throw Errors.invalidEmail(email)
+    //        }
+        }
+
+    }
+
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, reg: FairReg, requestLimit: Int?) async throws -> AppCatalog {
+    func buildCatalog(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
         var apps: [AppCatalogItem] = []
-        for try await app in fetchAppStream(title: title, owner: owner, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, reg: reg, requestLimit: requestLimit) {
+        for try await app in fetchAppStream(title: title, owner: owner, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
             apps.append(contentsOf: app)
         }
         let news: [AppNewsPost]? = nil
@@ -196,13 +198,13 @@ extension FairHub {
         return catalog
     }
 
-    func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, reg: FairReg, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogQuery.Response, Error>, [AppCatalogItem]> {
+    func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogQuery.Response, Error>, [AppCatalogItem]> {
         sendCursoredRequest(CatalogQuery(owner: owner, name: "App"))
-            .map { forks in try createAppsFromForm(forks, artifactTarget: artifactTarget, reg: reg) }
+            .map { forks in try deriveCatalogItems(forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
 
-    private func createAppsFromForm(_ forks: CatalogQuery.Response, artifactTarget: ArtifactTarget, reg: FairReg) throws -> [AppCatalogItem] {
-        guard let fairsealIssuer = reg.fairsealIssuer else {
+    private func deriveCatalogItems(_ forks: CatalogQuery.Response, artifactTarget: ArtifactTarget, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
+        guard let fairsealIssuer = fairsealIssuer else {
             throw Errors.missingFairsealIssuer
         }
 
@@ -258,7 +260,7 @@ extension FairHub {
                 }
 
                 do {
-                    try reg.validateEmailAddress(devEmail)
+                    try configuration.validateEmailAddress(devEmail)
                 } catch {
                     // skip packages whose e-mail addresses are not valid
                     dbg(fork.nameWithOwner, "invalid committer email:", error)
@@ -285,7 +287,7 @@ extension FairHub {
                 let appName = fork.owner.login
 
                 do {
-                    try reg.validateAppName(appName)
+                    try configuration.validateAppName(appName)
                 } catch {
                     // skip packages whose names are not valid
                     dbg(fork.nameWithOwner, "invalid app name:", error)
@@ -345,6 +347,8 @@ extension FairHub {
                     // scan the comments for the base ref for the matching url seal
                     var urlSeals: [URL: Set<String>] = [:]
                     let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
+                    //print(wip("#### COMMENTS:"), comments)
+
                     let fairsealComments = comments.joined().filter({ $0.author.login == fairsealIssuer })
                     for comment in fairsealComments {
                         do {
@@ -648,7 +652,7 @@ extension FairHub {
     }
 
 
-    internal func validate(org: RepositoryQuery.QueryResponse.Organization, reg: FairReg) -> AppOrgValidationFailure {
+    internal func validate(org: RepositoryQuery.QueryResponse.Organization, configuration: ProjectConfiguration) -> AppOrgValidationFailure {
         let repo = org.repository
         let isOrigin = org.login == appfairName
         var invalid: AppOrgValidationFailure = []
@@ -656,7 +660,7 @@ extension FairHub {
         if !isOrigin {
             do {
                 try AppNameValidation.standard.validate(name: org.login) 
-                try reg.validateAppName(org.login)
+                try configuration.validateAppName(org.login)
             } catch {
                 invalid.insert(.invalidName)
             }
@@ -677,7 +681,7 @@ extension FairHub {
 
         if !isOrigin {
             do {
-                try reg.validateEmailAddress(org.email)
+                try configuration.validateEmailAddress(org.email)
             } catch {
                 invalid.insert(.invalidEmail)
             }
@@ -704,7 +708,7 @@ extension FairHub {
            invalid.insert(.noDiscussions)
         }
 
-        if !reg.allowLicense.isEmpty && !reg.allowLicense.contains(repo.licenseInfo.spdxId ?? "none") {
+        if !configuration.allowLicense.isEmpty && !configuration.allowLicense.contains(repo.licenseInfo.spdxId ?? "none") {
             //dbg(allowLicense)
             invalid.insert(.invalidLicense)
         }
@@ -768,12 +772,18 @@ extension FairHub {
             return nil
         }
 
-        let sealJSON = try fairseal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
+        var signedSeal = fairseal
+        if let key = self.fairsealKey {
+            // sign the key if we have specified one
+            try signedSeal.embedSignature(key: key)
+        }
+
+        let sealJSON = try signedSeal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
         let sealComment = "```\n" + (sealJSON.utf8String ?? "") + "\n```"
         let postResponse = try await self.request(PostCommentQuery(id: appPR.id, comment: sealComment)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
 
-        dbg("posted fairseal for:", fairseal.assets.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)
+        dbg("posted fairseal for:", fairseal.assets?.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)
 
         return sealCommentURL
     }
@@ -882,23 +892,27 @@ extension FairHub {
 
 /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
 /// and other build-time information
-public struct FairSeal : Pure {
-    public enum Version : Int, Pure, CaseIterable {
-        case v1 = 1
-    }
-
+public struct FairSeal : Codable, Hashable, Signable {
+    // legacy fields that have been removed:
     /// The version of the fairseal JSON
-    public private(set) var fairsealVersion: Version?
+    // public private(set) var fairsealVersion: Version?
+    // public enum Version : Int, Pure, CaseIterable { case v1 = 1 }
+
+    /// The version of the fairtool library that initially created this seal
+    public var generatorVersion: AppVersion?
+
     /// The permission for this app
-    public var permissions: [AppPermission]
+    public var permissions: [AppPermission]?
     /// The size of the artifact's executable binary
     public var coreSize: Int?
     /// The tint color as an RGBA hex string
     public var tint: String?
     /// The sealed assets
-    public var assets: [Asset]
+    public var assets: [Asset]?
     /// The AppSource metadata from the Info.plist
     public var appSource: AppCatalogItem?
+    /// The signature for this payload, authenticating the fairseal issuer with HMAC-256
+    public var signature: Data?
 
     public struct Asset : Pure {
         /// The asset's URL
@@ -915,18 +929,25 @@ public struct FairSeal : Pure {
         }
     }
 
+    public var signatureData: Data? {
+        get { signature }
+        set { signature = newValue }
+    }
+
     public init(assets: [Asset], permissions: [AppPermission], appSource: AppCatalogItem?, coreSize: Int?, tint: String?) {
+        self.generatorVersion = Bundle.fairCoreVersion
+        //self.fairsealVersion = Version.allCases.last!
+
         self.assets = assets
         self.permissions = permissions
         self.appSource = appSource
         self.coreSize = coreSize
         self.tint = tint
-        self.fairsealVersion = Version.allCases.last
     }
 
     /// The app org associated with this seal; this will be the first component of the first URL's path
     public var appOrg: String? {
-        assets.first?.url.path.split(separator: "/").first?.description
+        assets?.first?.url.path.split(separator: "/").first?.description
     }
 }
 

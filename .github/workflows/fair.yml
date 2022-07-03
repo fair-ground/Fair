@@ -99,6 +99,8 @@ on:
         required: false
       deny_from:
         required: false
+      fairseal_key:
+        required: false
 
 jobs:
   # The Fork-Apply phases run in the /App.git fork's repository.
@@ -480,6 +482,7 @@ jobs:
             --integration-title "${{ env.PRTITLE }}" \
             --fair-properties "AppFairApp.xcconfig" \
             --fairseal-issuer "${{ inputs.fairseal_issuer }}" \
+            --fairseal-key "${{ inputs.fairseal_key }}" \
             --allow-license "${{ inputs.license }}" \
             --allow-name "${{ secrets.allow_name }}" \
             --deny-name "${{ secrets.deny_name }}" \
@@ -639,6 +642,7 @@ jobs:
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
+            --fairseal-key "${{ inputs.fairseal_key }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-macOS.zip" \
             --permitted-diffs 0 \
             --retry-duration 600 \
@@ -677,6 +681,7 @@ jobs:
             --hub "github.com/${{ inputs.fairground }}" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
+            --fairseal-key "${{ inputs.fairseal_key }}" \
             --trusted-artifact "staging/${{ env.FAIR_APP_ARTIFACT }}-iOS.ipa" \
             --permitted-diffs 100000000 \
             --retry-duration 600 \

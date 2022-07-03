@@ -778,3 +778,93 @@ private extension String {
         return addingPercentEncoding(withAllowedCharacters: Self.urlEncodedCharacterSet)!
     }
 }
+
+
+/// A signable instance can be serialized along with a signature of the serialized form,
+/// allowing authentication of an arbitrary payload.
+public protocol SigningContainer : Encodable {
+    /// The JSON encoder that is used to generate the signature.
+    ///
+    /// Since the signature is dependent on the formatting and key ordering options used in the encoder, the same payload can generate different signature for different encoding options.
+    static var signatureEncoder: JSONEncoder { get }
+
+    /// The vairant to use, defaulting to .sha256
+    static var signatureHash: HMAC.Variant { get }
+}
+
+private let defaultSignatureEncoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+    encoder.dateEncodingStrategy = .iso8601
+    encoder.dataEncodingStrategy = .base64
+    return encoder
+}()
+
+extension SigningContainer {
+    /// The default signature encoder
+    public static var signatureEncoder: JSONEncoder {
+        defaultSignatureEncoder
+    }
+
+    public static var signatureHash: HMAC.Variant {
+        .sha256
+    }
+
+    /// Signs the JSON-serialized form of this data using the default encoding properties for this type
+    public func sign(key: Data) throws -> Data {
+        let json = try Self.signatureEncoder.encode(self)
+        let data = json.hmacSHA(key: key, hash: Self.signatureHash)
+        return data
+    }
+}
+
+/// A Signable instance is capable of storing a signature of the serialized
+/// contents of the remainder of the structure. This can be used to
+/// authenticate the contents of an untrusted JSON payload by
+/// validating it against one or more trusted signing keys.
+///
+/// The signing will serialize the instance (sans any pre-existing signature)
+/// to compact JSON with ordered keys and ISO-8601 date fomatting
+/// and generate a hash-based message authentication code
+/// (HMAC with SHA256) of the UTF-8 JSON data.
+/// The signature will then be embedded within the instance's
+/// ``signatureData`` field, which can be used to later
+/// authenticate the instance with the ``authenticateSignature``
+/// method.
+///
+/// It is important to note that neither signing nor authentication
+/// is performed automatically upon codable serialization or deserialization.
+/// JSON can be validly deserialized to an instance with an invalid signature,
+/// since the signature cannot be authenticated until a key is provided.
+public protocol Signable : SigningContainer {
+    /// The field that will store the signature of this codable instance
+    var signatureData: Data? { get set }
+}
+
+
+extension Signable {
+    /// This will clear the current signature, generate a signature for the payload,
+    /// and them embed the signature back into the type.
+    public mutating func embedSignature(key: Data) throws {
+        self.signatureData = nil // clear the embedded signature beforing signing
+        self.signatureData = try sign(key: key) // then re-embed the signed payload
+    }
+
+    /// Verifies that this payload was signed with the given key
+    public func authenticateSignature(key: Data) throws {
+        guard let embeddedSignature = self.signatureData else {
+            throw SignableError.noEmbeddedSignature
+        }
+        var payload = self
+        payload.signatureData = nil
+        let signature = try payload.sign(key: key)
+        if signature != embeddedSignature {
+            throw SignableError.signatureMismatch(signature, embeddedSignature)
+        }
+    }
+}
+
+public enum SignableError : Error {
+    case noEmbeddedSignature
+    case signatureMismatch(Data, Data)
+}

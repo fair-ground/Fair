@@ -1124,8 +1124,8 @@ public struct FairCommand : AsyncParsableCommand {
             msg(.debug, "  has_issues:", repo.hasIssuesEnabled)
             msg(.debug, "  discussion categories:", repo.discussionCategories.totalCount)
 
-            let reg = try self.regOptions.fairReg()
-            let invalid = hub.validate(org: organization, reg: reg)
+            let configuration = try self.regOptions.createProjectConfiguration()
+            let invalid = hub.validate(org: organization, configuration: configuration)
             if !invalid.isEmpty {
                 throw FairHub.Errors.repoInvalid(invalid, org, repoName)
             }
@@ -1269,10 +1269,10 @@ public struct FairCommand : AsyncParsableCommand {
                 artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
             }
 
-            let reg = try regOptions.fairReg()
+            let configuration = try regOptions.createProjectConfiguration()
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, reg: reg, requestLimit: self.catalogOptions.requestLimit)
+            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.catalogOptions.requestLimit)
 
             msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
             for apprel in catalog.apps {
@@ -2414,9 +2414,6 @@ public struct MsgOptions: ParsableArguments {
 }
 
 public struct RegOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal.", valueName: "usr"))
-    public var fairsealIssuer: String?
-
     @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR names.", valueName: "pattern"))
     public var allowName: [String] = []
 
@@ -2439,8 +2436,13 @@ public struct RegOptions: ParsableArguments {
 
     }
 
-    func fairReg() throws -> FairReg {
-        try FairReg(fairsealIssuer: self.fairsealIssuer, allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
+    @available(*, deprecated)
+    func fairReg() throws -> FairHub.ProjectConfiguration {
+        try createProjectConfiguration()
+    }
+
+    func createProjectConfiguration() throws -> FairHub.ProjectConfiguration {
+        try FairHub.ProjectConfiguration(allowName: joinWhitespaceSeparated(self.allowName), denyName: joinWhitespaceSeparated(self.denyFrom), allowFrom: joinWhitespaceSeparated(self.allowFrom), denyFrom: joinWhitespaceSeparated(self.denyFrom), allowLicense: joinWhitespaceSeparated(self.allowLicense))
     }
 }
 
@@ -2451,11 +2453,17 @@ public struct HubOptions: ParsableArguments {
     @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
     public var token: String?
 
+    @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal.", valueName: "usr"))
+    public var fairsealIssuer: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the base64-encoded signing key for the fairseal issuer.", valueName: "key"))
+    public var fairsealKey: String?
+
     public init() { }
 
     /// The hub service we should use for this tool
     public func fairHub() throws -> FairHub {
-        try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"])
+        try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, fairsealKey: self.fairsealKey.flatMap({ Data(base64Encoded: $0) }))
     }
 }
 
