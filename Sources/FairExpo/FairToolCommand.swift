@@ -701,8 +701,8 @@ public final class AppCatalogAPI {
             url = catalogURL?.deletingLastPathComponent().appendingPathComponent(url.path) ?? url
         }
         do {
-            dbg("downloading app from URL:", url.absoluteString)
-            let (file, _) = try await URLSession.shared.downloadFile(for: URLRequest(url: url))
+            dbg("verifying app at URL:", url.absoluteString)
+            let (file, _) = url.isFileURL ? (url, nil) : try await URLSession.shared.downloadFile(for: URLRequest(url: url))
             failures.append(contentsOf: await validateArtifact(app: app, file: file))
         } catch {
             addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"), msg: msg)
