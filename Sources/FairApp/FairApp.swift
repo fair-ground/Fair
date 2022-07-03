@@ -105,9 +105,8 @@ extension Plist {
         let plist = Plist(rawValue: appSource)
 
         do {
-            dbg("parsing dictionary:", appSource)
             let item = try plist.createCatalogInfo(appName: appName, bundleID: bundleID, downloadURL: downloadURL)
-            dbg("created AppCatalogItem:", item)
+            dbg("parsed AppCatalogItem from Info.plist:", item.debugJSON)
             return item
         } catch {
             dbg("error creating AppCatalogItem:", error)
@@ -135,6 +134,7 @@ extension Plist {
         // clear items that should not be imported from the info plist
         item.sha256 = nil
         item.size = nil
+
         item.coreSize = nil
         item.downloadCount = nil
         item.starCount = nil
