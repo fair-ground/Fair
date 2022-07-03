@@ -84,19 +84,30 @@ public extension Bundle {
     }
 
     func appCatalogInfo() throws -> AppCatalogItem? {
-        guard let appName = self.bundleName else { return nil }
-        guard let bundleID = self.bundleID else { return nil }
         guard let downloadURL = Self.appFairURL(for: self)?.absoluteString else { return nil }
         guard let downloadURL = URL(string: downloadURL) else { return nil }
+        return try self.appSource?.appCatalogInfo(downloadURL: downloadURL)
+    }
+}
 
-        let appSource = NSMutableDictionary(dictionary: self.appSource?.rawValue ?? [:])
+extension Plist {
+    public func appCatalogInfo(downloadURL: URL) throws -> AppCatalogItem? {
+        guard let appName = self.rawValue[InfoPlistKey.CFBundleName.rawValue] as? String else {
+            return nil
+        }
+
+        guard let bundleID = self.rawValue[InfoPlistKey.CFBundleIdentifier.rawValue] as? String else {
+            return nil
+        }
+
+        let appSource = (self.rawValue["AppSource"] as? NSDictionary) ?? [:]
 
         // the rest of the properties will be inherited by
         let plist = Plist(rawValue: appSource)
 
         do {
             dbg("parsing dictionary:", appSource)
-            let item = try plist.appCatalogInfo(appName: appName, bundleID: bundleID, downloadURL: downloadURL)
+            let item = try plist.createCatalogInfo(appName: appName, bundleID: bundleID, downloadURL: downloadURL)
             dbg("created AppCatalogItem:", item)
             return item
         } catch {
@@ -104,10 +115,8 @@ public extension Bundle {
             throw error
         }
     }
-}
 
-public extension Plist {
-    func appCatalogInfo(appName: String, bundleID: String, downloadURL: URL) throws -> AppCatalogItem {
+    private func createCatalogInfo(appName: String, bundleID: String, downloadURL: URL) throws -> AppCatalogItem {
         let dict = NSMutableDictionary(dictionary: self.rawValue)
 
         // inject the mandatory properties
