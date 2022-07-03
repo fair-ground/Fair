@@ -1549,7 +1549,22 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             let tint = try? parseTintColor()
-            let fairseal = FairSeal(assets: assets, permissions: permissions.map(AppPermission.init), coreSize: Int(coreSize), tint: tint)
+
+            // extract the AppSource metadata for the item
+            let sourceInfo: AppCatalogItem? = {
+                guard let artifactURL = self.sealOptions.artifactURL,
+                    let url = URL(string: artifactURL) else {
+                    return nil
+                }
+                do {
+                    return try infoPlist?.appCatalogInfo(downloadURL: url)
+                } catch {
+                    msg(.warn, "error extracting AppSource from Info.plist")
+                    return nil
+                }
+            }()
+
+            let fairseal = FairSeal(assets: assets, permissions: permissions.map(AppPermission.init), appSource: sourceInfo, coreSize: Int(coreSize), tint: tint)
 
             msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
 
@@ -1778,7 +1793,7 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     public struct SealOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("resource for the artifact that will be generated."))
+        @Option(name: [.long], help: ArgumentHelp("URL for the artifact that will be generated."))
         public var artifactURL: String?
 
         @Option(name: [.long], help: ArgumentHelp("the artifact created in a trusted environment."))

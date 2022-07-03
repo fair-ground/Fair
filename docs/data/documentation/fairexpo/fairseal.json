@@ -117,7 +117,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:coreSize:tint:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:appSource:coreSize:tint:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(from:)"
       ],
       "title" : "Initializers"
@@ -125,6 +125,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/appOrg",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/appSource",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/assets",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/coreSize",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/fairsealVersion",
@@ -375,6 +376,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/apporg"
 },
+"doc://FairExpo/documentation/FairExpo/FairSeal/appSource": {
+  "abstract" : [
+    {
+      "text" : "The AppSource metadata from the Info.plist",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appSource"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/appSource",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appSource",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal\/appsource"
+},
 "doc://FairExpo/documentation/FairExpo/FairSeal/assets": {
   "abstract" : [
     {
@@ -516,7 +558,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/fairsealversion"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/init(assets:permissions:coreSize:tint:)": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/init(assets:permissions:appSource:coreSize:tint:)": {
   "abstract" : [
 
   ],
@@ -574,6 +616,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "appSource"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "coreSize"
     },
     {
@@ -607,12 +666,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:coreSize:tint:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:appSource:coreSize:tint:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(assets:permissions:coreSize:tint:)",
+  "title" : "init(assets:permissions:appSource:coreSize:tint:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/init(assets:permissions:coresize:tint:)"
+  "url" : "\/documentation\/fairexpo\/fairseal\/init(assets:permissions:appsource:coresize:tint:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/init(from:)": {
   "abstract" : [
