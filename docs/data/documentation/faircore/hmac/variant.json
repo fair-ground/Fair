@@ -101,7 +101,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/HMAC\/Variant\/sha1"
+        "doc:\/\/FairCore\/documentation\/FairCore\/HMAC\/Variant\/sha1",
+        "doc:\/\/FairCore\/documentation\/FairCore\/HMAC\/Variant\/sha256"
       ],
       "title" : "Enumeration Cases"
     },
@@ -226,10 +227,7 @@
 },
 "doc://FairCore/documentation/FairCore/HMAC/Variant/sha1": {
   "abstract" : [
-    {
-      "text" : "We only support SHA1",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -251,6 +249,31 @@
   "title" : "HMAC.Variant.sha1",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/hmac\/variant\/sha1"
+},
+"doc://FairCore/documentation/FairCore/HMAC/Variant/sha256": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sha256"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/HMAC\/Variant\/sha256",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "HMAC.Variant.sha256",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/hmac\/variant\/sha256"
 }
 }
 }

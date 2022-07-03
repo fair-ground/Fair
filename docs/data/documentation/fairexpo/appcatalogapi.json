@@ -421,7 +421,26 @@
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogAPI/verifyAppItem(app:catalogURL:msg:)": {
   "abstract" : [
-
+    {
+      "text" : "Verified that the information in the given ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppCatalogItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is valid for",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "the resource at the given URL.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -663,12 +663,23 @@ final class FairCoreTests: XCTestCase {
     }
 
     /// Checks that the HMAC hex from random data matches between the internal implementation and the CommonCrypto one
-    func testHMACImplementation() {
+    func testHMACSHA1Implementation() {
         for _ in 1...100 {
             let data = randomData(count: Int.random(in: 1...100_000))
             let kdata = randomData(count: Int.random(in: 1...1_000))
-            let hmac1 = data.hmacSHA1(key: kdata)
-            let hmac2 = data.hmacSHA1Internal(key: kdata)
+            let hmac1 = data.hmacSHA(key: kdata, hash: .sha1)
+            let hmac2 = data.hmacSHAInternal(key: kdata, hash: .sha1)
+            XCTAssertEqual(hmac1.hex(), hmac2.hex())
+        }
+    }
+
+    /// Checks that the HMAC hex from random data matches between the internal implementation and the CommonCrypto one
+    func testHMACSHA256Implementation() {
+        for _ in 1...100 {
+            let data = randomData(count: Int.random(in: 1...100_000))
+            let kdata = randomData(count: Int.random(in: 1...1_000))
+            let hmac1 = data.hmacSHA(key: kdata, hash: .sha256)
+            let hmac2 = data.hmacSHAInternal(key: kdata, hash: .sha256)
             XCTAssertEqual(hmac1.hex(), hmac2.hex())
         }
     }
@@ -677,7 +688,44 @@ final class FairCoreTests: XCTestCase {
     func testHMACSSHA1() {
         let msg = "The quick brown fox jumps over the lazy dog"
         let key = "key"
-        let sha1 = msg.utf8Data.hmacSHA1(key: key.utf8Data)
+        let sha1 = msg.utf8Data.hmacSHA(key: key.utf8Data, hash: .sha1)
         XCTAssertEqual("de7c9b85b8b78aa6bc8a7a36f70a90701c9db4d9", sha1.hex())
     }
+
+    /// https://jwt.io/introduction/
+    /// https://en.wikipedia.org/wiki/JSON_Web_Token#Structure
+    func testHMACSSHA256JWT() throws {
+        struct JWTHeader : Encodable {
+            var alg: String
+            var typ: String
+        }
+
+        struct JWTPayload : Encodable {
+            var sub: String
+            var name: String
+            var iat: Int
+        }
+
+        // note that field ordering matters, since the serialized JSON is signed
+        let header = try JWTHeader(alg: "HS256", typ: "JWT").json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes])
+        let payload = try JWTPayload(sub: "1234567890", name: "John Doe", iat: 1516239022).json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes])
+
+        func encode(_ data: Data) -> String {
+            data.base64EncodedString()
+                .replacingOccurrences(of: "/", with: "_")
+                .replacingOccurrences(of: "+", with: "-")
+                .trimmingCharacters(in: CharacterSet(charactersIn: "="))
+        }
+
+        let message = encode(header) + "." + encode(payload)
+
+        let key = "secretkey" // verify at https://jwt.io/#debugger-io
+
+        let signature = message.utf8Data.hmacSHA(key: key.utf8Data, hash: .sha256)
+
+        let jwt = message + "." + encode(signature)
+
+        XCTAssertEqual(jwt, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ.bKB04O-OWqZhSxdzOhf2RdM_5nb-fWZgpkKpzoa35ks")
+    }
+
 }
