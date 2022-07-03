@@ -77,19 +77,20 @@ public extension Bundle {
         appFairURL(for: .main)?.canLaunchScheme() == true
     }
 
+    /// The dictionary containing the AppSouce definition
+    var appSource: Plist? {
+        // self[info: .AppSource]
+        (self.infoDictionary?["AppSource"] as? NSDictionary).flatMap(Plist.init(rawValue:))
+    }
+
     func appCatalogInfo() throws -> AppCatalogItem? {
         guard let downloadURL = Self.appFairURL(for: self)?.absoluteString else { return nil }
         guard let downloadURL = URL(string: downloadURL) else { return nil }
-        guard let dict = self.infoDictionary as? NSDictionary else { return nil }
-        return try Plist(rawValue: dict).appCatalogInfo(downloadURL: downloadURL)
+        return try self.appSource?.appCatalogInfo(downloadURL: downloadURL)
     }
 }
 
 extension Plist {
-    /// Derives an ``AppCatalogItem`` from the contents of the ``Plist`` item,
-    /// which is stored in the top-level "AppSource" dictionary in an app's main `Info.plist`.
-    /// - Parameter downloadURL: the download URL for this app, which is arequirted property of an app catalog item.
-    /// - Returns: nil if critical information (like the bundle name) is empty; otherwise, the catalog item that is contained in this property list node
     public func appCatalogInfo(downloadURL: URL) throws -> AppCatalogItem? {
         guard let appName = self.rawValue[InfoPlistKey.CFBundleName.rawValue] as? String else {
             return nil
@@ -116,21 +117,15 @@ extension Plist {
     }
 
     private func createCatalogInfo(appName: String, bundleID: String, downloadURL: URL) throws -> AppCatalogItem {
-        var dict: [String : Any] = [:]
-
-        for (key, value) in self.rawValue {
-            if let key = key as? String {
-                dict[key] = value
-            }
-        }
+        let dict = self.rawValue
 
         // inject the mandatory properties
-        dict["name"] = appName
-        dict["bundleIdentifier"] = bundleID
-        dict["downloadURL"] = downloadURL.absoluteString
+        dict.setValue(appName, forKey: "name")
+        dict.setValue(bundleID, forKey: "bundleIdentifier")
+        dict.setValue(downloadURL.absoluteString, forKey: "downloadURL")
 
         // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
-        var item = try AppCatalogItem(json: Plist(rawValue: NSDictionary(dictionary: dict, copyItems: true)).jsum().json())
+        var item = try AppCatalogItem(json: Plist(rawValue: dict).jsum().json())
 
         // clear items that should not be imported from the info plist
         item.sha256 = nil
