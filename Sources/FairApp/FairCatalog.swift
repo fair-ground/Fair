@@ -170,12 +170,16 @@ public struct AppFundingLink : Pure {
     public var localizedDescription: String?
 }
 
+/// A funding platform, which is represented by a raw string.
+///
+/// Known platforms can be accessed with ``allCases``.
 public struct AppFundingPlatform : Pure, RawCodable {
     public var rawValue: String
     public init(rawValue: String) { self.rawValue = rawValue }
 }
 
 
+/// An individual item of news, consiting of a unique identifier, a date, title, caption, and optional additional properties.
 public struct AppNewsPost : Pure {
     /// A unique identifer for the news posting
     public var identifier: String
@@ -214,7 +218,9 @@ public struct AppNewsPost : Pure {
 
 
 extension AppFundingPlatform : CaseIterable {
-    /// All the known and supported funding platforms
+    /// All the known funding platforms, both supported and unsupported.
+    ///
+    /// - See: ``isSupported``
     public static let allCases: [AppFundingPlatform] = [
         .COMMUNITY_BRIDGE,
         .GITHUB,
@@ -228,11 +234,14 @@ extension AppFundingPlatform : CaseIterable {
         //.CUSTOM
     ]
 
-    /// Community Bridge funding platform: [https://funding.communitybridge.org](https://funding.communitybridge.org)
-    public static let COMMUNITY_BRIDGE = AppFundingPlatform(rawValue: "COMMUNITY_BRIDGE")
-
     /// GitHub funding platform. [https://github.com/](https://github.com/)
     public static let GITHUB = AppFundingPlatform(rawValue: "GITHUB")
+
+    /// Patreon funding platform. [https://patreon.com](https://patreon.com)
+    public static let PATREON = AppFundingPlatform(rawValue: "PATREON")
+
+    /// Community Bridge funding platform: [https://funding.communitybridge.org](https://funding.communitybridge.org)
+    public static let COMMUNITY_BRIDGE = AppFundingPlatform(rawValue: "COMMUNITY_BRIDGE")
 
     /// IssueHunt funding platform. [https://issuehunt.io](https://issuehunt.io)
     public static let ISSUEHUNT = AppFundingPlatform(rawValue: "ISSUEHUNT")
@@ -249,9 +258,6 @@ extension AppFundingPlatform : CaseIterable {
     /// Otechie funding platform. [https://otechie.com](https://otechie.com)
     public static let OTECHIE = AppFundingPlatform(rawValue: "OTECHIE")
 
-    /// Patreon funding platform. [https://patreon.com](https://patreon.com)
-    public static let PATREON = AppFundingPlatform(rawValue: "PATREON")
-
     /// Tidelift funding platform. [https://tidelift.com](https://tidelift.com)
     public static let TIDELIFT = AppFundingPlatform(rawValue: "TIDELIFT")
 
@@ -259,12 +265,36 @@ extension AppFundingPlatform : CaseIterable {
     @available(*, unavailable, message: "custom funding sources are not supported")
     static let CUSTOM = AppFundingPlatform(rawValue: "CUSTOM")
 
+    /// Returns `true` if the funding platform is known and supported.
+    public var isSupported: Bool {
+        switch self {
+        case .GITHUB: return true
+        case .PATREON: return true
 
-    /// The name of the funding platform, for all known and supported platforms
+        case .KO_FI: return false
+        case .OTECHIE: return false
+        case .TIDELIFT: return false
+        case .ISSUEHUNT: return false
+        case .LIBERAPAY: return false
+        case .OPEN_COLLECTIVE: return false
+        case .COMMUNITY_BRIDGE: return false
+
+        case _: return false
+        }
+    }
+
+    /// The localized name of the funding platform
     public var platformName: String? {
         switch self {
-        case .GITHUB: return "GitHub"
-        case .PATREON: return "Patreon"
+        case .GITHUB: return NSLocalizedString("GitHub", bundle: .module, comment: "funding platform name for GitHub")
+        case .COMMUNITY_BRIDGE: return NSLocalizedString("Community Bridge", bundle: .module, comment: "funding platform name for Community Bridge")
+        case .ISSUEHUNT: return NSLocalizedString("IssueHunt", bundle: .module, comment: "funding platform name for IssueHunt")
+        case .KO_FI: return NSLocalizedString("Ko-fi", bundle: .module, comment: "funding platform name for Ko-fi")
+        case .LIBERAPAY: return NSLocalizedString("Liberapay", bundle: .module, comment: "funding platform name for Liberapay")
+        case .OPEN_COLLECTIVE: return NSLocalizedString("Open Collective", bundle: .module, comment: "funding platform name for Open Collective")
+        case .OTECHIE: return NSLocalizedString("Otechie", bundle: .module, comment: "funding platform name for Otechie")
+        case .PATREON: return NSLocalizedString("Patreon", bundle: .module, comment: "funding platform name for Patreon")
+        case .TIDELIFT: return NSLocalizedString("Tidelift", bundle: .module, comment: "funding platform name for Tidelift")
         case _: return nil
         }
     }
@@ -286,16 +316,15 @@ extension AppFundingPlatform : CaseIterable {
         case .OPEN_COLLECTIVE: return trimming("https://opencollective.com/") // USERNAME
         case .OTECHIE: return trimming("https://otechie.com/") // USERNAME
         case .PATREON: return trimming("https://patreon.com/") // USERNAME
-        case .TIDELIFT: return trimming("https://tidelift.com/funding/github/") // PLATFORM-NAME/PACKAGE-NAME
+        case .TIDELIFT: return trimming("https://tidelift.com/funding/") // github/PLATFORM-NAME/PACKAGE-NAME
         case _: return nil // unknown platform is never valid
         }
     }
 
-    /// A URL is valid for a specific funding source if it matches a known pattern
+    /// A URL is valid for a specific funding source if it matches a known pattern and the platform is supported
     public func isValidURL(_ url: URL) -> Bool {
-        serviceIdentifier(from: url) != nil
+        isSupported && (serviceIdentifier(from: url) != nil)
     }
-
 }
 
 extension AppFundingLink {
