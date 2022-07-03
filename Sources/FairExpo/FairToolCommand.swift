@@ -618,27 +618,23 @@ public final class AppCatalogAPI {
 
         let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
 
-        guard let bundleID = info.CFBundleIdentifier else {
-            throw AppError("Missing CFBundleIdentifier for \(url.absoluteString)")
-        }
-
-        guard let bundleName = info.CFBundleDisplayName ?? info.CFBundleName else {
-            throw AppError("Missing CFBundleDisplayName for \(url.absoluteString)")
-        }
-
         //var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
-        var item = try info.appCatalogInfo(appName: bundleName, bundleID: bundleID, downloadURL: url)
+        guard var item = try info.appCatalogInfo(downloadURL: url) else {
+            throw AppError("Cannot build catalog from Info.plist")
+        }
 
         item.version = info.CFBundleShortVersionString
         item.size = localURL.fileSize()
 
-        let defvalue = { options?.defaultValue(from: $0, bundleIdentifier: bundleID) }
+        let defvalue = { options?.defaultValue(from: $0, bundleIdentifier: item.bundleIdentifier) }
 
-        item.subtitle = defvalue(\.appSubtitle) ?? "SUBTITLE"
-        item.developerName = defvalue(\.appDeveloperName) ?? "DEVELOPER_NAME"
         item.downloadURL = defvalue(\.appDownloadURL).flatMap(URL.init(string:)) ?? url
-        item.localizedDescription = defvalue(\.appLocalizedDescription) ?? "LOCALIZED_DESCRIPTION" // maybe check for a README file in the .ipa?
-        item.versionDescription = defvalue(\.appVersionDescription) ?? "VERSION_DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
+
+        // fill in some placeholders, defaulting in information from the `AppSource` dictionary if it is present
+        item.subtitle = item.subtitle ?? defvalue(\.appSubtitle) ?? "SUBTITLE"
+        item.developerName = item.developerName ?? defvalue(\.appDeveloperName) ?? "DEVELOPER_NAME"
+        item.localizedDescription = item.localizedDescription ?? defvalue(\.appLocalizedDescription) ?? "LOCALIZED_DESCRIPTION" // maybe check for a README file in the .ipa?
+        item.versionDescription = item.versionDescription ?? defvalue(\.appVersionDescription) ?? "VERSION_DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
 
         // TODO: look into why this never seems to be present in the app's Info.plist
         if let appCategory = info.rawValue[InfoPlistKey.LSApplicationCategoryType.plistKey] as? String {
