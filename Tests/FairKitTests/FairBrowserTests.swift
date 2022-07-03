@@ -34,11 +34,11 @@ open class FairBrowserTests: XCTestCase {
             try await titleTest()
         }
 
-        do {
-            try await wv.load(request: URLRequest(url: URL(string: "https://www.economist.com")!))
-            let title = try await wv.webView.evalJS("document.title")
-            XCTAssertEqual("The Economist - World News, Politics, Economics, Business & Finance", title as? NSString)
-        }
+//        do {
+//            try await wv.load(request: URLRequest(url: URL(string: "https://www.economist.com")!))
+//            let title = try await wv.webView.evalJS("document.title")
+//            XCTAssertEqual("The Economist - World News, Politics, Economics, Business & Finance", title as? NSString)
+//        }
 
         // TODO: error handling in navigation delegate; will require delaying before the observer callback
 //        do {
