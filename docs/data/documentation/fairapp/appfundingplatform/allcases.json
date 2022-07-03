@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "All the known and supported funding platforms",
+      "text" : "All the known funding platforms, both supported and unsupported.",
       "type" : "text"
     }
   ],
@@ -116,6 +116,40 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "See: ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/isSupported",
+                      "isActive" : true,
+                      "type" : "reference"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -164,7 +198,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingPlatform": {
   "abstract" : [
-
+    {
+      "text" : "A funding platform, which is represented by a raw string.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -207,7 +244,7 @@
 "doc://FairApp/documentation/FairApp/AppFundingPlatform/allCases": {
   "abstract" : [
     {
-      "text" : "All the known and supported funding platforms",
+      "text" : "All the known funding platforms, both supported and unsupported.",
       "type" : "text"
     }
   ],
@@ -252,6 +289,51 @@
   "title" : "allCases",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundingplatform\/allcases"
+},
+"doc://FairApp/documentation/FairApp/AppFundingPlatform/isSupported": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the funding platform is known and supported.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isSupported"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/isSupported",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isSupported",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundingplatform\/issupported"
 }
 }
 }

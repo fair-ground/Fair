@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A funding platform, which is represented by a raw string.",
       "type" : "text"
     }
   ],
@@ -76,6 +76,35 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Known platforms can be accessed with ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/allCases",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -114,6 +143,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/isSupported",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/platformName",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/rawValue"
       ],
@@ -233,7 +263,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingPlatform": {
   "abstract" : [
-
+    {
+      "text" : "A funding platform, which is represented by a raw string.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -800,6 +833,55 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundingplatform\/tidelift"
 },
+"doc://FairApp/documentation/FairApp/AppFundingPlatform/allCases": {
+  "abstract" : [
+    {
+      "text" : "All the known funding platforms, both supported and unsupported.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allCases"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B15FundingPlatformV",
+      "text" : "AppFundingPlatform"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/allCases",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allCases",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundingplatform\/allcases"
+},
 "doc://FairApp/documentation/FairApp/AppFundingPlatform/init(rawValue:)-1tyax": {
   "abstract" : [
 
@@ -838,10 +920,55 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appfundingplatform\/init(rawvalue:)-1tyax"
 },
+"doc://FairApp/documentation/FairApp/AppFundingPlatform/isSupported": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the funding platform is known and supported.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isSupported"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform\/isSupported",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isSupported",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundingplatform\/issupported"
+},
 "doc://FairApp/documentation/FairApp/AppFundingPlatform/isValidURL(_:)": {
   "abstract" : [
     {
-      "text" : "A URL is valid for a specific funding source if it matches a known pattern",
+      "text" : "A URL is valid for a specific funding source if it matches a known pattern and the platform is supported",
       "type" : "text"
     }
   ],
@@ -887,7 +1014,7 @@
 "doc://FairApp/documentation/FairApp/AppFundingPlatform/platformName": {
   "abstract" : [
     {
-      "text" : "The name of the funding platform, for all known and supported platforms",
+      "text" : "The localized name of the funding platform",
       "type" : "text"
     }
   ],

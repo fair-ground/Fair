@@ -364,7 +364,7 @@ OPTIONS:
 An example of the catalog output is as follows:
 
 ```json5
-// fairtool source create https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
+// % fairtool source create https://github.com/Cloud-Cuckoo/App/releases/download/0.9.91/Cloud-Cuckoo-iOS.ipa
 
 {
   "identifier": "CATALOG_IDENTIFIER",
@@ -373,7 +373,7 @@ An example of the catalog output is as follows:
     {
       "bundleIdentifier": "app.Cloud-Cuckoo",
       "developerName": "DEVELOPER_NAME",
-      "downloadURL": "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa",
+      "downloadURL": "https://github.com/Cloud-Cuckoo/App/releases/download/0.9.91/Cloud-Cuckoo-iOS.ipa",
       "localizedDescription": "LOCALIZED_DESCRIPTION",
       "name": "Cloud Cuckoo",
       "permissions": [
@@ -384,12 +384,113 @@ An example of the catalog output is as follows:
         }
       ],
       "screenshotURLs": [],
-      "sha256": "56e748bf053aff8612702ba9f1aa13031ef0c29313cc4047e3176b9ba8526686",
-      "size": 5136274,
+      "sha256": "01398e19555b65b7c457d02e68d0e0ca34cf078867a674aee019a7f28da70d64",
+      "size": 5118243,
       "subtitle": "SUBTITLE",
-      "version": "0.9.95",
-      "versionDate": "2022-07-02T04:57:53Z",
+      "version": "0.9.91",
+      "versionDate": "2022-06-30T20:23:12Z",
       "versionDescription": "VERSION_DESCRIPTION"
+    }
+  ]
+}
+
+```
+
+#### Default properties for source create
+
+Properties such as `subtitle` and `developerName` will be derived from the
+app's Info.plist's property named `AppSource`, which is expected to be a dictionary
+keyed by the corresponding property names.
+
+An abridged example of an `Info.plist` with the `AppSource` property:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AppSource</key>
+    <dict>
+        <key>subtitle</key>
+        <string>A whimsical game of excitement and delight</string>
+        <key>localizedDescription</key>
+        <string>Chase on the Cuckoo around the screen! This is a silly little game for the App Fair.</string>
+        <key>developerName</key>
+        <string>Fair Apps &lt;fairapps@appfair.net&gt;</string>
+        <key>versionDescription</key>
+        <string>Bug fixes and performance improvements.</string>
+        <key>fundingLinks</key>
+        <array>
+            <dict>
+                <key>platform</key>
+                <string>GITHUB</string>
+                <key>url</key>
+                <string>https://github.com/Cloud-Cuckoo</string>
+                <key>localizedTitle</key>
+                <string>Support the development of “Cloud Cuckoo”</string>
+                <key>localizedDescription</key>
+                <string>Help fund upcoming challenges and new additions to the whimsical and award-winning “Cloud Cuckoo” game. Fun for all ages!</string>
+            </dict>
+        </array>
+    </dict>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+</dict>
+</plist>
+```
+
+With that metadata embedded in the .ipa, the `fairtool source create` command
+will have enough information to generate a more complete catalog entry.
+
+The benefit of this method is that the app artifact alone is sufficient
+for the creation of a catalog without requiring any additional
+sources of metadata.
+
+```json5
+// fairtool source create https://github.com/Cloud-Cuckoo/App/releases/download/0.9.99/Cloud-Cuckoo-iOS.ipa
+
+{
+  "identifier": "CATALOG_IDENTIFIER",
+  "name": "CATALOG_NAME",
+  "apps": [
+    {
+      "bundleIdentifier": "app.Cloud-Cuckoo",
+      "developerName": "Fair Apps <fairapps@appfair.org>",
+      "downloadURL": "https://github.com/Cloud-Cuckoo/App/releases/download/0.9.99/Cloud-Cuckoo-iOS.ipa",
+      "fundingLinks": [
+        {
+          "localizedDescription": "Help fund upcoming challenges and new additions to the whimsical and award-winning “Cloud Cuckoo” game. Fun for all ages!",
+          "localizedTitle": "Support the development of “Cloud Cuckoo”",
+          "platform": "GITHUB",
+          "url": "https://github.com/Cloud-Cuckoo"
+        }
+      ],
+      "localizedDescription": "Chase on the Cuckoo around the screen! This is a silly little game for the App Fair.",
+      "name": "Cloud Cuckoo",
+      "permissions": [
+        {
+          "type": "usage",
+          "usage": "NSAppleEventsUsageDescription",
+          "usageDescription": "AppleScript can be used by this app."
+        }
+      ],
+      "screenshotURLs": [],
+      "sha256": "8a3903588bece74c00bef1329f9dd6cc9684e78be049b1b4e2325ce07d78e085",
+      "size": 5162625,
+      "subtitle": "A whimsical game of excitement and delight",
+      "version": "0.9.99",
+      "versionDate": "2022-07-03T04:51:21Z",
+      "versionDescription": "Bug fixes and performance improvements."
     }
   ]
 }

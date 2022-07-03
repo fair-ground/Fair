@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The name of the funding platform, for all known and supported platforms",
+      "text" : "The localized name of the funding platform",
       "type" : "text"
     }
   ],
@@ -154,7 +154,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingPlatform": {
   "abstract" : [
-
+    {
+      "text" : "A funding platform, which is represented by a raw string.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -186,7 +189,7 @@
 "doc://FairApp/documentation/FairApp/AppFundingPlatform/platformName": {
   "abstract" : [
     {
-      "text" : "The name of the funding platform, for all known and supported platforms",
+      "text" : "The localized name of the funding platform",
       "type" : "text"
     }
   ],

@@ -318,6 +318,28 @@ extension View {
     }
 }
 
+
+extension View {
+    /// Refreshes this view at the start of each minute. Useful for a label that displays
+    /// relative date text like: "Updated N minutes ago…"
+    public func refreshingEveryMinute() -> some View {
+        TimelineView(.everyMinute) { context in
+            RefreshingView(date: context.date) { _ in
+                self
+            }
+        }
+    }
+}
+
+private struct RefreshingView<V : View> : View {
+    let date: Date
+    let content: (Date) -> (V)
+
+    @ViewBuilder var body: some View {
+        content(date)
+    }
+}
+
 extension View {
     /// Configure the navigation title and subtitle for the type of device
     public func navigation(title: Text, subtitle: Text?) -> some View {

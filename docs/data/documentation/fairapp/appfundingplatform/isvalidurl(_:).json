@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A URL is valid for a specific funding source if it matches a known pattern",
+      "text" : "A URL is valid for a specific funding source if it matches a known pattern and the platform is supported",
       "type" : "text"
     }
   ],
@@ -172,7 +172,10 @@
 },
 "doc://FairApp/documentation/FairApp/AppFundingPlatform": {
   "abstract" : [
-
+    {
+      "text" : "A funding platform, which is represented by a raw string.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -204,7 +207,7 @@
 "doc://FairApp/documentation/FairApp/AppFundingPlatform/isValidURL(_:)": {
   "abstract" : [
     {
-      "text" : "A URL is valid for a specific funding source if it matches a known pattern",
+      "text" : "A URL is valid for a specific funding source if it matches a known pattern and the platform is supported",
       "type" : "text"
     }
   ],
