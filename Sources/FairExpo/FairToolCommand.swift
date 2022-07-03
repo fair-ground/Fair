@@ -685,6 +685,8 @@ public final class AppCatalogAPI {
     }
 
 
+    /// Verified that the information in the given ``AppCatalogItem`` is valid for
+    /// the resource at the given URL.
     public func verifyAppItem(app: AppCatalogItem, catalogURL: URL?, msg: ((MessagePayload) -> ())? = nil) async throws -> AppCatalogVerifyResult {
         var failures: [AppCatalogVerifyFailure] = []
 

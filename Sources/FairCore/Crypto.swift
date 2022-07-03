@@ -59,24 +59,42 @@ extension Data {
         Data(SHA256(for: self).value)
     }
 
-    @inlinable public func hmacSHA1(key: Data) -> Data {
+    @inlinable public func hmacSHA(key: Data, hash variant: HMAC.Variant) -> Data {
         #if canImport(CommonCrypto)
-        var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+        func digestLength() -> Int {
+            switch variant {
+            case .sha1:
+                return Int(CC_SHA1_DIGEST_LENGTH)
+            case .sha256:
+                return Int(CC_SHA256_DIGEST_LENGTH)
+            }
+        }
+
+        func hashAlgorithm() -> CCHmacAlgorithm {
+            switch variant {
+            case .sha1:
+                return CCHmacAlgorithm(kCCHmacAlgSHA1)
+            case .sha256:
+                return CCHmacAlgorithm(kCCHmacAlgSHA256)
+            }
+        }
+
+        var digest = [UInt8](repeating: 0, count: digestLength())
         let keylen = key.count
         let datalen = self.count
         withUnsafeBytes { dataptr in
             key.withUnsafeBytes { keyptr in
-                CCHmac(CCHmacAlgorithm(kCCHmacAlgSHA1), keyptr.baseAddress, keylen, dataptr.baseAddress, datalen, &digest)
+                CCHmac(hashAlgorithm(), keyptr.baseAddress, keylen, dataptr.baseAddress, datalen, &digest)
             }
         }
         return Data(digest)
         #else
-        return hmacSHA1Internal(key: key)
+        return hmacSHAInternal(key: key, hash: variant)
         #endif
     }
 
-    @usableFromInline func hmacSHA1Internal(key: Data) -> Data {
-        Data(HMAC(key: key.array(), variant: .sha1).authenticate(array()))
+    @usableFromInline func hmacSHAInternal(key: Data, hash variant: HMAC.Variant) -> Data {
+        Data(HMAC(key: key.array(), variant: variant).authenticate(array()))
     }
 }
 
@@ -543,24 +561,28 @@ extension Data {
 
 public final class HMAC {
     public enum Variant {
-        /// We only support SHA1
         case sha1
+        case sha256
 
         var digestLength: Int {
             switch self {
             case .sha1: return 160 / 8
+            case .sha256: return 256
             }
         }
 
         func calculateHash(_ bytes: Array<UInt8>) -> Array<UInt8> {
             switch self {
             case .sha1: return Data(bytes).sha1().array()
+            case .sha256: return Data(bytes).sha256().array()
             }
         }
 
         func blockSize() -> Int {
             switch self {
             case .sha1: return 64
+            case .sha256: return 64
+            //case .sha512: return 128
             }
         }
     }
@@ -726,7 +748,7 @@ public enum OAuth1 {
         let encodedParamStr = paramStr.urlEncoded
         let encodedURL = url.absoluteString.urlEncoded
         let sig = method + "&" + encodedURL + "&" + encodedParamStr
-        let sha1 = sig.utf8Data.hmacSHA1(key: signingKey.utf8Data)
+        let sha1 = sig.utf8Data.hmacSHA(key: signingKey.utf8Data, hash: .sha1)
         return sha1.base64EncodedString(options: [])
     }
 }
