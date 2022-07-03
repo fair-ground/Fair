@@ -76,6 +76,49 @@ public extension Bundle {
     static func isAppFairInstalled() -> Bool {
         appFairURL(for: .main)?.canLaunchScheme() == true
     }
+
+    /// The dictionary containing the AppSouce definition
+    var appSource: Plist? {
+        // self[info: .AppSource]
+        (self.infoDictionary?["AppSource"] as? NSDictionary).flatMap(Plist.init(rawValue:))
+    }
+
+    func appCatalogInfo() throws -> AppCatalogItem? {
+        guard let appName = self.bundleName else { return nil }
+        guard let bundleID = self.bundleID else { return nil }
+        guard let downloadURL = Self.appFairURL(for: self)?.absoluteString else { return nil }
+        guard let downloadURL = URL(string: downloadURL) else { return nil }
+
+        let appSource = NSMutableDictionary(dictionary: self.appSource?.rawValue ?? [:])
+
+        // the rest of the properties will be inherited by
+        let plist = Plist(rawValue: appSource)
+
+        do {
+            dbg("parsing dictionary:", appSource)
+            let item = try plist.appCatalogInfo(appName: appName, bundleID: bundleID, downloadURL: downloadURL)
+            dbg("created AppCatalogItem:", item)
+            return item
+        } catch {
+            dbg("error creating AppCatalogItem:", error)
+            throw error
+        }
+    }
+}
+
+public extension Plist {
+    func appCatalogInfo(appName: String, bundleID: String, downloadURL: URL) throws -> AppCatalogItem {
+        let dict = NSMutableDictionary(dictionary: self.rawValue)
+
+        // inject the mandatory properties
+        dict["name"] = appName
+        dict["bundleIdentifier"] = bundleID
+        dict["downloadURL"] = downloadURL.absoluteString
+
+        // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
+        let item = try AppCatalogItem(json: Plist(rawValue: dict).jsum().json())
+        return item
+    }
 }
 
 public extension URL {
@@ -375,6 +418,22 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                 linkButton(Text("Discussions", bundle: .module, comment: "command name for opening app discussions page"), path: "discussions")
                 linkButton(Text("Issues", bundle: .module, comment: "command name for opening app issues page"), path: "issues")
 
+                if let catalogInfo = try? Bundle.main.appCatalogInfo(),
+                   let fundingLinks = catalogInfo.fundingLinksValidated,
+                   !fundingLinks.isEmpty
+                {
+                    if fundingLinks.count == 1,
+                        let fundingLink = fundingLinks.first {
+                        fundingLinkView(fundingLink)
+                    } else {
+                        Menu {
+                            ForEach(fundingLinks.uniquing(by: \.url), id: \.url, content: fundingLinkView)
+                        } label: {
+                            Text("Support", bundle: .module, comment: "menu title for funding help sub-menu")
+                        }
+                    }
+                }
+
                 #if os(macOS)
                 Divider()
 
@@ -433,11 +492,26 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
         }
     }
 
-    func linkButton(_ title: Text, path: String? = nil) -> some View {
+    @ViewBuilder func linkButton(_ title: Text, path: String? = nil) -> some View {
         Group {
             if let url = URL.fairHubURL(path) {
                 title.link(to: url)
             }
+        }
+    }
+
+    @ViewBuilder func fundingLinkView(_ fundingLink: AppFundingLink) -> some View {
+        if let platformName = fundingLink.platform.platformName,
+            let url = fundingLink.fundingURL {
+            Group {
+//                if let title = fundingLink.localizedTitle {
+//                    Text("\(title) on \(platformName)", bundle: .module, comment: "pattern for funding link with a declared title and a known platform name, such as “Support our App on Patreon”")
+//                } else {
+                    Text("Support on \(platformName)", bundle: .module, comment: "title of the funding link")
+//                }
+            }
+            .link(to: url)
+            .help(fundingLink.localizedDescription ?? fundingLink.localizedTitle ?? "Help fund this app.")
         }
     }
 }

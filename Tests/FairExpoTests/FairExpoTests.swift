@@ -68,6 +68,15 @@ final class FairExpoTests: XCTestCase {
         XCTAssertTrue(output?.hasPrefix("fairtool") == true, output ?? "")
     }
 
+    func testSourceCreateAPI() async throws {
+        let url = URL(string: "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa")!
+
+        let catalog = try await AppCatalogAPI.shared.catalogApp(url: url)
+        XCTAssertEqual("Cloud Cuckoo", catalog.name)
+        XCTAssertEqual("A whimsical game of excitement and delight", catalog.subtitle)
+        XCTAssertEqual(.GITHUB, catalog.fundingLinks?.first?.platform)
+    }
+
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
     func testAppInfoCommandiOS() async throws {
         let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"])

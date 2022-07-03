@@ -50,6 +50,20 @@ public extension Result {
     }
 }
 
+extension Sequence {
+    /// Derives an array from this sequence ensuring that the value at the `Hashable` `keyPath` has not yet been uniquely seen.
+    @inlinable public func uniquing<T: Hashable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+        var seen = Set<T>()
+        return self.filter { element in
+            if seen.insert(element[keyPath: keyPath]).inserted {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+}
+
 public extension Sequence {
     /// Returns this sequence sorted by the given keypath of the element, either ascending (the default) or descending.
     @inlinable func sorting<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) -> [Element] {
