@@ -116,7 +116,20 @@ public extension Plist {
         dict["downloadURL"] = downloadURL.absoluteString
 
         // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
-        let item = try AppCatalogItem(json: Plist(rawValue: dict).jsum().json())
+        var item = try AppCatalogItem(json: Plist(rawValue: dict).jsum().json())
+
+        // clear items that should not be imported from the info plist
+        item.sha256 = nil
+        item.size = nil
+        item.coreSize = nil
+        item.downloadCount = nil
+        item.starCount = nil
+        item.forkCount = nil
+        item.viewCount = nil
+        item.issueCount = nil
+        item.watcherCount = nil
+        item.impressionCount = nil
+
         return item
     }
 }
