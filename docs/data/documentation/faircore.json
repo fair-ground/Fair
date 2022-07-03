@@ -84,6 +84,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
         "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfSelf",
@@ -166,6 +168,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
         "doc:\/\/FairCore\/documentation\/FairCore\/OAuth1",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SignableError",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumerations",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeTraversal",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr"
@@ -2365,6 +2368,137 @@
   "title" : "SeekableFileHandle",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekablefilehandle"
+},
+"doc://FairCore/documentation/FairCore/Signable": {
+  "abstract" : [
+    {
+      "text" : "A Signable instance is capable of storing a signature of the serialized",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "contents of the remainder of the structure. This can be used to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "authenticate the contents of an untrusted JSON payload by",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "validating it against one or more trusted signing keys.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Signable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Signable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Signable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/signable"
+},
+"doc://FairCore/documentation/FairCore/SignableError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SignableError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SignableError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SignableError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SignableError",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/signableerror"
+},
+"doc://FairCore/documentation/FairCore/SigningContainer": {
+  "abstract" : [
+    {
+      "text" : "A signable instance can be serialized along with a signature of the serialized form,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "allowing authentication of an arbitrary payload.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SigningContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SigningContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SigningContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/signingcontainer"
 },
 "doc://FairCore/documentation/FairCore/SingleValueParsingStrategy": {
   "abstract" : [

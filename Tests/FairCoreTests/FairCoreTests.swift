@@ -728,4 +728,37 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual(jwt, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ.bKB04O-OWqZhSxdzOhf2RdM_5nb-fWZgpkKpzoa35ks")
     }
 
+    func testSignable() throws {
+        struct SigDemo : Codable, Signable {
+            var name: String
+            var date: Date
+            var valid: Bool
+            var signatureData: Data?
+        }
+
+        let key = "This is my key of arbitrary length."
+
+        let referenceDate = Date(timeIntervalSinceReferenceDate: 1234)
+        var ob = SigDemo(name: "Marc", date: referenceDate, valid: true)
+        try ob.embedSignature(key: key.utf8Data)
+        XCTAssertEqual("rLHGHKe3VGoI3iP5vEg0ytPwaouSFdMq+xl1MYMKsoc=", ob.signatureData?.base64EncodedString())
+
+        try ob.authenticateSignature(key: key.utf8Data)
+
+        ob.date = Date()
+        XCTAssertThrowsError(try ob.authenticateSignature(key: key.utf8Data), "altered payload should invalidate signature")
+
+        ob.date = referenceDate
+        try ob.authenticateSignature(key: key.utf8Data)
+
+
+        let key2 = "But now my key is wrong!"
+        XCTAssertThrowsError(try ob.authenticateSignature(key: key2.utf8Data), "bad key should not have authenticated the signature")
+
+        // make a new key and re-embed the signature
+        try ob.embedSignature(key: key2.utf8Data)
+        XCTAssertEqual("90e00sczi/6eraYMF4NXZEOq9QGyFzni5q8O4SGH3b0=", ob.signatureData?.base64EncodedString())
+
+    }
+
 }

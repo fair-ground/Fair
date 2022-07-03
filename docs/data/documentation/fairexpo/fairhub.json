@@ -120,7 +120,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/init(hostOrg:authToken:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/init(hostOrg:authToken:fairsealIssuer:fairsealKey:)"
       ],
       "title" : "Initializers"
     },
@@ -128,6 +128,8 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/authToken",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/baseURL",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/fairsealIssuer",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/fairsealKey",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/org"
       ],
       "title" : "Instance Properties"
@@ -1034,7 +1036,89 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/endpoint(action:_:)"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/init(hostOrg:authToken:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/fairsealIssuer": {
+  "abstract" : [
+    {
+      "text" : "The username of the issuer of the fairseal, user for querying purposes",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fairsealIssuer"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/fairsealIssuer",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fairsealIssuer",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/fairsealissuer"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/fairsealKey": {
+  "abstract" : [
+    {
+      "text" : "The signing key for the seal data, used to authenticate payloads",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fairsealKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/fairsealKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fairsealKey",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/fairsealkey"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/init(hostOrg:authToken:fairsealIssuer:fairsealKey:)": {
   "abstract" : [
     {
       "text" : "The FairHub is initialized with a host identifier (e.g., “github.com\/appfair”) that corresponds to the hub being used.",
@@ -1082,6 +1166,40 @@
     },
     {
       "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fairsealIssuer"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fairsealKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
       "text" : "?) "
     },
     {
@@ -1089,12 +1207,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/init(hostOrg:authToken:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/init(hostOrg:authToken:fairsealIssuer:fairsealKey:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(hostOrg:authToken:)",
+  "title" : "init(hostOrg:authToken:fairsealIssuer:fairsealKey:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/init(hostorg:authtoken:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/init(hostorg:authtoken:fairsealissuer:fairsealkey:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/org": {
   "abstract" : [

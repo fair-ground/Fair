@@ -106,8 +106,11 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/SL",
+        "doc:\/\/FairCore\/Se",
+        "doc:\/\/FairCore\/SE",
         "doc:\/\/FairCore\/SQ",
-        "doc:\/\/FairCore\/SH"
+        "doc:\/\/FairCore\/SH",
+        "doc:\/\/FairCore\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -131,6 +134,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(from:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(major:minor:patch:prerelease:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(string:prerelease:)"
       ],
@@ -160,6 +164,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Comparable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Decodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Encodable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -179,6 +185,11 @@
   ]
 , 
 "references": {
+"doc://FairCore/SE": {
+  "identifier" : "doc:\/\/FairCore\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
 "doc://FairCore/SH": {
   "identifier" : "doc:\/\/FairCore\/SH",
   "title" : "Swift.Hashable",
@@ -192,6 +203,11 @@
 "doc://FairCore/SQ": {
   "identifier" : "doc:\/\/FairCore\/SQ",
   "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/Se": {
+  "identifier" : "doc:\/\/FairCore\/Se",
+  "title" : "Swift.Decodable",
   "type" : "unresolvable"
 },
 "doc://FairCore/documentation/FairCore": {
@@ -288,6 +304,28 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/comparable-implementations"
 },
+"doc://FairCore/documentation/FairCore/AppVersion/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/decodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/AppVersion/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/encodable-implementations"
+},
 "doc://FairCore/documentation/FairCore/AppVersion/Equatable-Implementations": {
   "abstract" : [
 
@@ -362,6 +400,48 @@
   "title" : "<(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/_(_:_:)-wl9t"
+},
+"doc://FairCore/documentation/FairCore/AppVersion/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/init(from:)"
 },
 "doc://FairCore/documentation/FairCore/AppVersion/init(major:minor:patch:prerelease:)": {
   "abstract" : [
@@ -853,6 +933,11 @@
   "title" : "versionStringExtended",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/versionstringextended"
+},
+"doc://FairCore/s8SendableP": {
+  "identifier" : "doc:\/\/FairCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

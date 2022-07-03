@@ -89,11 +89,12 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/8FairCore8SignableP",
+        "doc:\/\/FairExpo\/8FairCore16SigningContainerP",
         "doc:\/\/FairExpo\/Se",
         "doc:\/\/FairExpo\/SE",
         "doc:\/\/FairExpo\/SQ",
-        "doc:\/\/FairExpo\/SH",
-        "doc:\/\/FairExpo\/s8SendableP"
+        "doc:\/\/FairExpo\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -128,24 +129,22 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/appSource",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/assets",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/coreSize",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/fairsealVersion",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/generatorVersion",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/permissions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/signature",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/signatureData",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/tint"
       ],
       "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Version"
-      ],
-      "title" : "Enumerations"
     },
     {
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Decodable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Encodable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Equatable-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Equatable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Signable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/SigningContainer-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -164,6 +163,16 @@
   ]
 , 
 "references": {
+"doc://FairExpo/8FairCore16SigningContainerP": {
+  "identifier" : "doc:\/\/FairExpo\/8FairCore16SigningContainerP",
+  "title" : "FairCore.SigningContainer",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/8FairCore8SignableP": {
+  "identifier" : "doc:\/\/FairExpo\/8FairCore8SignableP",
+  "title" : "FairCore.Signable",
+  "type" : "unresolvable"
+},
 "doc://FairExpo/SE": {
   "identifier" : "doc:\/\/FairExpo\/SE",
   "title" : "Swift.Encodable",
@@ -304,36 +313,27 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/equatable-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/Version": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/Signable-Implementations": {
   "abstract" : [
 
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Version"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Version",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Version"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairSeal.Version",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Signable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Signable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/version"
+  "url" : "\/documentation\/fairexpo\/fairseal\/signable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairSeal/SigningContainer-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/SigningContainer-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "SigningContainer Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal\/signingcontainer-implementations"
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/appOrg": {
   "abstract" : [
@@ -457,7 +457,7 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : "]?"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/assets",
@@ -508,10 +508,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/coresize"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/fairsealVersion": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/generatorVersion": {
   "abstract" : [
     {
-      "text" : "The version of the fairseal JSON",
+      "text" : "The version of the fairtool library that initially created this seal",
       "type" : "text"
     }
   ],
@@ -526,7 +526,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "fairsealVersion"
+      "text" : "generatorVersion"
     },
     {
       "kind" : "text",
@@ -534,29 +534,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A4SealV",
-      "text" : "FairSeal"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A4SealV7VersionO",
-      "text" : "Version"
+      "preciseIdentifier" : "s:8FairCore10AppVersionV",
+      "text" : "AppVersion"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/fairsealVersion",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/generatorVersion",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "fairsealVersion",
+  "title" : "generatorVersion",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/fairsealversion"
+  "url" : "\/documentation\/fairexpo\/fairseal\/generatorversion"
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/init(assets:permissions:appSource:coreSize:tint:)": {
   "abstract" : [
@@ -746,7 +737,7 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : "]?"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/permissions",
@@ -755,6 +746,85 @@
   "title" : "permissions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/permissions"
+},
+"doc://FairExpo/documentation/FairExpo/FairSeal/signature": {
+  "abstract" : [
+    {
+      "text" : "The signature for this payload, authenticating the fairseal issuer with HMAC-256",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "signature"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/signature",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "signature",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal\/signature"
+},
+"doc://FairExpo/documentation/FairExpo/FairSeal/signatureData": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "signatureData"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/signatureData",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "signatureData",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal\/signaturedata"
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/tint": {
   "abstract" : [
@@ -796,11 +866,6 @@
   "title" : "tint",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/tint"
-},
-"doc://FairExpo/s8SendableP": {
-  "identifier" : "doc:\/\/FairExpo\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }
