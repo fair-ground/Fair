@@ -213,7 +213,7 @@ final class FairHubTests: XCTestCase {
 //        }
 
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-        let configuration = try FairHub.ProjectConfiguration() // , allowName: [], denyName: [], allowFrom: [".*@.*.EDU", ".*@appfair.net"], denyFrom: [], allowLicense: ["AGPL-3.0"])
+        let configuration = try FairHub.ProjectConfiguration() 
         let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
