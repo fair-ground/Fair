@@ -29,9 +29,9 @@ macOS (12+) and Linux. The easiest way to get started with the
 utility for [Homebrew](https://brew.sh) users is to run the commands:
 
 ```shell
-% brew tap appfair/app
+% brew tap fair-ground/tool
 
-==> Tapping appfair/app
+==> Tapping fair-ground/tool
 Tapped 37 casks and 2 formulae (53 files, 778.2KB).
 
 % brew install fairtool
@@ -39,7 +39,7 @@ Tapped 37 casks and 2 formulae (53 files, 778.2KB).
 ==> Downloading https://github.com/fair-ground/Fair/releases/download/0.4.36/fai
 ==> Downloading from https://objects.githubusercontent.com/github-production-rel
 ######################################################################## 100.0%
-==> Installing fairtool from appfair/app
+==> Installing fairtool from fair-ground/tool
 ==> Pouring fairtool-0.4.36.arm64_monterey.bottle.tar.gz
 🍺  /opt/homebrew/Cellar/fairtool/0.4.36: 6 files, 9.9MB
 
