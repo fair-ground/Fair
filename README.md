@@ -29,19 +29,10 @@ macOS (12+) and Linux. The easiest way to get started with the
 utility for [Homebrew](https://brew.sh) users is to run the commands:
 
 ```shell
-marc@zap ~ % brew install fair-ground/tool/fairtool
+% brew install fair-ground/tool/fairtool
 
 ==> Tapping fair-ground/tool
-Cloning into '/opt/homebrew/Library/Taps/fair-ground/homebrew-tool'...
-remote: Enumerating objects: 30, done.
-remote: Counting objects: 100% (30/30), done.
-remote: Compressing objects: 100% (27/27), done.
-remote: Total 30 (delta 7), reused 10 (delta 2), pack-reused 0
-Receiving objects: 100% (30/30), 15.79 KiB | 5.26 MiB/s, done.
-Resolving deltas: 100% (7/7), done.
-Tapped 2 formulae (15 files, 57.2KB).
 ==> Downloading https://github.com/fair-ground/Fair/releases/download/0.4.51/fai
-######################################################################## 100.0%
 ==> Installing fairtool from fair-ground/tool
 ==> Pouring fairtool-0.4.51.arm64_monterey.bottle.tar.gz
 🍺  /opt/homebrew/Cellar/fairtool/0.4.51: 6 files, 10.4MB
