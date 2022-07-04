@@ -213,7 +213,7 @@ final class FairHubTests: XCTestCase {
 //        }
 
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
-        let configuration = try FairHub.ProjectConfiguration() 
+        let configuration = try FairHub.ProjectConfiguration()
         let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
@@ -320,6 +320,25 @@ final class FairHubTests: XCTestCase {
     }
 
 
+    func testFairSealSigning() throws {
+        let key = "OTFBRTExNEUtQzIxNi00MzQ0LTkyMjktNjM5QTI1QjZGNkRF" // echo -n "91AE114E-C216-4344-9229-639A25B6F6DE" | base64
+        XCTAssertEqual("91AE114E-C216-4344-9229-639A25B6F6DE", Data(base64Encoded: key)?.utf8String)
+
+        var seal = FairSeal()
+        let sig = { try seal.sign(key: XCTUnwrap(Data(base64Encoded: key))).base64EncodedString() }
+
+        seal.generatorVersion = nil // clear the genrator version which is set on init
+        XCTAssertEqual("{}", seal.debugJSON)
+
+        XCTAssertEqual("OW2qU590oQOhzk9wUdRSt+BaSIBiQkY+6C8dxdv3t5Q=", try sig(), "signature of empty JSON should be consistent")
+
+        seal.permissions = []
+        XCTAssertEqual("bJwxJc1P3ebSID2jztUZ/6BKnmrl6eE4uU8wGbsS5dw=", try sig(), "signature on empty array should differ from null")
+
+        seal.appSource = AppCatalogItem(name: "App Name", bundleIdentifier: "app.appName", downloadURL: URL(string: "about:blank")!)
+        XCTAssertEqual("+arE45SfHJamOXtDvrT3lwB4tcSOogebqbJl2X0/d6Y=", try sig(), "seal with catalog information should be consistent")
+
+    }
 
 }
 #endif // os(Windows)

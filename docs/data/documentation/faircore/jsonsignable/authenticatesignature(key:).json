@@ -9,18 +9,18 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Signable"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/authenticateSignature(key:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/authenticateSignature(key:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore8SignablePAAE21authenticateSignature3keyy10Foundation4DataV_tKF",
+    "externalID" : "s:8FairCore12JSONSignablePAAE21authenticateSignature3keyy10Foundation4DataV_tKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -135,7 +135,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/signable\/authenticatesignature(key:)"
+        "\/documentation\/faircore\/jsonsignable\/authenticatesignature(key:)"
       ],
       "traits" : [
         {
@@ -160,7 +160,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/Signable": {
+"doc://FairCore/documentation/FairCore/JSONSignable": {
   "abstract" : [
     {
       "text" : "A Signable instance is capable of storing a signature of the serialized",
@@ -202,23 +202,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Signable"
+      "text" : "JSONSignable"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Signable"
+      "text" : "JSONSignable"
     }
   ],
   "role" : "symbol",
-  "title" : "Signable",
+  "title" : "JSONSignable",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable"
+  "url" : "\/documentation\/faircore\/jsonsignable"
 },
-"doc://FairCore/documentation/FairCore/Signable/authenticateSignature(key:)": {
+"doc://FairCore/documentation/FairCore/JSONSignable/authenticateSignature(key:)": {
   "abstract" : [
     {
       "text" : "Verifies that this payload was signed with the given key",
@@ -264,12 +264,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/authenticateSignature(key:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/authenticateSignature(key:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "authenticateSignature(key:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable\/authenticatesignature(key:)"
+  "url" : "\/documentation\/faircore\/jsonsignable\/authenticatesignature(key:)"
 }
 }
 }

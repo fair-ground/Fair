@@ -89,7 +89,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/8FairCore8SignableP",
+        "doc:\/\/FairExpo\/8FairCore12JSONSignableP",
         "doc:\/\/FairExpo\/8FairCore16SigningContainerP",
         "doc:\/\/FairExpo\/Se",
         "doc:\/\/FairExpo\/SE",
@@ -143,7 +143,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Decodable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Encodable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Equatable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Signable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/JSONSignable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/SigningContainer-Implementations"
       ],
       "title" : "Default Implementations"
@@ -163,14 +163,14 @@
   ]
 , 
 "references": {
+"doc://FairExpo/8FairCore12JSONSignableP": {
+  "identifier" : "doc:\/\/FairExpo\/8FairCore12JSONSignableP",
+  "title" : "FairCore.JSONSignable",
+  "type" : "unresolvable"
+},
 "doc://FairExpo/8FairCore16SigningContainerP": {
   "identifier" : "doc:\/\/FairExpo\/8FairCore16SigningContainerP",
   "title" : "FairCore.SigningContainer",
-  "type" : "unresolvable"
-},
-"doc://FairExpo/8FairCore8SignableP": {
-  "identifier" : "doc:\/\/FairExpo\/8FairCore8SignableP",
-  "title" : "FairCore.Signable",
   "type" : "unresolvable"
 },
 "doc://FairExpo/SE": {
@@ -313,16 +313,16 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/equatable-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/Signable-Implementations": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/JSONSignable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/Signable-Implementations",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/JSONSignable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Signable Implementations",
+  "title" : "JSONSignable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/signable-implementations"
+  "url" : "\/documentation\/fairexpo\/fairseal\/jsonsignable-implementations"
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/SigningContainer-Implementations": {
   "abstract" : [
@@ -586,7 +586,7 @@
     },
     {
       "kind" : "text",
-      "text" : "], "
+      "text" : "]?, "
     },
     {
       "kind" : "externalParam",
@@ -603,7 +603,7 @@
     },
     {
       "kind" : "text",
-      "text" : "], "
+      "text" : "]?, "
     },
     {
       "kind" : "externalParam",

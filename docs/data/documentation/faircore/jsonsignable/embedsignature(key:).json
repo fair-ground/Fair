@@ -17,18 +17,18 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Signable"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/embedSignature(key:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/embedSignature(key:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore8SignablePAAE14embedSignature3keyy10Foundation4DataV_tKF",
+    "externalID" : "s:8FairCore12JSONSignablePAAE14embedSignature3keyy10Foundation4DataV_tKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -151,7 +151,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/signable\/embedsignature(key:)"
+        "\/documentation\/faircore\/jsonsignable\/embedsignature(key:)"
       ],
       "traits" : [
         {
@@ -176,7 +176,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/Signable": {
+"doc://FairCore/documentation/FairCore/JSONSignable": {
   "abstract" : [
     {
       "text" : "A Signable instance is capable of storing a signature of the serialized",
@@ -218,23 +218,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Signable"
+      "text" : "JSONSignable"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Signable"
+      "text" : "JSONSignable"
     }
   ],
   "role" : "symbol",
-  "title" : "Signable",
+  "title" : "JSONSignable",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable"
+  "url" : "\/documentation\/faircore\/jsonsignable"
 },
-"doc://FairCore/documentation/FairCore/Signable/embedSignature(key:)": {
+"doc://FairCore/documentation/FairCore/JSONSignable/embedSignature(key:)": {
   "abstract" : [
     {
       "text" : "This will clear the current signature, generate a signature for the payload,",
@@ -288,12 +288,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/embedSignature(key:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/embedSignature(key:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "embedSignature(key:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable\/embedsignature(key:)"
+  "url" : "\/documentation\/faircore\/jsonsignable\/embedsignature(key:)"
 }
 }
 }

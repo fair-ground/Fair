@@ -924,14 +924,14 @@ extension FairHub {
 
 /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
 /// and other build-time information
-public struct FairSeal : Codable, Hashable, Signable {
+public struct FairSeal : Codable, Hashable, JSONSignable {
     // legacy fields that have been removed:
     /// The version of the fairseal JSON
     // public private(set) var fairsealVersion: Version?
     // public enum Version : Int, Pure, CaseIterable { case v1 = 1 }
 
     /// The version of the fairtool library that initially created this seal
-    public var generatorVersion: AppVersion?
+    public internal(set) var generatorVersion: AppVersion?
 
     /// The permission for this app
     public var permissions: [AppPermission]?
@@ -966,7 +966,7 @@ public struct FairSeal : Codable, Hashable, Signable {
         set { signature = newValue }
     }
 
-    public init(assets: [Asset], permissions: [AppPermission], appSource: AppCatalogItem?, coreSize: Int?, tint: String?) {
+    public init(assets: [Asset]? = nil, permissions: [AppPermission]? = nil, appSource: AppCatalogItem? = nil, coreSize: Int? = nil, tint: String? = nil) {
         self.generatorVersion = Bundle.fairCoreVersion
         //self.fairsealVersion = Version.allCases.last!
 

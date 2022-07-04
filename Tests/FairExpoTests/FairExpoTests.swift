@@ -356,6 +356,18 @@ final class FairExpoTests: XCTestCase {
 
         let instance = Demo(name: "Abc", date: Date(timeIntervalSinceReferenceDate: 4321))
 
+        struct SignableJSum<T: Encodable> : SigningContainer {
+            let rawValue: T
+
+            init(_ rawValue: T) {
+                self.rawValue = rawValue
+            }
+
+            func encode(to encoder: Encoder) throws {
+                try rawValue.encode(to: encoder)
+            }
+        }
+
         let signable = SignableJSum(instance)
         let sig = try signable.sign(key: key.utf8Data)
         XCTAssertEqual("lahFynjU/GPoeQA2xwqeiNE3i3nLVVvSvNhY0C0Ok1Q=", sig.base64EncodedString())
@@ -363,7 +375,7 @@ final class FairExpoTests: XCTestCase {
         do {
             // re-create the SignableJSum as a top-level type;
             // the signatures should match
-            struct DemoSignable : Encodable, Signable {
+            struct DemoSignable : Encodable, JSONSignable {
                 let name: String
                 let date: Date
                 var signatureData: Data?

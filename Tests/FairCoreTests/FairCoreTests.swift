@@ -689,7 +689,18 @@ final class FairCoreTests: XCTestCase {
         let msg = "The quick brown fox jumps over the lazy dog"
         let key = "key"
         let sha1 = msg.utf8Data.hmacSHA(key: key.utf8Data, hash: .sha1)
-        XCTAssertEqual("de7c9b85b8b78aa6bc8a7a36f70a90701c9db4d9", sha1.hex())
+        XCTAssertEqual("3nybhbi3iqa8ino29wqQcBydtNk=", sha1.base64EncodedString())
+    }
+
+    func testHMACCompat() throws {
+        // echo -n "value-to-digest" | openssl dgst -sha256 -hmac "secret-key-here" -binary | openssl enc -base64 -A
+        // G73zFnFYggHRpmwuRFPgch6ctqEfyhZu33j5PQWYm+4=
+
+        let msg = "value-to-digest"
+        let key = "secret-key-here"
+        let sha1 = msg.utf8Data.hmacSHA(key: key.utf8Data, hash: .sha256)
+        XCTAssertEqual("G73zFnFYggHRpmwuRFPgch6ctqEfyhZu33j5PQWYm+4=", sha1.base64EncodedString())
+
     }
 
     /// https://jwt.io/introduction/
@@ -728,8 +739,8 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual(jwt, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1MTYyMzkwMjIsIm5hbWUiOiJKb2huIERvZSIsInN1YiI6IjEyMzQ1Njc4OTAifQ.bKB04O-OWqZhSxdzOhf2RdM_5nb-fWZgpkKpzoa35ks")
     }
 
-    func testSignable() throws {
-        struct SigDemo : Codable, Signable {
+    func testJSONSignable() throws {
+        struct SigDemo : Codable, JSONSignable {
             var name: String
             var date: Date
             var valid: Bool
@@ -761,4 +772,25 @@ final class FairCoreTests: XCTestCase {
 
     }
 
+    /// Verifies example case in ``JSONSignable`` header.
+    func testJSONSignableCompat() throws {
+        struct Inst : Encodable, SigningContainer {
+            let b: String
+            let d: Bool?
+            let a: Int
+            let e: [E]
+            struct E: Encodable {
+                let f: Double?
+                let g: String?
+            }
+        }
+
+        // echo '{ "b": "C", "d": false, "a":2, "e": [{ "f": 1.2 }] }' | jq -cjS | openssl dgst -sha256 -hmac "secret-key-here" -binary | openssl enc -base64 -A
+        let inst = Inst(b: "C", d: false, a: 2, e: [Inst.E(f: 1.2, g: nil)])
+
+        XCTAssertEqual(inst.debugJSON, #"{"a":2,"b":"C","d":false,"e":[{"f":1.2}]}"#)
+
+        /// the normalized data to be signed is: `{"a":2,"b":"C","d":false,"e":[{"f":1.2}]}`
+        XCTAssertEqual("8JKugJUa41Uaf+lG1q6ndFpqGPxTPkLU9V17kkRBXB4=", try inst.sign(key: "secret-key-here".utf8Data).base64EncodedString())
+    }
 }

@@ -78,13 +78,13 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOfSelf",
         "doc:\/\/FairCore\/documentation\/FairCore\/EnumerableFlag",
         "doc:\/\/FairCore\/documentation\/FairCore\/ExpressibleByArgument",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable",
         "doc:\/\/FairCore\/documentation\/FairCore\/ParsableArguments",
         "doc:\/\/FairCore\/documentation\/FairCore\/ParsableCommand",
         "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
         "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
         "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
         "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
@@ -1457,6 +1457,64 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jobj"
 },
+"doc://FairCore/documentation/FairCore/JSONSignable": {
+  "abstract" : [
+    {
+      "text" : "A Signable instance is capable of storing a signature of the serialized",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "contents of the remainder of the structure. This can be used to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "authenticate the contents of an untrusted JSON payload by",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "validating it against one or more trusted signing keys.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSONSignable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSONSignable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONSignable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsonsignable"
+},
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
     {
@@ -2368,64 +2426,6 @@
   "title" : "SeekableFileHandle",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekablefilehandle"
-},
-"doc://FairCore/documentation/FairCore/Signable": {
-  "abstract" : [
-    {
-      "text" : "A Signable instance is capable of storing a signature of the serialized",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "contents of the remainder of the structure. This can be used to",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "authenticate the contents of an untrusted JSON payload by",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "validating it against one or more trusted signing keys.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Signable"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Signable"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Signable",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable"
 },
 "doc://FairCore/documentation/FairCore/SignableError": {
   "abstract" : [

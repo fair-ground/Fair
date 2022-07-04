@@ -38,11 +38,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore8SignableP",
+    "externalID" : "s:8FairCore12JSONSignableP",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -54,7 +54,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "Signable"
+        "text" : "JSONSignable"
       }
     ],
     "modules" : [
@@ -65,13 +65,13 @@
     "navigatorTitle" : [
       {
         "kind" : "identifier",
-        "text" : "Signable"
+        "text" : "JSONSignable"
       }
     ],
     "role" : "symbol",
     "roleHeading" : "Protocol",
     "symbolKind" : "protocol",
-    "title" : "Signable"
+    "title" : "JSONSignable"
   },
   "primaryContentSections" : [
     {
@@ -94,7 +94,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "Signable"
+              "text" : "JSONSignable"
             },
             {
               "kind" : "text",
@@ -122,7 +122,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The signing will serialize the instance (sans any pre-existing signature)",
+              "text" : "The signing will serialize the instance (minus any pre-existing signature)",
               "type" : "text"
             },
             {
@@ -130,7 +130,7 @@
               "type" : "text"
             },
             {
-              "text" : "to compact JSON with ordered keys and ISO-8601 date fomatting",
+              "text" : "to compact and key-ordered JSON with ISO-8601 date fomatting,",
               "type" : "text"
             },
             {
@@ -138,7 +138,7 @@
               "type" : "text"
             },
             {
-              "text" : "and generate a hash-based message authentication code",
+              "text" : "then generates a hash-based message authentication code",
               "type" : "text"
             },
             {
@@ -148,11 +148,12 @@
             {
               "text" : "(HMAC with SHA256) of the UTF-8 JSON data.",
               "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
             {
               "text" : "The signature will then be embedded within the instance’s",
               "type" : "text"
@@ -162,7 +163,7 @@
               "type" : "text"
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/signatureData",
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/signatureData",
               "isActive" : true,
               "type" : "reference"
             },
@@ -192,6 +193,62 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A compatible a signature creation method can be achieved by",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "using ",
+              "type" : "text"
+            },
+            {
+              "code" : "jq",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " to format the JSON compactly with ordered keys",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "and then use ",
+              "type" : "text"
+            },
+            {
+              "code" : "openssl",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " to generate an HMAC-SHA256 code",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "from the bytes, then then base64 encode the code.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "% cat file.json | jq -cjS | openssl dgst -sha256 -hmac \"secret-key-here\" -binary | openssl enc -base64 -A"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
         },
         {
           "inlineContent" : [
@@ -252,14 +309,14 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/signatureData"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/signatureData"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/authenticateSignature(key:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/embedSignature(key:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/authenticateSignature(key:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/embedSignature(key:)"
       ],
       "title" : "Instance Methods"
     }
@@ -267,7 +324,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/signable"
+        "\/documentation\/faircore\/jsonsignable"
       ],
       "traits" : [
         {
@@ -297,7 +354,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/Signable": {
+"doc://FairCore/documentation/FairCore/JSONSignable": {
   "abstract" : [
     {
       "text" : "A Signable instance is capable of storing a signature of the serialized",
@@ -339,23 +396,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Signable"
+      "text" : "JSONSignable"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Signable"
+      "text" : "JSONSignable"
     }
   ],
   "role" : "symbol",
-  "title" : "Signable",
+  "title" : "JSONSignable",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable"
+  "url" : "\/documentation\/faircore\/jsonsignable"
 },
-"doc://FairCore/documentation/FairCore/Signable/authenticateSignature(key:)": {
+"doc://FairCore/documentation/FairCore/JSONSignable/authenticateSignature(key:)": {
   "abstract" : [
     {
       "text" : "Verifies that this payload was signed with the given key",
@@ -401,14 +458,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/authenticateSignature(key:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/authenticateSignature(key:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "authenticateSignature(key:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable\/authenticatesignature(key:)"
+  "url" : "\/documentation\/faircore\/jsonsignable\/authenticatesignature(key:)"
 },
-"doc://FairCore/documentation/FairCore/Signable/embedSignature(key:)": {
+"doc://FairCore/documentation/FairCore/JSONSignable/embedSignature(key:)": {
   "abstract" : [
     {
       "text" : "This will clear the current signature, generate a signature for the payload,",
@@ -462,14 +519,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/embedSignature(key:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/embedSignature(key:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "embedSignature(key:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable\/embedsignature(key:)"
+  "url" : "\/documentation\/faircore\/jsonsignable\/embedsignature(key:)"
 },
-"doc://FairCore/documentation/FairCore/Signable/signatureData": {
+"doc://FairCore/documentation/FairCore/JSONSignable/signatureData": {
   "abstract" : [
     {
       "text" : "The field that will store the signature of this codable instance",
@@ -503,13 +560,13 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Signable\/signatureData",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSONSignable\/signatureData",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "signatureData",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signable\/signaturedata"
+  "url" : "\/documentation\/faircore\/jsonsignable\/signaturedata"
 },
 "doc://FairCore/documentation/FairCore/SigningContainer": {
   "abstract" : [
