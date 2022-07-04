@@ -49,7 +49,7 @@ jobs:
 
       - name: Check fairtool formula
         run: |
-          brew tap appfair/app
+          brew tap fair-ground/tool
           brew install fairtool-head
           brew test fairtool-head
           fairtool-head version
@@ -86,7 +86,7 @@ jobs:
 
       - name: Check fairtool formula
         run: |
-          brew tap appfair/app
+          brew tap fair-ground/tool
           brew install fairtool-head
           brew test fairtool-head
           fairtool-head version

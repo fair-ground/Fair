@@ -40,7 +40,7 @@ jobs:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_FAIRTOOL_PUBLISH_TOKEN }}
         with:
           repository: fair-ground/Fair
-          tap: appfair/homebrew-app
+          tap: fair-ground/homebrew-tool
           name: fairtool
           formula: Formula/fairtool.rb
 
@@ -52,12 +52,12 @@ jobs:
       - name: Build bottle (x86_64)
         run: |
           #HOMEBREW_FAIRTOOL_ARCH="x86_64" 
-          brew install --build-bottle --verbose appfair/app/fairtool
+          brew install --build-bottle --verbose fair-ground/tool/fairtool
           file `which fairtool`
           fairtool version
-          brew bottle --no-rebuild --verbose appfair/app/fairtool
+          brew bottle --no-rebuild --verbose fair-ground/tool/fairtool
           ls -la *.gz
-          brew remove appfair/app/fairtool
+          brew remove fair-ground/tool/fairtool
 
       # There's something hinky with the bottling process;
       # about 1/2 the time it produces a very corrupt binary
@@ -87,12 +87,12 @@ jobs:
 
       - name: Build bottle (arm64)
         run: |
-          HOMEBREW_FAIRTOOL_ARCH="arm64" brew install --build-bottle --verbose appfair/app/fairtool
+          HOMEBREW_FAIRTOOL_ARCH="arm64" brew install --build-bottle --verbose fair-ground/tool/fairtool
           file `which fairtool`
           # fairtool version # no reverse-rosetta
-          brew bottle --no-rebuild --verbose appfair/app/fairtool
+          brew bottle --no-rebuild --verbose fair-ground/tool/fairtool
           ls -la *.gz
-          brew remove appfair/app/fairtool
+          brew remove fair-ground/tool/fairtool
 
       - name: Upload bottle (arm64)
         uses: actions/upload-release-asset@v1.0.1
@@ -111,12 +111,12 @@ jobs:
     steps:
       - name: Build bottle
         run: |
-          brew tap appfair/app
-          brew install --build-bottle --verbose appfair/app/fairtool
+          brew tap fair-ground/tool
+          brew install --build-bottle --verbose fair-ground/tool/fairtool
           fairtool version
-          brew bottle --no-rebuild --verbose appfair/app/fairtool
+          brew bottle --no-rebuild --verbose fair-ground/tool/fairtool
           ls -la *.gz
-          brew remove appfair/app/fairtool
+          brew remove fair-ground/tool/fairtool
 
       - name: Upload bottle
         uses: actions/upload-release-asset@v1.0.1
@@ -138,7 +138,7 @@ jobs:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_FAIRTOOL_PUBLISH_TOKEN }}
         with:
           repository: fair-ground/Fair
-          tap: appfair/homebrew-app
+          tap: fair-ground/homebrew-tool
           name: fairtool
           formula: Formula/fairtool.rb
           message: |
@@ -152,6 +152,6 @@ jobs:
 
       - name: Check released bottle
         run: |
-          brew install --force-bottle appfair/app/fairtool
+          brew install --force-bottle fair-ground/tool/fairtool
           fairtool version
 

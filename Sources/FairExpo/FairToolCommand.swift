@@ -2101,6 +2101,7 @@ public struct JSONCommand : AsyncParsableCommand {
 
         private func keyData() throws -> Data {
             if let data = Data(base64Encoded: keyBase64) {
+                //dbg(wip("####"), "KEY:", data.utf8String)
                 return data
             }
 
@@ -2113,7 +2114,8 @@ public struct JSONCommand : AsyncParsableCommand {
             return executeSeries(inputs, initialValue: nil) { input, prev in
                 msg(.info, "signing input:", input)
                 var json = try JSum(json: Data(contentsOf: URL(fileOrScheme: input)))
-                let sig = try SignableJSum(json).sign(key: try keyData())
+                json[property] = nil // clear the signature if it exists
+                let sig = try json.sign(key: try keyData())
                 json[property] = .str(sig.base64EncodedString()) // embed the signature into the JSON
                 return json
             }
@@ -2171,7 +2173,10 @@ public struct JSONCommand : AsyncParsableCommand {
 
                     json[property] = nil
                     let jobj = JSum.obj(json)
-                    try SignableJSum(jobj).verify(signature: sigData, key: keyData())
+                    let resigned = try jobj.sign(key: keyData())
+                    if resigned != sigData {
+                        throw SignableError.signatureMismatch//(resigned, sigData)
+                    }
                     return jobj // returns the validated JSON without the signature
                 }
             }
@@ -2180,17 +2185,9 @@ public struct JSONCommand : AsyncParsableCommand {
 
 }
 
-struct SignableJSum<T: Encodable> : SigningContainer {
-    let rawValue: T
-
-    init(_ rawValue: T) {
-        self.rawValue = rawValue
-    }
-
-    func encode(to encoder: Encoder) throws {
-        try rawValue.encode(to: encoder)
-    }
+extension JSum : SigningContainer {
 }
+
 
 extension JSum : FairCommandOutput {
 }

@@ -815,6 +815,7 @@ extension SigningContainer {
         let json = try Self.signatureEncoder.encode(self)
         //dbg("### encoding:", String(data: json, encoding: .utf8)!)
         let data = json.hmacSHA(key: key, hash: Self.signatureHash)
+        //dbg("### sig:", wip(data).base64EncodedString())
         return data
     }
 
@@ -830,26 +831,37 @@ extension SigningContainer {
 /// authenticate the contents of an untrusted JSON payload by
 /// validating it against one or more trusted signing keys.
 ///
-/// The signing will serialize the instance (sans any pre-existing signature)
-/// to compact JSON with ordered keys and ISO-8601 date fomatting
-/// and generate a hash-based message authentication code
+/// The signing will serialize the instance (minus any pre-existing signature)
+/// to compact and key-ordered JSON with ISO-8601 date fomatting,
+/// then generates a hash-based message authentication code
 /// (HMAC with SHA256) of the UTF-8 JSON data.
+///
 /// The signature will then be embedded within the instance's
 /// ``signatureData`` field, which can be used to later
 /// authenticate the instance with the ``authenticateSignature``
 /// method.
 ///
+/// A compatible a signature creation method can be achieved by
+/// using `jq` to format the JSON compactly with ordered keys
+/// and then use `openssl` to generate an HMAC-SHA256 code
+/// from the bytes, then then base64 encode the code.
+///
+/// ```
+/// % cat file.json | jq -cjS | openssl dgst -sha256 -hmac "secret-key-here" -binary | openssl enc -base64 -A
+/// ```
+///
+///
 /// It is important to note that neither signing nor authentication
 /// is performed automatically upon codable serialization or deserialization.
 /// JSON can be validly deserialized to an instance with an invalid signature,
 /// since the signature cannot be authenticated until a key is provided.
-public protocol Signable : SigningContainer {
+public protocol JSONSignable : SigningContainer {
     /// The field that will store the signature of this codable instance
     var signatureData: Data? { get set }
 }
 
 
-extension Signable {
+extension JSONSignable {
     /// This will clear the current signature, generate a signature for the payload,
     /// and them embed the signature back into the type.
     public mutating func embedSignature(key: Data) throws {
