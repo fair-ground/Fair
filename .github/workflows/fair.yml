@@ -17,7 +17,7 @@
 
 
 # This workflow runs in both the trusted base repository at
-# https://www.github.com/appfair/App/actions as well as in
+# https://www.github.com/FAIR-GROUND/App/actions as well as in
 # and forks that have enabled actions. The latter workflow
 # will build the app and create a release in the fork's repository,
 # while the workflow in the base repository will
@@ -153,8 +153,7 @@ jobs:
 
       - name: Install fairtool
         run: |
-          brew tap fair-ground/tool
-          brew install fairtool
+          brew install fair-ground/tool/fairtool
           fairtool version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
@@ -464,8 +463,7 @@ jobs:
 
       - name: Install fairtool
         run: |
-          brew tap fair-ground/tool
-          brew install fairtool
+          brew install fair-ground/tool/fairtool
           fairtool version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
