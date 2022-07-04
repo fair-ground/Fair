@@ -86,6 +86,10 @@ jobs:
         run: |
           echo "Creating release ${{env.BUNDLE_ID}} ${{ inputs.version }}"
 
+          # Update the app name in the README.md
+          sed -i 's;App-Name;${{ env.ORGNAME }};g' README.md
+
+          # Update the AppFairApp.xcconfig with the app name and version
           sed -i 's;^PRODUCT_NAME[ ]*=.*;PRODUCT_NAME = ${{ env.PRODUCT_NAME }};g' AppFairApp.xcconfig
           sed -i 's;^PRODUCT_BUNDLE_IDENTIFIER[ ]*=.*;PRODUCT_BUNDLE_IDENTIFIER = ${{ env.BUNDLE_ID }};g' AppFairApp.xcconfig
           sed -i 's;^MARKETING_VERSION[ ]*=.*;MARKETING_VERSION = ${{ inputs.version }};g' AppFairApp.xcconfig
@@ -94,6 +98,7 @@ jobs:
           git config --global user.email 'fair-ground@users.noreply.github.com'
 
           git add AppFairApp.xcconfig
+          git add README.md
           git commit -m "${{ env.PRODUCT_NAME }} ${{ inputs.version }}"
           git push
 
