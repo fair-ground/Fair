@@ -84,19 +84,31 @@ public struct AppVersion : Pure, Comparable {
 
     /// Initialize the version by parsing the string
     public init?(string versionString: String, prerelease: Bool) {
+        guard let version = Self.parse(string: versionString, prerelease: prerelease) else {
+            return nil
+        }
+        self = version
+    }
+
+    private static func parse(string versionString: String, prerelease: Bool) -> Self? {
         let versionElements = versionString.split(separator: ".", omittingEmptySubsequences: false).map({ UInt(String($0)) })
         if versionElements.count != 3 { return nil }
         let versionNumbers = versionElements.compactMap({ $0 })
         if versionNumbers.count != 3 { return nil }
 
-        self.major = versionNumbers[0]
-        self.minor = versionNumbers[1]
-        self.patch = versionNumbers[2]
-        self.prerelease = prerelease
+
+        let major = versionNumbers[0]
+        let minor = versionNumbers[1]
+        let patch = versionNumbers[2]
+        let prerelease = prerelease
+
+        let version = Self(major: major, minor: minor, patch: patch, prerelease: prerelease)
 
         // this is what prevents us from successfully parsing ".1.2.3"
-        if !versionString.hasPrefix("\(self.major)") { return nil }
-        if !versionString.hasSuffix("\(self.patch)") { return nil }
+        if !version.versionString.hasPrefix("\(version.major)") { return nil }
+        if !version.versionString.hasSuffix("\(version.patch)") { return nil }
+
+        return version
     }
 
     public static func < (lhs: AppVersion, rhs: AppVersion) -> Bool {
@@ -115,5 +127,22 @@ public struct AppVersion : Pure, Comparable {
     /// The version string in the form `major`.`minor`.`patch` with a "β" character appended if this is a pre-release
     public var versionStringExtended: String {
         versionString + (prerelease == true ? "β" : "")
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        try versionStringExtended.encode(to: encoder)
+    }
+
+    public init(from decoder: Decoder) throws {
+        let str = try decoder.singleValueContainer().decode(String.self)
+        let version = Self.init(string: str, prerelease: false)
+        guard let version = version else {
+            throw Errors.cannotParseVersionString(str)
+        }
+        self = version
+    }
+
+    public enum Errors : Error {
+        case cannotParseVersionString(String)
     }
 }

@@ -816,6 +816,12 @@ extension SigningContainer {
         let data = json.hmacSHA(key: key, hash: Self.signatureHash)
         return data
     }
+
+    public func verify(signature: Data, key: Data) throws {
+        if try sign(key: key) != signature {
+            throw SignableError.signatureMismatch//(signature, signed)
+        }
+    }
 }
 
 /// A Signable instance is capable of storing a signature of the serialized
@@ -857,14 +863,11 @@ extension Signable {
         }
         var payload = self
         payload.signatureData = nil
-        let signature = try payload.sign(key: key)
-        if signature != embeddedSignature {
-            throw SignableError.signatureMismatch(signature, embeddedSignature)
-        }
+        try payload.verify(signature: embeddedSignature, key: key)
     }
 }
 
 public enum SignableError : Error {
     case noEmbeddedSignature
-    case signatureMismatch(Data, Data)
+    case signatureMismatch // (Data, Data) // don't payload the valid signature
 }
