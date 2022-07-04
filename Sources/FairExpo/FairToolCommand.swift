@@ -2113,7 +2113,7 @@ public struct JSONCommand : AsyncParsableCommand {
             return executeSeries(inputs, initialValue: nil) { input, prev in
                 msg(.info, "signing input:", input)
                 var json = try JSum(json: Data(contentsOf: URL(fileOrScheme: input)))
-                let sig = try SignableJSum(rawValue: json).sign(key: try keyData())
+                let sig = try SignableJSum(json).sign(key: try keyData())
                 json[property] = .str(sig.base64EncodedString()) // embed the signature into the JSON
                 return json
             }
@@ -2171,7 +2171,7 @@ public struct JSONCommand : AsyncParsableCommand {
 
                     json[property] = nil
                     let jobj = JSum.obj(json)
-                    try SignableJSum(rawValue: jobj).verify(signature: sigData, key: keyData())
+                    try SignableJSum(jobj).verify(signature: sigData, key: keyData())
                     return jobj // returns the validated JSON without the signature
                 }
             }
@@ -2180,10 +2180,15 @@ public struct JSONCommand : AsyncParsableCommand {
 
 }
 
-private struct SignableJSum : SigningContainer, RawCodable {
-    let rawValue: JSum
-    init(rawValue: JSum) {
+struct SignableJSum<T: Encodable> : SigningContainer {
+    let rawValue: T
+
+    init(_ rawValue: T) {
         self.rawValue = rawValue
+    }
+
+    func encode(to encoder: Encoder) throws {
+        try rawValue.encode(to: encoder)
     }
 }
 

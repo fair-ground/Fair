@@ -813,6 +813,7 @@ extension SigningContainer {
     /// Signs the JSON-serialized form of this data using the default encoding properties for this type
     public func sign(key: Data) throws -> Data {
         let json = try Self.signatureEncoder.encode(self)
+        //dbg("### encoding:", String(data: json, encoding: .utf8)!)
         let data = json.hmacSHA(key: key, hash: Self.signatureHash)
         return data
     }
