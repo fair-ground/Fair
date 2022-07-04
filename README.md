@@ -29,23 +29,26 @@ macOS (12+) and Linux. The easiest way to get started with the
 utility for [Homebrew](https://brew.sh) users is to run the commands:
 
 ```shell
-% brew tap fair-ground/tool
+marc@zap ~ % brew install fair-ground/tool/fairtool
 
 ==> Tapping fair-ground/tool
-Tapped 37 casks and 2 formulae (53 files, 778.2KB).
-
-% brew install fairtool
-
-==> Downloading https://github.com/fair-ground/Fair/releases/download/0.4.36/fai
-==> Downloading from https://objects.githubusercontent.com/github-production-rel
+Cloning into '/opt/homebrew/Library/Taps/fair-ground/homebrew-tool'...
+remote: Enumerating objects: 30, done.
+remote: Counting objects: 100% (30/30), done.
+remote: Compressing objects: 100% (27/27), done.
+remote: Total 30 (delta 7), reused 10 (delta 2), pack-reused 0
+Receiving objects: 100% (30/30), 15.79 KiB | 5.26 MiB/s, done.
+Resolving deltas: 100% (7/7), done.
+Tapped 2 formulae (15 files, 57.2KB).
+==> Downloading https://github.com/fair-ground/Fair/releases/download/0.4.51/fai
 ######################################################################## 100.0%
 ==> Installing fairtool from fair-ground/tool
-==> Pouring fairtool-0.4.36.arm64_monterey.bottle.tar.gz
-🍺  /opt/homebrew/Cellar/fairtool/0.4.36: 6 files, 9.9MB
+==> Pouring fairtool-0.4.51.arm64_monterey.bottle.tar.gz
+🍺  /opt/homebrew/Cellar/fairtool/0.4.51: 6 files, 10.4MB
 
 % fairtool version
 
-fairtool 0.4.36
+fairtool 0.4.51
 ```
 
 Alternatively, if you have a Swift 5.6 compiler installed,
@@ -70,7 +73,7 @@ Building for debugging...
 [61/61] Linking fairtool
 Build complete! (9.94s)
 
-fairtool 0.4.36
+fairtool 0.4.52
 ```
 
 ### fairtool app info _file_.app
@@ -156,94 +159,63 @@ iOS .ipa file, either a local file or a remote URL:
 // fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
 [
   {
-    "entitlements" : [
-  
-    ],
-    "info" : {
-      "BuildMachineOSBuild" : "21F79",
-      "CFBundleExecutable" : "Cloud Cuckoo",
-      "CFBundleIcons" : {
-        "CFBundlePrimaryIcon" : {
-          "CFBundleIconFiles" : [
+    "entitlements": [],
+    "info": {
+      "CFBundleName": "Cloud Cuckoo",
+      "CFBundleIdentifier": "app.Cloud-Cuckoo",
+      "CFBundleVersion": "469",
+      "CFBundleShortVersionString": "0.9.108",
+      "CFBundleExecutable": "Cloud Cuckoo",
+      "CFBundleIcons": {
+        "CFBundlePrimaryIcon": {
+          "CFBundleIconFiles": [
             "AppIcon60x60"
           ],
-          "CFBundleIconName" : "AppIcon"
+          "CFBundleIconName": "AppIcon"
         }
       },
-      "CFBundleIcons~ipad" : {
-        "CFBundlePrimaryIcon" : {
-          "CFBundleIconFiles" : [
-            "AppIcon60x60",
-            "AppIcon76x76"
-          ],
-          "CFBundleIconName" : "AppIcon"
-        }
+      "AppSource": {
+        "developerName": "Fair Apps <fairapps@appfair.net>",
+        "fundingLinks": [
+          {
+            "localizedDescription": "Help fund upcoming challenges and new additions to the whimsical and award-winning “Cloud Cuckoo” game. Fun for all ages!",
+            "localizedTitle": "Support the development of “Cloud Cuckoo”",
+            "platform": "GITHUB",
+            "url": "https://github.com/Cloud-Cuckoo"
+          }
+        ],
+        "localizedDescription": "Chase on the Cuckoo around the screen! This is a silly little game for the App Fair.",
+        "subtitle": "A whimsical game of excitement and delight",
+        "versionDescription": "Bug fixes and performance improvements."
       },
-      "CFBundleIdentifier" : "app.Cloud-Cuckoo",
-      "CFBundleInfoDictionaryVersion" : "6.0",
-      "CFBundleName" : "Cloud Cuckoo",
-      "CFBundlePackageType" : "APPL",
-      "CFBundleShortVersionString" : "0.9.95",
-      "CFBundleSupportedPlatforms" : [
+      "BuildMachineOSBuild": "21F79",
+      "CFBundleSupportedPlatforms": [
         "iPhoneOS"
       ],
-      "CFBundleURLTypes" : [
-        {
-          "CFBundleTypeRole" : "Editor",
-          "CFBundleURLName" : "Cloud Cuckoo",
-          "CFBundleURLSchemes" : [
-            "app.Cloud-Cuckoo"
-          ]
-        }
-      ],
-      "CFBundleVersion" : "453",
-      "DTCompiler" : "com.apple.compilers.llvm.clang.1_0",
-      "DTPlatformBuild" : "19C51",
-      "DTPlatformName" : "iphoneos",
-      "DTPlatformVersion" : "15.2",
-      "DTSDKBuild" : "19C51",
-      "DTSDKName" : "iphoneos15.2",
-      "DTXcode" : "1321",
-      "DTXcodeBuild" : "13C100",
-      "ITSAppUsesNonExemptEncryption" : false,
-      "LSApplicationQueriesSchemes" : [
+      "DTCompiler": "com.apple.compilers.llvm.clang.1_0",
+      "DTPlatformBuild": "19C51",
+      "DTPlatformName": "iphoneos",
+      "DTPlatformVersion": "15.2",
+      "DTSDKBuild": "19C51",
+      "DTSDKName": "iphoneos15.2",
+      "DTXcode": "1321",
+      "DTXcodeBuild": "13C100",
+      "ITSAppUsesNonExemptEncryption": false,
+      "LSApplicationQueriesSchemes": [
         "appfair"
       ],
-      "LSMinimumSystemVersion" : "12.0",
-      "LSSupportsOpeningDocumentsInPlace" : true,
-      "LSUIPresentationMode" : 0,
-      "MinimumOSVersion" : "15.0",
-      "NSAccentColorName" : "AccentColor",
-      "NSAppleEventsUsageDescription" : "AppleScript can be used by this app.",
-      "NSAppleScriptEnabled" : true,
-      "NSAppTransportSecurity" : {
-        "NSAllowsArbitraryLoads" : true
+      "LSSupportsOpeningDocumentsInPlace": true,
+      "NSAppleEventsUsageDescription": "AppleScript can be used by this app.",
+      "NSAppleScriptEnabled": true,
+      "NSAppTransportSecurity": {
+        "NSAllowsArbitraryLoads": true
       },
-      "NSHumanReadableCopyright" : "GNU Affero General Public License",
-      "UIApplicationSceneManifest" : {
-        "UIApplicationSupportsMultipleScenes" : true
-      },
-      "UIApplicationSupportsIndirectInputEvents" : true,
-      "UIDeviceFamily" : [
-        1,
-        2
-      ],
-      "UILaunchScreen" : {
-  
-      },
-      "UIRequiredDeviceCapabilities" : [
-        "arm64"
-      ],
-      "UISupportedInterfaceOrientations" : [
-        "UIInterfaceOrientationPortrait",
-        "UIInterfaceOrientationPortraitUpsideDown",
-        "UIInterfaceOrientationLandscapeLeft",
-        "UIInterfaceOrientationLandscapeRight"
-      ]
+      "NSHumanReadableCopyright": "GNU Affero General Public License"
     },
-    "url" : "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"
+    "url": "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"
   }
 ]
+
 ```
 
 ### fairtool JSON output
@@ -465,7 +437,7 @@ sources of metadata.
   "apps": [
     {
       "bundleIdentifier": "app.Cloud-Cuckoo",
-      "developerName": "Fair Apps <fairapps@appfair.org>",
+      "developerName": "Fair Apps <fairapps@appfair.net>",
       "downloadURL": "https://github.com/Cloud-Cuckoo/App/releases/download/0.9.99/Cloud-Cuckoo-iOS.ipa",
       "fundingLinks": [
         {
