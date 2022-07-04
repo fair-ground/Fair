@@ -345,6 +345,37 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual("Cloud Cuckoo version 0.9.75 has been updated from 0.9.74", cat2Post.news?.first?.caption)
         XCTAssertEqual("app.Cloud-Cuckoo", cat2Post.news?.first?.appID)
     }
+
+    func testSignableJSum() throws {
+        let key = "another test key"
+
+        struct Demo : Encodable {
+            let name: String
+            let date: Date
+        }
+
+        let instance = Demo(name: "Abc", date: Date(timeIntervalSinceReferenceDate: 4321))
+
+        let signable = SignableJSum(instance)
+        let sig = try signable.sign(key: key.utf8Data)
+        XCTAssertEqual("lahFynjU/GPoeQA2xwqeiNE3i3nLVVvSvNhY0C0Ok1Q=", sig.base64EncodedString())
+
+        do {
+            // re-create the SignableJSum as a top-level type;
+            // the signatures should match
+            struct DemoSignable : Encodable, Signable {
+                let name: String
+                let date: Date
+                var signatureData: Data?
+            }
+
+            // fTr5rZNutkg8fmpQx0nWwiuA0UczFb3yfRxpducDw3Y=
+            let instance2 = DemoSignable(name: instance.name, date: instance.date)
+            let sig2 = try instance2.sign(key: key.utf8Data)
+            XCTAssertEqual(sig.base64EncodedString(), sig2.base64EncodedString())
+        }
+
+    }
 }
 
 public struct PackageManifest : Pure {
