@@ -354,7 +354,7 @@ extension FairHub {
                         do {
                             let body = comment.bodyText
                                 .trimmed(CharacterSet(charactersIn: "`").union(.whitespacesAndNewlines))
-                            seal = try FairSeal(json: body.utf8Data)
+                            seal = try FairSeal(json: body.utf8Data, dateDecodingStrategy: .iso8601)
                             for asset in seal?.assets ?? [] {
                                 urlSeals[asset.url, default: []].insert(asset.sha256)
                             }
@@ -403,7 +403,39 @@ extension FairHub {
 
                     let size = appArtifact.size
 
-                    let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.isEmpty ? nil : screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
+                    //let app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, subtitle: subtitle, developerName: developerInfo, localizedDescription: localizedDescription, size: size, version: appVersion.versionString, versionDate: versionDate, downloadURL: artifactURL, iconURL: iconURL, screenshotURLs: screenshotURLs.isEmpty ? nil : screenshotURLs, versionDescription: versionDescription, tintColor: seal?.tint, beta: beta, categories: categories, downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize, sha256: artifactChecksum, permissions: seal?.permissions, metadataURL: metadataURL.appendingHash(metadataChecksum), readmeURL: readmeURL.appendingHash(readmeChecksum), releaseNotesURL: releaseNotesURL, homepage: homepage)
+
+                    // derive a source from the sealed info.plist, overriding properties as needed
+                    var app = seal?.appSource ?? AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, downloadURL: artifactURL)
+
+                    app.name = appTitle
+                    app.bundleIdentifier = bundleIdentifier
+                    app.subtitle = subtitle
+                    app.developerName = developerInfo
+                    app.localizedDescription = localizedDescription
+                    app.size = size
+                    app.version = appVersion.versionString
+                    app.versionDate = versionDate
+                    app.downloadURL = artifactURL
+                    app.iconURL = iconURL
+                    app.screenshotURLs = screenshotURLs.isEmpty ? nil : screenshotURLs
+                    app.versionDescription = versionDescription
+                    app.tintColor = seal?.tint
+                    app.beta = beta
+                    app.categories = categories
+                    app.downloadCount = downloadCount
+                    app.impressionCount = impressionCount
+                    app.viewCount = viewCount
+                    app.starCount = starCount
+                    app.watcherCount = watcherCount
+                    app.issueCount = issueCount
+                    app.coreSize = seal?.coreSize
+                    app.sha256 = artifactChecksum
+                    app.permissions = seal?.permissions
+                    app.metadataURL = metadataURL.appendingHash(metadataChecksum)
+                    app.readmeURL = readmeURL.appendingHash(readmeChecksum)
+                    app.releaseNotesURL = releaseNotesURL
+                    app.homepage = homepage
 
 
                     // walk through the recent releases until we find one that has a fairseal on it
