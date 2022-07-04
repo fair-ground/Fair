@@ -153,10 +153,22 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/encode(to:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/max",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/min"
       ],
       "title" : "Type Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Errors"
+      ],
+      "title" : "Enumerations"
     },
     {
       "generated" : true,
@@ -337,6 +349,37 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/equatable-implementations"
 },
+"doc://FairCore/documentation/FairCore/AppVersion/Errors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Errors",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppVersion.Errors",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/errors"
+},
 "doc://FairCore/documentation/FairCore/AppVersion/_(_:_:)-wl9t": {
   "abstract" : [
 
@@ -400,6 +443,56 @@
   "title" : "<(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/_(_:_:)-wl9t"
+},
+"doc://FairCore/documentation/FairCore/AppVersion/encode(to:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "encode"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7EncoderP",
+      "text" : "Encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/encode(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "encode(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/encode(to:)"
 },
 "doc://FairCore/documentation/FairCore/AppVersion/init(from:)": {
   "abstract" : [

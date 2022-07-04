@@ -39,7 +39,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/sign(key:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/sign(key:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/verify(signature:key:)"
       ],
       "title" : "Instance Methods"
     },
@@ -279,6 +280,73 @@
   "title" : "signatureHash",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/signaturehash"
+},
+"doc://FairExpo/documentation/FairExpo/FairSeal/verify(signature:key:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "verify"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "signature"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/verify(signature:key:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "verify(signature:key:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal\/verify(signature:key:)"
 }
 }
 }

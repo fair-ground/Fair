@@ -124,7 +124,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer\/sign(key:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer\/sign(key:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer\/verify(signature:key:)"
       ],
       "title" : "Instance Methods"
     },
@@ -433,6 +434,73 @@
   "title" : "signatureHash",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/signingcontainer\/signaturehash-67bfz"
+},
+"doc://FairCore/documentation/FairCore/SigningContainer/verify(signature:key:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "verify"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "signature"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SigningContainer\/verify(signature:key:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "verify(signature:key:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/signingcontainer\/verify(signature:key:)"
 }
 }
 }

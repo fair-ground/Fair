@@ -81,7 +81,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/SQ",
         "doc:\/\/FairCore\/s5ErrorP",
+        "doc:\/\/FairCore\/SH",
         "doc:\/\/FairCore\/s8SendableP"
       ],
       "kind" : "relationships",
@@ -101,13 +103,14 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/noEmbeddedSignature",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/signatureMismatch(_:_:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/signatureMismatch"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/Equatable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/Error-Implementations"
       ],
       "title" : "Default Implementations"
@@ -127,6 +130,16 @@
   ]
 , 
 "references": {
+"doc://FairCore/SH": {
+  "identifier" : "doc:\/\/FairCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SQ": {
+  "identifier" : "doc:\/\/FairCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
 "doc://FairCore/documentation/FairCore": {
   "abstract" : [
     {
@@ -172,6 +185,17 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/signableerror"
 },
+"doc://FairCore/documentation/FairCore/SignableError/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/signableerror\/equatable-implementations"
+},
 "doc://FairCore/documentation/FairCore/SignableError/Error-Implementations": {
   "abstract" : [
 
@@ -208,7 +232,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/signableerror\/noembeddedsignature"
 },
-"doc://FairCore/documentation/FairCore/SignableError/signatureMismatch(_:_:)": {
+"doc://FairCore/documentation/FairCore/SignableError/signatureMismatch": {
   "abstract" : [
 
   ],
@@ -224,36 +248,14 @@
     {
       "kind" : "identifier",
       "text" : "signatureMismatch"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation4DataV",
-      "text" : "Data"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation4DataV",
-      "text" : "Data"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/signatureMismatch(_:_:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SignableError\/signatureMismatch",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "SignableError.signatureMismatch(_:_:)",
+  "title" : "SignableError.signatureMismatch",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/signableerror\/signaturemismatch(_:_:)"
+  "url" : "\/documentation\/faircore\/signableerror\/signaturemismatch"
 },
 "doc://FairCore/s5ErrorP": {
   "identifier" : "doc:\/\/FairCore\/s5ErrorP",
