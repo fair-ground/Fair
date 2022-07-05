@@ -1011,7 +1011,7 @@ public extension AppBundle {
     private static func readInfo(source: Source) throws -> (Plist, parent: Source.Path, node: Source.Path)? {
         // dbg("reading info node from:", fs.containerURL.path)
         let rootNodes = try source.nodes(at: nil)
-        dbg("rootNodes:", rootNodes.map(\.pathName))
+        //dbg("rootNodes:", rootNodes.map(\.pathName))
 
         func loadInfoPlist(from node: Source.Path) throws -> (Plist, parent: Source.Path, node: Source.Path)? {
             //dbg("attempting to load Info.plist from:", node.pathName)
@@ -1243,7 +1243,7 @@ public class ZipArchiveDataWrapper : DataWrapper {
                 p.pathComponents.count == 1 // all top-level entries
             })
 
-            dbg("root entries:", rootEntries.map(\.path))
+            //dbg("root entries:", rootEntries.map(\.path))
             return rootEntries
         }
     }

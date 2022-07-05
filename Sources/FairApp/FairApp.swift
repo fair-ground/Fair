@@ -30,9 +30,6 @@ public extension Bundle {
     /// The org name of the catalog browser app itself
     static let catalogBrowserAppOrg = "App-Fair"
 
-    /// The name of the default app framework
-    static let appfairDefaultAppName = "App"
-
     /// e.g: `appfair://update/app.Abc-Xyz`
     static let catalogBrowserAppScheme = catalogBrowserAppOrg.replacingOccurrences(of: "-", with: "").lowercased()
 
@@ -86,7 +83,7 @@ public extension Bundle {
 }
 
 
-extension InfoPlistKey {
+extension PropertyListKey {
     /// A dictionary encoding of the contents of the App Source catalog.
     ///
     /// The dictionary can contain keys like "subtitle" and "localizedDescription".
@@ -98,8 +95,8 @@ extension Plist {
     /// which is stored in the top-level "AppSource" dictionary in an app's main `Info.plist`.
     /// - Parameter downloadURL: the download URL for this app, which is arequirted property of an app catalog item.
     /// - Returns: nil if critical information (like the bundle name) is empty; otherwise, the catalog item that is contained in this property list node
-    public func appCatalogInfo(appSourceKey: InfoPlistKey = .AppSource, downloadURL: URL) throws -> AppCatalogItem? {
-        guard let appName = self.CFBundleName else {
+    public func appCatalogInfo(appSourceKey: PropertyListKey = .AppSource, downloadURL: URL) throws -> AppCatalogItem? {
+        guard let appName = self.CFBundleName ?? self.CFBundleDisplayName else {
             return nil
         }
 
@@ -175,6 +172,9 @@ public extension URL {
     }
 }
 
+/// The repository name for the base fairground. It is "App".
+public let baseFairgroundRepoName = "App"
+
 public extension URL {
 
     /// Returns the URL for this app's hub page
@@ -189,7 +189,7 @@ public extension URL {
 
         return baseURL
             .appendingPathComponent(appOrgName)
-            .appendingPathComponent(Bundle.appfairDefaultAppName)
+            .appendingPathComponent(baseFairgroundRepoName)
             .appendingPathComponent(path ?? "")
     }
 }
@@ -348,7 +348,7 @@ extension FairContainer {
         //print("main.infoDictionary:", Bundle.main.infoDictionary)
         //print("bundle.infoDictionary:", bundle.infoDictionary)
 
-        func infoValue<T>(_ key: InfoPlistKey) -> T? {
+        func infoValue<T>(_ key: PropertyListKey) -> T? {
             (Bundle.main.localizedInfoDictionary?[key.plistKey] as? T)
                 ?? (Bundle.main.infoDictionary?[key.plistKey] as? T)
                 ?? (bundle.localizedInfoDictionary?[key.plistKey] as? T)

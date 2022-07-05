@@ -191,7 +191,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey"
+        "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -252,10 +252,69 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/InfoPlistKey": {
+"doc://FairCore/documentation/FairCore/Plist": {
   "abstract" : [
     {
-      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
+      "text" : "A property list, which is simply a wrapper around an ",
+      "type" : "text"
+    },
+    {
+      "code" : "NSDictionary",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with some conveniences.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Plist"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Plist"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Plist",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/plist"
+},
+"doc://FairCore/documentation/FairCore/PropertyListKey": {
+  "abstract" : [
+    {
+      "text" : "A key in a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " holding a standard ",
+      "type" : "text"
+    },
+    {
+      "code" : "Info.plist",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -270,21 +329,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "InfoPlistKey"
+      "text" : "PropertyListKey"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "InfoPlistKey"
+      "text" : "PropertyListKey"
     }
   ],
   "role" : "symbol",
-  "title" : "InfoPlistKey",
+  "title" : "PropertyListKey",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/infoplistkey"
+  "url" : "\/documentation\/faircore\/propertylistkey"
 },
 "doc://FairCore/documentation/FairCore/RawDecodable": {
   "abstract" : [

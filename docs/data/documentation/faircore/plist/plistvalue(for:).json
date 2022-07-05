@@ -20,7 +20,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore5PlistC10plistValue3forypSgAA04InfoC3KeyV_tF",
+    "externalID" : "s:8FairCore5PlistC10plistValue3forypSgAA15PropertyListKeyV_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -48,8 +48,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
-        "text" : "InfoPlistKey"
+        "preciseIdentifier" : "s:8FairCore15PropertyListKeyV",
+        "text" : "PropertyListKey"
       },
       {
         "kind" : "text",
@@ -118,10 +118,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
-              "text" : "InfoPlistKey"
+              "preciseIdentifier" : "s:8FairCore15PropertyListKeyV",
+              "text" : "PropertyListKey"
             },
             {
               "kind" : "text",
@@ -176,40 +176,6 @@
   "title" : "FairCore",
   "type" : "topic",
   "url" : "\/documentation\/faircore"
-},
-"doc://FairCore/documentation/FairCore/InfoPlistKey": {
-  "abstract" : [
-    {
-      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "InfoPlistKey"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InfoPlistKey"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "InfoPlistKey",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/infoplistkey"
 },
 "doc://FairCore/documentation/FairCore/Plist": {
   "abstract" : [
@@ -287,8 +253,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
-      "text" : "InfoPlistKey"
+      "preciseIdentifier" : "s:8FairCore15PropertyListKeyV",
+      "text" : "PropertyListKey"
     },
     {
       "kind" : "text",
@@ -309,6 +275,57 @@
   "title" : "plistValue(for:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/plist\/plistvalue(for:)"
+},
+"doc://FairCore/documentation/FairCore/PropertyListKey": {
+  "abstract" : [
+    {
+      "text" : "A key in a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " holding a standard ",
+      "type" : "text"
+    },
+    {
+      "code" : "Info.plist",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PropertyListKey"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PropertyListKey"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PropertyListKey",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/propertylistkey"
 }
 }
 }

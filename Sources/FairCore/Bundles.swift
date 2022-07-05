@@ -25,7 +25,7 @@ public extension Bundle {
 
 public extension Bundle {
     /// Returns the bundle's `infoDictionary` key value
-    subscript<T>(info key: InfoPlistKey) -> T? {
+    subscript<T>(info key: PropertyListKey) -> T? {
         self.infoDictionary?[key.plistKey] as? T
     }
 
@@ -101,12 +101,12 @@ extension Bundle {
 
 public extension Plist {
     /// Returns the untypes content of the given plist key
-    func plistValue(for key: InfoPlistKey) -> Any? {
+    func plistValue(for key: PropertyListKey) -> Any? {
         rawValue[key.plistKey]
     }
 
     /// Returns the string contents of the given plist key
-    func stringValue(for key: InfoPlistKey) -> String? {
+    func stringValue(for key: PropertyListKey) -> String? {
         guard let value = plistValue(for: key) as? String else {
             return nil
         }
@@ -119,37 +119,58 @@ public extension Plist {
 
     }
 
+    /// The value of the `CFBundleIdentifier` string
     var CFBundleIdentifier: String? {
         stringValue(for: .CFBundleIdentifier)
     }
 
+
+    /// The value of the `CFBundleName` string
     var CFBundleName: String? {
         stringValue(for: .CFBundleName)
     }
 
-    var CFBundleVersion: String? {
-        stringValue(for: .CFBundleVersion)
-    }
-
-    var CFBundleShortVersionString: String? {
-        stringValue(for: .CFBundleShortVersionString)
-    }
-
+    /// The value of the `CFBundleDisplayName` string
     var CFBundleDisplayName: String? {
         stringValue(for: .CFBundleDisplayName)
     }
 
+
+    /// The value of the `CFBundleVersion` string
+    var CFBundleVersion: String? {
+        stringValue(for: .CFBundleVersion)
+    }
+
+    /// The value of the `CFBundleShortVersionString` string
+    var CFBundleShortVersionString: String? {
+        stringValue(for: .CFBundleShortVersionString)
+    }
+
+    /// The value of the `CFBundleExecutable` string
     var CFBundleExecutable: String? {
         stringValue(for: .CFBundleExecutable)
     }
 
+    /// The value of the `DTPlatformName` string
     var DTPlatformName: String? {
         stringValue(for: .DTPlatformName)
     }
 }
 
+/// A key in a ``Plist`` holding a standard `Info.plist`.
+///
+/// Some common properties include:
+///
+///  - ``CFBundleIdentifier``
+///  - ``CFBundleExecutable``
+///  - ``CFBundleName``
+///  - ``CFBundleDisplayName``
+///  - ``CFBundleVersion``
+///  - ``CFBundleShortVersionString``
+///
+/// See:
 /// https://developer.apple.com/documentation/bundleresources/information_property_list/bundle_configuration
-public struct InfoPlistKey : RawCodable {
+public struct PropertyListKey : RawCodable {
     public static let CFBundleIdentifier = Self("CFBundleIdentifier") // e.g., "app.My-App"
     public static let CFBundleExecutable = Self("CFBundleExecutable") // e.g., "My App"
     public static let CFBundleName = Self("CFBundleName") // e.g., "My App"
@@ -208,7 +229,7 @@ public struct InfoPlistKey : RawCodable {
     }
 }
 
-/// A version of an app with a `major`, `minor`, and `patch` component.
+/// A semantic version of an app with a `major`, `minor`, and `patch` component.
 public struct AppVersion : Pure, Comparable {
     /// The lowest possible version that can exist
     public static let min = AppVersion(major: .min, minor: .min, patch: .min, prerelease: true)
