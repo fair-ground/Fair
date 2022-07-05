@@ -474,6 +474,7 @@ jobs:
             --base . \
             --project ReleasePR \
             --hub github.com/${{ inputs.fairground }} \
+            --base-repo "App" \
             --token "${{ secrets.token }}" \
             --org "${{ env.ORGNAME }}" \
             --ref "${{ env.COMMITHASH }}" \
@@ -638,6 +639,7 @@ jobs:
           fairtool fair fairseal \
             --verbose \
             --hub "github.com/${{ inputs.fairground }}" \
+            --base-repo "App" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --fairseal-key "${{ inputs.fairseal_key }}" \
@@ -677,6 +679,7 @@ jobs:
           fairtool fair fairseal \
             --verbose \
             --hub "github.com/${{ inputs.fairground }}" \
+            --base-repo "App" \
             --token "${{ secrets.bot_token }}" \
             --org "${{ env.ORGNAME }}" \
             --fairseal-key "${{ inputs.fairseal_key }}" \
