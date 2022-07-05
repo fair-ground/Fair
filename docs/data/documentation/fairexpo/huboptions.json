@@ -1,7 +1,23 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "A Hub is represented by a string “",
+      "type" : "text"
+    },
+    {
+      "code" : "service.host",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "\/",
+      "type" : "text"
+    },
+    {
+      "code" : "organization",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "”.",
       "type" : "text"
     }
   ],
@@ -76,6 +92,26 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "E.g., “github.com\/appfair”",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -107,9 +143,13 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/baseRepo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/casksRepo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/fairsealIssuer",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/fairsealKey",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/hub",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/organizationName",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/serviceHost",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/token"
       ],
       "title" : "Instance Properties"
@@ -169,7 +209,26 @@
 },
 "doc://FairExpo/documentation/FairExpo/HubOptions": {
   "abstract" : [
-
+    {
+      "text" : "A Hub is represented by a string “",
+      "type" : "text"
+    },
+    {
+      "code" : "service.host",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "\/",
+      "type" : "text"
+    },
+    {
+      "code" : "organization",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "”.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -219,6 +278,74 @@
   "title" : "ParsableArguments Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/huboptions\/parsablearguments-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/HubOptions/baseRepo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseRepo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/baseRepo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseRepo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/huboptions\/baserepo"
+},
+"doc://FairExpo/documentation/FairExpo/HubOptions/casksRepo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "casksRepo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/casksRepo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "casksRepo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/huboptions\/casksrepo"
 },
 "doc://FairExpo/documentation/FairExpo/HubOptions/fairHub()": {
   "abstract" : [
@@ -437,6 +564,80 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/huboptions\/init(from:)"
+},
+"doc://FairExpo/documentation/FairExpo/HubOptions/organizationName": {
+  "abstract" : [
+    {
+      "text" : "The name of the organization for this hub.  E.g., the “appfair” part of “github.com\/appfair”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "organizationName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/organizationName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "organizationName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/huboptions\/organizationname"
+},
+"doc://FairExpo/documentation/FairExpo/HubOptions/serviceHost": {
+  "abstract" : [
+    {
+      "text" : "The host service address. E.g., the “github.com” part of “github.com\/appfair”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "serviceHost"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/serviceHost",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "serviceHost",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/huboptions\/servicehost"
 },
 "doc://FairExpo/documentation/FairExpo/HubOptions/token": {
   "abstract" : [

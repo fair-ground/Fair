@@ -135,8 +135,9 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -407,7 +408,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogQuery": {
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery": {
   "abstract" : [
     {
       "text" : "The query to generate a fair-ground catalog",
@@ -425,21 +426,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogQuery"
+      "text" : "CatalogForksQuery"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogQuery"
+      "text" : "CatalogForksQuery"
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.CatalogQuery",
+  "title" : "FairHub.CatalogForksQuery",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogquery"
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests": {
   "abstract" : [
@@ -471,6 +472,37 @@
   "title" : "FairHub.FindPullRequests",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GetSponsorsQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GetSponsorsQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetSponsorsQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery"
 }
 }
 }

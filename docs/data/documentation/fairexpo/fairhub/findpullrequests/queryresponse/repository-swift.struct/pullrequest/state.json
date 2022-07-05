@@ -23,7 +23,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A3HubV16FindPullRequestsV13QueryResponseV10RepositoryV0E7RequestV5stateSSvp",
+    "externalID" : "s:8FairExpo0A3HubV16FindPullRequestsV13QueryResponseV10RepositoryV0E7RequestV5stateAC0eJ5StateVvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -43,8 +43,17 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:8FairExpo0A3HubV",
+        "text" : "FairHub"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo0A3HubV16PullRequestStateV",
+        "text" : "PullRequestState"
       }
     ],
     "modules" : [
@@ -85,9 +94,20 @@
               "text" : ": "
             },
             {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:8FairExpo0A3HubV",
+              "text" : "FairHub"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PullRequestState",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo0A3HubV16PullRequestStateV",
+              "text" : "PullRequestState"
             }
           ]
         }
@@ -312,8 +332,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV16PullRequestStateV",
+      "text" : "PullRequestState"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/state",
@@ -322,6 +351,53 @@
   "title" : "state",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse\/repository-swift.struct\/pullrequest\/state"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/PullRequestState": {
+  "abstract" : [
+    {
+      "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#pullrequeststate",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PullRequestState"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PullRequestState",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PullRequestState"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.PullRequestState",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/pullrequeststate"
+},
+"https://docs.github.com/en/graphql/reference/enums#pullrequeststate": {
+  "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#pullrequeststate",
+  "title" : "PullRequestState",
+  "titleInlineContent" : [
+    {
+      "text" : "PullRequestState",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#pullrequeststate"
 }
 }
 }

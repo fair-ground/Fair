@@ -29,7 +29,12 @@ import FoundationNetworking
 public let appfairMaxApps = 250_000
 
 /// The organization name of the fair-ground: `"appfair"`
+/// @available(*, deprecated, message: "move to hub configuration")
 public let appfairName = "appfair"
+
+/// The base repository name from which apps should be forked
+/// @available(*, deprecated, message: "move to hub configuration")
+public let appfairBaseRepoName = "App"
 
 public let appfairRoot = URL(string: "https://www.appfair.net")!
 
@@ -53,8 +58,6 @@ public protocol GraphQLEndpointService : EndpointService {
 
 /// A Fair Ground based on an online git service such as GitHub or GitLab.
 public struct FairHub : GraphQLEndpointService {
-    public typealias ErrorType = HubEndpointFailure
-
     /// The root of the FairGround-compatible service
     public var baseURL: URL
 
@@ -69,6 +72,9 @@ public struct FairHub : GraphQLEndpointService {
 
     /// The signing key for the seal data, used to authenticate payloads
     public var fairsealKey: Data?
+
+    public typealias BaseFork = FairHub.CatalogForksQuery.QueryResponse.BaseRepository.Repository
+    public typealias AppCaskFork = AppCasksQuery.QueryResponse.BaseRepository.Repository
 
     /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
     public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String?, fairsealKey: Data?) throws {
@@ -98,13 +104,13 @@ public struct FairHub : GraphQLEndpointService {
         }
     }
 
-
     /// The hardwired code that returns an HTTP error but contains information about backing off
-    public static var backoffCodes: IndexSet { IndexSet([403]) }
-
+    /// 403 is just retry
+    /// 502 sometimes happens with large responses
+    public static var backoffCodes: IndexSet { IndexSet([403, 502]) }
 }
 
-public struct ArtifactTarget : Pure {
+public struct ArtifactTarget : Codable, Hashable {
     public let artifactType: String
     public let devices: Array<String>
 
@@ -180,12 +186,12 @@ extension FairHub {
     }
 
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
+    func buildCatalog(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
         var apps: [AppCatalogItem] = []
-        for try await app in fetchAppStream(title: title, owner: owner, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
+        for try await app in fetchAppStream(title: title, owner: owner, baseRepository: baseRepository, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
             apps.append(contentsOf: app)
         }
         let news: [AppNewsPost]? = nil
@@ -198,12 +204,12 @@ extension FairHub {
         return catalog
     }
 
-    func fetchAppStream(title: String, owner: String = appfairName, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogQuery.Response, Error>, [AppCatalogItem]> {
-        sendCursoredRequest(CatalogQuery(owner: owner, name: "App"))
+    func fetchAppStream(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
+        sendCursoredRequest(CatalogForksQuery(owner: owner, name: baseRepository))
             .map { forks in try deriveCatalogItems(forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
 
-    private func deriveCatalogItems(_ forks: CatalogQuery.Response, artifactTarget: ArtifactTarget, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
+    private func deriveCatalogItems(_ forks: CatalogForksQuery.Response, artifactTarget: ArtifactTarget, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
         guard let fairsealIssuer = fairsealIssuer else {
             throw Errors.missingFairsealIssuer
         }
@@ -467,10 +473,12 @@ extension FairHub {
         return apps
     }
 
-    typealias Fork = AppCasksQuery.QueryResponse.BaseRepository.Repository
-
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String = appfairName, name: String = "appcasks", excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?) async throws -> AppCatalog {
+    func buildAppCasks(owner: String, baseRepository: String, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?) async throws -> AppCatalog {
+
+        // let caskQueryCount = 100 // this seems to return too many results and triggers an occasional 502 error
+        let caskQueryCount = 50
+
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
         dbg("building appcasks with maxApps:", maxApps, "boost:", boost)
@@ -490,7 +498,7 @@ extension FairHub {
 
         var apps: [AppCatalogItem] = []
 
-        for try await forks in sendCursoredRequest(AppCasksQuery(owner: owner, name: name)) {
+        for try await forks in sendCursoredRequest(AppCasksQuery(owner: owner, name: baseRepository, count: caskQueryCount)) {
             let forkNodes = try forks.result.get().data.repository.forks.nodes
             dbg("fetched appcasks forks:", forkNodes.count)
             for fork in forkNodes {
@@ -503,7 +511,7 @@ extension FairHub {
             }
         }
 
-        func addAppForkReleases(_ fork: Fork, caskCatalog: CaskCatalog?, stats: CaskStats?) async throws {
+        func addAppForkReleases(_ fork: AppCaskFork, caskCatalog: CaskCatalog?, stats: CaskStats?) async throws {
             if apps.count >= maxApps ?? .max {
                 return dbg("not adding app beyond max:", maxApps)
             }
@@ -523,7 +531,7 @@ extension FairHub {
                 if fork.releases.pageInfo?.hasNextPage == true,
                     let releaseCursor = fork.releases.pageInfo?.endCursor {
                     dbg("traversing release cursor:", releaseCursor)
-                    for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: fork.id, cursor: releaseCursor)) {
+                    for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: fork.id, releaseCount: caskQueryCount, cursor: releaseCursor)) {
                         let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
                         dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
                         if addReleases(fork: fork, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
@@ -535,7 +543,7 @@ extension FairHub {
         }
 
         /// Adds the given cask result to the list of app catalog items
-        func addReleases(fork: Fork, _ releaseNodes: [Fork.Release], casks: CaskCatalog?, stats: CaskStats?) -> Bool {
+        func addReleases(fork: AppCaskFork, _ releaseNodes: [AppCaskFork.Release], casks: CaskCatalog?, stats: CaskStats?) -> Bool {
             for release in releaseNodes {
                 let caskPrefix = "cask-"
                 if !release.tag.name.hasPrefix(caskPrefix) {
@@ -616,7 +624,7 @@ extension FairHub {
         return catalog
     }
 
-    private func createApp(token: String, release: Fork.Release?, fork: Fork?, cask: CaskItem?, stats: CaskStats?) -> AppCatalogItem? {
+    private func createApp(token: String, release: AppCaskFork.Release?, fork: AppCaskFork?, cask: CaskItem?, stats: CaskStats?) -> AppCatalogItem? {
         let caskName = cask?.name.first ?? release?.name ?? release?.tag.name ?? token
         let homepage = (cask?.homepage ?? fork?.homepageUrl).flatMap(URL.init(string:))
         let downloadURL = (cask?.url ?? cask?.homepage).flatMap(URL.init(string:))
@@ -782,18 +790,18 @@ extension FairHub {
     }
 
     /// Posts the fairseal to the most recent open PR that matches the download URL's appOrg
-    func postFairseal(_ fairseal: FairSeal, owner: String = appfairName, name: String = "App") async throws -> URL? {
+    func postFairseal(_ fairseal: FairSeal, owner: String, baseRepository: String) async throws -> URL? {
         guard let appOrg = fairseal.appOrg else {
             dbg("no app org for seal:", fairseal)
             return nil
         }
 
-        let nameWithOwner = appOrg + "/" + name
+        let nameWithOwner = appOrg + "/" + baseRepository
 
-        let lookupPRsRequest = FindPullRequests(owner: owner, name: name)
+        let lookupPRsRequest = FindPullRequests(owner: owner, name: baseRepository, state: .OPEN)
         let appPR = try await self.requestBatches(lookupPRsRequest) { resultIndex, urlResponse, batch in
             try batch.result.get().data.repository.pullRequests.nodes.first { edge in
-                edge.state == "OPEN"
+                edge.state == .OPEN
                 //&& edge.mergeable != "CONFLICTING"
                 && edge.headRepository?.nameWithOwner == (nameWithOwner)
             }
@@ -827,9 +835,9 @@ extension FairHub {
             //throw Errors.noVerification(commit)
         //}
 
-        //if verification.state != "VALID" || verification.isValid == false {
-            //throw Errors.invalidVerification(commit)
-        //}
+//        if verification.state != .VALID || verification.isValid == false {
+//            throw Errors.invalidVerification(commit)
+//        }
 
         guard let name = info.author?.name, !name.isEmpty else {
             throw Errors.noAuthor(commit)
@@ -874,7 +882,7 @@ extension FairHub {
             case .notTopLevelURL(let url): return "Not a top-level URL: \"\(url.absoluteString)\""
             case .badURLScheme(let url): return "Bad URL scheme: \"\(url.absoluteString)\""
             case .noVerification(let info): return "No verification information for commit ref: \"\(info.repository.object.oid.rawValue)\". Release tag commits must be marked 'verified', which means either performing the tag via the web interface, or else GPG signing the release tag."
-            case .invalidVerification(let info): return "Commit ref must be verified as valid, but was: \"\(info.repository.object.signature?.state ?? "empty")\". Release tag commits must be marked 'verified', which means either performing the tag via the web interface, or else GPG signing the release tag."
+            case .invalidVerification(let info): return "Commit ref must be verified as valid, but was: \"\(info.repository.object.signature?.state.rawValue ?? "empty")\". Release tag commits must be marked 'verified', which means either performing the tag via the web interface, or else GPG signing the release tag."
             case .noAuthor(let info): return "The author was empty for the commit: \"\(info.repository.object.oid.rawValue)\""
             case .invalidEmail(let email): return "The email address \"\(email ?? "")\" is not accepted"
             case .invalidName(let name): return "The app name \"\(name ?? "")\" is not accepted"
@@ -922,157 +930,10 @@ extension FairHub {
     }
 }
 
-/// The seal of the given URL, summarizing its cryptographic hash, entitlements,
-/// and other build-time information
-public struct FairSeal : Codable, Hashable, JSONSignable {
-    // legacy fields that have been removed:
-    /// The version of the fairseal JSON
-    // public private(set) var fairsealVersion: Version?
-    // public enum Version : Int, Pure, CaseIterable { case v1 = 1 }
 
-    /// The version of the fairtool library that initially created this seal
-    public internal(set) var generatorVersion: AppVersion?
-
-    /// The permission for this app
-    public var permissions: [AppPermission]?
-    /// The size of the artifact's executable binary
-    public var coreSize: Int?
-    /// The tint color as an RGBA hex string
-    public var tint: String?
-    /// The sealed assets
-    public var assets: [Asset]?
-    /// The AppSource metadata from the Info.plist
-    public var appSource: AppCatalogItem?
-    /// The signature for this payload, authenticating the fairseal issuer with HMAC-256
-    public var signature: Data?
-
-    public struct Asset : Pure {
-        /// The asset's URL
-        public var url: URL
-        /// The asset's size in bytes
-        public var size: Int
-        /// The validated sha256 checksum for the asset contents
-        public var sha256: String
-
-        public init(url: URL, size: Int, sha256: String) {
-            self.url = url
-            self.size = size
-            self.sha256 = sha256
-        }
-    }
-
-    public var signatureData: Data? {
-        get { signature }
-        set { signature = newValue }
-    }
-
-    public init(assets: [Asset]? = nil, permissions: [AppPermission]? = nil, appSource: AppCatalogItem? = nil, coreSize: Int? = nil, tint: String? = nil) {
-        self.generatorVersion = Bundle.fairCoreVersion
-        //self.fairsealVersion = Version.allCases.last!
-
-        self.assets = assets
-        self.permissions = permissions
-        self.appSource = appSource
-        self.coreSize = coreSize
-        self.tint = tint
-    }
-
-    /// The app org associated with this seal; this will be the first component of the first URL's path
-    public var appOrg: String? {
-        assets?.first?.url.path.split(separator: "/").first?.description
-    }
-}
-
-extension URL {
-    /// Adds a hash with the given string to the end of the URL
-    func appendingHash(_ hashString: String?) -> URL {
-        guard let hashString = hashString else { return self }
-        return URL(string: self.absoluteString + "#" + hashString) ?? self
-    }
-}
-
-// MARK: GraphQL Request & Response
-
-
-public struct HubEndpointError : Pure, LocalizedError {
-    public var message: String // e.g., "Could not resolve to a Repository with the name '/App'."
-    public var type: String? // e.g., "NOT_FOUND", "INSUFFICIENT_SCOPES"
-    public var path: [String]? // e.g., ["repository"]
-    public var documentation_url: URL?
-
-    public var failureReason: String? { message }
-}
-
-/// A set of one or more errors returned by the GraphQL API.
-public struct HubEndpointErrorList : Pure, Error {
-    public var errors: [HubEndpointError]
-}
-
-/// The payload of a successful `GraphQL` query.
-public struct GraphQLPayload<T : Pure> : Pure {
-    public var data: T
-}
-
-/// Pass-through cursor support.
-extension GraphQLPayload : CursoredAPIResponse where T : CursoredAPIResponse {
-    public var endCursor: GraphQLCursor? {
-        data.endCursor
-    }
-
-    public var elementCount: Int {
-        data.elementCount
-    }
-}
-
-/// Either a single error or a list of errors
-public typealias HubEndpointFailure = XOr<HubEndpointError>.Or<HubEndpointErrorList>
-
-public extension HubEndpointFailure {
-    /// The first error message for the failure
-    var firstFailureReason: String? {
-        infer()?.failureReason ?? infer()?.errors.first?.message
-    }
-
-    /// Returns `true` if the error is due to a rate limitation
-    var isRateLimitError: Bool {
-        // TODO: check for error code rather than message
-        firstFailureReason == "You have exceeded a secondary rate limit. Please wait a few minutes before you try again."
-    }
-}
-
-public extension GraphQLEndpointService {
-    /// A failure can be either a single error (typically for syntax errors), or a list of errors (typically for structural issues)
-
-    /// A response can contain either a successful value or an error instance
-    typealias GraphQLResponse<T: Pure> = XResult<GraphQLPayload<T>, HubEndpointFailure>
-
-    func buildRequest<A: APIRequest>(for request: A, cache: URLRequest.CachePolicy? = nil) throws -> URLRequest where A.Service == Self {
-        let url = request.queryURL(for: self)
-        var req = URLRequest(url: url)
-
-        req.allHTTPHeaderFields = requestHeaders
-
-        let postData = try request.postData()
-        if let postData = postData {
-            req.httpMethod = "POST"
-            req.httpBody = postData
-        }
-
-        if let cache = cache {
-            req.cachePolicy = cache
-        }
-
-        // un-comment to view raw GraphQL for running in https://docs.github.com/en/graphql/overview/explorer
-        //print(wip(postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\", with: "")) // for debugging post data
-
-        dbg("requesting:", req, req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
-        return req
-    }
-}
-
-public extension FairHub {
+extension FairHub {
     /// The HTTP headers that should be attached to all API requests
-    var requestHeaders: [String: String] {
+    public var requestHeaders: [String: String] {
         var headers: [String: String] = [:]
         headers["Accept"] = "application/vnd.github.v3+json"
         // apply auth headers if we have one set
@@ -1083,7 +944,7 @@ public extension FairHub {
         return headers
     }
 
-    func endpoint(action: [String], _ params: [String: String?]) -> URL {
+    public func endpoint(action: [String], _ params: [String: String?]) -> URL {
         var comps = URLComponents()
         comps.path = action.joined(separator: "/")
         comps.queryItems = params.map(URLQueryItem.init(name:value:))
@@ -1092,7 +953,7 @@ public extension FairHub {
 
 
     /// An object ID
-    struct OID : RawRepresentable, Pure {
+    public struct OID : RawDecodable, Hashable {
         public let rawValue: String
         public init(rawValue: String) {
             self.rawValue = rawValue
@@ -1100,15 +961,15 @@ public extension FairHub {
     }
 
     /// Generic placeholder for a related collection that only has a `totalCount` property requested
-    struct NodeCount : Pure {
+    public struct NodeCount : Codable {
         public let totalCount: Int
     }
 
-    struct NodeList<T: Pure>: Pure {
+    public struct NodeList<T: Decodable>: Decodable {
         let nodes: [T]?
     }
 
-    struct EdgeList<T: Pure>: Pure {
+    public struct EdgeList<T: Decodable>: Decodable {
         let totalCount: Int?
         let pageInfo: PageInfo?
         let edges: [EdgeNode<T>]
@@ -1118,13 +979,13 @@ public extension FairHub {
             edges.map(\.node)
         }
 
-        struct EdgeNode<T: Pure>: Pure {
+        struct EdgeNode<T: Decodable>: Decodable {
             let cursor: String?
             let node: T
         }
 
         /// The info for a page of results, which includes a cursor to traverse
-        struct PageInfo : Pure {
+        struct PageInfo : Decodable {
             let endCursor: GraphQLCursor?
             let hasNextPage: Bool?
             let hasPreviousPage: Bool?
@@ -1137,7 +998,7 @@ public extension FairHub {
         string?.escapedGraphQLString.enquote(with: "\"") ?? "null"
     }
 
-    struct GetCommitQuery : GraphQLAPIRequest {
+    public struct GetCommitQuery : GraphQLAPIRequest {
         let queryName: String = "GetCommitQuery"
         public var owner: String
         public var name: String
@@ -1150,11 +1011,15 @@ public extension FairHub {
         }
 
         public func postData() throws -> Data? {
-            try ["query": """
-             query \(queryName) {
-             __typename
-              repository(owner: "\(owner)", name: "\(name)") {
-                object(oid: "\(ref)") {
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+                "ref": .str(ref),
+            ], body: """
+             query \(queryName)($owner:String!, $name:String!, $ref:GitObjectID!) {
+               __typename
+               repository(owner: $owner, name: $name) {
+                object(oid: $ref) {
                   ... on Commit {
                     oid
                     abbreviatedOid
@@ -1181,36 +1046,36 @@ public extension FairHub {
                 }
               }
             }
-            """].json()
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure {
-            public enum TypeName : String, Pure { case Query }
+        public struct QueryResponse : Decodable {
+            public enum TypeName : String, Decodable, Hashable { case Query }
             public let __typename: TypeName
             public let repository: Repository
-            public struct Repository : Pure {
+            public struct Repository : Decodable {
                 public let object: Object
-                public struct Object : Pure {
+                public struct Object : Decodable {
                     public let oid: OID
                     public let abbreviatedOid: String
                     public let author: Author?
                     public let signature: Signature?
 
-                    public struct Author : Pure {
+                    public struct Author : Decodable {
                         let name: String?
                         let email: String?
                         let date: Date
                     }
 
-                    public struct Signature : Pure {
+                    public struct Signature : Decodable {
                         let email: String?
                         let isValid: Bool
-                        let state: String // e.g.: "VALID"
+                        let state: GitSignatureState
                         let wasSignedByGitHub: Bool
                         let signer: Signer
-                        public struct Signer : Pure {
+                        public struct Signer : Decodable {
                             let name: String?
                             let email: String
                             let createdAt: Date
@@ -1222,7 +1087,7 @@ public extension FairHub {
         }
     }
 
-    struct RepositoryQuery : GraphQLAPIRequest {
+    public struct RepositoryQuery : GraphQLAPIRequest {
         let queryName: String = "RepositoryQuery"
         public var owner: String
         public var name: String
@@ -1233,10 +1098,13 @@ public extension FairHub {
         }
 
         public func postData() throws -> Data? {
-            try ["query": """
-             query \(queryName) {
-              __typename
-              organization(login: "\(owner)") {
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+            ], body: """
+             query \(queryName)($owner:String!, $name:String!) {
+               __typename
+               organization(login: $owner) {
                 __typename
                 name
                 login
@@ -1245,7 +1113,7 @@ public extension FairHub {
                 websiteUrl
                 url
                 createdAt
-                repository(name: "\(name)") {
+                repository(name: $name) {
                   __typename
                   visibility
                   createdAt
@@ -1275,17 +1143,17 @@ public extension FairHub {
                 }
               }
             }
-            """].json()
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure {
-            public enum TypeName : String, Pure { case Query }
+        public struct QueryResponse : Decodable {
+            public enum TypeName : String, Decodable, Hashable { case Query }
             public let __typename: TypeName
             public let organization: Organization
-            public struct Organization : Pure {
-                public enum TypeName : String, Pure { case User, Organization }
+            public struct Organization : Decodable {
+                public enum TypeName : String, Decodable, Hashable { case User, Organization }
                 public let __typename: TypeName
                 public let name: String? // the string title, falling back to the login name
                 public let login: String
@@ -1298,10 +1166,10 @@ public extension FairHub {
                 public var isOrganization: Bool { __typename == .Organization }
 
                 public let repository: Repository
-                public struct Repository : Pure {
-                    public enum TypeName : String, Pure { case Repository }
+                public struct Repository : Decodable {
+                    public enum TypeName : String, Decodable, Hashable { case Repository }
                     public let __typename: TypeName
-                    public let visibility: String // e.g., "PUBLIC",
+                    public let visibility: RepositoryVisibility // e.g., "PUBLIC",
                     public let createdAt: Date
                     public let updatedAt: Date
                     public let homepageUrl: String?
@@ -1322,8 +1190,8 @@ public extension FairHub {
                     public let stargazerCount: Int
                     public let issues: NodeCount
                     public let licenseInfo: License
-                    public struct License : Pure {
-                        public enum TypeName : String, Pure { case License }
+                    public struct License : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case License }
                         public let __typename: TypeName
                         public let spdxId: String?
                     }
@@ -1377,7 +1245,7 @@ public extension FairHub {
      */
 
     /// The query to generate a catalog of enhanced cask metadata
-    struct AppCasksQuery : GraphQLAPIRequest & CursoredAPIRequest {
+    public struct AppCasksQuery : GraphQLAPIRequest & CursoredAPIRequest {
         public let queryName: String = "AppCasksQuery"
         public typealias Service = FairHub
 
@@ -1385,7 +1253,7 @@ public extension FairHub {
         public var name: String
 
         /// the number of forks to return per batch
-        public var count: Int = 100
+        public var count: Int
 
         /// the number of releases to scan
         public var releaseCount: Int = 100
@@ -1396,12 +1264,19 @@ public extension FairHub {
         public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
-            try ["query": """
-             query \(queryName) {
-             __typename
-              repository(owner: "\(owner)", name: "\(name)") {
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+                "count": .num(.init(count)),
+                "releaseCount": .num(.init(releaseCount)),
+                "assetCount": .num(.init(assetCount)),
+                "cursor": cursor.flatMap({ .str($0.rawValue) })
+            ], body: """
+             query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+               __typename
+               repository(owner: $owner, name: $name) {
                 __typename
-                forks(after: \(quotedOrNull(cursor?.rawValue)), first: \(count), isLocked: false, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
+                forks(after: $cursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
                   __typename
                   totalCount
                   pageInfo {
@@ -1440,7 +1315,7 @@ public extension FairHub {
                       hasWikiEnabled
                       hasProjectsEnabled
                       homepageUrl
-                      releases(first: \(releaseCount)) {
+                      releases(first: $releaseCount) {
                         pageInfo {
                           endCursor
                           hasNextPage
@@ -1457,7 +1332,7 @@ public extension FairHub {
                             isPrerelease
                             isDraft
                             description
-                            releaseAssets(first: \(assetCount)) {
+                            releaseAssets(first: $assetCount) {
                               __typename
                               edges {
                                 node {
@@ -1483,12 +1358,12 @@ public extension FairHub {
                 }
               }
             }
-            """].json()
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure, CursoredAPIResponse {
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
             public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
@@ -1497,15 +1372,15 @@ public extension FairHub {
                 repository.forks.nodes.count
             }
 
-            public enum TypeName : String, Pure { case Query }
+            public enum TypeName : String, Decodable, Hashable { case Query }
             public let __typename: TypeName
             public let repository: BaseRepository
-            public struct BaseRepository : Pure {
-                public enum TypeName : String, Pure { case Repository }
+            public struct BaseRepository : Decodable {
+                public enum TypeName : String, Decodable, Hashable { case Repository }
                 public let __typename: TypeName
                 public let forks: EdgeList<Repository>
-                public struct Repository : Pure {
-                    public enum TypeName : String, Pure { case Repository }
+                public struct Repository : Decodable {
+                    public enum TypeName : String, Decodable, Hashable { case Repository }
                     public let __typename: TypeName
                     public let id: String // used as a base for paginaton
                     public let name: String
@@ -1527,8 +1402,8 @@ public extension FairHub {
                     public let homepageUrl: String?
                     public let releases: EdgeList<Release>
 
-                    public struct Release : Pure {
-                        public enum TypeName : String, Pure { case Release }
+                    public struct Release : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
                         public let createdAt: Date
@@ -1540,7 +1415,7 @@ public extension FairHub {
                         public let description: String?
                         public let releaseAssets: EdgeList<ReleaseAsset>
 
-                        public struct Tag: Pure {
+                        public struct Tag: Decodable, Hashable {
                             public let name: String
                         }
 
@@ -1551,7 +1426,7 @@ public extension FairHub {
     }
 
     /// The query to get additional pages of releases for `AppCasksQuery` when a fork has many releases
-    struct AppCaskReleasesQuery : GraphQLAPIRequest & CursoredAPIRequest {
+    public struct AppCaskReleasesQuery : GraphQLAPIRequest & CursoredAPIRequest {
         public let queryName: String = "AppCaskReleasesQuery"
         public typealias Service = FairHub
 
@@ -1559,7 +1434,7 @@ public extension FairHub {
         public let repositoryNodeID: String
 
         /// the number of releases to get per batch
-        public var releaseCount: Int = 100
+        public var releaseCount: Int
 
         /// the number of release assets to process
         public var assetCount: Int = 25
@@ -1567,13 +1442,19 @@ public extension FairHub {
         public var cursor: GraphQLCursor?
 
         public func postData() throws -> Data? {
-            try ["query": """
-            query \(queryName) {
+            try queryData(variables: [
+                "repositoryNodeID": .str(repositoryNodeID),
+                "releaseCount": .num(.init(releaseCount)),
+                "assetCount": .num(.init(assetCount)),
+                "cursor": cursor.flatMap({ .str($0.rawValue) })
+            ], body: """
+             query \(queryName)($repositoryNodeID:String!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+               __typename
             node(id: "\(repositoryNodeID)") {
               id
               __typename
               ... on Repository {
-                releases(after: \(quotedOrNull(cursor?.rawValue)), first: \(releaseCount)) {
+                releases(after: $cursor, first: $releaseCount) {
                   pageInfo {
                     endCursor
                     hasNextPage
@@ -1590,7 +1471,7 @@ public extension FairHub {
                       isPrerelease
                       isDraft
                       description
-                      releaseAssets(first: \(assetCount)) {
+                      releaseAssets(first: $assetCount) {
                         __typename
                         edges {
                           node {
@@ -1614,12 +1495,12 @@ public extension FairHub {
               }
             }
           }
-        """].json()
+        """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure, CursoredAPIResponse {
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
             public var endCursor: GraphQLCursor? {
                 node.releases.pageInfo?.endCursor
             }
@@ -1629,20 +1510,20 @@ public extension FairHub {
             }
 
             public let node: Repository
-            public struct Repository : Pure {
-                public enum TypeName : String, Pure { case Repository }
+            public struct Repository : Decodable {
+                public enum TypeName : String, Decodable, Hashable { case Repository }
                 public let __typename: TypeName
                 public let id: String // used as a base for paginaton
 
                 /// We re-use the same release structure between the parent query and the cursored release query
-                public let releases: EdgeList<AppCasksQuery.QueryResponse.BaseRepository.Repository.Release>
+                public let releases: EdgeList<AppCaskFork.Release>
             }
         }
     }
 
     /// The query to generate a fair-ground catalog
-    struct CatalogQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "CatalogQuery"
+    public struct CatalogForksQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        public let queryName: String = "CatalogForksQuery"
         public typealias Service = FairHub
 
         public var owner: String
@@ -1663,12 +1544,21 @@ public extension FairHub {
         public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
-            try ["query": """
-             query \(queryName) {
-             __typename
-              repository(owner: "\(owner)", name: "\(name)") {
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+                "count": .num(.init(count)),
+                "releaseCount": .num(.init(releaseCount)),
+                "assetCount": .num(.init(assetCount)),
+                "prCount": .num(.init(prCount)),
+                "commentCount": .num(.init(count)),
+                "cursor": cursor.flatMap({ .str($0.rawValue) })
+            ], body: """
+             query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $cursor:String) {
+               __typename
+               repository(owner: $owner, name: $name) {
                 __typename
-                forks(after: \(quotedOrNull(cursor?.rawValue)), first: \(count), isLocked: false, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
+                forks(after: $cursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
                   __typename
                   totalCount
                   pageInfo {
@@ -1715,7 +1605,7 @@ public extension FairHub {
                           }
                         }
                       }
-                      releases(first: \(releaseCount), orderBy: {field: CREATED_AT, direction: DESC}) {
+                      releases(first: $releaseCount, orderBy: {field: CREATED_AT, direction: DESC}) {
                         nodes {
                           __typename
                           name
@@ -1725,7 +1615,7 @@ public extension FairHub {
                           isPrerelease
                           isDraft
                           description
-                          releaseAssets(first: \(assetCount)) {
+                          releaseAssets(first: $assetCount) {
                             __typename
                             edges {
                               node {
@@ -1766,7 +1656,7 @@ public extension FairHub {
 
                       defaultBranchRef {
                         __typename
-                        associatedPullRequests(states: [CLOSED], last: \(prCount)) {
+                        associatedPullRequests(states: [CLOSED], last: $prCount) {
                           nodes {
                             __typename
                             author {
@@ -1785,7 +1675,7 @@ public extension FairHub {
                               }
                             }
                             # scan the first few PR comments for the fairseal issuer's signature
-                            comments(first: \(commentCount)) {
+                            comments(first: $commentCount) {
                               totalCount
                               nodes {
                                 __typename
@@ -1803,12 +1693,12 @@ public extension FairHub {
                 }
               }
             }
-            """].json()
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure, CursoredAPIResponse {
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
             public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
@@ -1817,15 +1707,15 @@ public extension FairHub {
                 repository.forks.nodes.count
             }
 
-            public enum TypeName : String, Pure { case Query }
+            public enum TypeName : String, Decodable, Hashable { case Query }
             public let __typename: TypeName
             public let repository: BaseRepository
-            public struct BaseRepository : Pure {
-                public enum TypeName : String, Pure { case Repository }
+            public struct BaseRepository : Decodable {
+                public enum TypeName : String, Decodable, Hashable { case Repository }
                 public let __typename: TypeName
                 public let forks: EdgeList<Repository>
-                public struct Repository : Pure {
-                    public enum TypeName : String, Pure { case Repository }
+                public struct Repository : Decodable {
+                    public enum TypeName : String, Decodable, Hashable { case Repository }
                     public let __typename: TypeName
                     public let name: String
                     public let nameWithOwner: String
@@ -1848,48 +1738,48 @@ public extension FairHub {
                     public let releases: NodeList<Release>
                     public let defaultBranchRef: Ref
 
-                    public struct Ref : Pure {
-                        public enum TypeName : String, Pure { case Ref }
+                    public struct Ref : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case Ref }
                         public let __typename: TypeName
                         public let associatedPullRequests: NodeList<PullRequest>
 
-                        public struct PullRequest : Pure {
-                            public enum TypeName : String, Pure { case PullRequest }
+                        public struct PullRequest : Decodable {
+                            public enum TypeName : String, Decodable, Hashable { case PullRequest }
                             public let __typename: TypeName
                             public let author: Author
                             public let baseRef: Ref
                             public let comments: NodeList<IssueComment>
 
-                            public struct Author : Pure {
+                            public struct Author : Decodable {
                                 public let login: String
                                 public let name: String?
                                 public let email: String?
                             }
 
-                            public struct Ref : Pure {
-                                public enum TypeName : String, Pure { case Ref }
+                            public struct Ref : Decodable {
+                                public enum TypeName : String, Decodable, Hashable { case Ref }
                                 public let name: String?
                                 public let repository: Repository
 
-                                public struct Repository : Pure {
+                                public struct Repository : Decodable {
                                     public let nameWithOwner: String
                                 }
                             }
 
-                            public struct IssueComment : Pure {
-                                public enum TypeName : String, Pure { case IssueComment }
+                            public struct IssueComment : Decodable {
+                                public enum TypeName : String, Decodable, Hashable { case IssueComment }
                                 public let __typename: TypeName
                                 public let bodyText: String
                                 public let author: Author
-                                public struct Author : Pure {
+                                public struct Author : Decodable {
                                     public let login: String
                                 }
                             }
                         }
                     }
 
-                    public struct Release : Pure {
-                        public enum TypeName : String, Pure { case Release }
+                    public struct Release : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
                         public let tagCommit: Commit
@@ -1902,31 +1792,31 @@ public extension FairHub {
                         public let description: String?
                         public let releaseAssets: EdgeList<ReleaseAsset>
 
-                        public struct Tag: Pure {
+                        public struct Tag: Decodable, Hashable {
                             public let name: String
                         }
 
-                        public struct Commit: Pure {
-                            public enum TypeName : String, Pure { case Commit }
+                        public struct Commit: Decodable {
+                            public enum TypeName : String, Decodable, Hashable { case Commit }
                             public let __typename: TypeName
                             public let authoredByCommitter: Bool
                             public let author: Author?
                             public let signature: Signature?
 
-                            public struct Author : Pure {
+                            public struct Author : Decodable {
                                 let name: String?
                                 let email: String?
                                 let date: Date
                             }
 
-                            public struct Signature : Pure {
-                                public enum TypeName : String, Pure { case Signature, GpgSignature }
+                            public struct Signature : Decodable {
+                                public enum TypeName : String, Decodable, Hashable { case Signature, GpgSignature }
                                 public let __typename: TypeName
                                 public let isValid: Bool
                                 public let signer: User
 
-                                public struct User : Pure {
-                                    public enum TypeName : String, Pure { case User }
+                                public struct User : Decodable {
+                                    public enum TypeName : String, Decodable, Hashable { case User }
                                     public let __typename: TypeName
                                     public let name: String?
                                     public let email: String?
@@ -1935,12 +1825,12 @@ public extension FairHub {
                         }
                     }
 
-                    public struct RepositoryTopic : Pure {
-                        public enum TypeName : String, Pure { case RepositoryTopic }
+                    public struct RepositoryTopic : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case RepositoryTopic }
                         public let __typename: TypeName
                         public let topic: Topic
-                        public struct Topic : Pure {
-                            public enum TypeName : String, Pure { case Topic }
+                        public struct Topic : Decodable {
+                            public enum TypeName : String, Decodable, Hashable { case Topic }
                             public let __typename: TypeName
                             public let name: String // TODO: this will be the appfair- app category
                         }
@@ -1950,25 +1840,29 @@ public extension FairHub {
         }
     }
 
-    struct LookupPRNumberQuery : GraphQLAPIRequest {
+    public struct LookupPRNumberQuery : GraphQLAPIRequest {
         let queryName: String = "LookupPRNumberQuery"
-        let owner: String?
-        let name: String?
+        let owner: String
+        let name: String
         let prid: Int
 
         public func postData() throws -> Data? {
-            try ["query": "query \(queryName) { __typename, repository(owner: \(quotedOrNull(owner)), name: \(quotedOrNull(name))) { pullRequest(number: \(prid)) { id, number } } }"].json()
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+                "prid": .num(.init(prid)),
+            ], body: "query \(queryName)($owner:String!, $name:String!, $prid:Int!) { __typename, repository(owner: $owner, name: $name) { pullRequest(number: $prid) { id, number } } }")
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure {
-            public enum TypeName : String, Pure { case Query }
+        public struct QueryResponse : Decodable {
+            public enum TypeName : String, Decodable, Hashable { case Query }
             public let __typename: TypeName
             let repository: Repository
-            struct Repository : Pure {
+            struct Repository : Decodable {
                 let pullRequest: PullRequest
-                struct PullRequest : Pure {
+                struct PullRequest : Decodable, Hashable {
                     let id: OID
                     let number: Int
                 }
@@ -1976,17 +1870,20 @@ public extension FairHub {
         }
     }
 
-    struct PostCommentQuery : GraphQLAPIRequest {
+    public struct PostCommentQuery : GraphQLAPIRequest {
         let mutationName: String = "AddComment"
         /// The issue or pull request ID
         let id: OID
         let comment: String?
 
         public func postData() throws -> Data? {
-            try ["query": """
-                mutation \(mutationName) {
+            try queryData(variables: [
+                "id": .str(id.rawValue),
+                "comment": comment.flatMap(JSum.str),
+            ], body: """
+                mutation \(mutationName)($id:String!, $comment:String!) {
                   __typename
-                  addComment(input: {subjectId: "\(id.rawValue)", body: \(quotedOrNull(comment))}) {
+                  addComment(input: {subjectId: $id, body: $comment}) {
                     commentEdge {
                       node {
                         body
@@ -1995,20 +1892,20 @@ public extension FairHub {
                     }
                   }
                 }
-                """].json()
+                """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure {
-            public enum TypeName : String, Pure { case Mutation }
+        public struct QueryResponse : Decodable {
+            public enum TypeName : String, Decodable, Hashable { case Mutation }
             public let __typename: TypeName
             let addComment: AddComment
-            struct AddComment : Pure {
+            struct AddComment : Decodable {
                 let commentEdge: CommentEdge
-                struct CommentEdge : Pure {
+                struct CommentEdge : Decodable {
                     let node: Node
-                    struct Node : Pure {
+                    struct Node : Decodable {
                         let body: String
                         let url: URL
                     }
@@ -2017,25 +1914,30 @@ public extension FairHub {
         }
     }
 
-    struct FindPullRequests : GraphQLAPIRequest & CursoredAPIRequest {
+    public struct FindPullRequests : GraphQLAPIRequest & CursoredAPIRequest {
         public let queryName: String = "FindPullRequests"
         /// The owner organization for the PR
-        public var owner: String = appfairName
+        public var owner: String
         /// The base repository name for the PR
-        public var name: String = "App"
+        public var name: String
         /// The state of the PR
-        public var state: String? = "OPEN"
+        public var state: PullRequestState
         public var count: Int = 100
         public var cursor: GraphQLCursor? = nil
 
-
         public func postData() throws -> Data? {
-            try ["query": """
-             query \(queryName) {
-             __typename
-             repository(owner: "\(owner)", name: "\(name)") {
-                __typename
-               pullRequests(states: [\(state ?? "")], orderBy: { field: UPDATED_AT, direction: DESC }, first: \(count), after: \(quotedOrNull(cursor?.rawValue))) {
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+                "state": .str(state.rawValue),
+                "count": .num(.init(count)),
+                "cursor": cursor.flatMap({ .str($0.rawValue) })
+            ], body: """
+             query \(queryName)($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $cursor:String) {
+               __typename
+               repository(owner: $owner, name: $name) {
+                 __typename
+                 pullRequests(states: [$state], orderBy: { field: UPDATED_AT, direction: DESC }, first: $count, after: $cursor) {
                     totalCount
                     pageInfo {
                       hasNextPage
@@ -2059,12 +1961,12 @@ public extension FairHub {
                  }
                }
              }
-             """].json()
+             """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
-        public struct QueryResponse : Pure, CursoredAPIResponse {
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
             public var endCursor: GraphQLCursor? {
                 repository.pullRequests.pageInfo?.endCursor
             }
@@ -2073,24 +1975,24 @@ public extension FairHub {
                 repository.pullRequests.nodes.count
             }
 
-            public enum TypeName : String, Pure { case Query }
+            public enum TypeName : String, Decodable, Hashable { case Query }
             public let __typename: TypeName
             public var repository: Repository
-            public struct Repository : Pure {
-                public enum Repository : String, Pure { case Repository }
+            public struct Repository : Decodable {
+                public enum Repository : String, Decodable, Hashable { case Repository }
                 public let __typename: Repository
                 public var pullRequests: EdgeList<PullRequest>
-                public struct PullRequest : Pure {
+                public struct PullRequest : Decodable {
                     public var id: OID
                     public var number: Int
                     public var url: URL?
-                    public var state: String
+                    public var state: PullRequestState
                     public var mergeable: String // e.g., "CONFLICTING" or "UNKNOWN"
                     public var headRefName: String // e.g., "main"
                     public var headRepository: HeadRepository?
-                    public struct HeadRepository : Pure {
+                    public struct HeadRepository : Decodable {
                         public var nameWithOwner: String
-                        public var visibility: String // e.g., "PUBLIC"
+                        public var visibility: RepositoryVisibility // e.g., "PUBLIC"
                         public var forkingAllowed: Bool
                     }
                 }
@@ -2098,8 +2000,154 @@ public extension FairHub {
         }
     }
 
+    public struct GetSponsorsQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        public let queryName: String = "GetSponsorsQuery"
+        /// The owner organization for the PR
+        public var owner: String
+        /// The base repository name for the PR
+        public var name: String
+
+        /// the number of forks to return per batch
+        public var count: Int = 100
+
+        public var cursor: GraphQLCursor? = nil
+
+        public func postData() throws -> Data? {
+            try queryData(variables: [
+                "owner": .str(owner),
+                "name": .str(name),
+                "count": .num(.init(count)),
+                "cursor": cursor.flatMap({ .str($0.rawValue) })
+            ], body: """
+             query \(queryName)($owner:String!, $name:String!, $count:Int!, $cursor:String) {
+               __typename
+               repository(owner: $owner, name: $name) {
+                 __typename
+                 owner {
+                   login
+                   url
+                   ... on Organization {
+                     __typename
+                     name
+                     sponsorsListing {
+                       __typename
+                       name
+                       isPublic
+                       activeGoal {
+                         __typename
+                         title
+                         kind
+                         percentComplete
+                         targetValue
+                         description
+                       }
+                     }
+                   }
+                 }
+                 forks(first: $count, after: $cursor) {
+                  edges {
+                    node {
+                     __typename
+                     nameWithOwner
+                     owner {
+                       login
+                       url
+                       ... on Organization {
+                         __typename
+                         name
+                         sponsorsListing {
+                           __typename
+                           name
+                           isPublic
+                           activeGoal {
+                             __typename
+                             title
+                             kind
+                             percentComplete
+                             targetValue
+                             description
+                           }
+                         }
+                       }
+                     }
+                     }
+                   }
+                 }
+               }
+             }
+             """)
+        }
+
+        public typealias Response = GraphQLResponse<QueryResponse>
+
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var endCursor: GraphQLCursor? {
+                repository.forks.pageInfo?.endCursor
+            }
+
+            public var elementCount: Int {
+                repository.forks.nodes.count
+            }
+
+            public enum TypeName : String, Decodable, Hashable { case Query }
+            public let __typename: TypeName
+            public var repository: Repository
+            public struct Repository : Decodable {
+                public enum Repository : String, Decodable, Hashable { case Repository }
+                public let __typename: Repository
+
+                public var owner: Owner
+
+                public struct Owner : Decodable {
+                    var login: String
+                    var url: String
+
+                    // ... on Organization fields
+                    
+                    var name: String?
+                    var sponsorsListing: SponsorsListing?
+
+                    public struct SponsorsListing : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case SponsorsListing }
+                        public let __typename: TypeName
+                        var name: String
+                        var isPublic: Bool
+                        var activeGoal: SponsorsGoal?
+
+                        public struct SponsorsGoal : Decodable {
+                            public enum TypeName : String, Decodable, Hashable { case SponsorsGoal }
+                            public let __typename: TypeName
+                            var kind: KindName? // e.g. TOTAL_SPONSORS_COUNT or MONTHLY_SPONSORSHIP_AMOUNT
+                            var title: String?
+                            var description: String?
+                            var percentComplete: Double?
+                            var targetValue: Double?
+
+                            public struct KindName : RawDecodable, Hashable {
+                                public static let TOTAL_SPONSORS_COUNT = KindName(rawValue: "TOTAL_SPONSORS_COUNT")
+                                public static let MONTHLY_SPONSORSHIP_AMOUNT = KindName(rawValue: "MONTHLY_SPONSORSHIP_AMOUNT")
+                                public let rawValue: String
+                                public init(rawValue: String) {
+                                    self.rawValue = rawValue
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                public var forks: EdgeList<Fork>
+                public struct Fork : Decodable {
+//                    public var id: OID
+                    public var nameWithOwner: String
+                    public var owner: Owner
+                }
+            }
+        }
+    }
+
     /// An asset returned from an API query
-    struct ReleaseAsset : Pure {
+    public struct ReleaseAsset : Decodable {
         public var name: String
         public var size: Int
         public var contentType: String
@@ -2109,10 +2157,86 @@ public extension FairHub {
         public var updatedAt: Date
     }
 
-    struct User : Pure {
+    public struct User : Decodable {
         public var name: String
         public var email: String
         public var date: Date?
+    }
+
+
+
+    /// [PullRequestState](https://docs.github.com/en/graphql/reference/enums#pullrequeststate)
+    public struct PullRequestState : RawDecodable, Hashable {
+        /// A pull request that has been closed without being merged.
+        public static let CLOSED = Self(rawValue: "CLOSED")
+        /// A pull request that has been closed by being merged.
+        public static let MERGED = Self(rawValue: "MERGED")
+        /// A pull request that is still open.
+        public static let OPEN = Self(rawValue: "OPEN")
+
+        public let rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+
+    /// [RepositoryVisibility](https://docs.github.com/en/graphql/reference/enums#repositoryvisibility)
+    public struct RepositoryVisibility : RawDecodable, Hashable {
+        /// The repository is visible only to users in the same business.
+        public static let INTERNAL = Self(rawValue: "INTERNAL")
+        /// The repository is visible only to those with explicit access.
+        public static let PRIVATE = Self(rawValue: "PRIVATE")
+        /// The repository is visible to everyone.
+        public static let PUBLIC = Self(rawValue: "PUBLIC")
+
+        public let rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
+
+
+    /// [GitSignatureState](https://docs.github.com/en/graphql/reference/enums#gitsignaturestate)
+    public struct GitSignatureState : RawDecodable, Hashable {
+        /// The signing certificate or its chain could not be verified.
+        public static let BAD_CERT = Self(rawValue: "BAD_CERT")
+        /// Invalid email used for signing.
+        public static let BAD_EMAIL = Self(rawValue: "BAD_EMAIL")
+        /// Signing key expired.
+        public static let EXPIRED_KEY = Self(rawValue: "EXPIRED_KEY")
+        /// Internal error - the GPG verification service misbehaved.
+        public static let GPGVERIFY_ERROR = Self(rawValue: "GPGVERIFY_ERROR")
+        /// Internal error - the GPG verification service is unavailable at the moment.
+        public static let GPGVERIFY_UNAVAILABLE = Self(rawValue: "GPGVERIFY_UNAVAILABLE")
+        /// Invalid signature.
+        public static let INVALID = Self(rawValue: "INVALID")
+        /// Malformed signature.
+        public static let MALFORMED_SIG = Self(rawValue: "MALFORMED_SIG")
+        /// The usage flags for the key that signed this don't allow signing.
+        public static let NOT_SIGNING_KEY = Self(rawValue: "NOT_SIGNING_KEY")
+        /// Email used for signing not known to GitHub.
+        public static let NO_USER = Self(rawValue: "NO_USER")
+        /// Valid signature, though certificate revocation check failed.
+        public static let OCSP_ERROR = Self(rawValue: "OCSP_ERROR")
+        /// Valid signature, pending certificate revocation checking.
+        public static let OCSP_PENDING = Self(rawValue: "OCSP_PENDING")
+        /// One or more certificates in chain has been revoked.
+        public static let OCSP_REVOKED = Self(rawValue: "OCSP_REVOKED")
+        /// Key used for signing not known to GitHub.
+        public static let UNKNOWN_KEY = Self(rawValue: "UNKNOWN_KEY")
+        /// Unknown signature type.
+        public static let UNKNOWN_SIG_TYPE = Self(rawValue: "UNKNOWN_SIG_TYPE")
+        /// Unsigned.
+        public static let UNSIGNED = Self(rawValue: "UNSIGNED")
+        /// Email used for signing unverified on GitHub.
+        public static let UNVERIFIED_EMAIL = Self(rawValue: "UNVERIFIED_EMAIL")
+        /// Valid signature and verified by GitHub.
+        public static let VALID = Self(rawValue: "VALID")
+
+        public let rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
     }
 
     /// The commit instance
@@ -2139,6 +2263,14 @@ public extension GraphQLAPIRequest {
     /// GraphQL requests all use the same query endpoint
     func queryURL(for service: Service) -> URL {
         URL(string: "https://api.github.com/graphql")!
+    }
+
+    /// Creates a GraphQL query with a variable mapping.
+    func queryData(variables: [String: JSum?] = [:], body: String) throws -> Data {
+        var req = JObj()
+        req["variables"] = .obj(variables.mapValues({ $0 ?? JSum.nul }))
+        req["query"] = .str(body)
+        return try req.json()
     }
 }
 

@@ -1273,7 +1273,7 @@ public struct FairCommand : AsyncParsableCommand {
             let configuration = try regOptions.createProjectConfiguration()
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: appfairName, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.catalogOptions.requestLimit)
+            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.catalogOptions.requestLimit)
 
             msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
             for apprel in catalog.apps {
@@ -1571,7 +1571,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
             msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
-            if let postURL = try await hubOptions.fairHub().postFairseal(fairseal) {
+            if let postURL = try await hubOptions.fairHub().postFairseal(fairseal, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo) {
                 msg(.info, "posted fairseal to:", postURL.absoluteString)
             } else {
                 msg(.warn, "unable to post fairseal")
@@ -1928,6 +1928,20 @@ public struct FairCommand : AsyncParsableCommand {
     }
 }
 
+extension InfoPlistKey {
+    /// - TODO: @available(*, deprecated, message: "moved to AppSource.permissions key")
+    public static let FairUsage = Self("FairUsage")
+}
+
+public extension Plist {
+    /// The usage description dictionary for the `"FairUsage"` key.
+    /// - TODO: @available(*, deprecated, message: "moved to AppSource.permissions key")
+    var FairUsage: NSDictionary? {
+        plistValue(for: .FairUsage) as? NSDictionary
+    }
+
+}
+
 public struct BrewCommand : AsyncParsableCommand {
     public static let experimental = true
     public static var configuration = CommandConfiguration(commandName: "brew",
@@ -1989,7 +2003,7 @@ public struct BrewCommand : AsyncParsableCommand {
             let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
+            let catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: hubOptions.casksRepo, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
 
             let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
@@ -2584,9 +2598,18 @@ public struct RegOptions: ParsableArguments {
     }
 }
 
+/// A Hub is represented by a string "`service.host`/`organization`".
+///
+/// E.g., "github.com/appfair"
 public struct HubOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the hub to use.", valueName: "host/org"))
+    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the name of the hub to use (e.g., gitub.com/appfair).", valueName: "host/org"))
     public var hub: String
+
+    @Option(name: [.long, .customShort("B")], help: ArgumentHelp("the name of the hub's base repository.", valueName: "repo"))
+    public var baseRepo: String = "App"
+
+    @Option(name: [.long, .customShort("C")], help: ArgumentHelp("the name of the hub's base casks repository.", valueName: "repo"))
+    public var casksRepo: String = "appcasks"
 
     @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
     public var token: String?
@@ -2602,6 +2625,16 @@ public struct HubOptions: ParsableArguments {
     /// The hub service we should use for this tool
     public func fairHub() throws -> FairHub {
         try FairHub(hostOrg: self.hub, authToken: self.token ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"], fairsealIssuer: self.fairsealIssuer, fairsealKey: self.fairsealKey.flatMap({ Data(base64Encoded: $0) }))
+    }
+
+    /// The host service address. E.g., the "github.com" part of "github.com/appfair"
+    public var serviceHost: String {
+        hub.split(separator: "/").first?.description ?? hub
+    }
+
+    /// The name of the organization for this hub.  E.g., the "appfair" part of "github.com/appfair"
+    public var organizationName: String {
+        hub.split(separator: "/").last?.description ?? hub
     }
 }
 

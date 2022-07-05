@@ -102,18 +102,22 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/EdgeList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GitSignatureState",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/NodeCount",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/NodeList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PostCommentQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PullRequestState",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ReleaseAsset",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryOwner",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryVisibility",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/User"
       ],
       "title" : "Structures"
@@ -142,8 +146,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CommitInfo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ErrorType"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskFork",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/BaseFork"
       ],
       "title" : "Type Aliases"
     },
@@ -258,6 +262,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskFork": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCaskFork"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskFork",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCaskFork"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCaskFork",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskfork"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery": {
   "abstract" : [
     {
@@ -334,7 +369,38 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogQuery": {
+"doc://FairExpo/documentation/FairExpo/FairHub/BaseFork": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BaseFork"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/BaseFork",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BaseFork"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.BaseFork",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/basefork"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery": {
   "abstract" : [
     {
       "text" : "The query to generate a fair-ground catalog",
@@ -352,55 +418,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogQuery"
+      "text" : "CatalogForksQuery"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogQuery"
+      "text" : "CatalogForksQuery"
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.CatalogQuery",
+  "title" : "FairHub.CatalogForksQuery",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogquery"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/CommitInfo": {
-  "abstract" : [
-    {
-      "text" : "The commit instance",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CommitInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CommitInfo",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CommitInfo"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub.CommitInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/commitinfo"
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/EdgeList": {
   "abstract" : [
@@ -443,37 +475,6 @@
   "title" : "EndpointService Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/endpointservice-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/ErrorType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ErrorType"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ErrorType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ErrorType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub.ErrorType",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/errortype"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests": {
   "abstract" : [
@@ -536,6 +537,72 @@
   "title" : "FairHub.GetCommitQuery",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GetSponsorsQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GetSponsorsQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetSponsorsQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GitSignatureState": {
+  "abstract" : [
+    {
+      "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#gitsignaturestate",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GitSignatureState"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GitSignatureState",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GitSignatureState"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GitSignatureState",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/gitsignaturestate"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/GraphQLEndpointService-Implementations": {
   "abstract" : [
@@ -717,6 +784,41 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/postcommentquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/PullRequestState": {
+  "abstract" : [
+    {
+      "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#pullrequeststate",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PullRequestState"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PullRequestState",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PullRequestState"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.PullRequestState",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/pullrequeststate"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/ReleaseAsset": {
   "abstract" : [
     {
@@ -813,6 +915,41 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/repositoryquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/RepositoryVisibility": {
+  "abstract" : [
+    {
+      "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#repositoryvisibility",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryVisibility"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryVisibility",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RepositoryVisibility"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.RepositoryVisibility",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/repositoryvisibility"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/User": {
   "abstract" : [
 
@@ -889,6 +1026,22 @@
   "abstract" : [
     {
       "text" : "The hardwired code that returns an HTTP error but contains information about backing off",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "403 is just retry",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "502 sometimes happens with large responses",
       "type" : "text"
     }
   ],
@@ -1292,6 +1445,42 @@
   "title" : "GraphQLEndpointService",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlendpointservice"
+},
+"https://docs.github.com/en/graphql/reference/enums#gitsignaturestate": {
+  "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#gitsignaturestate",
+  "title" : "GitSignatureState",
+  "titleInlineContent" : [
+    {
+      "text" : "GitSignatureState",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#gitsignaturestate"
+},
+"https://docs.github.com/en/graphql/reference/enums#pullrequeststate": {
+  "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#pullrequeststate",
+  "title" : "PullRequestState",
+  "titleInlineContent" : [
+    {
+      "text" : "PullRequestState",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#pullrequeststate"
+},
+"https://docs.github.com/en/graphql/reference/enums#repositoryvisibility": {
+  "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#repositoryvisibility",
+  "title" : "RepositoryVisibility",
+  "titleInlineContent" : [
+    {
+      "text" : "RepositoryVisibility",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#repositoryvisibility"
 }
 }
 }

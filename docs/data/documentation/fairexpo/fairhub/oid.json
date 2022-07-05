@@ -83,12 +83,12 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/8FairCore12RawDecodableP",
+        "doc:\/\/FairExpo\/8FairCore16RawInitializableP",
         "doc:\/\/FairExpo\/Se",
-        "doc:\/\/FairExpo\/SE",
         "doc:\/\/FairExpo\/SQ",
         "doc:\/\/FairExpo\/SH",
-        "doc:\/\/FairExpo\/SY",
-        "doc:\/\/FairExpo\/s8SendableP"
+        "doc:\/\/FairExpo\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -106,7 +106,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/init(rawValue:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/init(rawValue:)-89ax"
       ],
       "title" : "Initializers"
     },
@@ -120,8 +120,9 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/Decodable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/Encodable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/Equatable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/RawDecodable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/RawInitializable-Implementations",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -141,9 +142,14 @@
   ]
 , 
 "references": {
-"doc://FairExpo/SE": {
-  "identifier" : "doc:\/\/FairExpo\/SE",
-  "title" : "Swift.Encodable",
+"doc://FairExpo/8FairCore12RawDecodableP": {
+  "identifier" : "doc:\/\/FairExpo\/8FairCore12RawDecodableP",
+  "title" : "FairCore.RawDecodable",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/8FairCore16RawInitializableP": {
+  "identifier" : "doc:\/\/FairExpo\/8FairCore16RawInitializableP",
+  "title" : "FairCore.RawInitializable",
   "type" : "unresolvable"
 },
 "doc://FairExpo/SH": {
@@ -259,17 +265,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/oid\/decodable-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/OID/Encodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/oid\/encodable-implementations"
-},
 "doc://FairExpo/documentation/FairExpo/FairHub/OID/Equatable-Implementations": {
   "abstract" : [
 
@@ -280,6 +275,28 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/oid\/equatable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/OID/RawDecodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/RawDecodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawDecodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/oid\/rawdecodable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/OID/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/oid\/rawinitializable-implementations"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/OID/RawRepresentable-Implementations": {
   "abstract" : [
@@ -292,7 +309,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/oid\/rawrepresentable-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/OID/init(rawValue:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/OID/init(rawValue:)-89ax": {
   "abstract" : [
 
   ],
@@ -323,12 +340,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/init(rawValue:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID\/init(rawValue:)-89ax",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/oid\/init(rawvalue:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/oid\/init(rawvalue:)-89ax"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/OID/rawValue": {
   "abstract" : [
@@ -363,11 +380,6 @@
   "title" : "rawValue",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/oid\/rawvalue"
-},
-"doc://FairExpo/s8SendableP": {
-  "identifier" : "doc:\/\/FairExpo\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }

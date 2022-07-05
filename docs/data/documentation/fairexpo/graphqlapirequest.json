@@ -143,9 +143,10 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PostCommentQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryQuery"
@@ -162,6 +163,14 @@
   },
   "sections" : [
 
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryData(variables:body:)"
+      ],
+      "title" : "Instance Methods"
+    }
   ],
   "variants" : [
     {
@@ -335,7 +344,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogQuery": {
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery": {
   "abstract" : [
     {
       "text" : "The query to generate a fair-ground catalog",
@@ -353,21 +362,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogQuery"
+      "text" : "CatalogForksQuery"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogQuery"
+      "text" : "CatalogForksQuery"
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.CatalogQuery",
+  "title" : "FairHub.CatalogForksQuery",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogquery"
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests": {
   "abstract" : [
@@ -430,6 +439,37 @@
   "title" : "FairHub.GetCommitQuery",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GetSponsorsQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GetSponsorsQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetSponsorsQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/LookupPRNumberQuery": {
   "abstract" : [
@@ -565,6 +605,94 @@
   "title" : "GraphQLAPIRequest",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlapirequest"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest/queryData(variables:body:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a GraphQL query with a variable mapping.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "queryData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "variables"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "?], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryData(variables:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "queryData(variables:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest\/querydata(variables:body:)"
 }
 }
 }

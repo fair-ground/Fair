@@ -85,11 +85,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/Se",
-        "doc:\/\/FairExpo\/SE",
-        "doc:\/\/FairExpo\/SQ",
-        "doc:\/\/FairExpo\/SH",
-        "doc:\/\/FairExpo\/s8SendableP"
+        "doc:\/\/FairExpo\/Se"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -132,9 +128,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/Decodable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/Encodable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/Equatable-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/Decodable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -153,21 +147,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/SE": {
-  "identifier" : "doc:\/\/FairExpo\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
-"doc://FairExpo/SH": {
-  "identifier" : "doc:\/\/FairExpo\/SH",
-  "title" : "Swift.Hashable",
-  "type" : "unresolvable"
-},
-"doc://FairExpo/SQ": {
-  "identifier" : "doc:\/\/FairExpo\/SQ",
-  "title" : "Swift.Equatable",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/Se": {
   "identifier" : "doc:\/\/FairExpo\/Se",
   "title" : "Swift.Decodable",
@@ -355,28 +334,6 @@
   "title" : "Decodable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse\/repository-swift.struct\/pullrequest\/decodable-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests/QueryResponse/Repository-swift.struct/PullRequest/Encodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse\/repository-swift.struct\/pullrequest\/encodable-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests/QueryResponse/Repository-swift.struct/PullRequest/Equatable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/Equatable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse\/repository-swift.struct\/pullrequest\/equatable-implementations"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests/QueryResponse/Repository-swift.struct/PullRequest/HeadRepository-swift.struct": {
   "abstract" : [
@@ -702,8 +659,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV16PullRequestStateV",
+      "text" : "PullRequestState"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse\/Repository-swift.struct\/PullRequest\/state",
@@ -750,11 +716,6 @@
   "title" : "url",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse\/repository-swift.struct\/pullrequest\/url"
-},
-"doc://FairExpo/s8SendableP": {
-  "identifier" : "doc:\/\/FairExpo\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }

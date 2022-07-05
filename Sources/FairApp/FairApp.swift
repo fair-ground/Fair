@@ -85,21 +85,29 @@ public extension Bundle {
     }
 }
 
+
+extension InfoPlistKey {
+    /// A dictionary encoding of the contents of the App Source catalog.
+    ///
+    /// The dictionary can contain keys like "subtitle" and "localizedDescription".
+    public static let AppSource = Self("AppSource")
+}
+
 extension Plist {
     /// Derives an ``AppCatalogItem`` from the contents of the ``Plist`` item,
     /// which is stored in the top-level "AppSource" dictionary in an app's main `Info.plist`.
     /// - Parameter downloadURL: the download URL for this app, which is arequirted property of an app catalog item.
     /// - Returns: nil if critical information (like the bundle name) is empty; otherwise, the catalog item that is contained in this property list node
-    public func appCatalogInfo(appSourceKey: String = "AppSource", downloadURL: URL) throws -> AppCatalogItem? {
-        guard let appName = self.rawValue[InfoPlistKey.CFBundleName.rawValue] as? String else {
+    public func appCatalogInfo(appSourceKey: InfoPlistKey = .AppSource, downloadURL: URL) throws -> AppCatalogItem? {
+        guard let appName = self.CFBundleName else {
             return nil
         }
 
-        guard let bundleID = self.rawValue[InfoPlistKey.CFBundleIdentifier.rawValue] as? String else {
+        guard let bundleID = self.CFBundleIdentifier else {
             return nil
         }
 
-        let appSource = (self.rawValue[appSourceKey] as? NSDictionary) ?? [:]
+        let appSource = (self.plistValue(for: appSourceKey) as? NSDictionary) ?? [:]
 
         // the rest of the properties will be inherited by
         let plist = Plist(rawValue: appSource)

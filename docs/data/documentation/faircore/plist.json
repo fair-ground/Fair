@@ -133,7 +133,6 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/CFBundleShortVersionString",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/CFBundleVersion",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/DTPlatformName",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/FairUsage",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/rawValue"
       ],
       "title" : "Instance Properties"
@@ -141,7 +140,9 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/jsum()",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/serialize(as:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/plistValue(for:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/serialize(as:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/stringValue(for:)"
       ],
       "title" : "Instance Methods"
     },
@@ -516,55 +517,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/plist\/equatable-implementations"
 },
-"doc://FairCore/documentation/FairCore/Plist/FairUsage": {
-  "abstract" : [
-    {
-      "text" : "The usage description dictionary for the ",
-      "type" : "text"
-    },
-    {
-      "code" : "\"FairUsage\"",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " key.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairUsage"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSDictionary",
-      "text" : "NSDictionary"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/FairUsage",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "FairUsage",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/plist\/fairusage"
-},
 "doc://FairCore/documentation/FairCore/Plist/RawRepresentable-Implementations": {
   "abstract" : [
 
@@ -780,6 +732,63 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/plist\/jsum()"
 },
+"doc://FairCore/documentation/FairCore/Plist/plistValue(for:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the untypes content of the given plist key",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "plistValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/plistValue(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "plistValue(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/plist\/plistvalue(for:)"
+},
 "doc://FairCore/documentation/FairCore/Plist/rawValue": {
   "abstract" : [
 
@@ -884,6 +893,64 @@
   "title" : "serialize(as:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/plist\/serialize(as:)"
+},
+"doc://FairCore/documentation/FairCore/Plist/stringValue(for:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the string contents of the given plist key",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stringValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/stringValue(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stringValue(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/plist\/stringvalue(for:)"
 }
 }
 }

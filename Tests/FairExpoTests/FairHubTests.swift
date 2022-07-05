@@ -57,12 +57,12 @@ final class FairHubTests: XCTestCase {
         let hub = try Self.hub(skipNoAuth: true)
         do {
             do {
-                let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: nil, name: nil, prid: -1))
+                let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: "xxx", name: "xxx", prid: -1))
 
                 XCTAssertNil(response.result.successValue, "request should not have succeeded")
                 if response.result.failureValue?.isRateLimitError != true {
                     let reason = response.result.failureValue?.firstFailureReason
-                    XCTAssertEqual("Argument 'owner' on Field 'repository' has an invalid value (null). Expected type 'String!'.", reason)
+                    XCTAssertEqual("Could not resolve to a Repository with the name 'xxx/xxx'.", reason)
                 }
             } catch let error as URLResponse.InvalidHTTPCode {
                 // if it fails, it is probably a rate-limiting error
@@ -113,6 +113,27 @@ final class FairHubTests: XCTestCase {
         }
     }
 
+    func testFindPullRequestsQuery() async throws {
+        let hub = try Self.hub(skipNoAuth: true)
+        do {
+            let response = try await hub.request(FairHub.FindPullRequests(owner: "appfair", name: "App", state: .CLOSED, count: 99))
+            let content = try response.get().data
+            let pr = try XCTUnwrap(content.repository.pullRequests.nodes.first, "no PRs found")
+            XCTAssertNotEqual(nil, pr.headRefName, "head ref should have been a branch")
+        } catch {
+            XCTFail("Error: \(error)")
+            throw error
+        }
+    }
+
+    func testLookupPRNumberQuery() async throws {
+        let hub = try Self.hub(skipNoAuth: true)
+        let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: "appfair", name: "App", prid: 1)).get().data
+
+        XCTAssertEqual(1, response.repository.pullRequest.number)
+        XCTAssertEqual("PR_kwDOGHtQpc4sSrBQ", response.repository.pullRequest.id.rawValue)
+    }
+
     func testFetchCommitQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
         let response = try await hub.request(FairHub.GetCommitQuery(owner: "fair-ground", name: "Fair", ref: "93d86ba5884772c8ef189bead1ca131bb11b90f2")).get().data
@@ -123,12 +144,52 @@ final class FairHubTests: XCTestCase {
 
         XCTAssertNotNil(response.repository.object.author?.name)
         XCTAssertNotNil(sig.signer.email)
-        XCTAssertEqual("VALID", sig.state)
+        XCTAssertEqual(.VALID, sig.state)
         XCTAssertEqual(true, sig.isValid)
         XCTAssertEqual(false, sig.wasSignedByGitHub)
     }
 
-    func XXXtestCatalogQuery() async throws {
+    func testFetchSponsorshipListings() async throws {
+        let hub = try Self.hub(skipNoAuth: true)
+        do {
+            let response = try await hub.request(FairHub.GetSponsorsQuery(owner: "appfair", name: "App")).get().data
+            XCTAssertEqual(nil, response.repository.forks.totalCount)
+
+            XCTAssertEqual("The App Fair!", response.repository.owner.name)
+
+            //dbg("repository", response.repository.prettyJSON)
+
+            do {
+                let listing = try XCTUnwrap(response.repository.owner.sponsorsListing, "missing sponsorsListing")
+                XCTAssertEqual("sponsors-appfair", listing.name)
+                XCTAssertEqual(true, listing.isPublic)
+
+                XCTAssertEqual(.SponsorsGoal, listing.activeGoal?.__typename)
+                XCTAssertEqual(.TOTAL_SPONSORS_COUNT, listing.activeGoal?.kind)
+
+                XCTAssertEqual("100 sponsors", listing.activeGoal?.title)
+                XCTAssertEqual(100, listing.activeGoal?.targetValue)
+                XCTAssertEqual(0, listing.activeGoal?.percentComplete)
+                XCTAssertEqual("Attaining our sponsorship goal will enable us to set out a firm roadmap for version 1.0 of the project, as well as break ground on implementing support for additional platforms and integrations.", listing.activeGoal?.description)
+            }
+
+            do {
+                let firstFork = try XCTUnwrap(response.repository.forks.nodes.first)
+                //dbg(firstFork.prettyJSON)
+
+                XCTAssertEqual("App-Fair/App", firstFork.nameWithOwner)
+                XCTAssertEqual("App-Fair", firstFork.owner.name)
+                XCTAssertEqual("App-Fair", firstFork.owner.login)
+                XCTAssertEqual("https://github.com/App-Fair", firstFork.owner.url)
+                XCTAssertEqual(nil, firstFork.owner.sponsorsListing?.activeGoal?.kind)
+            }
+        } catch {
+            print("error: \(error)")
+            XCTFail("error: \(error)")
+        }
+    }
+
+    func testCatalogQuery() async throws {
         if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
@@ -137,13 +198,11 @@ final class FairHubTests: XCTestCase {
 
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
-        var resultResults: [[FairHub.CatalogQuery.QueryResponse.BaseRepository.Repository]] = []
-        for _ in 1...3 {
-            let results = hub.sendCursoredRequest(FairHub.CatalogQuery(owner: appfairName, name: "App", count: Int.random(in: 8...18)))
-            for try await result in results {
-                let forks = try result.get().data.repository.forks.nodes
-                resultResults.append(forks)
-            }
+        var resultResults: [[FairHub.BaseFork]] = []
+        let results = hub.sendCursoredRequest(FairHub.CatalogForksQuery(owner: appfairName, name: appfairBaseRepoName, count: Int.random(in: 8...18)))
+        for try await result in results {
+            let forks = try result.get().data.repository.forks.nodes
+            resultResults.append(forks)
         }
 
         XCTAssertEqual(resultResults[0].count, resultResults[1].count)
@@ -168,30 +227,41 @@ final class FairHubTests: XCTestCase {
 //        print("response in:", Double(t2 - t1) / 1_000_000_000, data.count, response)
 //    }
 
+    func retry502<T>(block: () async throws -> T) async throws -> T {
+        do {
+            return try await block()
+        } catch {
+            //print("#### ERROR: \(error)")
+            throw error
+        }
+    }
+
     func testBuildAppCasks() async throws {
         if runningFromCI {
             // this quickly exhausts the API limit for the default actions token
             throw XCTSkip("disabled to reduce API load")
         }
 
-        let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
-        let maxApps: Int? = 233 // _000_000
-        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
-        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-        let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
-        dbg("catalog", names.sorted())
+        try await retry502 {
+            let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
+            let maxApps: Int? = 432 // _000_000
+            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: appfairBaseRepoName, maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
+            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+            let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
+            dbg("catalog", names.sorted())
 
-        if let maxApps = maxApps {
-            XCTAssertEqual(ids.count, maxApps)
+            if let maxApps = maxApps {
+                XCTAssertEqual(ids.count, maxApps)
+            }
+
+            XCTAssertTrue(names.contains("CotEditor"))
+            XCTAssertTrue(ids.contains(.init("coteditor")))
+
+            XCTAssertGreaterThanOrEqual(names.count, 1)
+
+            //dbg(catalog.prettyJSON)
+            dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
         }
-
-        XCTAssertTrue(names.contains("CotEditor"))
-        XCTAssertTrue(ids.contains(.init("coteditor")))
-
-        XCTAssertGreaterThanOrEqual(names.count, 1)
-
-        //dbg(catalog.prettyJSON)
-        dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
     private func checkApp(_ id: String, catalog: AppCatalog) {
@@ -214,7 +284,7 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", owner: "appfair", baseRepository: "App", fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
@@ -234,7 +304,7 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", fairsealCheck: false, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", owner: ("appfair"), baseRepository: appfairBaseRepoName, fairsealCheck: false, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 

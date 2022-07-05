@@ -112,57 +112,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Se",
               "text" : "Decodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SE",
-              "text" : "Encodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SH",
-              "text" : "Hashable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s8SendableP",
-              "text" : "Sendable"
             }
           ]
         }
@@ -174,11 +123,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
-        "doc:\/\/FairExpo\/Se",
-        "doc:\/\/FairExpo\/SE",
-        "doc:\/\/FairExpo\/SQ",
-        "doc:\/\/FairExpo\/SH",
-        "doc:\/\/FairExpo\/s8SendableP"
+        "doc:\/\/FairExpo\/Se"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -210,9 +155,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/CursoredAPIResponse-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/Decodable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/Encodable-Implementations",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/Equatable-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/Decodable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -231,21 +174,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/SE": {
-  "identifier" : "doc:\/\/FairExpo\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
-"doc://FairExpo/SH": {
-  "identifier" : "doc:\/\/FairExpo\/SH",
-  "title" : "Swift.Hashable",
-  "type" : "unresolvable"
-},
-"doc://FairExpo/SQ": {
-  "identifier" : "doc:\/\/FairExpo\/SQ",
-  "title" : "Swift.Equatable",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/Se": {
   "identifier" : "doc:\/\/FairExpo\/Se",
   "title" : "Swift.Decodable",
@@ -299,35 +227,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : ", ",
+        "text" : " and ",
         "type" : "text"
       },
       {
         "code" : "Decodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "Encodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Sendable",
         "type" : "codeVoice"
       },
       {
@@ -427,28 +331,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlpayload\/decodable-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/GraphQLPayload/Encodable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlpayload\/encodable-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/GraphQLPayload/Equatable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/Equatable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlpayload\/equatable-implementations"
-},
 "doc://FairExpo/documentation/FairExpo/GraphQLPayload/data": {
   "abstract" : [
 
@@ -523,11 +405,6 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlpayload\/init(from:)"
-},
-"doc://FairExpo/s8SendableP": {
-  "identifier" : "doc:\/\/FairExpo\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }

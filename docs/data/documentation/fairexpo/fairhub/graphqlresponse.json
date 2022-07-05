@@ -115,10 +115,10 @@
               "text" : ">, "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLRequestFailure",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo18HubEndpointFailurea",
-              "text" : "HubEndpointFailure"
+              "preciseIdentifier" : "s:8FairExpo21GraphQLRequestFailureV",
+              "text" : "GraphQLRequestFailure"
             },
             {
               "kind" : "text",
@@ -144,57 +144,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:Se",
               "text" : "Decodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SE",
-              "text" : "Encodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SH",
-              "text" : "Hashable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "T"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s8SendableP",
-              "text" : "Sendable"
             }
           ]
         }
@@ -359,7 +308,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlpayload"
 },
-"doc://FairExpo/documentation/FairExpo/HubEndpointFailure": {
+"doc://FairExpo/documentation/FairExpo/GraphQLRequestFailure": {
   "abstract" : [
     {
       "text" : "Either a single error or a list of errors",
@@ -369,7 +318,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -377,21 +326,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "HubEndpointFailure"
+      "text" : "GraphQLRequestFailure"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLRequestFailure",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "HubEndpointFailure"
+      "text" : "GraphQLRequestFailure"
     }
   ],
   "role" : "symbol",
-  "title" : "HubEndpointFailure",
+  "title" : "GraphQLRequestFailure",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/hubendpointfailure"
+  "url" : "\/documentation\/fairexpo\/graphqlrequestfailure"
 }
 }
 }

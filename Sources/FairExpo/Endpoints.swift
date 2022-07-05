@@ -42,7 +42,7 @@ public protocol EndpointService {
 /// typealias Response = XOr<FailureResponse>.Or<SuccessResponse>
 /// ```
 public protocol APIRequest {
-    associatedtype Response : Pure
+    associatedtype Response : Decodable
     associatedtype Service : EndpointService
 
     /// The URL for connecting to the service
@@ -93,7 +93,7 @@ extension EndpointService {
     func decode<T: Decodable>(data: Data) throws -> T {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        //dbg("decoding:", String(data: data, encoding: .utf8) ?? "") // debugging for failures
+        //dbg(wip("### decoding response:"), try! JSum(json: data).prettyJSON) // debugging for failures
 
         return try decoder.decode(T.self, from: data)
     }
@@ -122,7 +122,7 @@ extension EndpointService {
                 // no more elements
                 return nil
             }
-            dbg("requesting next cursor:", requestIndex) // , cursor)
+            dbg("requesting next cursor:", requestIndex, cursor)
             request.cursor = cursor // make another request with the new cursor
         }
 
@@ -141,11 +141,13 @@ extension EndpointService {
         var codes = IndexSet(200..<300)
         codes.formUnion(Self.backoffCodes)
         var retryCount = max(retryCount, 1)
-        var seenCodes: Set<Int> = []
+        var seenCodes: [Int] = []
+
+        // perform any re-tryable attempts
         while retryCount > 0 {
             retryCount -= 1
 
-            let (data, response) = try await session.fetch(request: request, validate: .init(codes))
+            let (data, response) = try await session.fetch(request: request, validate: IndexSet(codes))
             dbg("batch response:", response)
             //dbg("batch data:", data.utf8String)
 
@@ -157,7 +159,7 @@ extension EndpointService {
                Self.backoffCodes.contains(response.statusCode),
                let retryAfter = response.value(forHTTPHeaderField: "Retry-After"),
                let retryAfterSeconds = Double(retryAfter) {
-                seenCodes.insert(response.statusCode)
+                seenCodes.append(response.statusCode)
                 dbg("backing off for \(retryAfterSeconds) seconds and re-trying \(retryCount) more times due to response status \(response.statusCode)")
                 try await Task.sleep(nanoseconds: .init(retryAfterSeconds * 1_000_000_000))
             } else {
@@ -165,7 +167,8 @@ extension EndpointService {
             }
         }
 
-        throw AppError("Resource at returned code: \(seenCodes.sorted())")
+        codes.subtract(Self.backoffCodes) // remove the backoff codes and just throw any failures
+        return try await session.fetch(request: request, validate: IndexSet(codes))
     }
 
     /// Fetches the web service for the given request, returning an `AsyncThrowingStream` that yields batches until they are no longer available or they have passed the max batch limit.
@@ -188,7 +191,7 @@ extension EndpointService {
 
 /// A cursor that represents a pointer to a page in a set of GraphQL results.
 /// It is an opaque (base-64 encoded) string.
-public struct GraphQLCursor : RawRepresentable, Pure {
+public struct GraphQLCursor : RawRepresentable, Decodable {
     public let rawValue: String
     public init(rawValue: String) {
         self.rawValue = rawValue
@@ -219,3 +222,100 @@ public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResp
     /// The cursor for the request
     var cursor: GraphQLCursor? { get set }
 }
+
+
+/// The payload of a successful `GraphQL` query.
+public struct GraphQLPayload<T : Decodable> : Decodable {
+    public var data: T
+}
+
+/// Pass-through cursor support.
+extension GraphQLPayload : CursoredAPIResponse where T : CursoredAPIResponse {
+    public var endCursor: GraphQLCursor? {
+        data.endCursor
+    }
+
+    public var elementCount: Int {
+        data.elementCount
+    }
+}
+
+// MARK: GraphQL Request & Response
+
+
+public struct GraphQLError : Decodable, LocalizedError {
+    public var message: String // e.g., "Could not resolve to a Repository with the name '/App'."
+    public var type: String? // e.g., "NOT_FOUND", "INSUFFICIENT_SCOPES"
+    public var path: [String]? // e.g., ["repository"] or ["query FindPullRequests","repository","pullRequests","states"]
+    public var documentation_url: URL?
+
+    public var failureReason: String? { message }
+}
+
+/// A set of one or more errors returned by the GraphQL API.
+public struct GraphQLErrorList : Decodable, Error {
+    public var errors: [GraphQLError]
+}
+
+/// Either a single error or a list of errors
+
+public struct GraphQLRequestFailure : Error, RawDecodable {
+    public typealias ErrorTypes = XOr<GraphQLError>.Or<GraphQLErrorList>
+    public let rawValue: ErrorTypes
+    public init(rawValue: ErrorTypes) {
+        self.rawValue = rawValue
+    }
+
+    public init(from decoder: Decoder) throws {
+        try self.init(rawValue: RawValue(from: decoder))
+    }
+}
+
+extension GraphQLRequestFailure : LocalizedError {
+    public var failureReason: String? {
+        firstFailureReason
+    }
+
+    /// The first error message for the failure
+    public var firstFailureReason: String? {
+        rawValue.infer()?.failureReason ?? rawValue.infer()?.errors.first?.message
+    }
+
+    /// Returns `true` if the error is due to a rate limitation
+    public var isRateLimitError: Bool {
+        // TODO: check for error code rather than message
+        self.firstFailureReason == "You have exceeded a secondary rate limit. Please wait a few minutes before you try again."
+    }
+}
+
+public extension GraphQLEndpointService {
+    /// A failure can be either a single error (typically for syntax errors), or a list of errors (typically for structural issues)
+
+    /// A response can contain either a successful value or an error instance
+    typealias GraphQLResponse<T: Decodable> = XResult<GraphQLPayload<T>, GraphQLRequestFailure>
+
+    func buildRequest<A: APIRequest>(for request: A, cache: URLRequest.CachePolicy? = nil) throws -> URLRequest where A.Service == Self {
+        let url = request.queryURL(for: self)
+        var req = URLRequest(url: url)
+
+        req.allHTTPHeaderFields = requestHeaders
+
+        let postData = try request.postData()
+        if let postData = postData {
+            req.httpMethod = "POST"
+            req.httpBody = postData
+        }
+
+        if let cache = cache {
+            req.cachePolicy = cache
+        }
+
+        // un-comment to view raw GraphQL for running in https://docs.github.com/en/graphql/overview/explorer
+        //dbg("### POSTING to \(url.absoluteString):", wip(postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\", with: "")) // for debugging post data
+
+        dbg("requesting:", req, req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
+        return req
+    }
+}
+
+

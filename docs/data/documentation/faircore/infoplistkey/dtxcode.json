@@ -19,11 +19,19 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore12InfoPlistKeyO7DTXcodeyA2CmF",
+    "externalID" : "s:8FairCore12InfoPlistKeyV7DTXcodeACvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "case"
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -32,6 +40,15 @@
       {
         "kind" : "identifier",
         "text" : "DTXcode"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+        "text" : "InfoPlistKey"
       }
     ],
     "modules" : [
@@ -40,9 +57,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Case",
-    "symbolKind" : "case",
-    "title" : "InfoPlistKey.DTXcode"
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "DTXcode"
   },
   "primaryContentSections" : [
     {
@@ -57,7 +74,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "case"
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -66,6 +91,16 @@
             {
               "kind" : "identifier",
               "text" : "DTXcode"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+              "text" : "InfoPlistKey"
             }
           ]
         }
@@ -112,14 +147,14 @@
 "doc://FairCore/documentation/FairCore/InfoPlistKey": {
   "abstract" : [
     {
-      "text" : "Copyright (c) 2022 Marc Prud’hommeaux",
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -150,7 +185,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -159,12 +202,21 @@
     {
       "kind" : "identifier",
       "text" : "DTXcode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTXcode",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTXcode",
+  "title" : "DTXcode",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtxcode"
 }

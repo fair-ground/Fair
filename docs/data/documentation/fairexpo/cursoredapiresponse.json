@@ -83,8 +83,9 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/QueryResponse",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksQuery\/QueryResponse",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery\/QueryResponse",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests\/QueryResponse",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload"
       ],
       "kind" : "relationships",
@@ -310,7 +311,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksquery\/queryresponse"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogQuery/QueryResponse": {
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/QueryResponse": {
   "abstract" : [
 
   ],
@@ -328,7 +329,7 @@
       "text" : "QueryResponse"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogQuery\/QueryResponse",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -337,9 +338,9 @@
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.CatalogQuery.QueryResponse",
+  "title" : "FairHub.CatalogForksQuery.QueryResponse",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogquery\/queryresponse"
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/queryresponse"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests/QueryResponse": {
   "abstract" : [
@@ -371,6 +372,37 @@
   "title" : "FairHub.FindPullRequests.QueryResponse",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests\/queryresponse"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery/QueryResponse": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "QueryResponse"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetSponsorsQuery.QueryResponse",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery\/queryresponse"
 },
 "doc://FairExpo/documentation/FairExpo/GraphQLPayload": {
   "abstract" : [
@@ -414,35 +446,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : ", ",
+        "text" : " and ",
         "type" : "text"
       },
       {
         "code" : "Decodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "Encodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ", and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Sendable",
         "type" : "codeVoice"
       },
       {

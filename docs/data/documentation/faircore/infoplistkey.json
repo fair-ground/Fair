@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Copyright (c) 2022 Marc Prud’hommeaux",
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
       "type" : "text"
     }
   ],
@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore12InfoPlistKeyO",
+    "externalID" : "s:8FairCore12InfoPlistKeyV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "enum"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Enumeration",
-    "symbolKind" : "enum",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "InfoPlistKey"
   },
   "primaryContentSections" : [
@@ -62,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "enum"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -76,126 +76,16 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "overview",
-          "level" : 2,
-          "text" : "Overview",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This program is free software: you can redistribute it and\/or modify",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "it under the terms of the GNU Affero General Public License as",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "published by the Free Software Foundation, either version 3 of the",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "License, or (at your option) any later version.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This program is distributed in the hope that it will be useful,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "but WITHOUT ANY WARRANTY; without even the implied warranty of",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "GNU Affero General Public License for more details.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "You should have received a copy of the GNU Affero General Public License",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "along with this program.  If not, see ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "https:\/\/www.gnu.org\/licenses\/",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : ".",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/s12CaseIterableP",
-        "doc:\/\/FairCore\/SQ",
-        "doc:\/\/FairCore\/SH",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
+        "doc:\/\/FairCore\/Se",
+        "doc:\/\/FairCore\/SE",
         "doc:\/\/FairCore\/SY"
       ],
       "kind" : "relationships",
@@ -212,6 +102,20 @@
 
   ],
   "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(rawValue:)-i2kg"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/plistKey",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/rawValue"
+      ],
+      "title" : "Instance Properties"
+    },
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/BuildMachineOSBuild",
@@ -248,24 +152,16 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/UIRequiredDeviceCapabilities",
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/UISupportedInterfaceOrientations"
       ],
-      "title" : "Enumeration Cases"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(rawValue:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/plistKey"
-      ],
-      "title" : "Instance Properties"
+      "title" : "Type Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/Equatable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/Decodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/Encodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawDecodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawEncodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawInitializable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -285,19 +181,19 @@
   ]
 , 
 "references": {
-"doc://FairCore/SH": {
-  "identifier" : "doc:\/\/FairCore\/SH",
-  "title" : "Swift.Hashable",
-  "type" : "unresolvable"
-},
-"doc://FairCore/SQ": {
-  "identifier" : "doc:\/\/FairCore\/SQ",
-  "title" : "Swift.Equatable",
+"doc://FairCore/SE": {
+  "identifier" : "doc:\/\/FairCore\/SE",
+  "title" : "Swift.Encodable",
   "type" : "unresolvable"
 },
 "doc://FairCore/SY": {
   "identifier" : "doc:\/\/FairCore\/SY",
   "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/Se": {
+  "identifier" : "doc:\/\/FairCore\/Se",
+  "title" : "Swift.Decodable",
   "type" : "unresolvable"
 },
 "doc://FairCore/documentation/FairCore": {
@@ -317,14 +213,14 @@
 "doc://FairCore/documentation/FairCore/InfoPlistKey": {
   "abstract" : [
     {
-      "text" : "Copyright (c) 2022 Marc Prud’hommeaux",
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -355,7 +251,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -364,12 +268,21 @@
     {
       "kind" : "identifier",
       "text" : "BuildMachineOSBuild"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/BuildMachineOSBuild",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.BuildMachineOSBuild",
+  "title" : "BuildMachineOSBuild",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/buildmachineosbuild"
 },
@@ -380,7 +293,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -389,12 +310,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleDisplayName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleDisplayName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleDisplayName",
+  "title" : "CFBundleDisplayName",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundledisplayname"
 },
@@ -405,7 +335,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -414,12 +352,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleExecutable"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleExecutable",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleExecutable",
+  "title" : "CFBundleExecutable",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleexecutable"
 },
@@ -430,7 +377,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -439,12 +394,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleIconFiles"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleIconFiles",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleIconFiles",
+  "title" : "CFBundleIconFiles",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleiconfiles"
 },
@@ -455,7 +419,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -464,12 +436,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleIconName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleIconName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleIconName",
+  "title" : "CFBundleIconName",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleiconname"
 },
@@ -480,7 +461,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -489,12 +478,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleIcons"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleIcons",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleIcons",
+  "title" : "CFBundleIcons",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleicons"
 },
@@ -505,7 +503,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -514,12 +520,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleIdentifier",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleIdentifier",
+  "title" : "CFBundleIdentifier",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleidentifier"
 },
@@ -530,7 +545,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -539,12 +562,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleInfoDictionaryVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleInfoDictionaryVersion",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleInfoDictionaryVersion",
+  "title" : "CFBundleInfoDictionaryVersion",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleinfodictionaryversion"
 },
@@ -555,7 +587,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -564,12 +604,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleName",
+  "title" : "CFBundleName",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundlename"
 },
@@ -580,7 +629,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -589,12 +646,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundlePackageType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundlePackageType",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundlePackageType",
+  "title" : "CFBundlePackageType",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundlepackagetype"
 },
@@ -605,7 +671,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -614,12 +688,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundlePrimaryIcon"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundlePrimaryIcon",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundlePrimaryIcon",
+  "title" : "CFBundlePrimaryIcon",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleprimaryicon"
 },
@@ -630,7 +713,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -639,12 +730,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleShortVersionString"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleShortVersionString",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleShortVersionString",
+  "title" : "CFBundleShortVersionString",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleshortversionstring"
 },
@@ -655,7 +755,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -664,12 +772,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleSupportedPlatforms"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleSupportedPlatforms",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleSupportedPlatforms",
+  "title" : "CFBundleSupportedPlatforms",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundlesupportedplatforms"
 },
@@ -680,7 +797,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -689,12 +814,21 @@
     {
       "kind" : "identifier",
       "text" : "CFBundleVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/CFBundleVersion",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.CFBundleVersion",
+  "title" : "CFBundleVersion",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/cfbundleversion"
 },
@@ -705,7 +839,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -714,12 +856,21 @@
     {
       "kind" : "identifier",
       "text" : "DTCompiler"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTCompiler",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTCompiler",
+  "title" : "DTCompiler",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtcompiler"
 },
@@ -730,7 +881,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -739,12 +898,21 @@
     {
       "kind" : "identifier",
       "text" : "DTPlatformBuild"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTPlatformBuild",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTPlatformBuild",
+  "title" : "DTPlatformBuild",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtplatformbuild"
 },
@@ -755,7 +923,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -764,12 +940,21 @@
     {
       "kind" : "identifier",
       "text" : "DTPlatformName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTPlatformName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTPlatformName",
+  "title" : "DTPlatformName",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtplatformname"
 },
@@ -780,7 +965,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -789,12 +982,21 @@
     {
       "kind" : "identifier",
       "text" : "DTPlatformVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTPlatformVersion",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTPlatformVersion",
+  "title" : "DTPlatformVersion",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtplatformversion"
 },
@@ -805,7 +1007,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -814,12 +1024,21 @@
     {
       "kind" : "identifier",
       "text" : "DTSDKBuild"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTSDKBuild",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTSDKBuild",
+  "title" : "DTSDKBuild",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtsdkbuild"
 },
@@ -830,7 +1049,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -839,12 +1066,21 @@
     {
       "kind" : "identifier",
       "text" : "DTSDKName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTSDKName",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTSDKName",
+  "title" : "DTSDKName",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtsdkname"
 },
@@ -855,7 +1091,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -864,12 +1108,21 @@
     {
       "kind" : "identifier",
       "text" : "DTXcode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTXcode",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTXcode",
+  "title" : "DTXcode",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtxcode"
 },
@@ -880,7 +1133,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -889,25 +1150,45 @@
     {
       "kind" : "identifier",
       "text" : "DTXcodeBuild"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/DTXcodeBuild",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.DTXcodeBuild",
+  "title" : "DTXcodeBuild",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/dtxcodebuild"
 },
-"doc://FairCore/documentation/FairCore/InfoPlistKey/Equatable-Implementations": {
+"doc://FairCore/documentation/FairCore/InfoPlistKey/Decodable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/Equatable-Implementations",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/Decodable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
+  "title" : "Decodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/infoplistkey\/equatable-implementations"
+  "url" : "\/documentation\/faircore\/infoplistkey\/decodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/InfoPlistKey/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/infoplistkey\/encodable-implementations"
 },
 "doc://FairCore/documentation/FairCore/InfoPlistKey/LSApplicationCategoryType": {
   "abstract" : [
@@ -916,7 +1197,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -925,12 +1214,21 @@
     {
       "kind" : "identifier",
       "text" : "LSApplicationCategoryType"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/LSApplicationCategoryType",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.LSApplicationCategoryType",
+  "title" : "LSApplicationCategoryType",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/lsapplicationcategorytype"
 },
@@ -941,7 +1239,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -950,12 +1256,21 @@
     {
       "kind" : "identifier",
       "text" : "LSBackgroundOnly"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/LSBackgroundOnly",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.LSBackgroundOnly",
+  "title" : "LSBackgroundOnly",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/lsbackgroundonly"
 },
@@ -966,7 +1281,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -975,12 +1298,21 @@
     {
       "kind" : "identifier",
       "text" : "LSFileQuarantineEnabled"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/LSFileQuarantineEnabled",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.LSFileQuarantineEnabled",
+  "title" : "LSFileQuarantineEnabled",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/lsfilequarantineenabled"
 },
@@ -991,7 +1323,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1000,12 +1340,21 @@
     {
       "kind" : "identifier",
       "text" : "LSMinimumSystemVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/LSMinimumSystemVersion",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.LSMinimumSystemVersion",
+  "title" : "LSMinimumSystemVersion",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/lsminimumsystemversion"
 },
@@ -1016,7 +1365,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1025,12 +1382,21 @@
     {
       "kind" : "identifier",
       "text" : "LSUIElement"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/LSUIElement",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.LSUIElement",
+  "title" : "LSUIElement",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/lsuielement"
 },
@@ -1041,7 +1407,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1050,12 +1424,21 @@
     {
       "kind" : "identifier",
       "text" : "LSUIPresentationMode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/LSUIPresentationMode",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.LSUIPresentationMode",
+  "title" : "LSUIPresentationMode",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/lsuipresentationmode"
 },
@@ -1066,7 +1449,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1075,12 +1466,21 @@
     {
       "kind" : "identifier",
       "text" : "MinimumOSVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/MinimumOSVersion",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.MinimumOSVersion",
+  "title" : "MinimumOSVersion",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/minimumosversion"
 },
@@ -1091,7 +1491,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1100,14 +1508,56 @@
     {
       "kind" : "identifier",
       "text" : "NSHumanReadableCopyright"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/NSHumanReadableCopyright",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.NSHumanReadableCopyright",
+  "title" : "NSHumanReadableCopyright",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/nshumanreadablecopyright"
+},
+"doc://FairCore/documentation/FairCore/InfoPlistKey/RawDecodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawDecodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawDecodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/infoplistkey\/rawdecodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/InfoPlistKey/RawEncodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawEncodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawEncodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/infoplistkey\/rawencodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/InfoPlistKey/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/infoplistkey\/rawinitializable-implementations"
 },
 "doc://FairCore/documentation/FairCore/InfoPlistKey/RawRepresentable-Implementations": {
   "abstract" : [
@@ -1127,7 +1577,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1136,12 +1594,21 @@
     {
       "kind" : "identifier",
       "text" : "UIDeviceFamily"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/UIDeviceFamily",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.UIDeviceFamily",
+  "title" : "UIDeviceFamily",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/uidevicefamily"
 },
@@ -1152,7 +1619,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1161,12 +1636,21 @@
     {
       "kind" : "identifier",
       "text" : "UIRequiredDeviceCapabilities"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/UIRequiredDeviceCapabilities",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.UIRequiredDeviceCapabilities",
+  "title" : "UIRequiredDeviceCapabilities",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/uirequireddevicecapabilities"
 },
@@ -1177,7 +1661,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1186,16 +1678,25 @@
     {
       "kind" : "identifier",
       "text" : "UISupportedInterfaceOrientations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12InfoPlistKeyV",
+      "text" : "InfoPlistKey"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/UISupportedInterfaceOrientations",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "InfoPlistKey.UISupportedInterfaceOrientations",
+  "title" : "UISupportedInterfaceOrientations",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/uisupportedinterfaceorientations"
 },
-"doc://FairCore/documentation/FairCore/InfoPlistKey/init(rawValue:)": {
+"doc://FairCore/documentation/FairCore/InfoPlistKey/init(_:)": {
   "abstract" : [
 
   ],
@@ -1206,7 +1707,37 @@
     },
     {
       "kind" : "text",
-      "text" : "?("
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/infoplistkey\/init(_:)"
+},
+"doc://FairCore/documentation/FairCore/InfoPlistKey/init(rawValue:)-i2kg": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
     },
     {
       "kind" : "externalParam",
@@ -1226,12 +1757,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(rawValue:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(rawValue:)-i2kg",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/infoplistkey\/init(rawvalue:)"
+  "url" : "\/documentation\/faircore\/infoplistkey\/init(rawvalue:)-i2kg"
 },
 "doc://FairCore/documentation/FairCore/InfoPlistKey/plistKey": {
   "abstract" : [
@@ -1270,22 +1801,237 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey\/plistkey"
 },
-"doc://FairCore/s12CaseIterableP": {
-  "identifier" : "doc:\/\/FairCore\/s12CaseIterableP",
-  "title" : "Swift.CaseIterable",
-  "type" : "unresolvable"
-},
-"https://www.gnu.org/licenses/": {
-  "identifier" : "https:\/\/www.gnu.org\/licenses\/",
-  "title" : "https:\/\/www.gnu.org\/licenses\/",
-  "titleInlineContent" : [
+"doc://FairCore/documentation/FairCore/InfoPlistKey/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
     {
-      "text" : "https:\/\/www.gnu.org\/licenses\/",
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/infoplistkey\/rawvalue"
+},
+"doc://FairCore/documentation/FairCore/RawDecodable": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawDecodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Implementations of this type will decode their ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " payload directly, rather than from an objec with a “rawValue” property.",
       "type" : "text"
     }
   ],
-  "type" : "link",
-  "url" : "https:\/\/www.gnu.org\/licenses\/"
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawDecodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawDecodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawDecodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawdecodable"
+},
+"doc://FairCore/documentation/FairCore/RawEncodable": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawDecodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Implementations of this type will encode their ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " payload directly, rather than to an objec with a “rawValue” property.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawEncodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawEncodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawEncodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawencodable"
+},
+"doc://FairCore/documentation/FairCore/RawInitializable": {
+  "abstract" : [
+    {
+      "text" : "A type that permits items to be initialized non-optionally",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawInitializable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawInitializable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawInitializable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawinitializable"
 }
 }
 }

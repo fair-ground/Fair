@@ -79,10 +79,11 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLCursor",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLError",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLErrorList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLRequestFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointError",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointErrorList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/IndexingOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand",
@@ -101,6 +102,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairBaseRepoName",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsIdentifier",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsName",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairCaskAppsURL",
@@ -115,7 +117,6 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppcastFeed",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload"
       ],
       "title" : "Type Aliases"
@@ -1227,6 +1228,71 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlendpointservice"
 },
+"doc://FairExpo/documentation/FairExpo/GraphQLError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLError",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlerror"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLErrorList": {
+  "abstract" : [
+    {
+      "text" : "A set of one or more errors returned by the GraphQL API.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLErrorList"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLErrorList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLErrorList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLErrorList",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlerrorlist"
+},
 "doc://FairExpo/documentation/FairExpo/GraphQLPayload": {
   "abstract" : [
     {
@@ -1269,6 +1335,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlpayload"
 },
+"doc://FairExpo/documentation/FairExpo/GraphQLRequestFailure": {
+  "abstract" : [
+    {
+      "text" : "Either a single error or a list of errors",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLRequestFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLRequestFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GraphQLRequestFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLRequestFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlrequestfailure"
+},
 "doc://FairExpo/documentation/FairExpo/HomebrewAPI": {
   "abstract" : [
     {
@@ -1303,108 +1403,28 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/homebrewapi"
 },
-"doc://FairExpo/documentation/FairExpo/HubEndpointError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HubEndpointError"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HubEndpointError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HubEndpointError",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/hubendpointerror"
-},
-"doc://FairExpo/documentation/FairExpo/HubEndpointErrorList": {
-  "abstract" : [
-    {
-      "text" : "A set of one or more errors returned by the GraphQL API.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HubEndpointErrorList"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointErrorList",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HubEndpointErrorList"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HubEndpointErrorList",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/hubendpointerrorlist"
-},
-"doc://FairExpo/documentation/FairExpo/HubEndpointFailure": {
-  "abstract" : [
-    {
-      "text" : "Either a single error or a list of errors",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HubEndpointFailure"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubEndpointFailure",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HubEndpointFailure"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HubEndpointFailure",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/hubendpointfailure"
-},
 "doc://FairExpo/documentation/FairExpo/HubOptions": {
   "abstract" : [
-
+    {
+      "text" : "A Hub is represented by a string “",
+      "type" : "text"
+    },
+    {
+      "code" : "service.host",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "\/",
+      "type" : "text"
+    },
+    {
+      "code" : "organization",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "”.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2020,6 +2040,43 @@
   "title" : "XMLNodeExpressible",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/xmlnodeexpressible"
+},
+"doc://FairExpo/documentation/FairExpo/appfairBaseRepoName": {
+  "abstract" : [
+    {
+      "text" : "The base repository name from which apps should be forked",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appfairBaseRepoName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/appfairBaseRepoName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appfairBaseRepoName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appfairbasereponame"
 },
 "doc://FairExpo/documentation/FairExpo/appfairCaskAppsIdentifier": {
   "abstract" : [

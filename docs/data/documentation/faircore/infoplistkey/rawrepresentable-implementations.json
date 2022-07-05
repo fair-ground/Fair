@@ -39,16 +39,9 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/hashValue"
+        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(from:)-2ps0o"
       ],
-      "title" : "Instance Properties"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/hash(into:)"
-      ],
-      "title" : "Instance Methods"
+      "title" : "Initializers"
     }
   ],
   "variants" : [
@@ -82,14 +75,14 @@
 "doc://FairCore/documentation/FairCore/InfoPlistKey": {
   "abstract" : [
     {
-      "text" : "Copyright (c) 2022 Marc Prud’hommeaux",
+      "text" : "https:\/\/developer.apple.com\/documentation\/bundleresources\/information_property_list\/bundle_configuration",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -113,7 +106,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/infoplistkey"
 },
-"doc://FairCore/documentation/FairCore/InfoPlistKey/hash(into:)": {
+"doc://FairCore/documentation/FairCore/InfoPlistKey/init(from:)-2ps0o": {
   "abstract" : [
 
   ],
@@ -140,7 +133,7 @@
         "type" : "text"
       },
       {
-        "code" : "Hashable",
+        "code" : "Decodable",
         "type" : "codeVoice"
       },
       {
@@ -152,11 +145,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " conforms to ",
+        "text" : " is ",
         "type" : "text"
       },
       {
-        "code" : "Hashable",
+        "code" : "String",
         "type" : "codeVoice"
       },
       {
@@ -167,16 +160,8 @@
   },
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
       "kind" : "identifier",
-      "text" : "hash"
+      "text" : "init"
     },
     {
       "kind" : "text",
@@ -184,101 +169,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "into"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "inout"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s6HasherV",
-      "text" : "Hasher"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/hash(into:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "hash(into:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/infoplistkey\/hash(into:)"
-},
-"doc://FairCore/documentation/FairCore/InfoPlistKey/hashValue": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Self",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "RawValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "hashValue"
+      "text" : "from"
     },
     {
       "kind" : "text",
@@ -286,16 +177,24 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/hashValue",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/InfoPlistKey\/init(from:)-2ps0o",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "hashValue",
+  "title" : "init(from:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/infoplistkey\/hashvalue"
+  "url" : "\/documentation\/faircore\/infoplistkey\/init(from:)-2ps0o"
 }
 }
 }
