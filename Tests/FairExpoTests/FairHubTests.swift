@@ -23,9 +23,6 @@ import FoundationNetworking
 #if !os(Windows) // Windows doesn't yet seem to support async tests: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'
 final class FairHubTests: XCTestCase {
 
-    /// Our test org
-    static let org = Bundle.appfairDefaultAppName
-
     override class func setUp() {
         if authToken == nil {
             XCTFail("Missing GITHUB_TOKEN and GH_TOKEN in environment")
@@ -42,7 +39,7 @@ final class FairHubTests: XCTestCase {
         if skipNoAuth == true && Self.authToken == nil {
             throw XCTSkip("cannot run API tests without a token")
         }
-        return try FairHub(hostOrg: "github.com/" + org, authToken: authToken, fairsealIssuer: "appfairbot", fairsealKey: nil)
+        return try FairHub(hostOrg: "github.com/" + appfairName, authToken: authToken, fairsealIssuer: "appfairbot", fairsealKey: nil)
     }
 
     /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
@@ -83,14 +80,14 @@ final class FairHubTests: XCTestCase {
 
     func testFetchRepositoryQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
-        let response = try await hub.request(FairHub.RepositoryQuery(owner: "appfair", name: "App"))
+        let response = try await hub.request(FairHub.RepositoryQuery(owner: appfairName, name: baseFairgroundRepoName))
         do {
             let content = try response.get().data
             let org = content.organization
             let repo = org.repository
 
             XCTAssertEqual(nil, org.email)
-            XCTAssertEqual("appfair", org.login)
+            XCTAssertEqual(appfairName, org.login)
 
             XCTAssertEqual(0, repo.discussionCategories.totalCount)
             XCTAssertEqual(false, repo.hasIssuesEnabled)
@@ -116,7 +113,7 @@ final class FairHubTests: XCTestCase {
     func testFindPullRequestsQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
         do {
-            let response = try await hub.request(FairHub.FindPullRequests(owner: "appfair", name: "App", state: .CLOSED, count: 99))
+            let response = try await hub.request(FairHub.FindPullRequests(owner: appfairName, name: baseFairgroundRepoName, state: .CLOSED, count: 99))
             let content = try response.get().data
             let pr = try XCTUnwrap(content.repository.pullRequests.nodes.first, "no PRs found")
             XCTAssertNotEqual(nil, pr.headRefName, "head ref should have been a branch")
@@ -128,7 +125,7 @@ final class FairHubTests: XCTestCase {
 
     func testLookupPRNumberQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
-        let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: "appfair", name: "App", prid: 1)).get().data
+        let response = try await hub.request(FairHub.LookupPRNumberQuery(owner: appfairName, name: baseFairgroundRepoName, prid: 1)).get().data
 
         XCTAssertEqual(1, response.repository.pullRequest.number)
         XCTAssertEqual("PR_kwDOGHtQpc4sSrBQ", response.repository.pullRequest.id.rawValue)
@@ -154,7 +151,7 @@ final class FairHubTests: XCTestCase {
 
         let hub = try Self.hub(skipNoAuth: true)
         do {
-            let response = try await hub.request(FairHub.GetSponsorsQuery(owner: "appfair", name: "App")).get().data
+            let response = try await hub.request(FairHub.GetSponsorsQuery(owner: appfairName, name: baseFairgroundRepoName)).get().data
             XCTAssertEqual(nil, response.repository.forks.totalCount)
 
             XCTAssertEqual("The App Fair!", response.repository.owner.name)
@@ -201,7 +198,7 @@ final class FairHubTests: XCTestCase {
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.BaseFork]] = []
-        let results = hub.sendCursoredRequest(FairHub.CatalogForksQuery(owner: appfairName, name: appfairBaseRepoName, count: Int.random(in: 8...18)))
+        let results = hub.sendCursoredRequest(FairHub.CatalogForksQuery(owner: appfairName, name: baseFairgroundRepoName, count: Int.random(in: 8...18)))
         for try await result in results {
             let forks = try result.get().data.repository.forks.nodes
             resultResults.append(forks)
@@ -246,8 +243,8 @@ final class FairHubTests: XCTestCase {
 
         try await retry502 {
             let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
-            let maxApps: Int? = 432 // _000_000
-            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: appfairBaseRepoName, maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
+            let maxApps: Int? = 123 // _000_000
+            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: baseFairgroundRepoName, maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
             let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
             let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
             dbg("catalog", names.sorted())
@@ -286,11 +283,11 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", owner: "appfair", baseRepository: "App", fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
-        XCTAssertFalse(names.contains("App"))
+        XCTAssertFalse(names.contains(baseFairgroundRepoName))
 
         checkApp("app.App-Fair", catalog: catalog)
         checkApp("app.Cloud-Cuckoo", catalog: catalog)
@@ -306,11 +303,11 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", owner: ("appfair"), baseRepository: appfairBaseRepoName, fairsealCheck: false, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", owner: (appfairName), baseRepository: baseFairgroundRepoName, fairsealCheck: false, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
-        XCTAssertFalse(names.contains("App"))
+        XCTAssertFalse(names.contains(baseFairgroundRepoName))
 
         checkApp("app.Cloud-Cuckoo", catalog: catalog)
         checkApp("app.Tune-Out", catalog: catalog)

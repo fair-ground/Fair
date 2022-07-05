@@ -166,6 +166,7 @@ final class FairExpoTests: XCTestCase {
         }
 
         let args = paths.shuffled().prefix(10)
+        dbg("building source for apps:", args)
 
         // doesn't work because it expects an array output
         // let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.CreateCommand.self, ["--verbose"] + args)

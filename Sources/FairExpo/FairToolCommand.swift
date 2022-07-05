@@ -638,7 +638,7 @@ public final class AppCatalogAPI {
         item.versionDescription = item.versionDescription ?? defvalue(\.appVersionDescription) ?? "VERSION_DESCRIPTION" // maybe check for a CHANGELOG file in the .ipa
 
         // TODO: look into why this never seems to be present in the app's Info.plist
-        if let appCategory = info.rawValue[InfoPlistKey.LSApplicationCategoryType.plistKey] as? String {
+        if let appCategory = info.rawValue[PropertyListKey.LSApplicationCategoryType.plistKey] as? String {
             item.categories = [appCategory]
         }
 
@@ -1013,24 +1013,24 @@ public struct FairCommand : AsyncParsableCommand {
 
                 infoProperties = plist_dict
 
-                func checkStr(key: InfoPlistKey, in strings: [String]) throws {
+                func checkStr(key: PropertyListKey, in strings: [String]) throws {
                     try check(plist_dict, key: key.plistKey, in: strings, url: infoPlistURL)
                 }
 
                 // check that the Info.plist contains the correct values for certain keys
 
                 // ensure the Info.plist uses the correct constants
-                try checkStr(key: InfoPlistKey.CFBundleName, in: ["$(PRODUCT_NAME)"])
-                try checkStr(key: InfoPlistKey.CFBundleIdentifier, in: ["$(PRODUCT_BUNDLE_IDENTIFIER)"])
-                try checkStr(key: InfoPlistKey.CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
-                try checkStr(key: InfoPlistKey.CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
-                try checkStr(key: InfoPlistKey.CFBundleVersion, in: ["$(CURRENT_PROJECT_VERSION)"])
-                try checkStr(key: InfoPlistKey.CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
-                try checkStr(key: InfoPlistKey.LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
+                try checkStr(key: .CFBundleName, in: ["$(PRODUCT_NAME)"])
+                try checkStr(key: .CFBundleIdentifier, in: ["$(PRODUCT_BUNDLE_IDENTIFIER)"])
+                try checkStr(key: .CFBundleExecutable, in: ["$(EXECUTABLE_NAME)"])
+                try checkStr(key: .CFBundlePackageType, in: ["$(PRODUCT_BUNDLE_PACKAGE_TYPE)"])
+                try checkStr(key: .CFBundleVersion, in: ["$(CURRENT_PROJECT_VERSION)"])
+                try checkStr(key: .CFBundleShortVersionString, in: ["$(MARKETING_VERSION)"])
+                try checkStr(key: .LSApplicationCategoryType, in: ["$(APP_CATEGORY)"])
 
                 let licenseFlag = self.regOptions.license
                 if !licenseFlag.isEmpty {
-                    try checkStr(key: InfoPlistKey.NSHumanReadableCopyright, in: licenseFlag)
+                    try checkStr(key: .NSHumanReadableCopyright, in: licenseFlag)
                 }
             }
 
@@ -1928,7 +1928,7 @@ public struct FairCommand : AsyncParsableCommand {
     }
 }
 
-extension InfoPlistKey {
+extension PropertyListKey {
     /// - TODO: @available(*, deprecated, message: "moved to AppSource.permissions key")
     public static let FairUsage = Self("FairUsage")
 }
@@ -2606,7 +2606,7 @@ public struct HubOptions: ParsableArguments {
     public var hub: String
 
     @Option(name: [.long, .customShort("B")], help: ArgumentHelp("the name of the hub's base repository.", valueName: "repo"))
-    public var baseRepo: String = "App"
+    public var baseRepo: String = baseFairgroundRepoName
 
     @Option(name: [.long, .customShort("C")], help: ArgumentHelp("the name of the hub's base casks repository.", valueName: "repo"))
     public var casksRepo: String = "appcasks"
@@ -2852,7 +2852,7 @@ fileprivate extension FairParsableCommand {
     static var appSuffix: String { ".app" }
 
     /// The name of the App & the repository; defaults to "App"
-    var appName: String { Bundle.appfairDefaultAppName }
+    var appName: String { baseFairgroundRepoName }
 
     var environment: [String: String] { ProcessInfo.processInfo.environment }
 

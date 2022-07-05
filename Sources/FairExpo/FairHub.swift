@@ -32,10 +32,6 @@ public let appfairMaxApps = 250_000
 /// @available(*, deprecated, message: "move to hub configuration")
 public let appfairName = "appfair"
 
-/// The base repository name from which apps should be forked
-/// @available(*, deprecated, message: "move to hub configuration")
-public let appfairBaseRepoName = "App"
-
 public let appfairRoot = URL(string: "https://www.appfair.net")!
 
 /// The canonical location of the catalog for the Fair Ground
@@ -477,10 +473,11 @@ extension FairHub {
     func buildAppCasks(owner: String, baseRepository: String, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?) async throws -> AppCatalog {
 
         // let caskQueryCount = 100 // this seems to return too many results and triggers an occasional 502 error
-        let caskQueryCount = 50
+        let caskQueryCount = 25
 
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
+
         dbg("building appcasks with maxApps:", maxApps, "boost:", boost)
 
         struct CaskCatalog {
@@ -1530,7 +1527,7 @@ extension FairHub {
         public var name: String
 
         /// the number of forks to return per batch
-        public var count: Int = 5 // any higher can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
+        public var count: Int = 25 // any higher can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
 
         /// the number of releases to scan
         public var releaseCount: Int = 10
