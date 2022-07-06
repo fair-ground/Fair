@@ -134,10 +134,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/Se",
-        "doc:\/\/FairApp\/SE",
-        "doc:\/\/FairApp\/SQ",
-        "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/s8SendableP"
+        "doc:\/\/FairApp\/SE"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -156,13 +153,14 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:fundingSources:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/apps",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/fundingSources",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/news",
@@ -180,8 +178,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Decodable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Encodable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Equatable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Encodable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -203,16 +200,6 @@
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/SH": {
-  "identifier" : "doc:\/\/FairApp\/SH",
-  "title" : "Swift.Hashable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/SQ": {
-  "identifier" : "doc:\/\/FairApp\/SQ",
-  "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
 "doc://FairApp/Se": {
@@ -350,17 +337,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/encodable-implementations"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/Equatable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Equatable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/equatable-implementations"
-},
 "doc://FairApp/documentation/FairApp/AppCatalog/apps": {
   "abstract" : [
     {
@@ -401,6 +377,47 @@
   "title" : "apps",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/apps"
+},
+"doc://FairApp/documentation/FairApp/AppCatalog/fundingSources": {
+  "abstract" : [
+    {
+      "text" : "The sources of funding that are available to apps in this catalog",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fundingSources"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+      "text" : "AppFundingSource"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/fundingSources",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fundingSources",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/fundingsources"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/identifier": {
   "abstract" : [
@@ -481,7 +498,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/init(from:)"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:sourceURL:apps:news:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:sourceURL:apps:news:fundingSources:)": {
   "abstract" : [
 
   ],
@@ -577,15 +594,32 @@
     },
     {
       "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fundingSources"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+      "text" : "AppFundingSource"
+    },
+    {
+      "kind" : "text",
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:fundingSources:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:identifier:sourceURL:apps:news:)",
+  "title" : "init(name:identifier:sourceURL:apps:news:fundingSources:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:fundingsources:)"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [
@@ -851,11 +885,6 @@
   "title" : "AppNewsPost",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appnewspost"
-},
-"doc://FairApp/s8SendableP": {
-  "identifier" : "doc:\/\/FairApp\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }

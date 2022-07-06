@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:fundingSources:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B7CatalogV4name10identifier9sourceURL4apps4newsACSS_SS10Foundation0G0VSgSayAA0bC4ItemVGSayAA0B8NewsPostVGSgtcfc",
+    "externalID" : "s:7FairApp0B7CatalogV4name10identifier9sourceURL4apps4news14fundingSourcesACSS_SS10Foundation0G0VSgSayAA0bC4ItemVGSayAA0B8NewsPostVGSgSayAA0B13FundingSourceVGSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -112,6 +112,23 @@
       },
       {
         "kind" : "text",
+        "text" : "]?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "fundingSources"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+        "text" : "AppFundingSource"
+      },
+      {
+        "kind" : "text",
         "text" : "]?)"
       }
     ],
@@ -123,7 +140,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(name:identifier:sourceURL:apps:news:)"
+    "title" : "init(name:identifier:sourceURL:apps:news:fundingSources:)"
   },
   "primaryContentSections" : [
     {
@@ -229,6 +246,24 @@
             },
             {
               "kind" : "text",
+              "text" : "]? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "fundingSources"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingSource",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+              "text" : "AppFundingSource"
+            },
+            {
+              "kind" : "text",
               "text" : "]? = nil)"
             }
           ]
@@ -248,7 +283,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:)"
+        "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:fundingsources:)"
       ],
       "traits" : [
         {
@@ -404,7 +439,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/identifier"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:sourceURL:apps:news:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:sourceURL:apps:news:fundingSources:)": {
   "abstract" : [
 
   ],
@@ -500,15 +535,32 @@
     },
     {
       "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fundingSources"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+      "text" : "AppFundingSource"
+    },
+    {
+      "kind" : "text",
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:fundingSources:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:identifier:sourceURL:apps:news:)",
+  "title" : "init(name:identifier:sourceURL:apps:news:fundingSources:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:fundingsources:)"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [
@@ -580,6 +632,40 @@
   "title" : "AppCatalogItem",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem"
+},
+"doc://FairApp/documentation/FairApp/AppFundingSource": {
+  "abstract" : [
+    {
+      "text" : "A link to a particular funding platform.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingSource"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingSource",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingSource"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppFundingSource",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundingsource"
 },
 "doc://FairApp/documentation/FairApp/AppNewsPost": {
   "abstract" : [

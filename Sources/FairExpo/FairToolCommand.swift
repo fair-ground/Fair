@@ -571,13 +571,13 @@ extension AppNewsPost : FairCommandOutput {
 }
 
 /// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
-public struct AppCatalogVerifyResult : FairCommandOutput, Pure {
+public struct AppCatalogVerifyResult : FairCommandOutput, Decodable {
     public var app: AppCatalogItem
     public var failures: [AppCatalogVerifyFailure]?
 }
 
 //@available(*, deprecated, message: "move into central validation code")
-public struct AppCatalogVerifyFailure : FairCommandOutput, Pure {
+public struct AppCatalogVerifyFailure : FairCommandOutput, Decodable {
     /// The type of failure
     public var type: String
 
@@ -1242,6 +1242,9 @@ public struct FairCommand : AsyncParsableCommand {
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
+        @Flag(name: [.long], help: ArgumentHelp("whether the include funcing source info.", valueName: "funding"))
+        public var fundingSources: Bool = false
+
         public init() { }
 
         public mutating func run() async throws {
@@ -1273,7 +1276,10 @@ public struct FairCommand : AsyncParsableCommand {
             let configuration = try regOptions.createProjectConfiguration()
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.catalogOptions.requestLimit)
+            var catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.catalogOptions.requestLimit)
+            if fundingSources {
+                catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo)
+            }
 
             msg(.debug, "releases:", catalog.apps.count) // , "valid:", catalog.count)
             for apprel in catalog.apps {
@@ -1983,6 +1989,9 @@ public struct BrewCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("ranking increase for boosted apps.", valueName: "factor"))
         public var boostFactor: Int64?
 
+        @Flag(name: [.long], help: ArgumentHelp("whether the include funcing source info.", valueName: "funding"))
+        public var fundingSources: Bool = false
+
 
         public init() { }
 
@@ -2006,8 +2015,11 @@ public struct BrewCommand : AsyncParsableCommand {
             let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: self.casksRepo, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
+            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: self.casksRepo, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
 
+            if fundingSources {
+                catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: self.casksRepo)
+            }
             let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
         }

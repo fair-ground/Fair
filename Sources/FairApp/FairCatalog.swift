@@ -23,7 +23,7 @@ import Foundation
 /// A catalog of apps, consisting of a ``name``, ``identifier``,
 /// individual ``AppCatalogItem`` instances for each app indexed by this catalog,
 /// as well as optional ``AppNewsPost`` items.
-public struct AppCatalog : Pure {
+public struct AppCatalog : Codable {
     /// The name of the catalog (e.g., "App Name")
     public var name: String
     /// The identifier for the catalog (e.g., "app.App-Name")
@@ -34,13 +34,16 @@ public struct AppCatalog : Pure {
     public var apps: [AppCatalogItem]
     /// Any news items for the catalog
     public var news: [AppNewsPost]?
+    /// The sources of funding that are available to apps in this catalog
+    public var fundingSources: [AppFundingSource]?
 
-    public init(name: String, identifier: String, sourceURL: URL? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil) {
+    public init(name: String, identifier: String, sourceURL: URL? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
         self.name = name
         self.identifier = identifier
         self.sourceURL = sourceURL
         self.apps = apps
         self.news = news
+        self.fundingSources = fundingSources
     }
 }
 
@@ -52,7 +55,7 @@ public extension AppCatalog {
 }
 
 /// An individual App Source Catalog item, defining the name, identifier, and downloadURL of an application archive.
-public struct AppCatalogItem : Pure {
+public struct AppCatalogItem : Codable {
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
     /// The identifier for the app (e.g., "app.Cloud-Cuckoo")
@@ -157,7 +160,7 @@ public struct AppCatalogItem : Pure {
 }
 
 /// A link to a particular funding platform.
-public struct AppFundingLink : Pure {
+public struct AppFundingLink : Codable {
     /// E.g., "GITHUB" or "PATREON"
     ///
     /// This list should be harmonized with the funding platforms defined in [FundingPlatform](https://docs.github.com/en/graphql/reference/enums#fundingplatform)
@@ -170,17 +173,53 @@ public struct AppFundingLink : Pure {
     public var localizedDescription: String?
 }
 
+/// A link to a particular funding platform.
+public struct AppFundingSource : Codable {
+    /// E.g., "GITHUB" or "PATREON"
+    ///
+    /// This list should be harmonized with the funding platforms defined in [FundingPlatform](https://docs.github.com/en/graphql/reference/enums#fundingplatform)
+    public var platform: AppFundingPlatform
+    /// E.g., https://patreon.com/SomeCreator or https://github.com/Some-App-Org
+    public var url: URL
+    /// The currently active goals that can be funded
+    public let goals: [FundingGoal]
+
+    public init(platform: AppFundingPlatform, url: URL, goals: [AppFundingSource.FundingGoal]) {
+        self.platform = platform
+        self.url = url
+        self.goals = goals
+    }
+
+    /// A funding goal, such as reaching a certain monthly donation amount or sponsorship count.
+    public struct FundingGoal : Codable {
+        public var kind: String // e.g. TOTAL_SPONSORS_COUNT or MONTHLY_SPONSORSHIP_AMOUNT
+        public var title: String?
+        public var description: String?
+        public var percentComplete: Double?
+        public var targetValue: Double?
+
+        public init(kind: String, title: String? = nil, description: String? = nil, percentComplete: Double? = nil, targetValue: Double? = nil) {
+            self.kind = kind
+            self.title = title
+            self.description = description
+            self.percentComplete = percentComplete
+            self.targetValue = targetValue
+        }
+    }
+}
+
+
 /// A funding platform, which is represented by a raw string.
 ///
 /// Known platforms can be accessed with ``allCases``.
-public struct AppFundingPlatform : Pure, RawCodable {
+public struct AppFundingPlatform : RawCodable, Hashable {
     public var rawValue: String
     public init(rawValue: String) { self.rawValue = rawValue }
 }
 
 
 /// An individual item of news, consiting of a unique identifier, a date, title, caption, and optional additional properties.
-public struct AppNewsPost : Pure {
+public struct AppNewsPost : Codable {
     /// A unique identifer for the news posting
     public var identifier: String
     /// The date of the news

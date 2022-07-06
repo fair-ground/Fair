@@ -769,6 +769,39 @@ extension FairHub {
         return appItem
     }
 
+    func buildFundingSources(owner: String, baseRepository: String) async throws -> [AppFundingSource] {
+        var sources: [AppFundingSource] = []
+
+        func createSponsor(from sponsor: FairHub.GetSponsorsQuery.QueryResponse.Repository.SponsorsListing, url: URL) -> AppFundingSource {
+            var goals: [AppFundingSource.FundingGoal] = []
+            if let activeGoal = sponsor.activeGoal,
+                let goalKind = activeGoal.kind?.rawValue {
+                let goal = AppFundingSource.FundingGoal(kind: goalKind, title: activeGoal.title, description: activeGoal.description, percentComplete: activeGoal.percentComplete, targetValue: activeGoal.targetValue)
+                goals.append(goal)
+            }
+
+            return AppFundingSource(platform: .GITHUB, url: url, goals: goals)
+        }
+
+
+        for try await forks in sendCursoredRequest(GetSponsorsQuery(owner: owner, name: baseRepository)) {
+            let rootOwner = try forks.get().data.repository.owner
+            if sources.isEmpty,
+                let rootSponsor = rootOwner.sponsorsListing,
+                let url = rootOwner.url.flatMap(URL.init(string:)) {
+                // always add the root repo's funding first
+                sources.append(createSponsor(from: rootSponsor, url: url))
+            }
+            for node in try forks.get().data.repository.forks.nodes {
+                if let sponsorListing = node.sponsorsListing,
+                   let url = node.owner.url.flatMap(URL.init(string:)) {
+                    sources.append(createSponsor(from: sponsorListing, url: url))
+                }
+            }
+        }
+
+        return sources
+    }
 
     internal func validate(org: RepositoryQuery.QueryResponse.Organization, configuration: ProjectConfiguration) -> AppOrgValidationFailure {
         let repo = org.repository
@@ -2071,6 +2104,11 @@ extension FairHub {
                   }
                 }
                 forks(first: $count, after: $cursor) {
+                   totalCount
+                   pageInfo {
+                     hasNextPage
+                     endCursor
+                   }
                   edges {
                     node {
                       __typename
@@ -2315,9 +2353,9 @@ extension String : GraphQLAPIParameter { var parameterValue: JSum { .str(self) }
 extension Double : GraphQLAPIParameter { var parameterValue: JSum { .num(self) } }
 extension Int : GraphQLAPIParameter { var parameterValue: JSum { .num(Double(self)) } }
 extension Bool : GraphQLAPIParameter { var parameterValue: JSum { .bol(self) } }
-extension Date : GraphQLAPIParameter { var parameterValue: JSum { .str(self.ISO8601Format()) } }
-extension Data : GraphQLAPIParameter { var parameterValue: JSum { .str(self.base64EncodedString()) } }
 extension GraphQLCursor : GraphQLAPIParameter { var parameterValue: JSum { .str(self.rawValue) } }
+//extension Data : GraphQLAPIParameter { var parameterValue: JSum { .str(self.base64EncodedString()) } }
+//extension Date : GraphQLAPIParameter { var parameterValue: JSum { .str(self.iso8601String) } }
 
 
 private extension String {

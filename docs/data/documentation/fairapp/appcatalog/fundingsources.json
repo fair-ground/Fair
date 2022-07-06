@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "The sources of funding that are available to apps in this catalog",
       "type" : "text"
     }
   ],
@@ -15,18 +15,91 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Equatable-Implementations"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/fundingSources"
   },
-  "kind" : "article",
+  "kind" : "symbol",
   "metadata" : {
+    "externalID" : "s:7FairApp0B7CatalogV14fundingSourcesSayAA0B13FundingSourceVGSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "fundingSources"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+        "text" : "AppFundingSource"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?"
+      }
+    ],
     "modules" : [
       {
         "name" : "FairApp"
       }
     ],
-    "role" : "collectionGroup",
-    "title" : "Equatable Implementations"
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "fundingSources"
   },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "fundingSources"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingSource",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+              "text" : "AppFundingSource"
+            },
+            {
+              "kind" : "text",
+              "text" : "]?"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
   "schemaVersion" : {
     "major" : 0,
     "minor" : 2,
@@ -35,19 +108,10 @@
   "sections" : [
 
   ],
-  "topicSections" : [
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/!=(_:_:)"
-      ],
-      "title" : "Operators"
-    }
-  ],
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalog\/equatable-implementations"
+        "\/documentation\/fairapp\/appcatalog\/fundingsources"
       ],
       "traits" : [
         {
@@ -166,22 +230,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/!=(_:_:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/fundingSources": {
   "abstract" : [
-
+    {
+      "text" : "The sources of funding that are available to apps in this catalog",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -189,44 +248,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "!="
+      "text" : "fundingSources"
     },
     {
       "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "("
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Self"
+      "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+      "text" : "AppFundingSource"
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/!=(_:_:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/fundingSources",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "!=(_:_:)",
+  "title" : "fundingSources",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/!=(_:_:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/fundingsources"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/identifier": {
   "abstract" : [
@@ -335,6 +378,40 @@
   "title" : "AppCatalogItem",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem"
+},
+"doc://FairApp/documentation/FairApp/AppFundingSource": {
+  "abstract" : [
+    {
+      "text" : "A link to a particular funding platform.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingSource"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingSource",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingSource"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppFundingSource",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundingsource"
 },
 "doc://FairApp/documentation/FairApp/AppNewsPost": {
   "abstract" : [

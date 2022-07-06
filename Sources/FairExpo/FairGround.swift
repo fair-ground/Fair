@@ -34,7 +34,7 @@ public enum FairGround {
 
 /// The seal of the given URL, summarizing its cryptographic hash, entitlements,
 /// and other build-time information
-public struct FairSeal : Codable, Hashable, JSONSignable {
+public struct FairSeal : Codable, JSONSignable {
     // legacy fields that have been removed:
     /// The version of the fairseal JSON
     // public private(set) var fairsealVersion: Version?
