@@ -145,8 +145,10 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual(false, sig.wasSignedByGitHub)
     }
 
-    func XXXtestFetchSponsorshipListings() async throws {
-        // failing on actions: /home/runner/work/Fair/Fair/Tests/FairExpoTests/FairHubTests.swift:188: error: FairHubTests.testFetchSponsorshipListings : failed - error: GraphQLRequestFailure(rawValue: FairCore.XOr<FairExpo.GraphQLError>.Or<FairExpo.GraphQLErrorList>.q(FairExpo.GraphQLErrorList(errors: [FairExpo.GraphQLError(message: "Resource not accessible by integration", type: Optional("FORBIDDEN"), path: Optional(["repository", "owner", "sponsorsListing"]), documentation_url: nil)])))
+    func testFetchSponsorshipListings() async throws {
+        if runningFromCI { // not permitted with default action token: GraphQLError(message: "Resource not accessible by integration", type: Optional("FORBIDDEN"), path: Optional(["repository", "owner", "sponsorsListing"])
+            throw XCTSkip("disabled to reduce API load")
+        }
 
         let hub = try Self.hub(skipNoAuth: true)
         do {
@@ -178,6 +180,7 @@ final class FairHubTests: XCTestCase {
                 XCTAssertEqual("App-Fair/App", firstFork.nameWithOwner)
                 XCTAssertEqual("App-Fair", firstFork.owner.name)
                 XCTAssertEqual("App-Fair", firstFork.owner.login)
+                XCTAssertEqual("https://appfair.app", firstFork.owner.websiteUrl)
                 XCTAssertEqual("https://github.com/App-Fair", firstFork.owner.url)
                 XCTAssertEqual(nil, firstFork.owner.sponsorsListing?.activeGoal?.kind)
             }
@@ -225,6 +228,16 @@ final class FairHubTests: XCTestCase {
 //        print("response in:", Double(t2 - t1) / 1_000_000_000, data.count, response)
 //    }
 
+    func testIngestCatalogData() throws {
+        var app = AppCatalogItem(name: "X", bundleIdentifier: "X", downloadURL: URL(string: "about:blank")!)
+        XCTAssertTrue(try app.ingest(json: #"```{ "localizedDescription": "XYZ" }```"#))
+        XCTAssertEqual("XYZ", app.localizedDescription)
+        XCTAssertTrue(try app.ingest(json: #"```json { "localizedDescription": "ABC" }```"#))
+        XCTAssertEqual("ABC", app.localizedDescription)
+        XCTAssertTrue(try app.ingest(json: #"```{ "localizedDescription": "XYZ", "tintColor": "AABBCC" }```"#))
+        XCTAssertEqual("AABBCC", app.tintColor)
+    }
+
     func testBuildAppCasks() async throws {
         if runningFromCI {
             // this quickly exhausts the API limit for the default actions token
@@ -232,7 +245,7 @@ final class FairHubTests: XCTestCase {
         }
 
         let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
-        let maxApps: Int? = wip(1_000) // 123 // _000_000
+        let maxApps: Int? = 123 // wip(3808) // 123 // _000_000
         let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: "appcasks", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
@@ -242,6 +255,7 @@ final class FairHubTests: XCTestCase {
 
         if let maxApps = maxApps {
             XCTAssertEqual(ids.count, maxApps)
+            XCTAssertEqual(catalog.apps.count, maxApps)
         }
 
         XCTAssertTrue(names.contains("CotEditor"))
@@ -250,7 +264,7 @@ final class FairHubTests: XCTestCase {
         XCTAssertGreaterThanOrEqual(names.count, 1)
 
         //dbg(catalog.prettyJSON)
-        dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        dbg("created app casks catalog count:", ids.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
     private func checkApp(_ id: String, catalog: AppCatalog) {

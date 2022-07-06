@@ -110,9 +110,16 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/nameWithOwner",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/owner"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/owner",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/sponsorsListing"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/TypeName"
+      ],
+      "title" : "Enumerations"
     },
     {
       "generated" : true,
@@ -324,6 +331,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery\/queryresponse\/repository-swift.struct\/fork\/decodable-implementations"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery/QueryResponse/Repository-swift.struct/Fork/TypeName": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TypeName"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/TypeName",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TypeName"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GetSponsorsQuery.QueryResponse.Repository.Fork.TypeName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery\/queryresponse\/repository-swift.struct\/fork\/typename"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery/QueryResponse/Repository-swift.struct/Fork/init(from:)": {
   "abstract" : [
 
@@ -469,6 +507,80 @@
   "title" : "owner",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery\/queryresponse\/repository-swift.struct\/fork\/owner"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery/QueryResponse/Repository-swift.struct/Fork/sponsorsListing": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sponsorsListing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV16GetSponsorsQueryV",
+      "text" : "GetSponsorsQuery"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV16GetSponsorsQueryV0F8ResponseV",
+      "text" : "QueryResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV16GetSponsorsQueryV0F8ResponseV10RepositoryV",
+      "text" : "Repository"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV16GetSponsorsQueryV0F8ResponseV10RepositoryV0E7ListingV",
+      "text" : "SponsorsListing"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery\/QueryResponse\/Repository-swift.struct\/Fork\/sponsorsListing",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sponsorsListing",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery\/queryresponse\/repository-swift.struct\/fork\/sponsorslisting"
 }
 }
 }

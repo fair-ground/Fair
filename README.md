@@ -3,9 +3,9 @@ managing an ecosystem of apps.
 It is powered by the Fair package, which is a zero-dependency 
 cross-platform (Linux, macOS, & iOS) set of Swift 5.6 modules.
 
-The Fair package is used to power app distribution networks such as 
+The Fair package is used to create and maintain app distribution networks such as 
 [appfair.net](https://appfair.net), as well as the end-user applications
-that interface with them such as [App Fair.app](https://appfair.app).
+that utilize them such as the [App Fair.app](https://appfair.app).
 
 - [fairtool](#fairtool)
   - [Installation](#fairtool)
