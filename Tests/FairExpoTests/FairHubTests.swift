@@ -225,41 +225,32 @@ final class FairHubTests: XCTestCase {
 //        print("response in:", Double(t2 - t1) / 1_000_000_000, data.count, response)
 //    }
 
-    func retry502<T>(block: () async throws -> T) async throws -> T {
-        do {
-            return try await block()
-        } catch {
-            //print("#### ERROR: \(error)")
-            throw error
-        }
-    }
-
     func testBuildAppCasks() async throws {
         if runningFromCI {
             // this quickly exhausts the API limit for the default actions token
             throw XCTSkip("disabled to reduce API load")
         }
 
-        try await retry502 {
-            let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
-            let maxApps: Int? = 123 // _000_000
-            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: "appcasks", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
-            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-            let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
-            dbg("catalog", names.sorted())
+        let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
+        let maxApps: Int? = wip(1_000) // 123 // _000_000
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: "appcasks", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
+        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+        let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
+        dbg("catalog", names.sorted())
 
-            if let maxApps = maxApps {
-                XCTAssertEqual(ids.count, maxApps)
-            }
+        XCTAssertEqual(ids.count, catalog.apps.count, "expected to have unique identifiers")
 
-            XCTAssertTrue(names.contains("CotEditor"))
-            XCTAssertTrue(ids.contains(.init("coteditor")))
-
-            XCTAssertGreaterThanOrEqual(names.count, 1)
-
-            //dbg(catalog.prettyJSON)
-            dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        if let maxApps = maxApps {
+            XCTAssertEqual(ids.count, maxApps)
         }
+
+        XCTAssertTrue(names.contains("CotEditor"))
+        XCTAssertTrue(ids.contains(.init("coteditor")))
+
+        XCTAssertGreaterThanOrEqual(names.count, 1)
+
+        //dbg(catalog.prettyJSON)
+        dbg("created app casks catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
     private func checkApp(_ id: String, catalog: AppCatalog) {
