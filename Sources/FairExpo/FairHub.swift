@@ -470,7 +470,7 @@ extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String, baseRepository: String, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int = 25) async throws -> AppCatalog {
+    func buildAppCasks(owner: String, baseRepository: String, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int = 100) async throws -> AppCatalog {
 
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
@@ -1796,7 +1796,7 @@ extension FairHub {
         }
 
         private static let mutation = """
-            mutation AddComment($id:String!, $comment:String!) {
+            mutation AddComment($id:ID!, $comment:String!) {
               __typename
               addComment(input: {subjectId: $id, body: $comment}) {
                 commentEdge {
