@@ -987,12 +987,6 @@ extension FairHub {
         }
     }
 
-    /// Utility for including an optional string parameter or `null` if it is `.none`
-    @available(*, deprecated, message: "user variables instead")
-    private static func quotedOrNull(_ string: String?) -> String {
-        string?.escapedGraphQLString.enquote(with: "\"") ?? "null"
-    }
-
     public struct GetCommitQuery : GraphQLAPIRequest {
         public var owner: String
         public var name: String
@@ -1190,50 +1184,6 @@ extension FairHub {
             }
         }
     }
-
-    /**
-     ```
-     query {
-       repository(owner: "appfair", name: "appcasks") {
-         __typename
-         forks(first: 100) {
-           __typename
-           nodes {
-             __typename
-             nameWithOwner
-             owner {
-               __typename
-               url
-               ... on Organization {
-                 email
-                 isVerified
-                 websiteUrl
-                 email
-                 createdAt
-               }
-             }
-             releases(last: 100) {
-               nodes {
-                 name
-                 tagName
-                 description
-                   createdAt
-                   releaseAssets(first: 25) {
-                     nodes {
-                       name
-                       size
-                       downloadUrl
-                       downloadCount
-                     }
-                 }
-               }
-             }
-           }
-         }
-       }
-     }
-     ```
-     */
 
     /// The query to generate a catalog of enhanced cask metadata
     public struct AppCasksQuery : GraphQLAPIRequest & CursoredAPIRequest {
