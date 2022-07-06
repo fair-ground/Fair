@@ -311,7 +311,7 @@ final class FairExpoTests: XCTestCase {
 
         let cat1 = try AppCatalog.parse(jsonData: pre)
         let cat2 = try AppCatalog.parse(jsonData: post)
-        XCTAssertNotEqual(cat1, cat2)
+        XCTAssertNotEqual(try cat1.json(), try cat2.json())
 
         let diffs = AppCatalog.newReleases(from: cat1, to: cat2)
         let diff = try XCTUnwrap(diffs.first, "should have been differences between catalogs")
@@ -337,9 +337,9 @@ final class FairExpoTests: XCTestCase {
 
         var cat2Post = cat2
         _ = try await fmt.postUpdates(to: &cat2Post, with: diffs)
-        XCTAssertEqual(cat2Post, cat2)
+        XCTAssertEqual(try cat2Post.json(), try cat2.json())
         _ = try await fmt.postUpdates(to: &cat2Post, with: diffs, twitterAuth: twitterAuth, newsLimit: 1, tweetLimit: 1)
-        XCTAssertNotEqual(cat2Post, cat2)
+        XCTAssertNotEqual(try cat2Post.json(), try cat2.json())
 
         XCTAssertEqual("release-app.Cloud-Cuckoo-0.9.75", cat2Post.news?.first?.identifier)
         XCTAssertEqual("Updated Release: Cloud Cuckoo 0.9.75", cat2Post.news?.first?.title)

@@ -151,41 +151,25 @@ final class FairHubTests: XCTestCase {
         }
 
         let hub = try Self.hub(skipNoAuth: true)
+
         do {
+            let fundingSources = try await Self.hub(skipNoAuth: true).buildFundingSources(owner: appfairName, baseRepository: baseFairgroundRepoName)
             let response = try await hub.request(FairHub.GetSponsorsQuery(owner: appfairName, name: baseFairgroundRepoName)).get().data
-            XCTAssertEqual(nil, response.repository.forks.totalCount)
+            XCTAssertLessThan(20, response.repository.forks.totalCount ?? 0)
 
             XCTAssertEqual("The App Fair!", response.repository.owner.name)
 
-            //dbg("repository", response.repository.prettyJSON)
 
             do {
-                let listing = try XCTUnwrap(response.repository.owner.sponsorsListing, "missing sponsorsListing")
-                XCTAssertEqual("sponsors-appfair", listing.name)
-                XCTAssertEqual(true, listing.isPublic)
-
-                XCTAssertEqual(.SponsorsGoal, listing.activeGoal?.__typename)
-                XCTAssertEqual(.TOTAL_SPONSORS_COUNT, listing.activeGoal?.kind)
-
-                XCTAssertEqual("100 sponsors", listing.activeGoal?.title)
-                XCTAssertEqual(100, listing.activeGoal?.targetValue)
-                XCTAssertEqual(0, listing.activeGoal?.percentComplete)
-                XCTAssertEqual("Attaining our sponsorship goal will enable us to set out a firm roadmap for version 1.0 of the project, as well as break ground on implementing support for additional platforms and integrations.", listing.activeGoal?.description)
-            }
-
-            do {
-                let firstFork = try XCTUnwrap(response.repository.forks.nodes.first)
-                //dbg(firstFork.prettyJSON)
-
-                XCTAssertEqual("App-Fair/App", firstFork.nameWithOwner)
-                XCTAssertEqual("App-Fair", firstFork.owner.name)
-                XCTAssertEqual("App-Fair", firstFork.owner.login)
-                XCTAssertEqual("https://appfair.app", firstFork.owner.websiteUrl)
-                XCTAssertEqual("https://github.com/App-Fair", firstFork.owner.url)
-                XCTAssertEqual(nil, firstFork.owner.sponsorsListing?.activeGoal?.kind)
+                let goal = try XCTUnwrap(fundingSources.first?.activeGoals.first, "missing goal")
+                XCTAssertEqual("TOTAL_SPONSORS_COUNT", goal.kind)
+                XCTAssertEqual("100 sponsors", goal.title)
+                XCTAssertEqual(100, goal.targetValue)
+                //XCTAssertEqual(0, goal.percentComplete)
+                //XCTAssertEqual("Attaining our sponsorship goal will enable us to set out a firm roadmap for version 1.0 of the project, as well as break ground on implementing support for additional platforms and integrations.", goal.description)
             }
         } catch {
-            print("error: \(error)")
+            //print("error: \(error)")
             XCTFail("error: \(error)")
         }
     }
