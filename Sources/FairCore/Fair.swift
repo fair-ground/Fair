@@ -746,6 +746,15 @@ public extension RawEncodable {
     }
 }
 
+public extension Task where Success == Never, Failure == Never {
+    /// Suspends the current task for at least the given ``TimeInterval`` duration.
+    ///
+    /// If the task is canceled before the time ends, this function throws CancellationError.
+    /// This function doesn’t block the underlying thread.
+    static func sleep(interval: TimeInterval) async throws {
+        try await sleep(nanoseconds: .init(interval * 1_000_000_000))
+    }
+}
 
 /// `true` if assertions are enabled for the current build
 public let assertionsEnabled: Bool = {

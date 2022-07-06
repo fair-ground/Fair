@@ -9,17 +9,18 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/casksRepo"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/casksRepo"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo10HubOptionsV9casksRepoSSvp",
+    "externalID" : "s:8FairExpo11BrewCommandV08AppCasksD0V9casksRepoSSvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -122,7 +123,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/huboptions\/casksrepo"
+        "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/casksrepo"
       ],
       "traits" : [
         {
@@ -147,28 +148,9 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/HubOptions": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand": {
   "abstract" : [
-    {
-      "text" : "A Hub is represented by a string “",
-      "type" : "text"
-    },
-    {
-      "code" : "service.host",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "\/",
-      "type" : "text"
-    },
-    {
-      "code" : "organization",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "”.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -181,23 +163,54 @@
     },
     {
       "kind" : "identifier",
-      "text" : "HubOptions"
+      "text" : "BrewCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "HubOptions"
+      "text" : "BrewCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "HubOptions",
+  "title" : "BrewCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/huboptions"
+  "url" : "\/documentation\/fairexpo\/brewcommand"
 },
-"doc://FairExpo/documentation/FairExpo/HubOptions/casksRepo": {
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BrewCommand.AppCasksCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand"
+},
+"doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand/casksRepo": {
   "abstract" : [
 
   ],
@@ -224,12 +237,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions\/casksRepo",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand\/casksRepo",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "casksRepo",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/huboptions\/casksrepo"
+  "url" : "\/documentation\/fairexpo\/brewcommand\/appcaskscommand\/casksrepo"
 }
 }
 }

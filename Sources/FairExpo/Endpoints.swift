@@ -108,7 +108,7 @@ extension EndpointService {
         for requestIndex in 0... {
             if requestIndex > 0, let interleaveDelay = interleaveDelay {
                 // rest between requests
-                try await Task.sleep(nanoseconds: .init(interleaveDelay * 1_000_000_000))
+                try await Task.sleep(interval: interleaveDelay)
             }
 
             let (data, urlResponse) = try await fetchBatch(buildRequest(for: request, cache: cache))
@@ -161,7 +161,7 @@ extension EndpointService {
                let retryAfterSeconds = Double(retryAfter) {
                 seenCodes.append(response.statusCode)
                 dbg("backing off for \(retryAfterSeconds) seconds and re-trying \(retryCount) more times due to response status \(response.statusCode)")
-                try await Task.sleep(nanoseconds: .init(retryAfterSeconds * 1_000_000_000))
+                try await Task.sleep(interval: retryAfterSeconds)
             } else {
                 return (data, response)
             }
