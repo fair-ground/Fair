@@ -91,7 +91,6 @@ final class FairHubTests: XCTestCase {
 
             XCTAssertEqual(0, repo.discussionCategories.totalCount)
             XCTAssertEqual(false, repo.hasIssuesEnabled)
-            XCTAssertEqual(false, repo.hasWikiEnabled)
             XCTAssertEqual(false, repo.isFork)
             XCTAssertEqual(false, repo.isEmpty)
             XCTAssertEqual(false, repo.isLocked)
@@ -244,7 +243,7 @@ final class FairHubTests: XCTestCase {
         try await retry502 {
             let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
             let maxApps: Int? = 123 // _000_000
-            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: baseFairgroundRepoName, maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
+            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: "appcasks", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
             let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
             let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
             dbg("catalog", names.sorted())

@@ -122,8 +122,6 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/discussionCategories",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/forkCount",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/hasIssuesEnabled",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/hasProjectsEnabled",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/hasWikiEnabled",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/homepageUrl",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/isInOrganization",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/issues",
@@ -132,7 +130,6 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/owner",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/releases",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/repositoryTopics",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/shortDescriptionHTML",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/stargazerCount",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/stargazers",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/visibility",
@@ -711,74 +708,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/queryresponse\/baserepository\/repository\/hasissuesenabled"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/QueryResponse/BaseRepository/Repository/hasProjectsEnabled": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "hasProjectsEnabled"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/hasProjectsEnabled",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "hasProjectsEnabled",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/queryresponse\/baserepository\/repository\/hasprojectsenabled"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/QueryResponse/BaseRepository/Repository/hasWikiEnabled": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "hasWikiEnabled"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/hasWikiEnabled",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "hasWikiEnabled",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/queryresponse\/baserepository\/repository\/haswikienabled"
-},
 "doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/QueryResponse/BaseRepository/Repository/homepageUrl": {
   "abstract" : [
 
@@ -1248,40 +1177,6 @@
   "title" : "repositoryTopics",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/queryresponse\/baserepository\/repository\/repositorytopics"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/QueryResponse/BaseRepository/Repository/shortDescriptionHTML": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "shortDescriptionHTML"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/QueryResponse\/BaseRepository\/Repository\/shortDescriptionHTML",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "shortDescriptionHTML",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/queryresponse\/baserepository\/repository\/shortdescriptionhtml"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/QueryResponse/BaseRepository/Repository/stargazerCount": {
   "abstract" : [
