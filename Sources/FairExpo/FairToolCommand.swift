@@ -1965,6 +1965,9 @@ public struct BrewCommand : AsyncParsableCommand {
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
+        @Option(name: [.long, .customShort("C")], help: ArgumentHelp("the name of the hub's base casks repository.", valueName: "repo"))
+        public var casksRepo: String = "appcasks"
+
         @Option(name: [.long], help: ArgumentHelp("the maximum number of apps to include.", valueName: "count"))
         public var maxApps: Int?
 
@@ -2003,7 +2006,7 @@ public struct BrewCommand : AsyncParsableCommand {
             let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
 
             // build the catalog filtering on specific artifact extensions
-            let catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: hubOptions.casksRepo, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
+            let catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: self.casksRepo, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
 
             let json = try outputOptions.writeCatalog(catalog)
             msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
@@ -2608,9 +2611,6 @@ public struct HubOptions: ParsableArguments {
     @Option(name: [.long, .customShort("B")], help: ArgumentHelp("the name of the hub's base repository.", valueName: "repo"))
     public var baseRepo: String = baseFairgroundRepoName
 
-    @Option(name: [.long, .customShort("C")], help: ArgumentHelp("the name of the hub's base casks repository.", valueName: "repo"))
-    public var casksRepo: String = "appcasks"
-
     @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
     public var token: String?
 
@@ -2798,11 +2798,11 @@ public struct DelayOptions: ParsableArguments {
     func sleepTask(_ block: ((TimeInterval) throws -> ())? = nil) async throws {
         if let delay = delay {
             try block?(delay)
-            try await Task.sleep(nanoseconds: .init(delay * 1_000_000_000))
+            try await Task.sleep(interval: delay)
         } else if let delayMin = delayMin, let delayMax = delayMax, delayMax > delayMin {
             let delay = TimeInterval.random(in: delayMin...delayMax)
             try block?(delay)
-            try await Task.sleep(nanoseconds: .init(delay * 1_000_000_000))
+            try await Task.sleep(interval: delay)
         }
     }
 }
