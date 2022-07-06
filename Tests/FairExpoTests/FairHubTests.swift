@@ -161,7 +161,7 @@ final class FairHubTests: XCTestCase {
 
 
             do {
-                let goal = try XCTUnwrap(fundingSources.first?.activeGoals.first, "missing goal")
+                let goal = try XCTUnwrap(fundingSources.first?.goals.first, "missing goal")
                 XCTAssertEqual("TOTAL_SPONSORS_COUNT", goal.kind)
                 XCTAssertEqual("100 sponsors", goal.title)
                 XCTAssertEqual(100, goal.targetValue)
