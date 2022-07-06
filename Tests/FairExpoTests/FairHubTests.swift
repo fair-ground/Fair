@@ -302,7 +302,7 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", owner: (appfairName), baseRepository: baseFairgroundRepoName, fairsealCheck: false, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 

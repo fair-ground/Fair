@@ -187,7 +187,7 @@ extension FairHub {
         dbg("fetching fairseals")
 
         var apps: [AppCatalogItem] = []
-        for try await app in fetchAppStream(title: title, owner: owner, baseRepository: baseRepository, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
+        for try await app in createAppCatalogItemsFromForks(title: title, owner: owner, baseRepository: baseRepository, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
             apps.append(contentsOf: app)
         }
         let news: [AppNewsPost]? = nil
@@ -200,7 +200,7 @@ extension FairHub {
         return catalog
     }
 
-    func fetchAppStream(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
+    func createAppCatalogItemsFromForks(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
         sendCursoredRequest(CatalogForksQuery(owner: owner, name: baseRepository))
             .map { forks in try deriveCatalogItems(forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
@@ -994,7 +994,6 @@ extension FairHub {
     }
 
     public struct GetCommitQuery : GraphQLAPIRequest {
-        let queryName: String = "GetCommitQuery"
         public var owner: String
         public var name: String
         public var ref: String
@@ -1006,12 +1005,15 @@ extension FairHub {
         }
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
                 "ref": .str(ref),
-            ], body: """
-            query \(queryName)($owner:String!, $name:String!, $ref:GitObjectID!) {
+            ])
+        }
+
+        private static let query = """
+            query GetCommitQuery($owner:String!, $name:String!, $ref:GitObjectID!) {
                __typename
                repository(owner: $owner, name: $name) {
                 object(oid: $ref) {
@@ -1041,8 +1043,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1083,7 +1084,6 @@ extension FairHub {
     }
 
     public struct RepositoryQuery : GraphQLAPIRequest {
-        let queryName: String = "RepositoryQuery"
         public var owner: String
         public var name: String
 
@@ -1093,11 +1093,14 @@ extension FairHub {
         }
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
-            ], body: """
-            query \(queryName)($owner:String!, $name:String!) {
+            ])
+        }
+
+        private static let query = """
+            query RepositoryQuery($owner:String!, $name:String!) {
                __typename
                organization(login: $owner) {
                 __typename
@@ -1135,8 +1138,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1235,7 +1237,6 @@ extension FairHub {
 
     /// The query to generate a catalog of enhanced cask metadata
     public struct AppCasksQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "AppCasksQuery"
         public typealias Service = FairHub
 
         public var owner: String
@@ -1253,15 +1254,18 @@ extension FairHub {
         public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
                 "count": .num(.init(count)),
                 "releaseCount": .num(.init(releaseCount)),
                 "assetCount": .num(.init(assetCount)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
-            ], body: """
-            query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            ])
+        }
+
+        private static let query = """
+            query AppCasksQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
@@ -1335,8 +1339,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1392,7 +1395,6 @@ extension FairHub {
 
     /// The query to get additional pages of releases for `AppCasksQuery` when a fork has many releases
     public struct AppCaskReleasesQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "AppCaskReleasesQuery"
         public typealias Service = FairHub
 
         /// The opaque ID of the fork repository
@@ -1407,13 +1409,16 @@ extension FairHub {
         public var cursor: GraphQLCursor?
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "repositoryNodeID": .str(repositoryNodeID),
                 "releaseCount": .num(.init(releaseCount)),
                 "assetCount": .num(.init(assetCount)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
-            ], body: """
-            query \(queryName)($repositoryNodeID:ID!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            ])
+        }
+
+        private static let query = """
+            query AppCaskReleasesQuery($repositoryNodeID:ID!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
               __typename
               node(id: $repositoryNodeID) {
                 id
@@ -1459,8 +1464,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1488,14 +1492,13 @@ extension FairHub {
 
     /// The query to generate a fair-ground catalog
     public struct CatalogForksQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "CatalogForksQuery"
         public typealias Service = FairHub
 
         public var owner: String
         public var name: String
 
         /// the number of forks to return per batch
-        public var count: Int = 25 // any higher can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
+        public var count: Int = 10 // any higher can trigger timeout errors like: “Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `AF94:6EB8:23D7BE:65794E:61DDA32D` when reporting this issue.”
 
         /// the number of releases to scan
         public var releaseCount: Int = 10
@@ -1509,7 +1512,7 @@ extension FairHub {
         public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
                 "count": .num(.init(count)),
@@ -1518,8 +1521,11 @@ extension FairHub {
                 "prCount": .num(.init(prCount)),
                 "commentCount": .num(.init(count)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
-            ], body: """
-            query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $cursor:String) {
+            ])
+        }
+
+        private static let query = """
+            query CatalogForksQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
@@ -1654,8 +1660,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1798,18 +1803,19 @@ extension FairHub {
     }
 
     public struct LookupPRNumberQuery : GraphQLAPIRequest {
-        let queryName: String = "LookupPRNumberQuery"
         let owner: String
         let name: String
         let prid: Int
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
                 "prid": .num(.init(prid)),
-            ], body: "query \(queryName)($owner:String!, $name:String!, $prid:Int!) { __typename, repository(owner: $owner, name: $name) { pullRequest(number: $prid) { id, number } } }")
+            ])
         }
+
+        private static let query = "query LookupPRNumberQuery($owner:String!, $name:String!, $prid:Int!) { __typename, repository(owner: $owner, name: $name) { pullRequest(number: $prid) { id, number } } }"
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1828,17 +1834,19 @@ extension FairHub {
     }
 
     public struct PostCommentQuery : GraphQLAPIRequest {
-        let mutationName: String = "AddComment"
         /// The issue or pull request ID
         let id: OID
         let comment: String?
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.mutation, variables: [
                 "id": .str(id.rawValue),
                 "comment": comment.flatMap(JSum.str),
-            ], body: """
-            mutation \(mutationName)($id:String!, $comment:String!) {
+            ])
+        }
+
+        private static let mutation = """
+            mutation AddComment($id:String!, $comment:String!) {
               __typename
               addComment(input: {subjectId: $id, body: $comment}) {
                 commentEdge {
@@ -1849,8 +1857,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1872,7 +1879,6 @@ extension FairHub {
     }
 
     public struct FindPullRequests : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "FindPullRequests"
         /// The owner organization for the PR
         public var owner: String
         /// The base repository name for the PR
@@ -1883,14 +1889,17 @@ extension FairHub {
         public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
                 "state": .str(state.rawValue),
                 "count": .num(.init(count)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
-            ], body: """
-            query \(queryName)($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $cursor:String) {
+            ])
+        }
+
+        private static let query = """
+            query FindPullRequests($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                  __typename
@@ -1917,8 +1926,7 @@ extension FairHub {
                  }
                }
              }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1956,7 +1964,6 @@ extension FairHub {
     }
 
     public struct GetSponsorsQuery : GraphQLAPIRequest & CursoredAPIRequest {
-        public let queryName: String = "GetSponsorsQuery"
         /// The owner organization for the PR
         public var owner: String
         /// The base repository name for the PR
@@ -1968,13 +1975,16 @@ extension FairHub {
         public var cursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
-            try queryData(variables: [
+            try executeGraphQL(Self.query, variables: [
                 "owner": .str(owner),
                 "name": .str(name),
                 "count": .num(.init(count)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
-            ], body: """
-            query \(queryName)($owner:String!, $name:String!, $count:Int!, $cursor:String) {
+            ])
+        }
+
+        private static let query = """
+            query GetSponsorsQuery($owner:String!, $name:String!, $count:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                  __typename
@@ -2030,8 +2040,7 @@ extension FairHub {
                 }
               }
             }
-            """)
-        }
+            """
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -2221,7 +2230,7 @@ public extension GraphQLAPIRequest {
     }
 
     /// Creates a GraphQL query with a variable mapping.
-    func queryData(variables: [String: JSum?] = [:], body: String) throws -> Data {
+    func executeGraphQL(_ body: String, variables: [String: JSum?] = [:]) throws -> Data {
         var req = JObj()
         req["variables"] = .obj(variables.mapValues({ $0 ?? JSum.nul }))
         req["query"] = .str(body)
