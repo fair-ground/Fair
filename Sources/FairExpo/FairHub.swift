@@ -470,10 +470,7 @@ extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String, baseRepository: String, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?) async throws -> AppCatalog {
-
-        // let caskQueryCount = 100 // this seems to return too many results and triggers an occasional 502 error
-        let caskQueryCount = 25
+    func buildAppCasks(owner: String, baseRepository: String, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int = 25) async throws -> AppCatalog {
 
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
@@ -495,7 +492,7 @@ extension FairHub {
 
         var apps: [AppCatalogItem] = []
 
-        for try await forks in sendCursoredRequest(AppCasksQuery(owner: owner, name: baseRepository, count: caskQueryCount)) {
+        for try await forks in sendCursoredRequest(AppCasksQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: caskQueryCount)) {
             let forkNodes = try forks.result.get().data.repository.forks.nodes
             dbg("fetched appcasks forks:", forkNodes.count)
             for fork in forkNodes {
@@ -991,6 +988,7 @@ extension FairHub {
     }
 
     /// Utility for including an optional string parameter or `null` if it is `.none`
+    @available(*, deprecated, message: "user variables instead")
     private static func quotedOrNull(_ string: String?) -> String {
         string?.escapedGraphQLString.enquote(with: "\"") ?? "null"
     }
@@ -1013,7 +1011,7 @@ extension FairHub {
                 "name": .str(name),
                 "ref": .str(ref),
             ], body: """
-             query \(queryName)($owner:String!, $name:String!, $ref:GitObjectID!) {
+            query \(queryName)($owner:String!, $name:String!, $ref:GitObjectID!) {
                __typename
                repository(owner: $owner, name: $name) {
                 object(oid: $ref) {
@@ -1099,7 +1097,7 @@ extension FairHub {
                 "owner": .str(owner),
                 "name": .str(name),
             ], body: """
-             query \(queryName)($owner:String!, $name:String!) {
+            query \(queryName)($owner:String!, $name:String!) {
                __typename
                organization(login: $owner) {
                 __typename
@@ -1116,7 +1114,6 @@ extension FairHub {
                   createdAt
                   updatedAt
                   homepageUrl
-                  forkingAllowed
                   isFork
                   isEmpty
                   isLocked
@@ -1128,8 +1125,6 @@ extension FairHub {
                   stargazerCount
                   watchers { totalCount }
                   isInOrganization
-                  hasWikiEnabled
-                  hasProjectsEnabled
                   hasIssuesEnabled
                   discussionCategories { totalCount }
                   issues { totalCount }
@@ -1170,7 +1165,6 @@ extension FairHub {
                     public let createdAt: Date
                     public let updatedAt: Date
                     public let homepageUrl: String?
-                    public let forkingAllowed: Bool
                     public let isFork: Bool
                     public let isEmpty: Bool
                     public let isLocked: Bool
@@ -1179,8 +1173,6 @@ extension FairHub {
                     public let isArchived: Bool
                     public let isDisabled: Bool
                     public let isInOrganization: Bool
-                    public let hasWikiEnabled: Bool
-                    public let hasProjectsEnabled: Bool
                     public let hasIssuesEnabled: Bool
                     public let discussionCategories: NodeCount
                     public let forkCount: Int
@@ -1253,7 +1245,7 @@ extension FairHub {
         public var count: Int
 
         /// the number of releases to scan
-        public var releaseCount: Int = 100
+        public var releaseCount: Int
 
         /// the number of release assets to process
         public var assetCount: Int = 25
@@ -1269,7 +1261,7 @@ extension FairHub {
                 "assetCount": .num(.init(assetCount)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
             ], body: """
-             query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
@@ -1300,17 +1292,6 @@ extension FairHub {
                       }
                       description
                       visibility
-                      shortDescriptionHTML
-                      forkCount
-                      stargazerCount
-                      hasIssuesEnabled
-                      discussionCategories { totalCount }
-                      issues { totalCount }
-                      stargazers { totalCount }
-                      watchers { totalCount }
-                      isInOrganization
-                      hasWikiEnabled
-                      hasProjectsEnabled
                       homepageUrl
                       releases(first: $releaseCount) {
                         pageInfo {
@@ -1325,7 +1306,6 @@ extension FairHub {
                             name
                             createdAt
                             updatedAt
-                            isLatest
                             isPrerelease
                             isDraft
                             description
@@ -1385,17 +1365,6 @@ extension FairHub {
                     public let owner: RepositoryOwner
                     public let description: String?
                     public let visibility: String // e.g. "PUBLIC"
-                    public let shortDescriptionHTML: String
-                    public let forkCount: Int
-                    public let stargazerCount: Int
-                    public let hasIssuesEnabled: Bool
-                    public let discussionCategories: NodeCount
-                    public let issues: NodeCount
-                    public let stargazers: NodeCount
-                    public let watchers: NodeCount
-                    public let isInOrganization: Bool
-                    public let hasWikiEnabled: Bool
-                    public let hasProjectsEnabled: Bool
                     public let homepageUrl: String?
                     public let releases: EdgeList<Release>
 
@@ -1405,7 +1374,6 @@ extension FairHub {
                         public let tag: Tag
                         public let createdAt: Date
                         public let updatedAt: Date
-                        public let isLatest: Bool
                         public let isPrerelease: Bool
                         public let isDraft: Bool
                         public let name: String?
@@ -1445,54 +1413,53 @@ extension FairHub {
                 "assetCount": .num(.init(assetCount)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
             ], body: """
-             query \(queryName)($repositoryNodeID:String!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
-               __typename
-            node(id: "\(repositoryNodeID)") {
-              id
+            query \(queryName)($repositoryNodeID:ID!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
               __typename
-              ... on Repository {
-                releases(after: $cursor, first: $releaseCount) {
-                  pageInfo {
-                    endCursor
+              node(id: $repositoryNodeID) {
+                id
+                __typename
+                ... on Repository {
+                  releases(after: $cursor, first: $releaseCount) {
+                    pageInfo {
+                      endCursor
                     hasNextPage
-                    hasPreviousPage
-                    startCursor
-                  }
-                  edges {
-                    node {
-                      __typename
-                      name
-                      createdAt
-                      updatedAt
-                      isLatest
-                      isPrerelease
-                      isDraft
-                      description
-                      releaseAssets(first: $assetCount) {
+                      hasPreviousPage
+                      startCursor
+                    }
+                    edges {
+                      node {
                         __typename
-                        edges {
-                          node {
-                            __typename
-                            contentType
-                            downloadCount
-                            downloadUrl
-                            name
-                            size
-                            updatedAt
-                            createdAt
+                        name
+                        createdAt
+                        updatedAt
+                        isPrerelease
+                        isDraft
+                        description
+                        releaseAssets(first: $assetCount) {
+                          __typename
+                          edges {
+                            node {
+                              __typename
+                              contentType
+                              downloadCount
+                              downloadUrl
+                              name
+                              size
+                              updatedAt
+                              createdAt
+                            }
                           }
                         }
-                      }
-                      tag {
-                        name
+                        tag {
+                          name
+                        }
                       }
                     }
                   }
                 }
               }
             }
-          }
-        """)
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
@@ -1517,6 +1484,7 @@ extension FairHub {
             }
         }
     }
+
 
     /// The query to generate a fair-ground catalog
     public struct CatalogForksQuery : GraphQLAPIRequest & CursoredAPIRequest {
@@ -1551,7 +1519,7 @@ extension FairHub {
                 "commentCount": .num(.init(count)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
             ], body: """
-             query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $cursor:String) {
+            query \(queryName)($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
@@ -1581,7 +1549,6 @@ extension FairHub {
                       }
                       description
                       visibility
-                      shortDescriptionHTML
                       forkCount
                       stargazerCount
                       hasIssuesEnabled
@@ -1590,8 +1557,6 @@ extension FairHub {
                       stargazers { totalCount }
                       watchers { totalCount }
                       isInOrganization
-                      hasWikiEnabled
-                      hasProjectsEnabled
                       homepageUrl
                       repositoryTopics(first: 1) {
                         nodes {
@@ -1608,7 +1573,6 @@ extension FairHub {
                           name
                           createdAt
                           updatedAt
-                          isLatest
                           isPrerelease
                           isDraft
                           description
@@ -1719,7 +1683,6 @@ extension FairHub {
                     public let owner: RepositoryOwner
                     public let description: String?
                     public let visibility: String // e.g. "PUBLIC"
-                    public let shortDescriptionHTML: String
                     public let forkCount: Int
                     public let stargazerCount: Int
                     public let hasIssuesEnabled: Bool
@@ -1728,8 +1691,6 @@ extension FairHub {
                     public let stargazers: NodeCount
                     public let watchers: NodeCount
                     public let isInOrganization: Bool
-                    public let hasWikiEnabled: Bool
-                    public let hasProjectsEnabled: Bool
                     public let homepageUrl: String?
                     public var repositoryTopics: NodeList<RepositoryTopic>
                     public let releases: NodeList<Release>
@@ -1782,7 +1743,6 @@ extension FairHub {
                         public let tagCommit: Commit
                         public let createdAt: Date
                         public let updatedAt: Date
-                        public let isLatest: Bool
                         public let isPrerelease: Bool
                         public let isDraft: Bool
                         public let name: String?
@@ -1878,18 +1838,18 @@ extension FairHub {
                 "id": .str(id.rawValue),
                 "comment": comment.flatMap(JSum.str),
             ], body: """
-                mutation \(mutationName)($id:String!, $comment:String!) {
-                  __typename
-                  addComment(input: {subjectId: $id, body: $comment}) {
-                    commentEdge {
-                      node {
-                        body
-                        url
-                      }
-                    }
+            mutation \(mutationName)($id:String!, $comment:String!) {
+              __typename
+              addComment(input: {subjectId: $id, body: $comment}) {
+                commentEdge {
+                  node {
+                    body
+                    url
                   }
                 }
-                """)
+              }
+            }
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
@@ -1930,7 +1890,7 @@ extension FairHub {
                 "count": .num(.init(count)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
             ], body: """
-             query \(queryName)($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $cursor:String) {
+            query \(queryName)($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                  __typename
@@ -1951,14 +1911,13 @@ extension FairHub {
                         headRepository {
                           nameWithOwner
                           visibility
-                          forkingAllowed
                         }
                      }
                    }
                  }
                }
              }
-             """)
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
@@ -1990,7 +1949,6 @@ extension FairHub {
                     public struct HeadRepository : Decodable {
                         public var nameWithOwner: String
                         public var visibility: RepositoryVisibility // e.g., "PUBLIC"
-                        public var forkingAllowed: Bool
                     }
                 }
             }
@@ -2016,7 +1974,7 @@ extension FairHub {
                 "count": .num(.init(count)),
                 "cursor": cursor.flatMap({ .str($0.rawValue) })
             ], body: """
-             query \(queryName)($owner:String!, $name:String!, $count:Int!, $cursor:String) {
+            query \(queryName)($owner:String!, $name:String!, $count:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                  __typename
@@ -2063,16 +2021,16 @@ extension FairHub {
                              percentComplete
                              targetValue
                              description
-                           }
-                         }
-                       }
-                     }
-                     }
-                   }
-                 }
-               }
-             }
-             """)
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            """)
         }
 
         public typealias Response = GraphQLResponse<QueryResponse>
