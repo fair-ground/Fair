@@ -70,7 +70,7 @@ public struct FairHub : GraphQLEndpointService {
     public var fairsealKey: Data?
 
     public typealias BaseFork = FairHub.CatalogForksQuery.QueryResponse.BaseRepository.Repository
-    public typealias AppCaskFork = AppCasksQuery.QueryResponse.BaseRepository.Repository
+    public typealias AppCaskFork = AppCasksForkQuery.QueryResponse.BaseRepository.Repository
 
     /// The FairHub is initialized with a host identifier (e.g., "github.com/appfair") that corresponds to the hub being used.
     public init(hostOrg: String, authToken: String? = nil, fairsealIssuer: String?, fairsealKey: Data?) throws {
@@ -202,10 +202,10 @@ extension FairHub {
 
     func createAppCatalogItemsFromForks(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
         sendCursoredRequest(CatalogForksQuery(owner: owner, name: baseRepository))
-            .map { forks in try deriveCatalogItems(forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
+            .map { forks in try assembleCatalog(fromForks: forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
 
-    private func deriveCatalogItems(_ forks: CatalogForksQuery.Response, artifactTarget: ArtifactTarget, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
+    private func assembleCatalog(fromForks forks: CatalogForksQuery.Response, artifactTarget: ArtifactTarget, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
         guard let fairsealIssuer = fairsealIssuer else {
             throw Errors.missingFairsealIssuer
         }
@@ -490,9 +490,12 @@ extension FairHub {
         async let casks = CaskCatalog(mergeCasksURL == nil ? [] : api.fetchCasks().casks)
         async let stats = caskStatsURL == nil ? nil : api.fetchCaskStats(url: caskStatsURL!)
 
+        // the apps we have indexed
         var apps: [AppCatalogItem] = []
+        // the app ids we have seen so far
+        var appids: Set<String> = []
 
-        for try await forks in sendCursoredRequest(AppCasksQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: caskQueryCount)) {
+        for try await forks in sendCursoredRequest(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: caskQueryCount)) {
             let forkNodes = try forks.result.get().data.repository.forks.nodes
             dbg("fetched appcasks forks:", forkNodes.count)
             for fork in forkNodes {
@@ -511,10 +514,6 @@ extension FairHub {
             }
 
             dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
-
-            guard let _ = fork.owner.websiteUrl else {
-                return dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
-            }
 
             if fork.owner.isVerified != true {
                 return dbg("skipping un-verified owner:", fork.nameWithOwner)
@@ -552,6 +551,24 @@ extension FairHub {
                     continue
                 }
 
+                guard let website = fork.owner.websiteUrl else {
+                    dbg("skipping un-set hostname for owner:", fork.nameWithOwner)
+                    continue
+                }
+
+                guard let homepage = cask?.homepage.flatMap(URL.init(string:)) else {
+                    dbg("skipping un-set hostname for cask:", cask?.homepage)
+                    continue
+                }
+
+                dbg("validating cask homepage: \(homepage.absoluteString) against fork websiteUrl: \(website.absoluteString)")
+
+                if !homepage.absoluteString.hasPrefix(website.absoluteString)
+                    && fork.nameWithOwner != "App-Fair/appcasks" { // TODO: specify privileged base repository in args
+                    dbg("skipping un-matched cask homepage and verified url:", homepage, website)
+                    continue
+                }
+
                 if let app = createApp(token: token, release: release, fork: fork, cask: cask, stats: stats) {
                     // only add the cask if it has any supplemental information defined
                     if excludeEmptyCasks == false
@@ -563,6 +580,17 @@ extension FairHub {
                         || app.categories?.isEmpty == false
                         || app.screenshotURLs?.isEmpty == false
                     {
+                        // Prune out apps with the same bundle identifier.
+                        // Since the forks are traversed in reverse-creation-date order,
+                        // this will have the effect that more recent forks defining
+                        // the same bundleIdentifier will have precedence over older forks,
+                        // which means that the oldest fork is the fallback for
+                        // all metadata lookups
+                        if !appids.insert(app.bundleIdentifier).inserted {
+                            dbg("skipping duplicate app id:", app.bundleIdentifier)
+                            continue
+                        }
+
                         apps.append(app)
                         if let maxApps = maxApps, apps.count >= maxApps {
                             dbg("stopping due to maxapps:", maxApps)
@@ -621,13 +649,13 @@ extension FairHub {
     private func createApp(token: String, release: AppCaskFork.Release?, fork: AppCaskFork?, cask: CaskItem?, stats: CaskStats?) -> AppCatalogItem? {
         let caskName = cask?.name.first ?? release?.name ?? release?.tag.name ?? token
         let homepage = (cask?.homepage ?? fork?.homepageUrl).flatMap(URL.init(string:))
-        let downloadURL = (cask?.url ?? cask?.homepage).flatMap(URL.init(string:))
+        let dlurl = (cask?.url ?? cask?.homepage).flatMap(URL.init(string:))
+        let downloadURL = dlurl ?? appfairRoot
         let checksum = cask?.checksum?.count == 64 ? cask?.checksum : nil
         let version = cask?.version
         let subtitle = cask?.desc
-        let localizedDescription = release?.description ?? cask?.desc
         let versionDate: Date? = nil // release.createdAt // not the right thing
-        let versionDescription = release?.description
+        // let versionDescription = release?.description
         let beta: Bool = release?.isPrerelease == true
 
         func releaseAsset(named name: String) -> ReleaseAsset? {
@@ -681,8 +709,64 @@ extension FairHub {
             return node.name.hasPrefix("screenshot") && node.name.contains("-mac-")
         }
 
-        let app = AppCatalogItem(name: caskName, bundleIdentifier: token, subtitle: subtitle, developerName: nil, localizedDescription: localizedDescription, size: nil, version: version, versionDate: versionDate, downloadURL: downloadURL ?? appfairRoot, iconURL: appIcon?.downloadUrl, screenshotURLs: screenshotURLs?.isEmpty != false ? nil : screenshotURLs?.map(\.downloadUrl), versionDescription: versionDescription, tintColor: tintColor, beta: beta, categories: categories?.isEmpty != false ? nil : categories?.map(\.metadataIdentifier), downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: nil, watcherCount: nil, issueCount: nil, coreSize: nil, sha256: checksum, permissions: nil, metadataURL: nil, readmeURL: readmeURL, releaseNotesURL: releaseNotesURL, homepage: homepage)
-        return app
+        // the default app catalog item
+        var appItem = AppCatalogItem(name: caskName, bundleIdentifier: token, downloadURL: downloadURL)
+
+        // try to parse out the catalog item from the release's description;
+        // this will work if the embedded code block is fenced AppSource JSON
+        if let releaseDescription = release?.description {
+            do {
+                if try appItem.ingest(json: releaseDescription) {
+                    dbg("parsed item from release description:", appItem)
+                }
+            } catch {
+                dbg("error parsing release description into JSON:", error)
+            }
+        }
+
+        appItem.name = caskName
+        appItem.bundleIdentifier = token
+        appItem.subtitle = subtitle
+
+        appItem.downloadURL = downloadURL
+        appItem.sha256 = checksum
+        appItem.size = nil
+
+        appItem.readmeURL = readmeURL
+        appItem.releaseNotesURL = releaseNotesURL
+        appItem.homepage = homepage
+
+        // appItem.developerName = nil // may be set from config
+        appItem.localizedDescription = appItem.localizedDescription ?? cask?.desc
+        // appItem.versionDescription = versionDescription
+
+        appItem.version = version
+        appItem.versionDate = versionDate
+
+        appItem.iconURL = appIcon?.downloadUrl
+
+        appItem.tintColor = appItem.tintColor ?? tintColor
+        appItem.beta = appItem.beta ?? beta
+        appItem.categories = appItem.categories ?? (categories?.isEmpty != false ? nil : categories?.map(\.metadataIdentifier))
+
+        // we don't currently allow overriding of screenshot URLs;
+        // release resources must be used
+        appItem.screenshotURLs = screenshotURLs?.isEmpty != false ? nil : screenshotURLs?.map(\.downloadUrl)
+
+        // stats cannot be overridden
+
+        appItem.downloadCount = downloadCount
+        appItem.impressionCount = impressionCount
+        appItem.viewCount = viewCount
+
+        appItem.starCount = nil
+        appItem.watcherCount = nil
+        appItem.issueCount = nil
+        appItem.coreSize = nil
+        appItem.permissions = nil
+        appItem.metadataURL = nil
+
+        return appItem
     }
 
 
@@ -924,6 +1008,32 @@ extension FairHub {
     }
 }
 
+extension AppCatalogItem {
+    /// Ingest the given catalog JSON by parsing it and including all the non-optional properties into this catalog item.
+    internal mutating func ingest(json: String, fence: String = "```", prefix: String? = "json") throws -> Bool {
+        var json = json.trimmed()
+        if !json.hasPrefix(fence) || !json.hasSuffix(fence) {
+            return false
+        }
+
+        json = String(json.dropLast(fence.count).dropFirst(fence.count))
+        if let prefix = prefix, json.hasPrefix(prefix) {
+            json = String(json.dropFirst(prefix.count)) // permit code fence to start with "```json" for syntax highlighting in markdown editor. E.g.:
+        }
+        json = json.trimmed()
+        var jobj = try JSum(json: json.utf8Data).obj ?? JObj()
+
+        // inject the mandatory properties
+        jobj["name"] = self.name.parameterValue
+        jobj["bundleIdentifier"] = self.bundleIdentifier.parameterValue
+        jobj["downloadURL"] = self.downloadURL.absoluteString.parameterValue
+
+        // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
+        let appItem = try AppCatalogItem(json: jobj.json())
+        self = appItem
+        return true
+    }
+}
 
 extension FairHub {
     /// The HTTP headers that should be attached to all API requests
@@ -1000,9 +1110,9 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
-                "ref": .str(ref),
+                "owner": owner,
+                "name": name,
+                "ref": ref,
             ])
         }
 
@@ -1088,8 +1198,8 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
+                "owner": owner,
+                "name": name,
             ])
         }
 
@@ -1186,7 +1296,7 @@ extension FairHub {
     }
 
     /// The query to generate a catalog of enhanced cask metadata
-    public struct AppCasksQuery : GraphQLAPIRequest & CursoredAPIRequest {
+    public struct AppCasksForkQuery : GraphQLAPIRequest & CursoredAPIRequest {
         public typealias Service = FairHub
 
         public var owner: String
@@ -1205,17 +1315,17 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
-                "count": .num(.init(count)),
-                "releaseCount": .num(.init(releaseCount)),
-                "assetCount": .num(.init(assetCount)),
-                "cursor": cursor.flatMap({ .str($0.rawValue) })
+                "owner": owner,
+                "name": name,
+                "count": count,
+                "releaseCount": releaseCount,
+                "assetCount": assetCount,
+                "cursor": cursor
             ])
         }
 
         private static let query = """
-            query AppCasksQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            query AppCasksForkQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
@@ -1343,7 +1453,7 @@ extension FairHub {
         }
     }
 
-    /// The query to get additional pages of releases for `AppCasksQuery` when a fork has many releases
+    /// The query to get additional pages of releases for `AppCasksForkQuery` when a fork has many releases
     public struct AppCaskReleasesQuery : GraphQLAPIRequest & CursoredAPIRequest {
         public typealias Service = FairHub
 
@@ -1360,10 +1470,10 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "repositoryNodeID": .str(repositoryNodeID),
-                "releaseCount": .num(.init(releaseCount)),
-                "assetCount": .num(.init(assetCount)),
-                "cursor": cursor.flatMap({ .str($0.rawValue) })
+                "repositoryNodeID": repositoryNodeID,
+                "releaseCount": releaseCount,
+                "assetCount": assetCount,
+                "cursor": cursor
             ])
         }
 
@@ -1463,14 +1573,14 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
-                "count": .num(.init(count)),
-                "releaseCount": .num(.init(releaseCount)),
-                "assetCount": .num(.init(assetCount)),
-                "prCount": .num(.init(prCount)),
-                "commentCount": .num(.init(count)),
-                "cursor": cursor.flatMap({ .str($0.rawValue) })
+                "owner": owner,
+                "name": name,
+                "count": count,
+                "releaseCount": releaseCount,
+                "assetCount": assetCount,
+                "prCount": prCount,
+                "commentCount": count,
+                "cursor": cursor
             ])
         }
 
@@ -1759,9 +1869,9 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
-                "prid": .num(.init(prid)),
+                "owner": owner,
+                "name": name,
+                "prid": prid,
             ])
         }
 
@@ -1790,8 +1900,8 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.mutation, variables: [
-                "id": .str(id.rawValue),
-                "comment": comment.flatMap(JSum.str),
+                "id": id.rawValue,
+                "comment": comment,
             ])
         }
 
@@ -1840,11 +1950,11 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
-                "state": .str(state.rawValue),
-                "count": .num(.init(count)),
-                "cursor": cursor.flatMap({ .str($0.rawValue) })
+                "owner": owner,
+                "name": name,
+                "state": state.rawValue,
+                "count": count,
+                "cursor": cursor
             ])
         }
 
@@ -1926,61 +2036,63 @@ extension FairHub {
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
-                "owner": .str(owner),
-                "name": .str(name),
-                "count": .num(.init(count)),
-                "cursor": cursor.flatMap({ .str($0.rawValue) })
+                "owner": owner,
+                "name": name,
+                "count": count,
+                "cursor": cursor
             ])
         }
 
         private static let query = """
-            query GetSponsorsQuery($owner:String!, $name:String!, $count:Int!, $cursor:String) {
-               __typename
-               repository(owner: $owner, name: $name) {
-                 __typename
-                 owner {
-                   login
-                   url
-                   ... on Organization {
-                     __typename
-                     name
-                     sponsorsListing {
-                       __typename
-                       name
-                       isPublic
-                       activeGoal {
-                         __typename
-                         title
-                         kind
-                         percentComplete
-                         targetValue
-                         description
-                       }
-                     }
-                   }
-                 }
-                 forks(first: $count, after: $cursor) {
+            query GetSponsorsQuery($owner: String!, $name: String!, $count: Int!, $cursor: String) {
+              __typename
+              repository(owner: $owner, name: $name) {
+                __typename
+                owner {
+                  login
+                  url
+                  ... on Organization {
+                    __typename
+                    name
+                    websiteUrl
+                    sponsorsListing {
+                      __typename
+                      name
+                      isPublic
+                      activeGoal {
+                        __typename
+                        title
+                        kind
+                        percentComplete
+                        targetValue
+                        description
+                      }
+                    }
+                  }
+                }
+                forks(first: $count, after: $cursor) {
                   edges {
                     node {
-                     __typename
-                     nameWithOwner
-                     owner {
-                       login
-                       url
-                       ... on Organization {
-                         __typename
-                         name
-                         sponsorsListing {
-                           __typename
-                           name
-                           isPublic
-                           activeGoal {
-                             __typename
-                             title
-                             kind
-                             percentComplete
-                             targetValue
-                             description
+                      __typename
+                      nameWithOwner
+                      owner {
+                        login
+                        url
+                        ... on Organization {
+                          __typename
+                          name
+                          websiteUrl
+                          sponsorsListing {
+                            __typename
+                            name
+                            isPublic
+                            activeGoal {
+                              __typename
+                              title
+                              kind
+                              percentComplete
+                              targetValue
+                              description
                             }
                           }
                         }
@@ -2013,48 +2125,50 @@ extension FairHub {
                 public var owner: Owner
 
                 public struct Owner : Decodable {
-                    var login: String
-                    var url: String
+                    var login: String?
 
                     // ... on Organization fields
-                    
                     var name: String?
+                    var websiteUrl: String?
+                    var url: String?
                     var sponsorsListing: SponsorsListing?
+                }
 
-                    public struct SponsorsListing : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case SponsorsListing }
+
+                public struct SponsorsListing : Decodable {
+                    public enum TypeName : String, Decodable, Hashable { case SponsorsListing }
+                    public let __typename: TypeName
+                    var name: String
+                    var isPublic: Bool
+                    var activeGoal: SponsorsGoal?
+
+                    public struct SponsorsGoal : Decodable {
+                        public enum TypeName : String, Decodable, Hashable { case SponsorsGoal }
                         public let __typename: TypeName
-                        var name: String
-                        var isPublic: Bool
-                        var activeGoal: SponsorsGoal?
+                        var kind: KindName? // e.g. TOTAL_SPONSORS_COUNT or MONTHLY_SPONSORSHIP_AMOUNT
+                        var title: String?
+                        var description: String?
+                        var percentComplete: Double?
+                        var targetValue: Double?
 
-                        public struct SponsorsGoal : Decodable {
-                            public enum TypeName : String, Decodable, Hashable { case SponsorsGoal }
-                            public let __typename: TypeName
-                            var kind: KindName? // e.g. TOTAL_SPONSORS_COUNT or MONTHLY_SPONSORSHIP_AMOUNT
-                            var title: String?
-                            var description: String?
-                            var percentComplete: Double?
-                            var targetValue: Double?
-
-                            public struct KindName : RawDecodable, Hashable {
-                                public static let TOTAL_SPONSORS_COUNT = KindName(rawValue: "TOTAL_SPONSORS_COUNT")
-                                public static let MONTHLY_SPONSORSHIP_AMOUNT = KindName(rawValue: "MONTHLY_SPONSORSHIP_AMOUNT")
-                                public let rawValue: String
-                                public init(rawValue: String) {
-                                    self.rawValue = rawValue
-                                }
+                        public struct KindName : RawDecodable, Hashable {
+                            public static let TOTAL_SPONSORS_COUNT = KindName(rawValue: "TOTAL_SPONSORS_COUNT")
+                            public static let MONTHLY_SPONSORSHIP_AMOUNT = KindName(rawValue: "MONTHLY_SPONSORSHIP_AMOUNT")
+                            public let rawValue: String
+                            public init(rawValue: String) {
+                                self.rawValue = rawValue
                             }
                         }
                     }
                 }
 
-
                 public var forks: EdgeList<Fork>
                 public struct Fork : Decodable {
-//                    public var id: OID
+                    public enum TypeName : String, Decodable, Hashable { case Repository }
+                    public let __typename: TypeName
                     public var nameWithOwner: String
                     public var owner: Owner
+                    public var sponsorsListing: SponsorsListing?
                 }
             }
         }
@@ -2180,13 +2294,31 @@ public extension GraphQLAPIRequest {
     }
 
     /// Creates a GraphQL query with a variable mapping.
-    func executeGraphQL(_ body: String, variables: [String: JSum?] = [:]) throws -> Data {
+    fileprivate func executeGraphQL(_ body: String, includeNulls: Bool = true, variables: [String: GraphQLAPIParameter?] = [:]) throws -> Data {
         var req = JObj()
-        req["variables"] = .obj(variables.mapValues({ $0 ?? JSum.nul }))
         req["query"] = .str(body)
+        if includeNulls {
+            req["variables"] = .obj(variables.mapValues({ $0?.parameterValue ?? JSum.nul }))
+        } else {
+            req["variables"] = .obj(variables.compactMapValues({ $0?.parameterValue }))
+        }
         return try req.json()
     }
 }
+
+private protocol GraphQLAPIParameter {
+    /// The encoded parameter in a GraphQL parameter map
+    var parameterValue: JSum { get }
+}
+
+extension String : GraphQLAPIParameter { var parameterValue: JSum { .str(self) } }
+extension Double : GraphQLAPIParameter { var parameterValue: JSum { .num(self) } }
+extension Int : GraphQLAPIParameter { var parameterValue: JSum { .num(Double(self)) } }
+extension Bool : GraphQLAPIParameter { var parameterValue: JSum { .bol(self) } }
+extension Date : GraphQLAPIParameter { var parameterValue: JSum { .str(self.ISO8601Format()) } }
+extension Data : GraphQLAPIParameter { var parameterValue: JSum { .str(self.base64EncodedString()) } }
+extension GraphQLCursor : GraphQLAPIParameter { var parameterValue: JSum { .str(self.rawValue) } }
+
 
 private extension String {
     /// http://spec.graphql.org/draft/#sec-String-Value

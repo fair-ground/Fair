@@ -317,6 +317,7 @@ public extension StringProtocol {
         replacingOccurrences(of: " ", with: "-")
     }
 
+    /// Trims whitespace and newlines from either end of this string.
     @inlinable func trimmed(_ characters: CharacterSet = .whitespacesAndNewlines) -> String {
         trimmingCharacters(in: characters)
     }
@@ -752,7 +753,7 @@ public extension Task where Success == Never, Failure == Never {
     /// If the task is canceled before the time ends, this function throws CancellationError.
     /// This function doesn’t block the underlying thread.
     static func sleep(interval: TimeInterval) async throws {
-        try await sleep(nanoseconds: .init(interval * 1_000_000_000))
+        try await sleep(nanoseconds: UInt64(interval * 1_000_000_000))
     }
 }
 
