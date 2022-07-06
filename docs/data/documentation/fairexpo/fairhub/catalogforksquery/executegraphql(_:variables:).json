@@ -9,18 +9,20 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/GraphQLAPIRequest-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryData(variables:body:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/executeGraphQL(_:variables:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo17GraphQLAPIRequestPAAE9queryData9variables4body10Foundation0F0VSDySS0A4Core4JSumOSgG_SStKF",
+    "externalID" : "s:8FairExpo17GraphQLAPIRequestPAAE07executeC2QL_9variables10Foundation4DataVSS_SDySS0A4Core4JSumOSgGtKF::SYNTHESIZED::s:8FairExpo0A3HubV17CatalogForksQueryV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -32,11 +34,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "queryData"
+        "text" : "executeGraphQL"
       },
       {
         "kind" : "text",
         "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
       },
       {
         "kind" : "externalParam",
@@ -62,24 +73,7 @@
       },
       {
         "kind" : "text",
-        "text" : "?], "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "body"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
-      },
-      {
-        "kind" : "text",
-        "text" : ") "
+        "text" : "?]) "
       },
       {
         "kind" : "keyword",
@@ -103,7 +97,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "queryData(variables:body:)"
+    "title" : "executeGraphQL(_:variables:)"
   },
   "primaryContentSections" : [
     {
@@ -126,11 +120,36 @@
             },
             {
               "kind" : "identifier",
-              "text" : "queryData"
+              "text" : "executeGraphQL"
             },
             {
               "kind" : "text",
               "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "body"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
             },
             {
               "kind" : "externalParam",
@@ -156,24 +175,7 @@
             },
             {
               "kind" : "text",
-              "text" : "?] = [:], "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "body"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : ") "
+              "text" : "?] = [:]) "
             },
             {
               "kind" : "keyword",
@@ -205,7 +207,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/graphqlapirequest\/querydata(variables:body:)"
+        "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/executegraphql(_:variables:)"
       ],
       "traits" : [
         {
@@ -230,25 +232,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest": {
+"doc://FairExpo/documentation/FairExpo/FairHub": {
   "abstract" : [
     {
-      "text" : "An API request that is expected to use GraphQL ",
-      "type" : "text"
-    },
-    {
-      "code" : "POST",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " requests.",
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -256,23 +250,68 @@
     },
     {
       "kind" : "identifier",
-      "text" : "GraphQLAPIRequest"
+      "text" : "FairHub"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "GraphQLAPIRequest"
+      "text" : "FairHub"
     }
   ],
   "role" : "symbol",
-  "title" : "GraphQLAPIRequest",
+  "title" : "FairHub",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlapirequest"
+  "url" : "\/documentation\/fairexpo\/fairhub"
 },
-"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest/queryData(variables:body:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a fair-ground catalog",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CatalogForksQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CatalogForksQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CatalogForksQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/GraphQLAPIRequest-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/GraphQLAPIRequest-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "GraphQLAPIRequest Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/graphqlapirequest-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery/executeGraphQL(_:variables:)": {
   "abstract" : [
     {
       "text" : "Creates a GraphQL query with a variable mapping.",
@@ -290,11 +329,20 @@
     },
     {
       "kind" : "identifier",
-      "text" : "queryData"
+      "text" : "executeGraphQL"
     },
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -320,24 +368,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
+      "text" : "?]) "
     },
     {
       "kind" : "keyword",
@@ -353,12 +384,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryData(variables:body:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery\/executeGraphQL(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "queryData(variables:body:)",
+  "title" : "executeGraphQL(_:variables:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlapirequest\/querydata(variables:body:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery\/executegraphql(_:variables:)"
 }
 }
 }

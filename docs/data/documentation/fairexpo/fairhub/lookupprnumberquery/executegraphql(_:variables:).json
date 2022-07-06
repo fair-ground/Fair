@@ -10,19 +10,19 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/GraphQLAPIRequest-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery\/GraphQLAPIRequest-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/queryData(variables:body:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery\/executeGraphQL(_:variables:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo17GraphQLAPIRequestPAAE9queryData9variables4body10Foundation0F0VSDySS0A4Core4JSumOSgG_SStKF::SYNTHESIZED::s:8FairExpo0A3HubV14GetCommitQueryV",
+    "externalID" : "s:8FairExpo17GraphQLAPIRequestPAAE07executeC2QL_9variables10Foundation4DataVSS_SDySS0A4Core4JSumOSgGtKF::SYNTHESIZED::s:8FairExpo0A3HubV19LookupPRNumberQueryV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,11 +34,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "queryData"
+        "text" : "executeGraphQL"
       },
       {
         "kind" : "text",
         "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
       },
       {
         "kind" : "externalParam",
@@ -64,24 +73,7 @@
       },
       {
         "kind" : "text",
-        "text" : "?], "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "body"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
-      },
-      {
-        "kind" : "text",
-        "text" : ") "
+        "text" : "?]) "
       },
       {
         "kind" : "keyword",
@@ -105,7 +97,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "queryData(variables:body:)"
+    "title" : "executeGraphQL(_:variables:)"
   },
   "primaryContentSections" : [
     {
@@ -128,11 +120,36 @@
             },
             {
               "kind" : "identifier",
-              "text" : "queryData"
+              "text" : "executeGraphQL"
             },
             {
               "kind" : "text",
               "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "body"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
             },
             {
               "kind" : "externalParam",
@@ -158,24 +175,7 @@
             },
             {
               "kind" : "text",
-              "text" : "?] = [:], "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "body"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : ") "
+              "text" : "?] = [:]) "
             },
             {
               "kind" : "keyword",
@@ -207,7 +207,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/fairhub\/getcommitquery\/querydata(variables:body:)"
+        "\/documentation\/fairexpo\/fairhub\/lookupprnumberquery\/executegraphql(_:variables:)"
       ],
       "traits" : [
         {
@@ -266,7 +266,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery": {
+"doc://FairExpo/documentation/FairExpo/FairHub/LookupPRNumberQuery": {
   "abstract" : [
 
   ],
@@ -281,34 +281,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "GetCommitQuery"
+      "text" : "LookupPRNumberQuery"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "GetCommitQuery"
+      "text" : "LookupPRNumberQuery"
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.GetCommitQuery",
+  "title" : "FairHub.LookupPRNumberQuery",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery"
+  "url" : "\/documentation\/fairexpo\/fairhub\/lookupprnumberquery"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery/GraphQLAPIRequest-Implementations": {
+"doc://FairExpo/documentation/FairExpo/FairHub/LookupPRNumberQuery/GraphQLAPIRequest-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/GraphQLAPIRequest-Implementations",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery\/GraphQLAPIRequest-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "GraphQLAPIRequest Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery\/graphqlapirequest-implementations"
+  "url" : "\/documentation\/fairexpo\/fairhub\/lookupprnumberquery\/graphqlapirequest-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery/queryData(variables:body:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/LookupPRNumberQuery/executeGraphQL(_:variables:)": {
   "abstract" : [
     {
       "text" : "Creates a GraphQL query with a variable mapping.",
@@ -326,11 +326,20 @@
     },
     {
       "kind" : "identifier",
-      "text" : "queryData"
+      "text" : "executeGraphQL"
     },
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -356,24 +365,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
+      "text" : "?]) "
     },
     {
       "kind" : "keyword",
@@ -389,12 +381,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/queryData(variables:body:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/LookupPRNumberQuery\/executeGraphQL(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "queryData(variables:body:)",
+  "title" : "executeGraphQL(_:variables:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery\/querydata(variables:body:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/lookupprnumberquery\/executegraphql(_:variables:)"
 }
 }
 }

@@ -167,7 +167,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryData(variables:body:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/executeGraphQL(_:variables:)"
       ],
       "title" : "Instance Methods"
     }
@@ -606,7 +606,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlapirequest"
 },
-"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest/queryData(variables:body:)": {
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest/executeGraphQL(_:variables:)": {
   "abstract" : [
     {
       "text" : "Creates a GraphQL query with a variable mapping.",
@@ -624,11 +624,20 @@
     },
     {
       "kind" : "identifier",
-      "text" : "queryData"
+      "text" : "executeGraphQL"
     },
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -654,24 +663,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
+      "text" : "?]) "
     },
     {
       "kind" : "keyword",
@@ -687,12 +679,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/queryData(variables:body:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/executeGraphQL(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "queryData(variables:body:)",
+  "title" : "executeGraphQL(_:variables:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/graphqlapirequest\/querydata(variables:body:)"
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest\/executegraphql(_:variables:)"
 }
 }
 }

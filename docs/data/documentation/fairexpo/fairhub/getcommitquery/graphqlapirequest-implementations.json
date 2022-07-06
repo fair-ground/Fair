@@ -40,7 +40,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/queryData(variables:body:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/executeGraphQL(_:variables:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/queryURL(for:)"
       ],
       "title" : "Instance Methods"
@@ -139,7 +139,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery/queryData(variables:body:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery/executeGraphQL(_:variables:)": {
   "abstract" : [
     {
       "text" : "Creates a GraphQL query with a variable mapping.",
@@ -157,11 +157,20 @@
     },
     {
       "kind" : "identifier",
-      "text" : "queryData"
+      "text" : "executeGraphQL"
     },
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -187,24 +196,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
+      "text" : "?]) "
     },
     {
       "kind" : "keyword",
@@ -220,12 +212,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/queryData(variables:body:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery\/executeGraphQL(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "queryData(variables:body:)",
+  "title" : "executeGraphQL(_:variables:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery\/querydata(variables:body:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/getcommitquery\/executegraphql(_:variables:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery/queryURL(for:)": {
   "abstract" : [

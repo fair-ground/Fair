@@ -9,20 +9,18 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/GraphQLAPIRequest-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/queryData(variables:body:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/executeGraphQL(_:variables:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairExpo",
-    "externalID" : "s:8FairExpo17GraphQLAPIRequestPAAE9queryData9variables4body10Foundation0F0VSDySS0A4Core4JSumOSgG_SStKF::SYNTHESIZED::s:8FairExpo0A3HubV20AppCaskReleasesQueryV",
+    "externalID" : "s:8FairExpo17GraphQLAPIRequestPAAE07executeC2QL_9variables10Foundation4DataVSS_SDySS0A4Core4JSumOSgGtKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,11 +32,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "queryData"
+        "text" : "executeGraphQL"
       },
       {
         "kind" : "text",
         "text" : "("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
       },
       {
         "kind" : "externalParam",
@@ -64,24 +71,7 @@
       },
       {
         "kind" : "text",
-        "text" : "?], "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "body"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
-      },
-      {
-        "kind" : "text",
-        "text" : ") "
+        "text" : "?]) "
       },
       {
         "kind" : "keyword",
@@ -105,7 +95,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "queryData(variables:body:)"
+    "title" : "executeGraphQL(_:variables:)"
   },
   "primaryContentSections" : [
     {
@@ -128,11 +118,36 @@
             },
             {
               "kind" : "identifier",
-              "text" : "queryData"
+              "text" : "executeGraphQL"
             },
             {
               "kind" : "text",
               "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "body"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
             },
             {
               "kind" : "externalParam",
@@ -158,24 +173,7 @@
             },
             {
               "kind" : "text",
-              "text" : "?] = [:], "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "body"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : ") "
+              "text" : "?] = [:]) "
             },
             {
               "kind" : "keyword",
@@ -207,7 +205,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery\/querydata(variables:body:)"
+        "\/documentation\/fairexpo\/graphqlapirequest\/executegraphql(_:variables:)"
       ],
       "traits" : [
         {
@@ -232,59 +230,25 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub": {
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest": {
   "abstract" : [
     {
-      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairHub"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairHub"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery": {
-  "abstract" : [
-    {
-      "text" : "The query to get additional pages of releases for ",
+      "text" : "An API request that is expected to use GraphQL ",
       "type" : "text"
     },
     {
-      "code" : "AppCasksQuery",
+      "code" : "POST",
       "type" : "codeVoice"
     },
     {
-      "text" : " when a fork has many releases",
+      "text" : " requests.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -292,34 +256,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCaskReleasesQuery"
+      "text" : "GraphQLAPIRequest"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppCaskReleasesQuery"
+      "text" : "GraphQLAPIRequest"
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.AppCaskReleasesQuery",
+  "title" : "GraphQLAPIRequest",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery"
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery/GraphQLAPIRequest-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/GraphQLAPIRequest-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "GraphQLAPIRequest Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery\/graphqlapirequest-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery/queryData(variables:body:)": {
+"doc://FairExpo/documentation/FairExpo/GraphQLAPIRequest/executeGraphQL(_:variables:)": {
   "abstract" : [
     {
       "text" : "Creates a GraphQL query with a variable mapping.",
@@ -337,11 +290,20 @@
     },
     {
       "kind" : "identifier",
-      "text" : "queryData"
+      "text" : "executeGraphQL"
     },
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -367,24 +329,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
+      "text" : "?]) "
     },
     {
       "kind" : "keyword",
@@ -400,12 +345,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/queryData(variables:body:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest\/executeGraphQL(_:variables:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "queryData(variables:body:)",
+  "title" : "executeGraphQL(_:variables:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery\/querydata(variables:body:)"
+  "url" : "\/documentation\/fairexpo\/graphqlapirequest\/executegraphql(_:variables:)"
 }
 }
 }
