@@ -67,6 +67,9 @@ jobs:
         run: xcrun swift run fairtool version
 
       - name: Fair Tests
+        env:
+          FAIRHUB_API_SKIP: true # used by tests to determine load
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: xcrun swift test
  
       - name: Test iOS FairCore
@@ -121,6 +124,7 @@ jobs:
       - name: Fair Tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FAIRHUB_API_SKIP: true # used by tests to determine load
         run: |
           swift test 
 
