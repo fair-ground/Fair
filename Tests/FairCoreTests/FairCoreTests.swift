@@ -793,4 +793,44 @@ final class FairCoreTests: XCTestCase {
         /// the normalized data to be signed is: `{"a":2,"b":"C","d":false,"e":[{"f":1.2}]}`
         XCTAssertEqual("8JKugJUa41Uaf+lG1q6ndFpqGPxTPkLU9V17kkRBXB4=", try inst.sign(key: "secret-key-here".utf8Data).base64EncodedString())
     }
+
+    func XXXtestReplaceRegex() throws {
+        do {
+            let exp = try NSRegularExpression(pattern: #"^#+ (?<text>.*)$"#, options: [.anchorsMatchLines])
+            XCTAssertEqual("123", "# ABC".replacing(expression: exp, captureGroups: ["text"], replacing: { paramName, paramValue in
+                paramName == "text" && paramValue == "ABC" ? "123" : nil
+            }))
+        }
+
+        do {
+            let exp = try NSRegularExpression(pattern: #"\[(?<title>.*)\]\((?<url>.*)\)"#)
+            let demo = "[TITLE](URL)"
+            // not working; need to re-think multiple capture group handling
+            XCTAssertEqual("", demo.replacing(expression: exp, captureGroups: ["title", "url"], replacing: { paramName, paramValue in
+                paramName == "url" ? "https://whatever.com" : paramName == "title" ? "some title" : nil
+            }))
+        }
+    }
 }
+
+extension String {
+    public func replacing(expression: NSRegularExpression, options: NSRegularExpression.MatchingOptions = [], captureGroups: [String], replacing: (_ captureGroupName: String, _ captureGroupValue: String) throws -> String?) rethrows -> String {
+        var str = self
+        for match in expression.matches(in: self, options: options, range: self.span).reversed() {
+            for valueName in captureGroups {
+                let textRange = match.range(withName: valueName)
+                if textRange.location == NSNotFound {
+                    continue
+                }
+                let existingValue = (self as NSString).substring(with: textRange)
+
+                //dbg("replacing header range:", match.range, " with bold text:", text)
+                if let newValue = try replacing(valueName, existingValue) {
+                    str = (str as NSString).replacingCharacters(in: match.range, with: newValue)
+                }
+            }
+        }
+        return str
+    }
+}
+
