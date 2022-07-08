@@ -109,7 +109,6 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/appCategories",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/appNameHyphenated",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/baseURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/beta",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/bundleIdentifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/categories",
@@ -134,6 +133,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/metadataURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/name",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/projectURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/readmeURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/releaseNotesURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/releasesURL",
@@ -141,7 +141,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/sha256",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/size",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/sourceURL",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/sponsorsURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/starCount",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/stargazersURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/subtitle",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/tintColor",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/version",
@@ -337,47 +339,6 @@
   "title" : "appNameHyphenated",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/appnamehyphenated"
-},
-"doc://FairApp/documentation/FairApp/AppCatalogItem/baseURL": {
-  "abstract" : [
-    {
-      "text" : "Returns the URL to this app’s home page",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "baseURL"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "!"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/baseURL",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "baseURL",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/baseurl"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/beta": {
   "abstract" : [
@@ -1892,6 +1853,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/permissions"
 },
+"doc://FairApp/documentation/FairApp/AppCatalogItem/projectURL": {
+  "abstract" : [
+    {
+      "text" : "Returns the URL to this app’s home page",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "projectURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "!"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/projectURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "projectURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/projecturl"
+},
 "doc://FairApp/documentation/FairApp/AppCatalogItem/readmeURL": {
   "abstract" : [
     {
@@ -2180,6 +2182,44 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/sourceurl"
 },
+"doc://FairApp/documentation/FairApp/AppCatalogItem/sponsorsURL": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sponsorsURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/sponsorsURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sponsorsURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/sponsorsurl"
+},
 "doc://FairApp/documentation/FairApp/AppCatalogItem/starCount": {
   "abstract" : [
     {
@@ -2220,6 +2260,44 @@
   "title" : "starCount",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/starcount"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogItem/stargazersURL": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stargazersURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "!"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/stargazersURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stargazersURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/stargazersurl"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/subtitle": {
   "abstract" : [

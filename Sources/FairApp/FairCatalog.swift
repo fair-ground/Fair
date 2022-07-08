@@ -404,7 +404,7 @@ public extension AppCatalogItem {
     }
 
     /// Returns the URL to this app's home page
-    var baseURL: URL! {
+    var projectURL: URL! {
         URL(string: "https://github.com/\(appNameHyphenated)/App/")
     }
 
@@ -415,19 +415,29 @@ public extension AppCatalogItem {
 
     /// Returns the URL to this app's home page
     var sourceURL: URL! {
-        baseURL.appendingPathExtension("git")
+        projectURL.appendingPathExtension("git")
     }
 
     var issuesURL: URL! {
-        URL(string: "issues", relativeTo: baseURL)
+        URL(string: "issues", relativeTo: projectURL)
     }
 
     var discussionsURL: URL! {
-        URL(string: "discussions", relativeTo: baseURL)
+        URL(string: "discussions", relativeTo: projectURL)
+    }
+
+    var stargazersURL: URL! {
+        URL(string: "stargazers", relativeTo: projectURL)
+    }
+
+    var sponsorsURL: URL? {
+        self.fundingLinks?.first?.fundingURL
+        //wip(nil)
+        //URL(string: wip("sponsors"), relativeTo: projectURL)
     }
 
     var releasesURL: URL! {
-        URL(string: "releases/", relativeTo: baseURL)
+        URL(string: "releases/", relativeTo: projectURL)
     }
 
     var developerURL: URL! {
