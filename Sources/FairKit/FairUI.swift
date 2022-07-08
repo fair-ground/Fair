@@ -116,28 +116,28 @@ public struct AsyncCachedImage<Content>: View where Content: View {
 
 /// An image that loads from a URL, either synchronously or asynchronously
 public struct URLImage : View, Equatable {
-    /// Whether the image should be loaded synchronously or asynchronously
-    public let sync: Bool
     /// The URL from which to load
     public let url: URL
     /// The scale of the image
     public let scale: CGFloat
     /// Whether the image should be resizable or not
     public let resizable: ContentMode?
-    /// Whether a progress placeholder should be used
-    public let showProgress: Bool
-    /// Whether a progress placeholder should be used
+    /// Whether to show the error message
     public let showError: Bool
+    /// Whether to re-attempt a cancelled error if it fails
+    public let retryCancelledError: Bool
     /// The recommended size of the image, as encoded with the image ending in `"-widthxheight"`
     public let suggestedSize: CGSize?
+    /// The cache of URL to images
+    //private let imageCache: Cache<URL, Image>?
 
-    public init(sync: Bool = false, url: URL, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showProgress: Bool = false, showError: Bool = false) {
-        self.sync = sync
+    public init(url: URL, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showError: Bool = true, retryCancelledError: Bool = true) {
         self.url = url
         self.scale = scale
         self.resizable = resizable
-        self.showProgress = showProgress
+        //self.imageCache = imageCache
         self.showError = showError
+        self.retryCancelledError = retryCancelledError
 
         if let assetName = try? AssetName(string: url.lastPathComponent) {
             self.suggestedSize = assetName.size
@@ -146,81 +146,79 @@ public struct URLImage : View, Equatable {
         }
     }
 
-    public var body: some View {
-        if sync == false, #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
+    /// Cache the given image parameter for later re-use
+    private func caching(image: Image) -> Image {
+//        if let imageCache = imageCache {
+//            imageCache[url] = image
+//            dbg("cached image:", url.absoluteString)
+//        }
+        return image
+    }
+
+    @ViewBuilder func configureImage(_ image: Image?, cache: Bool = true) -> some View {
+        if let image = image, let resizable = resizable {
+            caching(image: image)
+                .resizable(resizingMode: .stretch)
+                .aspectRatio(contentMode: resizable)
+        } else if let image = image {
+            caching(image: image)
+        }
+    }
+
+    /// Re-creates the same URLImage as a re-try for cancelled images
+    private func retryImage() -> some View {
+        URLImage(url: self.url, scale: self.scale, resizable: self.resizable, /*imageCache: self.imageCache, */ showError: self.showError, retryCancelledError: false)
+    }
+
+    @ViewBuilder public var body: some View {
+//        if let cached = imageCache?[url] {
+//            configureImage(cached, cache: false)
+//        } else {
             AsyncImage(url: url, scale: scale, transaction: Transaction(animation: .easeIn)) { phase in
                 if let image = phase.image {
-                    if let resizable = resizable {
-                        image
-                            .resizable(resizingMode: .stretch)
-                            .aspectRatio(contentMode: resizable)
-                    } else {
-                        image
-                    }
+                    configureImage(image)
                 } else if let error = phase.error {
-                    if showError {
-                        Text(error.localizedDescription)
-                            .label(image: FairSymbol.xmark_octagon)
+                    if let urlError = error as? URLError,
+                       urlError.code == URLError.Code.cancelled,
+                       retryCancelledError == true {
+                        // there's a persistent issue with AsyncImages embedded in lazy containers like lists mentioned at https://developer.apple.com/forums/thread/682498 ; one work-around is to have AsyncImage return another AsyncImage with its handler reports a cancelled error
+                        retryImage()
                     } else {
-                        //Circle()
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .fill(.secondary).opacity(0.5)
-//                        FairSymbol.xmark_octagon.image
-//                            .resizable(resizingMode: .stretch)
+                        configureImage(placeholderImage(size: suggestedSize ?? .zero, color: .accentColor))
+                            .overlay(Material.thick)
+                            .help(showError ? error.localizedDescription : "An error occured when loading this image")
                     }
-                } else if showProgress == true {
-                    ProgressView().progressViewStyle(.automatic)
                 } else if let suggestedSize = suggestedSize, suggestedSize.width > 0.0, suggestedSize.height > 0.0 {
-                    // we make a placeholder with the specified size in order to maintain the correct aspect ratio
-                    // this doesn't work: the
-//                    Rectangle()
-//                        .aspectRatio(suggestedSize.height / suggestedSize.width, contentMode: .fill)
-//                        .background(Material.thick)
-
-                    if let resizable = resizable {
-                        placeholderImage(size: suggestedSize)?
-                            .resizable()
-                            .aspectRatio(contentMode: resizable)
-                            .overlay(Material.thick)
-                    } else {
-                        placeholderImage(size: suggestedSize)
-                            .redacted(reason: .placeholder)
-                            .overlay(Material.thick)
-                    }
+                    configureImage(placeholderImage(size: suggestedSize))
+                        .overlay(Material.thick)
                 } else {
                     Circle().hidden()
                     // Color.gray.opacity(0.5)
                 }
             }
-        } else { // load the image synchronously
-            if let img = try? UXImage(data: Data(contentsOf: url)) {
-                if let resizable = resizable {
-                    Image(uxImage: img)
-                        .resizable(resizingMode: .stretch)
-                        .aspectRatio(contentMode: resizable)
-                } else {
-                    Image(uxImage: img)
-                }
-            } else {
-                Label("Error Loading Image", systemImage: "xmark.octagon")
-            }
-        }
+//        }
     }
 
     /// Creates an empty image with a certain dimension.
-    /// Useful for replicating the behavior of a placeholder image when all that is known is the size.
-    func placeholderImage(size: CGSize, scale: CGFloat = 1.0, opaque: Bool = true) -> Image? {
+    /// Useful for replicating the behavior of a placeholder image when all that is known is the size;
+    /// the image will be drawn at the given size and so the aspect ratio will be respected.
+    func placeholderImage(size: CGSize, color: Color? = nil, scale: CGFloat = 1.0, opaque: Bool = true) -> Image? {
         #if os(iOS)
         let rect = CGRect(origin: .zero, size: size)
 
         UIGraphicsBeginImageContextWithOptions(size, opaque, scale)
-        // color.set()
+        if let color = color {
+            UXColor(color).set()
+        }
         UIRectFill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return Image(uxImage: image!)
         #elseif os(macOS)
         return Image(uxImage: NSImage(size: size, flipped: false) { rect in
+            if let color = color {
+                UXColor(color).set()
+            }
             if opaque {
                 rect.fill()
             }

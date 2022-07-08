@@ -661,7 +661,12 @@ open class WebViewState : ObservableObject {
     }
 
     open func createWebView() -> WebEngineView {
-        WebEngineView(frame: .zero, configuration: configuration ?? .init())
+        let view = WebEngineView(frame: .zero, configuration: configuration ?? .init())
+        //view.setValue(UXColor.clear, forKey: "backgroundColor")
+
+        // without this the web view will always flash white when first loading, even when dark mode is enabled
+        view.setValue(false, forKey: "drawsBackground") // https://developer.apple.com/forums/thread/121139
+        return view
     }
 
     open var canGoBack: Bool { webView?.canGoBack ?? false }
