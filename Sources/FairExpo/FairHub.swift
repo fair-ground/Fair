@@ -231,6 +231,7 @@ extension FairHub {
             let starCount = fork.stargazerCount
             let watcherCount = fork.watchers.totalCount
             let issueCount = fork.issues.totalCount
+            let fundingLinks = fork.fundingLinks
 
             // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
             let categories = (fork.repositoryTopics.nodes ?? []).map(\.topic.name).compactMap({
@@ -438,7 +439,9 @@ extension FairHub {
                     app.readmeURL = readmeURL.appendingHash(readmeChecksum)
                     app.releaseNotesURL = releaseNotesURL
                     app.homepage = homepage
-
+                    app.fundingLinks = fundingLinks.map { link in
+                        AppFundingLink(platform: link.platform, url: link.url)
+                    }
 
                     // walk through the recent releases until we find one that has a fairseal on it
                     if beta == true {
@@ -1185,7 +1188,7 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable {
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             public let repository: Repository
             public struct Repository : Decodable {
@@ -1280,11 +1283,11 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable {
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             public let organization: Organization
             public struct Organization : Decodable {
-                public enum TypeName : String, Decodable, Hashable { case User, Organization }
+                public enum TypeName : String, Decodable { case User, Organization }
                 public let __typename: TypeName
                 public let name: String? // the string title, falling back to the login name
                 public let login: String
@@ -1298,7 +1301,7 @@ extension FairHub {
 
                 public let repository: Repository
                 public struct Repository : Decodable {
-                    public enum TypeName : String, Decodable, Hashable { case Repository }
+                    public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
                     public let visibility: RepositoryVisibility // e.g., "PUBLIC",
                     public let createdAt: Date
@@ -1319,7 +1322,7 @@ extension FairHub {
                     public let issues: NodeCount
                     public let licenseInfo: License
                     public struct License : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case License }
+                        public enum TypeName : String, Decodable { case License }
                         public let __typename: TypeName
                         public let spdxId: String?
                     }
@@ -1445,15 +1448,15 @@ extension FairHub {
                 repository.forks.nodes.count
             }
 
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             public let repository: BaseRepository
             public struct BaseRepository : Decodable {
-                public enum TypeName : String, Decodable, Hashable { case Repository }
+                public enum TypeName : String, Decodable { case Repository }
                 public let __typename: TypeName
                 public let forks: EdgeList<Repository>
                 public struct Repository : Decodable {
-                    public enum TypeName : String, Decodable, Hashable { case Repository }
+                    public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
                     public let id: String // used as a base for paginaton
                     public let name: String
@@ -1465,7 +1468,7 @@ extension FairHub {
                     public let releases: EdgeList<Release>
 
                     public struct Release : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case Release }
+                        public enum TypeName : String, Decodable { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
                         public let createdAt: Date
@@ -1572,7 +1575,7 @@ extension FairHub {
 
             public let node: Repository
             public struct Repository : Decodable {
-                public enum TypeName : String, Decodable, Hashable { case Repository }
+                public enum TypeName : String, Decodable { case Repository }
                 public let __typename: TypeName
                 public let id: String // used as a base for paginaton
 
@@ -1655,6 +1658,7 @@ extension FairHub {
                       issues { totalCount }
                       stargazers { totalCount }
                       watchers { totalCount }
+                      fundingLinks { __typename, platform, url }
                       isInOrganization
                       homepageUrl
                       repositoryTopics(first: 1) {
@@ -1766,15 +1770,15 @@ extension FairHub {
                 repository.forks.nodes.count
             }
 
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             public let repository: BaseRepository
             public struct BaseRepository : Decodable {
-                public enum TypeName : String, Decodable, Hashable { case Repository }
+                public enum TypeName : String, Decodable { case Repository }
                 public let __typename: TypeName
                 public let forks: EdgeList<Repository>
                 public struct Repository : Decodable {
-                    public enum TypeName : String, Decodable, Hashable { case Repository }
+                    public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
                     public let name: String
                     public let nameWithOwner: String
@@ -1788,19 +1792,27 @@ extension FairHub {
                     public let issues: NodeCount
                     public let stargazers: NodeCount
                     public let watchers: NodeCount
+                    public let fundingLinks: [FundingLink]
                     public let isInOrganization: Bool
                     public let homepageUrl: String?
                     public var repositoryTopics: NodeList<RepositoryTopic>
                     public let releases: NodeList<Release>
                     public let defaultBranchRef: Ref
 
+                    public struct FundingLink : Decodable {
+                        public enum TypeName : String, Decodable { case FundingLink }
+                        public let __typename: TypeName
+                        public let platform: AppFundingPlatform
+                        public let url: URL
+                    }
+
                     public struct Ref : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case Ref }
+                        public enum TypeName : String, Decodable { case Ref }
                         public let __typename: TypeName
                         public let associatedPullRequests: NodeList<PullRequest>
 
                         public struct PullRequest : Decodable {
-                            public enum TypeName : String, Decodable, Hashable { case PullRequest }
+                            public enum TypeName : String, Decodable { case PullRequest }
                             public let __typename: TypeName
                             public let author: Author
                             public let baseRef: Ref
@@ -1813,7 +1825,7 @@ extension FairHub {
                             }
 
                             public struct Ref : Decodable {
-                                public enum TypeName : String, Decodable, Hashable { case Ref }
+                                public enum TypeName : String, Decodable { case Ref }
                                 public let name: String?
                                 public let repository: Repository
 
@@ -1823,7 +1835,7 @@ extension FairHub {
                             }
 
                             public struct IssueComment : Decodable {
-                                public enum TypeName : String, Decodable, Hashable { case IssueComment }
+                                public enum TypeName : String, Decodable { case IssueComment }
                                 public let __typename: TypeName
                                 public let bodyText: String
                                 public let author: Author
@@ -1835,7 +1847,7 @@ extension FairHub {
                     }
 
                     public struct Release : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case Release }
+                        public enum TypeName : String, Decodable { case Release }
                         public let __typename: TypeName
                         public let tag: Tag
                         public let tagCommit: Commit
@@ -1852,7 +1864,7 @@ extension FairHub {
                         }
 
                         public struct Commit: Decodable {
-                            public enum TypeName : String, Decodable, Hashable { case Commit }
+                            public enum TypeName : String, Decodable { case Commit }
                             public let __typename: TypeName
                             public let authoredByCommitter: Bool
                             public let author: Author?
@@ -1865,13 +1877,13 @@ extension FairHub {
                             }
 
                             public struct Signature : Decodable {
-                                public enum TypeName : String, Decodable, Hashable { case Signature, GpgSignature }
+                                public enum TypeName : String, Decodable { case Signature, GpgSignature }
                                 public let __typename: TypeName
                                 public let isValid: Bool
                                 public let signer: User
 
                                 public struct User : Decodable {
-                                    public enum TypeName : String, Decodable, Hashable { case User }
+                                    public enum TypeName : String, Decodable { case User }
                                     public let __typename: TypeName
                                     public let name: String?
                                     public let email: String?
@@ -1881,11 +1893,11 @@ extension FairHub {
                     }
 
                     public struct RepositoryTopic : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case RepositoryTopic }
+                        public enum TypeName : String, Decodable { case RepositoryTopic }
                         public let __typename: TypeName
                         public let topic: Topic
                         public struct Topic : Decodable {
-                            public enum TypeName : String, Decodable, Hashable { case Topic }
+                            public enum TypeName : String, Decodable { case Topic }
                             public let __typename: TypeName
                             public let name: String // TODO: this will be the appfair- app category
                         }
@@ -1913,7 +1925,7 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable {
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             let repository: Repository
             struct Repository : Decodable {
@@ -1955,7 +1967,7 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable {
-            public enum TypeName : String, Decodable, Hashable { case Mutation }
+            public enum TypeName : String, Decodable { case Mutation }
             public let __typename: TypeName
             let addComment: AddComment
             struct AddComment : Decodable {
@@ -2032,7 +2044,7 @@ extension FairHub {
                 repository.pullRequests.nodes.count
             }
 
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             public var repository: Repository
             public struct Repository : Decodable {
@@ -2153,7 +2165,7 @@ extension FairHub {
                 repository.forks.nodes.count
             }
 
-            public enum TypeName : String, Decodable, Hashable { case Query }
+            public enum TypeName : String, Decodable { case Query }
             public let __typename: TypeName
             public var repository: Repository
             public struct Repository : Decodable {
@@ -2174,14 +2186,14 @@ extension FairHub {
 
 
                 public struct SponsorsListing : Decodable {
-                    public enum TypeName : String, Decodable, Hashable { case SponsorsListing }
+                    public enum TypeName : String, Decodable { case SponsorsListing }
                     public let __typename: TypeName
                     var name: String
                     var isPublic: Bool
                     var activeGoal: SponsorsGoal?
 
                     public struct SponsorsGoal : Decodable {
-                        public enum TypeName : String, Decodable, Hashable { case SponsorsGoal }
+                        public enum TypeName : String, Decodable { case SponsorsGoal }
                         public let __typename: TypeName
                         var kind: KindName? // e.g. TOTAL_SPONSORS_COUNT or MONTHLY_SPONSORSHIP_AMOUNT
                         var title: String?
@@ -2202,7 +2214,7 @@ extension FairHub {
 
                 public var forks: EdgeList<Fork>
                 public struct Fork : Decodable {
-                    public enum TypeName : String, Decodable, Hashable { case Repository }
+                    public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
                     public var nameWithOwner: String
                     public var owner: Owner
