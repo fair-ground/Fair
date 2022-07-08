@@ -100,7 +100,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(sync:url:scale:resizable:showProgress:showError:)"
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:scale:resizable:showError:retryCancelledError:)"
       ],
       "title" : "Initializers"
     },
@@ -108,11 +108,10 @@
       "identifiers" : [
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/body",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/resizable",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCancelledError",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/scale",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/showError",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/showProgress",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/suggestedSize",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/sync",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/url"
       ],
       "title" : "Instance Properties"
@@ -270,7 +269,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/body"
 },
-"doc://FairKit/documentation/FairKit/URLImage/init(sync:url:scale:resizable:showProgress:showError:)": {
+"doc://FairKit/documentation/FairKit/URLImage/init(url:scale:resizable:showError:retryCancelledError:)": {
   "abstract" : [
 
   ],
@@ -282,23 +281,6 @@
     {
       "kind" : "text",
       "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "sync"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -353,7 +335,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "showProgress"
+      "text" : "showError"
     },
     {
       "kind" : "text",
@@ -370,7 +352,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "showError"
+      "text" : "retryCancelledError"
     },
     {
       "kind" : "text",
@@ -386,12 +368,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(sync:url:scale:resizable:showProgress:showError:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:scale:resizable:showError:retryCancelledError:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(sync:url:scale:resizable:showProgress:showError:)",
+  "title" : "init(url:scale:resizable:showError:retryCancelledError:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/init(sync:url:scale:resizable:showprogress:showerror:)"
+  "url" : "\/documentation\/fairkit\/urlimage\/init(url:scale:resizable:showerror:retrycancellederror:)"
 },
 "doc://FairKit/documentation/FairKit/URLImage/resizable": {
   "abstract" : [
@@ -434,6 +416,43 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/resizable"
 },
+"doc://FairKit/documentation/FairKit/URLImage/retryCancelledError": {
+  "abstract" : [
+    {
+      "text" : "Whether to re-attempt a cancelled error if it fails",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "retryCancelledError"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCancelledError",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "retryCancelledError",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/urlimage\/retrycancellederror"
+},
 "doc://FairKit/documentation/FairKit/URLImage/scale": {
   "abstract" : [
     {
@@ -474,7 +493,7 @@
 "doc://FairKit/documentation/FairKit/URLImage/showError": {
   "abstract" : [
     {
-      "text" : "Whether a progress placeholder should be used",
+      "text" : "Whether to show the error message",
       "type" : "text"
     }
   ],
@@ -507,43 +526,6 @@
   "title" : "showError",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/showerror"
-},
-"doc://FairKit/documentation/FairKit/URLImage/showProgress": {
-  "abstract" : [
-    {
-      "text" : "Whether a progress placeholder should be used",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "showProgress"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/showProgress",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "showProgress",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/showprogress"
 },
 "doc://FairKit/documentation/FairKit/URLImage/suggestedSize": {
   "abstract" : [
@@ -589,43 +571,6 @@
   "title" : "suggestedSize",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/suggestedsize"
-},
-"doc://FairKit/documentation/FairKit/URLImage/sync": {
-  "abstract" : [
-    {
-      "text" : "Whether the image should be loaded synchronously or asynchronously",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "sync"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/sync",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "sync",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/sync"
 },
 "doc://FairKit/documentation/FairKit/URLImage/url": {
   "abstract" : [

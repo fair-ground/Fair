@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Whether the image should be loaded synchronously or asynchronously",
+      "text" : "Whether to re-attempt a cancelled error if it fails",
       "type" : "text"
     }
   ],
@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/sync"
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCancelledError"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairKit8URLImageV4syncSbvp",
+    "externalID" : "s:7FairKit8URLImageV19retryCancelledErrorSbvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +31,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "sync"
+        "text" : "retryCancelledError"
       },
       {
         "kind" : "text",
@@ -51,7 +51,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "sync"
+    "title" : "retryCancelledError"
   },
   "primaryContentSections" : [
     {
@@ -74,7 +74,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "sync"
+              "text" : "retryCancelledError"
             },
             {
               "kind" : "text",
@@ -102,7 +102,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairkit\/urlimage\/sync"
+        "\/documentation\/fairkit\/urlimage\/retrycancellederror"
       ],
       "traits" : [
         {
@@ -169,10 +169,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage"
 },
-"doc://FairKit/documentation/FairKit/URLImage/sync": {
+"doc://FairKit/documentation/FairKit/URLImage/retryCancelledError": {
   "abstract" : [
     {
-      "text" : "Whether the image should be loaded synchronously or asynchronously",
+      "text" : "Whether to re-attempt a cancelled error if it fails",
       "type" : "text"
     }
   ],
@@ -187,7 +187,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "sync"
+      "text" : "retryCancelledError"
     },
     {
       "kind" : "text",
@@ -199,12 +199,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/sync",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCancelledError",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "sync",
+  "title" : "retryCancelledError",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/sync"
+  "url" : "\/documentation\/fairkit\/urlimage\/retrycancellederror"
 }
 }
 }

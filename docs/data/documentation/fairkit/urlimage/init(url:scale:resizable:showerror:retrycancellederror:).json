@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(sync:url:scale:resizable:showProgress:showError:)"
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:scale:resizable:showError:retryCancelledError:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairKit8URLImageV4sync3url5scale9resizable12showProgress0H5ErrorACSb_10Foundation3URLV12CoreGraphics7CGFloatV7SwiftUI11ContentModeOSgS2btcfc",
+    "externalID" : "s:7FairKit8URLImageV3url5scale9resizable9showError014retryCancelledH0AC10Foundation3URLV_12CoreGraphics7CGFloatV7SwiftUI11ContentModeOSgS2btcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -28,23 +28,6 @@
       {
         "kind" : "text",
         "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "sync"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sb",
-        "text" : "Bool"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
       },
       {
         "kind" : "externalParam",
@@ -99,7 +82,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "showProgress"
+        "text" : "showError"
       },
       {
         "kind" : "text",
@@ -116,7 +99,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "showError"
+        "text" : "retryCancelledError"
       },
       {
         "kind" : "text",
@@ -140,7 +123,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(sync:url:scale:resizable:showProgress:showError:)"
+    "title" : "init(url:scale:resizable:showError:retryCancelledError:)"
   },
   "primaryContentSections" : [
     {
@@ -160,23 +143,6 @@
             {
               "kind" : "text",
               "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "sync"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sb",
-              "text" : "Bool"
-            },
-            {
-              "kind" : "text",
-              "text" : " = false, "
             },
             {
               "kind" : "externalParam",
@@ -231,23 +197,6 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "showProgress"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sb",
-              "text" : "Bool"
-            },
-            {
-              "kind" : "text",
-              "text" : " = false, "
-            },
-            {
-              "kind" : "externalParam",
               "text" : "showError"
             },
             {
@@ -261,7 +210,24 @@
             },
             {
               "kind" : "text",
-              "text" : " = false)"
+              "text" : " = true, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "retryCancelledError"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : " = true)"
             }
           ]
         }
@@ -280,7 +246,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairkit\/urlimage\/init(sync:url:scale:resizable:showprogress:showerror:)"
+        "\/documentation\/fairkit\/urlimage\/init(url:scale:resizable:showerror:retrycancellederror:)"
       ],
       "traits" : [
         {
@@ -347,7 +313,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage"
 },
-"doc://FairKit/documentation/FairKit/URLImage/init(sync:url:scale:resizable:showProgress:showError:)": {
+"doc://FairKit/documentation/FairKit/URLImage/init(url:scale:resizable:showError:retryCancelledError:)": {
   "abstract" : [
 
   ],
@@ -359,23 +325,6 @@
     {
       "kind" : "text",
       "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "sync"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -430,7 +379,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "showProgress"
+      "text" : "showError"
     },
     {
       "kind" : "text",
@@ -447,7 +396,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "showError"
+      "text" : "retryCancelledError"
     },
     {
       "kind" : "text",
@@ -463,12 +412,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(sync:url:scale:resizable:showProgress:showError:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:scale:resizable:showError:retryCancelledError:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(sync:url:scale:resizable:showProgress:showError:)",
+  "title" : "init(url:scale:resizable:showError:retryCancelledError:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/init(sync:url:scale:resizable:showprogress:showerror:)"
+  "url" : "\/documentation\/fairkit\/urlimage\/init(url:scale:resizable:showerror:retrycancellederror:)"
 }
 }
 }
