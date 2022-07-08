@@ -171,6 +171,13 @@ public struct AppFundingLink : Codable {
     public var localizedTitle: String?
     /// The description
     public var localizedDescription: String?
+
+    public init(platform: AppFundingPlatform, url: URL, localizedTitle: String? = nil, localizedDescription: String? = nil) {
+        self.platform = platform
+        self.url = url
+        self.localizedTitle = localizedTitle
+        self.localizedDescription = localizedDescription
+    }
 }
 
 /// A link to a particular funding platform.

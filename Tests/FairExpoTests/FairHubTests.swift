@@ -251,9 +251,10 @@ final class FairHubTests: XCTestCase {
         dbg("created app casks catalog count:", ids.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
-    private func checkApp(_ id: String, catalog: AppCatalog) {
-        guard let app = catalog.apps.first(where: { $0.bundleIdentifier == "app.Tune-Out" }) else {
-            return XCTFail("no app")
+    @discardableResult private func checkApp(_ id: String, catalog: AppCatalog, fundingPlatform: AppFundingPlatform? = nil) -> AppCatalogItem? {
+        guard let app = catalog.apps.first(where: { $0.bundleIdentifier == id }) else {
+            XCTFail("no app")
+            return nil
         }
 
         XCTAssertNotNil(app.subtitle, "missing subtitle in app: \(app.bundleIdentifier)")
@@ -262,6 +263,18 @@ final class FairHubTests: XCTestCase {
         XCTAssertNotNil(app.sha256, "missing sha256 in app: \(app.bundleIdentifier)")
         XCTAssertNotNil(app.downloadCount, "missing downloadCount in app: \(app.bundleIdentifier)")
         XCTAssertNotNil(app.categories, "missing categories in app: \(app.bundleIdentifier)")
+
+
+        if let fundingPlatform = fundingPlatform {
+            if let link = app.fundingLinks?.first {
+                XCTAssertEqual(fundingPlatform, link.platform, "unexpected funding platform")
+            } else {
+                //XCTAssertNotNil(app.fundingLinks)
+                XCTFail("no funding links")
+            }
+        }
+
+        return app
     }
 
     func testBuildMacOSCatalog() async throws {
@@ -274,12 +287,13 @@ final class FairHubTests: XCTestCase {
         let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
+        //dbg("### catalog", wip(catalog.prettyJSON))
 
         XCTAssertFalse(names.contains(baseFairgroundRepoName))
 
         checkApp("app.App-Fair", catalog: catalog)
-        checkApp("app.Cloud-Cuckoo", catalog: catalog)
-        checkApp("app.Tune-Out", catalog: catalog)
+        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
+        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
         dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
@@ -297,8 +311,8 @@ final class FairHubTests: XCTestCase {
 
         XCTAssertFalse(names.contains(baseFairgroundRepoName))
 
-        checkApp("app.Cloud-Cuckoo", catalog: catalog)
-        checkApp("app.Tune-Out", catalog: catalog)
+        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
+        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
         dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }

@@ -74,7 +74,7 @@ final class FairExpoTests: XCTestCase {
         let catalog = try await AppCatalogAPI.shared.catalogApp(url: url)
         XCTAssertEqual("Cloud Cuckoo", catalog.name)
         XCTAssertEqual("A whimsical game of excitement and delight", catalog.subtitle)
-        XCTAssertEqual(.GITHUB, catalog.fundingLinks?.first?.platform)
+        XCTAssertEqual(nil, catalog.fundingLinks?.first?.platform) // no longer present in AppSource
     }
 
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
