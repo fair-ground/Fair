@@ -102,9 +102,14 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksStarQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksTopicQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CurrentViewerLoginQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/EdgeList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FundingLink",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GitSignatureState",
@@ -134,7 +139,8 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/baseURL",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/fairsealIssuer",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/fairsealKey",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/org"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/org",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/serviceURL"
       ],
       "title" : "Instance Properties"
     },
@@ -146,7 +152,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskFork",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/BaseFork"
       ],
       "title" : "Type Aliases"
@@ -262,37 +267,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskFork": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCaskFork"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskFork",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCaskFork"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub.AppCaskFork",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskfork"
-},
 "doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery": {
   "abstract" : [
     {
@@ -369,6 +343,68 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksforkquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksStarQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksStarQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksStarQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksStarQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksStarQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksstarquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksTopicQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksTopicQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksTopicQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksTopicQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksTopicQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskstopicquery"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/BaseFork": {
   "abstract" : [
 
@@ -399,6 +435,49 @@
   "title" : "FairHub.BaseFork",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/basefork"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository": {
+  "abstract" : [
+    {
+      "text" : "A repository returned as part of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskRepository"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskRepository"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CaskRepository",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery": {
   "abstract" : [
@@ -433,6 +512,40 @@
   "title" : "FairHub.CatalogForksQuery",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CurrentViewerLoginQuery": {
+  "abstract" : [
+    {
+      "text" : "One of the simplest possible queries, it simply returns the current viewer’s login",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CurrentViewerLoginQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CurrentViewerLoginQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CurrentViewerLoginQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CurrentViewerLoginQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/currentviewerloginquery"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/EdgeList": {
   "abstract" : [
@@ -506,6 +619,40 @@
   "title" : "FairHub.FindPullRequests",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/findpullrequests"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/FundingLink": {
+  "abstract" : [
+    {
+      "text" : "A link to a funding platform",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FundingLink"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FundingLink",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FundingLink"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.FundingLink",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/fundinglink"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/GetCommitQuery": {
   "abstract" : [
@@ -1403,6 +1550,43 @@
   "title" : "org",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/org"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/serviceURL": {
+  "abstract" : [
+    {
+      "text" : "The base URL for servicing GraphQL requests",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "serviceURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/serviceURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "serviceURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/serviceurl"
 },
 "doc://FairExpo/documentation/FairExpo/GraphQLEndpointService": {
   "abstract" : [

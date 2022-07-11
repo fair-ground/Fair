@@ -22,7 +22,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A3HubV20AppCaskReleasesQueryV0G8ResponseV10RepositoryV8releasesAC8EdgeListVy_AC0d9CasksForkG0VAFV04BaseI0VAHV7ReleaseVGvp",
+    "externalID" : "s:8FairExpo0A3HubV20AppCaskReleasesQueryV0G8ResponseV10RepositoryV8releasesAC8EdgeListVy_AC0eI0V7ReleaseVGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -69,8 +69,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo0A3HubV11AppCaskForka",
-        "text" : "AppCaskFork"
+        "preciseIdentifier" : "s:8FairExpo0A3HubV14CaskRepositoryV",
+        "text" : "CaskRepository"
       },
       {
         "kind" : "text",
@@ -78,7 +78,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo0A3HubV17AppCasksForkQueryV0G8ResponseV14BaseRepositoryV0J0V7ReleaseV",
+        "preciseIdentifier" : "s:8FairExpo0A3HubV14CaskRepositoryV7ReleaseV",
         "text" : "Release"
       },
       {
@@ -154,19 +154,19 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskFork",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo0A3HubV11AppCaskForka",
-              "text" : "AppCaskFork"
+              "preciseIdentifier" : "s:8FairExpo0A3HubV14CaskRepositoryV",
+              "text" : "CaskRepository"
             },
             {
               "kind" : "text",
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery\/QueryResponse\/BaseRepository\/Repository\/Release",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/Release",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo0A3HubV17AppCasksForkQueryV0G8ResponseV14BaseRepositoryV0J0V7ReleaseV",
+              "preciseIdentifier" : "s:8FairExpo0A3HubV14CaskRepositoryV7ReleaseV",
               "text" : "Release"
             },
             {
@@ -248,37 +248,6 @@
   "title" : "FairHub",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/AppCaskFork": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCaskFork"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskFork",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCaskFork"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub.AppCaskFork",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskfork"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery": {
   "abstract" : [
@@ -437,8 +406,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A3HubV11AppCaskForka",
-      "text" : "AppCaskFork"
+      "preciseIdentifier" : "s:8FairExpo0A3HubV14CaskRepositoryV",
+      "text" : "CaskRepository"
     },
     {
       "kind" : "text",
@@ -446,7 +415,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A3HubV17AppCasksForkQueryV0G8ResponseV14BaseRepositoryV0J0V7ReleaseV",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV14CaskRepositoryV7ReleaseV",
       "text" : "Release"
     },
     {
@@ -461,7 +430,84 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery\/queryresponse\/repository\/releases"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksForkQuery/QueryResponse/BaseRepository/Repository/Release": {
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksForkQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a catalog of enhanced cask metadata",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksForkQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksForkQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksForkQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksforkquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository": {
+  "abstract" : [
+    {
+      "text" : "A repository returned as part of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskRepository"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskRepository"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CaskRepository",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository/Release": {
   "abstract" : [
 
   ],
@@ -479,7 +525,7 @@
       "text" : "Release"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery\/QueryResponse\/BaseRepository\/Repository\/Release",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/Release",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -488,9 +534,9 @@
     }
   ],
   "role" : "symbol",
-  "title" : "FairHub.AppCasksForkQuery.QueryResponse.BaseRepository.Repository.Release",
+  "title" : "FairHub.CaskRepository.Release",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksforkquery\/queryresponse\/baserepository\/repository\/release"
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository\/release"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/EdgeList": {
   "abstract" : [

@@ -109,6 +109,13 @@ final class FairHubTests: XCTestCase {
         }
     }
 
+    func testCurrentViewerLoginQuery() async throws {
+        let hub = try Self.hub(skipNoAuth: true)
+        let response = try await hub.request(FairHub.CurrentViewerLoginQuery()).get()
+        let login = response.data.viewer.login
+        XCTAssertEqual("appfairbot", login)
+    }
+
     func testFindPullRequestsQuery() async throws {
         let hub = try Self.hub(skipNoAuth: true)
         do {
@@ -228,27 +235,32 @@ final class FairHubTests: XCTestCase {
             throw XCTSkip("disabled to reduce API load")
         }
 
-        let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
-        let maxApps: Int? = 123 // wip(3808) // 123 // _000_000
-        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: "appcasks", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
-        let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
-        let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
-        dbg("catalog", names.sorted())
+        do {
+            let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
+            let maxApps: Int? = 123 // wip(3808) // 123 // _000_000
+            let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, baseRepository: "appcasks", topicName: "appfair-cask", starrerName: "appfairbot", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
+            let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
+            let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
+            dbg("catalog", names.sorted())
 
-        XCTAssertEqual(ids.count, catalog.apps.count, "expected to have unique identifiers")
+            XCTAssertEqual(ids.count, catalog.apps.count, "expected to have unique identifiers")
 
-        if let maxApps = maxApps {
-            XCTAssertEqual(ids.count, maxApps)
-            XCTAssertEqual(catalog.apps.count, maxApps)
+            if let maxApps = maxApps {
+                XCTAssertEqual(ids.count, maxApps)
+                XCTAssertEqual(catalog.apps.count, maxApps)
+            }
+
+            XCTAssertTrue(names.contains("CotEditor"))
+            XCTAssertTrue(ids.contains(.init("coteditor")))
+
+            XCTAssertGreaterThanOrEqual(names.count, 1)
+
+            //dbg(catalog.prettyJSON)
+            dbg("created app casks catalog count:", ids.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        } catch {
+            XCTFail("error: \(error)")
+            throw error
         }
-
-        XCTAssertTrue(names.contains("CotEditor"))
-        XCTAssertTrue(ids.contains(.init("coteditor")))
-
-        XCTAssertGreaterThanOrEqual(names.count, 1)
-
-        //dbg(catalog.prettyJSON)
-        dbg("created app casks catalog count:", ids.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
 
     @discardableResult private func checkApp(_ id: String, catalog: AppCatalog, fundingPlatform: AppFundingPlatform? = nil) -> AppCatalogItem? {

@@ -1,0 +1,289 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/description"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo0A3HubV14CaskRepositoryV11descriptionSSSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "let"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "description"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "description"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "let"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "description"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/fairhub\/caskrepository\/description"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksForkQuery": {
+  "abstract" : [
+    {
+      "text" : "The query to generate a catalog of enhanced cask metadata",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksForkQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksForkQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksForkQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksforkquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository": {
+  "abstract" : [
+    {
+      "text" : "A repository returned as part of a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CaskRepository"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CaskRepository"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CaskRepository",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository\/description"
+}
+}
+}

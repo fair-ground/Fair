@@ -313,7 +313,7 @@ public extension GraphQLEndpointService {
         // un-comment to view raw GraphQL for running in https://docs.github.com/en/graphql/overview/explorer
         //dbg(wip("### POSTING to \(url.absoluteString):"), (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\", with: "")) // for debugging post data
 
-        dbg("requesting:", req, req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
+        dbg("\(A.self) request:", req, req.httpMethod ?? "GET", url.absoluteString, postData?.utf8String?.count.localizedByteCount()) // , (postData?.utf8String ?? "").replacingOccurrences(of: "\\n", with: "\n").replacingOccurrences(of: "\\\"", with: "\""))
         return req
     }
 }

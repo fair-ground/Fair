@@ -100,7 +100,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:scale:resizable:showError:retryCancelledError:)"
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:size:scale:resizable:showError:retryCodes:)"
       ],
       "title" : "Initializers"
     },
@@ -108,7 +108,7 @@
       "identifiers" : [
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/body",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/resizable",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCancelledError",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCodes",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/scale",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/showError",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/suggestedSize",
@@ -269,7 +269,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/body"
 },
-"doc://FairKit/documentation/FairKit/URLImage/init(url:scale:resizable:showError:retryCancelledError:)": {
+"doc://FairKit/documentation/FairKit/URLImage/init(url:size:scale:resizable:showError:retryCodes:)": {
   "abstract" : [
 
   ],
@@ -298,6 +298,23 @@
     {
       "kind" : "text",
       "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "size"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGSize",
+      "text" : "CGSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -352,7 +369,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "retryCancelledError"
+      "text" : "retryCodes"
     },
     {
       "kind" : "text",
@@ -360,20 +377,38 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation8URLErrorV",
+      "text" : "URLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation8URLErrorV4CodeV",
+      "text" : "Code"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:scale:resizable:showError:retryCancelledError:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/init(url:size:scale:resizable:showError:retryCodes:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(url:scale:resizable:showError:retryCancelledError:)",
+  "title" : "init(url:size:scale:resizable:showError:retryCodes:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/init(url:scale:resizable:showerror:retrycancellederror:)"
+  "url" : "\/documentation\/fairkit\/urlimage\/init(url:size:scale:resizable:showerror:retrycodes:)"
 },
 "doc://FairKit/documentation/FairKit/URLImage/resizable": {
   "abstract" : [
@@ -416,7 +451,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/resizable"
 },
-"doc://FairKit/documentation/FairKit/URLImage/retryCancelledError": {
+"doc://FairKit/documentation/FairKit/URLImage/retryCodes": {
   "abstract" : [
     {
       "text" : "Whether to re-attempt a cancelled error if it fails",
@@ -434,7 +469,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "retryCancelledError"
+      "text" : "retryCodes"
     },
     {
       "kind" : "text",
@@ -442,16 +477,38 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation8URLErrorV",
+      "text" : "URLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation8URLErrorV4CodeV",
+      "text" : "Code"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCancelledError",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/retryCodes",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "retryCancelledError",
+  "title" : "retryCodes",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/retrycancellederror"
+  "url" : "\/documentation\/fairkit\/urlimage\/retrycodes"
 },
 "doc://FairKit/documentation/FairKit/URLImage/scale": {
   "abstract" : [

@@ -143,7 +143,10 @@
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksStarQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksTopicQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CurrentViewerLoginQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetCommitQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
@@ -555,6 +558,68 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcasksforkquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksStarQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksStarQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksStarQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksStarQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksStarQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcasksstarquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/AppCasksTopicQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksTopicQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksTopicQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCasksTopicQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppCasksTopicQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/appcaskstopicquery"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/CatalogForksQuery": {
   "abstract" : [
     {
@@ -588,6 +653,40 @@
   "title" : "FairHub.CatalogForksQuery",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/CurrentViewerLoginQuery": {
+  "abstract" : [
+    {
+      "text" : "One of the simplest possible queries, it simply returns the current viewer’s login",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CurrentViewerLoginQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CurrentViewerLoginQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CurrentViewerLoginQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CurrentViewerLoginQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/currentviewerloginquery"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FindPullRequests": {
   "abstract" : [

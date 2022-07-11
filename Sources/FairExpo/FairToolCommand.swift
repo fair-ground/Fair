@@ -1992,6 +1992,11 @@ public struct BrewCommand : AsyncParsableCommand {
         @Flag(name: [.long], help: ArgumentHelp("whether the include funcing source info.", valueName: "funding"))
         public var fundingSources: Bool = false
 
+        @Option(name: [.long], help: ArgumentHelp("the topic whose tagged repos will be indexed.", valueName: "topic"))
+        public var topicName: String?
+
+        @Option(name: [.long], help: ArgumentHelp("the user whose starred repos will be indexed.", valueName: "user"))
+        public var starrerName: String?
 
         public init() { }
 
@@ -2015,7 +2020,7 @@ public struct BrewCommand : AsyncParsableCommand {
             let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
 
             // build the catalog filtering on specific artifact extensions
-            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: self.casksRepo, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
+            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: self.casksRepo, topicName: topicName, starrerName: starrerName, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
 
             if fundingSources {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: self.casksRepo)
