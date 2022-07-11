@@ -125,21 +125,21 @@ public struct URLImage : View, Equatable {
     /// Whether to show the error message
     public let showError: Bool
     /// Whether to re-attempt a cancelled error if it fails
-    public let retryCancelledError: Bool
+    public let retryCodes: Set<URLError.Code>
     /// The recommended size of the image, as encoded with the image ending in `"-widthxheight"`
     public let suggestedSize: CGSize?
-    /// The cache of URL to images
-    //private let imageCache: Cache<URL, Image>?
 
-    public init(url: URL, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showError: Bool = true, retryCancelledError: Bool = true) {
+    public init(url: URL, size: CGSize? = nil, scale: CGFloat = 1.0, resizable: ContentMode? = nil, showError: Bool = true, retryCodes: Set<URLError.Code> = [.cancelled]) {
         self.url = url
         self.scale = scale
         self.resizable = resizable
-        //self.imageCache = imageCache
         self.showError = showError
-        self.retryCancelledError = retryCancelledError
+        self.retryCodes = retryCodes
 
-        if let assetName = try? AssetName(string: url.lastPathComponent) {
+        if let size = size {
+            self.suggestedSize = size
+        } else if let assetName = try? AssetName(string: url.lastPathComponent) {
+            // if we can parse the size from the image URL name (e.g., `https://example.com/assets/screenshot-mac-dark-1024x777.png`), then use that size
             self.suggestedSize = assetName.size
         } else {
             self.suggestedSize = nil
@@ -167,7 +167,7 @@ public struct URLImage : View, Equatable {
 
     /// Re-creates the same URLImage as a re-try for cancelled images
     private func retryImage() -> some View {
-        URLImage(url: self.url, scale: self.scale, resizable: self.resizable, /*imageCache: self.imageCache, */ showError: self.showError, retryCancelledError: false)
+        URLImage(url: self.url, scale: self.scale, resizable: self.resizable, showError: self.showError, retryCodes: []) // don't retry again, so use an empty `retryCodes`
     }
 
     @ViewBuilder public var body: some View {
@@ -179,8 +179,7 @@ public struct URLImage : View, Equatable {
                     configureImage(image)
                 } else if let error = phase.error {
                     if let urlError = error as? URLError,
-                       urlError.code == URLError.Code.cancelled,
-                       retryCancelledError == true {
+                       retryCodes.contains(urlError.code) {
                         // there's a persistent issue with AsyncImages embedded in lazy containers like lists mentioned at https://developer.apple.com/forums/thread/682498 ; one work-around is to have AsyncImage return another AsyncImage with its handler reports a cancelled error
                         retryImage()
                     } else {
