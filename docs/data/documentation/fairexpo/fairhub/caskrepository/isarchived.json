@@ -16,11 +16,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/visibility"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/isArchived"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A3HubV14CaskRepositoryV10visibilityAC0E10VisibilityVvp",
+    "externalID" : "s:8FairExpo0A3HubV14CaskRepositoryV10isArchivedSbvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -32,7 +32,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "visibility"
+        "text" : "isArchived"
       },
       {
         "kind" : "text",
@@ -40,17 +40,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo0A3HubV",
-        "text" : "FairHub"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo0A3HubV20RepositoryVisibilityV",
-        "text" : "RepositoryVisibility"
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
       }
     ],
     "modules" : [
@@ -61,7 +52,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "visibility"
+    "title" : "isArchived"
   },
   "primaryContentSections" : [
     {
@@ -84,27 +75,16 @@
             },
             {
               "kind" : "identifier",
-              "text" : "visibility"
+              "text" : "isArchived"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo0A3HubV",
-              "text" : "FairHub"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryVisibility",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo0A3HubV20RepositoryVisibilityV",
-              "text" : "RepositoryVisibility"
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
             }
           ]
         }
@@ -123,7 +103,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/fairhub\/caskrepository\/visibility"
+        "\/documentation\/fairexpo\/fairhub\/caskrepository\/isarchived"
       ],
       "traits" : [
         {
@@ -259,7 +239,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository/visibility": {
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository/isArchived": {
   "abstract" : [
 
   ],
@@ -274,7 +254,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "visibility"
+      "text" : "isArchived"
     },
     {
       "kind" : "text",
@@ -282,72 +262,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A3HubV",
-      "text" : "FairHub"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A3HubV20RepositoryVisibilityV",
-      "text" : "RepositoryVisibility"
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/visibility",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/isArchived",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "visibility",
+  "title" : "isArchived",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository\/visibility"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/RepositoryVisibility": {
-  "abstract" : [
-    {
-      "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#repositoryvisibility",
-      "isActive" : true,
-      "type" : "reference"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RepositoryVisibility"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryVisibility",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RepositoryVisibility"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairHub.RepositoryVisibility",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/repositoryvisibility"
-},
-"https://docs.github.com/en/graphql/reference/enums#repositoryvisibility": {
-  "identifier" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#repositoryvisibility",
-  "title" : "RepositoryVisibility",
-  "titleInlineContent" : [
-    {
-      "text" : "RepositoryVisibility",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/docs.github.com\/en\/graphql\/reference\/enums#repositoryvisibility"
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository\/isarchived"
 }
 }
 }

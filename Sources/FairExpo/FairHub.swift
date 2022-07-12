@@ -498,6 +498,12 @@ extension FairHub {
             for try await starredRepos in sendCursoredRequest(AppCasksStarQuery(starrerName: starrerName, count: caskQueryCount, releaseCount: 5)) {
                 // we don't actually treat these as appcasks sources; instead, we just index some metadata that other casks may want to look up
                 for repo in try starredRepos.result.get().data.user.starredRepositories.nodes {
+                    if repo.isArchived {
+                        continue
+                    }
+                    if repo.visibility != .PUBLIC {
+                        continue
+                    }
                     if let url = repo.url {
                         starredRepoMap[url.lowercased()] = repo
                     }
@@ -533,8 +539,19 @@ extension FairHub {
 
         func addAppCasks(_ repos: [FairHub.CaskRepository], caskCatalog casks: CaskCatalog?, stats: CaskStats?) async throws -> Bool {
             dbg("fetched appcasks repos:", repos.count)
-            for fork in repos {
-                try await addRepositoryReleases(fork, caskCatalog: casks, stats: stats)
+            for repo in repos {
+
+                if repo.isArchived {
+                    dbg("skipping archived repository:", repo.nameWithOwner)
+                    continue
+                }
+
+                if repo.visibility != .PUBLIC {
+                    dbg("skipping non-public repository:", repo.nameWithOwner)
+                    continue
+                }
+
+                try await addRepositoryReleases(repo, caskCatalog: casks, stats: stats)
             }
 
             if let maxApps = maxApps, apps.count >= maxApps {
@@ -545,26 +562,26 @@ extension FairHub {
             return true
         }
 
-        func addRepositoryReleases(_ fork: CaskRepository, caskCatalog: CaskCatalog?, stats: CaskStats?) async throws {
+        func addRepositoryReleases(_ repo: CaskRepository, caskCatalog: CaskCatalog?, stats: CaskStats?) async throws {
             if apps.count >= maxApps ?? .max {
                 return dbg("not adding app beyond max:", maxApps)
             }
 
-            dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
+            dbg("checking app repo:", repo.owner.appNameWithSpace, repo.name)
 
-            if fork.owner.isVerified != true {
-                return dbg("skipping un-verified owner:", fork.nameWithOwner)
+            if repo.owner.isVerified != true {
+                return dbg("skipping un-verified owner:", repo.nameWithOwner)
             }
 
-            dbg("received release names:", fork.releases.nodes.compactMap(\.name))
-            if addReleases(repo: fork, fork.releases.nodes, casks: caskCatalog, stats: stats) == true {
-                if fork.releases.pageInfo?.hasNextPage == true,
-                    let releaseCursor = fork.releases.pageInfo?.endCursor {
+            dbg("received release names:", repo.releases.nodes.compactMap(\.name))
+            if addReleases(repo: repo, repo.releases.nodes, casks: caskCatalog, stats: stats) == true {
+                if repo.releases.pageInfo?.hasNextPage == true,
+                    let releaseCursor = repo.releases.pageInfo?.endCursor {
                     dbg("traversing release cursor:", releaseCursor)
-                    for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: fork.id, releaseCount: caskQueryCount, cursor: releaseCursor)) {
+                    for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: repo.id, releaseCount: caskQueryCount, cursor: releaseCursor)) {
                         let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
                         dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
-                        if addReleases(repo: fork, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
+                        if addReleases(repo: repo, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
                             return
                         }
                     }

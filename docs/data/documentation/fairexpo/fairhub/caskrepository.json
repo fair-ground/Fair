@@ -126,6 +126,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/fundingLinks",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/homepageUrl",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/id",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/isArchived",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/name",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/nameWithOwner",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/owner",
@@ -565,6 +566,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository\/init(from:)"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository/isArchived": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isArchived"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/isArchived",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isArchived",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/caskrepository\/isarchived"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/CaskRepository/name": {
   "abstract" : [
 
@@ -811,8 +846,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV20RepositoryVisibilityV",
+      "text" : "RepositoryVisibility"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository\/visibility",
