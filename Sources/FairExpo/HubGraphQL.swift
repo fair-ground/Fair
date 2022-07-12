@@ -607,6 +607,7 @@ extension FairHub {
             }
             description
             visibility
+            isArchived
             url
             homepageUrl
             fundingLinks { __typename, platform, url }
@@ -655,7 +656,8 @@ extension FairHub {
         public let nameWithOwner: String
         public let owner: RepositoryOwner
         public let description: String?
-        public let visibility: String // e.g. "PUBLIC"
+        public let visibility: RepositoryVisibility // e.g. "PUBLIC"
+        public let isArchived: Bool
         public let url: String?
         public let homepageUrl: String?
         public let fundingLinks: [FundingLink]
@@ -981,7 +983,7 @@ extension FairHub {
                     public let nameWithOwner: String
                     public let owner: RepositoryOwner
                     public let description: String?
-                    public let visibility: String // e.g. "PUBLIC"
+                    public let visibility: RepositoryVisibility // e.g. "PUBLIC"
                     public let forkCount: Int
                     public let stargazerCount: Int
                     public let hasIssuesEnabled: Bool
