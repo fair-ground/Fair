@@ -422,6 +422,8 @@ public extension Error {
     }
 }
 
+private let mainAppCatalogInfo = Result { try Bundle.main.appCatalogInfo() }
+
 @available(macOS 12.0, iOS 15.0, *)
 public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
@@ -453,7 +455,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
                 linkButton(Text("Discussions", bundle: .module, comment: "command name for opening app discussions page"), path: "discussions")
                 linkButton(Text("Issues", bundle: .module, comment: "command name for opening app issues page"), path: "issues")
 
-                if let catalogInfo = try? Bundle.main.appCatalogInfo(),
+                if let catalogInfo = try? mainAppCatalogInfo.get(),
                    let fundingLinks = catalogInfo.fundingLinksValidated,
                    !fundingLinks.isEmpty
                 {

@@ -113,7 +113,12 @@ final class FairHubTests: XCTestCase {
         let hub = try Self.hub(skipNoAuth: true)
         let response = try await hub.request(FairHub.CurrentViewerLoginQuery()).get()
         let login = response.data.viewer.login
-        XCTAssertEqual("appfairbot", login)
+
+        if runningFromCI {
+            XCTAssertEqual("github-actions[bot]", login)
+        } else {
+            XCTAssertEqual("appfairbot", login)
+        }
     }
 
     func testFindPullRequestsQuery() async throws {
