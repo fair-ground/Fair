@@ -801,8 +801,6 @@ private struct ObservedStateView<O: ObservableObject, V : View> : View {
     }
 }
 
-#endif // canImport(SwiftUI)
-
 public struct SplitDividerView : View {
     public init() {
 
@@ -826,6 +824,8 @@ public struct SplitDividerView : View {
             .padding(.bottom, 0.5)
     }
 }
+
+#endif // canImport(SwiftUI)
 
 #if canImport(AppKit)
 // This is an attempt to fix the broken split view divider persistence bug in SwiftUI.
