@@ -721,8 +721,12 @@ open class WebViewState : ObservableObject {
         webView?.goForward()
     }
 
-    @MainActor open func reload() {
-        webView?.reload()
+    @MainActor open func reload(fromOrigin: Bool = false) {
+        if fromOrigin == true {
+            webView?.reloadFromOrigin()
+        } else {
+            webView?.reload()
+        }
     }
 
     @MainActor open func stopLoading() {
@@ -840,6 +844,75 @@ extension WebViewState {
                 .disabled(disabled)
     }
 }
+
+// Note that some of these are redundant (reloadButton vs. reloadAction)
+
+extension WebViewState {
+
+    /// Creates a button whose action will copy the current URL to the pasteboard
+    public func copyURLButton(symbol: FairSymbol = .link_circle) -> some View {
+        Text("Copy URL", bundle: .module, comment: "button title for copying embedded browser url to clipboard")
+            .label(image: symbol)
+            .button {
+                if let url = self.url {
+                    UXPasteboard.general.clearContents()
+                    UXPasteboard.general.writeObjects([url as NSURL]) // doesn't seem to work by itself
+                    UXPasteboard.general.writeObjects([url.absoluteString as NSString])
+                }
+            }
+            .help(Text("Copies this URL to the paseboard: \(urlString)", bundle: .module, comment: "button tooltip for embedded browser reload the url"))
+    }
+
+    public func openInBrowserButton(symbol: FairSymbol = .square_and_arrow_up, action openURLAction: OpenURLAction) -> some View {
+        Text("Open in Browser", bundle: .module, comment: "button title for opening embedded browser's url in the system browser")
+            .label(image: symbol)
+            .button {
+                if let url = self.url {
+                    openURLAction(url)
+                }
+            }
+            .help(Text("Opens this URL in the system browser: \(urlString)", bundle: .module, comment: "button tooltip for embedded browser open in system browser"))
+
+    }
+
+
+    public func reloadButton(symbol: FairSymbol = .arrow_triangle_2_circlepath_circle, rotationBinding: Binding<Double>) -> some View {
+        Text("Reload", bundle: .module, comment: "button title for reloading embedded browser")
+            .label(image: loadingImageButton(rotationBinding: rotationBinding, symbol: symbol, loading: self.isLoading))
+            .button {
+                let cmdDown = NSApp.currentEvent?.modifierFlags.contains(.command) == true
+                dbg("reloading from", cmdDown ? "origin" : "cache", self.urlString)
+                Task {
+                    await self.reload(fromOrigin: cmdDown)
+                }
+            }
+            .help(Text("Reloads this URL in the system browser: \(urlString)", bundle: .module, comment: "button tooltip for embedded browser reload the url"))
+
+    }
+
+    @ViewBuilder private func loadingImageButton(rotationBinding: Binding<Double>, symbol: FairSymbol, duration: TimeInterval = 0.75, loading: Bool) -> some View {
+        // while the page is loading, rotate the loading indicator button
+        ZStack {
+            if loading {
+                symbol
+                    .rotationEffect(Angle.degrees(rotationBinding.wrappedValue), anchor: .center)
+                    .animation(loading == false ? .none : Animation.linear(duration: duration).repeatForever(autoreverses: false), value: rotationBinding.wrappedValue)
+            } else {
+                symbol
+            }
+        }
+            .onChange(of: loading) { loading in
+                // this needs to happen without an animation or else the symbols sometimes move around in the button area
+                withAnimation(.none) {
+                    rotationBinding.wrappedValue = loading ? 360.0 : 0.0
+                }
+            }
+    }
+
+
+    private var urlString: String { self.url?.absoluteString ?? "" }
+}
+
 
 #endif
 #endif
