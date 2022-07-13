@@ -199,6 +199,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/coordinateSpace(name:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/cornerRadius(_:antialiased:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/datePickerStyle(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/debuggingViewChanges()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/defaultAppStorage(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/deleteDisabled(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/disableAutocorrection(_:)",
@@ -248,6 +249,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/hidden()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/highPriorityGesture(_:including:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/horizontalRadioGroupLayout()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/hoverSymbol(activeVariant:inactiveVariant:animation:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/hueRotation(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/id(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/ignoresSafeArea(_:edges:)",
@@ -283,6 +285,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/monospacedDigit()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/moveDisabled(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/multilineTextAlignment(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/navigation(title:subtitle:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/navigationSubtitle(_:)-363og",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/navigationSubtitle(_:)-4xwe9",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/navigationSubtitle(_:)-6g8nw",
@@ -357,6 +360,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/projectionEffect(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/redacted(reason:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/refreshable(action:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/refreshingEveryMinute()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/rotation3DEffect(_:axis:anchor:anchorZ:perspective:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/rotationEffect(_:anchor:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/safeAreaInset(edge:alignment:spacing:content:)-9d284",
@@ -418,6 +422,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/unredacted()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/userActivity(_:element:_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/userActivity(_:isActive:_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/viewWrapper()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/windowToolbarUnified(compact:showsTitle:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/zIndex(_:)"
       ],
       "title" : "Instance Methods"
@@ -13881,6 +13887,54 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/datepickerstyle(_:)"
 },
+"doc://FairApp/documentation/FairApp/FairSymbol/debuggingViewChanges()": {
+  "abstract" : [
+    {
+      "text" : "When called within an invocation of body of a view of this type,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "prints the names of the changed dynamic properties that caused the",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "result of body to need to be refreshed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "debuggingViewChanges"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/debuggingViewChanges()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "debuggingViewChanges()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/debuggingviewchanges()"
+},
 "doc://FairApp/documentation/FairApp/FairSymbol/defaultAppStorage(_:)": {
   "abstract" : [
 
@@ -17797,6 +17851,139 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/horizontalradiogrouplayout()"
 },
+"doc://FairApp/documentation/FairApp/FairSymbol/hoverSymbol(activeVariant:inactiveVariant:animation:)": {
+  "abstract" : [
+    {
+      "text" : "Causes the view to change its ",
+      "type" : "text"
+    },
+    {
+      "code" : "SymbolVariants",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when it is hovered.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The animation only works with ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolRenderingMode(.hierarchical)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hoverSymbol"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "activeVariant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inactiveVariant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "animation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+      "text" : "Animation"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp19HoverSymbolModifierV",
+      "text" : "HoverSymbolModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/hoverSymbol(activeVariant:inactiveVariant:animation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hoverSymbol(activeVariant:inactiveVariant:animation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/hoversymbol(activevariant:inactivevariant:animation:)"
+},
 "doc://FairApp/documentation/FairApp/FairSymbol/hueRotation(_:)": {
   "abstract" : [
 
@@ -19937,6 +20124,85 @@
   "title" : "multilineTextAlignment(_:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/multilinetextalignment(_:)"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/navigation(title:subtitle:)": {
+  "abstract" : [
+    {
+      "text" : "Configure the navigation title and subtitle for the type of device",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "navigation"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4TextV",
+      "text" : "Text"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "subtitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4TextV",
+      "text" : "Text"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/navigation(title:subtitle:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "navigation(title:subtitle:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/navigation(title:subtitle:)"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol/navigationSubtitle(_:)-363og": {
   "abstract" : [
@@ -25434,6 +25700,59 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/refreshable(action:)"
 },
+"doc://FairApp/documentation/FairApp/FairSymbol/refreshingEveryMinute()": {
+  "abstract" : [
+    {
+      "text" : "Refreshes this view at the start of each minute. Useful for a label that displays",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "relative date text like: “Updated N minutes ago…”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "refreshingEveryMinute"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/refreshingEveryMinute()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "refreshingEveryMinute()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/refreshingeveryminute()"
+},
 "doc://FairApp/documentation/FairApp/FairSymbol/rotation3DEffect(_:axis:anchor:anchorZ:perspective:)": {
   "abstract" : [
 
@@ -30035,6 +30354,119 @@
   "title" : "userActivity(_:isActive:_:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/useractivity(_:isactive:_:)"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/viewWrapper()": {
+  "abstract" : [
+    {
+      "text" : "Derives a native view from this SwiftUI view",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "viewWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp6UXViewa",
+      "text" : "UXView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/viewWrapper()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "viewWrapper()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/viewwrapper()"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/windowToolbarUnified(compact:showsTitle:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "windowToolbarUnified"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "compact"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "showsTitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/windowToolbarUnified(compact:showsTitle:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "windowToolbarUnified(compact:showsTitle:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/windowtoolbarunified(compact:showstitle:)"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol/zIndex(_:)": {
   "abstract" : [

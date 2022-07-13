@@ -1,0 +1,488 @@
+{
+  "abstract" : [
+    {
+      "text" : "AppKit adapter for ",
+      "type" : "text"
+    },
+    {
+      "code" : "NSViewRepresentable",
+      "type" : "codeVoice"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairApp19UXViewRepresentableP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "UXViewRepresentable"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "UXViewRepresentable"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "UXViewRepresentable"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "UXViewRepresentable"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI19NSViewRepresentableP",
+              "text" : "NSViewRepresentable"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/7SwiftUI19NSViewRepresentableP",
+        "doc:\/\/FairApp\/7SwiftUI4ViewP"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/UXViewType"
+      ],
+      "title" : "Associated Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/makeUXView(context:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/updateUXView(_:context:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/dismantleUXView(_:coordinator:)"
+      ],
+      "title" : "Type Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/NSViewRepresentable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/uxviewrepresentable"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/7SwiftUI19NSViewRepresentableP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI19NSViewRepresentableP",
+  "title" : "SwiftUI.NSViewRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/7SwiftUI4ViewP": {
+  "identifier" : "doc:\/\/FairApp\/7SwiftUI4ViewP",
+  "title" : "SwiftUI.View",
+  "type" : "unresolvable"
+},
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/UXViewRepresentable": {
+  "abstract" : [
+    {
+      "text" : "AppKit adapter for ",
+      "type" : "text"
+    },
+    {
+      "code" : "NSViewRepresentable",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UXViewRepresentable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UXViewRepresentable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UXViewRepresentable",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewrepresentable"
+},
+"doc://FairApp/documentation/FairApp/UXViewRepresentable/NSViewRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/NSViewRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "NSViewRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewrepresentable\/nsviewrepresentable-implementations"
+},
+"doc://FairApp/documentation/FairApp/UXViewRepresentable/UXViewType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UXViewType"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSView",
+      "text" : "NSView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/UXViewType",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "UXViewType",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewrepresentable\/uxviewtype"
+},
+"doc://FairApp/documentation/FairApp/UXViewRepresentable/dismantleUXView(_:coordinator:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dismantleUXView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UXViewType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "coordinator"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Coordinator"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/dismantleUXView(_:coordinator:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "dismantleUXView(_:coordinator:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewrepresentable\/dismantleuxview(_:coordinator:)"
+},
+"doc://FairApp/documentation/FairApp/UXViewRepresentable/makeUXView(context:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeUXView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI19NSViewRepresentableP7Contexta",
+      "text" : "Context"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UXViewType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/makeUXView(context:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "makeUXView(context:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewrepresentable\/makeuxview(context:)"
+},
+"doc://FairApp/documentation/FairApp/UXViewRepresentable/updateUXView(_:context:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "updateUXView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UXViewType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI19NSViewRepresentableP7Contexta",
+      "text" : "Context"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable\/updateUXView(_:context:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "updateUXView(_:context:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewrepresentable\/updateuxview(_:context:)"
+}
+}
+}

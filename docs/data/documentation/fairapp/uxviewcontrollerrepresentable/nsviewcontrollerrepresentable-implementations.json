@@ -1,0 +1,343 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/NSViewControllerRepresentable-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "NSViewControllerRepresentable Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/makeNSViewController(context:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/updateNSViewController(_:context:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/dismantleNSViewController(_:coordinator:)"
+      ],
+      "title" : "Type Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/uxviewcontrollerrepresentable\/nsviewcontrollerrepresentable-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/UXViewControllerRepresentable": {
+  "abstract" : [
+    {
+      "text" : "AppKit adapter for ",
+      "type" : "text"
+    },
+    {
+      "code" : "NSViewControllerRepresentable",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UXViewControllerRepresentable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UXViewControllerRepresentable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UXViewControllerRepresentable",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewcontrollerrepresentable"
+},
+"doc://FairApp/documentation/FairApp/UXViewControllerRepresentable/dismantleNSViewController(_:coordinator:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dismantleNSViewController"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UXViewControllerType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "coordinator"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Coordinator"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/dismantleNSViewController(_:coordinator:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "dismantleNSViewController(_:coordinator:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewcontrollerrepresentable\/dismantlensviewcontroller(_:coordinator:)"
+},
+"doc://FairApp/documentation/FairApp/UXViewControllerRepresentable/makeNSViewController(context:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "makeNSViewController"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI29NSViewControllerRepresentableP7Contexta",
+      "text" : "Context"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UXViewControllerType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/makeNSViewController(context:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "makeNSViewController(context:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewcontrollerrepresentable\/makensviewcontroller(context:)"
+},
+"doc://FairApp/documentation/FairApp/UXViewControllerRepresentable/updateNSViewController(_:context:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "updateNSViewController"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "UXViewControllerType"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI29NSViewControllerRepresentableP7Contexta",
+      "text" : "Context"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable\/updateNSViewController(_:context:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "updateNSViewController(_:context:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/uxviewcontrollerrepresentable\/updatensviewcontroller(_:context:)"
+}
+}
+}

@@ -202,6 +202,7 @@ public struct PropertyListKey : RawCodable {
 
     public static let LSMinimumSystemVersion = Self("LSMinimumSystemVersion")
     public static let LSApplicationCategoryType = Self("LSApplicationCategoryType")
+    public static let LSApplicationSecondaryCategoryType = Self("LSApplicationSecondaryCategoryType")
     public static let LSFileQuarantineEnabled = Self("LSFileQuarantineEnabled")
     public static let LSBackgroundOnly = Self("LSBackgroundOnly")
     public static let LSUIElement = Self("LSUIElement")

@@ -1,0 +1,317 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/ViewModifier-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "ViewModifier Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/animation(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/concat(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/transaction(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/hoversymbolmodifier\/viewmodifier-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/HoverSymbolModifier": {
+  "abstract" : [
+    {
+      "text" : "A modifier that changes the ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolVariant",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " based on whether it is hovered over.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HoverSymbolModifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HoverSymbolModifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HoverSymbolModifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hoversymbolmodifier"
+},
+"doc://FairApp/documentation/FairApp/HoverSymbolModifier/animation(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animation"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+      "text" : "Animation"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI12ViewModifierP",
+      "text" : "ViewModifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/animation(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animation(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hoversymbolmodifier\/animation(_:)"
+},
+"doc://FairApp/documentation/FairApp/HoverSymbolModifier/concat(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "concat"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/concat(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "concat(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hoversymbolmodifier\/concat(_:)"
+},
+"doc://FairApp/documentation/FairApp/HoverSymbolModifier/transaction(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "transaction"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI11TransactionV",
+      "text" : "Transaction"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI12ViewModifierP",
+      "text" : "ViewModifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier\/transaction(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "transaction(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hoversymbolmodifier\/transaction(_:)"
+}
+}
+}

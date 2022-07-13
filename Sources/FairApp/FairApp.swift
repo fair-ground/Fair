@@ -266,6 +266,7 @@ public final class QuickAction: Identifiable {
 #if canImport(Security)
 import Security
 import SwiftUI
+
 public extension AppEntitlement {
     #if !os(iOS) // someday
     /// Returns true if the entitlement is enabled for the current process,
@@ -553,15 +554,6 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     }
 }
 
-#if canImport(AppKit)
-@available(macOS 11, *)
-typealias UXApplicationDelegateAdaptor = NSApplicationDelegateAdaptor
-typealias UXApplicationDelegate = NSApplicationDelegate
-#elseif canImport(UIKit)
-typealias UXApplicationDelegateAdaptor = UIApplicationDelegateAdaptor
-typealias UXApplicationDelegate = UIApplicationDelegate
-#endif
-
 @available(macOS 12.0, iOS 15.0, *)
 private final class AppDelegate: NSObject, UXApplicationDelegate {
     /// The global quick actions installed on the app
@@ -810,6 +802,60 @@ private struct ObservedStateView<O: ObservableObject, V : View> : View {
 }
 
 #endif // canImport(SwiftUI)
+
+public struct SplitDividerView : View {
+    public init() {
+
+    }
+
+    public var body: some View {
+        VStack(spacing: 0) {
+            div()
+            #if canImport(AppKit)
+            //SplitDividerDragView().frame(maxHeight: 0)
+            #endif
+            div()
+        }
+    }
+
+    private func div(width: CGFloat? = nil, height: CGFloat? = nil) -> some View {
+        Divider()
+        //.background(Color.secondary)
+            .frame(width: width, height: height)
+            .padding(.top, 0.5)
+            .padding(.bottom, 0.5)
+    }
+}
+
+#if canImport(AppKit)
+// This is an attempt to fix the broken split view divider persistence bug in SwiftUI.
+// It does not work.
+
+//private struct SplitDividerDragView : UXViewRepresentable {
+//    typealias UXViewType = UXView
+//
+//    func makeUXView(context: Context) -> UXViewType {
+//        UXView(frame: .zero)
+//    }
+//
+//    func updateUXView(_ view:  UXViewType, context: Context) {
+//        for v in sequence(first: view, next: \.superview) {
+//            if let split = v as? NSSplitView {
+//                print("split:", v, "AUTOSAVE:", split.autosaveName ?? "none")
+//                split.autosaveName = wip("MySplitView")
+//                break
+//            } else {
+//                print("superview:", v)
+//            }
+//        }
+//    }
+//
+//    static func dismantleUXView(_ view:  UXViewType, coordinator: Coordinator) {
+//
+//    }
+//}
+#endif
+
 
 #if canImport(AppKit)
 public extension NSWindow {
