@@ -27,7 +27,7 @@ public typealias AppPermission = XOr<AppEntitlementPermission>
     .Or<AppLegacyPermission>
 
 /// A permission is a specific entitlement coupled with a description of its usage
-public struct AppUsagePermission : Pure {
+public struct AppUsagePermission : Codable, Equatable {
     public enum PermissionType : String, Pure { case usage }
     public var type: PermissionType = .usage
 
@@ -44,7 +44,7 @@ public struct AppUsagePermission : Pure {
 }
 
 /// A permission is a specific entitlement coupled with a description of its usage
-public struct AppBackgroundModePermission : Pure {
+public struct AppBackgroundModePermission : Codable, Equatable {
     public enum PermissionType : String, Pure { case backgroundMode = "background-mode" }
     public var type: PermissionType = .backgroundMode
 
@@ -67,7 +67,7 @@ public struct AppBackgroundModePermission : Pure {
 }
 
 /// An element of the "background-mode" permission type
-public struct AppBackgroundMode : RawRepresentable, Pure {
+public struct AppBackgroundMode : RawCodable, Equatable, Hashable {
     public let rawValue: String
 
     public init(_ name: String) {
@@ -82,7 +82,7 @@ public struct AppBackgroundMode : RawRepresentable, Pure {
 
 /// A permission is a specific entitlement coupled with a description of its usage
 /// TODO: @available(*, deprecated, renamed: "AppEntitlementPermission")
-public struct AppLegacyPermission : Pure {
+public struct AppLegacyPermission : Codable, Equatable {
     /// The type of the permission, which maps to an entitement key
     public var type: AppEntitlement
 
@@ -96,7 +96,7 @@ public struct AppLegacyPermission : Pure {
 }
 
 /// A permission is a specific entitlement coupled with a description of its usage
-public struct AppEntitlementPermission : Pure {
+public struct AppEntitlementPermission : Codable, Equatable {
     public enum PermissionType : String, Pure { case entitlement }
     public var type: PermissionType = .entitlement
 
@@ -112,7 +112,7 @@ public struct AppEntitlementPermission : Pure {
     }
 }
 
-public struct AppEntitlement : RawRepresentable, Pure {
+public struct AppEntitlement : RawCodable, Equatable, Hashable {
     public let rawValue: String
 
     public init(_ name: String) {
@@ -788,87 +788,6 @@ public extension UsageDescriptionKeys {
     static let NSRemovableVolumesUsageDescription = UsageDescriptionKeys("NSRemovableVolumesUsageDescription")
 
 }
-
-/// The `LSApplicationCategoryType` for an app
-public enum AppCategory : String, CaseIterable, Identifiable, Pure {
-    case business = "business"
-    case developertools = "developer-tools"
-    case education = "education"
-    case entertainment = "entertainment"
-    case finance = "finance"
-    case games = "games"
-    case graphicsdesign = "graphics-design"
-    case healthcarefitness = "healthcare-fitness"
-    case lifestyle = "lifestyle"
-    case medical = "medical"
-    case music = "music"
-    case news = "news"
-    case photography = "photography"
-    case productivity = "productivity"
-    case reference = "reference"
-    case socialnetworking = "social-networking"
-    case sports = "sports"
-    case travel = "travel"
-    case utilities = "utilities"
-    case video = "video"
-    case weather = "weather"
-
-    // MARK: Game Sub-types
-    case actiongames = "action-games"
-    case adventuregames = "adventure-games"
-    case arcadegames = "arcade-games"
-    case boardgames = "board-games"
-    case cardgames = "card-games"
-    case casinogames = "casino-games"
-    case dicegames = "dice-games"
-    case educationalgames = "educational-games"
-    case familygames = "family-games"
-    case kidsgames = "kids-games"
-    case musicgames = "music-games"
-    case puzzlegames = "puzzle-games"
-    case racinggames = "racing-games"
-    case roleplayinggames = "role-playing-games"
-    case simulationgames = "simulation-games"
-    case sportsgames = "sports-games"
-    case strategygames = "strategy-games"
-    case triviagames = "trivia-games"
-    case wordgames = "word-games"
-
-    public var id: Self { self }
-
-    public init?(topic: String) {
-        guard let category = Self.topics[topic] else {
-            return nil
-        }
-        self = category
-    }
-
-    public init?(metadataID: String) {
-        guard let category = Self.metadatas[metadataID] else {
-            return nil
-        }
-        self = category
-    }
-
-    /// The identifier for the `Info.plist` metadata in the form: `public.app-category.[rawValue]`
-    public var metadataIdentifier: String {
-        "public.app-category." + rawValue
-    }
-
-    /// The hub topic for the category in the form: `appfair-[rawValue]`.
-    public var topicIdentifier: String {
-        "appfair-" + rawValue
-    }
-
-
-    /// A mapping from topic string to identifier
-    public static let topics = Dictionary(grouping: Self.allCases, by: \.topicIdentifier).compactMapValues(\.first)
-
-    /// A mapping from metadata to identifier
-    public static let metadatas = Dictionary(grouping: Self.allCases, by: \.metadataIdentifier).compactMapValues(\.first)
-
-}
-
 
 public struct AppEntitlements {
     static let empty: AppEntitlements = AppEntitlements([:])

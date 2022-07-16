@@ -228,7 +228,7 @@ extension FairHub {
 
             // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
             let categories = (fork.repositoryTopics.nodes ?? []).map(\.topic.name).compactMap({
-                AppCategory.topics[$0]?.metadataIdentifier
+                AppCategory.valueFor(base: $0, validate: true)
             })
 
             var fairsealBetaFound = false
@@ -816,7 +816,7 @@ extension FairHub {
 
         appItem.tintColor = appItem.tintColor ?? tintColor
         appItem.beta = appItem.beta ?? beta
-        appItem.categories = appItem.categories ?? (categories?.isEmpty != false ? nil : categories?.map(\.metadataIdentifier))
+        appItem.categories = appItem.categories ?? categories
 
         // we don't currently allow overriding of screenshot URLs;
         // release resources must be used
@@ -1107,6 +1107,32 @@ extension FairHub {
         public var appNameWithHyphen: String {
             login // .rehyphenated()
         }
+    }
+}
+
+extension AppCatalogItem {
+    /// The list of folders (with optional tilde) for deleting the app with the given bundle ID.
+    ///
+    /// The files and folders may not exist, but these are the potential locations that will be removed.
+    public var installationDataLocations: [String] {
+        [
+            "~/Library/Application Scripts/\(bundleIdentifier)",
+            "~/Library/Application Support/\(bundleIdentifier)",
+            "~/Library/Caches/\(bundleIdentifier)",
+            "~/Library/Containers/\(bundleIdentifier)",
+            "~/Library/HTTPStorages/\(bundleIdentifier)",
+            "~/Library/HTTPStorages/\(bundleIdentifier).binarycookies",
+            "~/Library/Preferences/\(bundleIdentifier).plist",
+            "~/Library/Saved Application State/\(bundleIdentifier).savedState",
+        ]
+    }
+
+    /// Returns the list of file URLs for the app's potential installation data
+    public func installationAuxiliaryURLs(checkExists: Bool) -> [URL] {
+        installationDataLocations
+            .map { ($0 as NSString).expandingTildeInPath }
+            .filter { checkExists == false || FileManager.default.fileExists(atPath: $0) }
+            .map { URL(fileURLWithPath: $0) }
     }
 }
 

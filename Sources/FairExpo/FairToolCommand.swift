@@ -639,10 +639,16 @@ public final class AppCatalogAPI {
 
         var cats = item.categories ?? []
         if let appCategory = info.stringValue(for: .LSApplicationCategoryType) {
-            cats.append(appCategory)
+            let cat = AppCategory(rawValue: appCategory)
+            if AppCategory.allCases.contains(cat) { // app category needs to exist to add
+                cats.append(cat)
+            }
         }
         if let secondaryAppCategory = info.stringValue(for: .LSApplicationSecondaryCategoryType) {
-            cats.append(secondaryAppCategory)
+            let cat2 = AppCategory(rawValue: secondaryAppCategory)
+            if AppCategory.allCases.contains(cat2) { // app category needs to exist to add
+                cats.append(cat2)
+            }
         }
         item.categories = cats
 
@@ -2430,9 +2436,9 @@ private extension AppCatalog {
             }
 
             md += " | "
-            if let category = app.appCategories.first {
+            if let category = app.categories?.first {
                 if isFairApp {
-                    md += "[\(pre(category.rawValue))](https://github.com/topics/appfair-\(category.rawValue)) "
+                    md += "[\(pre(category.baseValue))](https://github.com/topics/appfair-\(category.baseValue)) "
                 } else {
                     md += pre(category.rawValue)
                 }
@@ -2921,8 +2927,6 @@ fileprivate extension FairParsableCommand {
         let appNameSpace = app.name
         let appNameHyphen = app.name.rehyphenated()
 
-        let appBundle = "app." + appNameHyphen
-
         guard let version = app.version else {
             msg(.info, "no version for app: \(appNameHyphen)")
             return false
@@ -2992,11 +2996,7 @@ cask "\(caskName)" do
   end
 
   zap trash: [
-    "~/Library/Caches/\(appBundle)",
-    "~/Library/Containers/\(appBundle)",
-    "~/Library/Preferences/\(appBundle).plist",
-    "~/Library/Application Scripts/\(appBundle)",
-    "~/Library/Saved Application State/\(appBundle).savedState",
+    \(app.installationDataLocations.joined(separator: ",\n    "))
   ]
 end
 """
