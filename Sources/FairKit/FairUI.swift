@@ -257,9 +257,15 @@ extension ForEach where Content : View {
     /// Initialize with elements that are identified by the specified key path where the closure will be
     /// invoked with the element's offset in the sequence.
     ///
+    /// This can be useful for using the list's offset for presentation attributes,
+    /// such as making every oddly-numbered row of a list a different color.
+    ///
+    /// Note that the `offset` does not necessarily correlate to the item's `index`,
+    /// since the collection may be an array slice whose index is not zero-based.
+    ///
     /// - SeeAlso: ``ForEach.init(enumerated:id:content:)``
     @inlinable public init<S : Sequence>(withOffsetsIn sequence: S, id: KeyPath<S.Element, ID>, @ViewBuilder content: @escaping (_ offset: Int, _ element: S.Element) -> Content) where Data == Array<EnumeratedSequence<S>.Element> {
-        self = ForEach(Array(sequence.enumerated()), id: (\EnumeratedSequence<S>.Element.element).appending(path: id), content: content)
+        self = ForEach(sequence.enumerated().array(), id: (\EnumeratedSequence<S>.Element.element).appending(path: id), content: content)
     }
 }
 
