@@ -81,13 +81,15 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+        "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+        "doc:\/\/FairApp\/8FairCore16RawInitializableP",
         "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/Se",
         "doc:\/\/FairApp\/SE",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/SY",
-        "doc:\/\/FairApp\/s8SendableP"
+        "doc:\/\/FairApp\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -106,7 +108,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(rawValue:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(rawValue:)-9hg4o"
       ],
       "title" : "Initializers"
     },
@@ -233,6 +235,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Decodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Encodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/Equatable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawDecodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawEncodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawInitializable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -252,6 +257,21 @@
   ]
 , 
 "references": {
+"doc://FairApp/8FairCore12RawDecodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+  "title" : "FairCore.RawDecodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore12RawEncodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+  "title" : "FairCore.RawEncodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore16RawInitializableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore16RawInitializableP",
+  "title" : "FairCore.RawInitializable",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
@@ -407,6 +427,39 @@
   "title" : "Equatable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlement\/equatable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/RawDecodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawDecodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawDecodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/rawdecodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/RawEncodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawEncodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawEncodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/rawencodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppEntitlement/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appentitlement\/rawinitializable-implementations"
 },
 "doc://FairApp/documentation/FairApp/AppEntitlement/RawRepresentable-Implementations": {
   "abstract" : [
@@ -3243,7 +3296,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlement\/init(_:)"
 },
-"doc://FairApp/documentation/FairApp/AppEntitlement/init(rawValue:)": {
+"doc://FairApp/documentation/FairApp/AppEntitlement/init(rawValue:)-9hg4o": {
   "abstract" : [
 
   ],
@@ -3274,12 +3327,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(rawValue:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement\/init(rawValue:)-9hg4o",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appentitlement\/init(rawvalue:)"
+  "url" : "\/documentation\/fairapp\/appentitlement\/init(rawvalue:)-9hg4o"
 },
 "doc://FairApp/documentation/FairApp/AppEntitlement/interAppAudio": {
   "abstract" : [
@@ -4764,11 +4817,6 @@
 "doc://FairApp/s12CaseIterableP": {
   "identifier" : "doc:\/\/FairApp\/s12CaseIterableP",
   "title" : "Swift.CaseIterable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/s8SendableP": {
-  "identifier" : "doc:\/\/FairApp\/s8SendableP",
-  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

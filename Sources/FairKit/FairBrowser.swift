@@ -789,9 +789,9 @@ extension WebViewState {
     }
 
     @available(macOS 12, iOS 15, *)
-    public func navigateAction(brief: Bool = false, amount: Int) -> some View {
+    public func navigateAction(brief: Bool = false, amount: Int, symbol: Image? = nil) -> some View {
         (amount < 0 ? (brief ? Text("Back", bundle: .module, comment: "label for go back command") : Text("Go Back", bundle: .module, comment: "label for non-brief go back command")) : (brief ? Text("Forward", bundle: .module, comment: "label for go forward command") : Text("Go Forward", bundle: .module, comment: "label for non-brief go forward command")))
-            .label(image: amount < 0 ? FairSymbol.chevron_left : FairSymbol.chevron_right)
+            .label(image: symbol ?? (amount < 0 ? FairSymbol.chevron_left.image : FairSymbol.chevron_right.image))
             .button {
                 dbg("navigate:", amount, self.url)
                 Task {

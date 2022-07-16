@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV4name16bundleIdentifier8subtitle13developerName20localizedDescription4size7version0N4Date11downloadURL04iconQ014screenshotURLs0nL09tintColor4beta10categories0P5Count010impressionY004viewY004starY007watcherY005issueY08coreSize6sha25611permissions08metadataQ006readmeQ0012releaseNotesQ08homepage12fundingLinksACSS_S2SSgA5_A5_SiSgA5_10Foundation0O0VSgA7_0Q0VA12_SgSayA12_GSgA5_A5_SbSgSaySSGSgA6_A6_A6_A6_A6_A6_A6_A5_Say0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_A23_yA23_yAA0B15UsagePermissionV_AA0B24BackgroundModePermissionVG_AA0B16LegacyPermissionVGGGSgA13_A13_A13_A13_SayAA0B11FundingLinkVGSgtcfc",
+    "externalID" : "s:7FairApp0B11CatalogItemV4name16bundleIdentifier8subtitle13developerName20localizedDescription4size7version0N4Date11downloadURL04iconQ014screenshotURLs0nL09tintColor4beta10categories0P5Count010impressionY004viewY004starY007watcherY005issueY08coreSize6sha25611permissions08metadataQ006readmeQ0012releaseNotesQ08homepage12fundingLinksACSS_S2SSgA5_A5_SiSgA5_10Foundation0O0VSgA7_0Q0VA12_SgSayA12_GSgA5_A5_SbSgSayAA0B8CategoryVGSgA6_A6_A6_A6_A6_A6_A6_A5_Say0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_A25_yA25_yAA0B15UsagePermissionV_AA0B24BackgroundModePermissionVG_AA0B16LegacyPermissionVGGGSgA13_A13_A13_A13_SayAA0B11FundingLinkVGSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -277,8 +277,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+        "text" : "AppCategory"
       },
       {
         "kind" : "text",
@@ -799,9 +799,10 @@
               "text" : ": ["
             },
             {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+              "text" : "AppCategory"
             },
             {
               "kind" : "text",
@@ -1392,8 +1393,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     },
     {
       "kind" : "text",
@@ -1644,6 +1645,48 @@
   "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:downloadcount:impressioncount:viewcount:starcount:watchercount:i-8le2m"
+},
+"doc://FairApp/documentation/FairApp/AppCategory": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "LSApplicationCategoryType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for an app",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCategory"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCategory",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory"
 },
 "doc://FairApp/documentation/FairApp/AppFundingLink": {
   "abstract" : [

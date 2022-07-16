@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
+      "text" : "A ",
       "type" : "text"
     },
     {
-      "code" : "RawRepresentable.encode(to:)",
+      "code" : "RawCodable",
       "type" : "codeVoice"
     },
     {
-      "text" : ".",
+      "text" : " serializes to the underlying type’s encoding with any intermediate wrapper",
       "type" : "text"
     }
   ],
@@ -18,7 +18,7 @@
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawRepresentable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawEncodable-Implementations"
       ]
     ]
   },
@@ -28,56 +28,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "conformance" : {
-      "availabilityPrefix" : [
-        {
-          "text" : "Available when",
-          "type" : "text"
-        }
-      ],
-      "conformancePrefix" : [
-        {
-          "text" : "Conforms when",
-          "type" : "text"
-        }
-      ],
-      "constraints" : [
-        {
-          "code" : "Self",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "Encodable",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " and ",
-          "type" : "text"
-        },
-        {
-          "code" : "RawValue",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " is ",
-          "type" : "text"
-        },
-        {
-          "code" : "String",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : ".",
-          "type" : "text"
-        }
-      ]
-    },
-    "extendedModule" : "Swift",
-    "externalID" : "s:SYsSERzSS8RawValueSYRtzrlE6encode2toys7Encoder_p_tKF::SYNTHESIZED::s:7FairApp0B14BackgroundModeV",
+    "extendedModule" : "FairCore",
+    "externalID" : "s:8FairCore12RawEncodablePAAE6encode2toys7Encoder_p_tKF::SYNTHESIZED::s:7FairApp0B14BackgroundModeV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -267,69 +219,32 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbackgroundmode"
 },
-"doc://FairApp/documentation/FairApp/AppBackgroundMode/RawRepresentable-Implementations": {
+"doc://FairApp/documentation/FairApp/AppBackgroundMode/RawEncodable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawEncodable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "RawRepresentable Implementations",
+  "title" : "RawEncodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appbackgroundmode\/rawrepresentable-implementations"
+  "url" : "\/documentation\/fairapp\/appbackgroundmode\/rawencodable-implementations"
 },
 "doc://FairApp/documentation/FairApp/AppBackgroundMode/encode(to:)": {
   "abstract" : [
-
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawCodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " serializes to the underlying type’s encoding with any intermediate wrapper",
+      "type" : "text"
+    }
   ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Self",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Encodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "RawValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "String",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
   "fragments" : [
     {
       "kind" : "keyword",

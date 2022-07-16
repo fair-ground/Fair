@@ -139,7 +139,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/js(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/load(_:)-5vkv3",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/load(_:)-6ea8w",
-        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/navigateAction(brief:amount:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/navigateAction(brief:amount:symbol:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/openInBrowserButton(symbol:action:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reload(fromOrigin:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/reloadAction(brief:)",
@@ -1077,7 +1077,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webviewstate\/load(_:)-6ea8w"
 },
-"doc://FairKit/documentation/FairKit/WebViewState/navigateAction(brief:amount:)": {
+"doc://FairKit/documentation/FairKit/WebViewState/navigateAction(brief:amount:symbol:)": {
   "abstract" : [
 
   ],
@@ -1130,7 +1130,24 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "symbol"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI5ImageV",
+      "text" : "Image"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "keyword",
@@ -1146,12 +1163,12 @@
       "text" : "View"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/navigateAction(brief:amount:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebViewState\/navigateAction(brief:amount:symbol:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "navigateAction(brief:amount:)",
+  "title" : "navigateAction(brief:amount:symbol:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/webviewstate\/navigateaction(brief:amount:)"
+  "url" : "\/documentation\/fairkit\/webviewstate\/navigateaction(brief:amount:symbol:)"
 },
 "doc://FairKit/documentation/FairKit/WebViewState/openInBrowserButton(symbol:action:)": {
   "abstract" : [

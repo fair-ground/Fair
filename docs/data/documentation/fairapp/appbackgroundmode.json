@@ -81,12 +81,14 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+        "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+        "doc:\/\/FairApp\/8FairCore16RawInitializableP",
         "doc:\/\/FairApp\/Se",
         "doc:\/\/FairApp\/SE",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/SY",
-        "doc:\/\/FairApp\/s8SendableP"
+        "doc:\/\/FairApp\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -105,7 +107,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/init(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/init(rawValue:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/init(rawValue:)-7j19s"
       ],
       "title" : "Initializers"
     },
@@ -121,6 +123,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/Decodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/Encodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/Equatable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawDecodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawEncodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawInitializable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -140,6 +145,21 @@
   ]
 , 
 "references": {
+"doc://FairApp/8FairCore12RawDecodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+  "title" : "FairCore.RawDecodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore12RawEncodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+  "title" : "FairCore.RawEncodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore16RawInitializableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore16RawInitializableP",
+  "title" : "FairCore.RawInitializable",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
@@ -254,6 +274,39 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbackgroundmode\/equatable-implementations"
 },
+"doc://FairApp/documentation/FairApp/AppBackgroundMode/RawDecodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawDecodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawDecodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmode\/rawdecodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundMode/RawEncodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawEncodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawEncodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmode\/rawencodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundMode/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmode\/rawinitializable-implementations"
+},
 "doc://FairApp/documentation/FairApp/AppBackgroundMode/RawRepresentable-Implementations": {
   "abstract" : [
 
@@ -295,7 +348,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbackgroundmode\/init(_:)"
 },
-"doc://FairApp/documentation/FairApp/AppBackgroundMode/init(rawValue:)": {
+"doc://FairApp/documentation/FairApp/AppBackgroundMode/init(rawValue:)-7j19s": {
   "abstract" : [
 
   ],
@@ -326,12 +379,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/init(rawValue:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundMode\/init(rawValue:)-7j19s",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appbackgroundmode\/init(rawvalue:)"
+  "url" : "\/documentation\/fairapp\/appbackgroundmode\/init(rawvalue:)-7j19s"
 },
 "doc://FairApp/documentation/FairApp/AppBackgroundMode/rawValue": {
   "abstract" : [
@@ -366,11 +419,6 @@
   "title" : "rawValue",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbackgroundmode\/rawvalue"
-},
-"doc://FairApp/s8SendableP": {
-  "identifier" : "doc:\/\/FairApp\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }

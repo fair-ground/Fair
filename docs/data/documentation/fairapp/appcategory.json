@@ -26,11 +26,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B8CategoryO",
+    "externalID" : "s:7FairApp0B8CategoryV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "enum"
+        "text" : "struct"
       },
       {
         "kind" : "text",
@@ -53,8 +53,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Enumeration",
-    "symbolKind" : "enum",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
     "title" : "AppCategory"
   },
   "primaryContentSections" : [
@@ -70,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "enum"
+              "text" : "struct"
             },
             {
               "kind" : "text",
@@ -89,14 +89,15 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+        "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+        "doc:\/\/FairApp\/8FairCore16RawInitializableP",
         "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/Se",
         "doc:\/\/FairApp\/SE",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/s12IdentifiableP",
-        "doc:\/\/FairApp\/SY",
-        "doc:\/\/FairApp\/s8SendableP"
+        "doc:\/\/FairApp\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -114,8 +115,23 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(rawValue:)-5r669"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/baseValue",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/id",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/rawValue"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/actiongames",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/adventuregames",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/allCases",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/arcadegames",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/boardgames",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/business",
@@ -155,30 +171,13 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/weather",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/wordgames"
       ],
-      "title" : "Enumeration Cases"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(metadataID:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(rawValue:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(topic:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/id-9iqn4",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/metadataIdentifier",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/topicIdentifier"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/metadatas",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/topics"
-      ],
       "title" : "Type Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/valueFor(base:validate:)"
+      ],
+      "title" : "Type Methods"
     },
     {
       "generated" : true,
@@ -186,7 +185,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/Decodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/Encodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/Equatable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/Identifiable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawDecodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawEncodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawInitializable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -206,6 +207,21 @@
   ]
 , 
 "references": {
+"doc://FairApp/8FairCore12RawDecodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+  "title" : "FairCore.RawDecodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore12RawEncodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+  "title" : "FairCore.RawEncodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore16RawInitializableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore16RawInitializableP",
+  "title" : "FairCore.RawInitializable",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
@@ -271,7 +287,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -328,16 +344,38 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/equatable-implementations"
 },
-"doc://FairApp/documentation/FairApp/AppCategory/Identifiable-Implementations": {
+"doc://FairApp/documentation/FairApp/AppCategory/RawDecodable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/Identifiable-Implementations",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawDecodable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Identifiable Implementations",
+  "title" : "RawDecodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/identifiable-implementations"
+  "url" : "\/documentation\/fairapp\/appcategory\/rawdecodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/RawEncodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawEncodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawEncodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/rawencodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/rawinitializable-implementations"
 },
 "doc://FairApp/documentation/FairApp/AppCategory/RawRepresentable-Implementations": {
   "abstract" : [
@@ -357,7 +395,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -366,12 +412,21 @@
     {
       "kind" : "identifier",
       "text" : "actiongames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/actiongames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.actiongames",
+  "title" : "actiongames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/actiongames"
 },
@@ -382,7 +437,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -391,14 +454,69 @@
     {
       "kind" : "identifier",
       "text" : "adventuregames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/adventuregames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.adventuregames",
+  "title" : "adventuregames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/adventuregames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/allCases": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allCases"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/allCases",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allCases",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/allcases"
 },
 "doc://FairApp/documentation/FairApp/AppCategory/arcadegames": {
   "abstract" : [
@@ -407,7 +525,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -416,14 +542,60 @@
     {
       "kind" : "identifier",
       "text" : "arcadegames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/arcadegames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.arcadegames",
+  "title" : "arcadegames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/arcadegames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/baseValue": {
+  "abstract" : [
+    {
+      "text" : "The base underlying value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/baseValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/basevalue"
 },
 "doc://FairApp/documentation/FairApp/AppCategory/boardgames": {
   "abstract" : [
@@ -432,7 +604,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -441,12 +621,21 @@
     {
       "kind" : "identifier",
       "text" : "boardgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/boardgames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.boardgames",
+  "title" : "boardgames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/boardgames"
 },
@@ -457,7 +646,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -466,12 +663,21 @@
     {
       "kind" : "identifier",
       "text" : "business"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/business",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.business",
+  "title" : "business",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/business"
 },
@@ -482,7 +688,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -491,12 +705,21 @@
     {
       "kind" : "identifier",
       "text" : "cardgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/cardgames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.cardgames",
+  "title" : "cardgames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/cardgames"
 },
@@ -507,7 +730,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -516,12 +747,21 @@
     {
       "kind" : "identifier",
       "text" : "casinogames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/casinogames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.casinogames",
+  "title" : "casinogames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/casinogames"
 },
@@ -532,7 +772,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -541,12 +789,21 @@
     {
       "kind" : "identifier",
       "text" : "developertools"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/developertools",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.developertools",
+  "title" : "developertools",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/developertools"
 },
@@ -557,7 +814,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -566,12 +831,21 @@
     {
       "kind" : "identifier",
       "text" : "dicegames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/dicegames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.dicegames",
+  "title" : "dicegames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/dicegames"
 },
@@ -582,7 +856,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -591,12 +873,21 @@
     {
       "kind" : "identifier",
       "text" : "education"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/education",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.education",
+  "title" : "education",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/education"
 },
@@ -607,7 +898,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -616,12 +915,21 @@
     {
       "kind" : "identifier",
       "text" : "educationalgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/educationalgames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.educationalgames",
+  "title" : "educationalgames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/educationalgames"
 },
@@ -632,7 +940,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -641,12 +957,21 @@
     {
       "kind" : "identifier",
       "text" : "entertainment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/entertainment",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.entertainment",
+  "title" : "entertainment",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/entertainment"
 },
@@ -657,7 +982,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -666,12 +999,21 @@
     {
       "kind" : "identifier",
       "text" : "familygames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/familygames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.familygames",
+  "title" : "familygames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/familygames"
 },
@@ -682,7 +1024,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -691,12 +1041,21 @@
     {
       "kind" : "identifier",
       "text" : "finance"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/finance",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.finance",
+  "title" : "finance",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/finance"
 },
@@ -707,7 +1066,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -716,12 +1083,21 @@
     {
       "kind" : "identifier",
       "text" : "games"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/games",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.games",
+  "title" : "games",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/games"
 },
@@ -732,7 +1108,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -741,12 +1125,21 @@
     {
       "kind" : "identifier",
       "text" : "graphicsdesign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/graphicsdesign",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.graphicsdesign",
+  "title" : "graphicsdesign",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/graphicsdesign"
 },
@@ -757,7 +1150,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -766,16 +1167,25 @@
     {
       "kind" : "identifier",
       "text" : "healthcarefitness"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/healthcarefitness",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.healthcarefitness",
+  "title" : "healthcarefitness",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/healthcarefitness"
 },
-"doc://FairApp/documentation/FairApp/AppCategory/id-9iqn4": {
+"doc://FairApp/documentation/FairApp/AppCategory/id": {
   "abstract" : [
 
   ],
@@ -798,18 +1208,18 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B8CategoryO",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
       "text" : "AppCategory"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/id-9iqn4",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/id",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "id",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/id-9iqn4"
+  "url" : "\/documentation\/fairapp\/appcategory\/id"
 },
-"doc://FairApp/documentation/FairApp/AppCategory/init(metadataID:)": {
+"doc://FairApp/documentation/FairApp/AppCategory/init(rawValue:)-5r669": {
   "abstract" : [
 
   ],
@@ -820,45 +1230,7 @@
     },
     {
       "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "metadataID"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(metadataID:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(metadataID:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/init(metadataid:)"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/init(rawValue:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
+      "text" : "("
     },
     {
       "kind" : "externalParam",
@@ -878,50 +1250,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(rawValue:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(rawValue:)-5r669",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/init(rawvalue:)"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/init(topic:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "topic"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/init(topic:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(topic:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/init(topic:)"
+  "url" : "\/documentation\/fairapp\/appcategory\/init(rawvalue:)-5r669"
 },
 "doc://FairApp/documentation/FairApp/AppCategory/kidsgames": {
   "abstract" : [
@@ -930,7 +1264,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -939,12 +1281,21 @@
     {
       "kind" : "identifier",
       "text" : "kidsgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/kidsgames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.kidsgames",
+  "title" : "kidsgames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/kidsgames"
 },
@@ -955,7 +1306,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -964,12 +1323,21 @@
     {
       "kind" : "identifier",
       "text" : "lifestyle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/lifestyle",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.lifestyle",
+  "title" : "lifestyle",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/lifestyle"
 },
@@ -980,7 +1348,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -989,46 +1365,6 @@
     {
       "kind" : "identifier",
       "text" : "medical"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/medical",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.medical",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/medical"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/metadataIdentifier": {
-  "abstract" : [
-    {
-      "text" : "The identifier for the ",
-      "type" : "text"
-    },
-    {
-      "code" : "Info.plist",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " metadata in the form: ",
-      "type" : "text"
-    },
-    {
-      "code" : "public.app-category.[rawValue]",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "metadataIdentifier"
     },
     {
       "kind" : "text",
@@ -1036,23 +1372,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/metadataIdentifier",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/medical",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "metadataIdentifier",
+  "title" : "medical",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/metadataidentifier"
+  "url" : "\/documentation\/fairapp\/appcategory\/medical"
 },
-"doc://FairApp/documentation/FairApp/AppCategory/metadatas": {
+"doc://FairApp/documentation/FairApp/AppCategory/music": {
   "abstract" : [
-    {
-      "text" : "A mapping from metadata to identifier",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1073,60 +1406,22 @@
     },
     {
       "kind" : "identifier",
-      "text" : "metadatas"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B8CategoryO",
-      "text" : "AppCategory"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/metadatas",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "metadatas",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/metadatas"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/music": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
       "text" : "music"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/music",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.music",
+  "title" : "music",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/music"
 },
@@ -1137,7 +1432,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1146,342 +1449,6 @@
     {
       "kind" : "identifier",
       "text" : "musicgames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/musicgames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.musicgames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/musicgames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/news": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "news"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/news",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.news",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/news"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/photography": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "photography"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/photography",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.photography",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/photography"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/productivity": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "productivity"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/productivity",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.productivity",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/productivity"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/puzzlegames": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "puzzlegames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/puzzlegames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.puzzlegames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/puzzlegames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/racinggames": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "racinggames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/racinggames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.racinggames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/racinggames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/reference": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "reference"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/reference",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.reference",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/reference"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/roleplayinggames": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "roleplayinggames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/roleplayinggames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.roleplayinggames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/roleplayinggames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/simulationgames": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "simulationgames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/simulationgames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.simulationgames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/simulationgames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/socialnetworking": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "socialnetworking"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/socialnetworking",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.socialnetworking",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/socialnetworking"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/sports": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "sports"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/sports",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.sports",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/sports"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/sportsgames": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "sportsgames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/sportsgames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.sportsgames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/sportsgames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/strategygames": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "strategygames"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/strategygames",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "AppCategory.strategygames",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/strategygames"
-},
-"doc://FairApp/documentation/FairApp/AppCategory/topicIdentifier": {
-  "abstract" : [
-    {
-      "text" : "The hub topic for the category in the form: ",
-      "type" : "text"
-    },
-    {
-      "code" : "appfair-[rawValue]",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "topicIdentifier"
     },
     {
       "kind" : "text",
@@ -1489,23 +1456,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/topicIdentifier",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/musicgames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "topicIdentifier",
+  "title" : "musicgames",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/topicidentifier"
+  "url" : "\/documentation\/fairapp\/appcategory\/musicgames"
 },
-"doc://FairApp/documentation/FairApp/AppCategory/topics": {
+"doc://FairApp/documentation/FairApp/AppCategory/news": {
   "abstract" : [
-    {
-      "text" : "A mapping from topic string to identifier",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1526,37 +1490,520 @@
     },
     {
       "kind" : "identifier",
-      "text" : "topics"
+      "text" : "news"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/news",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "news",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/news"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/photography": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "photography"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/photography",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "photography",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/photography"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/productivity": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "productivity"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/productivity",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "productivity",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/productivity"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/puzzlegames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "puzzlegames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/puzzlegames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "puzzlegames",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/puzzlegames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/racinggames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "racinggames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/racinggames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "racinggames",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/racinggames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/rawvalue"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/reference": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
     },
     {
       "kind" : "text",
-      "text" : " : "
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reference"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B8CategoryO",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
       "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/reference",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reference",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/reference"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/roleplayinggames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "roleplayinggames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/topics",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/roleplayinggames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "topics",
+  "title" : "roleplayinggames",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory\/topics"
+  "url" : "\/documentation\/fairapp\/appcategory\/roleplayinggames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/simulationgames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "simulationgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/simulationgames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "simulationgames",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/simulationgames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/socialnetworking": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "socialnetworking"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/socialnetworking",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "socialnetworking",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/socialnetworking"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/sports": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sports"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/sports",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sports",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/sports"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/sportsgames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sportsgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/sportsgames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sportsgames",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/sportsgames"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/strategygames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "strategygames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/strategygames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "strategygames",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/strategygames"
 },
 "doc://FairApp/documentation/FairApp/AppCategory/travel": {
   "abstract" : [
@@ -1565,7 +2012,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1574,12 +2029,21 @@
     {
       "kind" : "identifier",
       "text" : "travel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/travel",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.travel",
+  "title" : "travel",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/travel"
 },
@@ -1590,7 +2054,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1599,12 +2071,21 @@
     {
       "kind" : "identifier",
       "text" : "triviagames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/triviagames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.triviagames",
+  "title" : "triviagames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/triviagames"
 },
@@ -1615,7 +2096,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1624,14 +2113,106 @@
     {
       "kind" : "identifier",
       "text" : "utilities"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/utilities",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.utilities",
+  "title" : "utilities",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/utilities"
+},
+"doc://FairApp/documentation/FairApp/AppCategory/valueFor(base:validate:)": {
+  "abstract" : [
+    {
+      "text" : "Takes the given base string and create a known category for it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueFor"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "base"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/valueFor(base:validate:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "valueFor(base:validate:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory\/valuefor(base:validate:)"
 },
 "doc://FairApp/documentation/FairApp/AppCategory/video": {
   "abstract" : [
@@ -1640,7 +2221,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1649,12 +2238,21 @@
     {
       "kind" : "identifier",
       "text" : "video"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/video",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.video",
+  "title" : "video",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/video"
 },
@@ -1665,7 +2263,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1674,12 +2280,21 @@
     {
       "kind" : "identifier",
       "text" : "weather"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/weather",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.weather",
+  "title" : "weather",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/weather"
 },
@@ -1690,7 +2305,15 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "case"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
     },
     {
       "kind" : "text",
@@ -1699,28 +2322,27 @@
     {
       "kind" : "identifier",
       "text" : "wordgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory\/wordgames",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppCategory.wordgames",
+  "title" : "wordgames",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategory\/wordgames"
 },
 "doc://FairApp/s12CaseIterableP": {
   "identifier" : "doc:\/\/FairApp\/s12CaseIterableP",
   "title" : "Swift.CaseIterable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/s12IdentifiableP": {
-  "identifier" : "doc:\/\/FairApp\/s12IdentifiableP",
-  "title" : "Swift.Identifiable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/s8SendableP": {
-  "identifier" : "doc:\/\/FairApp\/s8SendableP",
-  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

@@ -229,12 +229,41 @@ public struct URLImage : View, Equatable {
     }
 }
 
-extension ForEach where Content : View {
-    /// Initialize with elements that are identified merely by their index
-    public init<S : Sequence>(enumerated sequence: S, @ViewBuilder content: @escaping (Int, S.Element) -> Content) where ID == Int, Data == Array<EnumeratedSequence<S>.Element> {
-        self = ForEach(Array(sequence.enumerated()), id: \.offset, content: content)
+
+extension Binding {
+    /// Convert a binding's changes into a values derived from the old and/or new values.
+    ///
+    /// This can be a useful debugging tool to track when a binding is set. For example:
+    ///
+    /// ```
+    /// TextField("Info", value: $infoState.mapSetter(action: { dump($1, name: "changing infoState") }))
+    /// ```
+    @inlinable public func mapSetter(action: @escaping (_ oldValue: Value, _ newValue: Value) -> Value) -> Binding<Value> {
+        Binding(get: { self.wrappedValue }, set: { newValue in
+            //dbg("setting binding to:", newValue)
+            self.wrappedValue = action(self.wrappedValue, newValue)
+        })
     }
 }
+
+extension ForEach where Content : View {
+    /// Initialize with elements that are identified merely by their offset in the source sequence (which may not correspond to their index).
+    ///
+    /// - SeeAlso: ``ForEach.init(withOffsetsIn:id:content:)``
+    @inlinable public init<S : Sequence>(enumerated sequence: S, @ViewBuilder content: @escaping (_ offset: Int, _ element: S.Element) -> Content) where ID == Int, Data == Array<EnumeratedSequence<S>.Element> {
+        self = ForEach(Array(sequence.enumerated()), id: \.offset, content: content)
+    }
+
+    /// Initialize with elements that are identified by the specified key path where the closure will be
+    /// invoked with the element's offset in the sequence.
+    ///
+    /// - SeeAlso: ``ForEach.init(enumerated:id:content:)``
+    @inlinable public init<S : Sequence>(withOffsetsIn sequence: S, id: KeyPath<S.Element, ID>, @ViewBuilder content: @escaping (_ offset: Int, _ element: S.Element) -> Content) where Data == Array<EnumeratedSequence<S>.Element> {
+        self = ForEach(Array(sequence.enumerated()), id: (\EnumeratedSequence<S>.Element.element).appending(path: id), content: content)
+    }
+}
+
+
 
 public extension UsageDescriptionKeys {
     var icon: FairSymbol {

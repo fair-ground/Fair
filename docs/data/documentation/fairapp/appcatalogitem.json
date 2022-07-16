@@ -82,7 +82,8 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/Se",
-        "doc:\/\/FairApp\/SE"
+        "doc:\/\/FairApp\/SE",
+        "doc:\/\/FairApp\/SQ"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -107,7 +108,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/appCategories",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/appNameHyphenated",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/beta",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/bundleIdentifier",
@@ -158,7 +158,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/Decodable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/Encodable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/Encodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -180,6 +181,11 @@
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SQ": {
+  "identifier" : "doc:\/\/FairApp\/SQ",
+  "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
 "doc://FairApp/Se": {
@@ -265,43 +271,16 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/encodable-implementations"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem/appCategories": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "appCategories"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B8CategoryO",
-      "text" : "AppCategory"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/appCategories",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "appCategories",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/appcategories"
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/equatable-implementations"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/appNameHyphenated": {
   "abstract" : [
@@ -444,8 +423,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     },
     {
       "kind" : "text",
@@ -1320,8 +1299,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B8CategoryV",
+      "text" : "AppCategory"
     },
     {
       "kind" : "text",
