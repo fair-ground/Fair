@@ -855,9 +855,14 @@ extension WebViewState {
             .label(image: symbol)
             .button {
                 if let url = self.url {
+                    #if os(iOS)
+                    UIPasteboard.general.urls = [url]
+                    UIPasteboard.general.strings = [url.absoluteString]
+                    #elseif os(macOS)
                     UXPasteboard.general.clearContents()
                     UXPasteboard.general.writeObjects([url as NSURL]) // doesn't seem to work by itself
                     UXPasteboard.general.writeObjects([url.absoluteString as NSString])
+                    #endif
                 }
             }
             .help(Text("Copies this URL to the clipboard: \(urlString)", bundle: .module, comment: "button tooltip for embedded browser reload the url"))
