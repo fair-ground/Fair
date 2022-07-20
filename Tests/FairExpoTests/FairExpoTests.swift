@@ -121,40 +121,30 @@ final class FairExpoTests: XCTestCase {
         XCTAssertGreaterThan(count, 0, "expected at least one result")
     }
 
+    func checkSource(catalogURL: URL, count: Int) async throws {
+        let cat = try await AppCatalog.parse(jsonData: URLSession.shared.fetch(request: URLRequest(url: catalogURL)).data)
+
+        let apps = cat.apps.sorting(by: \.versionDate, ascending: false)
+
+        for app in apps.prefix(count) {
+            dbg("verifying app \(app.bundleIdentifier) in \(catalogURL.absoluteString)")
+
+            let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--verbose", "--bundle-id", app.bundleIdentifier, catalogURL.absoluteString])
+
+            let result = try XCTUnwrap(results.first)
+
+            dbg("catalog:", result.prettyJSON)
+            XCTAssertEqual(app.name, result.app.name, "failed to verify app \(app.bundleIdentifier) in \(catalogURL.absoluteString)")
+        }
+    }
+
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
     func testSourceVerifyCommandMacOS() async throws {
-        let catalog = "https://appfair.net/fairapps-macos.json"
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--verbose", "--bundle-id", "app.Cloud-Cuckoo", catalog])
-
-        let result = try XCTUnwrap(results.first)
-
-        dbg("catalog:", result.prettyJSON)
-        XCTAssertEqual("Cloud Cuckoo", result.app.name)
-//        var items = try XCTUnwrap(result.failures).makeIterator()
-
-//        do {
-//            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
-//            XCTAssertEqual(failure.type, "missing_checksum")
-//        }
-
-//        do {
-//            let failure = try XCTUnwrap(items.next(), "expected a validation failure")
-//            XCTAssertEqual(failure.type, "invalid_size")
-//        }
+        try await checkSource(catalogURL: appfairCatalogURLMacOS, count: 3)
     }
 
     func testSourceVerifyCommandSources() async throws {
-        guard let url = URL(string: "https://appfair.net/fairapps-ios.json") else {
-            return XCTFail("bad url")
-        }
-
-        let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--bundle-id", "app.Cloud-Cuckoo", "--verbose", url.absoluteString])
-
-        dbg("catalog:", results.prettyJSON)
-        let result = try XCTUnwrap(results.first)
-
-        dbg("catalog:", result.prettyJSON)
-        XCTAssertEqual("Cloud Cuckoo", result.app.name)
+        try await checkSource(catalogURL: appfairCatalogURLIOS, count: 3)
     }
 
     func testSourceCreateCommand() async throws {
