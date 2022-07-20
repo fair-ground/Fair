@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Parses a new instance of this type from command-line arguments or exits",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with a relevant message.",
+      "text" : "Parses a new instance of this type from command-line arguments.",
       "type" : "text"
     }
   ],
@@ -18,19 +10,19 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/parseOrExit(_:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/parse(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore17ParsableArgumentsPAAE11parseOrExityxSaySSGSgFZ::SYNTHESIZED::s:8FairExpo0A7CommandV14CatalogOptionsV",
+    "externalID" : "s:8FairCore17ParsableArgumentsPAAE5parseyxSaySSGSgKFZ::SYNTHESIZED::s:8FairExpo0A7CommandV11CaskOptionsV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,7 +42,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "parseOrExit"
+        "text" : "parse"
       },
       {
         "kind" : "text",
@@ -63,7 +55,15 @@
       },
       {
         "kind" : "text",
-        "text" : "]?) -> "
+        "text" : "]?) "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -78,7 +78,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "parseOrExit(_:)"
+    "title" : "parse(_:)"
   },
   "primaryContentSections" : [
     {
@@ -109,7 +109,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "parseOrExit"
+              "text" : "parse"
             },
             {
               "kind" : "text",
@@ -138,7 +138,15 @@
             },
             {
               "kind" : "text",
-              "text" : "]? = nil) -> "
+              "text" : "]? = nil) "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -148,6 +156,26 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A new instance of this type.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     },
     {
       "kind" : "parameters",
@@ -200,7 +228,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parseorexit(_:)"
+        "\/documentation\/fairexpo\/faircommand\/caskoptions\/parse(_:)"
       ],
       "traits" : [
         {
@@ -256,7 +284,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions": {
   "abstract" : [
 
   ],
@@ -271,45 +299,37 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
   "role" : "symbol",
-  "title" : "FairCommand.CatalogOptions",
+  "title" : "FairCommand.CaskOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/ParsableArguments-Implementations": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/ParsableArguments-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ParsableArguments Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parsablearguments-implementations"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/parsablearguments-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/parseOrExit(_:)": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/parse(_:)": {
   "abstract" : [
     {
-      "text" : "Parses a new instance of this type from command-line arguments or exits",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with a relevant message.",
+      "text" : "Parses a new instance of this type from command-line arguments.",
       "type" : "text"
     }
   ],
@@ -332,7 +352,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "parseOrExit"
+      "text" : "parse"
     },
     {
       "kind" : "text",
@@ -345,19 +365,27 @@
     },
     {
       "kind" : "text",
-      "text" : "]?) -> "
+      "text" : "]?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
     },
     {
       "kind" : "typeIdentifier",
       "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/parseOrExit(_:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/parse(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "parseOrExit(_:)",
+  "title" : "parse(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parseorexit(_:)"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/parse(_:)"
 }
 }
 }

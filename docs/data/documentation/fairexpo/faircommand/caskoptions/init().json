@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "ParsableArguments.validate()",
+      "code" : "ParsableArguments.init()",
       "type" : "codeVoice"
     },
     {
@@ -18,39 +18,25 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/validate()"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/init()"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore17ParsableArgumentsPAAE8validateyyKF::SYNTHESIZED::s:8FairExpo0A7CommandV14CatalogOptionsV",
+    "externalID" : "s:8FairExpo0A7CommandV11CaskOptionsVAEycfc",
     "fragments" : [
       {
-        "kind" : "keyword",
-        "text" : "func"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
         "kind" : "identifier",
-        "text" : "validate"
+        "text" : "init"
       },
       {
         "kind" : "text",
-        "text" : "() "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
+        "text" : "()"
       }
     ],
     "modules" : [
@@ -59,9 +45,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "validate()"
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init()"
   },
   "primaryContentSections" : [
     {
@@ -76,31 +62,11 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "mutating"
+              "text" : "init"
             },
             {
               "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "func"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "validate"
-            },
-            {
-              "kind" : "text",
-              "text" : "() "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
+              "text" : "()"
             }
           ]
         }
@@ -119,7 +85,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommand\/catalogoptions\/validate()"
+        "\/documentation\/fairexpo\/faircommand\/caskoptions\/init()"
       ],
       "traits" : [
         {
@@ -175,7 +141,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions": {
   "abstract" : [
 
   ],
@@ -190,65 +156,42 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
   "role" : "symbol",
-  "title" : "FairCommand.CatalogOptions",
+  "title" : "FairCommand.CaskOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/ParsableArguments-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ParsableArguments Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parsablearguments-implementations"
-},
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/validate()": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/init()": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
       "kind" : "identifier",
-      "text" : "validate"
+      "text" : "init"
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "text" : "()"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/validate()",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/init()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "validate()",
+  "title" : "init()",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/validate()"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/init()"
 }
 }
 }

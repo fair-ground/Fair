@@ -301,12 +301,13 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", identifier: "net.appfair.catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
         //dbg("### catalog", wip(catalog.prettyJSON))
 
         XCTAssertFalse(names.contains(baseFairgroundRepoName))
+        XCTAssertEqual("net.appfair.catalog", catalog.identifier)
 
         checkApp("app.App-Fair", catalog: catalog)
         checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
@@ -322,11 +323,12 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", identifier: "net.appfair.catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
         XCTAssertFalse(names.contains(baseFairgroundRepoName))
+        XCTAssertEqual("net.appfair.catalog", catalog.identifier)
 
         checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
         checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)

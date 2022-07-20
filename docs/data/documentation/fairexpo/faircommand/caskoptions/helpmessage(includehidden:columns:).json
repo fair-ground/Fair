@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Parses a new instance of this type from command-line arguments.",
+      "text" : "Returns the text of the help screen for this type.",
       "type" : "text"
     }
   ],
@@ -10,19 +10,19 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/parse(_:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/helpMessage(includeHidden:columns:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore17ParsableArgumentsPAAE5parseyxSaySSGSgKFZ::SYNTHESIZED::s:8FairExpo0A7CommandV14CatalogOptionsV",
+    "externalID" : "s:8FairCore17ParsableArgumentsPAAE11helpMessage13includeHidden7columnsSSSb_SiSgtFZ::SYNTHESIZED::s:8FairExpo0A7CommandV11CaskOptionsV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -42,32 +42,50 @@
       },
       {
         "kind" : "identifier",
-        "text" : "parse"
+        "text" : "helpMessage"
       },
       {
         "kind" : "text",
-        "text" : "(["
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "includeHidden"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "columns"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) -> "
       },
       {
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:SS",
         "text" : "String"
-      },
-      {
-        "kind" : "text",
-        "text" : "]?) "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Self"
       }
     ],
     "modules" : [
@@ -78,7 +96,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "parse(_:)"
+    "title" : "helpMessage(includeHidden:columns:)"
   },
   "primaryContentSections" : [
     {
@@ -109,7 +127,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "parse"
+              "text" : "helpMessage"
             },
             {
               "kind" : "text",
@@ -117,40 +135,42 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "_"
+              "text" : "includeHidden"
             },
             {
               "kind" : "text",
-              "text" : " "
+              "text" : ": "
             },
             {
-              "kind" : "internalParam",
-              "text" : "arguments"
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : " = false, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "columns"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil) -> "
             },
             {
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SS",
               "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : "]? = nil) "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
             }
           ]
         }
@@ -168,7 +188,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "A new instance of this type.",
+              "text" : "The full help screen for this type.",
               "type" : "text"
             }
           ],
@@ -185,7 +205,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "An array of arguments to use for parsing. If",
+                  "text" : "Include hidden help information in the generated",
                   "type" : "text"
                 },
                 {
@@ -193,7 +213,33 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "arguments",
+                  "text" : "message.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "includeHidden"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The column width to use when wrapping long line in the",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "help screen. If ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "columns",
                   "type" : "codeVoice"
                 },
                 {
@@ -205,14 +251,38 @@
                   "type" : "codeVoice"
                 },
                 {
-                  "text" : ", this uses the program’s command-line arguments.",
+                  "text" : ", uses the current terminal",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "width, or a default value of ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "80",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " if the terminal width is not",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "available.",
                   "type" : "text"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "arguments"
+          "name" : "columns"
         }
       ]
     }
@@ -228,7 +298,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parse(_:)"
+        "\/documentation\/fairexpo\/faircommand\/caskoptions\/helpmessage(includehidden:columns:)"
       ],
       "traits" : [
         {
@@ -284,7 +354,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions": {
   "abstract" : [
 
   ],
@@ -299,37 +369,37 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
   "role" : "symbol",
-  "title" : "FairCommand.CatalogOptions",
+  "title" : "FairCommand.CaskOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/ParsableArguments-Implementations": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/ParsableArguments-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ParsableArguments Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parsablearguments-implementations"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/parsablearguments-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/parse(_:)": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/helpMessage(includeHidden:columns:)": {
   "abstract" : [
     {
-      "text" : "Parses a new instance of this type from command-line arguments.",
+      "text" : "Returns the text of the help screen for this type.",
       "type" : "text"
     }
   ],
@@ -352,40 +422,58 @@
     },
     {
       "kind" : "identifier",
-      "text" : "parse"
+      "text" : "helpMessage"
     },
     {
       "kind" : "text",
-      "text" : "(["
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "includeHidden"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "columns"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/parse(_:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/helpMessage(includeHidden:columns:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "parse(_:)",
+  "title" : "helpMessage(includeHidden:columns:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parse(_:)"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/helpmessage(includehidden:columns:)"
 }
 }
 }

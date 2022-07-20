@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Returns a full message for the given error, including usage information,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "if appropriate.",
+      "text" : "Returns the exit code for the given error.",
       "type" : "text"
     }
   ],
@@ -18,19 +10,19 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/fullMessage(for:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/exitCode(for:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore17ParsableArgumentsPAAE11fullMessage3forSSs5Error_p_tFZ::SYNTHESIZED::s:8FairExpo0A7CommandV14CatalogOptionsV",
+    "externalID" : "s:8FairCore17ParsableArgumentsPAAE8exitCode3forAA04ExitF0Vs5Error_p_tFZ::SYNTHESIZED::s:8FairExpo0A7CommandV11CaskOptionsV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,7 +42,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "fullMessage"
+        "text" : "exitCode"
       },
       {
         "kind" : "text",
@@ -75,8 +67,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:8FairCore8ExitCodeV",
+        "text" : "ExitCode"
       }
     ],
     "modules" : [
@@ -87,7 +79,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
-    "title" : "fullMessage(for:)"
+    "title" : "exitCode(for:)"
   },
   "primaryContentSections" : [
     {
@@ -118,7 +110,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "fullMessage"
+              "text" : "exitCode"
             },
             {
               "kind" : "text",
@@ -151,8 +143,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:8FairCore8ExitCodeV",
+              "text" : "ExitCode"
             }
           ]
         }
@@ -170,7 +162,15 @@
         {
           "inlineContent" : [
             {
-              "text" : "A message that can be displayed to the user.",
+              "text" : "The exit code for ",
+              "type" : "text"
+            },
+            {
+              "code" : "error",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
               "type" : "text"
             }
           ],
@@ -187,7 +187,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "An error to generate a message for.",
+                  "text" : "An error to generate an exit code for.",
                   "type" : "text"
                 }
               ],
@@ -197,6 +197,50 @@
           "name" : "error"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The returned code is the same exit code that is used if ",
+              "type" : "text"
+            },
+            {
+              "code" : "error",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is passed",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to ",
+              "type" : "text"
+            },
+            {
+              "code" : "exit(withError:)",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -210,7 +254,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommand\/catalogoptions\/fullmessage(for:)"
+        "\/documentation\/fairexpo\/faircommand\/caskoptions\/exitcode(for:)"
       ],
       "traits" : [
         {
@@ -266,7 +310,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions": {
   "abstract" : [
 
   ],
@@ -281,45 +325,37 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
   "role" : "symbol",
-  "title" : "FairCommand.CatalogOptions",
+  "title" : "FairCommand.CaskOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/ParsableArguments-Implementations": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/ParsableArguments-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/ParsableArguments-Implementations",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "ParsableArguments Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/parsablearguments-implementations"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/parsablearguments-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/fullMessage(for:)": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/exitCode(for:)": {
   "abstract" : [
     {
-      "text" : "Returns a full message for the given error, including usage information,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "if appropriate.",
+      "text" : "Returns the exit code for the given error.",
       "type" : "text"
     }
   ],
@@ -342,7 +378,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "fullMessage"
+      "text" : "exitCode"
     },
     {
       "kind" : "text",
@@ -367,16 +403,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:8FairCore8ExitCodeV",
+      "text" : "ExitCode"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/fullMessage(for:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/exitCode(for:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "fullMessage(for:)",
+  "title" : "exitCode(for:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/fullmessage(for:)"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/exitcode(for:)"
 }
 }
 }

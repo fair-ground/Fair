@@ -594,14 +594,14 @@ public final class AppCatalogAPI {
     private init() {
     }
 
-    /// Create a catalog of multiple artifacts.
-    public func catalogApps(urls: [URL], options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalog {
-        var items: [AppCatalogItem] = []
-        for url in urls {
-            items.append(try await catalogApp(url: url, options: options, clearDownload: clearDownload))
-        }
-        return AppCatalog(name: "CATALOG", identifier: "IDENTIFIER", apps: items)
-    }
+//    /// Create a catalog of multiple artifacts.
+//    public func catalogApps(urls: [URL], options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalog {
+//        var items: [AppCatalogItem] = []
+//        for url in urls {
+//            items.append(try await catalogApp(url: url, options: options, clearDownload: clearDownload))
+//        }
+//        return AppCatalog(name: options?.catalogName ?? "CATALOG", identifier: options?.catalogIdentifier ?? "IDENTIFIER", apps: items)
+//    }
 
     /// Create a catalog item for an individual artifact.
     public func catalogApp(url: URL, options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalogItem {
@@ -1251,7 +1251,8 @@ public struct FairCommand : AsyncParsableCommand {
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var regOptions: RegOptions
-        @OptionGroup public var catalogOptions: CatalogOptions
+        @OptionGroup public var caskOptions: CaskOptions
+        @OptionGroup public var sourceOptions: SourceOptions
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
@@ -1279,7 +1280,7 @@ public struct FairCommand : AsyncParsableCommand {
             let fairsealCheck = true // options.fairseal.contains("skip") != true
 
             let artifactTarget: ArtifactTarget
-            switch catalogOptions.artifactExtension.first ?? "zip" {
+            switch caskOptions.artifactExtension.first ?? "zip" {
             case "ipa":
                 artifactTarget = ArtifactTarget(artifactType: "ipa", devices: ["iphone", "ipad"])
             case "zip", _:
@@ -1289,7 +1290,7 @@ public struct FairCommand : AsyncParsableCommand {
             let configuration = try regOptions.createProjectConfiguration()
 
             // build the catalog filtering on specific artifact extensions
-            var catalog = try await hub.buildCatalog(title: catalogOptions.catalogTitle, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.catalogOptions.requestLimit)
+            var catalog = try await hub.buildCatalog(title: sourceOptions.catalogName ?? "App Source", identifier: sourceOptions.catalogIdentifier ?? "identifier", owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.caskOptions.requestLimit)
             if fundingSources {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo)
             }
@@ -1303,7 +1304,7 @@ public struct FairCommand : AsyncParsableCommand {
             try outputOptions.write(json)
             msg(.info, "Wrote catalog to", json.count.localizedByteCount())
 
-            if let caskFolderFlag = catalogOptions.caskFolder {
+            if let caskFolderFlag = caskOptions.caskFolder {
                 msg(.info, "Writing casks to: \(caskFolderFlag)")
                 for app in catalog.apps {
                     try saveCask(app, to: caskFolderFlag, prereleaseSuffix: "-prerelease")
@@ -1784,10 +1785,7 @@ public struct FairCommand : AsyncParsableCommand {
     }
     #endif
 
-    public struct CatalogOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("title of the generated catalog.", valueName: "title"))
-        public var catalogTitle: String = "App Sources"
-
+    public struct CaskOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("the output folder for the app casks.", valueName: "dir"))
         public var caskFolder: String?
 

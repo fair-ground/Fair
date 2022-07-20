@@ -112,13 +112,14 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/catalogOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/caskOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/fundingSources",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/hubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/msgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/outputOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/regOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/retryOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/retryOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/sourceOptions"
       ],
       "title" : "Instance Properties"
     },
@@ -337,7 +338,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/catalogcommand\/parsablecommand-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogCommand/catalogOptions": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogCommand/caskOptions": {
   "abstract" : [
 
   ],
@@ -352,7 +353,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "catalogOptions"
+      "text" : "caskOptions"
     },
     {
       "kind" : "text",
@@ -369,16 +370,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A7CommandV14CatalogOptionsV",
-      "text" : "CatalogOptions"
+      "preciseIdentifier" : "s:8FairExpo0A7CommandV11CaskOptionsV",
+      "text" : "CaskOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/catalogOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/caskOptions",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "catalogOptions",
+  "title" : "caskOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogcommand\/catalogoptions"
+  "url" : "\/documentation\/fairexpo\/faircommand\/catalogcommand\/caskoptions"
 },
 "doc://FairExpo/documentation/FairExpo/FairCommand/CatalogCommand/configuration-3j7iy": {
   "abstract" : [
@@ -771,6 +772,40 @@
   "title" : "run()",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/catalogcommand\/run()-19vmi"
+},
+"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogCommand/sourceOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sourceOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceOptionsV",
+      "text" : "SourceOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand\/sourceOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sourceOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/faircommand\/catalogcommand\/sourceoptions"
 },
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [

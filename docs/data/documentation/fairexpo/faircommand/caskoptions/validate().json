@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "ParsableArguments.validate()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -10,21 +18,23 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/requestLimit"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/validate()"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A7CommandV14CatalogOptionsV12requestLimitSiSgvp",
+    "extendedModule" : "FairCore",
+    "externalID" : "s:8FairCore17ParsableArgumentsPAAE8validateyyKF::SYNTHESIZED::s:8FairExpo0A7CommandV11CaskOptionsV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "func"
       },
       {
         "kind" : "text",
@@ -32,20 +42,15 @@
       },
       {
         "kind" : "identifier",
-        "text" : "requestLimit"
+        "text" : "validate"
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : "() "
       },
       {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
-      },
-      {
-        "kind" : "text",
-        "text" : "?"
+        "kind" : "keyword",
+        "text" : "throws"
       }
     ],
     "modules" : [
@@ -54,9 +59,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "requestLimit"
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "validate()"
   },
   "primaryContentSections" : [
     {
@@ -71,7 +76,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "mutating"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
             },
             {
               "kind" : "text",
@@ -79,36 +92,15 @@
             },
             {
               "kind" : "identifier",
-              "text" : "requestLimit"
+              "text" : "validate"
             },
             {
               "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
-            },
-            {
-              "kind" : "text",
-              "text" : "? { "
+              "text" : "() "
             },
             {
               "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "set"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "throws"
             }
           ]
         }
@@ -127,7 +119,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommand\/catalogoptions\/requestlimit"
+        "\/documentation\/fairexpo\/faircommand\/caskoptions\/validate()"
       ],
       "traits" : [
         {
@@ -183,7 +175,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions": {
   "abstract" : [
 
   ],
@@ -198,30 +190,41 @@
     },
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "CatalogOptions"
+      "text" : "CaskOptions"
     }
   ],
   "role" : "symbol",
-  "title" : "FairCommand.CatalogOptions",
+  "title" : "FairCommand.CaskOptions",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/CatalogOptions/requestLimit": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/ParsableArguments-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/ParsableArguments-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ParsableArguments Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/parsablearguments-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairCommand/CaskOptions/validate()": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -229,28 +232,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "requestLimit"
+      "text" : "validate"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : "() "
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
+      "kind" : "keyword",
+      "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogOptions\/requestLimit",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CaskOptions\/validate()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "requestLimit",
+  "title" : "validate()",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/catalogoptions\/requestlimit"
+  "url" : "\/documentation\/fairexpo\/faircommand\/caskoptions\/validate()"
 }
 }
 }
