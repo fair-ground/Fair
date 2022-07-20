@@ -33,7 +33,7 @@ public struct AppCatalog : Codable, Equatable {
     /// The platform for apps in the catalog (e.g., "ios", "macos", "android")
     public var platform: AppPlatform?
     /// The homepage for the catalog
-    public var homepage: String?
+    public var homepage: URL?
     /// The canonical location of the catalog
     public var sourceURL: URL?
     /// A URL pointing to an icon to summarize the catalog
@@ -47,7 +47,7 @@ public struct AppCatalog : Codable, Equatable {
     /// The sources of funding that are available to apps in this catalog
     public var fundingSources: [AppFundingSource]?
 
-    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: String? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
+    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: URL? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
         self.name = name
         self.identifier = identifier
         self.localizedDescription = localizedDescription
