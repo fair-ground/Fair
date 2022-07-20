@@ -51,10 +51,12 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/allSatisfy(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/array()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/breadthFirstIterator(children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/compactMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/compacted()",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/compare(_:_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/concurrentMap(priority:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/contains(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/contains(where:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/depthFirstIterator(children:)",
@@ -335,6 +337,110 @@
   "title" : "array()",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/ziparchive\/array()"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/asyncMap(_:)": {
+  "abstract" : [
+    {
+      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asyncMap"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncMap(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asyncMap(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/asyncmap(_:)"
 },
 "doc://FairCore/documentation/FairCore/ZipArchive/breadthFirstIterator(children:)": {
   "abstract" : [
@@ -645,6 +751,127 @@
   "title" : "compare(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/ziparchive\/compare(_:_:)"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/concurrentMap(priority:_:)": {
+  "abstract" : [
+    {
+      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "concurrentMap"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "priority"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ScP",
+      "text" : "TaskPriority"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/concurrentMap(priority:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "concurrentMap(priority:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/concurrentmap(priority:_:)"
 },
 "doc://FairCore/documentation/FairCore/ZipArchive/contains(_:)": {
   "abstract" : [

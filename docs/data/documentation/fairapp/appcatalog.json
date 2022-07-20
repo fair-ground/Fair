@@ -134,7 +134,8 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/Se",
-        "doc:\/\/FairApp\/SE"
+        "doc:\/\/FairApp\/SE",
+        "doc:\/\/FairApp\/SQ"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -153,7 +154,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:fundingSources:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)"
       ],
       "title" : "Initializers"
     },
@@ -161,9 +162,11 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/apps",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/fundingSources",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/homepage",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/news",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/platform",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL"
       ],
       "title" : "Instance Properties"
@@ -178,7 +181,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Decodable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Encodable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Encodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Equatable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -200,6 +204,11 @@
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SQ": {
+  "identifier" : "doc:\/\/FairApp\/SQ",
+  "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
 "doc://FairApp/Se": {
@@ -337,6 +346,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/encodable-implementations"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/equatable-implementations"
+},
 "doc://FairApp/documentation/FairApp/AppCatalog/apps": {
   "abstract" : [
     {
@@ -419,10 +439,51 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/fundingsources"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog/homepage": {
+  "abstract" : [
+    {
+      "text" : "The homepage for the catalog",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "homepage"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/homepage",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "homepage",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/homepage"
+},
 "doc://FairApp/documentation/FairApp/AppCatalog/identifier": {
   "abstract" : [
     {
-      "text" : "The identifier for the catalog (e.g., “app.App-Name”)",
+      "text" : "The identifier for the catalog in reverse-DNS notation (e.g., “app.App-Name”)",
       "type" : "text"
     }
   ],
@@ -447,6 +508,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
@@ -498,7 +563,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/init(from:)"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:sourceURL:apps:news:fundingSources:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)": {
   "abstract" : [
 
   ],
@@ -547,6 +612,40 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "platform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8PlatformV",
+      "text" : "AppPlatform"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "homepage"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "sourceURL"
     },
     {
@@ -555,8 +654,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
@@ -614,17 +713,17 @@
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:sourceURL:apps:news:fundingSources:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:identifier:sourceURL:apps:news:fundingSources:)",
+  "title" : "init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:sourceurl:apps:news:fundingsources:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:platform:homepage:sourceurl:apps:news:fundingsources:)"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [
     {
-      "text" : "The name of the catalog (e.g., “App Name”)",
+      "text" : "The name of the catalog (e.g., “Fair Apps”)",
       "type" : "text"
     }
   ],
@@ -649,6 +748,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
@@ -710,7 +813,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " with the expected parameters (i.e., date encoding as iso8601).",
+      "text" : " with the expected parameters (i.e., date encoding as lenient iso8601).",
       "type" : "text"
     }
   ],
@@ -777,6 +880,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/parse(jsondata:)"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog/platform": {
+  "abstract" : [
+    {
+      "text" : "The platform for apps in the catalog (e.g., “ios”, “macos”, “android”)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "platform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B8PlatformV",
+      "text" : "AppPlatform"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/platform",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "platform",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/platform"
+},
 "doc://FairApp/documentation/FairApp/AppCatalog/sourceURL": {
   "abstract" : [
     {
@@ -803,8 +947,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",

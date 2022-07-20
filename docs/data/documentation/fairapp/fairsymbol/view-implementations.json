@@ -255,6 +255,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/ignoresSafeArea(_:edges:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/imageScale(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/importsItemProviders(_:onImport:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/initialViewSize(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/interactiveDismissDisabled(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/itemProvider(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/keyboardShortcut(_:)-3aoj",
@@ -297,6 +298,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/offset(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/offset(x:y:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/onAppear(perform:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/onChange(of:debounce:priority:perform:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/onChange(of:perform:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/onCommand(_:perform:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/onContinueUserActivity(_:perform:)",
@@ -18307,6 +18309,73 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/importsitemproviders(_:onimport:)"
 },
+"doc://FairApp/documentation/FairApp/FairSymbol/initialViewSize(_:)": {
+  "abstract" : [
+    {
+      "text" : "The first time this window is shows, set the size to the given amount.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "initialViewSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGSize",
+      "text" : "CGSize"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp23InitialSizeViewModifierV",
+      "text" : "InitialSizeViewModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/initialViewSize(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "initialViewSize(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/initialviewsize(_:)"
+},
 "doc://FairApp/documentation/FairApp/FairSymbol/interactiveDismissDisabled(_:)": {
   "abstract" : [
 
@@ -20825,6 +20894,133 @@
   "title" : "onAppear(perform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/onappear(perform:)"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/onChange(of:debounce:priority:perform:)": {
+  "abstract" : [
+    {
+      "text" : "Performs the given asynchronous action after the specified delay with the option to cancel",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "onChange"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "debounce"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "priority"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ScP",
+      "text" : "TaskPriority"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "perform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ()) -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/onChange(of:debounce:priority:perform:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "onChange(of:debounce:priority:perform:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/onchange(of:debounce:priority:perform:)"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol/onChange(of:perform:)": {
   "abstract" : [

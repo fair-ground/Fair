@@ -849,7 +849,7 @@ extension WebViewState {
 
 extension WebViewState {
 
-    /// Creates a button whose action will copy the current URL to the pasteboard
+    /// Creates a button whose action will copy the current URL to the clipboard
     public func copyURLButton(symbol: FairSymbol = .link_circle) -> some View {
         Text("Copy URL", bundle: .module, comment: "button title for copying embedded browser url to clipboard")
             .label(image: symbol)
@@ -860,7 +860,7 @@ extension WebViewState {
                     UXPasteboard.general.writeObjects([url.absoluteString as NSString])
                 }
             }
-            .help(Text("Copies this URL to the paseboard: \(urlString)", bundle: .module, comment: "button tooltip for embedded browser reload the url"))
+            .help(Text("Copies this URL to the clipboard: \(urlString)", bundle: .module, comment: "button tooltip for embedded browser reload the url"))
     }
 
     public func openInBrowserButton(symbol: FairSymbol = .square_and_arrow_up, action openURLAction: OpenURLAction) -> some View {

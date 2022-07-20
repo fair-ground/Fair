@@ -32,6 +32,8 @@ extension Foundation.URL : UnsafeSendable { }
 @available(*, deprecated)
 extension Foundation.UUID : UnsafeSendable { }
 
+// MARK: Result Extensions
+
 public extension Result {
     /// Returns the successful value, or nil if unset
     @inlinable var successValue: Success? {
@@ -49,6 +51,19 @@ public extension Result {
         }
     }
 }
+
+extension Result {
+    /// Equivalent of ``Result.init(catching:)``, but allowing an async block
+    public init(catchingAsync block: () async throws -> Success) async where Failure == Error {
+        do {
+            self = .success(try await block())
+        } catch {
+            self = .failure(error)
+        }
+    }
+}
+
+// MARK: Sequence Extensions
 
 extension Sequence {
     /// Derives an array from this sequence ensuring that the value at the `Hashable` `keyPath` has not yet been uniquely seen.
@@ -132,6 +147,32 @@ public extension Sequence {
         Dictionary(grouping: self, by: key)
     }
 }
+
+
+extension Sequence {
+    /// Concurrently executes the given transformation, returning the results in the order of the sequence's elements
+    @inlinable public func asyncMap<T>(_ transform: (Element) async throws -> T) async rethrows -> [T] {
+        var values = [T]()
+        for element in self {
+            try await values.append(transform(element))
+        }
+        return values
+    }
+}
+
+extension Sequence {
+    /// Concurrently executes the given transformation, returning the results in the order of the sequence's elements
+    @inlinable public func concurrentMap<T>(priority: TaskPriority? = nil, _ transform: @escaping (Element) async throws -> T) async rethrows -> [T] {
+        try await map { element in
+            Task(priority: priority) { try await transform(element) }
+        }.asyncMap { task in
+            try await task.value
+        }
+    }
+}
+
+
+// MARK: Misc
 
 public extension UUID {
     /// Creates a UUID with the given random number generator.

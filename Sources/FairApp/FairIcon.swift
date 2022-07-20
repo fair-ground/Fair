@@ -115,13 +115,6 @@ public struct FairIconView : View, Equatable {
         let rect = CGRect(origin: .zero, size: CGSize(width: span, height: span))
 
         let squircle = RoundedRectangle(cornerRadius: cornerRadiusFactor == 0.0 ? 0 : (span / cornerRadiusFactor), style: .continuous)
-        func maskPath() -> some Shape {
-            //var shape = Circle().path(in: rect)
-            var shape = Rectangle().path(in: rect)
-            shape.addPath(Circle().inset(by: span * 0.24).path(in: rect))
-            return shape
-        }
-
         func borderMask(borderRatio: CGFloat) -> some Shape {
             //var shape = Circle().path(in: rect)
             var shape = squircle.path(in: rect)

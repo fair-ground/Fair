@@ -169,7 +169,7 @@
 "doc://FairApp/documentation/FairApp/AppCatalog/identifier": {
   "abstract" : [
     {
-      "text" : "The identifier for the catalog (e.g., “app.App-Name”)",
+      "text" : "The identifier for the catalog in reverse-DNS notation (e.g., “app.App-Name”)",
       "type" : "text"
     }
   ],
@@ -194,6 +194,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
@@ -414,7 +418,7 @@
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [
     {
-      "text" : "The name of the catalog (e.g., “App Name”)",
+      "text" : "The name of the catalog (e.g., “Fair Apps”)",
       "type" : "text"
     }
   ],
@@ -439,6 +443,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",

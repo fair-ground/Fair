@@ -163,11 +163,11 @@ public protocol UXViewRepresentable : UIViewRepresentable {
 
 public extension SwiftUI.Image {
     init(uxImage nativeImage: UXImage) {
-    #if canImport(AppKit)
+#if canImport(AppKit)
         self.init(nsImage: nativeImage)
-    #elseif canImport(UIKit)
+#elseif canImport(UIKit)
         self.init(uiImage: nativeImage)
-    #endif
+#endif
     }
 }
 
@@ -176,10 +176,10 @@ public extension UXApplication {
     ///
     /// - Parameter number: the number to set; 0 will hide the badge
     func setBadge(_ number: Int) {
-        #if canImport(AppKit)
+#if canImport(AppKit)
         NSApp.dockTile.badgeLabel = number <= 0 ? nil : "\(number)"
-        #endif
-        #if canImport(UIKit)
+#endif
+#if canImport(UIKit)
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge]) { success, error in
             if success == true && error == nil {
                 DispatchQueue.main.async {
@@ -187,13 +187,30 @@ public extension UXApplication {
                 }
             }
         }
-        #endif
+#endif
     }
+}
+
+public extension UXPasteboard {
+#if os(macOS)
+    /// Returns a Boolean value indicating whether or not the urls property contains a nonempty array.
+    var hasURLs: Bool {
+        urls?.isEmpty == false
+    }
+
+    /// An array of URLs objects in all pasteboard items.
+    var urls: [URL]? {
+        //readObjects(forClasses: [NSURL.self]) as? [URL]
+        (readObjects(forClasses: [NSString.self]) as? [String])?.compactMap({ str in
+            str.count <= 4 && str.count > 1024 ? nil : URL(string: str)
+        })
+    }
+#endif
 }
 
 public extension UXViewRepresentable {
 
-    #if canImport(UIKit)
+#if canImport(UIKit)
     // MARK: UIKit UIViewRepresentable support
 
     func makeUIView(context: Self.Context) -> Self.UXViewType {
@@ -207,9 +224,9 @@ public extension UXViewRepresentable {
     static func dismantleUIView(_ uiView: Self.UXViewType, coordinator: Self.Coordinator) {
         Self.dismantleUXView(uiView, coordinator: coordinator)
     }
-    #endif
+#endif
 
-    #if canImport(AppKit)
+#if canImport(AppKit)
     // MARK: AppKit NSViewRepresentable support
 
     func makeNSView(context: Self.Context) -> Self.UXViewType {
@@ -223,7 +240,7 @@ public extension UXViewRepresentable {
     static func dismantleNSView(_ nsView: Self.UXViewType, coordinator: Self.Coordinator) {
         Self.dismantleUXView(nsView, coordinator: coordinator)
     }
-    #endif
+#endif
 }
 
 // MARK: ViewControllerRepresentable
@@ -249,7 +266,7 @@ public protocol UXViewControllerRepresentable : UIViewControllerRepresentable {
 
 public extension UXViewControllerRepresentable {
 
-    #if canImport(UIKit)
+#if canImport(UIKit)
     // MARK: UIKit UIViewControllerRepresentable support
 
     func makeUIViewController(context: Self.Context) -> Self.UXViewControllerType {
@@ -263,7 +280,7 @@ public extension UXViewControllerRepresentable {
     static func dismantleUIViewController(_ uiViewController: Self.UXViewControllerType, coordinator: Self.Coordinator) {
         Self.dismantleUXViewController(uiViewController, coordinator: coordinator)
     }
-    #elseif canImport(AppKit)
+#elseif canImport(AppKit)
     // MARK: AppKit NSViewControllerRepresentable support
 
     func makeNSViewController(context: Self.Context) -> Self.UXViewControllerType {
@@ -277,7 +294,7 @@ public extension UXViewControllerRepresentable {
     static func dismantleNSViewController(_ nsViewController: Self.UXViewControllerType, coordinator: Self.Coordinator) {
         Self.dismantleUXViewController(nsViewController, coordinator: coordinator)
     }
-    #endif
+#endif
 }
 
 extension UXView : TreeRoot {
@@ -305,11 +322,11 @@ extension View {
     ///
     /// This is only called on iOS 15+ and when `DEBUG` is set
     @inlinable public func debuggingViewChanges() {
-        #if DEBUG
+#if DEBUG
         if #available(macOS 12.0, iOS 15.0, *) {
             Self._printChanges()
         }
-        #endif
+#endif
     }
 
     /// Derives a native view from this SwiftUI view
@@ -318,6 +335,78 @@ extension View {
     }
 }
 
+
+@available(macOS 12.0, iOS 15.0, *)
+extension View {
+    /// The first time this window is shows, set the size to the given amount.
+    ///
+    /// This works around the inability to set the initial window size in SwiftUI.
+    public func initialViewSize(_ size: CGSize) -> ModifiedContent<Self, InitialSizeViewModifier> {
+        modifier(InitialSizeViewModifier(size: size))
+    }
+}
+
+/// A modifier that changes the `symbolVariant` based on whether it is hovered over.
+@available(macOS 12.0, iOS 15.0, *)
+public struct InitialSizeViewModifier: ViewModifier {
+    public let size: CGSize
+
+    /// The storage for the last initial size that the view was opened as
+    @AppStorage("initialViewSizeLaunch") private var initialViewSizeLaunch: String = ""
+
+
+    public func body(content: Content) -> some View {
+#if os(macOS)
+        // the initial window sizing is done here; to test default window sizing first run: defaults delete app.App-Fair
+        // note that idealWidth/Height does not work to set the default height; we need to use minWidth/Height to
+        // .frame(idealWidth: 1200, maxWidth: .infinity, idealHeight: 700, maxHeight: .infinity)
+
+        // on first launch, `firstLaunchV1` will be `true` and we will use the hardcoded default value.
+        // subsequently, we should just use whatever the user last left the app at
+        content
+            .frame(minWidth: needsUpdate ? size.width : nil, minHeight: needsUpdate ? size.height : nil)
+            .onAppear {
+                if needsUpdate {
+                    initialViewSizeLaunch = size.debugDescription
+                }
+            }
+#else
+        content // unsupported on other platforms
+#endif
+    }
+
+    var needsUpdate: Bool {
+        initialViewSizeLaunch.description != size.debugDescription
+    }
+}
+
+
+
+extension View {
+    /// Performs the given asynchronous action after the specified delay with the option to cancel
+    ///
+    /// Example usage:
+    ///
+    /// ```
+    /// TextField(text: $searchText)
+    ///    .onChange(of: searchText, debounce: 0.20, action: updateSearchResults) // a brief delay to allow for more responsive typing
+    /// ```
+    public func onChange<T: Equatable>(of value: T, debounce interval: TimeInterval, priority: TaskPriority, perform action: @escaping (T) async -> ()) -> some View {
+        task(id: value, priority: priority) {
+            do {
+                // buffer search typing by a short interval so we can type
+                // without the UI slowing down with live search results
+                try await Task.sleep(interval: interval)
+                await action(value)
+            } catch _ as CancellationError {
+                // no need to log
+                //dbg("cancelling debounce delay \(interval)")
+            } catch {
+                dbg("unexpected error waiting for delay \(interval): \(error)")
+            }
+        }
+    }
+}
 
 extension View {
     /// Refreshes this view at the start of each minute. Useful for a label that displays
@@ -340,10 +429,17 @@ private struct RefreshingView<V : View> : View {
     }
 }
 
+extension String {
+    /// Returns this text verbatim as a ``SwiftUI.Text``
+    public func text() -> Text {
+        Text(verbatim: self)
+    }
+}
+
 extension View {
     /// Configure the navigation title and subtitle for the type of device
     public func navigation(title: Text, subtitle: Text?) -> some View {
-        #if os(macOS)
+#if os(macOS)
         return Group {
             if let subtitle = subtitle {
                 navigationTitle(title).navigationSubtitle(subtitle)
@@ -351,7 +447,7 @@ extension View {
                 navigationTitle(title)
             }
         }
-        #else
+#else
         return Group {
             if let subtitle = subtitle {
                 navigationTitle(Text("\(title): \(subtitle)", bundle: .module, comment: "formatting string separating navigation title from subtitle"))
@@ -359,7 +455,7 @@ extension View {
                 navigationTitle(title)
             }
         }
-        #endif
+#endif
     }
 }
 
@@ -368,17 +464,17 @@ extension NavigationLink {
     ///
     /// This only has an effect on iOS with multi-column navigation.
     public func detailLink(_ detail: Bool) -> some View {
-        #if os(iOS)
+#if os(iOS)
         isDetailLink(detail)
-        #else
+#else
         self
-        #endif
+#endif
     }
 }
 
 extension View {
     public func windowToolbarUnified(compact: Bool, showsTitle: Bool) -> some View {
-        #if os(macOS)
+#if os(macOS)
         Group {
             if compact {
                 self.presentedWindowToolbarStyle(.unifiedCompact(showsTitle: showsTitle))
@@ -386,9 +482,9 @@ extension View {
                 self.presentedWindowToolbarStyle(.unified(showsTitle: showsTitle))
             }
         }
-        #else
+#else
         self
-        #endif
+#endif
     }
 }
 

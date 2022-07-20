@@ -247,6 +247,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/ignoresSafeArea(_:edges:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/imageScale(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/importsItemProviders(_:onImport:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/initialViewSize(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/interactiveDismissDisabled(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/itemProvider(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/keyboardShortcut(_:)-4rv4r",
@@ -289,6 +290,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/offset(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/offset(x:y:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/onAppear(perform:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/onChange(of:debounce:priority:perform:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/onChange(of:perform:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/onCommand(_:perform:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/onContinueUserActivity(_:perform:)",
@@ -18159,6 +18161,73 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/teaserbutton\/importsitemproviders(_:onimport:)"
 },
+"doc://FairKit/documentation/FairKit/TeaserButton/initialViewSize(_:)": {
+  "abstract" : [
+    {
+      "text" : "The first time this window is shows, set the size to the given amount.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "initialViewSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGSize",
+      "text" : "CGSize"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp23InitialSizeViewModifierV",
+      "text" : "InitialSizeViewModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/initialViewSize(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "initialViewSize(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/teaserbutton\/initialviewsize(_:)"
+},
 "doc://FairKit/documentation/FairKit/TeaserButton/interactiveDismissDisabled(_:)": {
   "abstract" : [
 
@@ -20677,6 +20746,133 @@
   "title" : "onAppear(perform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/teaserbutton\/onappear(perform:)"
+},
+"doc://FairKit/documentation/FairKit/TeaserButton/onChange(of:debounce:priority:perform:)": {
+  "abstract" : [
+    {
+      "text" : "Performs the given asynchronous action after the specified delay with the option to cancel",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "onChange"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "debounce"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "priority"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ScP",
+      "text" : "TaskPriority"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "perform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ()) -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/onChange(of:debounce:priority:perform:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "onChange(of:debounce:priority:perform:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/teaserbutton\/onchange(of:debounce:priority:perform:)"
 },
 "doc://FairKit/documentation/FairKit/TeaserButton/onChange(of:perform:)": {
   "abstract" : [

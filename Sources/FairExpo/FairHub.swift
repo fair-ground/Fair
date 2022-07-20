@@ -43,9 +43,6 @@ public let appfairCatalogURLIOS = URL(string: "fairapps-ios.json", relativeTo: a
 /// The canonical location of the enhanced cask app metadata
 public let appfairCaskAppsURL = URL(string: "appcasks.json", relativeTo: appfairRoot)!
 
-public let appfairCaskAppsName = "App Fair AppCasks"
-public let appfairCaskAppsIdentifier = "net.appfair.appcasks"
-
 /// A Fair Ground based on an online git service such as GitHub or GitLab.
 public struct FairHub : GraphQLEndpointService {
     /// The root of the FairGround-compatible service
@@ -188,8 +185,9 @@ extension FairHub {
         // in order to minimize catalog changes, always sort by the bundle name
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
-        let catalogURL = artifactTarget.devices.contains("mac") ? appfairCatalogURLMacOS : appfairCatalogURLIOS
-        let catalog = AppCatalog(name: title, identifier: org, sourceURL: catalogURL, apps: apps, news: news)
+        let macOS = artifactTarget.devices.contains("mac")
+        let catalogURL = macOS ? appfairCatalogURLMacOS : appfairCatalogURLIOS
+        let catalog = AppCatalog(name: title, identifier: org, platform: macOS ? .macOS : .iOS, sourceURL: catalogURL.absoluteString, apps: apps, news: news)
         return catalog
     }
 
@@ -419,13 +417,6 @@ extension FairHub {
                     app.tintColor = seal?.tint
                     app.beta = beta
                     app.categories = categories
-                    app.downloadCount = downloadCount
-                    app.impressionCount = impressionCount
-                    app.viewCount = viewCount
-                    app.starCount = starCount
-                    app.watcherCount = watcherCount
-                    app.issueCount = issueCount
-                    app.coreSize = seal?.coreSize
                     app.sha256 = artifactChecksum
                     app.permissions = seal?.permissions
                     app.metadataURL = metadataURL.appendingHash(metadataChecksum)
@@ -435,6 +426,7 @@ extension FairHub {
                     app.fundingLinks = fundingLinks.map { link in
                         AppFundingLink(platform: link.platform, url: link.url)
                     }
+                    app.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize)
 
                     // walk through the recent releases until we find one that has a fairseal on it
                     if beta == true {
@@ -466,7 +458,7 @@ extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String, baseRepository: String?, topicName: String?, starrerName: String?, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int = 100) async throws -> AppCatalog {
+    func buildAppCasks(owner: String, catalogName: String, catalogIdentifier: String, baseRepository: String?, topicName: String?, starrerName: String?, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int = 100) async throws -> AppCatalog {
 
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
@@ -629,7 +621,7 @@ extension FairHub {
                 if var app = createApp(token: token, release: release, repo: repo, cask: cask, stats: stats) {
                     // only add the cask if it has any supplemental information defined
                     if excludeEmptyCasks == false
-                        || (app.downloadCount ?? 0) > 0
+                        || (app.stats?.downloadCount ?? 0) > 0
                         || app.readmeURL != nil
                         || app.releaseNotesURL != nil
                         || app.iconURL != nil
@@ -677,7 +669,7 @@ extension FairHub {
             var ranking: Int64 = 0
 
             // the base ranking is the number of downloads
-            ranking += Int64(item.downloadCount ?? 0)
+            ranking += Int64(item.stats?.downloadCount ?? 0)
 
             // each bit of metadata for a cask boosts its position in the rankings
             if item.readmeURL != nil { ranking += boost }
@@ -711,7 +703,7 @@ extension FairHub {
 
         apps.sort { rank(for: $0) > rank(for: $1) }
 
-        let catalog = AppCatalog(name: appfairCaskAppsName, identifier: appfairCaskAppsIdentifier, sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
+        let catalog = AppCatalog(name: catalogName, identifier: catalogIdentifier, platform: .macOS, sourceURL: appfairCaskAppsURL.absoluteString, apps: apps, news: nil)
         return catalog
     }
 
@@ -824,14 +816,9 @@ extension FairHub {
 
         // stats cannot be overridden
 
-        appItem.downloadCount = downloadCount
-        appItem.impressionCount = impressionCount
-        appItem.viewCount = viewCount
 
-        appItem.starCount = nil
-        appItem.watcherCount = nil
-        appItem.issueCount = nil
-        appItem.coreSize = nil
+        appItem.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount)
+
         appItem.permissions = nil
         appItem.metadataURL = nil
 
@@ -1235,5 +1222,20 @@ extension AppCatalog {
         }
 
         return diffs
+    }
+
+    /// Returns true if this catalog is for the given ``AppPlatform``.
+    public func isPlatform(_ platform: AppPlatform) -> Bool? {
+        if let p = self.platform {
+            return p == platform
+        }
+
+        // otherwise, guess based on the platform
+        let exts = self.apps.map(\.downloadURL).map(\.pathExtension).set()
+        switch platform {
+        case .iOS: return exts.isSubset(of: ["ipa", ""])
+        case .macOS: return exts.isSubset(of: ["zip", "dmg", "pkg", "gz", "tgz", "bz2", "tbz", "jar", "tar", ""])
+        default: return nil // unknown
+        }
     }
 }

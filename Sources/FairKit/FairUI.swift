@@ -21,6 +21,16 @@ import Swift
 #if canImport(SwiftUI)
 import SwiftUI
 
+/// A union of views is also a view.
+extension XOr.Or : View where P : View, Q : View {
+    public var body: some View {
+        switch self {
+        case .p(let pv): pv
+        case .q(let qv): qv
+        }
+    }
+}
+
 public extension Bundle {
     /// Creates a label with the given localized key and the optional icon
     @available(*, deprecated)
@@ -246,6 +256,24 @@ extension Binding {
     }
 }
 
+@available(macOS 12.0, iOS 15.0, *)
+extension SwiftUI.TextField {
+    /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
+    @available(*, deprecated, message: "causes SwiftUI to always mark the view as dirty")
+    public func overlink(to destination: URL?, image: Image = FairSymbol.arrowshape_turn_up_right_circle_fill.image) -> some View {
+        self.overlay(alignment: .trailing) {
+            if let destination = destination {
+                Link(destination: destination) {
+                    image
+                }
+                //.padding(.horizontal) // causes a crash
+            }
+        }
+    }
+
+}
+
+
 extension ForEach where Content : View {
     /// Initialize with elements that are identified merely by their offset in the source sequence (which may not correspond to their index).
     ///
@@ -269,9 +297,64 @@ extension ForEach where Content : View {
     }
 }
 
-
-
 public extension UsageDescriptionKeys {
+    #if canImport(SwiftUI)
+    var description: LocalizedStringKey {
+        switch self {
+        case .NSSiriUsageDescription: return "Siri"
+        case .NSSpeechRecognitionUsageDescription: return "Speech Recognition"
+        case .NSMicrophoneUsageDescription: return "Microphone"
+        case .NSCameraUsageDescription: return "Camera"
+        case .NSMotionUsageDescription: return "Motion"
+        case .NFCReaderUsageDescription: return "NFC Reader"
+        case .NSBluetoothUsageDescription: return "Bluetooth"
+        case .NSBluetoothAlwaysUsageDescription: return "Bluetooth (Always)"
+        case .NSBluetoothPeripheralUsageDescription: return "Bluetooth (peripheral)"
+        case .NSRemindersUsageDescription: return "Reminders"
+        case .NSContactsUsageDescription: return "Contacts"
+        case .NSCalendarsUsageDescription: return "Calendars"
+        case .NSPhotoLibraryAddUsageDescription: return "Photo Library Add"
+        case .NSPhotoLibraryUsageDescription: return "Photo Library"
+        case .NSAppleMusicUsageDescription: return "Apple Music"
+        case .NSHomeKitUsageDescription: return "HomeKit"
+            //case .NSVideoSubscriberAccountUsageDescription: return "Video Subscriber Account Usage"
+        case .NSHealthShareUsageDescription: return "Health Sharing"
+        case .NSHealthUpdateUsageDescription: return "Health Update"
+        case .NSAppleEventsUsageDescription: return "Apple Events"
+        case .NSFocusStatusUsageDescription: return "Focus Status"
+        case .NSLocalNetworkUsageDescription: return "Local Network"
+        case .NSFaceIDUsageDescription: return "Face ID"
+        case .NSLocationUsageDescription: return "Location"
+        case .NSLocationAlwaysUsageDescription: return "Location (Always)"
+        case .NSLocationTemporaryUsageDescriptionDictionary: return "Location (Temporary)"
+        case .NSLocationWhenInUseUsageDescription: return "Location (When in use)"
+        case .NSLocationAlwaysAndWhenInUseUsageDescription: return "Location (Always)"
+        case .NSUserTrackingUsageDescription: return "User Tracking"
+        case .NSNearbyInteractionAllowOnceUsageDescription:
+            return "Nearby Interaction (Once)"
+        case .NSLocationDefaultAccuracyReduced: return "Location (Default Accuracy Reduced)"
+        case .NSWidgetWantsLocation: return "Widget Wants Location"
+        case .NSVoIPUsageDescription: return "VoIP"
+        case .NSNearbyInteractionUsageDescription: return "Nearby Interaction"
+        case .NSSensorKitUsageDescription: return "Sensor Kit"
+        case .NSBluetoothWhileInUseUsageDescription: return "Bluetooth (While In Use)"
+        case .NSFallDetectionUsageDescription: return "Fall Detection"
+        case .NSVideoSubscriberAccountUsageDescription: return "Video Subscriber Account"
+        case .NSGKFriendListUsageDescription: return "GameKit Friend List"
+        case .NSHealthClinicalHealthRecordsShareUsageDescription: return "Health (Clinical Health Records Share)"
+        case .NSDesktopFolderUsageDescription: return "Desktop Folder Access"
+        case .NSDocumentsFolderUsageDescription: return "Documents Folder Access"
+        case .NSDownloadsFolderUsageDescription: return "Downloads Folder Access"
+        case .NSSystemExtensionUsageDescription: return "System Extension"
+        case .NSSystemAdministrationUsageDescription: return "System Administration"
+        case .NSFileProviderDomainUsageDescription: return "File Provider Domain"
+        case .NSFileProviderPresenceUsageDescription: return "File Provider Presence"
+        case .NSNetworkVolumesUsageDescription: return "Network Volumes"
+        case .NSRemovableVolumesUsageDescription: return "Removable Volumes"
+        default: return .init(self.rawValue)
+        }
+    }
+
     var icon: FairSymbol {
         switch self {
         case .NSSiriUsageDescription: return .ear
@@ -327,24 +410,70 @@ public extension UsageDescriptionKeys {
         default: return .questionmark_circle
         }
     }
+    #endif // canImport(SwiftUI)
 }
 
-@available(macOS 12.0, iOS 15.0, *)
-extension SwiftUI.TextField {
-    /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
-    public func overlink(to destination: URL?, image: Image = FairSymbol.arrowshape_turn_up_right_circle_fill.image) -> some View {
-        self.overlay(alignment: .trailing) {
-            if let destination = destination {
-                Link(destination: destination) {
-                    image
-                }
-                //.padding(.horizontal) // causes a crash
-            }
+/// An array that can be contained in an ``AppStorage`` item,
+/// whose elements will be persisted by serializing to the underlying codable instances.
+///
+/// Encoding and decoding errors are ignored since there
+/// is no mechanism for communicating the failure to the ``AppStorage`` system.
+public struct AppStorageArray<Element> : ExpressibleByArrayLiteral {
+    public var array: Array<Element>
+
+    public init() {
+        self.array = []
+    }
+
+    public init(arrayLiteral elements: Element...) {
+        self.array = elements
+    }
+}
+
+/// Allow the ``AppStorageArray`` array to be treated as a ``RangeReplaceableCollection``
+extension AppStorageArray : RangeReplaceableCollection {
+    public typealias Index = Array<Element>.Index
+
+    public subscript(position: Array<Element>.Index) -> Element {
+        array[position]
+    }
+
+    public func index(after i: Array<Element>.Index) -> Array<Element>.Index {
+        array.index(after: i)
+    }
+
+    public var startIndex: Index {
+        array.startIndex
+    }
+
+    public var endIndex: Index {
+        array.endIndex
+    }
+
+    public mutating func replaceSubrange<C>(_ subrange: Range<Array<Element>.Index>, with newElements: C) where C : Collection, Element == C.Element {
+        array.replaceSubrange(subrange, with: newElements)
+    }
+}
+
+/// Allow the ``AppStorageArray`` array to be represented as an array of JSON encodable strings
+extension AppStorageArray : RawRepresentable where Element: Codable {
+    public init?(rawValue: String) {
+        do {
+            self.array = try JSONDecoder().decode([Element].self, from: rawValue.utf8Data)
+        } catch {
+            dbg("error decoding array:", error, "from string:", rawValue)
+            self.array = []
         }
     }
 
+    public var rawValue: String {
+        do {
+            return try JSONEncoder().encode(self.array).utf8String ?? "[]"
+        } catch {
+            dbg("error encoding array:", error)
+            return "[]"
+        }
+    }
 }
-
-
 
 #endif

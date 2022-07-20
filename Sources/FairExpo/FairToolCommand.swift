@@ -18,6 +18,9 @@ import Swift
 import Foundation
 import FairCore
 import FairApp
+#if canImport(CoreFoundation)
+import CoreFoundation
+#endif
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -202,7 +205,7 @@ public struct AppCommand : AsyncParsableCommand {
 public struct SourceCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "source",
-        abstract: "AltStore source management commands.",
+        abstract: "App source catalog management commands.",
         shouldDisplay: !experimental,
         subcommands: [
             CreateCommand.self,
@@ -245,7 +248,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
             if let catalogSource = sourceOptions.catalogSourceURL,
                let catalogSourceURL = URL(string: catalogSource) {
-                catalog.sourceURL = catalogSourceURL
+                catalog.sourceURL = catalogSourceURL.absoluteString
             }
 
             // trim out the "apps" array and tack it onto the end of the output so we
@@ -606,7 +609,7 @@ public final class AppCatalogAPI {
         let (downloaded, localURL) = url.isFileURL ? (false, url) : (true, try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL)
         dbg("localURL:", localURL)
         if !FileManager.default.isReadableFile(atPath: localURL.path) {
-            throw AppError("Cannot read file at \(localURL.path)")
+            throw AppError(String(format: NSLocalizedString("Cannot read file at %@", bundle: .module, comment: "error message"), arguments: [localURL.path]))
         }
 
         defer {
@@ -621,7 +624,7 @@ public final class AppCatalogAPI {
 
         //var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
         guard var item = try info.appCatalogInfo(downloadURL: url) else {
-            throw AppError("Cannot build catalog from Info.plist")
+            throw AppError(NSLocalizedString("Cannot build catalog from Info.plist", bundle: .module, comment: "error message"))
         }
 
         item.version = info.CFBundleShortVersionString
@@ -1050,15 +1053,15 @@ public struct FairCommand : AsyncParsableCommand {
                 //let appID = "app." + appOrgName
 
                 guard let appName = try projectOptions.buildSettings()?["PRODUCT_NAME"] else {
-                    throw AppError("Missing PRODUCT_NAME in AppFairApp.xcconfig")
+                    throw AppError(NSLocalizedString("Missing PRODUCT_NAME in AppFairApp.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 if appName != appOrgNameSpace {
-                    throw AppError("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“\(appName)”) to match the organization name (“\(appOrgNameSpace)”)")
+                    throw AppError(String(format: NSLocalizedString("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
                 }
 
                 guard let appVersion = try projectOptions.buildSettings()?["MARKETING_VERSION"] else {
-                    throw AppError("Missing MARKETING_VERSION in AppFairApp.xcconfig")
+                    throw AppError(NSLocalizedString("Missing MARKETING_VERSION in AppFairApp.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 let expectedIntegrationTitle = appName + " " + appVersion
@@ -1339,17 +1342,17 @@ public struct FairCommand : AsyncParsableCommand {
 
             let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
             guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
-                throw AppError("Error opening trusted archive: \(trustedArtifactURL.absoluteString)")
+                throw AppError(String(format: NSLocalizedString("Error opening trusted archive: %@", bundle: .module, comment: "error message"), arguments: [trustedArtifactURL.absoluteString]))
             }
 
             let untrustedArtifactLocalURL = try await fetchUntrustedArtifact()
 
             guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
-                throw AppError("Error opening untrusted archive: \(untrustedArtifactLocalURL.absoluteString)")
+                throw AppError(String(format: NSLocalizedString("Error opening untrusted archive: %@", bundle: .module, comment: "error message"), arguments: [untrustedArtifactLocalURL.absoluteString]))
             }
 
             if untrustedArtifactLocalURL == trustedArtifactURL {
-                throw AppError("Trusted and untrusted artifacts may not be the same")
+                throw AppError(NSLocalizedString("Trusted and untrusted artifacts may not be the same", bundle: .module, comment: "error message"))
             }
 
             // Load the zip entries, skipping over signature entries we are exlcuding from the comparison
@@ -1368,7 +1371,7 @@ public struct FairCommand : AsyncParsableCommand {
             let untrustedEntries = readEntries(untrustedArchive)
 
             if trustedEntries.count != untrustedEntries.count {
-                throw AppError("Trusted and untrusted artifact content counts do not match (\(trustedEntries.count) vs. \(untrustedEntries.count))")
+                throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content counts do not match (%lu vs. %lu)", bundle: .module, comment: "error message"), arguments: [trustedEntries.count, untrustedEntries.count]))
             }
 
             let rootPaths = Set(trustedEntries.compactMap({
@@ -1378,7 +1381,7 @@ public struct FairCommand : AsyncParsableCommand {
             }))
 
             guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
-                throw AppError("Invalid root path in archive: \(rootPaths)")
+                throw AppError(String(format: NSLocalizedString("Invalid root path in archive: %@", bundle: .module, comment: "error message"), arguments: [rootPaths.first?.description ?? ""]))
             }
 
             let appName = rootPath.dropLast(Self.appSuffix.count)
@@ -1402,7 +1405,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
                 if trustedEntry.path != untrustedEntry.path {
-                    throw AppError("Trusted and untrusted artifact content paths do not match: \(trustedEntry.path) vs. \(untrustedEntry.path)")
+                    throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content paths do not match: %@ vs. %@", bundle: .module, comment: "error message"), arguments: [trustedEntry.path, untrustedEntry.path]))
                 }
 
                 let entryIsMainBinary = executablePaths.contains(trustedEntry.path)
@@ -1507,7 +1510,8 @@ public struct FairCommand : AsyncParsableCommand {
 
                     let totalChanges = diff.insertions.count + diff.removals.count
                     if totalChanges > 0 {
-                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs ?? 0)")
+                        let error = AppError(NSLocalizedString("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs ?? 0)", bundle: .module, comment: "error message"))
+
 
                         if isAppBinary {
                             if let permittedDiffs = permittedDiffs, totalChanges < permittedDiffs {
@@ -1556,7 +1560,7 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             guard let plist = infoPlist else {
-                throw AppError("Missing property list")
+                throw AppError(NSLocalizedString("Missing property list", bundle: .module, comment: "error message"))
             }
 
             let entitlementsURL = projectOptions.projectPathURL(path: "Sandbox.entitlements")
@@ -1641,7 +1645,7 @@ public struct FairCommand : AsyncParsableCommand {
                     return downloadedURL
                 } else {
                     msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                    throw AppError("Unable to download: \(artifactURL.absoluteString) code: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+                    throw AppError(String(format: NSLocalizedString("Unable to download: %@ code: %lu", bundle: .module, comment: "error message"), arguments: [artifactURL.absoluteString, ((response as? HTTPURLResponse)?.statusCode ?? 0)]))
                 }
             }
         }
@@ -1733,7 +1737,7 @@ public struct FairCommand : AsyncParsableCommand {
                 let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%
 
                 guard let pngData = iconView.padding(span * iconInset).png(bounds: bounds), pngData.count > 1024 else {
-                    throw AppError("Unable to generate PNG data")
+                    throw AppError(NSLocalizedString("Unable to generate PNG data", bundle: .module, comment: "error message"))
                 }
                 try pngData.write(to: iconFile)
                 msg(.info, "output icon to: \(iconFile.path)")
@@ -1980,6 +1984,7 @@ public struct BrewCommand : AsyncParsableCommand {
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
+        @OptionGroup public var sourceOptions: SourceOptions
 
         @Option(name: [.long, .customShort("C")], help: ArgumentHelp("the name of the hub's base casks repository.", valueName: "repo"))
         public var casksRepo: String = "appcasks"
@@ -2030,7 +2035,7 @@ public struct BrewCommand : AsyncParsableCommand {
             let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
 
             // build the catalog filtering on specific artifact extensions
-            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, baseRepository: self.casksRepo, topicName: topicName, starrerName: starrerName, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
+            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, catalogName: sourceOptions.catalogName ?? "appcasks", catalogIdentifier: sourceOptions.catalogIdentifier ?? "identifier",  baseRepository: self.casksRepo, topicName: topicName, starrerName: starrerName, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
 
             if fundingSources {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: self.casksRepo)
@@ -2258,7 +2263,7 @@ public struct TweetOptions: ParsableArguments {
     private func check(_ propValue: String?, env: String, option: String) throws -> String {
         if let propValue = propValue { return propValue }
         if let envValue = ProcessInfo.processInfo.environment[env] { return envValue }
-        throw AppError("Must specify either option --\(option) or environment variable: \(env)")
+        throw AppError(String(format: NSLocalizedString("Must specify either option --%@ or environment variable: $@", bundle: .module, comment: "error message"), arguments: [option, env]))
     }
 
     func createAuth(parameters: [String : String] = [:]) throws -> OAuth1.Info {
@@ -2345,7 +2350,7 @@ private extension AppCatalog {
         let catalog = self
 
         // a hack to distinguish between fairapps and appcasks
-        let isFairApp = catalog.sourceURL?.absoluteString.contains("appcasks") != true
+        //let isFairApp = catalog.sourceURL?.contains("appcasks") != true
 
         let format = ISO8601DateFormatter()
         func fmt(_ date: Date?) -> String? {
@@ -2403,14 +2408,14 @@ private extension AppCatalog {
             md += " | "
             if version.isEmpty {
                 // no output
-            } else if let relURL = URL(string: v, relativeTo: app.releasesURL), isFairApp == true {
-                md += "[`\(pre(version, limit: 25))`](\(relURL.absoluteString))"
+//            } else if let relURL = URL(string: v, relativeTo: app.releasesURL), isFairApp == true {
+//                md += "[`\(pre(version, limit: 25))`](\(relURL.absoluteString))"
             } else {
                 md += "`\(pre(version, limit: 25))`"
             }
 
             md += " | "
-            md += pre(app.downloadCount?.description)
+            md += pre(app.stats?.downloadCount?.description)
 
             md += " | "
             md += pre(fmt(app.versionDate))
@@ -2419,16 +2424,16 @@ private extension AppCatalog {
             md += pre(app.size?.localizedByteCount())
 
             md += " | "
-            md += pre(app.impressionCount?.description)
+            md += pre(app.stats?.impressionCount?.description)
 
             md += " | "
-            md += pre(app.viewCount?.description)
+            md += pre(app.stats?.viewCount?.description)
 
             md += " | "
-            md += pre(app.starCount?.description)
+            md += pre(app.stats?.starCount?.description)
 
             md += " | "
-            let issueCount = (app.issueCount ?? 0)
+            let issueCount = (app.stats?.issueCount ?? 0)
             if issueCount > 0, let issuesURL = app.issuesURL {
                 md += "[`\(pre(issueCount.description))`](\(issuesURL.absoluteString))"
             } else {
@@ -2437,11 +2442,11 @@ private extension AppCatalog {
 
             md += " | "
             if let category = app.categories?.first {
-                if isFairApp {
-                    md += "[\(pre(category.baseValue))](https://github.com/topics/appfair-\(category.baseValue)) "
-                } else {
+//                if isFairApp {
+//                    md += "[\(pre(category.baseValue))](https://github.com/topics/appfair-\(category.baseValue)) "
+//                } else {
                     md += pre(category.rawValue)
-                }
+//                }
             }
 
             md += " |\n"
@@ -2455,9 +2460,27 @@ private extension AppCatalog {
 
         return md
     }
-
-
 }
+
+extension AppCatalogItem {
+    @available(*, deprecated, renamed: "stats.coreSize")
+    var coreSize: Int? { self.stats?.coreSize }
+    @available(*, deprecated, renamed: "stats.downloadCount")
+    var downloadCount: Int? { self.stats?.downloadCount }
+    @available(*, deprecated, renamed: "stats.starCount")
+    var starCount: Int? { self.stats?.starCount }
+    @available(*, deprecated, renamed: "stats.forkCount")
+    var forkCount: Int? { self.stats?.forkCount }
+    @available(*, deprecated, renamed: "stats.viewCount")
+    var viewCount: Int? { self.stats?.viewCount }
+    @available(*, deprecated, renamed: "stats.issueCount")
+    var issueCount: Int? { self.stats?.issueCount }
+    @available(*, deprecated, renamed: "stats.watcherCount")
+    var watcherCount: Int? { self.stats?.watcherCount }
+    @available(*, deprecated, renamed: "stats.impressionCount")
+    var impressionCount: Int? { self.stats?.impressionCount }
+}
+
 public struct OutputOptions: ParsableArguments {
     @Option(name: [.long, .customShort("o")], help: ArgumentHelp("the output path."))
     public var output: String = "-"
@@ -3047,13 +3070,13 @@ public struct BuildSettings : RawRepresentable, Hashable {
 
             let parts = nocomment.components(separatedBy: " = ")
             if parts.count != 2 {
-                throw AppError("Error parsing line \(index): key value pairs must be separated by ' = '")
+                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), arguments: [index]))
             }
             guard let key = parts.first?.trimmed(), !key.isEmpty else {
-                throw AppError("Error parsing line \(index): no key")
+                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: no key", bundle: .module, comment: "error message"), arguments: [index]))
             }
             guard let value = parts.last?.trimmed(), !key.isEmpty else {
-                throw AppError("Error parsing line \(index): no value")
+                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: no value", bundle: .module, comment: "error message"), arguments: [index]))
             }
             self.rawValue[key] = value
         }

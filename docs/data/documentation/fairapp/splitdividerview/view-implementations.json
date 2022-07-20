@@ -247,6 +247,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/ignoresSafeArea(_:edges:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/imageScale(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/importsItemProviders(_:onImport:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/initialViewSize(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/interactiveDismissDisabled(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/itemProvider(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/keyboardShortcut(_:)-6cxw5",
@@ -289,6 +290,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/offset(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/offset(x:y:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/onAppear(perform:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/onChange(of:debounce:priority:perform:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/onChange(of:perform:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/onCommand(_:perform:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/onContinueUserActivity(_:perform:)",
@@ -18153,6 +18155,73 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/splitdividerview\/importsitemproviders(_:onimport:)"
 },
+"doc://FairApp/documentation/FairApp/SplitDividerView/initialViewSize(_:)": {
+  "abstract" : [
+    {
+      "text" : "The first time this window is shows, set the size to the given amount.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "initialViewSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGSize",
+      "text" : "CGSize"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp23InitialSizeViewModifierV",
+      "text" : "InitialSizeViewModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/initialViewSize(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "initialViewSize(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/splitdividerview\/initialviewsize(_:)"
+},
 "doc://FairApp/documentation/FairApp/SplitDividerView/interactiveDismissDisabled(_:)": {
   "abstract" : [
 
@@ -20671,6 +20740,133 @@
   "title" : "onAppear(perform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/splitdividerview\/onappear(perform:)"
+},
+"doc://FairApp/documentation/FairApp/SplitDividerView/onChange(of:debounce:priority:perform:)": {
+  "abstract" : [
+    {
+      "text" : "Performs the given asynchronous action after the specified delay with the option to cancel",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "onChange"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "debounce"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "priority"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ScP",
+      "text" : "TaskPriority"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "perform"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ()) -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView\/onChange(of:debounce:priority:perform:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "onChange(of:debounce:priority:perform:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/splitdividerview\/onchange(of:debounce:priority:perform:)"
 },
 "doc://FairApp/documentation/FairApp/SplitDividerView/onChange(of:perform:)": {
   "abstract" : [
