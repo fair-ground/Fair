@@ -1511,7 +1511,7 @@ public struct FairCommand : AsyncParsableCommand {
 
                     let totalChanges = diff.insertions.count + diff.removals.count
                     if totalChanges > 0 {
-                        let error = AppError(NSLocalizedString("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs ?? 0)", bundle: .module, comment: "error message"))
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs ?? 0)")
 
 
                         if isAppBinary {
@@ -3147,11 +3147,11 @@ extension Sequence {
 /// Ideally, we could enable this only when compiling into a single tool
 internal func NSLocalizedString(_ key: String, tableName: String? = nil, bundle: @autoclosure () -> Bundle, value: String = "", comment: String) -> String {
 
-    if moduleBundle == nil {
-        // No bundle was found, so we are missing our localized resources.
-        // Simple
-        return key
-    }
+//    if moduleBundle == nil {
+//        // No bundle was found, so we are missing our localized resources.
+//        // Simple
+//        return key
+//    }
 
     // Runtime crash: FairExpo/resource_bundle_accessor.swift:11: Fatal error: could not load resource bundle: from /usr/local/bin/Fair_FairExpo.bundle or /private/tmp/fairtool-20220720-3195-1rk1z7r/.build/x86_64-apple-macosx/release/Fair_FairExpo.bundle
 

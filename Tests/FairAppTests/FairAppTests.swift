@@ -28,7 +28,7 @@ final class FairAppTests: XCTestCase {
     }
 
     @available(macOS 12, iOS 15, *)
-    func testLocalizable() throws {
+    func XXXtestLocalizable() throws {
         //let xyz = "XYZ"
         XCTAssertEqual("Cancel", loc("Cancel"))
 
