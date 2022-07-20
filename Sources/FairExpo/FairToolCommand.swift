@@ -607,7 +607,7 @@ public final class AppCatalogAPI {
         dbg("localURL:", localURL)
         if !FileManager.default.isReadableFile(atPath: localURL.path) {
             let xxx = NSLocalizedString("XXX", comment: "XXX")
-            let fmt: String = NSLocalizedString("Cannot read file at %@", bundle: Bundle.module, comment: "error message") as String
+            let fmt: String = NSLocalizedString("Cannot read file at %@", tableName: nil, bundle: Bundle.module, value: "", comment: "error message") as String
             let msg = String(format: fmt, arguments: [localURL.path])
             throw AppError(msg)
         }
