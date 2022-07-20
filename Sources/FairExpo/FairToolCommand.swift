@@ -609,10 +609,7 @@ public final class AppCatalogAPI {
         let (downloaded, localURL) = url.isFileURL ? (false, url) : (true, try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL)
         dbg("localURL:", localURL)
         if !FileManager.default.isReadableFile(atPath: localURL.path) {
-            let mod: Bundle = Bundle.module
-            let fmt: String = NSLocalizedString("Cannot read file at %@", bundle: mod, comment: "error message")
-            let msg = String(format: fmt, arguments: [localURL.path])
-            throw AppError(msg)
+            throw AppError(String(format: NSLocalizedString("Cannot read file at %@", bundle: .module, comment: "error message"), arguments: [localURL.path]))
         }
 
         defer {
@@ -1384,7 +1381,7 @@ public struct FairCommand : AsyncParsableCommand {
             }))
 
             guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
-                throw AppError(String(format: NSLocalizedString("Invalid root path in archive: %@", bundle: .module, comment: "error message"), arguments: [rootPaths]))
+                throw AppError(String(format: NSLocalizedString("Invalid root path in archive: %@", bundle: .module, comment: "error message"), arguments: [rootPaths.first?.description ?? ""]))
             }
 
             let appName = rootPath.dropLast(Self.appSuffix.count)
