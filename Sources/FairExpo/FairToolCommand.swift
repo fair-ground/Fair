@@ -606,7 +606,9 @@ public final class AppCatalogAPI {
         let (downloaded, localURL) = url.isFileURL ? (false, url) : (true, try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL)
         dbg("localURL:", localURL)
         if !FileManager.default.isReadableFile(atPath: localURL.path) {
-            throw AppError(String(format: NSLocalizedString("Cannot read file at %@", bundle: .module, comment: "error message"), localURL.path))
+            let fmt = NSLocalizedString("Cannot read file at %@", bundle: .module, comment: "error message")
+            let msg = String(format: fmt, localURL.path)
+            throw AppError(msg)
         }
 
         defer {
