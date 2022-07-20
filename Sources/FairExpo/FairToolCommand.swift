@@ -1368,7 +1368,7 @@ public struct FairCommand : AsyncParsableCommand {
             let untrustedEntries = readEntries(untrustedArchive)
 
             if trustedEntries.count != untrustedEntries.count {
-                throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content counts do not match (%@ vs. %@)", bundle: .module, comment: "error message"), trustedEntries.count as NSNumber, untrustedEntries.count as NSNumber))
+                throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content counts do not match (%d vs. %d)", bundle: .module, comment: "error message"), trustedEntries.count, untrustedEntries.count))
             }
 
             let rootPaths = Set(trustedEntries.compactMap({
@@ -1642,7 +1642,7 @@ public struct FairCommand : AsyncParsableCommand {
                     return downloadedURL
                 } else {
                     msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                    throw AppError(String(format: NSLocalizedString("Unable to download: %@ code: %@", bundle: .module, comment: "error message"), artifactURL.absoluteString, ((response as? HTTPURLResponse)?.statusCode ?? 0) as NSNumber))
+                    throw AppError(String(format: NSLocalizedString("Unable to download: %@ code: %d", bundle: .module, comment: "error message"), artifactURL.absoluteString, ((response as? HTTPURLResponse)?.statusCode ?? 0)))
                 }
             }
         }
@@ -3067,13 +3067,13 @@ public struct BuildSettings : RawRepresentable, Hashable {
 
             let parts = nocomment.components(separatedBy: " = ")
             if parts.count != 2 {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %@: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), index as NSNumber))
+                throw AppError(String(format: NSLocalizedString("Error parsing line %d: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), index))
             }
             guard let key = parts.first?.trimmed(), !key.isEmpty else {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %@: no key", bundle: .module, comment: "error message"), index as NSNumber))
+                throw AppError(String(format: NSLocalizedString("Error parsing line %d: no key", bundle: .module, comment: "error message"), index))
             }
             guard let value = parts.last?.trimmed(), !key.isEmpty else {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %@: no value", bundle: .module, comment: "error message"), index as NSNumber))
+                throw AppError(String(format: NSLocalizedString("Error parsing line %d: no value", bundle: .module, comment: "error message"), index))
             }
             self.rawValue[key] = value
         }

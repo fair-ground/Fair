@@ -27,7 +27,7 @@ public extension URLResponse {
         }
 
         if !inRange.contains(httpResponse.statusCode) {
-            throw AppError(String(format: NSLocalizedString("Bad HTTP response %@ for %@", bundle: .module, comment: "error message"), httpResponse.statusCode as NSNumber, url?.absoluteString ?? ""))
+            throw AppError(String(format: NSLocalizedString("Bad HTTP response %d for %@", bundle: .module, comment: "error message"), httpResponse.statusCode, url?.absoluteString ?? ""))
         }
     }
 }
