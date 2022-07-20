@@ -37,15 +37,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run fairtool
-        run: |
-          swift run fairtool version
-
       - name: Fair Tests
         env:
           FAIRHUB_API_SKIP: true # used by tests to determine load
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: swift test
+
+      - name: Run fairtool
+        run: |
+          swift run fairtool version
 
       - name: Check fairtool formula
         run: |
