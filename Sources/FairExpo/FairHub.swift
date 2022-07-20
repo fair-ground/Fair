@@ -187,7 +187,7 @@ extension FairHub {
 
         let macOS = artifactTarget.devices.contains("mac")
         let catalogURL = macOS ? appfairCatalogURLMacOS : appfairCatalogURLIOS
-        let catalog = AppCatalog(name: title, identifier: identifier, platform: macOS ? .macOS : .iOS, sourceURL: catalogURL.absoluteString, apps: apps, news: news)
+        let catalog = AppCatalog(name: title, identifier: identifier, platform: macOS ? .macOS : .iOS, sourceURL: catalogURL, apps: apps, news: news)
         return catalog
     }
 
@@ -703,7 +703,7 @@ extension FairHub {
 
         apps.sort { rank(for: $0) > rank(for: $1) }
 
-        let catalog = AppCatalog(name: catalogName, identifier: catalogIdentifier, platform: .macOS, sourceURL: appfairCaskAppsURL.absoluteString, apps: apps, news: nil)
+        let catalog = AppCatalog(name: catalogName, identifier: catalogIdentifier, platform: .macOS, sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
         return catalog
     }
 
