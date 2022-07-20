@@ -3141,8 +3141,10 @@ extension Sequence {
     }
 }
 
-/// Shim to work around crash with ``NSLocalizedString`` from a command-line tool
-private func NSLocalizedString(_ key: String, tableName: String? = nil, bundle: Bundle, value: String = "", comment: String) -> String {
+/// Shim to work around crash with ``NSLocalizedString`` from a command-line tool.
+///
+/// Ideally, we could enable this only when compiling into a single tool
+internal func NSLocalizedString(_ key: String, tableName: String? = nil, bundle: Bundle, value: String = "", comment: String) -> String {
 
     key
 

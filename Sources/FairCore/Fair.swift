@@ -811,14 +811,6 @@ public let assertionsEnabled: Bool = {
 
 // MARK: Package-Specific Utilities
 
-/// Returns the localized string for the current module.
-internal func loc(_ key: StaticString, tableName: String? = nil, comment: String? = nil) -> String {
-    // TODO: use StringLocalizationKey
-    NSLocalizedString(key.description, tableName: tableName, bundle: .module, comment: comment ?? "")
-    // macOS 12 TODO:
-    // String(localized: keyAndValue, table: table, bundle: .module, locale: Locale.current, comment: comment)
-}
-
 /// Work-in-Progress marker
 @available(*, deprecated, message: "work in progress")
 internal func wip<T>(_ value: T) -> T { value }
