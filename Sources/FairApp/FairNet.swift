@@ -23,11 +23,11 @@ import FoundationNetworking
 public extension URLResponse {
     func validateHTTPCode(inRange: Range<Int> = 200..<300) throws {
         guard let httpResponse = self as? HTTPURLResponse else {
-            throw AppError("URL response was not HTTP for \(self.url?.absoluteString ?? "")")
+            throw AppError(String(format: NSLocalizedString("URL response was not HTTP for %@", bundle: .module, comment: "error message"), url?.absoluteString ?? ""))
         }
 
         if !inRange.contains(httpResponse.statusCode) {
-            throw AppError("Bad HTTP response \(httpResponse.statusCode) for \(self.url?.absoluteString ?? "")")
+            throw AppError(String(format: NSLocalizedString("Bad HTTP response %@ for %@", bundle: .module, comment: "error message"), httpResponse.statusCode as NSNumber, url?.absoluteString ?? ""))
         }
     }
 }
@@ -50,7 +50,7 @@ public extension URLRequest {
             let fragmentHash = self.url?.fragment {
             let dataHash = data.sha256().hex()
             if dataHash != fragmentHash {
-                throw AppError("Hash mismatch for \(self.url?.absoluteString ?? ""): \(fragmentHash) vs. \(dataHash)")
+                throw AppError(String(format: NSLocalizedString("Hash mismatch for %@: %@ vs. %@", bundle: .module, comment: "error message"), self.url?.absoluteString ?? "", fragmentHash, dataHash))
             }
         }
         #endif

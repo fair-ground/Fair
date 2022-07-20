@@ -23,13 +23,17 @@ import Foundation
 /// A catalog of apps, consisting of a ``name``, ``identifier``,
 /// individual ``AppCatalogItem`` instances for each app indexed by this catalog,
 /// as well as optional ``AppNewsPost`` items.
-public struct AppCatalog : Codable {
-    /// The name of the catalog (e.g., "App Name")
-    public var name: String
-    /// The identifier for the catalog (e.g., "app.App-Name")
-    public var identifier: String
+public struct AppCatalog : Codable, Equatable {
+    /// The name of the catalog (e.g., "Fair Apps")
+    public var name: String?
+    /// The identifier for the catalog in reverse-DNS notation (e.g., "app.App-Name")
+    public var identifier: String?
+    /// The platform for apps in the catalog (e.g., "ios", "macos", "android")
+    public var platform: AppPlatform?
+    /// The homepage for the catalog
+    public var homepage: String?
     /// The canonical location of the catalog
-    public var sourceURL: URL?
+    public var sourceURL: String?
     /// The apps that are currently available
     public var apps: [AppCatalogItem]
     /// Any news items for the catalog
@@ -37,9 +41,11 @@ public struct AppCatalog : Codable {
     /// The sources of funding that are available to apps in this catalog
     public var fundingSources: [AppFundingSource]?
 
-    public init(name: String, identifier: String, sourceURL: URL? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
+    public init(name: String, identifier: String, platform: AppPlatform? = nil, homepage: String? = nil, sourceURL: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
         self.name = name
         self.identifier = identifier
+        self.platform = platform
+        self.homepage = homepage
         self.sourceURL = sourceURL
         self.apps = apps
         self.news = news
@@ -47,10 +53,28 @@ public struct AppCatalog : Codable {
     }
 }
 
+let iso8601DateParser: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withFullDate]
+    return formatter
+}()
+
+/// A lenient ISO-8601 parser that will accept dates both in full datetime mode as well as date-only (e.g., "1999-12-31")
+private func decodeISO8601Date(_ decoder: Decoder) throws -> Date {
+    let container = try decoder.singleValueContainer()
+    let dateString = try container.decode(String.self)
+
+    if let date = iso8601DateParser.date(from: dateString) {
+        return date
+    }
+
+    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Cannot decode date string \(dateString)")
+}
+
 public extension AppCatalog {
-    /// Parses the `AppCatalog` with the expected parameters (i.e., date encoding as iso8601).
+    /// Parses the `AppCatalog` with the expected parameters (i.e., date encoding as lenient iso8601).
     static func parse(jsonData: Data) throws -> Self {
-        try AppCatalog(json: jsonData, dateDecodingStrategy: .iso8601)
+        try AppCatalog(json: jsonData, dateDecodingStrategy: .custom(decodeISO8601Date))
     }
 }
 
@@ -80,30 +104,13 @@ public struct AppCatalogItem : Codable, Equatable {
     public var screenshotURLs: [URL]?
     /// A summary of the version
     public var versionDescription: String?
-    /// The custom tint color for the app
+    /// The custom tint color for the styling of the app; must be a 6-character RGB hex color (such as `FFFFFF` for white)
     public var tintColor: String?
-    /// Whether to app is beta or not
+    /// Whether to app is beta.
     public var beta: Bool?
 
     /// The categories assigned to this app
     public var categories: [AppCategory]?
-    /// The number of downloads for this asset
-    public var downloadCount: Int?
-    /// The number of views for the catalog item
-    public var viewCount: Int?
-    /// The number of impression for the catalog item
-    public var impressionCount: Int?
-    /// The number of stargazers for this project
-    public var starCount: Int?
-    /// The number of followers for this project
-    public var watcherCount: Int?
-    /// The number of forks for this project
-    public var forkCount: Int?
-    /// The number of issues for this project
-    public var issueCount: Int?
-
-    /// The size of the core code
-    public var coreSize: Int?
 
     /// The expected hash of the downloadURL
     public var sha256: String?
@@ -126,7 +133,9 @@ public struct AppCatalogItem : Codable, Equatable {
     /// The summary of the entitlements that are enabled for this app
     public var fundingLinks: [AppFundingLink]?
 
-    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [AppCategory]? = nil, downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil) {
+    public var stats: AppStats?
+
+    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [AppCategory]? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil, stats: AppStats? = nil) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -142,13 +151,6 @@ public struct AppCatalogItem : Codable, Equatable {
         self.tintColor = tintColor
         self.beta = beta
         self.categories = categories
-        self.downloadCount = downloadCount
-        self.impressionCount = impressionCount
-        self.viewCount = viewCount
-        self.starCount = starCount
-        self.watcherCount = watcherCount
-        self.issueCount = issueCount
-        self.coreSize = coreSize
         self.sha256 = sha256
         self.permissions = permissions
         self.metadataURL = metadataURL
@@ -156,6 +158,38 @@ public struct AppCatalogItem : Codable, Equatable {
         self.releaseNotesURL = releaseNotesURL
         self.homepage = homepage
         self.fundingLinks = fundingLinks
+        self.stats = stats
+    }
+}
+
+/// Statistics for an app.
+public struct AppStats : Codable, Equatable {
+    /// The number of downloads for this asset
+    public var downloadCount: Int?
+    /// The number of views for the catalog item
+    public var viewCount: Int?
+    /// The number of impression for the catalog item
+    public var impressionCount: Int?
+    /// The number of stargazers for this project
+    public var starCount: Int?
+    /// The number of followers for this project
+    public var watcherCount: Int?
+    /// The number of forks for this project
+    public var forkCount: Int?
+    /// The number of issues for this project
+    public var issueCount: Int?
+
+    /// The size of the core code
+    public var coreSize: Int?
+
+    public init(downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil) {
+        self.downloadCount = downloadCount
+        self.impressionCount = impressionCount
+        self.viewCount = viewCount
+        self.starCount = starCount
+        self.watcherCount = watcherCount
+        self.issueCount = issueCount
+        self.coreSize = coreSize
     }
 }
 
@@ -181,7 +215,7 @@ public struct AppFundingLink : Codable, Equatable {
 }
 
 /// A link to a particular funding platform.
-public struct AppFundingSource : Codable {
+public struct AppFundingSource : Codable, Equatable {
     /// E.g., "GITHUB" or "PATREON"
     ///
     /// This list should be harmonized with the funding platforms defined in [FundingPlatform](https://docs.github.com/en/graphql/reference/enums#fundingplatform)
@@ -198,7 +232,7 @@ public struct AppFundingSource : Codable {
     }
 
     /// A funding goal, such as reaching a certain monthly donation amount or sponsorship count.
-    public struct FundingGoal : Codable {
+    public struct FundingGoal : Codable, Equatable {
         public var kind: String // e.g. TOTAL_SPONSORS_COUNT or MONTHLY_SPONSORSHIP_AMOUNT
         public var title: String?
         public var description: String?
@@ -212,6 +246,25 @@ public struct AppFundingSource : Codable {
             self.percentComplete = percentComplete
             self.targetValue = targetValue
         }
+    }
+}
+
+
+
+/// The platform for an ``AppCatalog``.
+public struct AppPlatform : RawCodable, Hashable {
+    public var rawValue: String
+
+    public static let macOS = AppPlatform(rawValue: "macos")
+    public static let iOS = AppPlatform(rawValue: "ios")
+    //public static let tvos = AppPlatform(rawValue: "tvos")
+    //public static let watchos = AppPlatform(rawValue: "watchos")
+    //public static let android = AppPlatform(rawValue: "android")
+    //public static let linux = AppPlatform(rawValue: "linux")
+    //public static let windows = AppPlatform(rawValue: "windows")
+
+    public init(rawValue: String) {
+        self.rawValue = rawValue
     }
 }
 
@@ -343,7 +396,7 @@ public struct AppFundingPlatform : RawCodable, Hashable {
 
 
 /// An individual item of news, consiting of a unique identifier, a date, title, caption, and optional additional properties.
-public struct AppNewsPost : Codable {
+public struct AppNewsPost : Codable, Equatable {
     /// A unique identifer for the news posting
     public var identifier: String
     /// The date of the news
@@ -523,12 +576,12 @@ public extension AppCatalogItem {
     }
 
     /// The official landing page for the app
-    var landingPage: URL! {
+    var landingPage: URL? {
         URL(string: "https://\(appNameHyphenated).github.io/App/")
     }
 
     /// Returns the URL to this app's home page
-    var projectURL: URL! {
+    var projectURL: URL? {
         URL(string: "https://github.com/\(appNameHyphenated)/App/")
     }
 
@@ -538,19 +591,19 @@ public extension AppCatalogItem {
     }
 
     /// Returns the URL to this app's home page
-    var sourceURL: URL! {
-        projectURL.appendingPathExtension("git")
+    var sourceURL: URL? {
+        projectURL?.appendingPathExtension("git")
     }
 
-    var issuesURL: URL! {
+    var issuesURL: URL? {
         URL(string: "issues", relativeTo: projectURL)
     }
 
-    var discussionsURL: URL! {
+    var discussionsURL: URL? {
         URL(string: "discussions", relativeTo: projectURL)
     }
 
-    var stargazersURL: URL! {
+    var stargazersURL: URL? {
         URL(string: "stargazers", relativeTo: projectURL)
     }
 
@@ -560,20 +613,20 @@ public extension AppCatalogItem {
         //URL(string: wip("sponsors"), relativeTo: projectURL)
     }
 
-    var releasesURL: URL! {
+    var releasesURL: URL? {
         URL(string: "releases/", relativeTo: projectURL)
     }
 
-    var developerURL: URL! {
+    var developerURL: URL? {
         queryURL(type: "users", term: developerEmail ?? "")
     }
 
-    var fairsealURL: URL! {
+    var fairsealURL: URL? {
         queryURL(type: "issues", term: sha256 ?? "")
     }
 
     /// Builds a general query
-    private func queryURL(type: String, term: String) -> URL! {
+    private func queryURL(type: String, term: String) -> URL? {
         URL(string: "https://github.com/search?type=" + type.escapedURLTerm + "&q=" + term.escapedURLTerm)
     }
 

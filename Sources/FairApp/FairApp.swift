@@ -139,15 +139,7 @@ extension Plist {
         // clear items that should not be imported from the info plist
         item.sha256 = nil
         item.size = nil
-
-        item.coreSize = nil
-        item.downloadCount = nil
-        item.starCount = nil
-        item.forkCount = nil
-        item.viewCount = nil
-        item.issueCount = nil
-        item.watcherCount = nil
-        item.impressionCount = nil
+        item.stats = nil
 
         return item
     }
@@ -878,6 +870,13 @@ public extension NSWindow {
 }
 #endif
 
+extension AppError {
+    @available(*, unavailable, message: "use AppError(String(format: NSLocalizedString(XXX, bundle: .module, comment: XXX), param))")
+    public init(_ title: StringLiteralType) {
+        fatalError("should not initialize with literal string")
+    }
+}
+
 /// A generic error
 public struct AppError : LocalizedError {
     /// A localized message describing what error occurred.
@@ -945,68 +944,6 @@ public struct AppError : LocalizedError {
     }
 }
 
-
-public extension UsageDescriptionKeys {
-    #if canImport(SwiftUI)
-    var description: LocalizedStringKey {
-        switch self {
-        case .NSSiriUsageDescription: return "Siri"
-        case .NSSpeechRecognitionUsageDescription: return "Speech Recognition"
-        case .NSMicrophoneUsageDescription: return "Microphone"
-        case .NSCameraUsageDescription: return "Camera"
-        case .NSMotionUsageDescription: return "Motion"
-        case .NFCReaderUsageDescription: return "NFC Reader"
-        case .NSBluetoothUsageDescription: return "Bluetooth"
-        case .NSBluetoothAlwaysUsageDescription: return "Bluetooth (Always)"
-        case .NSBluetoothPeripheralUsageDescription: return "Bluetooth (peripheral)"
-        case .NSRemindersUsageDescription: return "Reminders"
-        case .NSContactsUsageDescription: return "Contacts"
-        case .NSCalendarsUsageDescription: return "Calendars"
-        case .NSPhotoLibraryAddUsageDescription: return "Photo Library Add"
-        case .NSPhotoLibraryUsageDescription: return "Photo Library"
-        case .NSAppleMusicUsageDescription: return "Apple Music"
-        case .NSHomeKitUsageDescription: return "HomeKit"
-            //case .NSVideoSubscriberAccountUsageDescription: return "Video Subscriber Account Usage"
-        case .NSHealthShareUsageDescription: return "Health Sharing"
-        case .NSHealthUpdateUsageDescription: return "Health Update"
-        case .NSAppleEventsUsageDescription: return "Apple Events"
-        case .NSFocusStatusUsageDescription: return "Focus Status"
-        case .NSLocalNetworkUsageDescription: return "Local Network"
-        case .NSFaceIDUsageDescription: return "Face ID"
-        case .NSLocationUsageDescription: return "Location"
-        case .NSLocationAlwaysUsageDescription: return "Location (Always)"
-        case .NSLocationTemporaryUsageDescriptionDictionary: return "Location (Temporary)"
-        case .NSLocationWhenInUseUsageDescription: return "Location (When in use)"
-        case .NSLocationAlwaysAndWhenInUseUsageDescription: return "Location (Always)"
-        case .NSUserTrackingUsageDescription: return "User Tracking"
-        case .NSNearbyInteractionAllowOnceUsageDescription:
-            return "Nearby Interaction (Once)"
-        case .NSLocationDefaultAccuracyReduced: return "Location (Default Accuracy Reduced)"
-        case .NSWidgetWantsLocation: return "Widget Wants Location"
-        case .NSVoIPUsageDescription: return "VoIP"
-        case .NSNearbyInteractionUsageDescription: return "Nearby Interaction"
-        case .NSSensorKitUsageDescription: return "Sensor Kit"
-        case .NSBluetoothWhileInUseUsageDescription: return "Bluetooth (While In Use)"
-        case .NSFallDetectionUsageDescription: return "Fall Detection"
-        case .NSVideoSubscriberAccountUsageDescription: return "Video Subscriber Account"
-        case .NSGKFriendListUsageDescription: return "GameKit Friend List"
-        case .NSHealthClinicalHealthRecordsShareUsageDescription: return "Health (Clinical Health Records Share)"
-        case .NSDesktopFolderUsageDescription: return "Desktop Folder Access"
-        case .NSDocumentsFolderUsageDescription: return "Documents Folder Access"
-        case .NSDownloadsFolderUsageDescription: return "Downloads Folder Access"
-        case .NSSystemExtensionUsageDescription: return "System Extension"
-        case .NSSystemAdministrationUsageDescription: return "System Administration"
-        case .NSFileProviderDomainUsageDescription: return "File Provider Domain"
-        case .NSFileProviderPresenceUsageDescription: return "File Provider Presence"
-        case .NSNetworkVolumesUsageDescription: return "Network Volumes"
-        case .NSRemovableVolumesUsageDescription: return "Removable Volumes"
-        default: return .init(self.rawValue)
-        }
-    }
-    #endif // canImport(SwiftUI)
-}
-
-
 /// The contents of a `Package.resolved` file
 public struct ResolvedPackage: Codable, Equatable {
     public var object: Pins
@@ -1066,13 +1003,13 @@ extension AssetName {
         var str = string
 
         let fail = {
-            AppError("Unable to parse asset name in the expected format: image_name-IDIOM-WxH@SCALEx.EXT")
+            AppError(NSLocalizedString("Unable to parse asset name in the expected format: image_name-IDIOM-WxH@SCALEx.EXT", bundle: .module, comment: "error message"))
         }
 
         func consume(segment char: Character, after: Bool = true) throws -> String {
             let parts = str.split(separator: char)
             guard let part = (after ? parts.last : parts.first), parts.count > 1 else {
-                throw AppError("Unable to parse character “\(char)” for asset name: “\(string)”")
+                throw AppError(String(format: NSLocalizedString("Unable to parse character “%@” for asset name: “%@”", bundle: .module, comment: "error message"), char.description, string))
             }
             str = String(after ? str.dropLast(part.count + 1) : str.dropFirst(part.count + 1))
             return String(part)

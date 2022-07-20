@@ -1169,7 +1169,7 @@ public class ZipArchiveDataWrapper : DataWrapper {
 
     public func seekableData(at path: Path) throws -> SeekableData {
         guard let entry = path.entry else {
-            throw AppError("path was not backed by a zip entry")
+            throw AppError(NSLocalizedString("path was not backed by a zip entry", bundle: .module, comment: "error message"))
         }
         return SeekableDataHandle(try archive.extractData(from: entry))
     }
