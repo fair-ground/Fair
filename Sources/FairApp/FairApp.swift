@@ -699,7 +699,7 @@ public struct SearchBarCommands: Commands {
                 Text("Search", bundle: .module, comment: "search command text").button {
                     dbg("activating search field")
                     // there's no official way to do this, so search the NSToolbar for the item and make it the first responder
-                    if let window = NSApp.currentEvent?.window,
+                    if let window = UXApplication.shared.currentEvent?.window,
                        let toolbar = window.toolbar,
                        let searchField = toolbar.visibleItems?.compactMap({ $0 as? NSSearchToolbarItem }).first {
                         // <SwiftUI.AppKitSearchToolbarItem: 0x13a8721a0> identifier = "com.apple.SwiftUI.search"]
