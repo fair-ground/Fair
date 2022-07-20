@@ -885,7 +885,11 @@ extension WebViewState {
         Text("Reload", bundle: .module, comment: "button title for reloading embedded browser")
             .label(image: loadingImageButton(rotationBinding: rotationBinding, symbol: symbol, loading: self.isLoading))
             .button {
+                #if os(macOS)
                 let cmdDown = UXApplication.shared.currentEvent?.modifierFlags.contains(.command) == true
+                #else
+                let cmdDown = false
+                #endif
                 dbg("reloading from", cmdDown ? "origin" : "cache", self.urlString)
                 Task {
                     await self.reload(fromOrigin: cmdDown)
