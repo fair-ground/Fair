@@ -606,8 +606,8 @@ public final class AppCatalogAPI {
         let (downloaded, localURL) = url.isFileURL ? (false, url) : (true, try await URLSession.shared.downloadFile(for: URLRequest(url: url)).localURL)
         dbg("localURL:", localURL)
         if !FileManager.default.isReadableFile(atPath: localURL.path) {
-            let fmt = NSLocalizedString("Cannot read file at %@", bundle: .module, comment: "error message")
-            let msg = String(format: fmt, localURL.path)
+            let fmt = NSLocalizedString("Cannot read file at %@", bundle: Bundle.module, comment: "error message")
+            let msg = String(format: fmt, arguments: [localURL.path])
             throw AppError(msg)
         }
 
@@ -623,7 +623,7 @@ public final class AppCatalogAPI {
 
         //var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
         guard var item = try info.appCatalogInfo(downloadURL: url) else {
-            throw AppError(String(format: NSLocalizedString("Cannot build catalog from Info.plist", bundle: .module, comment: "error message")))
+            throw AppError(NSLocalizedString("Cannot build catalog from Info.plist", bundle: .module, comment: "error message"))
         }
 
         item.version = info.CFBundleShortVersionString
@@ -1052,15 +1052,15 @@ public struct FairCommand : AsyncParsableCommand {
                 //let appID = "app." + appOrgName
 
                 guard let appName = try projectOptions.buildSettings()?["PRODUCT_NAME"] else {
-                    throw AppError(String(format: NSLocalizedString("Missing PRODUCT_NAME in AppFairApp.xcconfig", bundle: .module, comment: "error message")))
+                    throw AppError(NSLocalizedString("Missing PRODUCT_NAME in AppFairApp.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 if appName != appOrgNameSpace {
-                    throw AppError(String(format: NSLocalizedString("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), appName, appOrgNameSpace))
+                    throw AppError(String(format: NSLocalizedString("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
                 }
 
                 guard let appVersion = try projectOptions.buildSettings()?["MARKETING_VERSION"] else {
-                    throw AppError(String(format: NSLocalizedString("Missing MARKETING_VERSION in AppFairApp.xcconfig", bundle: .module, comment: "error message")))
+                    throw AppError(NSLocalizedString("Missing MARKETING_VERSION in AppFairApp.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 let expectedIntegrationTitle = appName + " " + appVersion
@@ -1341,17 +1341,17 @@ public struct FairCommand : AsyncParsableCommand {
 
             let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
             guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
-                throw AppError(String(format: NSLocalizedString("Error opening trusted archive: %@", bundle: .module, comment: "error message"), trustedArtifactURL.absoluteString))
+                throw AppError(String(format: NSLocalizedString("Error opening trusted archive: %@", bundle: .module, comment: "error message"), arguments: [trustedArtifactURL.absoluteString]))
             }
 
             let untrustedArtifactLocalURL = try await fetchUntrustedArtifact()
 
             guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
-                throw AppError(String(format: NSLocalizedString("Error opening untrusted archive: %@", bundle: .module, comment: "error message"), untrustedArtifactLocalURL.absoluteString))
+                throw AppError(String(format: NSLocalizedString("Error opening untrusted archive: %@", bundle: .module, comment: "error message"), arguments: [untrustedArtifactLocalURL.absoluteString]))
             }
 
             if untrustedArtifactLocalURL == trustedArtifactURL {
-                throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifacts may not be the same", bundle: .module, comment: "error message")))
+                throw AppError(NSLocalizedString("Trusted and untrusted artifacts may not be the same", bundle: .module, comment: "error message"))
             }
 
             // Load the zip entries, skipping over signature entries we are exlcuding from the comparison
@@ -1370,7 +1370,7 @@ public struct FairCommand : AsyncParsableCommand {
             let untrustedEntries = readEntries(untrustedArchive)
 
             if trustedEntries.count != untrustedEntries.count {
-                throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content counts do not match (%d vs. %d)", bundle: .module, comment: "error message"), trustedEntries.count, untrustedEntries.count))
+                throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content counts do not match (%lu vs. %lu)", bundle: .module, comment: "error message"), arguments: [trustedEntries.count, untrustedEntries.count]))
             }
 
             let rootPaths = Set(trustedEntries.compactMap({
@@ -1380,7 +1380,7 @@ public struct FairCommand : AsyncParsableCommand {
             }))
 
             guard rootPaths.count == 1, let rootPath = rootPaths.first, rootPath.hasSuffix(Self.appSuffix) else {
-                throw AppError(String(format: NSLocalizedString("Invalid root path in archive: %@", bundle: .module, comment: "error message"), rootPaths))
+                throw AppError(String(format: NSLocalizedString("Invalid root path in archive: %@", bundle: .module, comment: "error message"), arguments: [rootPaths]))
             }
 
             let appName = rootPath.dropLast(Self.appSuffix.count)
@@ -1404,7 +1404,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             for (trustedEntry, untrustedEntry) in zip(trustedEntries, untrustedEntries) {
                 if trustedEntry.path != untrustedEntry.path {
-                    throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content paths do not match: %@ vs. %@", bundle: .module, comment: "error message"), trustedEntry.path, untrustedEntry.path))
+                    throw AppError(String(format: NSLocalizedString("Trusted and untrusted artifact content paths do not match: %@ vs. %@", bundle: .module, comment: "error message"), arguments: [trustedEntry.path, untrustedEntry.path]))
                 }
 
                 let entryIsMainBinary = executablePaths.contains(trustedEntry.path)
@@ -1559,7 +1559,7 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             guard let plist = infoPlist else {
-                throw AppError(String(format: NSLocalizedString("Missing property list", bundle: .module, comment: "error message")))
+                throw AppError(NSLocalizedString("Missing property list", bundle: .module, comment: "error message"))
             }
 
             let entitlementsURL = projectOptions.projectPathURL(path: "Sandbox.entitlements")
@@ -1644,7 +1644,7 @@ public struct FairCommand : AsyncParsableCommand {
                     return downloadedURL
                 } else {
                     msg(.info, "failed to download:", artifactURL.absoluteString, "code:", (response as? HTTPURLResponse)?.statusCode)
-                    throw AppError(String(format: NSLocalizedString("Unable to download: %@ code: %d", bundle: .module, comment: "error message"), artifactURL.absoluteString, ((response as? HTTPURLResponse)?.statusCode ?? 0)))
+                    throw AppError(String(format: NSLocalizedString("Unable to download: %@ code: %lu", bundle: .module, comment: "error message"), arguments: [artifactURL.absoluteString, ((response as? HTTPURLResponse)?.statusCode ?? 0)]))
                 }
             }
         }
@@ -1736,7 +1736,7 @@ public struct FairCommand : AsyncParsableCommand {
                 let iconInset = imageSet.idiom?.hasPrefix("mac") == true ? 0.10 : 0.00 // mac icons are inset by 10%
 
                 guard let pngData = iconView.padding(span * iconInset).png(bounds: bounds), pngData.count > 1024 else {
-                    throw AppError(String(format: NSLocalizedString("Unable to generate PNG data", bundle: .module, comment: "error message")))
+                    throw AppError(NSLocalizedString("Unable to generate PNG data", bundle: .module, comment: "error message"))
                 }
                 try pngData.write(to: iconFile)
                 msg(.info, "output icon to: \(iconFile.path)")
@@ -2262,7 +2262,7 @@ public struct TweetOptions: ParsableArguments {
     private func check(_ propValue: String?, env: String, option: String) throws -> String {
         if let propValue = propValue { return propValue }
         if let envValue = ProcessInfo.processInfo.environment[env] { return envValue }
-        throw AppError(String(format: NSLocalizedString("Must specify either option --%@ or environment variable: $@", bundle: .module, comment: "error message"), option, env))
+        throw AppError(String(format: NSLocalizedString("Must specify either option --%@ or environment variable: $@", bundle: .module, comment: "error message"), arguments: [option, env]))
     }
 
     func createAuth(parameters: [String : String] = [:]) throws -> OAuth1.Info {
@@ -3069,13 +3069,13 @@ public struct BuildSettings : RawRepresentable, Hashable {
 
             let parts = nocomment.components(separatedBy: " = ")
             if parts.count != 2 {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %d: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), index))
+                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), arguments: [index]))
             }
             guard let key = parts.first?.trimmed(), !key.isEmpty else {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %d: no key", bundle: .module, comment: "error message"), index))
+                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: no key", bundle: .module, comment: "error message"), arguments: [index]))
             }
             guard let value = parts.last?.trimmed(), !key.isEmpty else {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %d: no value", bundle: .module, comment: "error message"), index))
+                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: no value", bundle: .module, comment: "error message"), arguments: [index]))
             }
             self.rawValue[key] = value
         }
