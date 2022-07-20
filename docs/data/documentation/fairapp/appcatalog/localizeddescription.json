@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The canonical location of the catalog",
+      "text" : "A localized description of the app with limited markdown permitted",
       "type" : "text"
     }
   ],
@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizedDescription"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B7CatalogV9sourceURL10Foundation0E0VSgvp",
+    "externalID" : "s:7FairApp0B7CatalogV20localizedDescriptionSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +31,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "sourceURL"
+        "text" : "localizedDescription"
       },
       {
         "kind" : "text",
@@ -39,8 +39,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10Foundation3URLV",
-        "text" : "URL"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
@@ -55,7 +55,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "sourceURL"
+    "title" : "localizedDescription"
   },
   "primaryContentSections" : [
     {
@@ -78,7 +78,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "sourceURL"
+              "text" : "localizedDescription"
             },
             {
               "kind" : "text",
@@ -86,8 +86,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10Foundation3URLV",
-              "text" : "URL"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
@@ -110,7 +110,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalog\/sourceurl"
+        "\/documentation\/fairapp\/appcatalog\/localizeddescription"
       ],
       "traits" : [
         {
@@ -270,6 +270,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/identifier"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog/localizedDescription": {
+  "abstract" : [
+    {
+      "text" : "A localized description of the app with limited markdown permitted",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "localizedDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizedDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "localizedDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/localizeddescription"
+},
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [
     {
@@ -310,47 +351,6 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/name"
-},
-"doc://FairApp/documentation/FairApp/AppCatalog/sourceURL": {
-  "abstract" : [
-    {
-      "text" : "The canonical location of the catalog",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "sourceURL"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "sourceURL",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/sourceurl"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem": {
   "abstract" : [

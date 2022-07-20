@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "The canonical location of the catalog",
+      "text" : "A hint for a tint color to use for the catalog. ; must be a 6-character RGB hex color (such as ",
+      "type" : "text"
+    },
+    {
+      "code" : "FFFFFF",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for white).",
       "type" : "text"
     }
   ],
@@ -15,11 +23,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/tintColor"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B7CatalogV9sourceURL10Foundation0E0VSgvp",
+    "externalID" : "s:7FairApp0B7CatalogV9tintColorSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +39,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "sourceURL"
+        "text" : "tintColor"
       },
       {
         "kind" : "text",
@@ -39,8 +47,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10Foundation3URLV",
-        "text" : "URL"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
@@ -55,7 +63,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "sourceURL"
+    "title" : "tintColor"
   },
   "primaryContentSections" : [
     {
@@ -78,7 +86,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "sourceURL"
+              "text" : "tintColor"
             },
             {
               "kind" : "text",
@@ -86,8 +94,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10Foundation3URLV",
-              "text" : "URL"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
@@ -110,7 +118,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalog\/sourceurl"
+        "\/documentation\/fairapp\/appcatalog\/tintcolor"
       ],
       "traits" : [
         {
@@ -311,10 +319,18 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/name"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/sourceURL": {
+"doc://FairApp/documentation/FairApp/AppCatalog/tintColor": {
   "abstract" : [
     {
-      "text" : "The canonical location of the catalog",
+      "text" : "A hint for a tint color to use for the catalog. ; must be a 6-character RGB hex color (such as ",
+      "type" : "text"
+    },
+    {
+      "code" : "FFFFFF",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for white).",
       "type" : "text"
     }
   ],
@@ -329,7 +345,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "sourceURL"
+      "text" : "tintColor"
     },
     {
       "kind" : "text",
@@ -337,20 +353,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/tintColor",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "sourceURL",
+  "title" : "tintColor",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/sourceurl"
+  "url" : "\/documentation\/fairapp\/appcatalog\/tintcolor"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem": {
   "abstract" : [

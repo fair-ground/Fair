@@ -154,7 +154,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)"
       ],
       "title" : "Initializers"
     },
@@ -163,11 +163,14 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/apps",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/fundingSources",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/homepage",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/iconURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizedDescription",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/news",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/platform",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/sourceURL",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/tintColor"
       ],
       "title" : "Instance Properties"
     },
@@ -480,6 +483,47 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/homepage"
 },
+"doc://FairApp/documentation/FairApp/AppCatalog/iconURL": {
+  "abstract" : [
+    {
+      "text" : "A URL pointing to an icon to summarize the catalog",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "iconURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/iconURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "iconURL",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/iconurl"
+},
 "doc://FairApp/documentation/FairApp/AppCatalog/identifier": {
   "abstract" : [
     {
@@ -563,7 +607,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/init(from:)"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)": {
   "abstract" : [
 
   ],
@@ -612,6 +656,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "localizedDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "platform"
     },
     {
@@ -647,6 +708,40 @@
     {
       "kind" : "externalParam",
       "text" : "sourceURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "iconURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "tintColor"
     },
     {
       "kind" : "text",
@@ -713,12 +808,53 @@
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)",
+  "title" : "init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:platform:homepage:sourceurl:apps:news:fundingsources:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:)"
+},
+"doc://FairApp/documentation/FairApp/AppCatalog/localizedDescription": {
+  "abstract" : [
+    {
+      "text" : "A localized description of the app with limited markdown permitted",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "localizedDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizedDescription",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "localizedDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/localizeddescription"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [
@@ -947,8 +1083,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
     },
     {
       "kind" : "text",
@@ -961,6 +1097,55 @@
   "title" : "sourceURL",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/sourceurl"
+},
+"doc://FairApp/documentation/FairApp/AppCatalog/tintColor": {
+  "abstract" : [
+    {
+      "text" : "A hint for a tint color to use for the catalog. ; must be a 6-character RGB hex color (such as ",
+      "type" : "text"
+    },
+    {
+      "code" : "FFFFFF",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for white).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "tintColor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/tintColor",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "tintColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalog\/tintcolor"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem": {
   "abstract" : [

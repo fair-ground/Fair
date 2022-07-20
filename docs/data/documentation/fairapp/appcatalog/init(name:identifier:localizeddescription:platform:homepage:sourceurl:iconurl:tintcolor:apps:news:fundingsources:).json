@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B7CatalogV4name10identifier8platform8homepage9sourceURL4apps4news14fundingSourcesACSS_SSAA0B8PlatformVSgSSSgAOSayAA0bC4ItemVGSayAA0B8NewsPostVGSgSayAA0B13FundingSourceVGSgtcfc",
+    "externalID" : "s:7FairApp0B7CatalogV4name10identifier20localizedDescription8platform8homepage9sourceURL04iconK09tintColor4apps4news14fundingSourcesACSS_S2SSgAA0B8PlatformVSgAO10Foundation0K0VSgAvOSayAA0bC4ItemVGSayAA0B8NewsPostVGSgSayAA0B13FundingSourceVGSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -65,6 +65,23 @@
       },
       {
         "kind" : "externalParam",
+        "text" : "localizedDescription"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
         "text" : "platform"
       },
       {
@@ -100,6 +117,40 @@
       {
         "kind" : "externalParam",
         "text" : "sourceURL"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "iconURL"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "tintColor"
       },
       {
         "kind" : "text",
@@ -174,7 +225,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)"
+    "title" : "init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)"
   },
   "primaryContentSections" : [
     {
@@ -231,6 +282,23 @@
             },
             {
               "kind" : "externalParam",
+              "text" : "localizedDescription"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
               "text" : "platform"
             },
             {
@@ -267,6 +335,40 @@
             {
               "kind" : "externalParam",
               "text" : "sourceURL"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "iconURL"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "tintColor"
             },
             {
               "kind" : "text",
@@ -352,7 +454,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalog\/init(name:identifier:platform:homepage:sourceurl:apps:news:fundingsources:)"
+        "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:)"
       ],
       "traits" : [
         {
@@ -512,7 +614,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/identifier"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)": {
   "abstract" : [
 
   ],
@@ -561,6 +663,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "localizedDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "platform"
     },
     {
@@ -596,6 +715,40 @@
     {
       "kind" : "externalParam",
       "text" : "sourceURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "iconURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "tintColor"
     },
     {
       "kind" : "text",
@@ -662,12 +815,12 @@
       "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:identifier:platform:homepage:sourceURL:apps:news:fundingSources:)",
+  "title" : "init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:platform:homepage:sourceurl:apps:news:fundingsources:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:)"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/name": {
   "abstract" : [

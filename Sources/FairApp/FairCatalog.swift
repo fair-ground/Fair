@@ -28,12 +28,18 @@ public struct AppCatalog : Codable, Equatable {
     public var name: String?
     /// The identifier for the catalog in reverse-DNS notation (e.g., "app.App-Name")
     public var identifier: String?
+    /// A localized description of the app with limited markdown permitted
+    public var localizedDescription: String?
     /// The platform for apps in the catalog (e.g., "ios", "macos", "android")
     public var platform: AppPlatform?
     /// The homepage for the catalog
     public var homepage: String?
     /// The canonical location of the catalog
-    public var sourceURL: String?
+    public var sourceURL: URL?
+    /// A URL pointing to an icon to summarize the catalog
+    public var iconURL: URL?
+    /// A hint for a tint color to use for the catalog. ; must be a 6-character RGB hex color (such as `FFFFFF` for white).
+    public var tintColor: String?
     /// The apps that are currently available
     public var apps: [AppCatalogItem]
     /// Any news items for the catalog
@@ -41,12 +47,15 @@ public struct AppCatalog : Codable, Equatable {
     /// The sources of funding that are available to apps in this catalog
     public var fundingSources: [AppFundingSource]?
 
-    public init(name: String, identifier: String, platform: AppPlatform? = nil, homepage: String? = nil, sourceURL: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
+    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: String? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
         self.name = name
         self.identifier = identifier
+        self.localizedDescription = localizedDescription
         self.platform = platform
         self.homepage = homepage
         self.sourceURL = sourceURL
+        self.tintColor = tintColor
+        self.iconURL = iconURL
         self.apps = apps
         self.news = news
         self.fundingSources = fundingSources

@@ -246,10 +246,28 @@ public struct SourceCommand : AsyncParsableCommand {
             }
             var catalog = AppCatalog(name: sourceOptions.catalogName ?? "CATALOG_NAME", identifier: sourceOptions.catalogIdentifier ?? "CATALOG_IDENTIFIER", apps: [])
 
+            if let catalogPlatform = sourceOptions.catalogPlatform {
+                catalog.platform = .init(rawValue: catalogPlatform) // TODO: validate platform name?
+            }
+
             if let catalogSource = sourceOptions.catalogSourceURL,
                let catalogSourceURL = URL(string: catalogSource) {
-                catalog.sourceURL = catalogSourceURL.absoluteString
+                catalog.sourceURL = catalogSourceURL
             }
+
+            if let catalogIcon = sourceOptions.catalogIconURL,
+               let catalogIconURL = URL(string: catalogIcon) {
+                catalog.iconURL = catalogIconURL
+            }
+
+            if let catalogLocalizedDescription = sourceOptions.catalogLocalizedDescription {
+                catalog.localizedDescription = catalogLocalizedDescription
+            }
+
+            if let catalogTintColor = sourceOptions.catalogTintColor {
+                catalog.tintColor = catalogTintColor
+            }
+
 
             // trim out the "apps" array and tack it onto the end of the output so we
             // can stream the apps afterwards
@@ -2506,8 +2524,20 @@ public struct SourceOptions: ParsableArguments {
     @Option(help: ArgumentHelp("the identifier of the catalog.", valueName: "id"))
     public var catalogIdentifier: String?
 
+    @Option(help: ArgumentHelp("the platform for this catalog.", valueName: "id"))
+    public var catalogPlatform: String?
+
+    @Option(help: ArgumentHelp("the description for this catalog.", valueName: "desc"))
+    public var catalogLocalizedDescription: String?
+
     @Option(help: ArgumentHelp("the source URL of the catalog.", valueName: "url"))
     public var catalogSourceURL: String?
+
+    @Option(help: ArgumentHelp("the icon URL of the catalog.", valueName: "url"))
+    public var catalogIconURL: String?
+
+    @Option(help: ArgumentHelp("the tint color for this catalog.", valueName: "rgbhex"))
+    public var catalogTintColor: String?
 
     // Per-app arguments
 
