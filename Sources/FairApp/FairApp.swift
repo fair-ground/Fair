@@ -1279,6 +1279,28 @@ public extension HexColor {
 
 
 
+/// Shim to work around crash with accessing ``Bundle.module`` from a command-line tool.
+///
+/// Ideally, we could enable this only when compiling into a single tool
+internal func NSLocalizedString(_ key: String, tableName: String? = nil, bundle: @autoclosure () -> Bundle, value: String = "", comment: String) -> String {
+
+    if moduleBundle == nil {
+        // No bundle was found, so we are missing our localized resources.
+        // Simple
+        return key
+    }
+
+    // Runtime crash: FairExpo/resource_bundle_accessor.swift:11: Fatal error: could not load resource bundle: from /usr/local/bin/Fair_FairExpo.bundle or /private/tmp/fairtool-20220720-3195-1rk1z7r/.build/x86_64-apple-macosx/release/Fair_FairExpo.bundle
+
+    return Foundation.NSLocalizedString(key, tableName: tableName, bundle: bundle(), value: value, comment: comment)
+}
+/// #endif
+
+/// The same logic as the generated `resource_bundle_accessor.swift`,
+/// so we can check it without crashing with a `fataError`.
+private let moduleBundle = Bundle(url: Bundle.main.bundleURL.appendingPathComponent("Fair_FairApp.bundle"))
+
+
 /// Work-in-Progress marker
 @available(*, deprecated, message: "work in progress")
 @inlinable public func wip<T>(_ value: T) -> T { value }
