@@ -270,7 +270,7 @@ final class FairHubTests: XCTestCase {
 
     @discardableResult private func checkApp(_ id: String, catalog: AppCatalog, fundingPlatform: AppFundingPlatform? = nil) -> AppCatalogItem? {
         guard let app = catalog.apps.first(where: { $0.bundleIdentifier == id }) else {
-            XCTFail("no app")
+            XCTFail("no app \(id) found in app list: \(catalog.apps.map(\.bundleIdentifier))")
             return nil
         }
 

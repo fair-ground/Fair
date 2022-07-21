@@ -172,7 +172,7 @@ extension FairHub {
     }
 
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(title: String, identifier: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
+    func buildCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
@@ -186,7 +186,7 @@ extension FairHub {
         apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
 
         let macOS = artifactTarget.devices.contains("mac")
-        let catalogURL = macOS ? appfairCatalogURLMacOS : appfairCatalogURLIOS
+        let catalogURL = sourceURL
         let catalog = AppCatalog(name: title, identifier: identifier, platform: macOS ? .macOS : .iOS, sourceURL: catalogURL, apps: apps, news: news)
         return catalog
     }
