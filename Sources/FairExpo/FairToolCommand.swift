@@ -1307,8 +1307,10 @@ public struct FairCommand : AsyncParsableCommand {
 
             let configuration = try regOptions.createProjectConfiguration()
 
+            let sourceURL = sourceOptions.catalogSourceURL.flatMap(URL.init(string:))
+
             // build the catalog filtering on specific artifact extensions
-            var catalog = try await hub.buildCatalog(title: sourceOptions.catalogName ?? "App Source", identifier: sourceOptions.catalogIdentifier ?? "identifier", owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.caskOptions.requestLimit)
+            var catalog = try await hub.buildCatalog(title: sourceOptions.catalogName ?? "App Source", identifier: sourceOptions.catalogIdentifier ?? "identifier", owner: hubOptions.organizationName, sourceURL: sourceURL, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.caskOptions.requestLimit)
             if fundingSources {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo)
             }

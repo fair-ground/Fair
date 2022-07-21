@@ -20,49 +20,49 @@ import Swift
 import UIKit
 /// Cross-platorm alias for `String` and `NSUserInterfaceItemIdentifier`
 public typealias UXID = String // UIUserInterfaceItemIdentifier
-/// Cross-platorm alias for `UIResponder` and `NSResponder`
+/// Cross-platorm alias for ``UIKit.UIResponder`` and ``AppKit.NSResponder``
 public typealias UXResponder = UIResponder
-/// Cross-platorm alias for `UIWindow` and `NSWindow`
+/// Cross-platorm alias for ``UIKit.UIWindow`` and ``AppKit.NSWindow``
 public typealias UXWindow = UIWindow
-/// Cross-platorm alias for `UIView` and `NSView`
+/// Cross-platorm alias for ``UIKit.UIView`` and ``AppKit.NSView``
 public typealias UXView = UIView
-/// Cross-platorm alias for `UIFont` and `NSFont`
+/// Cross-platorm alias for ``UIKit.UIFont`` and ``AppKit.NSFont``
 public typealias UXFont = UIFont
-/// Cross-platorm alias for `UIColor` and `NSColor`
+/// Cross-platorm alias for ``UIKit.UIColor`` and ``AppKit.NSColor``
 public typealias UXColor = UIColor
-/// Cross-platorm alias for `UIBezierPath` and `NSBezierPath`
+/// Cross-platorm alias for ``UIKit.UIBezierPath`` and ``AppKit.NSBezierPath``
 public typealias UXBezierPath = UIBezierPath
-/// Cross-platorm alias for `UIImage` and `NSImage`
+/// Cross-platorm alias for ``UIKit.UIImage`` and ``AppKit.NSImage``
 public typealias UXImage = UIImage
-/// Cross-platorm alias for `UIButton` and `NSButton`
+/// Cross-platorm alias for ``UIKit.UIButton`` and ``AppKit.NSButton``
 public typealias UXButton = UIButton
-/// Cross-platorm alias for `UITextField` and `NSTextField`
+/// Cross-platorm alias for ``UIKit.UITextField`` and ``AppKit.NSTextField``
 public typealias UXTextField = UITextField
-/// Cross-platorm alias for `UITextView` and `NSTextView`
+/// Cross-platorm alias for ``UIKit.UITextView`` and ``AppKit.NSTextView``
 public typealias UXTextView = UITextView
-/// Cross-platorm alias for `UITextViewDelegate` and `NSTextViewDelegate`
+/// Cross-platorm alias for ``UIKit.UITextViewDelegate`` and ``AppKit.NSTextViewDelegate``
 public typealias UXTextViewDelegate = UITextViewDelegate
-/// Cross-platorm alias for `UIFontDescriptor` and `NSFontDescriptor`
+/// Cross-platorm alias for ``UIKit.UIFontDescriptor`` and ``AppKit.NSFontDescriptor``
 public typealias UXFontDescriptor = UIFontDescriptor
-/// Cross-platorm alias for `UIViewController` and `NSViewController`
+/// Cross-platorm alias for ``UIKit.UIViewController`` and ``AppKit.NSViewController``
 public typealias UXViewController = UIViewController
-/// Cross-platorm alias for `UIScrollView` and `NSScrollView`
+/// Cross-platorm alias for ``UIKit.UIScrollView`` and ``AppKit.NSScrollView``
 public typealias UXScrollView = UIScrollView
-/// Cross-platorm alias for `UIVisualEffectView` and `NSVisualEffectView`
+/// Cross-platorm alias for ``UIKit.UIVisualEffectView`` and ``AppKit.NSVisualEffectView``
 public typealias UXVisualEffectView = UIVisualEffectView
-/// Cross-platorm alias for `UIDocument` and `NSDocument`
+/// Cross-platorm alias for ``UIKit.UIDocument`` and ``AppKit.NSDocument``
 public typealias UXDocument = UIDocument
-/// Cross-platorm alias for `UIApplication` and `NSApplication`
+/// Cross-platorm alias for ``UIKit.UIApplication`` and ``AppKit.NSApplication``
 public typealias UXApplication = UIApplication
-/// Cross-platorm alias for `UIEvent` and `NSEvent`
+/// Cross-platorm alias for ``UIKit.UIEvent`` and ``AppKit.NSEvent``
 public typealias UXEvent = UIEvent
-/// Cross-platorm alias for `UIViewRepresentableContext` and `NSViewRepresentableContext`
+/// Cross-platorm alias for ``UIKit.UIViewRepresentableContext`` and ``AppKit.NSViewRepresentableContext``
 public typealias UXViewRepresentableContext = UIViewRepresentableContext
-/// Cross-platorm alias for `UIHostingController` and `NSHostingController`
+/// Cross-platorm alias for ``UIKit.UIHostingController`` and ``AppKit.NSHostingController``
 public typealias UXHostingController = UIHostingController
-/// Cross-platorm alias for `UIHostingView` and `NSHostingView`
+/// Cross-platorm alias for ``UIKit.UIHostingView`` and ``AppKit.NSHostingView``
 //public typealias UXHostingView = UIHostingView // does not exist in UIKit
-/// Cross-platorm alias for `UIPasteboard` and `NSPasteboard`
+/// Cross-platorm alias for ``UIKit.UIPasteboard`` and ``AppKit.NSPasteboard``
 public typealias UXPasteboard = UIPasteboard
 
 public extension UIPasteboard {
@@ -75,53 +75,53 @@ public extension UIEvent {
 
 #elseif canImport(AppKit)
 import AppKit
-/// Cross-platorm alias for `NID` and `NID`
+/// Cross-platorm alias for ``NSUserInterfaceItemIdentifier``
 public typealias NID = NSUserInterfaceItemIdentifier
 /// Cross-platorm alias for `NSID` and `UIID`
 public typealias UXID = NID
-/// Cross-platorm alias for `NSResponder` and `UIResponder`
+/// Cross-platorm alias for ``AppKit.NSResponder`` and ``UIKit.UIResponder``
 public typealias UXResponder = NSResponder
-/// Cross-platorm alias for `NSWindow` and `UIWindow`
+/// Cross-platorm alias for ``AppKit.NSWindow`` and ``UIKit.UIWindow``
 public typealias UXWindow = NSWindow
-/// Cross-platorm alias for `NSView` and `UIView`
+/// Cross-platorm alias for ``AppKit.NSView`` and ``UIKit.UIView``
 public typealias UXView = NSView
-/// Cross-platorm alias for `NSFont` and `UIFont`
+/// Cross-platorm alias for ``AppKit.NSFont`` and ``UIKit.UIFont``
 public typealias UXFont = NSFont
-/// Cross-platorm alias for `NSColor` and `UIColor`
+/// Cross-platorm alias for ``AppKit.NSColor`` and ``UIKit.UIColor``
 public typealias UXColor = NSColor
-/// Cross-platorm alias for `NSBezierPath` and `UIBezierPath`
+/// Cross-platorm alias for ``AppKit.NSBezierPath`` and ``UIKit.UIBezierPath``
 public typealias UXBezierPath = NSBezierPath
-/// Cross-platorm alias for `NSImage` and `UIImage`
+/// Cross-platorm alias for ``AppKit.NSImage`` and ``UIKit.UIImage``
 public typealias UXImage = NSImage
-/// Cross-platorm alias for `NSButton` and `UIButton`
+/// Cross-platorm alias for ``AppKit.NSButton`` and ``UIKit.UIButton``
 public typealias UXButton = NSButton
-/// Cross-platorm alias for `NSTextField` and `UITextField`
+/// Cross-platorm alias for ``AppKit.NSTextField`` and ``UIKit.UITextField``
 public typealias UXTextField = NSTextField
-/// Cross-platorm alias for `NSTextView` and `UITextView`
+/// Cross-platorm alias for ``AppKit.NSTextView`` and ``UIKit.UITextView``
 public typealias UXTextView = NSTextView
-/// Cross-platorm alias for `NSTextViewDelegate` and `UITextViewDelegate`
+/// Cross-platorm alias for ``AppKit.NSTextViewDelegate`` and ``UIKit.UITextViewDelegate``
 public typealias UXTextViewDelegate = NSTextViewDelegate
-/// Cross-platorm alias for `NSFontDescriptor` and `UIFontDescriptor`
+/// Cross-platorm alias for ``AppKit.NSFontDescriptor`` and ``UIKit.UIFontDescriptor``
 public typealias UXFontDescriptor = NSFontDescriptor
-/// Cross-platorm alias for `NSViewController` and `UIViewController`
+/// Cross-platorm alias for ``AppKit.NSViewController`` and ``UIKit.UIViewController``
 public typealias UXViewController = NSViewController
-/// Cross-platorm alias for `NSScrollView` and `UIScrollView`
+/// Cross-platorm alias for ``AppKit.NSScrollView`` and ``UIKit.UIScrollView``
 public typealias UXScrollView = NSScrollView
-/// Cross-platorm alias for `NSVisualEffectView` and `UIVisualEffectView`
+/// Cross-platorm alias for ``AppKit.NSVisualEffectView`` and ``UIKit.UIVisualEffectView``
 public typealias UXVisualEffectView = NSVisualEffectView
-/// Cross-platorm alias for `NSDocument` and `UIDocument`
+/// Cross-platorm alias for ``AppKit.NSDocument`` and ``UIKit.UIDocument``
 public typealias UXDocument = NSDocument
-/// Cross-platorm alias for `NSApplication` and `UIApplication`
+/// Cross-platorm alias for ``AppKit.NSApplication`` and ``UIKit.UIApplication``
 public typealias UXApplication = NSApplication
-/// Cross-platorm alias for `NSEvent` and `UIEvent`
+/// Cross-platorm alias for ``AppKit.NSEvent`` and ``UIKit.UIEvent``
 public typealias UXEvent = NSEvent
-/// Cross-platorm alias for `UIViewRepresentableContext` and `NSViewRepresentableContext`
+/// Cross-platorm alias for ``AppKit.UIViewRepresentableContext`` and ``UIKit.NSViewRepresentableContext``
 public typealias UXViewRepresentableContext = NSViewRepresentableContext
-/// Cross-platorm alias for `UIHostingController` and `NSHostingController`
+/// Cross-platorm alias for ``AppKit.UIHostingController`` and ``UIKit.NSHostingController``
 public typealias UXHostingController = NSHostingController
-/// Cross-platorm alias for `UIHostingView` and `NSHostingView`
+/// Cross-platorm alias for ``AppKit.UIHostingView`` and ``UIKit.NSHostingView``
 //public typealias UXHostingView = NSHostingView // does not exist in UIKit
-/// Cross-platorm alias for `NSPasteboard` and `UIPasteboard`
+/// Cross-platorm alias for ``AppKit.NSPasteboard`` and ``UIKit.UIPasteboard``
 public typealias UXPasteboard = NSPasteboard
 #endif
 
