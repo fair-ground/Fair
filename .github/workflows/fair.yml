@@ -458,8 +458,8 @@ jobs:
           # workflows may not be modified
           #diff -r .github/workflows/ ReleasePR/.github/workflows/
           # store the current checkout in the build artifact staging
-          mkdir -p staging/ReleasePR/
-          cp -a * staging/ReleasePR/
+          mkdir -p staging/
+          cp -a ReleasePR staging/
 
       - name: Get version tag
         id: get_semver_tag
