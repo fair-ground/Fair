@@ -457,9 +457,6 @@ jobs:
         run: |
           # workflows may not be modified
           #diff -r .github/workflows/ ReleasePR/.github/workflows/
-          # store the current checkout in the build artifact staging
-          mkdir -p staging/
-          cp -a ReleasePR staging/
 
       - name: Get version tag
         id: get_semver_tag
@@ -497,6 +494,9 @@ jobs:
         run: |
           rm -rf "staging/"
           mkdir "staging/"
+
+          # store the PR in the build archive
+          cp -a ReleasePR "staging/"
 
           fairtool fair merge --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
