@@ -17,6 +17,9 @@
 import Swift
 import FairCore
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 // MARK: Serializable Structures
 
