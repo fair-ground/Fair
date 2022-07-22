@@ -93,6 +93,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogSource",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlementPermission",
@@ -626,6 +627,57 @@
   "title" : "AppCatalogItem",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogSource": {
+  "abstract" : [
+    {
+      "text" : "A source of an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ", which can either be a catalog itslef",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "or a URL that is expected to resolve to a catalog.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogSource"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogSource",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogSource"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogSource",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogsource"
 },
 "doc://FairApp/documentation/FairApp/AppCategory": {
   "abstract" : [

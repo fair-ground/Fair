@@ -46,8 +46,12 @@ public struct AppCatalog : Codable, Equatable {
     public var news: [AppNewsPost]?
     /// The sources of funding that are available to apps in this catalog
     public var fundingSources: [AppFundingSource]?
+    /// The base localization code for this catalog
+    public var baseLocale: String?
+    /// A map of localizations to catalog providers
+    public var localizations: [String : AppCatalogSource]?
 
-    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: URL? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil) {
+    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: URL? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil, baseLocale: String? = nil, localizations: [String : AppCatalogSource]? = nil) {
         self.name = name
         self.identifier = identifier
         self.localizedDescription = localizedDescription
@@ -59,6 +63,24 @@ public struct AppCatalog : Codable, Equatable {
         self.apps = apps
         self.news = news
         self.fundingSources = fundingSources
+        self.baseLocale = baseLocale
+        self.localizations = localizations
+    }
+
+    public enum CodingKeys : String, CodingKey, CaseIterable {
+        case name
+        case identifier
+        case localizedDescription
+        case platform
+        case homepage
+        case sourceURL
+        case tintColor
+        case iconURL
+        case apps
+        case news
+        case fundingSources
+        case baseLocale
+        case localizations
     }
 }
 
@@ -644,7 +666,80 @@ public extension AppCatalogItem {
     }
 }
 
+/// A source of an ``AppCatalog``, which can either be a catalog itslef
+/// or a URL that is expected to resolve to a catalog.
+public struct AppCatalogSource : RawCodable, Equatable {
+    public typealias RawValue = XOr<AppCatalog>.Or<URL>
+    public let rawValue: RawValue
 
+    public init(rawValue: RawValue) {
+        self.rawValue = rawValue
+    }
+
+    public init(catalog: AppCatalog) {
+        self.rawValue = .init(catalog)
+    }
+
+    public init(url: URL) {
+        self.rawValue = .init(url)
+    }
+
+    /// Resolves the app catalog.
+    public func fetchCatalog(with session: @autoclosure () -> URLSession = URLSession.shared) async throws -> AppCatalog {
+        switch rawValue {
+        case .p(let catalog): return catalog
+        case .q(let url): return try AppCatalog.parse(jsonData: await session().fetch(request: URLRequest(url: url)).data)
+        }
+    }
+}
+
+extension AppCatalog {
+    /// Attempts to localize the catalog into the given language code.
+    ///
+    /// This is accomplished by examining the ``localizations`` dictionary
+    /// for an appropriate base locale, and then examining each child locale in turn
+    public func localized(into locale: Locale, session: URLSession = URLSession.shared) async throws -> AppCatalog {
+        guard let localizations = self.localizations, !localizations.isEmpty else {
+            return self // no localizations
+        }
+
+        var catalog = self
+        dbg("#KEYS:", localizations.keys)
+        if let localeCatalogSource = localizations[locale.identifier] ?? localizations[locale.languageCode ?? locale.identifier] {
+            let lcat = try await localeCatalogSource.fetchCatalog(with: session)
+            for key in AppCatalog.CodingKeys.allCases {
+                switch key {
+                case .name: catalog.name = lcat.name ?? catalog.name
+                case .identifier: catalog.identifier = lcat.identifier ?? catalog.identifier
+                case .localizedDescription: catalog.localizedDescription = lcat.localizedDescription ?? catalog.localizedDescription
+                case .platform: catalog.platform = lcat.platform ?? catalog.platform
+                case .homepage: catalog.homepage = lcat.homepage ?? catalog.homepage
+                case .sourceURL: catalog.sourceURL = lcat.sourceURL ?? catalog.sourceURL
+                case .tintColor: catalog.tintColor = lcat.tintColor ?? catalog.tintColor
+                case .iconURL: catalog.iconURL = lcat.iconURL ?? catalog.iconURL
+                case .fundingSources: catalog.fundingSources = lcat.fundingSources ?? catalog.fundingSources
+                case .baseLocale: catalog.baseLocale = lcat.baseLocale ?? catalog.baseLocale
+                case .localizations: catalog.localizations = nil // catalog.name = lcat.name ?? catalog.name
+                case .news: break // catalog.news = lcat.news ?? catalog.news
+                case .apps: break // catalog.apps = lcat.apps ?? catalog.apps
+                }
+            }
+
+            // unlike the top-level catalog metadata properties,
+            // the catalog's apps and news items do not override anything,
+            // but instead acts as a complete manifest of the available apps
+            // for that language/region
+            if !lcat.apps.isEmpty {
+                catalog.apps = lcat.apps
+            }
+
+            catalog.news = lcat.news ?? catalog.news
+            catalog.fundingSources = lcat.fundingSources ?? catalog.fundingSources
+        }
+
+        return catalog
+    }
+}
 
 // MARK: Utilities
 

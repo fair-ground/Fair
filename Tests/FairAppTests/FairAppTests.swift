@@ -38,6 +38,44 @@ final class FairAppTests: XCTestCase {
         XCTAssertEqual("Отменить", loc("Cancel", locale: Locale(identifier: "ru")))
     }
 
+    func testCatalogLocalizations() async throws {
+        var localizations: [String: AppCatalogSource] = [:]
+        do {
+            let cat_fr = AppCatalog(name: "Le App Catalog", identifier: "net.cat_fr", homepage: URL(string: "https://apps.example.fr"), apps: [])
+            localizations["fr_FR"] = AppCatalogSource(catalog: cat_fr)
+        }
+
+        do {
+            let cat_es = AppCatalog(name: "El App Catalog", identifier: "net.cat_es", homepage: URL(string: "https://apps.example.es"), apps: [])
+            localizations["es"] = AppCatalogSource(catalog: cat_es)
+        }
+
+        let cat = AppCatalog(name: "The App Catalog", identifier: "net.cat1", homepage: URL(string: "https://apps.example.com"), tintColor: "AA66BB", apps: [], localizations: localizations)
+
+        do {
+            let fr = Locale(identifier: "fr_FR")
+            XCTAssertEqual("fr_FR", fr.identifier)
+            XCTAssertEqual("fr", fr.languageCode)
+            XCTAssertEqual("FR", fr.regionCode)
+
+            let cat_fr = try await cat.localized(into: fr)
+            XCTAssertEqual("Le App Catalog", cat_fr.name)
+            XCTAssertEqual("net.cat_fr", cat_fr.identifier)
+            XCTAssertEqual("https://apps.example.fr", cat_fr.homepage?.absoluteString)
+            XCTAssertEqual("AA66BB", cat_fr.tintColor)
+        }
+
+        do {
+            let cat_es = try await cat.localized(into: Locale(identifier: "es_ES"))
+            XCTAssertEqual("El App Catalog", cat_es.name)
+            XCTAssertEqual("net.cat_es", cat_es.identifier)
+            XCTAssertEqual("https://apps.example.es", cat_es.homepage?.absoluteString)
+            XCTAssertEqual("AA66BB", cat_es.tintColor)
+        }
+
+
+    }
+
     /// Ensure that all the variants of `Assets.xcassets/AccentColor.colorset/Contents.json` can be parsed into the same color value
     func testColorParsing() throws {
         let contentsSystemGreen = """
