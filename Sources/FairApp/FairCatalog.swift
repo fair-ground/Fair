@@ -704,7 +704,6 @@ extension AppCatalog {
         }
 
         var catalog = self
-        dbg("#KEYS:", localizations.keys)
         if let localeCatalogSource = localizations[locale.identifier] ?? localizations[locale.languageCode ?? locale.identifier] {
             let lcat = try await localeCatalogSource.fetchCatalog(with: session)
             for key in AppCatalog.CodingKeys.allCases {
