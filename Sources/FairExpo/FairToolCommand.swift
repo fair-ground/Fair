@@ -143,7 +143,7 @@ public struct FairToolCommand : AsyncParsableCommand {
         public mutating func run() async throws {
             warnExperimental(Self.experimental)
             let version = Bundle.fairCoreVersion
-            msg(.info, "fairtool", version?.versionStringExtended)
+            msg(.info, NSLocalizedString("fairtool", bundle: .module, comment: "the name of the fairtool"), version?.versionStringExtended)
         }
     }
 }
