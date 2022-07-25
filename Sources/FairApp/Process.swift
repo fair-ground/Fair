@@ -64,7 +64,6 @@ extension CommandResult {
     }
 }
 
-#if os(macOS)
 public extension Process {
     /// The output of `execute`
 
@@ -152,28 +151,6 @@ public extension Process {
     }
 }
 
-//#if os(macOS)
-//@available(macOS 12.0, iOS 15.0, *)
-//public extension Process {
-//    func dispatch(command executablePath: URL, environment: [String: String] = [:], _ args: [String]) async throws {
-//        let process = Process()
-//        process.executableURL = executablePath
-//
-//        let pipe = Pipe()
-//        process.standardOutput = pipe
-//        process.standardError = pipe
-//
-//        process.standardInput = Pipe()
-//
-//        for try await line in pipe.fileHandleForReading.bytes.lines {
-//            print("### received line: \(line)")
-//            try Task.checkCancellation()
-//        }
-//    }
-//}
-//#endif
-//
-
 public extension Process {
     /// Convenience for executing a local command whose final argument is a target file
     static func exec(cmd: String, _ commands: String...) async throws -> CommandResult {
@@ -251,4 +228,3 @@ public extension Process {
         try await exec(cmd: "/usr/bin/xcode-select", "-p")
     }
 }
-#endif // os(macOS)
