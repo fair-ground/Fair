@@ -68,9 +68,22 @@ extension CommandResult {
 }
 
 extension Process {
+    /// Executes the given task, either synchronously or asynchronously.
+    ///
+    /// - Parameters:
+    ///   - executablePath: the path of the command to execute.
+    ///   - environment: the environment to pass to the command.
+    ///   - args: the arguments for the command
+    /// - Returns: the standard out and error, along with the process itself
+    @discardableResult fileprivate static func execute(cmd command: String, environment: [String: String] = [:], _ args: [String]) async throws -> CommandResult {
+        return try executeSync(cmd: command, environment: environment, args)
+    }
+
     /// Invokes a tool with the given arguments
-    @available(*, deprecated, renamed: "executeAsync")
-    @discardableResult public static func execute(command executablePath: URL, environment: [String: String] = [:], _ args: [String]) throws -> CommandResult {
+    ///
+    /// - TODO: @available(*, deprecated, renamed: "executeAsync")
+    @discardableResult public static func executeSync(cmd: String, environment: [String: String] = [:], _ args: [String]) throws -> CommandResult {
+        let executablePath = URL(fileURLWithPath: cmd)
         let process = try createProcess(command: executablePath, environment: environment, args: args)
 
         let (stdout, stderr) = (Pipe(), Pipe())
@@ -99,6 +112,7 @@ extension Process {
     ///   - environment: the environment to pass to the command.
     ///   - args: the arguments for the command
     /// - Returns: the standard out and error, along with the process itself
+    @available(*, deprecated, message: "cannot use until FileHandle.bytes is available on Linux")
     @discardableResult fileprivate static func executeAsync(cmd command: String, environment: [String: String] = [:], _ args: [String]) async throws -> CommandResult {
         let executablePath = URL(fileURLWithPath: command)
         let process = try createProcess(command: executablePath, environment: environment, args: args)
@@ -164,12 +178,12 @@ extension Process {
 extension Process {
     /// Convenience for executing a local command whose final argument is a target file
     public static func exec(cmd: String, _ commands: String...) async throws -> CommandResult {
-        try await executeAsync(cmd: cmd, commands)
+        try await execute(cmd: cmd, commands)
     }
 
     /// Convenience for executing a local command whose final argument is a target file
     public static func exec(cmd: String, args params: [String]) async throws -> CommandResult {
-        try await executeAsync(cmd: cmd, params)
+        try await execute(cmd: cmd, params)
     }
 
     #if os(macOS)
