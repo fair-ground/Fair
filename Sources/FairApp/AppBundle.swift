@@ -218,6 +218,7 @@ extension AppBundle where Source.Path == URL {
         throw CocoaError(.fileNoSuchFile)
     }
 
+    #if os(macOS)
     /// Changes the given platform of this app bundle.
     /// - Parameters:
     ///   - resign: the signature to re-sign with
@@ -260,6 +261,7 @@ extension AppBundle where Source.Path == URL {
         try await setPlatformVersion(resign: resign, params: [platformName, min, max])
 
     }
+    #endif
 }
 
 /// A collection of data resources, such as a file system hierarchy or a zip archive of files.

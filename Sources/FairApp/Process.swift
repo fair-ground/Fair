@@ -33,6 +33,8 @@ open class HandleStream: TextOutputStream {
     }
 }
 
+#if os(macOS) || os(Linux) || os(Windows)
+
 /// The result of a command execution
 public struct CommandResult {
     public let url: URL
@@ -89,7 +91,6 @@ extension Process {
 
 }
 
-#if os(macOS)
 extension Process {
     /// The output of `execute`
 
@@ -168,6 +169,7 @@ extension Process {
         try await executeAsync(cmd: cmd, params)
     }
 
+    #if os(macOS)
     /// Returns `swift test <file>`. Untested.
     @discardableResult public static func swift(op: String, xcrun: Bool, packageFolder: URL) async throws -> CommandResult {
         if xcrun {
@@ -176,62 +178,85 @@ extension Process {
             return try await exec(cmd: "/usr/bin/swift", op, "--package-path", packageFolder.path)
         }
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `xattr -d com.apple.quarantine <file>`. Untested.
     @discardableResult public static func removeQuarantine(appURL: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", appURL.path)
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `spctl --assess --verbose --type execute <file>`. .
     @discardableResult public static func spctlAssess(appURL: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/sbin/spctl", "--assess", "--verbose", "--type", "execute", appURL.path)
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `codesign -vv -d <file>`. Untested.
     @discardableResult public static func codesignVerify(appURL: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/codesign", "-vv", "-d", appURL.path)
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `codesign -vv -d <file>`. Untested.
     @discardableResult public static func codesign(url: URL, force: Bool = true, identity: String = "-", deep: Bool, preserveMetadata: String? = nil) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/codesign", args: [(force ? "-f" : nil), "--sign", identity, (deep ? "--deep" : nil), preserveMetadata.flatMap({ "--preserve-metadata=\($0)" }), url.path].compacted())
     }
+    #endif
 
+    #if os(macOS)
     /// Sets the version in the given file `url`, which is expected to be a Macho-O file.
     ///
     /// Returns `vtool -set-build-version [args] -replace -output <file> <file>`.
     @discardableResult public static func setBuildVersion(url: URL, params args: [String]) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/vtool", args: ["-set-build-version"] + args + ["-replace", "-output", url.path, url.path].compacted())
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `codesign --remove-signature <file>`.
     @discardableResult public static func codesignStrip(url: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/codesign", "--remove-signature", url.path)
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `xip --expand <file>`. Untested.
     @discardableResult public static func unxip(url: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/xip", "--expand", url.path)
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `ditto -k -x <file>`.
     @discardableResult static func ditto(from source: URL, to destination: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/ditto", "-k", "-x", source.path, destination.path)
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `sw_vers -buildVersion`. Untested.
     @discardableResult public static func buildVersion(expect: UInt?) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/sw_vers", "-buildVersion")
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `getconf DARWIN_USER_CACHE_DIR`. Untested.
     @discardableResult public static func getCacheDir(expect: UInt?) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/getconf", "DARWIN_USER_CACHE_DIR")
     }
+    #endif
 
+    #if os(macOS)
     /// Returns `xcode-select -p`. Untested.
     @discardableResult public static func xcodeShowPath(expect: UInt?) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/xcode-select", "-p")
     }
+    #endif
 }
-#endif // os(macOS)
+#endif // os(macOS) || os(Linux) || os(Windows)
