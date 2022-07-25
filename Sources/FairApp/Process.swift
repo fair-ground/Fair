@@ -92,8 +92,7 @@ extension Process {
 }
 
 extension Process {
-    /// The output of `execute`
-
+    #if os(macOS) // not available on Linux: “error: value of type 'FileHandle' has no member 'bytes'”
     /// Executes the given task asynchronously.
     /// - Parameters:
     ///   - executablePath: the path of the command to execute.
@@ -119,8 +118,12 @@ extension Process {
 
         return CommandResult(url: executablePath, process: process, stdout: out, stderr: err)
     }
+    #endif
+}
 
-    private static func createProcess(command executablePath: URL, environment: [String: String] = [:], args: [String]) throws -> Process {
+extension Process {
+
+    fileprivate static func createProcess(command executablePath: URL, environment: [String: String] = [:], args: [String]) throws -> Process {
         // quick check to ensure we can read the executable
         if FileManager.default.isReadableFile(atPath: executablePath.path) == false {
             throw CocoaError(.fileNoSuchFile)

@@ -15,25 +15,27 @@
 import Swift
 import XCTest
 import FairExpo
+import FairApp
 
 #if os(macOS)
 
 final class FairToolTests: XCTestCase {
-    func testToolVersion() throws {
-        XCTAssertEqual(try invokeTool(["version"]).stderr, ["fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
+    func testToolVersion() async throws {
+        let result = try await invokeTool(["version"])
+        XCTAssertEqual(result.stderr, ["fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")"])
     }
 
     #if os(macOS)
     /// Verified that the "fairtool app info" command will output valid JSON that correctly identifies the app.
-    func testToolAppInfo() throws {
-        let infoJSON = try invokeTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
+    func testToolAppInfo() async throws {
+        let infoJSON = try await invokeTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
         let json = try [AppCommand.InfoCommand.Output](json: infoJSON.joined().utf8Data)
         XCTAssertEqual("com.apple.TextEdit", json.first?.info.obj?["CFBundleIdentifier"]?.str)
     }
     #endif
 
-    @discardableResult func invokeTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Bool = true) throws -> Process.CommandResult {
-        try Process.execute(command: buildOutputFolder().appendingPathComponent(toolPath), args, expectSuccess: expectSuccess)
+    @discardableResult func invokeTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Int32? = 0) async throws -> CommandResult {
+        try await Process.exec(cmd: buildOutputFolder().appendingPathComponent(toolPath).path, args: args).expect(exitCode: expectSuccess)
     }
 
     /// Returns path to the built products directory.
