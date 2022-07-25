@@ -16,6 +16,9 @@
  */
 import Foundation
 import FairCore
+#if canImport(CoreFoundation)
+import CoreFoundation
+#endif
 
 // MARK: AppBundle
 
@@ -474,8 +477,6 @@ extension AppBundle where Source == ZipArchiveDataWrapper {
     }
 }
 
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) // otherwise missing CFSwapInt32
-
 extension AppBundle {
     /// Returns `true` if the data at the specified path has the Mach-O magic header.
     public func maybeMachO(at path: Source.Path) throws -> Bool {
@@ -829,4 +830,3 @@ extension FatArch : BinaryReadable {
         self = try FatArch(cputype: data.readInt32(), cpusubtype: data.readInt32(), offset: data.readUIntX(), size: data.readUIntX(), align: data.readUIntX())
     }
 }
-#endif
