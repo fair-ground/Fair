@@ -1,0 +1,342 @@
+{
+  "abstract" : [
+    {
+      "text" : "Expects that the result of the command be the specified value.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/expect(exitCode:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp13CommandResultV6expect8exitCodeACs5Int32V_tKF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "expect"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "exitCode"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s5Int32V",
+        "text" : "Int32"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp13CommandResultV",
+        "text" : "CommandResult"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "expect(exitCode:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@discardableResult"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "expect"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "exitCode"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "terminationStatus"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s5Int32V",
+              "text" : "Int32"
+            },
+            {
+              "kind" : "text",
+              "text" : " = 0) "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp13CommandResultV",
+              "text" : "CommandResult"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "the item itself, which can be used for checking stdout and stderror",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "the expected exit valud, defaulting to zero",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "terminationStatus"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/commandresult\/expect(exitcode:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/CommandResult": {
+  "abstract" : [
+    {
+      "text" : "The result of a command execution",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CommandResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CommandResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CommandResult",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/expect(exitCode:)": {
+  "abstract" : [
+    {
+      "text" : "Expects that the result of the command be the specified value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "expect"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "exitCode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int32V",
+      "text" : "Int32"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp13CommandResultV",
+      "text" : "CommandResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/expect(exitCode:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "expect(exitCode:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/expect(exitcode:)"
+}
+}
+}

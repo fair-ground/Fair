@@ -308,6 +308,45 @@ public struct AppVersion : Pure, Comparable {
 }
 
 extension FileManager {
+    /// Runs ``FileManager.enumerate`` in an async ``Task``, returning an ``AsyncThrowingStream`` with the elements.
+    /// - Parameters:
+    ///   - url: The location of the directory for which you want an enumeration. This URL must not be a symbolic link that points to the desired directory. You can use the resolvingSymlinksInPath method to resolve any symlinks in the URL.
+    ///   - priority: The ``TaskPriority`` at which to start the enumeration ``Task``.
+    ///   - haltOnError: Whether to stop if any errors are encountered
+    ///   - resourceKeys: An array of keys that identify the properties that you want pre-fetched for each item in the enumeration.
+    ///   - options: Options for the enumeration.
+    /// - Returns: An async stream yielding a tuple of URLs with an optional second error item, indicating that a failure occured. If ``haltOnError`` is true, the first such error will end the stream.
+    public func enumeratorAsync(at url: URL, priority: TaskPriority? = nil, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<(URL, Error?), Error> {
+        return AsyncThrowingStream { c in
+            Task(priority: priority) {
+                do {
+                    let directoryEnumerator = self.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options) { url, error in
+                        c.yield((url, error))
+                        if haltOnError || Task.isCancelled {
+                            return false // stop the enumeration
+                        } else {
+                            return true
+                        }
+                    }
+
+                    if let directoryEnumerator = directoryEnumerator {
+                        for case let fileURL as URL in directoryEnumerator {
+                            try Task.checkCancellation()
+                            c.yield((fileURL, nil))
+                            try Task.checkCancellation()
+                        }
+                    }
+                    c.finish()
+                } catch {
+                    // note that this is just cancellation errors;
+                    // individual file URL access errors are included in the
+                    // error tuple element.
+                    c.finish(throwing: error)
+                }
+            }
+        }
+    }
+
     /// Returns the deep contents of the given file URL, with an option to preserve relative paths in the URLs.
     public func deepContents(of parentFolder: URL, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
         // note that we would like the relativePath option to use

@@ -123,23 +123,31 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/init(source:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/init(folderAt:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/init(source:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/init(zipArchiveAt:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/appType-swift.property"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/appType-swift.property",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/source"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/appGroups()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/appInfoURLs(plistName:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/entitlement(for:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/entitlements()",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/isSandboxed()",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/loadExecutableData()"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/loadExecutableData()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/maybeMachO(at:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setCatalystPlatform(resign:name:min:max:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setPlatformVersion(resign:params:)"
       ],
       "title" : "Instance Methods"
     },
@@ -328,6 +336,151 @@
   "title" : "appGroups()",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/appgroups()"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/appInfoURLs(plistName:)": {
+  "abstract" : [
+    {
+      "text" : "Returns a tuple of the paths to the “.app” file and the associated “Info.plist”",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Source.Path",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "URL",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appInfoURLs"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "plistName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> (app"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Source"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ", info"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Source"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/appInfoURLs(plistName:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appInfoURLs(plistName:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/appinfourls(plistname:)"
 },
 "doc://FairApp/documentation/FairApp/AppBundle/appType-swift.property": {
   "abstract" : [
@@ -528,6 +681,88 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/entitlements()"
 },
+"doc://FairApp/documentation/FairApp/AppBundle/init(folderAt:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "FileSystemDataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "folderAt"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/init(folderAt:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(folderAt:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/init(folderat:)"
+},
 "doc://FairApp/documentation/FairApp/AppBundle/init(source:)": {
   "abstract" : [
 
@@ -568,6 +803,88 @@
   "title" : "init(source:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/init(source:)"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/init(zipArchiveAt:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "ZipArchiveDataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "convenience"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "zipArchiveAt"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/init(zipArchiveAt:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(zipArchiveAt:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/init(ziparchiveat:)"
 },
 "doc://FairApp/documentation/FairApp/AppBundle/isSandboxed()": {
   "abstract" : [
@@ -692,6 +1009,556 @@
   "title" : "loadExecutableData()",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/loadexecutabledata()"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/machOBinaries()": {
+  "abstract" : [
+    {
+      "text" : "Returns the list of paths that are probably (based on magic header) Mach-O binaries,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "either executable or dynamic libraries.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "machOBinaries"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Source"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "machOBinaries()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/machobinaries()"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/maybeMachO(at:)": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if the data at the specified path has the Mach-O magic header.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "maybeMachO"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Source"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/maybeMachO(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "maybeMachO(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/maybemacho(at:)"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/setCatalystPlatform(resign:name:min:max:)": {
+  "abstract" : [
+    {
+      "text" : "Sets the bundle platform to be ",
+      "type" : "text"
+    },
+    {
+      "code" : "\"maccatalyst\"",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Source.Path",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "URL",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setCatalystPlatform"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "resign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "min"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "max"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setCatalystPlatform(resign:name:min:max:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setCatalystPlatform(resign:name:min:max:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/setcatalystplatform(resign:name:min:max:)"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/setPlatformVersion(resign:params:)": {
+  "abstract" : [
+    {
+      "text" : "Changes the given platform of this app bundle.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Source.Path",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "URL",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setPlatformVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "resign"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "params"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setPlatformVersion(resign:params:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setPlatformVersion(resign:params:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/setplatformversion(resign:params:)"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/source": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "source"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Source"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/source",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "source",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/source"
 },
 "doc://FairApp/documentation/FairApp/DataWrapper": {
   "abstract" : [

@@ -1,0 +1,440 @@
+{
+  "abstract" : [
+    {
+      "text" : "The result of a command execution",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairApp13CommandResultV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "CommandResult"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "CommandResult"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "CommandResult"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "CommandResult"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/10Foundation14LocalizedErrorP",
+        "doc:\/\/FairApp\/s5ErrorP",
+        "doc:\/\/FairApp\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/process",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/stderr",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/stdout",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/url"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/expect(exitCode:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/Error-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/LocalizedError-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/commandresult"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/FairApp\/10Foundation14LocalizedErrorP",
+  "title" : "Foundation.LocalizedError",
+  "type" : "unresolvable"
+},
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/CommandResult": {
+  "abstract" : [
+    {
+      "text" : "The result of a command execution",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CommandResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CommandResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CommandResult",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/error-implementations"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/LocalizedError-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/localizederror-implementations"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/expect(exitCode:)": {
+  "abstract" : [
+    {
+      "text" : "Expects that the result of the command be the specified value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "expect"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "exitCode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int32V",
+      "text" : "Int32"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp13CommandResultV",
+      "text" : "CommandResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/expect(exitCode:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "expect(exitCode:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/expect(exitcode:)"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/process": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "process"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSTask",
+      "text" : "Process"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/process",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "process",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/process"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/stderr": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stderr"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/stderr",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stderr",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/stderr"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/stdout": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "stdout"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/stdout",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "stdout",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/stdout"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/url": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/url",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "url",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/url"
+},
+"doc://FairApp/s5ErrorP": {
+  "identifier" : "doc:\/\/FairApp\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://FairApp/s8SendableP": {
+  "identifier" : "doc:\/\/FairApp\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

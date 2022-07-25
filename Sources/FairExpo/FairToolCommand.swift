@@ -1485,16 +1485,16 @@ public struct FairCommand : AsyncParsableCommand {
 #if os(macOS) // we can only launch `codesign` on macOS
                 // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
                 if isAppBinary && trustedPayload != untrustedPayload {
-                    func stripSignature(from data: Data) throws -> Data {
+                    func stripSignature(from data: Data) async throws -> Data {
                         let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
                         try data.write(to: tmpFile)
-                        try Process.codesignStrip(url: tmpFile)
+                        try await Process.codesignStrip(url: tmpFile).expect()
                         return try Data(contentsOf: tmpFile) // read it back in
                     }
 
                     msg(.info, "stripping code signatures: \(trustedEntry.path)")
-                    trustedPayload = try stripSignature(from: trustedPayload)
-                    untrustedPayload = try stripSignature(from: untrustedPayload)
+                    trustedPayload = try await stripSignature(from: trustedPayload)
+                    untrustedPayload = try await stripSignature(from: untrustedPayload)
                 }
 #endif
 
