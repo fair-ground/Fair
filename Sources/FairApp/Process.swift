@@ -33,24 +33,102 @@ open class HandleStream: TextOutputStream {
     }
 }
 
+/// The result of a command execution
+public struct CommandResult {
+    public let url: URL
+    public let process: Process
+    public let stdout: [String]
+    public let stderr: [String]
+}
+
+extension CommandResult : LocalizedError {
+    public var failureReason: String? {
+        return "The command \"\(url.lastPathComponent)\" exited with code: \(process.terminationStatus)"
+    }
+}
+
+extension CommandResult {
+    /// Expects that the result of the command be the specified value.
+    ///
+    /// - Parameter terminationStatus: the expected exit valud, defaulting to zero
+    /// - Returns: the item itself, which can be used for checking stdout and stderror
+    @discardableResult public func expect(exitCode terminationStatus: Int32 = 0) throws -> Self {
+        process.waitUntilExit()
+        let exitCode = process.terminationStatus
+
+        if exitCode != terminationStatus {
+            throw self
+        } else {
+            return self
+        }
+    }
+}
+
 #if os(macOS)
 public extension Process {
     /// The output of `execute`
-    typealias CommandResult = (exitCode: Int32, stdout: [String], stderr: [String])
+
+    /// Executes the given task asynchronously.
+    /// - Parameters:
+    ///   - executablePath: the path of the command to execute.
+    ///   - environment: the environment to pass to the command.
+    ///   - args: the arguments for the command
+    /// - Returns: the standard out and error, along with the process itself
+    @discardableResult fileprivate static func executeAsync(command executablePath: URL, environment: [String: String] = [:], _ args: [String]) async throws -> CommandResult {
+        let process = try createProcess(command: executablePath, environment: environment, args: args)
+
+        let (stdout, stderr) = (Pipe(), Pipe())
+        (process.standardOutput, process.standardError) = (stdout, stderr)
+
+        try process.run()
+
+        let (asyncout, asyncerr) = (stdout.fileHandleForReading.bytes.lines, stderr.fileHandleForReading.bytes.lines)
+
+        var out: [String] = []
+        for try await o in asyncout { out.append(o) }
+
+        var err: [String] = []
+        for try await e in asyncerr { err.append(e) }
+
+        return CommandResult(url: executablePath, process: process, stdout: out, stderr: err)
+    }
 
     /// Invokes a tool with the given arguments
-    @discardableResult static func execute(command executablePath: URL, environment: [String: String] = [:], _ args: [String], expectSuccess: Bool = true) throws -> CommandResult {
-        // Some of the APIs that we use below are available in macOS 10.13 and above.
-        guard #available(macOS 10.13, *) else { return (-1, [], []) }
+    @available(*, deprecated, renamed: "executeAsync")
+    @discardableResult static func execute(command executablePath: URL, environment: [String: String] = [:], _ args: [String]) throws -> CommandResult {
+        let process = try createProcess(command: executablePath, environment: environment, args: args)
 
+        let (stdout, stderr) = (Pipe(), Pipe())
+        (process.standardOutput, process.standardError) = (stdout, stderr)
+
+        try process.run()
+
+        process.waitUntilExit()
+
+        let outdata = stdout.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: outdata, encoding: .utf8) ?? ""
+
+        let errdata = stderr.fileHandleForReading.readDataToEndOfFile()
+        let errput = String(data: errdata, encoding: .utf8) ?? ""
+
+        return CommandResult(url: executablePath, process: process, stdout: output.split(separator: "\n").map(\.description), stderr: errput.split(separator: "\n").map(\.description))
+    }
+
+    private static func createProcess(command executablePath: URL, environment: [String: String] = [:], args: [String]) throws -> Process {
         // quick check to ensure we can read the executable
-        let _ = try Data(contentsOf: executablePath)
+        if FileManager.default.isReadableFile(atPath: executablePath.path) == false {
+            throw CocoaError(.fileNoSuchFile)
+        }
+
+        if FileManager.default.isExecutableFile(atPath: executablePath.path) == false {
+            throw CocoaError(.executableNotLoadable)
+        }
 
         let process = Process()
         process.executableURL = executablePath
         process.arguments = args
 
-        //dbg("executing: \(executablePath.path)", args.joined(separator: " "))
+        dbg("executing: \(executablePath.path)", args.joined(separator: " "))
 
         do {
             var env = ProcessInfo.processInfo.environment
@@ -60,27 +138,7 @@ public extension Process {
             process.environment = env
         }
 
-        let stdout = Pipe()
-        process.standardOutput = stdout
-        let stderr = Pipe()
-        process.standardError = stderr
-
-        try process.run()
-        process.waitUntilExit()
-
-        let outdata = stdout.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: outdata, encoding: .utf8) ?? ""
-
-        let errdata = stderr.fileHandleForReading.readDataToEndOfFile()
-        let errput = String(data: errdata, encoding: .utf8) ?? ""
-
-        let exitCode = process.terminationStatus
-        if expectSuccess && exitCode != 0 {
-            print("error running tool \(process.terminationStatus); STDOUT:\n", output, "STDERR:\n", errput)
-            throw Errors.processExit(executablePath, process.terminationStatus)
-        }
-
-        return (exitCode, output.split(separator: "\n").map(\.description), errput.split(separator: "\n").map(\.description))
+        return process
     }
 
     enum Errors : Pure, LocalizedError {
@@ -117,65 +175,80 @@ public extension Process {
 //
 
 public extension Process {
-
+    /// Convenience for executing a local command whose final argument is a target file
+    static func exec(cmd: String, _ commands: String...) async throws -> CommandResult {
+        try await executeAsync(command: URL(fileURLWithPath: cmd), commands)
+    }
 
     /// Convenience for executing a local command whose final argument is a target file
-    static func exec(cmd: String, _ commands: String..., target: URL? = nil, expectSuccess: Bool = false) throws -> CommandResult {
-        try execute(command: URL(fileURLWithPath: cmd), commands + [target?.path].compactMap({ $0 }), expectSuccess: expectSuccess)
+    static func exec(cmd: String, args params: [String]) async throws -> CommandResult {
+        try await executeAsync(command: URL(fileURLWithPath: cmd), params)
     }
 
     /// Returns `swift test <file>`. Untested.
-    @discardableResult static func swift(op: String, xcrun: Bool, packageFolder: URL) throws -> CommandResult {
+    @discardableResult static func swift(op: String, xcrun: Bool, packageFolder: URL) async throws -> CommandResult {
         if xcrun {
-            return try exec(cmd: "/usr/bin/xcrun", "swift", op, "--package-path", target: packageFolder)
+            return try await exec(cmd: "/usr/bin/xcrun", "swift", op, "--package-path", packageFolder.path)
         } else {
-            return try exec(cmd: "/usr/bin/swift", op, "--package-path", target: packageFolder)
+            return try await exec(cmd: "/usr/bin/swift", op, "--package-path", packageFolder.path)
         }
     }
 
     /// Returns `xattr -d com.apple.quarantine <file>`. Untested.
-    @discardableResult static func removeQuarantine(appURL: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", target: appURL)
+    @discardableResult static func removeQuarantine(appURL: URL) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/xattr", "-r", "-d", "com.apple.quarantine", appURL.path)
     }
 
     /// Returns `spctl --assess --verbose --type execute <file>`. .
-    @discardableResult static func spctlAssess(appURL: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/sbin/spctl", "--assess", "--verbose", "--type", "execute", target: appURL)
+    @discardableResult static func spctlAssess(appURL: URL) async throws -> CommandResult {
+        try await exec(cmd: "/usr/sbin/spctl", "--assess", "--verbose", "--type", "execute", appURL.path)
     }
 
     /// Returns `codesign -vv -d <file>`. Untested.
-    @discardableResult static func codesignVerify(appURL: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/bin/codesign", "-vv", "-d", target: appURL)
+    @discardableResult static func codesignVerify(appURL: URL) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/codesign", "-vv", "-d", appURL.path)
     }
 
-    /// Returns `codesign --remove-signature <file>`. Untested.
-    @discardableResult static func codesignStrip(url: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/bin/codesign", "--remove-signature", target: url)
+    /// Returns `codesign -vv -d <file>`. Untested.
+    @discardableResult static func codesign(url: URL, force: Bool = true, identity: String = "-", deep: Bool, preserveMetadata: String? = nil) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/codesign", args: [(force ? "-f" : nil), "--sign", identity, (deep ? "--deep" : nil), preserveMetadata.flatMap({ "--preserve-metadata=\($0)" }), url.path].compacted())
+    }
+
+    /// Sets the version in the given file `url`, which is expected to be a Macho-O file.
+    ///
+    /// Returns `vtool -set-build-version [args] -replace -output <file> <file>`.
+    @discardableResult static func setBuildVersion(url: URL, params args: [String]) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/vtool", args: ["-set-build-version"] + args + ["-replace", "-output", url.path, url.path].compacted())
+    }
+
+    /// Returns `codesign --remove-signature <file>`.
+    @discardableResult static func codesignStrip(url: URL) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/codesign", "--remove-signature", url.path)
     }
 
     /// Returns `xip --expand <file>`. Untested.
-    @discardableResult static func unxip(url: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/bin/xip", "--expand", target: url)
+    @discardableResult static func unxip(url: URL) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/xip", "--expand", url.path)
     }
 
     /// Returns `ditto -k -x <file>`.
-    @discardableResult static func ditto(from source: URL, to destination: URL) throws -> CommandResult {
-        try exec(cmd: "/usr/bin/ditto", "-k", "-x", source.path, destination.path)
+    @discardableResult static func ditto(from source: URL, to destination: URL) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/ditto", "-k", "-x", source.path, destination.path)
     }
 
     /// Returns `sw_vers -buildVersion`. Untested.
-    @discardableResult static func buildVersion() throws -> CommandResult {
-        try exec(cmd: "/usr/bin/sw_vers", "-buildVersion")
+    @discardableResult static func buildVersion(expect: UInt?) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/sw_vers", "-buildVersion")
     }
 
     /// Returns `getconf DARWIN_USER_CACHE_DIR`. Untested.
-    @discardableResult static func getCacheDir() throws -> CommandResult {
-        try exec(cmd: "/usr/bin/getconf", "DARWIN_USER_CACHE_DIR")
+    @discardableResult static func getCacheDir(expect: UInt?) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/getconf", "DARWIN_USER_CACHE_DIR")
     }
 
     /// Returns `xcode-select -p`. Untested.
-    @discardableResult static func xcodeShowPath() throws -> CommandResult {
-        try exec(cmd: "/usr/bin/xcode-select", "-p")
+    @discardableResult static func xcodeShowPath(expect: UInt?) async throws -> CommandResult {
+        try await exec(cmd: "/usr/bin/xcode-select", "-p")
     }
 }
 #endif // os(macOS)

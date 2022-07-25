@@ -77,6 +77,39 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual(nil, catalog.fundingLinks?.first?.platform) // no longer present in AppSource
     }
 
+    #if os(macOS)
+    func testConvertIPA() async throws {
+        let appName = "Cloud Cuckoo" // success
+        
+        let appOrg = appName.replacingOccurrences(of: " ", with: "-")
+        let remoteURL = URL(string: "https://github.com/\(appOrg)/App/releases/latest/download/\(appOrg)-iOS.ipa")!
+
+        let (localURL, response) = try await URLSession.shared.downloadFile(for: URLRequest(url: remoteURL, cachePolicy: .returnCacheDataElseLoad))
+        try response.validateHTTPCode()
+
+        let downloadName = localURL.deletingPathExtension().lastPathComponent
+        // let targetFolder = localURL.deletingLastPathComponent()
+        guard let targetFolder = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first else {
+            return XCTFail("no downloads folder")
+        }
+
+        let downloadAppURL = targetFolder.appendingPathComponent(downloadName) // .appendPathExtension("app")
+        if FileManager.default.fileExists(atPath: downloadAppURL.path) == true {
+            try FileManager.default.removeItem(at: downloadAppURL)
+        }
+
+        try FileManager.default.unzipItem(at: localURL, to: downloadAppURL, skipCRC32: true)
+        dbg("unzipped to:", downloadAppURL.path)
+
+        let bundle = try AppBundle(folderAt: downloadAppURL)
+
+        let convertedURL = try await bundle.setCatalystPlatform(resign: "-")
+        dbg("converted platform at:", convertedURL.path)
+
+        //try await Process.exec(cmd: "/usr/bin/open", convertedURL.path).expect()
+    }
+    #endif
+
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
     func testAppInfoCommandiOS() async throws {
         let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"])
