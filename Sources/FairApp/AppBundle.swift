@@ -25,8 +25,8 @@ import CoreFoundation
 /// A structure that contains an app, whether as an expanded folder or a zip archive.
 public class AppBundle<Source: DataWrapper> {
     public let source: Source
-    let infoDictionary: Plist
-    let infoParentNode: Source.Path
+    public let infoDictionary: Plist
+    let infoParentNode: Source.Path?
     let infoNode: Source.Path
 
     /// Cache of entitlements once loaded
@@ -80,6 +80,13 @@ extension AppBundle {
     func loadInfo() throws -> (info: Plist, entitlements: [AppEntitlements]?) {
         return try (infoDictionary, entitlements())
     }
+
+    public func validatePaths() throws {
+        for path in self.source.paths {
+            dbg("checking path:", path)
+            let _ = try self.source.seekableData(at: path)
+        }
+    }
 }
 
 public enum AppBundleErrors : Error, LocalizedError {
@@ -128,7 +135,7 @@ extension AppBundle {
         return try self.source.seekableData(at: execNode)
     }
 
-    private static func readInfo(source: Source) throws -> (Plist, parent: Source.Path, node: Source.Path)? {
+    private static func readInfo(source: Source) throws -> (Plist, parent: Source.Path?, node: Source.Path)? {
         // dbg("reading info node from:", fs.containerURL.path)
         let rootNodes = try source.nodes(at: nil)
         //dbg("rootNodes:", rootNodes.map(\.pathName))
@@ -142,7 +149,11 @@ extension AppBundle {
             }
             dbg("found Info.plist node:", infoNode.pathName) // , "from:", contents.map(\.pathName))
 
-            return try (Plist(data: source.seekableData(at: infoNode).readData(ofLength: nil)), parent: node, node: infoNode)
+            return try (loadPlist(from: infoNode), parent: node, node: infoNode)
+        }
+
+        func loadPlist(from infoNode: Source.Path) throws -> Plist {
+            return try Plist(data: source.seekableData(at: infoNode).readData(ofLength: nil))
         }
 
         func rootFolders(named names: Set<String>) -> [Source.Path] {
@@ -155,6 +166,8 @@ extension AppBundle {
             // dbg("contentsNode", contentsNode)
             // check the "Contents/Info.plist" convention (macOS)
             return try loadInfoPlist(from: contentsNode)
+        } else if let infoNode = rootNodes.first(where: { $0.pathName == "Info.plist"}) {
+            return try (loadPlist(from: infoNode), parent: nil, node: infoNode)
         } else {
             for payloadNode in rootFolders(named: ["Payload", "Wrapper"]) {
                 // dbg("payloadNode", payloadNode)
@@ -196,6 +209,13 @@ extension AppBundle {
     }
 }
 
+extension AppBundle {
+    /// The path to the `Info.plist` in this bundle
+//    public var infoPlistPath: Source.Path? {
+//        source.paths.first(where: { $0.pathName == "Info.plist" || $0.pathName == "Contents/Info.plist" })
+//    }
+}
+
 extension AppBundle where Source.Path == URL {
     /// Returns a tuple of the paths to the ".app" file and the associated "Info.plist"
     public func appInfoURLs(plistName: String = "Info.plist") throws -> (app: Source.Path, info: Source.Path) {
@@ -204,14 +224,16 @@ extension AppBundle where Source.Path == URL {
         if let containerFolder = rootNodes.first(where: { ["Payload", "Wrapper"].contains($0.pathName) }) {
             // .ipa file: Payload/AppName.app/Info.plist
             if let appFolder = try self.source.nodes(at: containerFolder).first(where: { $0.pathName.hasSuffix(".app") }) {
-                if let infoPlist = try self.source.nodes(at: appFolder).first(where: { $0.pathName.split(separator: "/").last == .init(plistName) }) {
+                if let infoPlist = try self.source.nodes(at: appFolder).first(where: { $0.pathComponents.last == plistName }) {
                     return (appFolder, infoPlist)
                 }
             }
-        } else if let contentsFolder = rootNodes.first(where: { ["Contents"].contains($0.pathName) }) {
-            // .app file: AppName.app/Contents/Info.plist
-            if let infoPlist = try self.source.nodes(at: contentsFolder).first(where: { $0.pathName.split(separator: "/").last == .init(plistName) }) {
-                return (self.source.containerURL, infoPlist) // in this case, the app folder is the root itself
+        } else if let appFolder = rootNodes.first(where: { $0.pathName.hasSuffix(".app") }) {
+            if let contentsFolder = try self.source.nodes(at: appFolder).first(where: { ["Contents"].contains($0.pathName) }) {
+                // .app file: AppName.app/Contents/Info.plist
+                if let infoPlist = try self.source.nodes(at: contentsFolder).first(where: { $0.pathComponents.last == plistName }) {
+                    return (appFolder, infoPlist) // in this case, the app folder is the root itself
+                }
             }
         }
 
@@ -234,12 +256,15 @@ extension AppBundle where Source.Path == URL {
             // let _ = try await Process.executeAsync(command: URL(fileURLWithPath: "/usr/bin/plutil"), ["-replace", "MinimumOSVersion", "-string", "11"] + params + [infoURL.path]).expect()
         }
 
-        for exeFile in try self.machOBinaries() {
-            dbg("setting version in:", exeFile.path)
+        let machOFiles = try self.machOBinaries()
+        dbg("mach-o files:", machOFiles)
 
-            try await Process.setBuildVersion(url: exeFile, params: params).expect()
+        for machOFile in machOFiles {
+            dbg("setting version in mach-o:", machOFile.path)
+
+            try await Process.setBuildVersion(url: machOFile, params: params).expect()
             if let identity = resign {
-                try await Process.codesign(url: exeFile, identity: identity, deep: false, preserveMetadata: "entitlements").expect()
+                try await Process.codesign(url: machOFile, identity: identity, deep: false, preserveMetadata: "entitlements").expect()
             }
         }
 
@@ -269,6 +294,7 @@ public protocol DataWrapper : AnyObject {
     associatedtype Path : DataWrapperPath
     /// The root URL of this data wrapper
     var containerURL: URL { get }
+    /// Child nodes of the given parent.
     func nodes(at path: Path?) throws -> [Path]
     /// A pointer to the data at the given path; this could be either an in-memory structure (in the case if zip archives) or a wrapper around a FilePointer (in the case of a file system hierarchy)
     func seekableData(at path: Path) throws -> SeekableData
@@ -335,6 +361,7 @@ public class FileSystemDataWrapper : DataWrapper {
         // try URLSession.shared.fetch(request: URLRequest(url: path)).data
         // SeekableDataHandle(try Data(contentsOf: path), bigEndian: bigEndian)
         try SeekableFileHandle(FileHandle(forReadingFrom: path))
+
     }
 
     public func find(pathsMatching expression: NSRegularExpression) -> [Path] {
@@ -479,13 +506,20 @@ extension AppBundle where Source == ZipArchiveDataWrapper {
     }
 }
 
-extension AppBundle {
+extension AppBundle where Source.Path == URL {
     /// Returns `true` if the data at the specified path has the Mach-O magic header.
     public func maybeMachO(at path: Source.Path) throws -> Bool {
         // this will throw
-        let data = try source.seekableData(at: path)
-        // but this will swallow exceptions, since MachOBinary is assuming sufficient header size
-        return (try? MachOBinary(binary: data).getBinaryType(fromSliceStartingAt: 0)) != nil
+        dbg("checking path:", path.path)
+        do {
+            let data = try source.seekableData(at: path)
+            dbg("checked path data:", data, path.path)
+            // but this will swallow exceptions, since MachOBinary is assuming sufficient header size
+            return (try? MachOBinary(binary: data).getBinaryType(fromSliceStartingAt: 0)) != nil
+        } catch {
+            dbg("error checking path:", path.path, error)
+            throw wip(error) // TODO: remove once we fix path checking
+        }
     }
 
     /// Returns the list of paths that are probably (based on magic header) Mach-O binaries,
@@ -494,7 +528,8 @@ extension AppBundle {
         try prf {
             try source.paths
                 .filter { fileURL in
-                    try (fileURL.pathIsDirectory == false)
+                    dbg("filtering:", fileURL.pathName, "dir:", fileURL.pathIsDirectory, "size:", fileURL.pathSize, "macho", try? self.maybeMachO(at: fileURL))
+                    return try (fileURL.pathIsDirectory == false)
                         && (fileURL.pathSize ?? 0 > 1024)
                         && (self.maybeMachO(at: fileURL) == true)
                 }

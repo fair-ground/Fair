@@ -76,7 +76,11 @@ extension Process {
     ///   - args: the arguments for the command
     /// - Returns: the standard out and error, along with the process itself
     @discardableResult fileprivate static func execute(cmd command: String, environment: [String: String] = [:], _ args: [String]) async throws -> CommandResult {
+        #if os(macOS) && false // TODO: executeAsync on all platforms
+        return try await executeAsync(cmd: command, environment: environment, args)
+        #else
         return try executeSync(cmd: command, environment: environment, args)
+        #endif
     }
 
     /// Invokes a tool with the given arguments
