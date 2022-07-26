@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the list of paths that are probably (based on magic header) Mach-O binaries,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either executable or dynamic libraries.",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -23,7 +15,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/validatePaths()"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -54,29 +46,13 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " and ",
-          "type" : "text"
-        },
-        {
-          "code" : "Source.Path",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " is ",
-          "type" : "text"
-        },
-        {
-          "code" : "URL",
-          "type" : "codeVoice"
-        },
-        {
           "text" : ".",
           "type" : "text"
         }
       ]
     },
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp0B6BundleCAA10Foundation3URLV4PathRtzrlE13machOBinariesSayAFGyKF",
+    "externalID" : "s:7FairApp0B6BundleC13validatePathsyyKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -88,7 +64,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "machOBinaries"
+        "text" : "validatePaths"
       },
       {
         "kind" : "text",
@@ -97,26 +73,6 @@
       {
         "kind" : "keyword",
         "text" : "throws"
-      },
-      {
-        "kind" : "text",
-        "text" : " -> ["
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Source"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Path"
-      },
-      {
-        "kind" : "text",
-        "text" : "]"
       }
     ],
     "modules" : [
@@ -127,7 +83,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "machOBinaries()"
+    "title" : "validatePaths()"
   },
   "primaryContentSections" : [
     {
@@ -150,7 +106,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "machOBinaries"
+              "text" : "validatePaths"
             },
             {
               "kind" : "text",
@@ -159,26 +115,6 @@
             {
               "kind" : "keyword",
               "text" : "throws"
-            },
-            {
-              "kind" : "text",
-              "text" : " -> ["
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Source"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Path"
-            },
-            {
-              "kind" : "text",
-              "text" : "]"
             }
           ]
         }
@@ -197,7 +133,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appbundle\/machobinaries()"
+        "\/documentation\/fairapp\/appbundle\/validatepaths()"
       ],
       "traits" : [
         {
@@ -264,20 +200,9 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle"
 },
-"doc://FairApp/documentation/FairApp/AppBundle/machOBinaries()": {
+"doc://FairApp/documentation/FairApp/AppBundle/validatePaths()": {
   "abstract" : [
-    {
-      "text" : "Returns the list of paths that are probably (based on magic header) Mach-O binaries,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "either executable or dynamic libraries.",
-      "type" : "text"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -306,22 +231,6 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Source.Path",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "URL",
-        "type" : "codeVoice"
-      },
-      {
         "text" : ".",
         "type" : "text"
       }
@@ -338,7 +247,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "machOBinaries"
+      "text" : "validatePaths"
     },
     {
       "kind" : "text",
@@ -347,34 +256,14 @@
     {
       "kind" : "keyword",
       "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Source"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Path"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/validatePaths()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "machOBinaries()",
+  "title" : "validatePaths()",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appbundle\/machobinaries()"
+  "url" : "\/documentation\/fairapp\/appbundle\/validatepaths()"
 }
 }
 }

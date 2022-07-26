@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Output a message with the amount of time the given block took to exeucte",
+      "text" : "Output a message with the amount of time the given async block took to exeucte",
       "type" : "text"
     }
   ],
@@ -14,11 +14,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-3pelz"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore3prf_3msg5level9threshold12functionName04fileH010lineNumber5blockxSSSgyXK_SSxcSgs5UInt8VSds12StaticStringVAOSixyKXEtKlF",
+    "externalID" : "s:8FairCore3prf_3msg5level9threshold12functionName04fileH010lineNumber5blockxSSSgyXK_SSxcSgs5UInt8VSds12StaticStringVAOSixyYaKXEtYaKlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -173,6 +173,14 @@
       },
       {
         "kind" : "keyword",
+        "text" : "async"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
         "text" : "throws"
       },
       {
@@ -186,6 +194,14 @@
       {
         "kind" : "text",
         "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "async"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
       },
       {
         "kind" : "keyword",
@@ -430,6 +446,14 @@
             },
             {
               "kind" : "keyword",
+              "text" : "async"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
               "text" : "throws"
             },
             {
@@ -443,6 +467,14 @@
             {
               "kind" : "text",
               "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "async"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "keyword",
@@ -585,6 +617,42 @@
           "name" : "block"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Note that there are two nearly-identical ",
+              "type" : "text"
+            },
+            {
+              "code" : "prf",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " funcs that vary only in the ",
+              "type" : "text"
+            },
+            {
+              "code" : "async",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " keyword (see: https:\/\/github.com\/apple\/swift-evolution\/blob\/main\/proposals\/0296-async-await.md#reasync).",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -598,7 +666,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)"
+        "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)-3pelz"
       ],
       "traits" : [
         {
@@ -623,10 +691,10 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)": {
+"doc://FairCore/documentation/FairCore/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-3pelz": {
   "abstract" : [
     {
-      "text" : "Output a message with the amount of time the given block took to exeucte",
+      "text" : "Output a message with the amount of time the given async block took to exeucte",
       "type" : "text"
     }
   ],
@@ -784,6 +852,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -800,6 +876,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "rethrows"
     },
     {
@@ -811,12 +895,12 @@
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-3pelz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)"
+  "url" : "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)-3pelz"
 }
 }
 }

@@ -141,7 +141,8 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/dbg(level:_:_:_:_:_:_:_:_:_:_:_:_:functionName:fileName:lineNumber:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/nanos()",
-        "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-3pelz",
+        "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-7ngx",
         "doc:\/\/FairCore\/documentation\/FairCore\/withErrorContext(_:key:block:)"
       ],
       "title" : "Functions"
@@ -3695,7 +3696,218 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/nanos()"
 },
-"doc://FairCore/documentation/FairCore/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)": {
+"doc://FairCore/documentation/FairCore/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-3pelz": {
+  "abstract" : [
+    {
+      "text" : "Output a message with the amount of time the given async block took to exeucte",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prf"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "msg"
+    },
+    {
+      "kind" : "text",
+      "text" : ": (("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "level"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5UInt8V",
+      "text" : "UInt8"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "threshold"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "functionName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s12StaticStringV",
+      "text" : "StaticString"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fileName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s12StaticStringV",
+      "text" : "StaticString"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "lineNumber"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "block"
+    },
+    {
+      "kind" : "text",
+      "text" : ": () "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-3pelz",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)-3pelz"
+},
+"doc://FairCore/documentation/FairCore/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-7ngx": {
   "abstract" : [
     {
       "text" : "Output a message with the amount of time the given block took to exeucte",
@@ -3883,12 +4095,12 @@
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)-7ngx",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "prf(_:msg:level:threshold:functionName:fileName:lineNumber:block:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)"
+  "url" : "\/documentation\/faircore\/prf(_:msg:level:threshold:functionname:filename:linenumber:block:)-7ngx"
 },
 "doc://FairCore/documentation/FairCore/withErrorContext(_:key:block:)": {
   "abstract" : [

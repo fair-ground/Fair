@@ -132,6 +132,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/appType-swift.property",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/infoDictionary",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/source"
       ],
       "title" : "Instance Properties"
@@ -147,7 +148,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/maybeMachO(at:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setCatalystPlatform(resign:name:min:max:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setPlatformVersion(resign:params:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setPlatformVersion(resign:params:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/validatePaths()"
       ],
       "title" : "Instance Methods"
     },
@@ -681,6 +683,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/entitlements()"
 },
+"doc://FairApp/documentation/FairApp/AppBundle/infoDictionary": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "infoDictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore5PlistC",
+      "text" : "Plist"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/infoDictionary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "infoDictionary",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/infodictionary"
+},
 "doc://FairApp/documentation/FairApp/AppBundle/init(folderAt:)": {
   "abstract" : [
 
@@ -1052,6 +1088,22 @@
         "type" : "codeVoice"
       },
       {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Source.Path",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "URL",
+        "type" : "codeVoice"
+      },
+      {
         "text" : ".",
         "type" : "text"
       }
@@ -1145,6 +1197,22 @@
       },
       {
         "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Source.Path",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "URL",
         "type" : "codeVoice"
       },
       {
@@ -1559,6 +1627,71 @@
   "title" : "source",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/source"
+},
+"doc://FairApp/documentation/FairApp/AppBundle/validatePaths()": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Source",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "DataWrapper",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validatePaths"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/validatePaths()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validatePaths()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbundle\/validatepaths()"
 },
 "doc://FairApp/documentation/FairApp/DataWrapper": {
   "abstract" : [

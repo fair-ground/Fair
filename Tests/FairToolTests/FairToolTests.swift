@@ -26,7 +26,7 @@ final class FairToolTests: XCTestCase {
     }
 
     #if os(macOS)
-    /// Verified that the "fairtool app info" command will output valid JSON that correctly identifies the app.
+    /// Verifies that the "fairtool app info" command will output valid JSON that correctly identifies the app.
     func testToolAppInfo() async throws {
         let infoJSON = try await invokeTool(["app", "info", "/System/Applications/TextEdit.app"]).stdout
         let json = try [AppCommand.InfoCommand.Output](json: infoJSON.joined().utf8Data)
@@ -38,7 +38,7 @@ final class FairToolTests: XCTestCase {
         try await Process.exec(cmd: buildOutputFolder().appendingPathComponent(toolPath).path, args: args).expect(exitCode: expectSuccess)
     }
 
-    /// Returns path to the built products directory.
+    /// Returns the path to the built products directory.
     func buildOutputFolder() -> URL {
         #if os(macOS) // check for Xcode test bundles
         for bundle in Bundle.allBundles where bundle.bundlePath.hasSuffix(".xctest") {

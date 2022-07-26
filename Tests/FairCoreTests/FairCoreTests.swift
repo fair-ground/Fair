@@ -632,6 +632,34 @@ final class FairCoreTests: XCTestCase {
         }
     }
 
+    func testFileHandleAsync() async throws {
+        let fh = try FileHandle(forReadingFrom: URL(fileURLWithPath: "/dev/random"))
+        let xpc = expectation(description: "asyncRead")
+
+        let queue = OperationQueue.current
+
+        let mode: RunLoop.Mode = .common
+        RunLoop.current.run(mode: mode, before: .distantFuture)
+
+        let _ = Task.detached {
+            var reads = 0
+            for try await chunk in fh.readDataAsync(queue: queue, forModes: [mode]) {
+                dbg("read /dev/random chunk:", chunk.count)
+                reads += 1
+                if reads > 100 {
+                    xpc.fulfill()
+                    break
+                }
+            }
+        }
+
+//        while true {
+//            RunLoop.current.run(mode: .common, before: .distantFuture)
+//        }
+
+        // wait(for: [xpc], timeout: 2) // not working
+    }
+
     func testTemplating() throws {
         XCTAssertEqual("XXX", "XXX".replacing(variables: [:]))
         XCTAssertEqual("Abc XXX 123", "Abc #(var) 123".replacing(variables: ["var": "XXX"]))

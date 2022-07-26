@@ -366,7 +366,7 @@ extension FileManager {
                     let resolvedParent = try findCommonRelative(from: url, parent: parentFolder) ?? parentFolder
                     //dbg("parentFolder:", parentFolder, "resolvedParent:", resolvedParent)
                     let relativePath = url.pathComponents.suffix(from: resolvedParent.pathComponents.count).joined(separator: "/")
-                    // not that the relative URL will be relative to the specified parent folder, rather than to the path that it resolves to
+                    // note that the relative URL will be relative to the specified parent folder, rather than to the path that it resolves to
                     let relativeURL = URL(fileURLWithPath: relativePath, relativeTo: parentFolder)
                     paths.append(relativeURL)
                 }

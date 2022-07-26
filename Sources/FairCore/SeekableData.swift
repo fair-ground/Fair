@@ -105,6 +105,10 @@ public class SeekableFileHandle : SeekableData {
         self.handle = handle
     }
 
+    deinit {
+        try? self.handle.close()
+    }
+
     public func offset() throws -> Offset {
         try handle.offset()
     }

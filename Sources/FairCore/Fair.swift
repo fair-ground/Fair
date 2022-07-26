@@ -294,33 +294,62 @@ import OSLog
 /// - Parameter fileName: the fileName containg the calling function
 /// - Parameter lineNumber: the line on which the function was called
 /// - Parameter block: the block to execute
+///
+/// Note that there are two nearly-identical `prf` funcs that vary only in the `async` keyword (see: https://github.com/apple/swift-evolution/blob/main/proposals/0296-async-await.md#reasync).
 @inlinable public func prf<T>(_ message: @autoclosure () -> String? = nil, msg messageBlock: ((T) -> String)? = nil, level: UInt8 = 0, threshold: Double = -0.0, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line, block: () throws -> T) rethrows -> T {
-    //#if DEBUG
-
-    let start: UInt64 = nanos()
-
-    #if canImport(OSLog)
-    os_signpost(.begin, log: signpostLog, name: functionName)
-    #endif
-    defer { 
-        #if canImport(OSLog)
-        os_signpost(.end, log: signpostLog, name: functionName) 
-        #endif
-    }
-
+    let start = prfstart(functionName: functionName)
     let result = try block()
-
-    let end: UInt64 = max(nanos(), start)
-    let secs = Double(end - start) / 1_000_000_000.0
-
-    if secs >= threshold {
-        let timeStr = fmtnanos(from: start, to: end)
+    if let timeStr = prfend(start: start, threshold: threshold) {
         dbg(level: level, message(), messageBlock?(result), "time: \(timeStr)", functionName: functionName, fileName: fileName, lineNumber: lineNumber)
     }
     return result
 }
 
+/// Output a message with the amount of time the given async block took to exeucte
+/// - Parameter message: the static message to log
+/// - Parameter messageBlock: the dynamic message to log; the parameter to the closure is the result of the `block`
+/// - Parameter level: the log level fot `dbg`
+/// - Parameter threshold: the threshold below which a message will not be printed
+/// - Parameter functionName: the name of the calling function
+/// - Parameter fileName: the fileName containg the calling function
+/// - Parameter lineNumber: the line on which the function was called
+/// - Parameter block: the block to execute
+///
+/// Note that there are two nearly-identical `prf` funcs that vary only in the `async` keyword (see: https://github.com/apple/swift-evolution/blob/main/proposals/0296-async-await.md#reasync).
+@inlinable public func prf<T>(_ message: @autoclosure () -> String? = nil, msg messageBlock: ((T) -> String)? = nil, level: UInt8 = 0, threshold: Double = -0.0, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line, block: () async throws -> T) async rethrows -> T {
+    let start = prfstart(functionName: functionName)
+    let result = try await block()
+    if let timeStr = prfend(start: start, threshold: threshold) {
+        dbg(level: level, message(), messageBlock?(result), "time: \(timeStr)", functionName: functionName, fileName: fileName, lineNumber: lineNumber)
+    }
+    return result
+}
 
+@usableFromInline func prfstart(functionName: StaticString) -> UInt64 {
+    let start: UInt64 = nanos()
+
+    #if canImport(OSLog)
+    os_signpost(.begin, log: signpostLog, name: functionName)
+    #endif
+    defer {
+        #if canImport(OSLog)
+        os_signpost(.end, log: signpostLog, name: functionName)
+        #endif
+    }
+
+    return start
+}
+
+@usableFromInline func prfend(start: UInt64, threshold: Double) -> String? {
+    let end: UInt64 = max(nanos(), start)
+    let secs = Double(end - start) / 1_000_000_000.0
+
+    if secs >= threshold {
+        return fmtnanos(from: start, to: end)
+    } else {
+        return nil
+    }
+}
 
 public extension BinaryInteger {
     /// Returns this integer formatted as byte counts
@@ -493,6 +522,40 @@ public extension URL {
         let urlHash = self.absoluteString.utf8Data.sha256().hex()
         let baseName = self.lastPathComponent
         return urlHash + "--" + baseName
+    }
+}
+
+extension FileHandle {
+    /// Reads the data in asynchronous chunks from the ``NSFileHandle``.
+    ///
+    /// Note: “You must call this method from a thread that has an active run loop.”
+    public func readDataAsync(queue: OperationQueue?, forModes modes: [RunLoop.Mode]?) -> AsyncThrowingStream<Data, Error> {
+        return AsyncThrowingStream { c in
+            var observer: NSObjectProtocol?
+
+            func removeObserver() {
+                NotificationCenter.default.removeObserver(self, name: FileHandle.readCompletionNotification, object: observer)
+            }
+
+            observer = NotificationCenter.default.addObserver(forName: FileHandle.readCompletionNotification, object: self, queue: queue) { [weak self] note in
+                guard let self = self else { return }
+
+                if let errorNumber = note.userInfo?["NSFileHandleError"] as? NSNumber {
+                    removeObserver()
+                    c.finish(throwing: CocoaError(CocoaError.Code(rawValue: errorNumber.intValue)))
+                } else if let data = note.userInfo?[NSFileHandleNotificationDataItem] as? Data {
+                    c.yield(data)
+                    self.readInBackgroundAndNotify(forModes: modes) // “Note that this method does not cause a continuous stream of notifications to be sent. If you wish to keep getting notified, you’ll also need to call readInBackgroundAndNotify() in your observer method.”
+                } else {
+                    removeObserver()
+                    observer = nil
+                    c.finish()
+                }
+            }
+
+            // note: “You must call this method from a thread that has an active run loop.”
+            readInBackgroundAndNotify(forModes: modes)
+        }
     }
 }
 
