@@ -375,7 +375,7 @@ extension FileManager {
                     let relativePath = url.pathComponents.suffix(from: resolvedParent.pathComponents.count).joined(separator: "/")
                     // note that the relative URL will be relative to the specified parent folder, rather than to the path that it resolves to
                     let relativeURL = URL(fileURLWithPath: relativePath, isDirectory: isDirectory == true, relativeTo: parentFolder)
-                    dbg("### adding:", relativeURL.path, "dir?", isDirectory)
+                    //dbg("adding:", relativeURL.path, "dir?", isDirectory)
                     // relativeURL.setResourceValues([.isDirectoryKey: isDir, .fileSizeKey: key]) // TODO: transfer size?
                     paths.append(relativeURL)
                 }

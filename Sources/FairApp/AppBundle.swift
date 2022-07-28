@@ -88,11 +88,11 @@ extension AppBundle {
     public func validatePaths() throws {
         for path in self.source.paths {
             if path.pathIsLink {
-                dbg("skipping path link:", path)
+                //dbg("skipping path link:", path)
             } else if path.pathIsDirectory {
-                dbg("skipping path directory:", path)
+                //dbg("skipping path directory:", path)
             } else {
-                dbg("trying to read path:", path, "size:", path.pathSize, "dir:", path.pathIsDirectory)
+                //dbg("trying to read path:", path, "size:", path.pathSize, "dir:", path.pathIsDirectory)
                 let _ = try self.source.seekableData(at: path)
             }
         }

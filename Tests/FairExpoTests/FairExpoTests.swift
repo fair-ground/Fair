@@ -88,12 +88,11 @@ final class FairExpoTests: XCTestCase {
         try response.validateHTTPCode()
 
         let downloadName = localURL.deletingPathExtension().lastPathComponent
-        // let targetFolder = localURL.deletingLastPathComponent()
-        guard let targetFolder = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first else {
-            return XCTFail("no downloads folder")
-        }
 
-        let downloadAppURL = targetFolder.appendingPathComponent(downloadName) // .appendPathExtension("app")
+        let targetFolder = URL(fileURLWithPath: UUID().uuidString, isDirectory: true, relativeTo: .tmpdir)
+        try FileManager.default.createDirectory(at: targetFolder, withIntermediateDirectories: true)
+
+        let downloadAppURL = URL(fileURLWithPath: downloadName, isDirectory: true, relativeTo: targetFolder)
         if FileManager.default.fileExists(atPath: downloadAppURL.path) == true {
             try FileManager.default.removeItem(at: downloadAppURL)
         }
@@ -109,6 +108,8 @@ final class FairExpoTests: XCTestCase {
         dbg("converted platform at:", convertedURL.path)
 
         //try await Process.exec(cmd: "/usr/bin/open", convertedURL.path).expect()
+        //try await Process.spctlAssess(appURL: convertedURL).expect()
+        try await Process.codesignVerify(appURL: convertedURL).expect()
     }
     #endif
 
