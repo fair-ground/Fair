@@ -28,41 +28,35 @@ public typealias AppPermission = XOr<AppEntitlementPermission>
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppUsagePermission : Codable, Equatable {
-    public enum PermissionType : String, Pure { case usage }
+    public enum PermissionType : String, Codable, Equatable { case usage }
     public var type: PermissionType = .usage
 
     /// The type of the permission, which maps to a `NS**UsageDescription` key in the Info.plist
-    public var usage: UsageDescriptionKeys
+    public var identifier: UsageDescriptionKey
 
     /// A description of the reason for needing the permission
     public var usageDescription: String
 
-    public init(usage: UsageDescriptionKeys, usageDescription: String) {
-        self.usage = usage
+    public init(usage identifier: UsageDescriptionKey, usageDescription: String) {
+        self.identifier = identifier
         self.usageDescription = usageDescription
     }
 }
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppBackgroundModePermission : Codable, Equatable {
-    public enum PermissionType : String, Pure { case backgroundMode = "background-mode" }
+    public enum PermissionType : String, Codable, Equatable { case backgroundMode = "background-mode" }
     public var type: PermissionType = .backgroundMode
 
     /// The type of the permission, which maps to a `NS**UsageDescription` key in the Info.plist
-    public var backgroundMode: AppBackgroundMode
+    public var identifier: AppBackgroundMode
 
     /// A description of the reason for needing the permission
     public var usageDescription: String
 
-    public init(backgroundMode: AppBackgroundMode, usageDescription: String) {
-        self.backgroundMode = backgroundMode
+    public init(backgroundMode identifier: AppBackgroundMode, usageDescription: String) {
+        self.identifier = identifier
         self.usageDescription = usageDescription
-    }
-
-    public enum CodingKeys : String, CodingKey {
-        case type
-        case backgroundMode = "background-mode"
-        case usageDescription
     }
 }
 
@@ -97,17 +91,17 @@ public struct AppLegacyPermission : Codable, Equatable {
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppEntitlementPermission : Codable, Equatable {
-    public enum PermissionType : String, Pure { case entitlement }
+    public enum PermissionType : String, Codable, Equatable { case entitlement }
     public var type: PermissionType = .entitlement
 
     /// The type of the permission, which maps to an entitement key
-    public var entitlement: AppEntitlement
+    public var identifier: AppEntitlement
 
     /// A description of the reason for needing the permission
     public var usageDescription: String
 
-    public init(entitlement: AppEntitlement, usageDescription: String) {
-        self.entitlement = entitlement
+    public init(entitlement identifier: AppEntitlement, usageDescription: String) {
+        self.identifier = identifier
         self.usageDescription = usageDescription
     }
 }
@@ -641,7 +635,7 @@ public extension AppEntitlement {
 }
 
 
-public struct UsageDescriptionKeys : RawRepresentable, Pure {
+public struct UsageDescriptionKey : RawRepresentable, Codable, Hashable {
     public let rawValue: String
 
     public init(_ name: String) {
@@ -653,139 +647,139 @@ public struct UsageDescriptionKeys : RawRepresentable, Pure {
     }
 }
 
-public extension UsageDescriptionKeys {
+public extension UsageDescriptionKey {
 
     // MARK: tracking
-    static let NSUserTrackingUsageDescription = UsageDescriptionKeys("NSUserTrackingUsageDescription")
+    static let NSUserTrackingUsageDescription = UsageDescriptionKey("NSUserTrackingUsageDescription")
 
 
     // MARK: location
 
-    static let NSLocationUsageDescription = UsageDescriptionKeys("NSLocationUsageDescription")
+    static let NSLocationUsageDescription = UsageDescriptionKey("NSLocationUsageDescription")
 
-    static let NSLocationDefaultAccuracyReduced = UsageDescriptionKeys("NSLocationDefaultAccuracyReduced")
+    static let NSLocationDefaultAccuracyReduced = UsageDescriptionKey("NSLocationDefaultAccuracyReduced")
 
-    static let NSLocationAlwaysUsageDescription = UsageDescriptionKeys("NSLocationAlwaysUsageDescription")
+    static let NSLocationAlwaysUsageDescription = UsageDescriptionKey("NSLocationAlwaysUsageDescription")
 
-    static let NSLocationTemporaryUsageDescriptionDictionary = UsageDescriptionKeys("NSLocationTemporaryUsageDescriptionDictionary")
+    static let NSLocationTemporaryUsageDescriptionDictionary = UsageDescriptionKey("NSLocationTemporaryUsageDescriptionDictionary")
 
-    static let NSLocationWhenInUseUsageDescription = UsageDescriptionKeys("NSLocationWhenInUseUsageDescription")
+    static let NSLocationWhenInUseUsageDescription = UsageDescriptionKey("NSLocationWhenInUseUsageDescription")
 
-    static let NSLocationAlwaysAndWhenInUseUsageDescription = UsageDescriptionKeys("NSLocationAlwaysAndWhenInUseUsageDescription")
+    static let NSLocationAlwaysAndWhenInUseUsageDescription = UsageDescriptionKey("NSLocationAlwaysAndWhenInUseUsageDescription")
 
-    static let NSWidgetWantsLocation = UsageDescriptionKeys("NSWidgetWantsLocation")
+    static let NSWidgetWantsLocation = UsageDescriptionKey("NSWidgetWantsLocation")
 
 
     // MARK: network
 
-    static let NSVoIPUsageDescription = UsageDescriptionKeys("NSVoIPUsageDescription")
+    static let NSVoIPUsageDescription = UsageDescriptionKey("NSVoIPUsageDescription")
 
-    static let NSNearbyInteractionUsageDescription = UsageDescriptionKeys("NSNearbyInteractionUsageDescription")
+    static let NSNearbyInteractionUsageDescription = UsageDescriptionKey("NSNearbyInteractionUsageDescription")
 
-    static let NSNearbyInteractionAllowOnceUsageDescription = UsageDescriptionKeys("NSNearbyInteractionAllowOnceUsageDescription")
+    static let NSNearbyInteractionAllowOnceUsageDescription = UsageDescriptionKey("NSNearbyInteractionAllowOnceUsageDescription")
 
 
     // MARK: voice
 
-    static let NSSiriUsageDescription = UsageDescriptionKeys("NSSiriUsageDescription")
+    static let NSSiriUsageDescription = UsageDescriptionKey("NSSiriUsageDescription")
 
-    static let NSSpeechRecognitionUsageDescription = UsageDescriptionKeys("NSSpeechRecognitionUsageDescription")
+    static let NSSpeechRecognitionUsageDescription = UsageDescriptionKey("NSSpeechRecognitionUsageDescription")
 
 
     // MARK: hardware
 
-    static let NSSensorKitUsageDescription = UsageDescriptionKeys("NSSensorKitUsageDescription")
+    static let NSSensorKitUsageDescription = UsageDescriptionKey("NSSensorKitUsageDescription")
 
-    static let NSMicrophoneUsageDescription = UsageDescriptionKeys("NSMicrophoneUsageDescription")
+    static let NSMicrophoneUsageDescription = UsageDescriptionKey("NSMicrophoneUsageDescription")
 
-    static let NSCameraUsageDescription = UsageDescriptionKeys("NSCameraUsageDescription")
+    static let NSCameraUsageDescription = UsageDescriptionKey("NSCameraUsageDescription")
 
-    static let NSBluetoothUsageDescription = UsageDescriptionKeys("NSBluetoothUsageDescription")
+    static let NSBluetoothUsageDescription = UsageDescriptionKey("NSBluetoothUsageDescription")
 
-    static let NSBluetoothAlwaysUsageDescription = UsageDescriptionKeys("NSBluetoothAlwaysUsageDescription")
+    static let NSBluetoothAlwaysUsageDescription = UsageDescriptionKey("NSBluetoothAlwaysUsageDescription")
 
-    static let NSBluetoothPeripheralUsageDescription = UsageDescriptionKeys("NSBluetoothPeripheralUsageDescription")
+    static let NSBluetoothPeripheralUsageDescription = UsageDescriptionKey("NSBluetoothPeripheralUsageDescription")
 
-    static let NSBluetoothWhileInUseUsageDescription = UsageDescriptionKeys("NSBluetoothWhileInUseUsageDescription")
+    static let NSBluetoothWhileInUseUsageDescription = UsageDescriptionKey("NSBluetoothWhileInUseUsageDescription")
 
 
-    static let NFCReaderUsageDescription = UsageDescriptionKeys("NFCReaderUsageDescription")
+    static let NFCReaderUsageDescription = UsageDescriptionKey("NFCReaderUsageDescription")
 
 
     // MARK: motion
 
-    static let NSMotionUsageDescription = UsageDescriptionKeys("NSMotionUsageDescription")
+    static let NSMotionUsageDescription = UsageDescriptionKey("NSMotionUsageDescription")
 
-    static let NSFallDetectionUsageDescription = UsageDescriptionKeys("NSFallDetectionUsageDescription")
+    static let NSFallDetectionUsageDescription = UsageDescriptionKey("NSFallDetectionUsageDescription")
 
 
     // MARK: databases
 
-    static let NSRemindersUsageDescription = UsageDescriptionKeys("NSRemindersUsageDescription")
+    static let NSRemindersUsageDescription = UsageDescriptionKey("NSRemindersUsageDescription")
 
-    static let NSContactsUsageDescription = UsageDescriptionKeys("NSContactsUsageDescription")
+    static let NSContactsUsageDescription = UsageDescriptionKey("NSContactsUsageDescription")
 
-    static let NSCalendarsUsageDescription = UsageDescriptionKeys("NSCalendarsUsageDescription")
+    static let NSCalendarsUsageDescription = UsageDescriptionKey("NSCalendarsUsageDescription")
 
-    static let NSPhotoLibraryAddUsageDescription = UsageDescriptionKeys("NSPhotoLibraryAddUsageDescription")
+    static let NSPhotoLibraryAddUsageDescription = UsageDescriptionKey("NSPhotoLibraryAddUsageDescription")
 
-    static let NSPhotoLibraryUsageDescription = UsageDescriptionKeys("NSPhotoLibraryUsageDescription")
+    static let NSPhotoLibraryUsageDescription = UsageDescriptionKey("NSPhotoLibraryUsageDescription")
 
 
     // MARK: services
 
-    static let NSAppleMusicUsageDescription = UsageDescriptionKeys("NSAppleMusicUsageDescription")
+    static let NSAppleMusicUsageDescription = UsageDescriptionKey("NSAppleMusicUsageDescription")
 
-    static let NSHomeKitUsageDescription = UsageDescriptionKeys("NSHomeKitUsageDescription")
+    static let NSHomeKitUsageDescription = UsageDescriptionKey("NSHomeKitUsageDescription")
 
-    static let NSVideoSubscriberAccountUsageDescription = UsageDescriptionKeys("NSVideoSubscriberAccountUsageDescription")
+    static let NSVideoSubscriberAccountUsageDescription = UsageDescriptionKey("NSVideoSubscriberAccountUsageDescription")
 
 
     // MARK: games
 
-    static let NSGKFriendListUsageDescription = UsageDescriptionKeys("NSGKFriendListUsageDescription")
+    static let NSGKFriendListUsageDescription = UsageDescriptionKey("NSGKFriendListUsageDescription")
 
 
     // MARK: health
 
-    static let NSHealthShareUsageDescription = UsageDescriptionKeys("NSHealthShareUsageDescription")
+    static let NSHealthShareUsageDescription = UsageDescriptionKey("NSHealthShareUsageDescription")
 
-    static let NSHealthUpdateUsageDescription = UsageDescriptionKeys("NSHealthUpdateUsageDescription")
+    static let NSHealthUpdateUsageDescription = UsageDescriptionKey("NSHealthUpdateUsageDescription")
 
-    static let NSHealthClinicalHealthRecordsShareUsageDescription = UsageDescriptionKeys("NSHealthClinicalHealthRecordsShareUsageDescription")
+    static let NSHealthClinicalHealthRecordsShareUsageDescription = UsageDescriptionKey("NSHealthClinicalHealthRecordsShareUsageDescription")
 
 
     // MARK: misc
 
-    static let NSAppleEventsUsageDescription = UsageDescriptionKeys("NSAppleEventsUsageDescription")
+    static let NSAppleEventsUsageDescription = UsageDescriptionKey("NSAppleEventsUsageDescription")
 
-    static let NSFocusStatusUsageDescription = UsageDescriptionKeys("NSFocusStatusUsageDescription")
+    static let NSFocusStatusUsageDescription = UsageDescriptionKey("NSFocusStatusUsageDescription")
 
-    static let NSLocalNetworkUsageDescription = UsageDescriptionKeys("NSLocalNetworkUsageDescription")
+    static let NSLocalNetworkUsageDescription = UsageDescriptionKey("NSLocalNetworkUsageDescription")
 
-    static let NSFaceIDUsageDescription = UsageDescriptionKeys("NSFaceIDUsageDescription")
+    static let NSFaceIDUsageDescription = UsageDescriptionKey("NSFaceIDUsageDescription")
 
 
     // MARK: standard locations (macOS)
-    static let NSDesktopFolderUsageDescription = UsageDescriptionKeys("NSDesktopFolderUsageDescription")
+    static let NSDesktopFolderUsageDescription = UsageDescriptionKey("NSDesktopFolderUsageDescription")
 
-    static let NSDocumentsFolderUsageDescription = UsageDescriptionKeys("NSDocumentsFolderUsageDescription")
+    static let NSDocumentsFolderUsageDescription = UsageDescriptionKey("NSDocumentsFolderUsageDescription")
 
-    static let NSDownloadsFolderUsageDescription = UsageDescriptionKeys("NSDownloadsFolderUsageDescription")
+    static let NSDownloadsFolderUsageDescription = UsageDescriptionKey("NSDownloadsFolderUsageDescription")
 
 
     // MARK: misc (macOS)
-    static let NSSystemExtensionUsageDescription = UsageDescriptionKeys("NSSystemExtensionUsageDescription")
+    static let NSSystemExtensionUsageDescription = UsageDescriptionKey("NSSystemExtensionUsageDescription")
 
-    static let NSSystemAdministrationUsageDescription = UsageDescriptionKeys("NSSystemAdministrationUsageDescription")
+    static let NSSystemAdministrationUsageDescription = UsageDescriptionKey("NSSystemAdministrationUsageDescription")
 
-    static let NSFileProviderDomainUsageDescription = UsageDescriptionKeys("NSFileProviderDomainUsageDescription")
+    static let NSFileProviderDomainUsageDescription = UsageDescriptionKey("NSFileProviderDomainUsageDescription")
 
-    static let NSFileProviderPresenceUsageDescription = UsageDescriptionKeys("NSFileProviderPresenceUsageDescription")
+    static let NSFileProviderPresenceUsageDescription = UsageDescriptionKey("NSFileProviderPresenceUsageDescription")
 
-    static let NSNetworkVolumesUsageDescription = UsageDescriptionKeys("NSNetworkVolumesUsageDescription")
+    static let NSNetworkVolumesUsageDescription = UsageDescriptionKey("NSNetworkVolumesUsageDescription")
 
-    static let NSRemovableVolumesUsageDescription = UsageDescriptionKeys("NSRemovableVolumesUsageDescription")
+    static let NSRemovableVolumesUsageDescription = UsageDescriptionKey("NSRemovableVolumesUsageDescription")
 
 }
 

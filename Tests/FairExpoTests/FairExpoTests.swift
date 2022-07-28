@@ -103,6 +103,8 @@ final class FairExpoTests: XCTestCase {
 
         let bundle = try AppBundle(folderAt: downloadAppURL)
 
+        try bundle.validatePaths()
+
         let convertedURL = try await bundle.setCatalystPlatform(resign: "-")
         dbg("converted platform at:", convertedURL.path)
 

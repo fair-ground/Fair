@@ -69,12 +69,12 @@ extension Bundle {
     public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0, prerelease: false) })
 
     /// Returns all the URLs in the given folder of the bundle
-    public func bundlePaths(in folder: String, includeFolders: Bool) throws -> [URL] {
+    public func bundlePaths(in folder: String, includeLinks: Bool, includeFolders: Bool) throws -> [URL] {
         guard let bundleURL = url(forResource: folder, withExtension: nil, subdirectory: "Bundle") else {
             throw CocoaError(.fileReadNoSuchFile)
         }
 
-        return try FileManager.default.deepContents(of: bundleURL, includeFolders: includeFolders)
+        return try FileManager.default.deepContents(of: bundleURL, includeLinks: includeLinks, includeFolders: includeFolders)
     }
 
     /// Loads the resource with the given name
@@ -348,7 +348,7 @@ extension FileManager {
     }
 
     /// Returns the deep contents of the given file URL, with an option to preserve relative paths in the URLs.
-    public func deepContents(of parentFolder: URL, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
+    public func deepContents(of parentFolder: URL, includeLinks: Bool, includeFolders: Bool, relativePath: Bool = false) throws -> [URL] {
         // note that we would like the relativePath option to use
         // FileManager.DirectoryEnumerationOptions.producesRelativePathURLs
         // but it is not available on Linux, so we need to synthesize the relative URLs ourselves
@@ -358,7 +358,14 @@ extension FileManager {
 
         var paths: [URL] = []
         for case let url as URL in walker {
-            if try includeFolders || url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory != true {
+            let isLink = try url.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink
+            if includeLinks == false && isLink == true {
+                continue
+            }
+
+            let isDirectory = try url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory
+
+            if includeFolders || isDirectory != true {
                 if !relativePath {
                     // we don't need to synthesize relative URLs
                     paths.append(url)
@@ -367,7 +374,9 @@ extension FileManager {
                     //dbg("parentFolder:", parentFolder, "resolvedParent:", resolvedParent)
                     let relativePath = url.pathComponents.suffix(from: resolvedParent.pathComponents.count).joined(separator: "/")
                     // note that the relative URL will be relative to the specified parent folder, rather than to the path that it resolves to
-                    let relativeURL = URL(fileURLWithPath: relativePath, relativeTo: parentFolder)
+                    let relativeURL = URL(fileURLWithPath: relativePath, isDirectory: isDirectory == true, relativeTo: parentFolder)
+                    dbg("### adding:", relativeURL.path, "dir?", isDirectory)
+                    // relativeURL.setResourceValues([.isDirectoryKey: isDir, .fileSizeKey: key]) // TODO: transfer size?
                     paths.append(relativeURL)
                 }
             }
@@ -630,14 +639,47 @@ extension Encodable {
 
     /// Returns the pretty-printed form of the JSON
     public var prettyJSON: String {
-        (try? String(data: json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]), encoding: .utf8) ?? "{}") ?? "{}"
+        (try? json(encoder: prettyJSONEncoder).utf8String) ?? "{}"
+    }
+
+    /// Returns the canonical form of the JSON.
+    ///
+    /// The encoder replicates JSON Canonical form [JSON Canonicalization Scheme (JCS)](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html)
+    public var canonicalJSON: String {
+        (try? json(encoder: canonicalJSONEncoder).utf8String) ?? "{}"
     }
 
     /// Returns the debug form of the JSON
     public var debugJSON: String {
-        (try? String(data: json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes]), encoding: .utf8) ?? "{}") ?? "{}"
+        (try? json(encoder: debugJSONEncoder).utf8String) ?? "{}"
     }
 }
+
+private let debugJSONEncoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+    encoder.dateEncodingStrategy = .iso8601
+    encoder.dataEncodingStrategy = .base64
+    return encoder
+}()
+
+private let prettyJSONEncoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
+    encoder.dateEncodingStrategy = .iso8601
+    encoder.dataEncodingStrategy = .base64
+    return encoder
+}()
+
+/// An encoder that replicates JSON Canonical form [JSON Canonicalization Scheme (JCS)](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html)
+let canonicalJSONEncoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.sortedKeys] // must not use .withoutEscapingSlashes
+    encoder.dateEncodingStrategy = .iso8601
+    encoder.dataEncodingStrategy = .base64
+    return encoder
+}()
+
 
 #if !os(Linux) && !os(Windows)
 /// A watcher for changes to a folder

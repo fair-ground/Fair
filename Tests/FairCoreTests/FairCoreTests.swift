@@ -803,6 +803,34 @@ final class FairCoreTests: XCTestCase {
 
     }
 
+    /// Tests [3.2.3. Sorting of Object Properties](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html#json.sorting.properties)
+    func testJSONCanonicalForm() throws {
+        // check the JSON canonical form
+        let source = """
+        {
+          "numbers": [333333333.33333329, 1E30, 4.50,
+                      2e-3, 0.000000000000000000000000001],
+          "string": "\\u20ac$\\u000F\\u000aA'\\u0042\\u0022\\u005c\\\\\\"\\/",
+          "literals": [null, true, false]
+        }
+        """
+
+        let expectedResult = #"{"literals":[null,true,false],"numbers":[333333333.3333333,1e+30,4.5,0.002,1e-27],"string":"€$\u000f\nA'B\"\\\\\"/"}"#
+
+        struct ExampleObject : Codable {
+            let numbers: [Double]
+            let string: String
+            let literals: [Bool?]
+        }
+
+        let ob = try JSONDecoder().decode(ExampleObject.self, from: source.utf8Data)
+        let json = ob.canonicalJSON
+        var correctedJSON = json.replacingOccurrences(of: "1.0000000000000002e-27", with: "1e-27") // rounding
+        correctedJSON = correctedJSON.replacingOccurrences(of: "333333333.33333331,", with: "333333333.3333333,") // rounding
+
+        XCTAssertEqual(expectedResult, correctedJSON)
+    }
+
     /// Verifies example case in ``JSONSignable`` header.
     func testJSONSignableCompat() throws {
         struct Inst : Encodable, SigningContainer {

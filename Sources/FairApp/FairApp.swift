@@ -768,31 +768,6 @@ extension SwiftUI.View {
         }
     }
 }
-
-extension ObservableObject {
-    /// Create a view based on changes to this `ObservableObject`.
-    /// Ths is typically unnecessary when the instance itself if being observed,
-    /// but when an observed object is being tracked by a `.focusedSceneVaule`,
-    /// changes in the view's properties do not trigger a state refresh, which can result in
-    /// command properties (e.g., disabled) not being updated until the scene itself re-evaluates.
-    public func observing<V: View>(@ViewBuilder builder: @escaping (Self) -> V) -> some View {
-        ObservedStateView(state: self, builder: builder)
-    }
-}
-
-/// A pass-through view builder that tracks the given `ObservableObject`.
-/// This is needed for creating `SwiftUI.Command` instances based on a `FocusedValue`,
-/// because while the focused value will be updated when the instance itself changes (e.g.,
-/// when a scene vanges the focused scene value), the value itself will not trigger a change.
-private struct ObservedStateView<O: ObservableObject, V : View> : View {
-    @ObservedObject var state: O
-    var builder: (O) -> V
-
-    public var body: some View {
-        builder(state)
-    }
-}
-
 #endif // canImport(SwiftUI)
 
 

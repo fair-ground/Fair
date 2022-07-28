@@ -297,7 +297,7 @@ extension ForEach where Content : View {
     }
 }
 
-public extension UsageDescriptionKeys {
+public extension UsageDescriptionKey {
     #if canImport(SwiftUI)
     var description: LocalizedStringKey {
         switch self {
