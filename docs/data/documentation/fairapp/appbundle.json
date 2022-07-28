@@ -719,7 +719,26 @@
 },
 "doc://FairApp/documentation/FairApp/AppBundle/init(folderAt:)": {
   "abstract" : [
-
+    {
+      "text" : "Create an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppBundle",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "FileSystemDataWrapper",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with the given root folder file URL.",
+      "type" : "text"
+    }
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -842,7 +861,26 @@
 },
 "doc://FairApp/documentation/FairApp/AppBundle/init(zipArchiveAt:)": {
   "abstract" : [
-
+    {
+      "text" : "Create an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppBundle",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "ZipArchiveDataWrapper",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with the given zip file URL.",
+      "type" : "text"
+    }
   ],
   "conformance" : {
     "availabilityPrefix" : [

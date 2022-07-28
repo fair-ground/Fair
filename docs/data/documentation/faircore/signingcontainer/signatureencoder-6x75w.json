@@ -229,8 +229,13 @@
 "doc://FairCore/documentation/FairCore/SigningContainer/signatureEncoder-47i7y": {
   "abstract" : [
     {
-      "text" : "The default signature encoder",
+      "text" : "The default signature encoder uses the instance’s ",
       "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
+      "isActive" : true,
+      "type" : "reference"
     }
   ],
   "fragments" : [
@@ -317,6 +322,18 @@
   "title" : "signatureEncoder",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/signingcontainer\/signatureencoder-6x75w"
+},
+"https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html": {
+  "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
+  "title" : "JSON Canonicalization Scheme (JCS)",
+  "titleInlineContent" : [
+    {
+      "text" : "JSON Canonicalization Scheme (JCS)",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html"
 }
 }
 }

@@ -188,8 +188,13 @@
 "doc://FairExpo/documentation/FairExpo/FairSeal/signatureEncoder": {
   "abstract" : [
     {
-      "text" : "The default signature encoder",
+      "text" : "The default signature encoder uses the instance’s ",
       "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
+      "isActive" : true,
+      "type" : "reference"
     }
   ],
   "fragments" : [
@@ -347,6 +352,18 @@
   "title" : "verify(signature:key:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/verify(signature:key:)"
+},
+"https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html": {
+  "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
+  "title" : "JSON Canonicalization Scheme (JCS)",
+  "titleInlineContent" : [
+    {
+      "text" : "JSON Canonicalization Scheme (JCS)",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html"
 }
 }
 }

@@ -1,7 +1,23 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Create an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppBundle",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "FileSystemDataWrapper",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with the given root folder file URL.",
       "type" : "text"
     }
   ],
@@ -244,7 +260,26 @@
 },
 "doc://FairApp/documentation/FairApp/AppBundle/init(folderAt:)": {
   "abstract" : [
-
+    {
+      "text" : "Create an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppBundle",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " backed by a ",
+      "type" : "text"
+    },
+    {
+      "code" : "FileSystemDataWrapper",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with the given root folder file URL.",
+      "type" : "text"
+    }
   ],
   "conformance" : {
     "availabilityPrefix" : [

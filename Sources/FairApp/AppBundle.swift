@@ -57,6 +57,10 @@ public class AppBundle<Source: DataWrapper> {
         self.infoDictionary = info
         self.infoParentNode = parent
         self.infoNode = node
+
+        #if DEBUG
+        try validatePaths()
+        #endif
     }
 
     public func entitlement<T>(for key: AppEntitlement) throws -> T? {
@@ -83,8 +87,14 @@ extension AppBundle {
 
     public func validatePaths() throws {
         for path in self.source.paths {
-            dbg("checking path:", path)
-            let _ = try self.source.seekableData(at: path)
+            if path.pathIsLink {
+                dbg("skipping path link:", path)
+            } else if path.pathIsDirectory {
+                dbg("skipping path directory:", path)
+            } else {
+                dbg("trying to read path:", path, "size:", path.pathSize, "dir:", path.pathIsDirectory)
+                let _ = try self.source.seekableData(at: path)
+            }
         }
     }
 }
@@ -252,8 +262,8 @@ extension AppBundle where Source.Path == URL {
         dbg("setting platform for:", appURL.path, "info:", infoURL.path)
 
         do {
-            // doesn't seem to be necessary, but it actually is, at least for the initial launch of an app
-            // let _ = try await Process.executeAsync(command: URL(fileURLWithPath: "/usr/bin/plutil"), ["-replace", "MinimumOSVersion", "-string", "11"] + params + [infoURL.path]).expect()
+            // not necessary for fair apps, but other apps need it
+            //let _ = try await Process.exec(cmd: "/usr/bin/plutil", args: ["-replace", "MinimumOSVersion", "-string", "11"] + params + [infoURL.path]).expect()
         }
 
         let machOFiles = try self.machOBinaries()
@@ -312,6 +322,8 @@ public protocol DataWrapperPath {
     var pathSize: UInt64? { get }
     /// True if the path is a directory
     var pathIsDirectory: Bool { get }
+    /// True if the path is a symbolic link
+    var pathIsLink: Bool { get }
 }
 
 extension DataWrapperPath {
@@ -337,7 +349,7 @@ public class FileSystemDataWrapper : DataWrapper {
     public init(root: Path, fileManager: FileManager = .default) throws {
         self.root = root
         self.fm = fileManager
-        self.paths = try fileManager.deepContents(of: root, includeFolders: true, relativePath: true)
+        self.paths = try fileManager.deepContents(of: root, includeLinks: true, includeFolders: true, relativePath: true)
     }
 
     public var containerURL: URL {
@@ -360,8 +372,10 @@ public class FileSystemDataWrapper : DataWrapper {
     public func seekableData(at path: Path) throws -> SeekableData {
         // try URLSession.shared.fetch(request: URLRequest(url: path)).data
         // SeekableDataHandle(try Data(contentsOf: path), bigEndian: bigEndian)
-        try SeekableFileHandle(FileHandle(forReadingFrom: path))
-
+        if fm.isReadableFile(atPath: path.path) == false {
+            throw AppError(String(format: NSLocalizedString("Path was not a readable file: %@", bundle: .module, comment: "error message"), path.path))
+        }
+        return try SeekableFileHandle(FileHandle(forReadingFrom: path))
     }
 
     public func find(pathsMatching expression: NSRegularExpression) -> [Path] {
@@ -372,7 +386,11 @@ public class FileSystemDataWrapper : DataWrapper {
 }
 
 extension AppBundle where Source == FileSystemDataWrapper {
+    /// Create an `AppBundle` backed by a `FileSystemDataWrapper` with the given root folder file URL.
     public convenience init(folderAt url: URL) throws {
+        if url.pathIsDirectory != true {
+            throw AppError(String(format: NSLocalizedString("Path was not a directory: %@", bundle: .module, comment: "error message"), url.path))
+        }
         try self.init(source: FileSystemDataWrapper(root: url))
     }
 }
@@ -384,11 +402,15 @@ extension FileSystemDataWrapper.Path : DataWrapperPath {
     }
 
     public var pathSize: UInt64? {
-        (try? self.resourceValues(forKeys: [.fileSizeKey]).fileSize).flatMap({ .init($0) }) ?? 0
+        (try? self.resourceValues(forKeys: [.fileSizeKey]).fileSize).flatMap({ .init($0) })
     }
 
     public var pathIsDirectory: Bool {
         (try? self.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) ?? false
+    }
+
+    public var pathIsLink: Bool {
+        (try? self.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink) ?? false
     }
 }
 
@@ -410,6 +432,16 @@ public class ZipArchiveDataWrapper : DataWrapper {
 
         public var pathSize: UInt64? {
             entry?.uncompressedSize
+        }
+
+
+        // this is a property to enable synthesis
+        //public var pathIsDirectory: Bool {
+        //    entry?.type == .directory
+        //}
+
+        public var pathIsLink: Bool {
+            entry?.type == .symlink
         }
     }
 
@@ -498,6 +530,7 @@ private extension String {
 }
 
 extension AppBundle where Source == ZipArchiveDataWrapper {
+    /// Create an `AppBundle` backed by a `ZipArchiveDataWrapper` with the given zip file URL.
     public convenience init(zipArchiveAt url: URL) throws {
         guard let zip = ZipArchive(url: url, accessMode: .read) else {
             throw URLError(.badURL)
@@ -511,15 +544,10 @@ extension AppBundle where Source.Path == URL {
     public func maybeMachO(at path: Source.Path) throws -> Bool {
         // this will throw
         dbg("checking path:", path.path)
-        do {
-            let data = try source.seekableData(at: path)
-            dbg("checked path data:", data, path.path)
-            // but this will swallow exceptions, since MachOBinary is assuming sufficient header size
-            return (try? MachOBinary(binary: data).getBinaryType(fromSliceStartingAt: 0)) != nil
-        } catch {
-            dbg("error checking path:", path.path, error)
-            throw wip(error) // TODO: remove once we fix path checking
-        }
+        let data = try source.seekableData(at: path)
+        dbg("checked path data:", data, path.path)
+        // but this will swallow exceptions, since MachOBinary is assuming sufficient header size
+        return (try? MachOBinary(binary: data).getBinaryType(fromSliceStartingAt: 0)) != nil
     }
 
     /// Returns the list of paths that are probably (based on magic header) Mach-O binaries,
@@ -527,6 +555,7 @@ extension AppBundle where Source.Path == URL {
     public func machOBinaries() throws -> [Source.Path] {
         try prf {
             try source.paths
+                .filter({ !$0.pathIsDirectory })
                 .filter { fileURL in
                     dbg("filtering:", fileURL.pathName, "dir:", fileURL.pathIsDirectory, "size:", fileURL.pathSize, "macho", try? self.maybeMachO(at: fileURL))
                     return try (fileURL.pathIsDirectory == false)

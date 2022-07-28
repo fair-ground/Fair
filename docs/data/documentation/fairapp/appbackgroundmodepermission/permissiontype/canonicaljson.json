@@ -1,0 +1,304 @@
+{
+  "abstract" : [
+    {
+      "text" : "Returns the canonical form of the JSON.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission\/PermissionType",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission\/PermissionType\/Encodable-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission\/PermissionType\/canonicalJSON"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Swift",
+    "externalID" : "s:SE8FairCoreE13canonicalJSONSSvp::SYNTHESIZED::s:7FairApp0B24BackgroundModePermissionV0E4TypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "canonicalJSON"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "canonicalJSON"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "canonicalJSON"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The encoder replicates JSON Canonical form ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
+              "isActive" : true,
+              "type" : "reference"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/appbackgroundmodepermission\/permissiontype\/canonicaljson"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundModePermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundModePermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundModePermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBackgroundModePermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmodepermission"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundModePermission/PermissionType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PermissionType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission\/PermissionType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PermissionType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBackgroundModePermission.PermissionType",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmodepermission\/permissiontype"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundModePermission/PermissionType/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission\/PermissionType\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmodepermission\/permissiontype\/encodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundModePermission/PermissionType/canonicalJSON": {
+  "abstract" : [
+    {
+      "text" : "Returns the canonical form of the JSON.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "canonicalJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission\/PermissionType\/canonicalJSON",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "canonicalJSON",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmodepermission\/permissiontype\/canonicaljson"
+},
+"https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html": {
+  "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
+  "title" : "JSON Canonicalization Scheme (JCS)",
+  "titleInlineContent" : [
+    {
+      "text" : "JSON Canonicalization Scheme (JCS)",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html"
+}
+}
+}

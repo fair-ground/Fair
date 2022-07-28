@@ -108,8 +108,8 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/identifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/type",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/usage",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/usageDescription"
       ],
       "title" : "Instance Properties"
@@ -279,6 +279,51 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appusagepermission\/permissiontype"
 },
+"doc://FairApp/documentation/FairApp/AppUsagePermission/identifier": {
+  "abstract" : [
+    {
+      "text" : "The type of the permission, which maps to a ",
+      "type" : "text"
+    },
+    {
+      "code" : "NS**UsageDescription",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " key in the Info.plist",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp19UsageDescriptionKeyV",
+      "text" : "UsageDescriptionKey"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/identifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "identifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/identifier"
+},
 "doc://FairApp/documentation/FairApp/AppUsagePermission/init(from:)": {
   "abstract" : [
 
@@ -344,8 +389,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
-      "text" : "UsageDescriptionKeys"
+      "preciseIdentifier" : "s:7FairApp19UsageDescriptionKeyV",
+      "text" : "UsageDescriptionKey"
     },
     {
       "kind" : "text",
@@ -418,51 +463,6 @@
   "title" : "type",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appusagepermission\/type"
-},
-"doc://FairApp/documentation/FairApp/AppUsagePermission/usage": {
-  "abstract" : [
-    {
-      "text" : "The type of the permission, which maps to a ",
-      "type" : "text"
-    },
-    {
-      "code" : "NS**UsageDescription",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " key in the Info.plist",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "usage"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp20UsageDescriptionKeysV",
-      "text" : "UsageDescriptionKeys"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/usage",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "usage",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appusagepermission\/usage"
 },
 "doc://FairApp/documentation/FairApp/AppUsagePermission/usageDescription": {
   "abstract" : [

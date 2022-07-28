@@ -792,18 +792,10 @@ public protocol SigningContainer : Encodable {
     static var signatureHash: HMAC.Variant { get }
 }
 
-private let defaultSignatureEncoder: JSONEncoder = {
-    let encoder = JSONEncoder()
-    encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
-    encoder.dateEncodingStrategy = .iso8601
-    encoder.dataEncodingStrategy = .base64
-    return encoder
-}()
-
 extension SigningContainer {
-    /// The default signature encoder
+    /// The default signature encoder uses the instance's [JSON Canonicalization Scheme (JCS)](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html)
     public static var signatureEncoder: JSONEncoder {
-        defaultSignatureEncoder
+        canonicalJSONEncoder
     }
 
     public static var signatureHash: HMAC.Variant {
@@ -812,11 +804,7 @@ extension SigningContainer {
 
     /// Signs the JSON-serialized form of this data using the default encoding properties for this type
     public func sign(key: Data) throws -> Data {
-        let json = try Self.signatureEncoder.encode(self)
-        //dbg("### encoding:", String(data: json, encoding: .utf8)!)
-        let data = json.hmacSHA(key: key, hash: Self.signatureHash)
-        //dbg("### sig:", wip(data).base64EncodedString())
-        return data
+        try Self.signatureEncoder.encode(self).hmacSHA(key: key, hash: Self.signatureHash)
     }
 
     public func verify(signature: Data, key: Data) throws {

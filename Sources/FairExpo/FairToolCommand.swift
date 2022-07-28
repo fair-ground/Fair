@@ -682,7 +682,7 @@ public final class AppCatalogAPI {
 
         var permissions: [AppPermission] = []
         for (key, value) in info.usageDescriptions {
-            permissions.append(AppPermission(AppUsagePermission(usage: UsageDescriptionKeys(key), usageDescription: value)))
+            permissions.append(AppPermission(AppUsagePermission(usage: UsageDescriptionKey(key), usageDescription: value)))
         }
 
         for backgroundMode in info.backgroundModes ?? [] {
@@ -769,10 +769,10 @@ public final class AppCatalogAPI {
         }
 
         func verifyInfoUsageDescriptions(_ info: Plist) {
-            let usagePermissions: [String: AppUsagePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.usage.rawValue)
+            let usagePermissions: [UsageDescriptionKey: AppUsagePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.identifier)
 
             for (permissionKey, permissionValue) in info.usageDescriptions {
-                guard let catalogPermissionValue = usagePermissions[permissionKey] else {
+                guard let catalogPermissionValue = usagePermissions[.init(permissionKey)] else {
                     addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "usage_description_missing", message: "Missing a permission entry for usage key “\(permissionKey)”"), msg: msg)
                     continue
                 }
@@ -788,7 +788,7 @@ public final class AppCatalogAPI {
                 return // no background modes
             }
 
-            let backgroundPermissions: [AppBackgroundMode: AppBackgroundModePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.backgroundMode)
+            let backgroundPermissions: [AppBackgroundMode: AppBackgroundModePermission] = (app.permissions ?? []).compactMap({ $0.infer()?.infer()?.infer() }).dictionary(keyedBy: \.identifier)
 
             for backgroundMode in backgroundModes {
                 if backgroundPermissions[AppBackgroundMode(backgroundMode)] == nil {
@@ -798,7 +798,7 @@ public final class AppCatalogAPI {
         }
 
         func verifyEntitlements(_ entitlements: AppEntitlements) {
-            let entitlementPermissions: [AppEntitlement: AppEntitlementPermission] = (app.permissions ?? []).compactMap({ $0.infer() }).dictionary(keyedBy: \.entitlement)
+            let entitlementPermissions: [AppEntitlement: AppEntitlementPermission] = (app.permissions ?? []).compactMap({ $0.infer() }).dictionary(keyedBy: \.identifier)
 
             for (entitlementKey, entitlementValue) in entitlements.values {
                 if (entitlementValue as? Bool) == false {

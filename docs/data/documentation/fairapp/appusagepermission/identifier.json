@@ -1,0 +1,258 @@
+{
+  "abstract" : [
+    {
+      "text" : "The type of the permission, which maps to a ",
+      "type" : "text"
+    },
+    {
+      "code" : "NS**UsageDescription",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " key in the Info.plist",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/identifier"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairApp0B15UsagePermissionV10identifierAA0C14DescriptionKeyVvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "identifier"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp19UsageDescriptionKeyV",
+        "text" : "UsageDescriptionKey"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "identifier"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "identifier"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKey",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp19UsageDescriptionKeyV",
+              "text" : "UsageDescriptionKey"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/appusagepermission\/identifier"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppUsagePermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppUsagePermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUsagePermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission/identifier": {
+  "abstract" : [
+    {
+      "text" : "The type of the permission, which maps to a ",
+      "type" : "text"
+    },
+    {
+      "code" : "NS**UsageDescription",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " key in the Info.plist",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp19UsageDescriptionKeyV",
+      "text" : "UsageDescriptionKey"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/identifier",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "identifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/identifier"
+},
+"doc://FairApp/documentation/FairApp/UsageDescriptionKey": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UsageDescriptionKey"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKey",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UsageDescriptionKey"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UsageDescriptionKey",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/usagedescriptionkey"
+}
+}
+}

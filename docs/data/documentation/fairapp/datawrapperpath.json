@@ -100,6 +100,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath\/pathIsDirectory",
+        "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath\/pathIsLink",
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath\/pathName",
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath\/pathSize"
       ],
@@ -210,6 +211,44 @@
   "title" : "pathIsDirectory",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/datawrapperpath\/pathisdirectory"
+},
+"doc://FairApp/documentation/FairApp/DataWrapperPath/pathIsLink": {
+  "abstract" : [
+    {
+      "text" : "True if the path is a symbolic link",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pathIsLink"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath\/pathIsLink",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "pathIsLink",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/datawrapperpath\/pathislink"
 },
 "doc://FairApp/documentation/FairApp/DataWrapperPath/pathName": {
   "abstract" : [
