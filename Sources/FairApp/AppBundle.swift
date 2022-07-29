@@ -543,9 +543,9 @@ extension AppBundle where Source.Path == URL {
     /// Returns `true` if the data at the specified path has the Mach-O magic header.
     public func maybeMachO(at path: Source.Path) throws -> Bool {
         // this will throw
-        dbg("checking path:", path.path)
+        //dbg("checking path:", path.path)
         let data = try source.seekableData(at: path)
-        dbg("checked path data:", data, path.path)
+        //dbg("checked path data:", data, path.path)
         // but this will swallow exceptions, since MachOBinary is assuming sufficient header size
         return (try? MachOBinary(binary: data).getBinaryType(fromSliceStartingAt: 0)) != nil
     }
@@ -557,7 +557,7 @@ extension AppBundle where Source.Path == URL {
             try source.paths
                 .filter({ !$0.pathIsDirectory })
                 .filter { fileURL in
-                    dbg("filtering:", fileURL.pathName, "dir:", fileURL.pathIsDirectory, "size:", fileURL.pathSize, "macho", try? self.maybeMachO(at: fileURL))
+                    //dbg("filtering:", fileURL.pathName, "dir:", fileURL.pathIsDirectory, "size:", fileURL.pathSize, "macho", try? self.maybeMachO(at: fileURL))
                     return try (fileURL.pathIsDirectory == false)
                         && (fileURL.pathSize ?? 0 > 1024)
                         && (self.maybeMachO(at: fileURL) == true)

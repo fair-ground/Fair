@@ -240,6 +240,8 @@ final class FairHubTests: XCTestCase {
             throw XCTSkip("disabled to reduce API load")
         }
 
+        let _ = try Self.hub(skipNoAuth: true) // just to throw a skipwhen there is no token
+
         let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
         let maxApps: Int? = 123 // wip(3808) // 123 // _000_000
         let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, catalogName: "Catalog", catalogIdentifier: "net.catalog.id", baseRepository: "appcasks", topicName: "appfair-cask", starrerName: "appfairbot", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)

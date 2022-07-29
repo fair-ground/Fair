@@ -596,8 +596,40 @@ extension AppFundingLink {
 }
 
 extension AppCatalogItem {
-    var fundingLinksValidated: [AppFundingLink]? {
+    public var fundingLinksValidated: [AppFundingLink]? {
         self.fundingLinks?.filter({ $0.isValidFundingURL() })
+    }
+
+}
+
+extension AppCatalogItem {
+
+    /// The ``permissions`` filtered to ``AppUnrecognizedPermission`` instances.
+    public var permissionsUnrecognized: [AppUnrecognizedPermission]? {
+        permissions?.compactMap({ $0.infer()?.infer() })
+    }
+
+    /// The ``permissions`` filtered to ``AppEntitlementPermission`` instances.
+    public var permissionsEntitlements: [AppEntitlementPermission]? {
+        permissions?.compactMap({ $0.infer() })
+    }
+
+    /// The ``permissions`` filtered to ``AppUsagePermission`` instances.
+    public var permissionsUsage: [AppUsagePermission]? {
+        permissions?.compactMap({ $0.infer()?.infer()?.infer() })
+    }
+
+    /// The ``permissions`` filtered to ``AppBackgroundModePermission`` instances.
+    public var permissionsBackgroundMode: [AppBackgroundModePermission]? {
+        permissions?.compactMap({ $0.infer()?.infer()?.infer() })
+    }
+
+    /// All the entitlements, ordered by their index in the `AppEntitlement` cases.
+    public func orderedPermissions(filterCategories: Set<AppEntitlement.Category> = []) -> Array<AppEntitlementPermission> {
+        (self.permissionsEntitlements ?? [])
+            .filter {
+                $0.identifier.categories.intersection(filterCategories).isEmpty
+            }
     }
 }
 
