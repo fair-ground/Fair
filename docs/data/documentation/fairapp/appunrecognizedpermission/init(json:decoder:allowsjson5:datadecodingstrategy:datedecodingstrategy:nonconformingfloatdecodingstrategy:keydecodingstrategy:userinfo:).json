@@ -9,19 +9,19 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/Decodable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/Decodable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:Se8FairCoreE4json7decoder11allowsJSON520dataDecodingStrategy04datehI0018nonConformingFloathI003keyhI08userInfox10Foundation4DataV_AJ11JSONDecoderCyXKSbAN0rhI0OSgAN04DatehI0OSgAN03NonlmhI0OSgAN03KeyhI0OSgSDys010CodingUserpV0VypGSgtKcfc::SYNTHESIZED::s:7FairApp0B16LegacyPermissionV",
+    "externalID" : "s:Se8FairCoreE4json7decoder11allowsJSON520dataDecodingStrategy04datehI0018nonConformingFloathI003keyhI08userInfox10Foundation4DataV_AJ11JSONDecoderCyXKSbAN0rhI0OSgAN04DatehI0OSgAN03NonlmhI0OSgAN03KeyhI0OSgSDys010CodingUserpV0VypGSgtKcfc::SYNTHESIZED::s:7FairApp0B22UnrecognizedPermissionV",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -454,7 +454,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/applegacypermission\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)"
+        "\/documentation\/fairapp\/appunrecognizedpermission\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)"
       ],
       "traits" : [
         {
@@ -487,18 +487,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
   "abstract" : [
     {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
+      "text" : "A permission with an unrecognized type.",
       "type" : "text"
     }
   ],
@@ -513,34 +505,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
   "role" : "symbol",
-  "title" : "AppLegacyPermission",
+  "title" : "AppUnrecognizedPermission",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/Decodable-Implementations": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/Decodable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/Decodable-Implementations",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/Decodable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Decodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/decodable-implementations"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/decodable-implementations"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)": {
   "abstract" : [
     {
       "text" : "Initialized this instance from a JSON string",
@@ -741,12 +733,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)"
 }
 }
 }

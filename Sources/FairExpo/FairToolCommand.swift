@@ -1906,7 +1906,7 @@ public struct FairCommand : AsyncParsableCommand {
 
         /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
         @discardableResult
-        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppLegacyPermission> {
+        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppEntitlementPermission> {
             let entitlements_dict = try Plist(url: entitlementsURL)
 
             if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
@@ -1916,7 +1916,7 @@ public struct FairCommand : AsyncParsableCommand {
                 }
             }
 
-            var permissions: [AppLegacyPermission] = []
+            var permissions: [AppEntitlementPermission] = []
 
             // Check that the given entitlement is permitted, and that entitlements that require a usage description are specified in the app's Info.plist `FairUsage` dictionary
             func check(_ entitlement: AppEntitlement) throws -> (usage: String, value: Any)? {
@@ -1957,7 +1957,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             for entitlement in AppEntitlement.allCases {
                 if let (usage, _) = try check(entitlement) {
-                    permissions.append(AppLegacyPermission(type: entitlement, usageDescription: usage))
+                    permissions.append(AppEntitlementPermission(entitlement: entitlement, usageDescription: usage))
                 }
             }
 

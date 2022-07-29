@@ -143,10 +143,10 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B16LegacyPermissionV",
-              "text" : "AppLegacyPermission"
+              "preciseIdentifier" : "s:7FairApp0B22UnrecognizedPermissionV",
+              "text" : "AppUnrecognizedPermission"
             },
             {
               "kind" : "text",
@@ -270,48 +270,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appentitlementpermission"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
-  "abstract" : [
-    {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppLegacyPermission"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppLegacyPermission"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppLegacyPermission",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
-},
 "doc://FairApp/documentation/FairApp/AppPermission": {
   "abstract" : [
 
@@ -342,6 +300,40 @@
   "title" : "AppPermission",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/apppermission"
+},
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
+  "abstract" : [
+    {
+      "text" : "A permission with an unrecognized type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppUnrecognizedPermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppUnrecognizedPermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUnrecognizedPermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
 "doc://FairApp/documentation/FairApp/AppUsagePermission": {
   "abstract" : [

@@ -24,7 +24,7 @@ import CoreFoundation
 public typealias AppPermission = XOr<AppEntitlementPermission>
     .Or<AppUsagePermission>
     .Or<AppBackgroundModePermission>
-    .Or<AppLegacyPermission>
+    .Or<AppUnrecognizedPermission>
 
 /// A permission is a specific entitlement coupled with a description of its usage
 public struct AppUsagePermission : Codable, Equatable {
@@ -74,17 +74,20 @@ public struct AppBackgroundMode : RawCodable, Equatable, Hashable {
 
 }
 
-/// A permission is a specific entitlement coupled with a description of its usage
-/// TODO: @available(*, deprecated, renamed: "AppEntitlementPermission")
-public struct AppLegacyPermission : Codable, Equatable {
-    /// The type of the permission, which maps to an entitement key
-    public var type: AppEntitlement
+/// A permission with an unrecognized type.
+public struct AppUnrecognizedPermission : Codable, Equatable {
+    /// The type of the permission
+    public var type: String
+
+    /// The unknown identifier for the permission
+    public var identifier: String?
 
     /// A description of the reason for needing the permission
     public var usageDescription: String
 
-    public init(type: AppEntitlement, usageDescription: String) {
+    public init(type: String, identifier: String?, usageDescription: String) {
         self.type = type
+        self.identifier = identifier
         self.usageDescription = usageDescription
     }
 }

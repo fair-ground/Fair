@@ -52,7 +52,7 @@ public extension HomebrewAPI {
     var caskStats365: URL { URL(string: "365d.json", relativeTo: caskStatsBase)! }
 
 
-    /// Fetches the cask list and populates it in the `casks` property
+    /// Fetches the cask list and returns it in the `casks` array
     func fetchCasks() async throws -> (casks: Array<CaskItem>, response: URLResponse?) {
         dbg("loading cask list")
         let url = self.caskList

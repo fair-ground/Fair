@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The summary of the entitlements that are enabled for this app",
+      "text" : "A description of the reason for needing the permission",
       "type" : "text"
     }
   ],
@@ -9,17 +9,17 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/usageDescription"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV11permissionsSay0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_AIyAIyAA0b5UsageJ0V_AA0b14BackgroundModeJ0VG_AA0b12UnrecognizedJ0VGGGSgvp",
+    "externalID" : "s:7FairApp0B22UnrecognizedPermissionV16usageDescriptionSSvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,20 +31,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "permissions"
+        "text" : "usageDescription"
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-        "text" : "AppPermission"
-      },
-      {
-        "kind" : "text",
-        "text" : "]?"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       }
     ],
     "modules" : [
@@ -55,7 +51,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "permissions"
+    "title" : "usageDescription"
   },
   "primaryContentSections" : [
     {
@@ -78,21 +74,16 @@
             },
             {
               "kind" : "identifier",
-              "text" : "permissions"
+              "text" : "usageDescription"
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-              "text" : "AppPermission"
-            },
-            {
-              "kind" : "text",
-              "text" : "]?"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             }
           ]
         }
@@ -111,7 +102,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/permissions"
+        "\/documentation\/fairapp\/appunrecognizedpermission\/usagedescription"
       ],
       "traits" : [
         {
@@ -144,10 +135,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
   "abstract" : [
     {
-      "text" : "An individual App Source Catalog item, defining the name, identifier, and downloadURL of an application archive.",
+      "text" : "A permission with an unrecognized type.",
       "type" : "text"
     }
   ],
@@ -162,26 +153,26 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCatalogItem"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppCatalogItem"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCatalogItem",
+  "title" : "AppUnrecognizedPermission",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem/permissions": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/usageDescription": {
   "abstract" : [
     {
-      "text" : "The summary of the entitlements that are enabled for this app",
+      "text" : "A description of the reason for needing the permission",
       "type" : "text"
     }
   ],
@@ -196,59 +187,24 @@
     },
     {
       "kind" : "identifier",
-      "text" : "permissions"
+      "text" : "usageDescription"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-      "text" : "AppPermission"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/usageDescription",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "permissions",
+  "title" : "usageDescription",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/permissions"
-},
-"doc://FairApp/documentation/FairApp/AppPermission": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppPermission"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppPermission"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppPermission",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/apppermission"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/usagedescription"
 }
 }
 }

@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A description of the reason for needing the permission",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -9,17 +9,18 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/usageDescription"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/fundingLinksValidated"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B16LegacyPermissionV16usageDescriptionSSvp",
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp0B11CatalogItemV21fundingLinksValidatedSayAA0B11FundingLinkVGSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,16 +32,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "usageDescription"
+        "text" : "fundingLinksValidated"
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:7FairApp0B11FundingLinkV",
+        "text" : "AppFundingLink"
+      },
+      {
+        "kind" : "text",
+        "text" : "]?"
       }
     ],
     "modules" : [
@@ -51,7 +56,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "usageDescription"
+    "title" : "fundingLinksValidated"
   },
   "primaryContentSections" : [
     {
@@ -74,16 +79,29 @@
             },
             {
               "kind" : "identifier",
-              "text" : "usageDescription"
+              "text" : "fundingLinksValidated"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:7FairApp0B11FundingLinkV",
+              "text" : "AppFundingLink"
+            },
+            {
+              "kind" : "text",
+              "text" : "]? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -102,7 +120,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/applegacypermission\/usagedescription"
+        "\/documentation\/fairapp\/appcatalogitem\/fundinglinksvalidated"
       ],
       "traits" : [
         {
@@ -135,18 +153,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem": {
   "abstract" : [
     {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
+      "text" : "An individual App Source Catalog item, defining the name, identifier, and downloadURL of an application archive.",
       "type" : "text"
     }
   ],
@@ -161,28 +171,25 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppCatalogItem"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppCatalogItem"
     }
   ],
   "role" : "symbol",
-  "title" : "AppLegacyPermission",
+  "title" : "AppCatalogItem",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
+  "url" : "\/documentation\/fairapp\/appcatalogitem"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/usageDescription": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem/fundingLinksValidated": {
   "abstract" : [
-    {
-      "text" : "A description of the reason for needing the permission",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -195,24 +202,62 @@
     },
     {
       "kind" : "identifier",
-      "text" : "usageDescription"
+      "text" : "fundingLinksValidated"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:7FairApp0B11FundingLinkV",
+      "text" : "AppFundingLink"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/usageDescription",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/fundingLinksValidated",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "usageDescription",
+  "title" : "fundingLinksValidated",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/usagedescription"
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/fundinglinksvalidated"
+},
+"doc://FairApp/documentation/FairApp/AppFundingLink": {
+  "abstract" : [
+    {
+      "text" : "A link to a particular funding platform.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingLink"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingLink",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppFundingLink"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppFundingLink",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appfundinglink"
 }
 }
 }

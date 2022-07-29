@@ -1,7 +1,25 @@
 {
   "abstract" : [
     {
-      "text" : "The summary of the entitlements that are enabled for this app",
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " filtered to ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " instances.",
       "type" : "text"
     }
   ],
@@ -15,11 +33,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissionsBackgroundMode"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV11permissionsSay0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_AIyAIyAA0b5UsageJ0V_AA0b14BackgroundModeJ0VG_AA0b12UnrecognizedJ0VGGGSgvp",
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp0B11CatalogItemV25permissionsBackgroundModeSayAA0bfG10PermissionVGSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +50,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "permissions"
+        "text" : "permissionsBackgroundMode"
       },
       {
         "kind" : "text",
@@ -39,8 +58,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-        "text" : "AppPermission"
+        "preciseIdentifier" : "s:7FairApp0B24BackgroundModePermissionV",
+        "text" : "AppBackgroundModePermission"
       },
       {
         "kind" : "text",
@@ -55,7 +74,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "permissions"
+    "title" : "permissionsBackgroundMode"
   },
   "primaryContentSections" : [
     {
@@ -78,21 +97,29 @@
             },
             {
               "kind" : "identifier",
-              "text" : "permissions"
+              "text" : "permissionsBackgroundMode"
             },
             {
               "kind" : "text",
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-              "text" : "AppPermission"
+              "preciseIdentifier" : "s:7FairApp0B24BackgroundModePermissionV",
+              "text" : "AppBackgroundModePermission"
             },
             {
               "kind" : "text",
-              "text" : "]?"
+              "text" : "]? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -111,7 +138,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/permissions"
+        "\/documentation\/fairapp\/appcatalogitem\/permissionsbackgroundmode"
       ],
       "traits" : [
         {
@@ -143,6 +170,40 @@
   "title" : "FairApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppBackgroundModePermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundModePermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppBackgroundModePermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppBackgroundModePermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appbackgroundmodepermission"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem": {
   "abstract" : [
@@ -219,14 +280,35 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/permissions"
 },
-"doc://FairApp/documentation/FairApp/AppPermission": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem/permissionsBackgroundMode": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " filtered to ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBackgroundModePermission",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " instances.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -234,21 +316,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppPermission"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "permissionsBackgroundMode"
+    },
     {
-      "kind" : "identifier",
-      "text" : "AppPermission"
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B24BackgroundModePermissionV",
+      "text" : "AppBackgroundModePermission"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
     }
   ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissionsBackgroundMode",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "AppPermission",
+  "title" : "permissionsBackgroundMode",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/apppermission"
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/permissionsbackgroundmode"
 }
 }
 }

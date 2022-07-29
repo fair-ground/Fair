@@ -1,7 +1,25 @@
 {
   "abstract" : [
     {
-      "text" : "The summary of the entitlements that are enabled for this app",
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " filtered to ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " instances.",
       "type" : "text"
     }
   ],
@@ -15,11 +33,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissionsUnrecognized"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV11permissionsSay0A4Core3XOrO2OrOyAA0B21EntitlementPermissionV_AIyAIyAA0b5UsageJ0V_AA0b14BackgroundModeJ0VG_AA0b12UnrecognizedJ0VGGGSgvp",
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp0B11CatalogItemV23permissionsUnrecognizedSayAA0bF10PermissionVGSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +50,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "permissions"
+        "text" : "permissionsUnrecognized"
       },
       {
         "kind" : "text",
@@ -39,8 +58,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-        "text" : "AppPermission"
+        "preciseIdentifier" : "s:7FairApp0B22UnrecognizedPermissionV",
+        "text" : "AppUnrecognizedPermission"
       },
       {
         "kind" : "text",
@@ -55,7 +74,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "permissions"
+    "title" : "permissionsUnrecognized"
   },
   "primaryContentSections" : [
     {
@@ -78,21 +97,29 @@
             },
             {
               "kind" : "identifier",
-              "text" : "permissions"
+              "text" : "permissionsUnrecognized"
             },
             {
               "kind" : "text",
               "text" : ": ["
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B10Permissiona",
-              "text" : "AppPermission"
+              "preciseIdentifier" : "s:7FairApp0B22UnrecognizedPermissionV",
+              "text" : "AppUnrecognizedPermission"
             },
             {
               "kind" : "text",
-              "text" : "]?"
+              "text" : "]? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -111,7 +138,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/permissions"
+        "\/documentation\/fairapp\/appcatalogitem\/permissionsunrecognized"
       ],
       "traits" : [
         {
@@ -219,14 +246,35 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/permissions"
 },
-"doc://FairApp/documentation/FairApp/AppPermission": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem/permissionsUnrecognized": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissions",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " filtered to ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " instances.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -234,21 +282,62 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppPermission"
+      "text" : "permissionsUnrecognized"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B22UnrecognizedPermissionV",
+      "text" : "AppUnrecognizedPermission"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/permissionsUnrecognized",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "permissionsUnrecognized",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/permissionsunrecognized"
+},
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
+  "abstract" : [
+    {
+      "text" : "A permission with an unrecognized type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppUnrecognizedPermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
   "role" : "symbol",
-  "title" : "AppPermission",
+  "title" : "AppUnrecognizedPermission",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/apppermission"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 }
 }
 }

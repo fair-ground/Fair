@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the debug form of the JSON",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable.init(from:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -9,31 +17,29 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/Encodable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/debugJSON"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/init(from:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE9debugJSONSSvp::SYNTHESIZED::s:7FairApp0B16LegacyPermissionV",
+    "externalID" : "s:7FairApp0B22UnrecognizedPermissionV4fromACs7Decoder_p_tKcfc",
     "fragments" : [
       {
-        "kind" : "keyword",
-        "text" : "var"
+        "kind" : "identifier",
+        "text" : "init"
       },
       {
         "kind" : "text",
-        "text" : " "
+        "text" : "("
       },
       {
-        "kind" : "identifier",
-        "text" : "debugJSON"
+        "kind" : "externalParam",
+        "text" : "from"
       },
       {
         "kind" : "text",
@@ -41,8 +47,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:s7DecoderP",
+        "text" : "Decoder"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
       }
     ],
     "modules" : [
@@ -51,9 +65,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "debugJSON"
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(from:)"
   },
   "primaryContentSections" : [
     {
@@ -68,15 +82,23 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "from"
             },
             {
               "kind" : "text",
               "text" : " "
             },
             {
-              "kind" : "identifier",
-              "text" : "debugJSON"
+              "kind" : "internalParam",
+              "text" : "decoder"
             },
             {
               "kind" : "text",
@@ -84,20 +106,16 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:s7DecoderP",
+              "text" : "Decoder"
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : ") "
             },
             {
               "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "throws"
             }
           ]
         }
@@ -116,7 +134,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/applegacypermission\/debugjson"
+        "\/documentation\/fairapp\/appunrecognizedpermission\/init(from:)"
       ],
       "traits" : [
         {
@@ -149,18 +167,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
   "abstract" : [
     {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
+      "text" : "A permission with an unrecognized type.",
       "type" : "text"
     }
   ],
@@ -175,52 +185,38 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
   "role" : "symbol",
-  "title" : "AppLegacyPermission",
+  "title" : "AppUnrecognizedPermission",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/Encodable-Implementations": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/init(from:)": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/encodable-implementations"
-},
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/debugJSON": {
-  "abstract" : [
-    {
-      "text" : "Returns the debug form of the JSON",
-      "type" : "text"
-    }
-  ],
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "var"
+      "kind" : "identifier",
+      "text" : "init"
     },
     {
       "kind" : "text",
-      "text" : " "
+      "text" : "("
     },
     {
-      "kind" : "identifier",
-      "text" : "debugJSON"
+      "kind" : "externalParam",
+      "text" : "from"
     },
     {
       "kind" : "text",
@@ -228,16 +224,24 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/debugJSON",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/init(from:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "debugJSON",
+  "title" : "init(from:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/debugjson"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/init(from:)"
 }
 }
 }

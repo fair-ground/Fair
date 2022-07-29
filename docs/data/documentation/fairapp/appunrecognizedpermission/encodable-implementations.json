@@ -9,13 +9,13 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/Encodable-Implementations"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/Encodable-Implementations"
   },
   "kind" : "article",
   "metadata" : {
@@ -39,16 +39,16 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/canonicalJSON",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/debugJSON",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/prettyJSON"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/canonicalJSON",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/debugJSON",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/prettyJSON"
       ],
       "title" : "Instance Properties"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)"
       ],
       "title" : "Instance Methods"
     }
@@ -56,7 +56,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/applegacypermission\/encodable-implementations"
+        "\/documentation\/fairapp\/appunrecognizedpermission\/encodable-implementations"
       ],
       "traits" : [
         {
@@ -89,18 +89,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
   "abstract" : [
     {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
+      "text" : "A permission with an unrecognized type.",
       "type" : "text"
     }
   ],
@@ -115,23 +107,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
   "role" : "symbol",
-  "title" : "AppLegacyPermission",
+  "title" : "AppUnrecognizedPermission",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/canonicalJSON": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/canonicalJSON": {
   "abstract" : [
     {
       "text" : "Returns the canonical form of the JSON.",
@@ -161,14 +153,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/canonicalJSON",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/canonicalJSON",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "canonicalJSON",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/canonicaljson"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/canonicaljson"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/debugJSON": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/debugJSON": {
   "abstract" : [
     {
       "text" : "Returns the debug form of the JSON",
@@ -198,14 +190,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/debugJSON",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/debugJSON",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "debugJSON",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/debugjson"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/debugjson"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
   "abstract" : [
     {
       "text" : "Encode this instance as JSON data",
@@ -415,14 +407,14 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/prettyJSON": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/prettyJSON": {
   "abstract" : [
     {
       "text" : "Returns the pretty-printed form of the JSON",
@@ -452,12 +444,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/prettyJSON",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/prettyJSON",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "prettyJSON",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/prettyjson"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/prettyjson"
 }
 }
 }

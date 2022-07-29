@@ -103,11 +103,11 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingPlatform",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppFundingSource",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppIconSet",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppNameValidation",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppNewsPost",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppPlatform",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppStats",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
@@ -988,48 +988,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appiconset"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
-  "abstract" : [
-    {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppLegacyPermission"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppLegacyPermission"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppLegacyPermission",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
-},
 "doc://FairApp/documentation/FairApp/AppNameValidation": {
   "abstract" : [
     {
@@ -1205,6 +1163,40 @@
   "title" : "AppStats",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appstats"
+},
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
+  "abstract" : [
+    {
+      "text" : "A permission with an unrecognized type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppUnrecognizedPermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppUnrecognizedPermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUnrecognizedPermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
 "doc://FairApp/documentation/FairApp/AppUsagePermission": {
   "abstract" : [

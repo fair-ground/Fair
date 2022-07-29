@@ -9,17 +9,17 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/init(type:usageDescription:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/init(type:identifier:usageDescription:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B16LegacyPermissionV4type16usageDescriptionAcA0B11EntitlementV_SStcfc",
+    "externalID" : "s:7FairApp0B22UnrecognizedPermissionV4type10identifier16usageDescriptionACSS_SSSgSStcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -39,12 +39,29 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
-        "text" : "AppEntitlement"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
         "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "identifier"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
       },
       {
         "kind" : "externalParam",
@@ -72,7 +89,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(type:usageDescription:)"
+    "title" : "init(type:identifier:usageDescription:)"
   },
   "primaryContentSections" : [
     {
@@ -102,14 +119,30 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
-              "text" : "AppEntitlement"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
               "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "identifier"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "?, "
             },
             {
               "kind" : "externalParam",
@@ -145,7 +178,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/applegacypermission\/init(type:usagedescription:)"
+        "\/documentation\/fairapp\/appunrecognizedpermission\/init(type:identifier:usagedescription:)"
       ],
       "traits" : [
         {
@@ -178,49 +211,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/AppEntitlement": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppEntitlement"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppEntitlement"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppEntitlement",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appentitlement"
-},
-"doc://FairApp/documentation/FairApp/AppLegacyPermission": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission": {
   "abstract" : [
     {
-      "text" : "A permission is a specific entitlement coupled with a description of its usage",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "TODO: @available(*, deprecated, renamed: “AppEntitlementPermission”)",
+      "text" : "A permission with an unrecognized type.",
       "type" : "text"
     }
   ],
@@ -235,23 +229,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppLegacyPermission"
+      "text" : "AppUnrecognizedPermission"
     }
   ],
   "role" : "symbol",
-  "title" : "AppLegacyPermission",
+  "title" : "AppUnrecognizedPermission",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission"
 },
-"doc://FairApp/documentation/FairApp/AppLegacyPermission/init(type:usageDescription:)": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/init(type:identifier:usageDescription:)": {
   "abstract" : [
 
   ],
@@ -274,12 +268,29 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
-      "text" : "AppEntitlement"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
       "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -299,12 +310,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppLegacyPermission\/init(type:usageDescription:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/init(type:identifier:usageDescription:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(type:usageDescription:)",
+  "title" : "init(type:identifier:usageDescription:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/applegacypermission\/init(type:usagedescription:)"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/init(type:identifier:usagedescription:)"
 }
 }
 }

@@ -62,6 +62,44 @@ final class FairExpoTests: XCTestCase {
             })
     }
 
+    /// Returns the URL of the app to download with the standard fairground layout.
+    /// - Parameters:
+    ///   - appName: the name of the app
+    ///   - ios: whether this is iOS or macOS
+    private static func appDownloadURL(for appName: String, version: String?, platform: AppPlatform) throws -> URL {
+        func dlpath() throws -> String {
+            switch platform {
+            case .iOS: return appName + "-" + "iOS.ipa"
+            case .macOS: return appName + "-" + "macOS.zip"
+            default: throw AppError("unknown platform: \(platform)")
+            }
+        }
+        if let version = version {
+            guard let remoteURL = URL(string: "https://github.com/\(appName)/App/releases/download/\(version)/" + (try dlpath())) else {
+                throw AppError("cannot create url")
+            }
+            return remoteURL
+        } else {
+            guard let remoteURL = URL(string: "https://github.com/\(appName)/App/releases/latest/download/" + (try dlpath())) else {
+                throw AppError("cannot create url")
+            }
+            return remoteURL
+        }
+    }
+
+    /// Downloads the most recent version of the given App Fair app.
+    /// - Parameters:
+    ///   - appName: the name of the app
+    ///   - ios: whether this is iOS or macOS
+    private static func downloadApp(name appName: String, version: String?, platform: AppPlatform) async throws -> URL {
+        let remoteURL = try appDownloadURL(for: appName, version: version, platform: platform)
+        let (localURL, response) = try await prf("download: \(remoteURL.absoluteURL)") {
+            try await URLSession.shared.downloadFile(for: URLRequest(url: remoteURL, cachePolicy: .returnCacheDataElseLoad))
+        }
+        try response.validateHTTPCode()
+        return localURL
+    }
+
     func testVersionCommand() async throws {
         let result = try await runTool(op: FairToolCommand.VersionCommand.configuration.commandName)
         let output = extract(result.messages).first
@@ -69,7 +107,7 @@ final class FairExpoTests: XCTestCase {
     }
 
     func testSourceCreateAPI() async throws {
-        let url = URL(string: "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa")!
+        let url = try Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS)
 
         let catalog = try await AppCatalogAPI.shared.catalogApp(url: url)
         XCTAssertEqual("Cloud Cuckoo", catalog.name)
@@ -79,14 +117,7 @@ final class FairExpoTests: XCTestCase {
 
     #if os(macOS)
     func testConvertIPA() async throws {
-        let appName = "Cloud Cuckoo" // success
-        
-        let appOrg = appName.replacingOccurrences(of: " ", with: "-")
-        let remoteURL = URL(string: "https://github.com/\(appOrg)/App/releases/latest/download/\(appOrg)-iOS.ipa")!
-
-        let (localURL, response) = try await URLSession.shared.downloadFile(for: URLRequest(url: remoteURL, cachePolicy: .returnCacheDataElseLoad))
-        try response.validateHTTPCode()
-
+        let localURL = try await Self.downloadApp(name: "Cloud-Cuckoo", version: nil, platform: .iOS)
         let downloadName = localURL.deletingPathExtension().lastPathComponent
 
         let targetFolder = URL(fileURLWithPath: UUID().uuidString, isDirectory: true, relativeTo: .tmpdir)
@@ -115,7 +146,7 @@ final class FairExpoTests: XCTestCase {
 
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
     func testAppInfoCommandiOS() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"])
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(0, result.first?.entitlements?.count, "no entitlements expected in this ios app")
@@ -123,7 +154,7 @@ final class FairExpoTests: XCTestCase {
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
     func testAppInfoCommandMacOS() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"])
+        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .macOS).absoluteString])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
@@ -135,8 +166,8 @@ final class FairExpoTests: XCTestCase {
         var cmd = try AppCommand.InfoCommand.parseAsRoot(["info"]) as! AppCommand.InfoCommand
 
         cmd.apps = []
-        cmd.apps += ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"]
-        cmd.apps += ["https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip"]
+        cmd.apps += [try Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString]
+        cmd.apps += [try Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .macOS).absoluteString]
 
         var count = 0
 
@@ -184,7 +215,7 @@ final class FairExpoTests: XCTestCase {
     }
 
     func testSourceCreateCommand() async throws {
-//        let paths = ["https://github.com/Tune-Out/App/releases/latest/download/Tune-Out-iOS.ipa", "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip", "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"]
+//        let paths = [Self.appDownloadURL(for: "Tune-Out", version: nil, platform: .iOS), "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip", "https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa"]
         let paths = (try? FileManager.default.contentsOfDirectory(at: URL(fileURLWithPath: "/opt/src/ipas/"), includingPropertiesForKeys: nil).filter({ $0.pathExtension == "ipa" }).map(\.path)) ?? []
 
         if paths.isEmpty {
