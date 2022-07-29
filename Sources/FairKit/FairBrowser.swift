@@ -665,7 +665,9 @@ open class WebViewState : ObservableObject {
         //view.setValue(UXColor.clear, forKey: "backgroundColor")
 
         // without this the web view will always flash white when first loading, even when dark mode is enabled
+        #if os(macOS)
         view.setValue(false, forKey: "drawsBackground") // https://developer.apple.com/forums/thread/121139
+        #endif
         return view
     }
 
