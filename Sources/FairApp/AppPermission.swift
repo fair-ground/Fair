@@ -21,6 +21,7 @@ import FairCore
 import CoreFoundation
 #endif
 
+/// One of the supported permission types: ``AppEntitlementPermission``, ``AppUsagePermission``, ``AppBackgroundModePermission``, or ``AppUnrecognizedPermission``.
 public typealias AppPermission = XOr<AppEntitlementPermission>
     .Or<AppUsagePermission>
     .Or<AppBackgroundModePermission>
@@ -74,7 +75,7 @@ public struct AppBackgroundMode : RawCodable, Equatable, Hashable {
 
 }
 
-/// A permission with an unrecognized type.
+/// A permission with an unrecognized ``type`` property.
 public struct AppUnrecognizedPermission : Codable, Equatable {
     /// The type of the permission
     public var type: String
