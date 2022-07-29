@@ -686,7 +686,7 @@ public final class AppCatalogAPI {
         }
 
         for backgroundMode in info.backgroundModes ?? [] {
-            permissions.append(AppPermission(AppBackgroundModePermission(backgroundMode: AppBackgroundMode(backgroundMode), usageDescription: "USAGE DESCRIPTION")))
+            permissions.append(AppPermission(AppBackgroundModePermission(backgroundMode: AppBackgroundMode(backgroundMode), usageDescription: "USAGE DESCRIPTION"))) // TODO: extract usage description
         }
 
         for (key, value) in entitlements?.first?.values ?? [:] {
