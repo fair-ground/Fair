@@ -188,7 +188,6 @@ public extension URL {
 
 #if canImport(SwiftUI)
 /// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
-@available(macOS 12.0, iOS 15.0, *)
 @MainActor public protocol FairContainer {
     /// The store for this instance
     associatedtype AppStore : SceneManager
@@ -210,7 +209,6 @@ public extension URL {
     static func cli(args: [String]) throws -> Bool
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 public extension FairContainer {
     /// The default cli is a no-op
     static func cli(args: [String]) throws -> Bool {
@@ -219,7 +217,6 @@ public extension FairContainer {
 }
 
 #if swift(>=5.5)
-@available(macOS 12.0, iOS 15.0, *)
 @MainActor open class SceneManager: ObservableObject {
     /// Must have a no-arg initializer
     public required init() { }
@@ -293,7 +290,6 @@ public extension AppEntitlement {
 }
 #endif // canImport(Security)
 
-@available(macOS 12.0, iOS 15.0, *)
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
     public static func launch(bundle: Bundle, sourceFile: StaticString = #file) async throws {
@@ -417,7 +413,6 @@ public extension Error {
 
 private let mainAppCatalogInfo = Result { try Bundle.main.appCatalogInfo() }
 
-@available(macOS 12.0, iOS 15.0, *)
 public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
     @Environment(\.openURL) var openURL
@@ -546,7 +541,6 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 private final class AppDelegate: NSObject, UXApplicationDelegate {
     /// The global quick actions installed on the app
     fileprivate static var quickActions: [QuickAction]? = nil
@@ -687,7 +681,6 @@ private final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 /// Command to select the search bar using the CMD-F keyboard shortcut
 /// The command will be installed in the `CommandGroupPlacement.textEditing` menu on macOS.
-@available(macOS 12.0, iOS 15.0, *)
 public struct SearchBarCommands: Commands {
     public init() {
     }
@@ -715,7 +708,6 @@ public struct SearchBarCommands: Commands {
 }
 
 
-@available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.Text {
     /// Creates a Text from the given attributed string, falling back to the unformatted string if it fails to parse.
     public init(atx attributedText: String, languageCode: String? = nil) {
@@ -737,7 +729,6 @@ extension SwiftUI.Text {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.View {
     /// Creates a `Link` to the given URL.
     public func link(to destination: URL) -> Link<Self> {

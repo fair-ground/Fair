@@ -59,8 +59,7 @@ public extension EndpointService {
 
 extension EndpointService {
 #if swift(>=5.5)
-    @available(macOS 12.0, iOS 15.0, *)
-    public func requestAsync<A: APIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, retry: Bool = true) async throws -> A.Response where A.Service == Self {
+        public func requestAsync<A: APIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, retry: Bool = true) async throws -> A.Response where A.Service == Self {
         let (data, response) = try await session.data(for: buildRequest(for: request, cache: cache), delegate: nil)
 
         // check response headers for rate-limiting

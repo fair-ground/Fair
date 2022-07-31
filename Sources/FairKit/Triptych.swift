@@ -31,7 +31,6 @@ extension TriptychOrient : Identifiable {
     public var id: Self { self }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 public struct TriptychView<Outline: View, ListSelection: View, TableSelection: View, Content: View> : View {
     @Binding var orient: TriptychOrient
     var outline: () -> Outline
@@ -71,7 +70,6 @@ public struct TriptychView<Outline: View, ListSelection: View, TableSelection: V
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 public struct DisplayModePicker: View {
     @Binding var mode: TriptychOrient
 
@@ -94,7 +92,6 @@ public struct DisplayModePicker: View {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 public extension TriptychOrient {
     var labelContent: (title: Text, icon: FairSymbol) {
         switch self {

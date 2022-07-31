@@ -28,8 +28,8 @@ public typealias AppPermission = XOr<AppEntitlementPermission>
     .Or<AppUnrecognizedPermission>
 
 /// A permission is a specific entitlement coupled with a description of its usage
-public struct AppUsagePermission : Codable, Equatable {
-    public enum PermissionType : String, Codable, Equatable { case usage }
+public struct AppUsagePermission : Codable, Hashable {
+    public enum PermissionType : String, Codable, Hashable { case usage }
     public var type: PermissionType = .usage
 
     /// The type of the permission, which maps to a `NS**UsageDescription` key in the Info.plist
@@ -45,8 +45,8 @@ public struct AppUsagePermission : Codable, Equatable {
 }
 
 /// A permission is a specific entitlement coupled with a description of its usage
-public struct AppBackgroundModePermission : Codable, Equatable {
-    public enum PermissionType : String, Codable, Equatable { case backgroundMode = "background-mode" }
+public struct AppBackgroundModePermission : Codable, Hashable {
+    public enum PermissionType : String, Codable, Hashable { case backgroundMode = "background-mode" }
     public var type: PermissionType = .backgroundMode
 
     /// The type of the permission, which maps to a `NS**UsageDescription` key in the Info.plist
@@ -62,7 +62,7 @@ public struct AppBackgroundModePermission : Codable, Equatable {
 }
 
 /// An element of the "background-mode" permission type
-public struct AppBackgroundMode : RawCodable, Equatable, Hashable {
+public struct AppBackgroundMode : RawCodable, Hashable {
     public let rawValue: String
 
     public init(_ name: String) {
@@ -76,7 +76,7 @@ public struct AppBackgroundMode : RawCodable, Equatable, Hashable {
 }
 
 /// A permission with an unrecognized ``type`` property.
-public struct AppUnrecognizedPermission : Codable, Equatable {
+public struct AppUnrecognizedPermission : Codable, Hashable {
     /// The type of the permission
     public var type: String
 
@@ -94,8 +94,8 @@ public struct AppUnrecognizedPermission : Codable, Equatable {
 }
 
 /// A permission is a specific entitlement coupled with a description of its usage
-public struct AppEntitlementPermission : Codable, Equatable {
-    public enum PermissionType : String, Codable, Equatable { case entitlement }
+public struct AppEntitlementPermission : Codable, Hashable {
+    public enum PermissionType : String, Codable, Hashable { case entitlement }
     public var type: PermissionType = .entitlement
 
     /// The type of the permission, which maps to an entitement key

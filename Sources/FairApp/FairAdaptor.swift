@@ -336,7 +336,6 @@ extension View {
 }
 
 
-@available(macOS 12.0, iOS 15.0, *)
 extension View {
     /// The first time this window is shows, set the size to the given amount.
     ///
@@ -347,7 +346,6 @@ extension View {
 }
 
 /// A modifier that changes the `symbolVariant` based on whether it is hovered over.
-@available(macOS 12.0, iOS 15.0, *)
 public struct InitialSizeViewModifier: ViewModifier {
     public let size: CGSize
 
@@ -488,7 +486,6 @@ extension View {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 extension View {
     /// Causes the view to change its `SymbolVariants` when it is hovered.
     /// The animation only works with `symbolRenderingMode(.hierarchical)`.
@@ -498,7 +495,6 @@ extension View {
 }
 
 /// A modifier that changes the `symbolVariant` based on whether it is hovered over.
-@available(macOS 12.0, iOS 15.0, *)
 public struct HoverSymbolModifier: ViewModifier {
     @State private var hovered = false
     internal let activeVariant: SymbolVariants

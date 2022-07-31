@@ -416,7 +416,6 @@ public extension StringProtocol {
 }
 
 #if os(macOS) || os(iOS)
-@available(macOS 12.0, iOS 15.0, *)
 extension String {
     #if swift(>=5.5)
     /// Parses the attributed text string into an `AttributedString`

@@ -625,7 +625,7 @@ extension AppCatalogItem {
     }
 
     /// All the entitlements, ordered by their index in the `AppEntitlement` cases.
-    public func orderedPermissions(filterCategories: Set<AppEntitlement.Category> = []) -> Array<AppEntitlementPermission> {
+    public func orderedEntitlementPermissions(filterCategories: Set<AppEntitlement.Category> = []) -> Array<AppEntitlementPermission> {
         (self.permissionsEntitlements ?? [])
             .filter {
                 $0.identifier.categories.intersection(filterCategories).isEmpty
