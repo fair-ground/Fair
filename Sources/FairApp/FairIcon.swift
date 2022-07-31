@@ -212,7 +212,6 @@ private struct IndexedChar: Hashable, Identifiable {
     var string: String { "\(character)" }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 struct FairIconView_Previews: PreviewProvider {
     static var previews: some View {
         preview(count: 56, span: 50)

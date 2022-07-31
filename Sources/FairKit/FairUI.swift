@@ -256,7 +256,6 @@ extension Binding {
     }
 }
 
-@available(macOS 12.0, iOS 15.0, *)
 extension SwiftUI.TextField {
     /// Creates a `Link` to the given URL and overlays it over the trailing end of the field.
     @available(*, deprecated, message: "causes SwiftUI to always mark the view as dirty")

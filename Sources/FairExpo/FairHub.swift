@@ -32,7 +32,7 @@ public let appfairMaxApps = 250_000
 /// @available(*, deprecated, message: "move to hub configuration")
 public let appfairName = "appfair"
 
-public let appfairRoot = URL(string: "https://www.appfair.net")!
+public let appfairRoot = URL(string: "https://appfair.net")!
 
 /// The canonical location of the catalog for the Fair Ground
 public let appfairCatalogURLMacOS = URL(string: "fairapps-macos.json", relativeTo: appfairRoot)!

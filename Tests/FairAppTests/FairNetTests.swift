@@ -21,23 +21,19 @@ import FoundationNetworking
 
 final class FairNetTests: XCTestCase {
     #if !os(Linux) && !os(Windows)
-    @available(macOS 12.0, iOS 15.0, *)
-    func testFairDownload() async throws {
+        func testFairDownload() async throws {
         try await testDownload(sliceable: true)
     }
 
-    @available(macOS 12.0, iOS 15.0, *)
-    func testSliceableDownload() async throws {
+        func testSliceableDownload() async throws {
         try await testDownload(sliceable: true, range: 100...999)
     }
 
-    @available(macOS 12.0, iOS 15.0, *)
-    func testSystemDownload() async throws {
+        func testSystemDownload() async throws {
         try await testDownload(sliceable: false)
     }
 
-    @available(macOS 12.0, iOS 15.0, *)
-    private func testDownload(sliceable: Bool, range: ClosedRange<Int>? = nil) async throws {
+        private func testDownload(sliceable: Bool, range: ClosedRange<Int>? = nil) async throws {
         if ({ true }()) { throw XCTSkip("used for local testing") }
         
         let url = URL(string: "http://localhost:8080/movie101MB.mov")!

@@ -20,8 +20,7 @@ import WebKit
 
 final class FairIconTests: XCTestCase {
     /// Crashes on GH CI
-    @available(macOS 12.0, iOS 15.0, *)
-    func XXXtestFairIcons() throws {
+        func XXXtestFairIcons() throws {
         let width = 1600.0, height = 400.0
 
         for i in 1...20 {

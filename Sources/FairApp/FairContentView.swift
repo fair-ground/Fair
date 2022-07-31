@@ -27,7 +27,6 @@ public enum FairContentType {
 /// The `FairContentView` offers pre-defined functionality for an fair-ground App.
 /// The default `.placeholder` content is the initial content for a new
 /// app, and provides guidance for the developer on how to get started.
-@available(macOS 12.0, iOS 15.0, *)
 public struct FairContentView: View {
     let issuesURL = URL.fairHubURL("issues")!
     let discussionsURL = URL.fairHubURL("discussions")!
@@ -90,7 +89,6 @@ public struct FairContentView: View {
 #if canImport(SwiftUI)
 import SwiftUI
 
-@available(macOS 12.0, iOS 15.0, *)
 struct SVGPathView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack(alignment: .center) {
