@@ -1245,7 +1245,7 @@ public extension HexColor {
 
 
 extension SortComparator {
-    @usableFromInline func reorder(_ result: ComparisonResult) -> ComparisonResult {
+    fileprivate func reorder(_ result: ComparisonResult) -> ComparisonResult {
         switch (order, result) {
         case (_, .orderedSame): return .orderedSame
         case (.forward, .orderedAscending): return .orderedAscending
@@ -1255,47 +1255,6 @@ extension SortComparator {
         }
     }
 }
-
-/// A ``SortComparator`` with booleans values.
-public struct BoolComparator : SortComparator {
-    public var order: SortOrder = SortOrder.forward
-
-    public init(order: SortOrder = SortOrder.forward) {
-        self.order = order
-    }
-
-    public func compare(_ lhs: Bool, _ rhs: Bool) -> ComparisonResult {
-        switch (lhs, rhs) {
-        case (true, true): return reorder(.orderedSame)
-        case (false, false): return reorder(.orderedSame)
-        case (true, false): return reorder(.orderedAscending)
-        case (false, true): return reorder(.orderedAscending)
-        }
-    }
-}
-
-
-/// A ``SortComparator`` with optional values.
-public struct OptionalSortCompatator<T: Comparable & Hashable> : SortComparator {
-    public var order: SortOrder = SortOrder.forward
-
-    public let lhsDefault: T
-    public let rhsDefault: T
-
-    public init(order: SortOrder = SortOrder.forward, lhsDefault: T, rhsDefault: T) {
-        self.order = order
-        self.lhsDefault = lhsDefault
-        self.rhsDefault = rhsDefault
-    }
-
-    public func compare(_ lhs: T?, _ rhs: T?) -> ComparisonResult {
-        lhs ?? lhsDefault < rhs ?? rhsDefault ? reorder(.orderedAscending)
-        : lhs ?? lhsDefault > rhs ?? rhsDefault ? reorder(.orderedDescending)
-        : .orderedSame
-    }
-}
-
-
 
 /// Shim to work around crash with accessing ``Bundle.module`` from a command-line tool.
 ///
