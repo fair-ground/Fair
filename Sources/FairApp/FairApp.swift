@@ -1244,18 +1244,6 @@ public extension HexColor {
 #endif
 
 
-extension SortComparator {
-    fileprivate func reorder(_ result: ComparisonResult) -> ComparisonResult {
-        switch (order, result) {
-        case (_, .orderedSame): return .orderedSame
-        case (.forward, .orderedAscending): return .orderedAscending
-        case (.reverse, .orderedAscending): return .orderedDescending
-        case (.forward, .orderedDescending): return .orderedDescending
-        case (.reverse, .orderedDescending): return .orderedAscending
-        }
-    }
-}
-
 /// Shim to work around crash with accessing ``Bundle.module`` from a command-line tool.
 ///
 /// Ideally, we could enable this only when compiling into a single tool
