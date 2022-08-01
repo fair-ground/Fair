@@ -182,8 +182,15 @@ extension FairHub {
         }
         let news: [AppNewsPost]? = nil
 
-        // in order to minimize catalog changes, always sort by the bundle name
-        apps.sort { $0.bundleIdentifier < $1.bundleIdentifier }
+        // try sorting by download count, and then bundle identifier (for consistency)
+        // in the future, more sophisticated rankings may be used here
+        apps.sort { lhs, rhs in
+            if let dl1 = lhs.stats?.downloadCount,
+                let dl2 = rhs.stats?.downloadCount {
+                return dl1 > dl2
+            }
+            return lhs.bundleIdentifier < rhs.bundleIdentifier
+        }
 
         let macOS = artifactTarget.devices.contains("mac")
         let catalogURL = sourceURL

@@ -67,9 +67,9 @@ extension Result {
 
 extension Sequence {
     /// Derives an array from this sequence ensuring that the value at the `Hashable` `keyPath` has not yet been uniquely seen.
-    @inlinable public func uniquing<T: Hashable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+    @inlinable public func uniquing<T: Hashable>(by keyPath: KeyPath<Element, T>) -> LazyFilterSequence<Self> {
         var seen = Set<T>()
-        return self.filter { element in
+        return self.lazy.filter { element in
             if seen.insert(element[keyPath: keyPath]).inserted {
                 return true
             } else {
