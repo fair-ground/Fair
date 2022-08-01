@@ -2480,25 +2480,6 @@ private extension AppCatalog {
     }
 }
 
-extension AppCatalogItem {
-    @available(*, deprecated, renamed: "stats.coreSize")
-    var coreSize: Int? { self.stats?.coreSize }
-    @available(*, deprecated, renamed: "stats.downloadCount")
-    var downloadCount: Int? { self.stats?.downloadCount }
-    @available(*, deprecated, renamed: "stats.starCount")
-    var starCount: Int? { self.stats?.starCount }
-    @available(*, deprecated, renamed: "stats.forkCount")
-    var forkCount: Int? { self.stats?.forkCount }
-    @available(*, deprecated, renamed: "stats.viewCount")
-    var viewCount: Int? { self.stats?.viewCount }
-    @available(*, deprecated, renamed: "stats.issueCount")
-    var issueCount: Int? { self.stats?.issueCount }
-    @available(*, deprecated, renamed: "stats.watcherCount")
-    var watcherCount: Int? { self.stats?.watcherCount }
-    @available(*, deprecated, renamed: "stats.impressionCount")
-    var impressionCount: Int? { self.stats?.impressionCount }
-}
-
 public struct OutputOptions: ParsableArguments {
     @Option(name: [.long, .customShort("o")], help: ArgumentHelp("the output path."))
     public var output: String = "-"

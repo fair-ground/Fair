@@ -78,7 +78,6 @@ public extension HomebrewAPI {
         dbg("loaded cask stats", data.count.localizedByteCount(), "from url:", url)
         return try CaskStats(json: data, dateDecodingStrategy: .iso8601)
     }
-
 }
 
 
