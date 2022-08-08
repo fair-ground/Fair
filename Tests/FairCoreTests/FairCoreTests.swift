@@ -870,6 +870,48 @@ final class FairCoreTests: XCTestCase {
             }))
         }
     }
+
+    func testIndexedCollection() {
+        struct Value {
+            let name: String
+            let value: Int
+        }
+
+        var array = IndexedCollection(indexKeyPath: \Value.name)
+        array.append(Value(name: "a", value: 0))
+        array.append(Value(name: "b", value: 1))
+        XCTAssertEqual(array.map(\.name), ["a", "b"])
+
+        array.append(Value(name: "a", value: 2))
+        XCTAssertEqual(array.map(\.name), ["b", "a"])
+        XCTAssertEqual(array.map(\.value), [1, 2])
+
+        array.append(Value(name: "c", value: 3))
+        array.append(Value(name: "b", value: 4))
+        array.append(Value(name: "d", value: 5))
+
+        XCTAssertEqual(array.map(\.name), ["a", "c", "b", "d"])
+        XCTAssertEqual(array.map(\.value), [2, 3, 4, 5])
+
+        array.removeLast()
+        XCTAssertEqual(array.map(\.name), ["a", "c", "b"])
+
+        array.remove(at: 1)
+        XCTAssertEqual(array.map(\.name), ["a", "b"])
+        XCTAssertEqual(array.map(\.value), [2, 4])
+
+        array.swapAt(0, 1)
+        XCTAssertEqual(array.map(\.name), ["b", "a"])
+        XCTAssertEqual(array.map(\.value), [4, 2])
+
+        XCTAssertEqual(2, array.count)
+        XCTAssertFalse(array.isEmpty)
+
+        array.removeAll()
+
+        XCTAssertTrue(array.isEmpty)
+        XCTAssertEqual(0, array.count)
+    }
 }
 
 extension String {
