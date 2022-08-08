@@ -186,6 +186,92 @@ public extension UUID {
     }
 }
 
+
+/// An array of ``Value`` elements that support indexing by keypath.
+///
+/// This is tantamount to an OrderedDictionary.
+public struct IndexedCollection<Key: Hashable, Value> : RandomAccessCollection {
+    public let keyPath: KeyPath<Value, Key>
+    private var map: Dictionary<Key, Value> = [:]
+    private var keys: Array<Key> = []
+
+    public init(indexKeyPath keyPath: KeyPath<Value, Key>) {
+        self.keyPath = keyPath
+    }
+
+    public subscript(key: Key) -> Value? {
+        get {
+            map[key]
+        }
+
+        set {
+            if let newValue = newValue {
+                map[key] = newValue
+                // duplcate keys are moved to the end of the array
+                keys = (keys + [key]).reversed().uniquing(by: \.self).reversed()
+            } else {
+                keys = keys.filter({ x in x != key })
+            }
+        }
+    }
+
+    public subscript(position: Int) -> Value {
+        map[keys[position]]!
+    }
+
+    public var startIndex: Int {
+        keys.startIndex
+    }
+
+    public var endIndex: Int {
+        keys.endIndex
+    }
+
+    public func index(after i: Int) -> Int {
+        keys.index(after: i)
+    }
+
+    public func index(before i: Int) -> Int {
+        keys.index(before: i)
+    }
+
+    public func distance(from start: Int, to end: Int) -> Int {
+        keys.distance(from: start, to: end)
+    }
+
+    @discardableResult public mutating func removeFirst() -> Key {
+        let key = keys.removeFirst()
+        map[key] = nil
+        return key
+    }
+
+    @discardableResult public mutating func removeLast() -> Key {
+        let key = keys.removeLast()
+        map[key] = nil
+        return key
+    }
+
+    public mutating func remove(at index: Int) {
+        let key = keys.remove(at: index)
+        map[key] = nil
+    }
+
+    public mutating func removeAll() {
+        keys.removeAll()
+        map.removeAll()
+    }
+
+    public mutating func append(_ element: Element) {
+        self[element[keyPath: keyPath]] = element
+    }
+
+    /// Exchanges the values at the specified indices of the collection.
+    public mutating func swapAt(_ i: Int, _ j: Int) {
+        keys.swapAt(i, j)
+    }
+}
+
+
 /// A `RandomNumberGenerator` that accepts a seed to provide deterministic values.
 public struct SeededRandomNumberGenerator : RandomNumberGenerator {
     var indexM: UInt8 = 0
