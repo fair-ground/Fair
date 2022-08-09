@@ -140,7 +140,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.ref }}
 
-      - name: "Check platforms"
+      - name: "Configure Deployment Platforms"
         id: platforms
         run: |
           echo "::set-output name=macos::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
@@ -153,14 +153,14 @@ jobs:
 
       - name: Install fairtool
         run: |
-          brew install fair-ground/tool/fairtool
-          fairtool version
+          brew install fair-ground/tool/fairtool-head
+          fairtool-head version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
-          fairtool fair validate --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig"
+          fairtool-head fair validate --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.GITHUB_TOKEN }}" --base . --project . --fair-properties "AppFairApp.xcconfig"
 
       # Verifies that pages are enabled for this repository
       - name: "Check Repository Page: https://${{ env.ORGNAME }}.github.io/App"
@@ -168,7 +168,7 @@ jobs:
 
       - name: "Generate Icon"
         run: |
-          fairtool fair icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          fairtool-head fair icon --org "${{ env.ORGNAME }}" --fair-properties AppFairApp.xcconfig --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
 
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
@@ -385,23 +385,6 @@ jobs:
           # git status
           # gh pr create --no-maintainer-edit --repo "${{ inputs.fairground }}/App" --title "${{ env.BUNDLE_ID }} ${GITHUB_REF#refs/tags/}" --body "${{ env.BUNDLE_ID }} release ${GITHUB_REF#refs/tags/}"
    
-      # See: Creating API Keys for App Store Connect API
-      # https://developer.apple.com/documentation/appstoreconnectapi/creating_api_keys_for_app_store_connect_api
-      # "Generate API Key" Name: "App Store Connect" Access: "Admin"
-      - name: "Check TestFlight keys"
-        id: testflight_setup
-        env:
-            TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
-        if: ${{ env.TESTFLIGHT_TEAMID != '' }}
-        # transfer the secret to an env variable so it can be checked with `if`
-        run: echo "::set-output name=defined::true"
-
-      - name: "Create TestFlight App"
-        if: ${{ steps.testflight_setup.outputs.defined == 'true' }}
-        run: |
-          mkdir -p .testflight
-          brew install fastlane
-
 
   # The Integrate-Release phases run in the trusted base fairground.
   # This workflow validates and re-builds the app, and if the artifact hash
@@ -464,14 +447,14 @@ jobs:
 
       - name: Install fairtool
         run: |
-          brew install fair-ground/tool/fairtool
-          fairtool version
+          brew install fair-ground/tool/fairtool-head
+          fairtool-head version
 
       - name: "Validate App: ${{ env.ORGNAME }}"
         run: |
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true ReleasePR/Sandbox.entitlements
-          fairtool fair validate \
+          fairtool-head fair validate \
             --base . \
             --project ReleasePR \
             --hub github.com/${{ inputs.fairground }} \
@@ -498,14 +481,14 @@ jobs:
           # store the PR in the build archive
           cp -a ReleasePR "staging/"
 
-          fairtool fair merge --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
+          fairtool-head fair merge --verbose --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project ReleasePR --fair-properties "AppFairApp.xcconfig" --output .
 
           file Assets.xcassets/AppIcon.appiconset/*.*
 
           # needed to be able to ad-hoc codesign embedded frameworks
           plutil -replace 'com\.apple\.security\.cs\.disable-library-validation' -bool true Sandbox.entitlements
         
-          fairtool fair validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
+          fairtool-head fair validate --hub "github.com/${{ inputs.fairground }}" --org "${{ env.ORGNAME }}" --token "${{ secrets.token }}" --base . --project "${{ env.IR_TARGET }}" --fair-properties "AppFairApp.xcconfig"
 
           xcrun swift package resolve
           cp -a .build/checkouts Dependencies
@@ -525,10 +508,10 @@ jobs:
       - name: "Generate Icon"
         run: |
           cd "${{ env.IR_TARGET }}"
-          fairtool fair icon --org "${{ env.ORGNAME }}" --fair-properties "AppFairApp.xcconfig" --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
+          fairtool-head fair icon --org "${{ env.ORGNAME }}" --fair-properties "AppFairApp.xcconfig" --accent-color Assets.xcassets/AccentColor.colorset/Contents.json --app-icon Assets.xcassets/AppIcon.appiconset/Contents.json
           cd -
 
-      - name: "Check platforms"
+      - name: "Configure Deployment Platforms"
         id: platforms
         run: |
           echo "::set-output name=macos::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
@@ -640,7 +623,7 @@ jobs:
           # client apps will use this hash to verify that the untrusted
           # release artifact that is downloaded matches the release
           # artifact that was created in the trusted environment
-          fairtool fair fairseal \
+          fairtool-head fair fairseal \
             --verbose \
             --hub "github.com/${{ inputs.fairground }}" \
             --base-repo "App" \
@@ -680,7 +663,7 @@ jobs:
 
           # Builds on iOS are currently not reproducible (help wanted!),
           # so we accept a large diff tolerance for permitted-diffs
-          fairtool fair fairseal \
+          fairtool-head fair fairseal \
             --verbose \
             --hub "github.com/${{ inputs.fairground }}" \
             --base-repo "App" \
@@ -697,6 +680,21 @@ jobs:
             --project .
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
+
+      - name: "Configure TestFlight"
+        id: testflight_setup
+        env:
+            TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
+        if: ${{ env.TESTFLIGHT_TEAMID != '' }}
+        run: |
+          echo "::set-output name=defined::true"
+          echo "::set-output name=enabled::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq -r '.[].buildSettings.TESTFLIGHT_DEPLOY')"
+
+      - name: "Create TestFlight App"
+        if: ${{ steps.testflight_setup.outputs.enabled == 'true' }}
+        run: |
+          mkdir -p .testflight
+          brew install fastlane
 
       - name: "Upload Build Artifacts"
         # upload the trusted artifacts for each build for reproducible-builds
