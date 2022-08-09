@@ -233,7 +233,7 @@ extension FairHub {
 
             // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
             let categories = (fork.repositoryTopics.nodes ?? []).map(\.topic.name).compactMap({
-                AppCategory.valueFor(base: $0, validate: true)
+                AppCategoryType.valueFor(base: $0, validate: true)
             })
 
             var fairsealBetaFound = false
@@ -746,7 +746,7 @@ extension FairHub {
 
         // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
         let categories = prefixedAssetTag("category-")?
-            .compactMap({ AppCategory.valueFor(base: $0, validate: true) })
+            .compactMap({ AppCategoryType.valueFor(base: $0, validate: true) })
 
         let tintColor = prefixedAssetTag("tint-")?
             .filter({ $0.count == 6 }) // needs to be a 6-digit hex code

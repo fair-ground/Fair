@@ -569,6 +569,9 @@ extension AppBundle where Source.Path == URL {
 
 // MARK: Internal Mach-O structures
 
+// TODO: Re-implement as read/write to support code signing
+// https://github.com/indygreg/PyOxidizer/blob/main/apple-codesign/src/macho.rs#L36
+
 class MachOBinary {
     enum Error: Swift.Error {
         case binaryOpeningError
