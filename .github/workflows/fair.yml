@@ -517,6 +517,21 @@ jobs:
           echo "::set-output name=macos::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
           echo "::set-output name=ios::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
+      - name: "Configure TestFlight"
+        id: testflight_setup
+        env:
+            TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
+            #if: ${{ env.TESTFLIGHT_TEAMID != '' }}
+        run: |
+          echo "::set-output name=defined::true"
+          echo "::set-output name=enabled::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq -r '.[].buildSettings.TESTFLIGHT_DEPLOY')"
+
+      - name: "Install fastlane"
+        if: ${{ steps.testflight_setup.outputs.enabled == 'true' }}
+        run: |
+          mkdir -p .testflight
+          brew install fastlane
+
       - name: "Build iOS App"
         if: ${{ inputs.target_ios == true && steps.platforms.outputs.ios == 'enabled' }}
         run: |
@@ -681,20 +696,10 @@ jobs:
 
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
-      - name: "Configure TestFlight"
-        id: testflight_setup
-        env:
-            TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
-        if: ${{ env.TESTFLIGHT_TEAMID != '' }}
-        run: |
-          echo "::set-output name=defined::true"
-          echo "::set-output name=enabled::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq -r '.[].buildSettings.TESTFLIGHT_DEPLOY')"
-
       - name: "Create TestFlight App"
         if: ${{ steps.testflight_setup.outputs.enabled == 'true' }}
         run: |
-          mkdir -p .testflight
-          brew install fastlane
+          fastlane beta
 
       - name: "Upload Build Artifacts"
         # upload the trusted artifacts for each build for reproducible-builds
