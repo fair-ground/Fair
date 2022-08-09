@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp23InitialSizeViewModifierV4sizeSo6CGSizeVvp",
+    "externalID" : "s:7FairApp23InitialSizeViewModifierV4sizeSo6CGSizeVSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,6 +41,10 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "c:@S@CGSize",
         "text" : "CGSize"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -84,6 +88,10 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "c:@S@CGSize",
               "text" : "CGSize"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
             }
           ]
         }
@@ -138,15 +146,15 @@
 "doc://FairApp/documentation/FairApp/InitialSizeViewModifier": {
   "abstract" : [
     {
-      "text" : "A modifier that changes the ",
+      "text" : "A modifier that sets an intial view size for a window’s content view the first time it appears,",
       "type" : "text"
     },
     {
-      "code" : "symbolVariant",
-      "type" : "codeVoice"
+      "text" : " ",
+      "type" : "text"
     },
     {
-      "text" : " based on whether it is hovered over.",
+      "text" : "and then afterwars allows the view to be resized.",
       "type" : "text"
     }
   ],
@@ -202,6 +210,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "c:@S@CGSize",
       "text" : "CGSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/InitialSizeViewModifier\/size",

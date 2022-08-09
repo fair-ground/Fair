@@ -21,7 +21,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "SwiftUI",
-    "externalID" : "s:7SwiftUI4ViewP7FairAppE07initialC4SizeyAA15ModifiedContentVyxAD07InitialgC8ModifierVGSo6CGSizeVF::SYNTHESIZED::s:7FairApp0A6SymbolV",
+    "externalID" : "s:7SwiftUI4ViewP7FairAppE07initialC4SizeyAA15ModifiedContentVyxAD07InitialgC8ModifierVGSo6CGSizeVSgF::SYNTHESIZED::s:7FairApp0A6SymbolV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -46,7 +46,7 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> "
+        "text" : "?) -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -135,7 +135,7 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> "
+              "text" : "?) -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -185,6 +185,24 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Usage:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "WindowGroup {",
+            "   RootView().initialViewSize(.init(width: 1200, height: 700))",
+            "}"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
         }
       ],
       "kind" : "content"
@@ -310,7 +328,7 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -349,15 +367,15 @@
 "doc://FairApp/documentation/FairApp/InitialSizeViewModifier": {
   "abstract" : [
     {
-      "text" : "A modifier that changes the ",
+      "text" : "A modifier that sets an intial view size for a window’s content view the first time it appears,",
       "type" : "text"
     },
     {
-      "code" : "symbolVariant",
-      "type" : "codeVoice"
+      "text" : " ",
+      "type" : "text"
     },
     {
-      "text" : " based on whether it is hovered over.",
+      "text" : "and then afterwars allows the view to be resized.",
       "type" : "text"
     }
   ],

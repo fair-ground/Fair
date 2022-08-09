@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "A modifier that changes the ",
+      "text" : "A modifier that sets an intial view size for a window’s content view the first time it appears,",
       "type" : "text"
     },
     {
-      "code" : "symbolVariant",
-      "type" : "codeVoice"
+      "text" : " ",
+      "type" : "text"
     },
     {
-      "text" : " based on whether it is hovered over.",
+      "text" : "and then afterwars allows the view to be resized.",
       "type" : "text"
     }
   ],
@@ -84,6 +84,26 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This works around the inability to set an intiail window size in SwiftUI.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -169,15 +189,15 @@
 "doc://FairApp/documentation/FairApp/InitialSizeViewModifier": {
   "abstract" : [
     {
-      "text" : "A modifier that changes the ",
+      "text" : "A modifier that sets an intial view size for a window’s content view the first time it appears,",
       "type" : "text"
     },
     {
-      "code" : "symbolVariant",
-      "type" : "codeVoice"
+      "text" : " ",
+      "type" : "text"
     },
     {
-      "text" : " based on whether it is hovered over.",
+      "text" : "and then afterwars allows the view to be resized.",
       "type" : "text"
     }
   ],
@@ -311,6 +331,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "c:@S@CGSize",
       "text" : "CGSize"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/InitialSizeViewModifier\/size",
