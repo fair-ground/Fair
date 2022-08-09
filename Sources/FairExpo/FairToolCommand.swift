@@ -660,14 +660,14 @@ public final class AppCatalogAPI {
 
         var cats = item.categories ?? []
         if let appCategory = info.stringValue(for: .LSApplicationCategoryType) {
-            let cat = AppCategory(rawValue: appCategory)
-            if AppCategory.allCases.contains(cat) { // app category needs to exist to add
+            let cat = AppCategoryType(rawValue: appCategory)
+            if AppCategoryType.allCases.contains(cat) { // app category needs to exist to add
                 cats.append(cat)
             }
         }
         if let secondaryAppCategory = info.stringValue(for: .LSApplicationSecondaryCategoryType) {
-            let cat2 = AppCategory(rawValue: secondaryAppCategory)
-            if AppCategory.allCases.contains(cat2) { // app category needs to exist to add
+            let cat2 = AppCategoryType(rawValue: secondaryAppCategory)
+            if AppCategoryType.allCases.contains(cat2) { // app category needs to exist to add
                 cats.append(cat2)
             }
         }

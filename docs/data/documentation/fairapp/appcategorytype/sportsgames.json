@@ -8,21 +8,30 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairApp\/documentation\/FairApp"
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/sportsgames"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B8Categorya",
+    "externalID" : "s:7FairApp0B12CategoryTypeV11sportsgamesACvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "typealias"
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "let"
       },
       {
         "kind" : "text",
@@ -30,7 +39,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "AppCategory"
+        "text" : "sportsgames"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp0B12CategoryTypeV",
+        "text" : "AppCategoryType"
       }
     ],
     "modules" : [
@@ -38,19 +56,10 @@
         "name" : "FairApp"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "AppCategory"
-      }
-    ],
-    "platforms" : [
-
-    ],
     "role" : "symbol",
-    "roleHeading" : "Type Alias",
-    "symbolKind" : "typealias",
-    "title" : "AppCategory"
+    "roleHeading" : "Type Property",
+    "symbolKind" : "property",
+    "title" : "sportsgames"
   },
   "primaryContentSections" : [
     {
@@ -65,7 +74,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "typealias"
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "let"
             },
             {
               "kind" : "text",
@@ -73,11 +90,11 @@
             },
             {
               "kind" : "identifier",
-              "text" : "AppCategory"
+              "text" : "sportsgames"
             },
             {
               "kind" : "text",
-              "text" : " = "
+              "text" : ": "
             },
             {
               "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType",
@@ -102,7 +119,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcategory"
+        "\/documentation\/fairapp\/appcategorytype\/sportsgames"
       ],
       "traits" : [
         {
@@ -134,38 +151,6 @@
   "title" : "FairApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
-},
-"doc://FairApp/documentation/FairApp/AppCategory": {
-  "abstract" : [
-
-  ],
-  "deprecated" : true,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCategory"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCategory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCategory",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory"
 },
 "doc://FairApp/documentation/FairApp/AppCategoryType": {
   "abstract" : [
@@ -208,6 +193,48 @@
   "title" : "AppCategoryType",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategorytype"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType/sportsgames": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sportsgames"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B12CategoryTypeV",
+      "text" : "AppCategoryType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/sportsgames",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "sportsgames",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategorytype\/sportsgames"
 }
 }
 }

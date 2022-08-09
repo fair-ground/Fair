@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The categories assigned to this app",
+      "text" : "Returns the debug form of the JSON",
       "type" : "text"
     }
   ],
@@ -9,17 +9,19 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/Encodable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/categories"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/debugJSON"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV10categoriesSayAA0B12CategoryTypeVGSgvp",
+    "extendedModule" : "Swift",
+    "externalID" : "s:SE8FairCoreE9debugJSONSSvp::SYNTHESIZED::s:7FairApp0B12CategoryTypeV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,20 +33,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "categories"
+        "text" : "debugJSON"
       },
       {
         "kind" : "text",
-        "text" : ": ["
+        "text" : ": "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp0B12CategoryTypeV",
-        "text" : "AppCategoryType"
-      },
-      {
-        "kind" : "text",
-        "text" : "]?"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       }
     ],
     "modules" : [
@@ -55,7 +53,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "categories"
+    "title" : "debugJSON"
   },
   "primaryContentSections" : [
     {
@@ -78,21 +76,28 @@
             },
             {
               "kind" : "identifier",
-              "text" : "categories"
+              "text" : "debugJSON"
             },
             {
               "kind" : "text",
-              "text" : ": ["
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B12CategoryTypeV",
-              "text" : "AppCategoryType"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "]?"
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -111,7 +116,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcatalogitem\/categories"
+        "\/documentation\/fairapp\/appcategorytype\/debugjson"
       ],
       "traits" : [
         {
@@ -143,81 +148,6 @@
   "title" : "FairApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
-},
-"doc://FairApp/documentation/FairApp/AppCatalogItem": {
-  "abstract" : [
-    {
-      "text" : "An individual App Source Catalog item, defining the name, identifier, and downloadURL of an application archive.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem"
-},
-"doc://FairApp/documentation/FairApp/AppCatalogItem/categories": {
-  "abstract" : [
-    {
-      "text" : "The categories assigned to this app",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "categories"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B12CategoryTypeV",
-      "text" : "AppCategoryType"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/categories",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "categories",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/categories"
 },
 "doc://FairApp/documentation/FairApp/AppCategoryType": {
   "abstract" : [
@@ -260,6 +190,54 @@
   "title" : "AppCategoryType",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategorytype"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategorytype\/encodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType/debugJSON": {
+  "abstract" : [
+    {
+      "text" : "Returns the debug form of the JSON",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "debugJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/debugJSON",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "debugJSON",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategorytype\/debugjson"
 }
 }
 }

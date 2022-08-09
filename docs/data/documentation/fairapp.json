@@ -94,7 +94,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogSource",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlement",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlementPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppEntitlements",
@@ -141,6 +141,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/NID",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXApplication",
@@ -682,6 +683,38 @@
 },
 "doc://FairApp/documentation/FairApp/AppCategory": {
   "abstract" : [
+
+  ],
+  "deprecated" : true,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCategory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCategory"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCategory",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategory"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType": {
+  "abstract" : [
     {
       "text" : "The ",
       "type" : "text"
@@ -706,21 +739,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AppCategory"
+      "text" : "AppCategoryType"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AppCategory"
+      "text" : "AppCategoryType"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCategory",
+  "title" : "AppCategoryType",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory"
+  "url" : "\/documentation\/fairapp\/appcategorytype"
 },
 "doc://FairApp/documentation/FairApp/AppEntitlement": {
   "abstract" : [

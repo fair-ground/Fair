@@ -1,36 +1,58 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable.init(rawValue:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairApp\/documentation\/FairApp"
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/init(rawValue:)-8a4um"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B8Categorya",
+    "externalID" : "s:7FairApp0B12CategoryTypeV8rawValueACSS_tcfc",
     "fragments" : [
       {
-        "kind" : "keyword",
-        "text" : "typealias"
+        "kind" : "identifier",
+        "text" : "init"
       },
       {
         "kind" : "text",
-        "text" : " "
+        "text" : "("
       },
       {
-        "kind" : "identifier",
-        "text" : "AppCategory"
+        "kind" : "externalParam",
+        "text" : "rawValue"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
       }
     ],
     "modules" : [
@@ -38,19 +60,10 @@
         "name" : "FairApp"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "AppCategory"
-      }
-    ],
-    "platforms" : [
-
-    ],
     "role" : "symbol",
-    "roleHeading" : "Type Alias",
-    "symbolKind" : "typealias",
-    "title" : "AppCategory"
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(rawValue:)"
   },
   "primaryContentSections" : [
     {
@@ -65,25 +78,28 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "typealias"
+              "text" : "init"
             },
             {
               "kind" : "text",
-              "text" : " "
+              "text" : "("
             },
             {
-              "kind" : "identifier",
-              "text" : "AppCategory"
+              "kind" : "externalParam",
+              "text" : "rawValue"
             },
             {
               "kind" : "text",
-              "text" : " = "
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp0B12CategoryTypeV",
-              "text" : "AppCategoryType"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : ")"
             }
           ]
         }
@@ -102,7 +118,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appcategory"
+        "\/documentation\/fairapp\/appcategorytype\/init(rawvalue:)-8a4um"
       ],
       "traits" : [
         {
@@ -134,38 +150,6 @@
   "title" : "FairApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
-},
-"doc://FairApp/documentation/FairApp/AppCategory": {
-  "abstract" : [
-
-  ],
-  "deprecated" : true,
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCategory"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCategory"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCategory",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategory"
 },
 "doc://FairApp/documentation/FairApp/AppCategoryType": {
   "abstract" : [
@@ -208,6 +192,44 @@
   "title" : "AppCategoryType",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategorytype"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType/init(rawValue:)-8a4um": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/init(rawValue:)-8a4um",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategorytype\/init(rawvalue:)-8a4um"
 }
 }
 }

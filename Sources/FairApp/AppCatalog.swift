@@ -144,7 +144,7 @@ public struct AppCatalogItem : Codable, Equatable {
     public var beta: Bool?
 
     /// The categories assigned to this app
-    public var categories: [AppCategory]?
+    public var categories: [AppCategoryType]?
 
     /// The expected hash of the downloadURL
     public var sha256: String?
@@ -169,7 +169,7 @@ public struct AppCatalogItem : Codable, Equatable {
 
     public var stats: AppStats?
 
-    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [AppCategory]? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil, stats: AppStats? = nil) {
+    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [AppCategoryType]? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil, stats: AppStats? = nil) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -303,54 +303,57 @@ public struct AppPlatform : RawCodable, Hashable {
 }
 
 
+@available(*, deprecated, renamed: "AppCategoryType")
+public typealias AppCategory = AppCategoryType
+
 /// The `LSApplicationCategoryType` for an app
-public struct AppCategory : RawCodable, CaseIterable, Hashable {
+public struct AppCategoryType : RawCodable, CaseIterable, Hashable {
     public var rawValue: String
 
     private static let basePrefix = "public.app-category."
 
-    public static let business = AppCategory(rawValue: "public.app-category.business")
-    public static let developertools = AppCategory(rawValue: "public.app-category.developer-tools")
-    public static let education = AppCategory(rawValue: "public.app-category.education")
-    public static let entertainment = AppCategory(rawValue: "public.app-category.entertainment")
-    public static let finance = AppCategory(rawValue: "public.app-category.finance")
-    public static let games = AppCategory(rawValue: "public.app-category.games")
-    public static let graphicsdesign = AppCategory(rawValue: "public.app-category.graphics-design")
-    public static let healthcarefitness = AppCategory(rawValue: "public.app-category.healthcare-fitness")
-    public static let lifestyle = AppCategory(rawValue: "public.app-category.lifestyle")
-    public static let medical = AppCategory(rawValue: "public.app-category.medical")
-    public static let music = AppCategory(rawValue: "public.app-category.music")
-    public static let news = AppCategory(rawValue: "public.app-category.news")
-    public static let photography = AppCategory(rawValue: "public.app-category.photography")
-    public static let productivity = AppCategory(rawValue: "public.app-category.productivity")
-    public static let reference = AppCategory(rawValue: "public.app-category.reference")
-    public static let socialnetworking = AppCategory(rawValue: "public.app-category.social-networking")
-    public static let sports = AppCategory(rawValue: "public.app-category.sports")
-    public static let travel = AppCategory(rawValue: "public.app-category.travel")
-    public static let utilities = AppCategory(rawValue: "public.app-category.utilities")
-    public static let video = AppCategory(rawValue: "public.app-category.video")
-    public static let weather = AppCategory(rawValue: "public.app-category.weather")
-    public static let actiongames = AppCategory(rawValue: "public.app-category.action-games")
-    public static let adventuregames = AppCategory(rawValue: "public.app-category.adventure-games")
-    public static let arcadegames = AppCategory(rawValue: "public.app-category.arcade-games")
-    public static let boardgames = AppCategory(rawValue: "public.app-category.board-games")
-    public static let cardgames = AppCategory(rawValue: "public.app-category.card-games")
-    public static let casinogames = AppCategory(rawValue: "public.app-category.casino-games")
-    public static let dicegames = AppCategory(rawValue: "public.app-category.dice-games")
-    public static let educationalgames = AppCategory(rawValue: "public.app-category.educational-games")
-    public static let familygames = AppCategory(rawValue: "public.app-category.family-games")
-    public static let kidsgames = AppCategory(rawValue: "public.app-category.kids-games")
-    public static let musicgames = AppCategory(rawValue: "public.app-category.music-games")
-    public static let puzzlegames = AppCategory(rawValue: "public.app-category.puzzle-games")
-    public static let racinggames = AppCategory(rawValue: "public.app-category.racing-games")
-    public static let roleplayinggames = AppCategory(rawValue: "public.app-category.role-playing-games")
-    public static let simulationgames = AppCategory(rawValue: "public.app-category.simulation-games")
-    public static let sportsgames = AppCategory(rawValue: "public.app-category.sports-games")
-    public static let strategygames = AppCategory(rawValue: "public.app-category.strategy-games")
-    public static let triviagames = AppCategory(rawValue: "public.app-category.trivia-games")
-    public static let wordgames = AppCategory(rawValue: "public.app-category.word-games")
+    public static let business = Self(rawValue: "public.app-category.business")
+    public static let developertools = Self(rawValue: "public.app-category.developer-tools")
+    public static let education = Self(rawValue: "public.app-category.education")
+    public static let entertainment = Self(rawValue: "public.app-category.entertainment")
+    public static let finance = Self(rawValue: "public.app-category.finance")
+    public static let games = Self(rawValue: "public.app-category.games")
+    public static let graphicsdesign = Self(rawValue: "public.app-category.graphics-design")
+    public static let healthcarefitness = Self(rawValue: "public.app-category.healthcare-fitness")
+    public static let lifestyle = Self(rawValue: "public.app-category.lifestyle")
+    public static let medical = Self(rawValue: "public.app-category.medical")
+    public static let music = Self(rawValue: "public.app-category.music")
+    public static let news = Self(rawValue: "public.app-category.news")
+    public static let photography = Self(rawValue: "public.app-category.photography")
+    public static let productivity = Self(rawValue: "public.app-category.productivity")
+    public static let reference = Self(rawValue: "public.app-category.reference")
+    public static let socialnetworking = Self(rawValue: "public.app-category.social-networking")
+    public static let sports = Self(rawValue: "public.app-category.sports")
+    public static let travel = Self(rawValue: "public.app-category.travel")
+    public static let utilities = Self(rawValue: "public.app-category.utilities")
+    public static let video = Self(rawValue: "public.app-category.video")
+    public static let weather = Self(rawValue: "public.app-category.weather")
+    public static let actiongames = Self(rawValue: "public.app-category.action-games")
+    public static let adventuregames = Self(rawValue: "public.app-category.adventure-games")
+    public static let arcadegames = Self(rawValue: "public.app-category.arcade-games")
+    public static let boardgames = Self(rawValue: "public.app-category.board-games")
+    public static let cardgames = Self(rawValue: "public.app-category.card-games")
+    public static let casinogames = Self(rawValue: "public.app-category.casino-games")
+    public static let dicegames = Self(rawValue: "public.app-category.dice-games")
+    public static let educationalgames = Self(rawValue: "public.app-category.educational-games")
+    public static let familygames = Self(rawValue: "public.app-category.family-games")
+    public static let kidsgames = Self(rawValue: "public.app-category.kids-games")
+    public static let musicgames = Self(rawValue: "public.app-category.music-games")
+    public static let puzzlegames = Self(rawValue: "public.app-category.puzzle-games")
+    public static let racinggames = Self(rawValue: "public.app-category.racing-games")
+    public static let roleplayinggames = Self(rawValue: "public.app-category.role-playing-games")
+    public static let simulationgames = Self(rawValue: "public.app-category.simulation-games")
+    public static let sportsgames = Self(rawValue: "public.app-category.sports-games")
+    public static let strategygames = Self(rawValue: "public.app-category.strategy-games")
+    public static let triviagames = Self(rawValue: "public.app-category.trivia-games")
+    public static let wordgames = Self(rawValue: "public.app-category.word-games")
 
-    public static var allCases: [AppCategory] {
+    public static var allCases: [Self] {
         return [
             .business,
             .developertools,
@@ -402,8 +405,8 @@ public struct AppCategory : RawCodable, CaseIterable, Hashable {
     }
 
     /// Takes the given base string and create a known category for it.
-    public static func valueFor(base: String, validate: Bool) -> AppCategory? {
-        let value = AppCategory(rawValue: basePrefix + base)
+    public static func valueFor(base: String, validate: Bool) -> Self? {
+        let value = Self(rawValue: basePrefix + base)
         if validate && !allCases.contains(value) {
             return nil
         }
