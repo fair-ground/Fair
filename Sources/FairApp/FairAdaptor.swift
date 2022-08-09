@@ -340,41 +340,42 @@ extension View {
     /// The first time this window is shows, set the size to the given amount.
     ///
     /// This works around the inability to set the initial window size in SwiftUI.
-    public func initialViewSize(_ size: CGSize) -> ModifiedContent<Self, InitialSizeViewModifier> {
+    ///
+    /// Usage:
+    ///
+    /// ```
+    /// WindowGroup {
+    ///    RootView().initialViewSize(.init(width: 1200, height: 700))
+    /// }
+    /// ```
+    public func initialViewSize(_ size: CGSize?) -> ModifiedContent<Self, InitialSizeViewModifier> {
         modifier(InitialSizeViewModifier(size: size))
     }
 }
 
-/// A modifier that changes the `symbolVariant` based on whether it is hovered over.
+/// A modifier that sets an intial view size for a window's content view the first time it appears,
+/// and then afterwars allows the view to be resized.
+///
+/// This works around the inability to set an intiail window size in SwiftUI.
 public struct InitialSizeViewModifier: ViewModifier {
-    public let size: CGSize
+    public let size: CGSize?
 
     /// The storage for the last initial size that the view was opened as
     @AppStorage("initialViewSizeLaunch") private var initialViewSizeLaunch: String = ""
 
-
-    public func body(content: Content) -> some View {
-#if os(macOS)
-        // the initial window sizing is done here; to test default window sizing first run: defaults delete app.App-Fair
-        // note that idealWidth/Height does not work to set the default height; we need to use minWidth/Height to
-        // .frame(idealWidth: 1200, maxWidth: .infinity, idealHeight: 700, maxHeight: .infinity)
-
-        // on first launch, `firstLaunchV1` will be `true` and we will use the hardcoded default value.
-        // subsequently, we should just use whatever the user last left the app at
-        content
-            .frame(minWidth: needsUpdate ? size.width : nil, minHeight: needsUpdate ? size.height : nil)
-            .onAppear {
-                if needsUpdate {
-                    initialViewSizeLaunch = size.debugDescription
+    @ViewBuilder public func body(content: Content) -> some View {
+        if let size = size {
+            let needsUpdate = initialViewSizeLaunch.description != size.debugDescription
+            content
+                .frame(width: needsUpdate ? size.width : nil, height: needsUpdate ? size.height : nil)
+                .onAppear {
+                    if needsUpdate {
+                        initialViewSizeLaunch = size.debugDescription
+                    }
                 }
-            }
-#else
-        content // unsupported on other platforms
-#endif
-    }
-
-    var needsUpdate: Bool {
-        initialViewSizeLaunch.description != size.debugDescription
+        } else {
+            content
+        }
     }
 }
 
