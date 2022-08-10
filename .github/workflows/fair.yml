@@ -519,9 +519,9 @@ jobs:
 
       - name: "Configure TestFlight"
         id: testflight
-        if: ${{ secrets.TESTFLIGHT_TEAMID != '' }}
         env:
             TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
+        if: ${{ env.TESTFLIGHT_TEAMID != '' }}
         run: |
           echo "::set-output name=defined::true"
           echo "::set-output name=enabled::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq -r '.[].buildSettings.TESTFLIGHT_DEPLOY')"
