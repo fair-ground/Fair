@@ -520,7 +520,8 @@ jobs:
       - name: "Check TestFlight"
         env:
             TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
-        run: echo "TEAM ID: ${{ env.TESTFLIGHT_TEAMID }}"
+        run: |
+          echo "TEAM ID: ${{ env.TESTFLIGHT_TEAMID }}"
 
       - name: "Configure TestFlight"
         id: testflight
