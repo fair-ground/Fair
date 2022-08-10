@@ -518,16 +518,16 @@ jobs:
           echo "::set-output name=ios::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
 
       - name: "Configure TestFlight"
-        id: testflight_setup
+        id: testflight
+        if: ${{ secrets.TESTFLIGHT_TEAMID != '' }}
         env:
             TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
-            #if: ${{ env.TESTFLIGHT_TEAMID != '' }}
         run: |
           echo "::set-output name=defined::true"
           echo "::set-output name=enabled::$(xcodebuild -workspace App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq -r '.[].buildSettings.TESTFLIGHT_DEPLOY')"
 
       - name: "Install fastlane"
-        if: ${{ steps.testflight_setup.outputs.enabled == 'true' }}
+        if: ${{ steps.testflight.outputs.enabled == 'true' }}
         run: |
           mkdir -p .testflight
           brew install fastlane
@@ -697,16 +697,9 @@ jobs:
           mv -f staging/.artifact_stash/* staging/ || true # restore stash
 
       - name: "Create TestFlight App"
-        if: ${{ steps.testflight_setup.outputs.enabled == 'true' }}
+        if: ${{ steps.testflight.outputs.enabled == 'true' }}
         run: |
           fastlane beta
-
-      - name: "Upload Build Artifacts"
-        # upload the trusted artifacts for each build for reproducible-builds
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          path: staging
 
       - name: "Publish Catalog"
         env:
@@ -721,4 +714,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh pr close ${{ github.event.pull_request.html_url }}
+
+      - name: "Upload Reproducible Build"
+        # upload the trusted artifacts for each build for reproducible-builds
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          path: staging
 
