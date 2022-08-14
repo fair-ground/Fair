@@ -103,7 +103,7 @@ on:
         required: false
 
       XXXX:
-        required: false
+        required: true
       TESTFLIGHT_TEAMID:
         required: false
       TESTFLIGHT_ISSUER_ID:
@@ -440,9 +440,9 @@ jobs:
       - name: "Check XXXX Conditional"
         env:
           XXXX: ${{ secrets.XXXX }}
-        #if: ${{ env.XXXX != '' }}
+        if: ${{ env.XXXX != '' }}
         run: |
-          echo "XXXX: ${XXXX}"
+          echo "XXXX: ${{ env.XXXX }}"
 
       - name: "Check TestFlight"
         env:
