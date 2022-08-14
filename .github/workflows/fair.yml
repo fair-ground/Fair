@@ -88,7 +88,7 @@ on:
 
       # Integrate-Release secrets
       token:
-        required: false
+        required: true
       bot_token:
         required: false
       allow_name:
@@ -102,8 +102,6 @@ on:
       fairseal_key:
         required: false
 
-      xxxx:
-        required: true
       TESTFLIGHT_TEAMID:
         required: false
       TESTFLIGHT_ISSUER_ID:
