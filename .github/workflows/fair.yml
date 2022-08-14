@@ -435,6 +435,19 @@ jobs:
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
           echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
 
+      - name: view the secrets context
+        shell: bash
+        run: echo "$SECRETS_CONTEXT"
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+
+      - name: "Check APP_FAIR_FAIRSEAL_KEY Conditional"
+        env:
+          APP_FAIR_FAIRSEAL_KEY: ${{ secrets.APP_FAIR_FAIRSEAL_KEY }}
+        if: ${{ env.APP_FAIR_FAIRSEAL_KEY != '' }}
+        run: |
+          echo "APP_FAIR_FAIRSEAL_KEY: set"
+
       - name: "Check XXXX Conditional"
         env:
           XXXX: ${{ secrets.XXXX }}
