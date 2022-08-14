@@ -440,9 +440,9 @@ jobs:
       - name: "Check XXXX Conditional"
         env:
           XXXX: ${{ secrets.XXXX }}
-        if: ${{ env.XXXX != '' }}
+        #if: ${{ env.XXXX != '' }}
         run: |
-          echo "XXXX: ${{ env.XXXX }}"
+          echo "XXXX: ${XXXX}"
 
       - name: "Check TestFlight"
         env:
