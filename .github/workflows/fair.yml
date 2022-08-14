@@ -458,10 +458,10 @@ jobs:
         run: |
           echo "TESTFLIGHT_TEAMID: ${{ env.TESTFLIGHT_TEAMID }}"
 
-      - name: "Fail Always"
-        if: always()
-        run: |
-          exit 1
+          #- name: "Fail Always"
+          #if: always()
+          #run: |
+          #exit 1
  
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
