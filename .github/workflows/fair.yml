@@ -440,6 +440,8 @@ jobs:
           TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
         run: |
           echo "TESTFLIGHT_TEAMID: ${{ env.TESTFLIGHT_TEAMID }}"
+          echo "TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}"
+          echo "TESTFLIGHT_TEAMID: ${TESTFLIGHT_TEAMID}"
 
       - name: "Check TestFlight Conditional"
         env:
