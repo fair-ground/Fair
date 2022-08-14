@@ -423,6 +423,31 @@ jobs:
           echo "PRODUCT_NAME=$(echo ${{ env.ORGNAME }} | tr '-' ' ')" >> $GITHUB_ENV
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
           echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
+
+      - name: "Check APP_FAIR_FAIRSEAL_KEY"
+        env:
+          APP_FAIR_FAIRSEAL_KEY: ${{ secrets.APP_FAIR_FAIRSEAL_KEY }}
+        if: ${{ env.APP_FAIR_FAIRSEAL_KEY != '' }}
+        run: |
+          echo "APP_FAIR_FAIRSEAL_KEY set"
+
+      - name: "Check TestFlight"
+        env:
+          TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
+        run: |
+          echo "TESTFLIGHT_TEAMID: ${{ env.TESTFLIGHT_TEAMID }}"
+
+      - name: "Check TestFlight Conditional"
+        env:
+          TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
+        if: ${{ env.TESTFLIGHT_TEAMID != '' }}
+        run: |
+          echo "TESTFLIGHT_TEAMID: ${{ env.TESTFLIGHT_TEAMID }}"
+
+      - name: "Fail Always"
+        if: always()
+        run: |
+          exit 1
  
       - name: Checkout Base Fairground
         uses: actions/checkout@v2
@@ -516,12 +541,6 @@ jobs:
         run: |
           echo "::set-output name=macos::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'macosx' > /dev/null && echo enabled || echo disabled)"
           echo "::set-output name=ios::$(xcodebuild -workspace ${{ env.IR_TARGET }}/App.xcworkspace -showBuildSettings -quiet -json -scheme AppFairApp archive 2>/dev/null | jq '.[].buildSettings.SUPPORTED_PLATFORMS' | grep 'iphoneos' > /dev/null && echo enabled || echo disabled)"
-
-      - name: "Check TestFlight"
-        env:
-          TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
-        run: |
-          echo "TESTFLIGHT_TEAMID: $TESTFLIGHT_TEAMID"
 
       - name: "Configure TestFlight"
         id: testflight
