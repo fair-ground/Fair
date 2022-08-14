@@ -442,6 +442,7 @@ jobs:
           echo "TESTFLIGHT_TEAMID: ${{ env.TESTFLIGHT_TEAMID }}"
           echo "TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}"
           echo "TESTFLIGHT_TEAMID: ${TESTFLIGHT_TEAMID}"
+          echo "PRODUCT_NAME: ${{ env.PRODUCT_NAME }}"
 
       - name: "Check TestFlight Conditional"
         env:
