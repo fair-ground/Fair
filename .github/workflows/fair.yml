@@ -435,6 +435,13 @@ jobs:
           echo "BUNDLE_ID=app.$(echo ${{ env.ORGNAME }})" >> $GITHUB_ENV
           echo "BUILDING PRODUCT: ${{ env.PRODUCT_NAME }}"
 
+      - name: "Check XXXX Conditional"
+        env:
+          XXXX: ${{ secrets.XXXX }}
+        if: ${{ env.XXXX != '' }}
+        run: |
+          echo "XXXX: ${{ env.XXXX }}"
+
       - name: "Check TestFlight"
         env:
           TESTFLIGHT_TEAMID: ${{ secrets.TESTFLIGHT_TEAMID }}
