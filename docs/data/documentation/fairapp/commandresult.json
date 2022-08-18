@@ -101,9 +101,9 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/process",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/stderr",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/stdout",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/terminationStatus",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/url"
       ],
       "title" : "Instance Properties"
@@ -282,40 +282,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/commandresult\/expect(exitcode:)"
 },
-"doc://FairApp/documentation/FairApp/CommandResult/process": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "process"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSTask",
-      "text" : "Process"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/process",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "process",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/commandresult\/process"
-},
 "doc://FairApp/documentation/FairApp/CommandResult/stderr": {
   "abstract" : [
 
@@ -391,6 +357,40 @@
   "title" : "stdout",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/commandresult\/stdout"
+},
+"doc://FairApp/documentation/FairApp/CommandResult/terminationStatus": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "terminationStatus"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int32V",
+      "text" : "Int32"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult\/terminationStatus",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "terminationStatus",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/commandresult\/terminationstatus"
 },
 "doc://FairApp/documentation/FairApp/CommandResult/url": {
   "abstract" : [

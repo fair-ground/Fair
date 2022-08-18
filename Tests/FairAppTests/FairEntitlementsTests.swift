@@ -151,7 +151,7 @@ final class FairEntitlementsTests: XCTestCase {
                         XCTFail("executable failed: \(executable.path) with error: \(error)")
                     }
 
-                    let archive = try AppBundle(folderAt: app)
+                    let archive = try AppBundle(folderAt: FileManager.default.resolvingSymbolicLink(app))
                     try validate(archive: archive, from: app)
 
                     if executable.lastPathComponent == "Numbers" {
@@ -191,7 +191,7 @@ final class FairEntitlementsTests: XCTestCase {
         // ["Executable=/System/Applications/TextEdit.app/Contents/MacOS/TextEdit", "Identifier=com.apple.TextEdit", "Format=app bundle with Mach-O universal (x86_64 arm64e)", "CodeDirectory v=20400 size=1899 flags=0x0(none) hashes=49+7 location=embedded", "Platform identifier=13", "Signature size=4442", "Authority=Software Signing", "Authority=Apple Code Signing Certification Authority", "Authority=Apple Root CA", "Signed Time=Jul 31, 2021 at 08:16:31", "Info.plist entries=34", "TeamIdentifier=not set", "Sealed Resources version=2 rules=2 files=0", "Internal requirements count=1 size=68"]
         // print(verified)
 
-        XCTAssertEqual(0, result.process.terminationStatus)
+        XCTAssertEqual(0, result.terminationStatus)
         XCTAssertTrue(verified.contains("Identifier=com.apple.TextEdit"))
         XCTAssertTrue(verified.contains("Authority=Apple Root CA"))
     }

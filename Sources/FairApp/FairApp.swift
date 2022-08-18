@@ -292,7 +292,7 @@ public extension AppEntitlement {
 
 extension FairContainer {
     /// Check for CLI flags then launch as a `SwiftUI.App` app.
-    public static func launch(bundle: Bundle, sourceFile: StaticString = #file) async throws {
+    @MainActor public static func launch(bundle: Bundle, sourceFile: StaticString = #file) async throws {
         // fileno(stdin) will be set only for tty launch or the debugger; the env "_" is additionally set to permit launching in Xcode debugger (where stdin is set)
         let isCLI = isatty(fileno(stdin)) == 1
             && ProcessInfo.processInfo.environment["_"] != "/usr/bin/open"
@@ -413,6 +413,7 @@ public extension Error {
 
 private let mainAppCatalogInfo = Result { try Bundle.main.appCatalogInfo() }
 
+// The top-level container in which the `SwiftUI.App` is implemented.
 public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
     @Environment(\.openURL) var openURL
