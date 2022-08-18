@@ -68,11 +68,43 @@ public class AppBundle<Source: DataWrapper> {
     }
 }
 
+public extension FileManager {
+    /// Resolves any symbolic links for the given file URL and returns a URL to the ulimate destination.
+    func resolvingSymbolicLink(_ fileURL: URL, maxLinks: Int = 10) -> URL {
+        if !fileURL.isFileURL {
+            return fileURL
+        }
+
+        var linkCount = maxLinks
+        var url = fileURL
+        while let newPath = try? self.destinationOfSymbolicLink(atPath: url.path), newPath != url.path {
+            linkCount -= 1
+            if linkCount <= 0 {
+                break // should this throw an exception?
+            } else {
+                url = URL(fileURLWithPath: newPath, relativeTo: url)
+            }
+        }
+
+        if fileURL.path == url.path {
+            return fileURL
+        } else {
+            var isDir: ObjCBool = false
+            let exists = self.fileExists(atPath: url.path, isDirectory: &isDir)
+            if !exists {
+                return fileURL
+            } else {
+                return url
+            }
+        }
+    }
+}
+
 public enum AppBundleLoader {
     /// Loads the entitlements from an app bundle (either a ipa zip or an expanded binary package).
     /// Multiple entitlements will be returned when an executable is a fat binary, although they are likely to all be equal.
     public static func loadInfo(fromAppBundle url: URL) throws -> (info: Plist, entitlements: [AppEntitlements]?) {
-        if FileManager.default.isDirectory(url: url) == true {
+        if FileManager.default.isDirectory(url: FileManager.default.resolvingSymbolicLink(url)) == true {
             return try AppBundle(folderAt: url).loadInfo()
         } else {
             return try AppBundle(zipArchiveAt: url).loadInfo()

@@ -38,14 +38,14 @@ open class HandleStream: TextOutputStream {
 /// The result of a command execution
 public struct CommandResult {
     public let url: URL
-    public let process: Process
+    public let terminationStatus: Int32
     public let stdout: [String]
     public let stderr: [String]
 }
 
 extension CommandResult : LocalizedError {
     public var failureReason: String? {
-        return "The command \"\(url.lastPathComponent)\" exited with code: \(process.terminationStatus)"
+        return "The command \"\(url.lastPathComponent)\" exited with code: \(self.terminationStatus)"
     }
 }
 
@@ -54,12 +54,11 @@ extension CommandResult {
     ///
     /// - Parameter terminationStatus: the expected exit valud, defaulting to zero
     /// - Returns: the item itself, which can be used for checking stdout and stderror
-    @discardableResult public func expect(exitCode terminationStatus: Int32? = 0) throws -> Self {
-        process.waitUntilExit()
-        let exitCode = process.terminationStatus
+    @discardableResult public func expect(exitCode: Int32? = 0) throws -> Self {
+        //process.waitUntilExit()
+        //let exitCode = process.terminationStatus
 
-        if let terminationStatus = terminationStatus,
-           exitCode != terminationStatus {
+        if let exitCode = exitCode, exitCode != terminationStatus {
             throw self
         } else {
             return self
@@ -76,11 +75,11 @@ extension Process {
     ///   - args: the arguments for the command
     /// - Returns: the standard out and error, along with the process itself
     fileprivate static func execute(cmd command: String, environment: [String: String] = [:], _ args: [String]) async throws -> CommandResult {
-        #if os(macOS) && false // TODO: executeAsync on all platforms
-        return try await executeAsync(cmd: command, environment: environment, args)
-        #else
+//        #if os(macOS) && false // TODO: executeAsync on all platforms
+//        return try await executeAsync(cmd: command, environment: environment, args)
+//        #else
         return try executeSync(cmd: command, environment: environment, args)
-        #endif
+//        #endif
     }
 
     /// Invokes a tool with the given arguments
@@ -103,7 +102,7 @@ extension Process {
         let errdata = stderr.fileHandleForReading.readDataToEndOfFile()
         let errput = String(data: errdata, encoding: .utf8) ?? ""
 
-        return CommandResult(url: executablePath, process: process, stdout: output.split(separator: "\n").map(\.description), stderr: errput.split(separator: "\n").map(\.description))
+        return CommandResult(url: executablePath, terminationStatus: process.terminationStatus, stdout: output.split(separator: "\n").map(\.description), stderr: errput.split(separator: "\n").map(\.description))
     }
 
 }
@@ -134,7 +133,8 @@ extension Process {
         var err: [String] = []
         for try await e in asyncerr { err.append(e) }
 
-        return CommandResult(url: executablePath, process: process, stdout: out, stderr: err)
+        //return CommandResult(url: executablePath, process: process, stdout: out, stderr: err)
+        fatalError("TODO: replace static stdout with dynamic")
     }
     #endif
 }

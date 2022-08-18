@@ -316,11 +316,11 @@ extension FileManager {
     ///   - resourceKeys: An array of keys that identify the properties that you want pre-fetched for each item in the enumeration.
     ///   - options: Options for the enumeration.
     /// - Returns: An async stream yielding a tuple of URLs with an optional second error item, indicating that a failure occured. If ``haltOnError`` is true, the first such error will end the stream.
-    public func enumeratorAsync(at url: URL, priority: TaskPriority? = nil, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<(URL, Error?), Error> {
+    public static func enumeratorAsync(at url: URL, priority: TaskPriority? = nil, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<(URL, Error?), Error> {
         return AsyncThrowingStream { c in
             Task(priority: priority) {
                 do {
-                    let directoryEnumerator = self.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options) { url, error in
+                    let directoryEnumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options) { url, error in
                         c.yield((url, error))
                         if haltOnError || Task.isCancelled {
                             return false // stop the enumeration

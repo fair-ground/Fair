@@ -74,7 +74,7 @@ public class WebDriver : NSObject, WKNavigationDelegate {
             return value == false
         }, block: {
             errors.removeAll()
-            webView.load(request)
+            _ = webView.load(request)
         })
     }
 }
@@ -93,17 +93,17 @@ public class WebDriver : NSObject, WKNavigationDelegate {
 public func awaitChange<O: NSObject, T>(in object: O, of path: KeyPath<O, T>, with options: NSKeyValueObservingOptions = [.new], success successValue: @escaping (T) throws -> Bool, block operation: () -> ()) async throws -> T {
     return try await withCheckedThrowingContinuation { cnt in
         var observer: NSKeyValueObservation? = nil
+        let invalidate = { observer?.invalidate() }
         observer = object.observe(path, options: options) { view, value in
             // print("change value:", value)
+            invalidate()
             if let newValue = value.newValue {
                 do {
                     if try successValue(newValue) {
                         cnt.resume(with: .success(newValue))
-                        observer?.invalidate()
                     }
                 } catch {
                     cnt.resume(with: .failure(error))
-                    observer?.invalidate()
                 }
             }
         }
@@ -176,7 +176,7 @@ public struct WebView : View {
 private struct WebViewRepresentable {
     let owner: WebView
 
-    func makeView(coordinator: WebViewCoordinator, environment: EnvironmentValues) -> WebEngineView {
+    @MainActor func makeView(coordinator: WebViewCoordinator, environment: EnvironmentValues) -> WebEngineView {
         let view = coordinator.owner.state.createWebView()
 
         view.navigationDelegate = coordinator
@@ -184,10 +184,6 @@ private struct WebViewRepresentable {
 
         coordinator.webView = view
         coordinator.environment = environment
-
-        if let request = coordinator.initialRequest {
-            view.load(request)
-        }
 
         return view
     }
@@ -210,15 +206,15 @@ private struct WebViewRepresentable {
 }
 
 extension WebViewRepresentable : UXViewRepresentable {
-    func makeUXView(context: Context) -> WebEngineView {
+    @MainActor func makeUXView(context: Context) -> WebEngineView {
         makeView(coordinator: context.coordinator, environment: context.environment)
     }
 
-    func updateUXView(_ uxView: WebEngineView, context: Context) {
+    @MainActor func updateUXView(_ uxView: WebEngineView, context: Context) {
         updateView(uxView, coordinator: context.coordinator, environment: context.environment)
     }
 
-    static func dismantleUXView(_ uxView: WebEngineView, coordinator: Coordinator) {
+    @MainActor static func dismantleUXView(_ uxView: WebEngineView, coordinator: Coordinator) {
         dismantleView(uxView, coordinator: coordinator)
     }
 }
@@ -625,7 +621,6 @@ extension EnvironmentValues {
 
 /// The state of a WebView, which holds the `WKWebView` instance
 open class WebViewState : ObservableObject {
-    var initialRequest: URLRequest?
     var configuration: WKWebViewConfiguration?
     @Published public var errors: [NSError] = []
 
@@ -655,12 +650,11 @@ open class WebViewState : ObservableObject {
 
     private var webViewObservations: [NSKeyValueObservation] = []
 
-    public init(initialRequest: URLRequest? = nil, configuration: WKWebViewConfiguration? = nil) {
-        self.initialRequest = initialRequest
+    public init(configuration: WKWebViewConfiguration? = nil) {
         self.configuration = configuration
     }
 
-    open func createWebView() -> WebEngineView {
+    @MainActor open func createWebView() -> WebEngineView {
         let view = WebEngineView(frame: .zero, configuration: configuration ?? .init())
         //view.setValue(UXColor.clear, forKey: "backgroundColor")
 
@@ -712,22 +706,22 @@ open class WebViewState : ObservableObject {
     }
 
     @MainActor open func load(_ request: URLRequest) {
-        webView?.load(request)
+        _ = webView?.load(request)
     }
 
     @MainActor open func goBack() {
-        webView?.goBack()
+        _ = webView?.goBack()
     }
 
     @MainActor open func goForward() {
-        webView?.goForward()
+        _ = webView?.goForward()
     }
 
     @MainActor open func reload(fromOrigin: Bool = false) {
         if fromOrigin == true {
-            webView?.reloadFromOrigin()
+            _ = webView?.reloadFromOrigin()
         } else {
-            webView?.reload()
+            _ = webView?.reload()
         }
     }
 
@@ -823,7 +817,7 @@ extension WebViewState {
 
     /// The command for performing a zoom operation at the given amount.
     @available(macOS 12, iOS 15, *)
-    open func zoomAction(brief: Bool = false, amount: Double?, minimumZoomLevel: Double = 0.05, maximumZoomLevel: Double = 100.0) -> some View {
+    public func zoomAction(brief: Bool = false, amount: Double?, minimumZoomLevel: Double = 0.05, maximumZoomLevel: Double = 100.0) -> some View {
         let disabled = (amount ?? 1.0) < 1.0 ? ((self.webView?.pageZoom ?? 0.0) < minimumZoomLevel) : ((amount ?? 1.0) > 1.0 ? ((self.webView?.pageZoom ?? 1.0) > maximumZoomLevel) : (self.webView?.pageZoom == 1.0))
 
         return (amount == nil ?
