@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Loads the given request and reutrns once the request is complete",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Equatable.!=(_:_:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -9,18 +17,29 @@
     "paths" : [
       [
         "doc:\/\/FairKit\/documentation\/FairKit",
-        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver"
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/load(request:)"
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event\/!=(_:_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairKit9WebDriverC4load7requestSayAC5EventOG10Foundation10URLRequestV_tYaKF",
+    "extendedModule" : "Swift",
+    "externalID" : "s:SQsE2neoiySbx_xtFZ::SYNTHESIZED::s:7FairKit9WebDriverC5EventO",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "keyword",
         "text" : "func"
@@ -31,62 +50,36 @@
       },
       {
         "kind" : "identifier",
-        "text" : "load"
-      },
-      {
-        "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "request"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10Foundation10URLRequestV",
-        "text" : "URLRequest"
-      },
-      {
-        "kind" : "text",
-        "text" : ") "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "async"
+        "text" : "!="
       },
       {
         "kind" : "text",
         "text" : " "
       },
       {
-        "kind" : "keyword",
-        "text" : "throws"
-      },
-      {
         "kind" : "text",
-        "text" : " -> ["
+        "text" : "("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "c:@M@FairKit@objc(cs)WebDriver",
-        "text" : "WebDriver"
+        "text" : "Self"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : ", "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairKit9WebDriverC5EventO",
-        "text" : "Event"
+        "text" : "Self"
       },
       {
         "kind" : "text",
-        "text" : "]"
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
       }
     ],
     "modules" : [
@@ -95,9 +88,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "load(request:)"
+    "roleHeading" : "Operator",
+    "symbolKind" : "op",
+    "title" : "!=(_:_:)"
   },
   "primaryContentSections" : [
     {
@@ -111,8 +104,8 @@
           ],
           "tokens" : [
             {
-              "kind" : "attribute",
-              "text" : "@discardableResult"
+              "kind" : "keyword",
+              "text" : "static"
             },
             {
               "kind" : "text",
@@ -128,15 +121,19 @@
             },
             {
               "kind" : "identifier",
-              "text" : "load"
+              "text" : "!="
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "text",
               "text" : "("
             },
             {
-              "kind" : "externalParam",
-              "text" : "request"
+              "kind" : "internalParam",
+              "text" : "lhs"
             },
             {
               "kind" : "text",
@@ -144,48 +141,32 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10Foundation10URLRequestV",
-              "text" : "URLRequest"
+              "text" : "Self"
             },
             {
               "kind" : "text",
-              "text" : ") "
+              "text" : ", "
             },
             {
-              "kind" : "keyword",
-              "text" : "async"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "internalParam",
+              "text" : "rhs"
             },
             {
               "kind" : "text",
-              "text" : " -> ["
+              "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "c:@M@FairKit@objc(cs)WebDriver",
-              "text" : "WebDriver"
+              "text" : "Self"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairKit9WebDriverC5EventO",
-              "text" : "Event"
-            },
-            {
-              "kind" : "text",
-              "text" : "]"
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
             }
           ]
         }
@@ -204,7 +185,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairkit\/webdriver\/load(request:)"
+        "\/documentation\/fairkit\/webdriver\/event\/!=(_:_:)"
       ],
       "traits" : [
         {
@@ -302,14 +283,19 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webdriver\/event"
 },
-"doc://FairKit/documentation/FairKit/WebDriver/load(request:)": {
+"doc://FairKit/documentation/FairKit/WebDriver/Event/!=(_:_:)": {
   "abstract" : [
-    {
-      "text" : "Loads the given request and reutrns once the request is complete",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "func"
@@ -320,70 +306,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "load"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "request"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV",
-      "text" : "URLRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
+      "text" : "!="
     },
     {
       "kind" : "text",
       "text" : " "
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:@M@FairKit@objc(cs)WebDriver",
-      "text" : "WebDriver"
+      "text" : "Self"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : ", "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairKit9WebDriverC5EventO",
-      "text" : "Event"
+      "text" : "Self"
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/load(request:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event\/!=(_:_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "load(request:)",
+  "title" : "!=(_:_:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/webdriver\/load(request:)"
+  "url" : "\/documentation\/fairkit\/webdriver\/event\/!=(_:_:)"
+},
+"doc://FairKit/documentation/FairKit/WebDriver/Event/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/event\/equatable-implementations"
 }
 }
 }

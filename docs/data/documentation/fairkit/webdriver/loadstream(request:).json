@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Loads the given request and reutrns once the request is complete",
+      "text" : "Loads the given request and returns the stream of events that resulted from the naviation.",
       "type" : "text"
     }
   ],
@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/load(request:)"
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/loadStream(request:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairKit9WebDriverC4load7requestSayAC5EventOG10Foundation10URLRequestV_tYaKF",
+    "externalID" : "s:7FairKit9WebDriverC10loadStream7requestScsyAC5EventOs5Error_pG10Foundation10URLRequestV_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -31,7 +31,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "load"
+        "text" : "loadStream"
       },
       {
         "kind" : "text",
@@ -52,23 +52,16 @@
       },
       {
         "kind" : "text",
-        "text" : ") "
+        "text" : ") -> "
       },
       {
-        "kind" : "keyword",
-        "text" : "async"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "keyword",
-        "text" : "throws"
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Scs",
+        "text" : "AsyncThrowingStream"
       },
       {
         "kind" : "text",
-        "text" : " -> ["
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
@@ -86,7 +79,16 @@
       },
       {
         "kind" : "text",
-        "text" : "]"
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s5ErrorP",
+        "text" : "Error"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -97,7 +99,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "load(request:)"
+    "title" : "loadStream(request:)"
   },
   "primaryContentSections" : [
     {
@@ -111,14 +113,6 @@
           ],
           "tokens" : [
             {
-              "kind" : "attribute",
-              "text" : "@discardableResult"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
               "kind" : "keyword",
               "text" : "func"
             },
@@ -128,7 +122,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "load"
+              "text" : "loadStream"
             },
             {
               "kind" : "text",
@@ -149,23 +143,16 @@
             },
             {
               "kind" : "text",
-              "text" : ") "
+              "text" : ") -> "
             },
             {
-              "kind" : "keyword",
-              "text" : "async"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Scs",
+              "text" : "AsyncThrowingStream"
             },
             {
               "kind" : "text",
-              "text" : " -> ["
+              "text" : "<"
             },
             {
               "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver",
@@ -185,7 +172,16 @@
             },
             {
               "kind" : "text",
-              "text" : "]"
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s5ErrorP",
+              "text" : "Error"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
             }
           ]
         }
@@ -204,7 +200,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairkit\/webdriver\/load(request:)"
+        "\/documentation\/fairkit\/webdriver\/loadstream(request:)"
       ],
       "traits" : [
         {
@@ -302,10 +298,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webdriver\/event"
 },
-"doc://FairKit/documentation/FairKit/WebDriver/load(request:)": {
+"doc://FairKit/documentation/FairKit/WebDriver/loadStream(request:)": {
   "abstract" : [
     {
-      "text" : "Loads the given request and reutrns once the request is complete",
+      "text" : "Loads the given request and returns the stream of events that resulted from the naviation.",
       "type" : "text"
     }
   ],
@@ -320,7 +316,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "load"
+      "text" : "loadStream"
     },
     {
       "kind" : "text",
@@ -341,23 +337,16 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : ") -> "
     },
     {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
     },
     {
       "kind" : "text",
-      "text" : " -> ["
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -375,15 +364,24 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/load(request:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/loadStream(request:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "load(request:)",
+  "title" : "loadStream(request:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/webdriver\/load(request:)"
+  "url" : "\/documentation\/fairkit\/webdriver\/loadstream(request:)"
 }
 }
 }

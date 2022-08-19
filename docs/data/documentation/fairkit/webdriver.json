@@ -127,10 +127,21 @@
     {
       "identifiers" : [
         "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/load(request:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/loadStream(request:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didCommit:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didFail:withError:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didFailProvisionalNavigation:withError:)"
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didFailProvisionalNavigation:withError:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didFinish:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didReceiveServerRedirectForProvisionalNavigation:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didStartProvisionalNavigation:)"
       ],
       "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event"
+      ],
+      "title" : "Enumerations"
     }
   ],
   "variants" : [
@@ -213,6 +224,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webdriver"
 },
+"doc://FairKit/documentation/FairKit/WebDriver/Event": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Event"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/Event",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Event"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "WebDriver.Event",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/event"
+},
 "doc://FairKit/documentation/FairKit/WebDriver/init()": {
   "abstract" : [
 
@@ -275,15 +317,7 @@
 "doc://FairKit/documentation/FairKit/WebDriver/load(request:)": {
   "abstract" : [
     {
-      "text" : "Loads the given request and asychronously waits for the loading to complete.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Note that his requires that",
+      "text" : "Loads the given request and reutrns once the request is complete",
       "type" : "text"
     }
   ],
@@ -332,6 +366,28 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@FairKit@objc(cs)WebDriver",
+      "text" : "WebDriver"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit9WebDriverC5EventO",
+      "text" : "Event"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
   "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/load(request:)",
@@ -340,6 +396,91 @@
   "title" : "load(request:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webdriver\/load(request:)"
+},
+"doc://FairKit/documentation/FairKit/WebDriver/loadStream(request:)": {
+  "abstract" : [
+    {
+      "text" : "Loads the given request and returns the stream of events that resulted from the naviation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "loadStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "request"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@M@FairKit@objc(cs)WebDriver",
+      "text" : "WebDriver"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit9WebDriverC5EventO",
+      "text" : "Event"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/loadStream(request:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "loadStream(request:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/loadstream(request:)"
 },
 "doc://FairKit/documentation/FairKit/WebDriver/webView": {
   "abstract" : [
@@ -374,6 +515,61 @@
   "title" : "webView",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webdriver\/webview"
+},
+"doc://FairKit/documentation/FairKit/WebDriver/webView(_:didCommit:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKWebView",
+      "text" : "WKWebView"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "didCommit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : "!)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didCommit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webView(_:didCommit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/webview(_:didcommit:)"
 },
 "doc://FairKit/documentation/FairKit/WebDriver/webView(_:didFail:withError:)": {
   "abstract" : [
@@ -518,6 +714,171 @@
   "title" : "webView(_:didFailProvisionalNavigation:withError:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webdriver\/webview(_:didfailprovisionalnavigation:witherror:)"
+},
+"doc://FairKit/documentation/FairKit/WebDriver/webView(_:didFinish:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKWebView",
+      "text" : "WKWebView"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "didFinish"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : "!)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didFinish:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webView(_:didFinish:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/webview(_:didfinish:)"
+},
+"doc://FairKit/documentation/FairKit/WebDriver/webView(_:didReceiveServerRedirectForProvisionalNavigation:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKWebView",
+      "text" : "WKWebView"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "didReceiveServerRedirectForProvisionalNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : "!)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didReceiveServerRedirectForProvisionalNavigation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webView(_:didReceiveServerRedirectForProvisionalNavigation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/webview(_:didreceiveserverredirectforprovisionalnavigation:)"
+},
+"doc://FairKit/documentation/FairKit/WebDriver/webView(_:didStartProvisionalNavigation:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "webView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKWebView",
+      "text" : "WKWebView"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "didStartProvisionalNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)WKNavigation",
+      "text" : "WKNavigation"
+    },
+    {
+      "kind" : "text",
+      "text" : "!)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebDriver\/webView(_:didStartProvisionalNavigation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "webView(_:didStartProvisionalNavigation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webdriver\/webview(_:didstartprovisionalnavigation:)"
 },
 "doc://FairKit/objc(pl)NSObject": {
   "identifier" : "doc:\/\/FairKit\/objc(pl)NSObject",

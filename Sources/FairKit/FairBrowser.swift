@@ -37,8 +37,8 @@ public extension WKWebView {
 public class WebDriver : NSObject, WKNavigationDelegate {
     public let webView: WKWebView
 
-    /// Any errors that have occurred
-    private var errors: [Error] = []
+    /// The outstanding requests
+    private var requests: [WKNavigation: AsyncThrowingStream<WebDriver.Event, any Error>.Continuation] = [:]
 
     public init(webView: WKWebView = WKWebView()) {
         self.webView = webView
@@ -54,63 +54,68 @@ public class WebDriver : NSObject, WKNavigationDelegate {
         }
     }
 
+    public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        requests[navigation]?.yield(.commit)
+    }
+
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        requests[navigation]?.yield(.startProvisionalNavigation)
+    }
+
+    public func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        requests[navigation]?.yield(.receiveServerRedirectForProvisionalNavigation)
+    }
+
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        if let cnt = requests.removeValue(forKey: navigation) {
+            cnt.yield(.complete)
+            cnt.finish()
+        }
+    }
+
     public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        self.errors.append(error)
+        if let cnt = requests.removeValue(forKey: navigation) {
+            cnt.finish(throwing: error)
+        }
     }
 
     public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        self.errors.append(error)
+        if let cnt = requests[navigation] {
+            requests[navigation] = nil
+            cnt.finish(throwing: error)
+        }
     }
 
-    /// Loads the given request and asychronously waits for the loading to complete.
-    /// Note that his requires that
-    @MainActor public func load(request: URLRequest) async throws {
-        let _ = try await awaitChange(in: webView, of: \.isLoading, with: .new, success: { value in
-            // if any errors have occurred, throw it
-            if let error = self.errors.last {
-                // sadly, this doesn't work because the `.loading` key path is set *before* the error delegates are invoked
-                throw error
-            }
-            return value == false
-        }, block: {
-            errors.removeAll()
-            _ = webView.load(request)
-        })
+    /// Loads the given request and reutrns once the request is complete
+    @MainActor @discardableResult public func load(request: URLRequest) async throws -> [Event] {
+        var events: [Event] = []
+        for try await event in loadStream(request: request) {
+            events.append(event)
+        }
+        return events
     }
-}
 
-/// Await the change in the specified object for the key path to change to the expected value for the given block.
-///
-/// - Parameters:
-///   - object: the object to observe
-///   - path: the path to check
-///   - successValue: the value that the path must eventually match
-///   - options: the observation options, defaulting to `.new`
-///   - operation: the block to perform after adding the observer
-/// - Returns: the result to expect
-///
-/// Note that the property must eventually be set to a property or else the continuation will never complete.
-public func awaitChange<O: NSObject, T>(in object: O, of path: KeyPath<O, T>, with options: NSKeyValueObservingOptions = [.new], success successValue: @escaping (T) throws -> Bool, block operation: () -> ()) async throws -> T {
-    return try await withCheckedThrowingContinuation { cnt in
-        var observer: NSKeyValueObservation? = nil
-        let invalidate = { observer?.invalidate() }
-        observer = object.observe(path, options: options) { view, value in
-            // print("change value:", value)
-            invalidate()
-            if let newValue = value.newValue {
-                do {
-                    if try successValue(newValue) {
-                        cnt.resume(with: .success(newValue))
-                    }
-                } catch {
-                    cnt.resume(with: .failure(error))
-                }
+    /// Loads the given request and returns the stream of events that resulted from the naviation.
+    @MainActor public func loadStream(request: URLRequest) -> AsyncThrowingStream<Event, Error> {
+        self.webView.stopLoading()
+        return AsyncThrowingStream { cnt in
+            assert(Thread.isMainThread)
+            if let nav = self.webView.load(request) {
+                self.requests[nav] = cnt
+            } else {
+                cnt.finish(throwing: AppError(String(format: NSLocalizedString("Error navigating to: %@", bundle: .module, comment: "error message"), request.url?.absoluteString ?? "")))
             }
         }
-        let _ = operation()
+    }
+
+    public enum Event {
+        case commit
+        case startProvisionalNavigation
+        case receiveServerRedirectForProvisionalNavigation
+        case startLoading
+        case complete
     }
 }
-
 
 
 #if canImport(SwiftUI)
