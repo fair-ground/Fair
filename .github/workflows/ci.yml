@@ -29,6 +29,7 @@ on:
 jobs:
   ci-linux:
     runs-on: ubuntu-latest 
+    timeout-minutes: 45
 
     steps:
       - name: Get swift version
@@ -55,6 +56,7 @@ jobs:
 
   ci-macOS-12:
     runs-on: macos-12
+    timeout-minutes: 45
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -94,6 +96,7 @@ jobs:
 
   ci-windows:
     runs-on: windows-latest
+    timeout-minutes: 45
     if: false # disabled for now (missing ZipArchive zlib and CFSwapInt32)
 
     steps:
@@ -130,6 +133,7 @@ jobs:
 
   api-doc:
     runs-on: macos-12 # needed to be able to document SwiftUI
+    timeout-minutes: 20
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
     steps:
