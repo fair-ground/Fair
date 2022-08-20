@@ -1507,7 +1507,9 @@ public struct FairCommand : AsyncParsableCommand {
                     msg(.info, " scanning payload differences")
                     let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload) // .inferringMoves()
 
-                    msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex()) differences: \(diff.count)")
+                    msg(.info, " checking mismached differences: \(diff.count)")
+
+                    msg(.info, " checking mismached entry: \(trustedEntry.path) SHA256 trusted: \(trustedPayload.sha256().hex()) untrusted: \(untrustedPayload.sha256().hex())")
                     func offsets<T>(in changeSet: [CollectionDifference<T>.Change]) -> IndexSet {
                         IndexSet(changeSet.map({
                             switch $0 {
@@ -1537,6 +1539,7 @@ public struct FairCommand : AsyncParsableCommand {
                         if isAppBinary {
                             if let permittedDiffs = permittedDiffs, totalChanges < permittedDiffs {
                                 // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
+                                // TODO: instead of comparing the bytes of the binary, we should instead use MachOBinary to compare the content of the code pages, which would eliminate the need to strip the signatures
                                 msg(.info, "tolerating \(totalChanges) differences for: \(error)")
                             } else {
                                 throw error
