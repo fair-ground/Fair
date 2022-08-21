@@ -1065,21 +1065,21 @@ public struct FairCommand : AsyncParsableCommand {
                 }
             }
 
-            // 2. Check AppFairApp.xcconfig
+            // 2. Check appfair.xcconfig
             do {
                 let appOrgNameSpace = appOrgName.dehyphenated()
                 //let appID = "app." + appOrgName
 
                 guard let appName = try projectOptions.buildSettings()?["PRODUCT_NAME"] else {
-                    throw AppError(NSLocalizedString("Missing PRODUCT_NAME in AppFairApp.xcconfig", bundle: .module, comment: "error message"))
+                    throw AppError(NSLocalizedString("Missing PRODUCT_NAME in fairground.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 if appName != appOrgNameSpace {
-                    throw AppError(String(format: NSLocalizedString("Expectede PRODUCT_NAME in AppFairApp.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
+                    throw AppError(String(format: NSLocalizedString("Expectede PRODUCT_NAME in fairground.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
                 }
 
                 guard let appVersion = try projectOptions.buildSettings()?["MARKETING_VERSION"] else {
-                    throw AppError(NSLocalizedString("Missing MARKETING_VERSION in AppFairApp.xcconfig", bundle: .module, comment: "error message"))
+                    throw AppError(NSLocalizedString("Missing MARKETING_VERSION in fairground.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 let expectedIntegrationTitle = appName + " " + appVersion
@@ -1230,7 +1230,8 @@ public struct FairCommand : AsyncParsableCommand {
             try pull("Sandbox.entitlements")
 
             // copy up the assets, sources, and other metadata
-            try pull("AppFairApp.xcconfig")
+            try pull("appfair.xcconfig")
+            try pull("App.yml")
             try pull("Info.plist")
             try pull("Assets.xcassets")
             try pull("README.md")
@@ -1624,7 +1625,7 @@ public struct FairCommand : AsyncParsableCommand {
         }
 
         func parseTintColor() throws -> String? {
-            // first check the `AppFairApp.xcconfig` file for customization
+            // first check the `fairground.xcconfig` file for customization
             if let tint = try projectOptions.buildSettings()?["ICON_TINT"] {
                 if let hexColor = HexColor(hexString: tint) {
                     return hexColor.colorString(hashPrefix: false)
@@ -2805,7 +2806,7 @@ extension FairToolCommand {
             case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
             case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
             case .missingFlag(let flag): return "The operation requires the -\(flag) flag"
-            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the AppFairApp.xcconfig file (expected: \"\(expectedName)\")"
+            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the fairground.xcconfig file (expected: \"\(expectedName)\")"
             }
         }
     }
@@ -3059,7 +3060,7 @@ end
     }
 }
 
-/// A build configuration file, used to parse `AppFairApp.xcconfig`.
+/// A build configuration file, used to parse `fairground.xcconfig`.
 /// The format is a line-based key/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.
 public struct BuildSettings : RawRepresentable, Hashable {
     public var rawValue: [String: String]
