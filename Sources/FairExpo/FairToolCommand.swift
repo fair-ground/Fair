@@ -1071,15 +1071,15 @@ public struct FairCommand : AsyncParsableCommand {
                 //let appID = "app." + appOrgName
 
                 guard let appName = try projectOptions.buildSettings()?["PRODUCT_NAME"] else {
-                    throw AppError(NSLocalizedString("Missing PRODUCT_NAME in fairground.xcconfig", bundle: .module, comment: "error message"))
+                    throw AppError(NSLocalizedString("Missing PRODUCT_NAME in appfair.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 if appName != appOrgNameSpace {
-                    throw AppError(String(format: NSLocalizedString("Expectede PRODUCT_NAME in fairground.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
+                    throw AppError(String(format: NSLocalizedString("Expected PRODUCT_NAME in appfair.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
                 }
 
                 guard let appVersion = try projectOptions.buildSettings()?["MARKETING_VERSION"] else {
-                    throw AppError(NSLocalizedString("Missing MARKETING_VERSION in fairground.xcconfig", bundle: .module, comment: "error message"))
+                    throw AppError(NSLocalizedString("Missing MARKETING_VERSION in appfair.xcconfig", bundle: .module, comment: "error message"))
                 }
 
                 let expectedIntegrationTitle = appName + " " + appVersion
@@ -2806,7 +2806,7 @@ extension FairToolCommand {
             case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
             case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
             case .missingFlag(let flag): return "The operation requires the -\(flag) flag"
-            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the fairground.xcconfig file (expected: \"\(expectedName)\")"
+            case .invalidIntegrationTitle(let title, let expectedName): return "The title of the integration pull request \"\(title)\" must match the product name and version in the appfair.xcconfig file (expected: \"\(expectedName)\")"
             }
         }
     }
