@@ -86,11 +86,6 @@ final class FairCoreTests: XCTestCase {
         try rt(XOr<Int>.Or<Double>(123.0), equal: false)
     }
 
-    func testSHAHash() throws {
-        // echo -n abc | shasum -a 256 hash.txt
-        XCTAssertEqual("edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb", "abc\n".utf8Data.sha256().hex())
-    }
-
     /// Tests modeling JSON types using `XOr.Or`
     func testJSON() throws {
         typealias JSONPrimitive = XOr<String>.Or<Double>.Or<Bool>?
@@ -361,23 +356,6 @@ final class FairCoreTests: XCTestCase {
             </element>
         </root>
         """.utf8Data, options: [.tidyHTML]).xmlString())
-    }
-
-    func testSeededRandom() throws {
-        let uuid = try XCTUnwrap(UUID(uuidString: "A2735FD6-9AA2-4D4C-A38C-204032777FB0"))
-        var rnd = SeededRandomNumberGenerator(uuids: uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid)
-        XCTAssertEqual(59, Int.random(in: 0...100, using: &rnd))
-        XCTAssertEqual(3, Int.random(in: 0...100, using: &rnd))
-        XCTAssertEqual(53, Int.random(in: 0...100, using: &rnd))
-        XCTAssertEqual(44, Int.random(in: 0...100, using: &rnd))
-        XCTAssertEqual(7, Int.random(in: 0...100, using: &rnd))
-
-        // ensure that two randomly-seeded generators generate distinct elements
-        var rndA = SeededRandomNumberGenerator()
-        var rndB = SeededRandomNumberGenerator()
-        for _ in 0...999 {
-            XCTAssertNotEqual(Int64.random(in: .min...(.max), using: &rndA), Int64.random(in: .min...(.max), using: &rndB))
-        }
     }
 
     func testSorting() {
