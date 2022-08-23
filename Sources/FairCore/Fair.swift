@@ -891,6 +891,20 @@ public final class Plist : RawRepresentable, Hashable {
     }
 }
 
+extension JSum {
+    /// Parses the given JSON data into a JSum structure.
+    public static func parse(json data: Data, allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws -> JSum {
+        try JSum(json: data, allowsJSON5: allowsJSON5, dataDecodingStrategy: dataDecodingStrategy, dateDecodingStrategy: dateDecodingStrategy, nonConformingFloatDecodingStrategy: nonConformingFloatDecodingStrategy, keyDecodingStrategy: keyDecodingStrategy, userInfo: userInfo)
+    }
+}
+
+extension JSum {
+    /// Parses the given plist data into a JSum structure.
+    public static func parse(plist data: Data) throws -> JSum {
+        try Plist(data: data).jsum()
+    }
+}
+
 /// A type that permits items to be initialized non-optionally
 public protocol RawInitializable : RawRepresentable {
     init(rawValue: RawValue)
