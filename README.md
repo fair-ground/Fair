@@ -46,7 +46,7 @@ Alternatively, if you have a Swift 5.6 compiler installed,
 you can build and run from the source:
 
 ```shell
-% git clone https://fair-ground.org/Fair.git
+% git clone https://github.com/fair-ground/Fair.git
 
 Cloning into 'Fair'...
 remote: Enumerating objects: 43471, done.
@@ -614,7 +614,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://fair-ground.org/Fair.git", from: "0.4.0"), 
+        .package(url: "https://github.com/fair-ground/Fair", from: "0.5.0"), 
     ],
     targets: [
         .target(name: "App", dependencies: [
