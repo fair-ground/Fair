@@ -103,6 +103,54 @@ public protocol DataConsumer : Actor {
     func update(data: Data)
 }
 
+/// A `RandomNumberGenerator` that accepts a seed to provide deterministic values.
+public struct SeededRandomNumberGenerator : RandomNumberGenerator {
+    var indexM: UInt8 = 0
+    var indexN: UInt8 = 0
+    var indexState: [UInt8] = Array(0...255)
+
+    public init(seed: [UInt8]) {
+        precondition(seed.count > 0 && seed.count <= 256, "seed element count \(seed.count) must range in 0–256")
+        var n: UInt8 = 0
+        for m: UInt8 in 0...255 {
+            n &+= index(m) &+ seed[Int(m) % seed.count]
+            swapAt(m, n)
+        }
+    }
+
+    /// Initializes this generator with the UUIDs argument (up to 16 elememts).
+    public init(uuids: UUID...) {
+        func byteArray(_ uuid: UUID) -> [UInt8] { [uuid.uuid.0, uuid.uuid.1, uuid.uuid.2, uuid.uuid.3, uuid.uuid.4, uuid.uuid.5, uuid.uuid.6, uuid.uuid.7, uuid.uuid.8, uuid.uuid.9, uuid.uuid.10, uuid.uuid.11, uuid.uuid.12, uuid.uuid.13, uuid.uuid.14, uuid.uuid.15] }
+        self.init(seed: (uuids.isEmpty ? [UUID()] : uuids).prefix(16).map(byteArray).joined().array())
+    }
+
+    @inlinable public mutating func next() -> UInt64 {
+        var result: UInt64 = 0
+        for _ in 0..<UInt64.bitWidth / UInt8.bitWidth {
+            result <<= UInt8.bitWidth
+            result += UInt64(nextByte())
+        }
+        return result
+    }
+
+    @usableFromInline internal mutating func nextByte() -> UInt8 {
+        indexM &+= 1
+        indexN &+= index(indexM)
+        swapAt(indexM, indexN)
+        return index(index(indexM) &+ index(indexN))
+    }
+
+    private func index(_ index: UInt8) -> UInt8 {
+        return indexState[Int(index)]
+    }
+
+    private mutating func swapAt(_ m: UInt8, _ n: UInt8) {
+        indexState.swapAt(Int(m), Int(n))
+    }
+}
+
+
+
 #if canImport(CommonCrypto)
 import CommonCrypto
 

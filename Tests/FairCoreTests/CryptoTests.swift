@@ -20,9 +20,49 @@ import FoundationNetworking
 #endif
 
 final class CryptoTests: XCTestCase {
+    func testSeededRandom() throws {
+        do {
+            var rng = SeededRandomNumberGenerator(seed: [0])
+            XCTAssertEqual(87, Int.random(in: 0...100, using: &rng))
+        }
+
+        do {
+            var rng = SeededRandomNumberGenerator(seed: [1])
+            XCTAssertEqual(2, Int.random(in: 0...100, using: &rng))
+        }
+
+        do {
+            var rng = SeededRandomNumberGenerator(seed: [2])
+            XCTAssertEqual(64, Int.random(in: 0...100, using: &rng))
+        }
+
+        do {
+            let uuid = try XCTUnwrap(UUID(uuidString: "A2735FD6-9AA2-4D4C-A38C-204032777FB0"))
+            var rng = SeededRandomNumberGenerator(uuids: uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid, uuid)
+            XCTAssertEqual(59, Int.random(in: 0...100, using: &rng))
+            XCTAssertEqual(3, Int.random(in: 0...100, using: &rng))
+            XCTAssertEqual(53, Int.random(in: 0...100, using: &rng))
+            XCTAssertEqual(44, Int.random(in: 0...100, using: &rng))
+            XCTAssertEqual(7, Int.random(in: 0...100, using: &rng))
+        }
+
+        do {
+            // ensure that two randomly-seeded generators generate distinct elements
+            var rngA = SeededRandomNumberGenerator()
+            var rngB = SeededRandomNumberGenerator()
+            for _ in 0...999 {
+                XCTAssertNotEqual(Int64.random(in: .min...(.max), using: &rngA), Int64.random(in: .min...(.max), using: &rngB))
+            }
+        }
+    }
 
     private func randomData(count: Int) -> Data {
         Data((1...count).map({ _ in UInt8.random(in: (.min)...(.max)) }))
+    }
+
+    func testSHAHash() throws {
+        // echo -n abc | shasum -a 256 hash.txt
+        XCTAssertEqual("edeaaff3f1774ad2888673770c6d64097e391bc362d7d6fb34982ddf0efd18cb", "abc\n".utf8Data.sha256().hex())
     }
 
     /// Checks that the SHA1 hex from random data matches between the internal implementation and the CommonCrypto one
