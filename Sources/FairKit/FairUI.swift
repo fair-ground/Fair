@@ -418,14 +418,14 @@ public extension UsageDescriptionKey {
 /// Encoding and decoding errors are ignored since there
 /// is no mechanism for communicating the failure to the ``AppStorage`` system.
 public struct AppStorageArray<Element> : ExpressibleByArrayLiteral {
-    public var array: Array<Element>
+    public var arr: Array<Element>
 
     public init() {
-        self.array = []
+        self.arr = []
     }
 
     public init(arrayLiteral elements: Element...) {
-        self.array = elements
+        self.arr = elements
     }
 }
 
@@ -434,23 +434,23 @@ extension AppStorageArray : RangeReplaceableCollection {
     public typealias Index = Array<Element>.Index
 
     public subscript(position: Array<Element>.Index) -> Element {
-        array[position]
+        arr[position]
     }
 
     public func index(after i: Array<Element>.Index) -> Array<Element>.Index {
-        array.index(after: i)
+        arr.index(after: i)
     }
 
     public var startIndex: Index {
-        array.startIndex
+        arr.startIndex
     }
 
     public var endIndex: Index {
-        array.endIndex
+        arr.endIndex
     }
 
     public mutating func replaceSubrange<C>(_ subrange: Range<Array<Element>.Index>, with newElements: C) where C : Collection, Element == C.Element {
-        array.replaceSubrange(subrange, with: newElements)
+        arr.replaceSubrange(subrange, with: newElements)
     }
 }
 
@@ -458,16 +458,16 @@ extension AppStorageArray : RangeReplaceableCollection {
 extension AppStorageArray : RawRepresentable where Element: Codable {
     public init?(rawValue: String) {
         do {
-            self.array = try JSONDecoder().decode([Element].self, from: rawValue.utf8Data)
+            self.arr = try JSONDecoder().decode([Element].self, from: rawValue.utf8Data)
         } catch {
             dbg("error decoding array:", error, "from string:", rawValue)
-            self.array = []
+            self.arr = []
         }
     }
 
     public var rawValue: String {
         do {
-            return try JSONEncoder().encode(self.array).utf8String ?? "[]"
+            return try JSONEncoder().encode(self.arr).utf8String ?? "[]"
         } catch {
             dbg("error encoding array:", error)
             return "[]"

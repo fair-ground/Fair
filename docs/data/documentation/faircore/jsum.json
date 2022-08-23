@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A JSum is a JavaScript Union Model, which is a sum type providing",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "an in-memory representation of a JSON-representable structure.",
+      "text" : "A JSum is a Join Sum type, which is an enumeration that can represent one of:",
       "type" : "text"
     }
   ],
@@ -94,15 +86,6 @@
           "type" : "heading"
         },
         {
-          "inlineContent" : [
-            {
-              "text" : "JSum can represent the following associated types:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
           "items" : [
             {
               "content" : [
@@ -180,7 +163,7 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "Array",
+                      "code" : "Array<JSum>",
                       "type" : "codeVoice"
                     }
                   ],
@@ -201,7 +184,7 @@
                       "type" : "text"
                     },
                     {
-                      "code" : "Dictionary",
+                      "code" : "Dictionary<String, JSum>",
                       "type" : "codeVoice"
                     }
                   ],
@@ -262,47 +245,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "The primary syntactic differences with JSON are that ",
-              "type" : "text"
-            },
-            {
-              "code" : "null",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " is represented with the ",
-              "type" : "text"
-            },
-            {
-              "code" : "nil",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " constant,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "and object literals expressed in JSON with ",
-              "type" : "text"
-            },
-            {
-              "code" : "{:}",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " are expressed in swift with ",
-              "type" : "text"
-            },
-            {
-              "code" : "[:]",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : ".",
+              "text" : "JSum can be created by parsing JSON, YAML, or Property List sources.",
               "type" : "text"
             }
           ],
@@ -359,7 +302,6 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/bol",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/nul-swift.property",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/num",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
@@ -369,10 +311,21 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-4az55",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-4kskr",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-8sdkc",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-8zz82"
       ],
       "title" : "Subscripts"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(json:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(plist:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yaml:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parseMultiple(yaml:)"
+      ],
+      "title" : "Type Methods"
     },
     {
       "generated" : true,
@@ -444,15 +397,7 @@
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
     {
-      "text" : "A JSum is a JavaScript Union Model, which is a sum type providing",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "an in-memory representation of a JSON-representable structure.",
+      "text" : "A JSum is a Join Sum type, which is an enumeration that can represent one of:",
       "type" : "text"
     }
   ],
@@ -797,43 +742,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/bol(_:)"
 },
-"doc://FairCore/documentation/FairCore/JSum/count": {
-  "abstract" : [
-    {
-      "text" : "The count of JSum is either the number of properties (for an object), number of elements (for an array), 0 for null, or 1 for string & number",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "count"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "count",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/count"
-},
 "doc://FairCore/documentation/FairCore/JSum/nul-swift.enum.case": {
   "abstract" : [
 
@@ -1102,6 +1010,430 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/obj(_:)"
 },
+"doc://FairCore/documentation/FairCore/JSum/parse(json:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)": {
+  "abstract" : [
+    {
+      "text" : "Parses the given JSON data into a JSum structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "json"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowsJSON5"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dataDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC20DataDecodingStrategyO",
+      "text" : "DataDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "dateDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC20DateDecodingStrategyO",
+      "text" : "DateDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "nonConformingFloatDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC34NonConformingFloatDecodingStrategyO",
+      "text" : "NonConformingFloatDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "keyDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC19KeyDecodingStrategyO",
+      "text" : "KeyDecodingStrategy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "userInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s17CodingUserInfoKeyV",
+      "text" : "CodingUserInfoKey"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(json:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parse(json:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/parse(json:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)"
+},
+"doc://FairCore/documentation/FairCore/JSum/parse(plist:)": {
+  "abstract" : [
+    {
+      "text" : "Parses the given plist data into a JSum structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "plist"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(plist:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parse(plist:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/parse(plist:)"
+},
+"doc://FairCore/documentation/FairCore/JSum/parse(yaml:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "yaml"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yaml:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parse(yaml:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/parse(yaml:)"
+},
+"doc://FairCore/documentation/FairCore/JSum/parseMultiple(yaml:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseMultiple"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "yaml"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parseMultiple(yaml:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseMultiple(yaml:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/parsemultiple(yaml:)"
+},
 "doc://FairCore/documentation/FairCore/JSum/str": {
   "abstract" : [
     {
@@ -1193,6 +1525,50 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/str(_:)"
 },
+"doc://FairCore/documentation/FairCore/JSum/subscript(_:)-4az55": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JObja",
+      "text" : "JObj"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SD3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-4az55",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/subscript(_:)-4az55"
+},
 "doc://FairCore/documentation/FairCore/JSum/subscript(_:)-4kskr": {
   "abstract" : [
     {
@@ -1234,6 +1610,41 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/subscript(_:)-4kskr"
+},
+"doc://FairCore/documentation/FairCore/JSum/subscript(_:)-8sdkc": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-8sdkc",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/subscript(_:)-8sdkc"
 },
 "doc://FairCore/documentation/FairCore/JSum/subscript(_:)-8zz82": {
   "abstract" : [

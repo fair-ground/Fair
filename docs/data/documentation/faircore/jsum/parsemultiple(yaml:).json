@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The count of JSum is either the number of properties (for an object), number of elements (for an array), 0 for null, or 1 for string & number",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -15,16 +15,24 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parseMultiple(yaml:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore4JSumO5countSivp",
+    "externalID" : "s:8FairCore4JSumO13parseMultiple4yamlSayACGSS_tKFZ",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "func"
       },
       {
         "kind" : "text",
@@ -32,7 +40,15 @@
       },
       {
         "kind" : "identifier",
-        "text" : "count"
+        "text" : "parseMultiple"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "yaml"
       },
       {
         "kind" : "text",
@@ -40,8 +56,29 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "text" : "JSum"
+      },
+      {
+        "kind" : "text",
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -50,9 +87,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "count"
+    "roleHeading" : "Type Method",
+    "symbolKind" : "method",
+    "title" : "parseMultiple(yaml:)"
   },
   "primaryContentSections" : [
     {
@@ -67,7 +104,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
             },
             {
               "kind" : "text",
@@ -75,7 +120,15 @@
             },
             {
               "kind" : "identifier",
-              "text" : "count"
+              "text" : "parseMultiple"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "yaml"
             },
             {
               "kind" : "text",
@@ -83,20 +136,30 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : ") "
             },
             {
               "kind" : "keyword",
-              "text" : "get"
+              "text" : "throws"
             },
             {
               "kind" : "text",
-              "text" : " }"
+              "text" : " -> ["
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "text" : "JSum"
+            },
+            {
+              "kind" : "text",
+              "text" : "]"
             }
           ]
         }
@@ -115,7 +178,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/jsum\/count"
+        "\/documentation\/faircore\/jsum\/parsemultiple(yaml:)"
       ],
       "traits" : [
         {
@@ -143,15 +206,7 @@
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
     {
-      "text" : "A JSum is a JavaScript Union Model, which is a sum type providing",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "an in-memory representation of a JSON-representable structure.",
+      "text" : "A JSum is a Join Sum type, which is an enumeration that can represent one of:",
       "type" : "text"
     }
   ],
@@ -182,17 +237,22 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
 },
-"doc://FairCore/documentation/FairCore/JSum/count": {
+"doc://FairCore/documentation/FairCore/JSum/parseMultiple(yaml:)": {
   "abstract" : [
-    {
-      "text" : "The count of JSum is either the number of properties (for an object), number of elements (for an array), 0 for null, or 1 for string & number",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -200,7 +260,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "count"
+      "text" : "parseMultiple"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "yaml"
     },
     {
       "kind" : "text",
@@ -208,16 +276,37 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parseMultiple(yaml:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "count",
+  "title" : "parseMultiple(yaml:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/count"
+  "url" : "\/documentation\/faircore\/jsum\/parsemultiple(yaml:)"
 }
 }
 }

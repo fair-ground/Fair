@@ -1483,6 +1483,10 @@ public struct FairCommand : AsyncParsableCommand {
                 let isAppBinary = entryIsMainBinary || isExecutable
 
                 // the code signature is embedded in executables, but since since the trusted and un-trusted versions can be signed with different certificates (ad-hoc or otherwise), the code signature section in the compiled binary will be different; ideally we would figure out how to strip the signature from the data block itself, but for now just save to a temporary location, strip the signature using `codesign --remove-signature`, and then check the binaries again
+
+                // TODO: open as MachOBinary and compare individual segments
+
+
 #if os(macOS) // we can only launch `codesign` on macOS
                 // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
                 if isAppBinary && trustedPayload != untrustedPayload {

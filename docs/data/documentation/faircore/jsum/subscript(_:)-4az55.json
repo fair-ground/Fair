@@ -1,73 +1,57 @@
 {
   "abstract" : [
     {
-      "text" : "Creates a dictionary of ",
+      "text" : "No overview available.",
       "type" : "text"
-    },
-    {
-      "code" : "String",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/ExpressibleByDictionaryLiteral-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/init(dictionaryLiteral:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-4az55"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore4JSumO17dictionaryLiteralACSS_ACtd_tcfc",
+    "externalID" : "s:8FairCore4JSumOyACSScip",
     "fragments" : [
       {
-        "kind" : "identifier",
-        "text" : "init"
+        "kind" : "keyword",
+        "text" : "subscript"
       },
       {
         "kind" : "text",
         "text" : "("
       },
       {
-        "kind" : "externalParam",
-        "text" : "dictionaryLiteral"
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore4JObja",
+        "text" : "JObj"
       },
       {
         "kind" : "text",
-        "text" : ": ("
+        "text" : "."
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:SD3Keya",
+        "text" : "Key"
       },
       {
         "kind" : "text",
-        "text" : ", "
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:8FairCore4JSumO",
         "text" : "JSum"
-      },
-      {
-        "kind" : "text",
-        "text" : ")...)"
       }
     ],
     "modules" : [
@@ -76,9 +60,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Initializer",
-    "symbolKind" : "init",
-    "title" : "init(dictionaryLiteral:)"
+    "roleHeading" : "Instance Subscript",
+    "symbolKind" : "subscript",
+    "title" : "subscript(_:)"
   },
   "primaryContentSections" : [
     {
@@ -93,36 +77,38 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "init"
+              "text" : "subscript"
             },
             {
               "kind" : "text",
               "text" : "("
             },
             {
-              "kind" : "externalParam",
-              "text" : "dictionaryLiteral"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
               "kind" : "internalParam",
-              "text" : "elements"
+              "text" : "key"
             },
             {
               "kind" : "text",
-              "text" : ": ("
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore4JObja",
+              "text" : "JObj"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:SD3Keya",
+              "text" : "Key"
             },
             {
               "kind" : "text",
-              "text" : ", "
+              "text" : ") -> "
             },
             {
               "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
@@ -132,7 +118,23 @@
             },
             {
               "kind" : "text",
-              "text" : ")...)"
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -151,7 +153,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/jsum\/init(dictionaryliteral:)"
+        "\/documentation\/faircore\/jsum\/subscript(_:)-4az55"
       ],
       "traits" : [
         {
@@ -175,6 +177,56 @@
   "title" : "FairCore",
   "type" : "topic",
   "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/JObj": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "JObj",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is the associated dictionary type for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum.obj",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", which is equivalent to a JSON “object”.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JObj"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JObj"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JObj",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jobj"
 },
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
@@ -210,78 +262,49 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
 },
-"doc://FairCore/documentation/FairCore/JSum/ExpressibleByDictionaryLiteral-Implementations": {
+"doc://FairCore/documentation/FairCore/JSum/subscript(_:)-4az55": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/ExpressibleByDictionaryLiteral-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ExpressibleByDictionaryLiteral Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/expressiblebydictionaryliteral-implementations"
-},
-"doc://FairCore/documentation/FairCore/JSum/init(dictionaryLiteral:)": {
-  "abstract" : [
-    {
-      "text" : "Creates a dictionary of ",
-      "type" : "text"
-    },
-    {
-      "code" : "String",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    }
-  ],
   "fragments" : [
     {
-      "kind" : "identifier",
-      "text" : "init"
+      "kind" : "keyword",
+      "text" : "subscript"
     },
     {
       "kind" : "text",
       "text" : "("
     },
     {
-      "kind" : "externalParam",
-      "text" : "dictionaryLiteral"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JObja",
+      "text" : "JObj"
     },
     {
       "kind" : "text",
-      "text" : ": ("
+      "text" : "."
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:SD3Keya",
+      "text" : "Key"
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:8FairCore4JSumO",
       "text" : "JSum"
-    },
-    {
-      "kind" : "text",
-      "text" : ")...)"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/init(dictionaryLiteral:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-4az55",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(dictionaryLiteral:)",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/init(dictionaryliteral:)"
+  "url" : "\/documentation\/faircore\/jsum\/subscript(_:)-4az55"
 }
 }
 }

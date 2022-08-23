@@ -130,7 +130,7 @@ public extension URLSession {
     /// Stub for missing async data support on Linux & Windows
     func data(for request: URLRequest, delegate: Void?) async throws -> (data: Data, response: URLResponse) {
         let (data, response) = try await fetch(request: request)
-        return (data, response ?? URLResponse(url: request.url ?? URL(string: "about:blank")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil))
+        return (data, response ?? URLResponse(url: request.url ?? URL(str: "about:blank")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil))
     }
     #endif
 

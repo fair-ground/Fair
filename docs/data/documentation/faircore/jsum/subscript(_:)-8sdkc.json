@@ -1,20 +1,8 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the underlying String payload if this is a ",
+      "text" : "No overview available.",
       "type" : "text"
-    },
-    {
-      "code" : "JSum.str",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", otherwise ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
@@ -27,37 +15,34 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-8sdkc"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore4JSumO3strSSSgvp",
+    "externalID" : "s:8FairCore4JSumOyACSicip",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "subscript"
       },
       {
         "kind" : "text",
-        "text" : " "
-      },
-      {
-        "kind" : "identifier",
-        "text" : "str"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
+        "text" : "("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
       },
       {
         "kind" : "text",
-        "text" : "?"
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "text" : "JSum"
       }
     ],
     "modules" : [
@@ -66,9 +51,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "str"
+    "roleHeading" : "Instance Subscript",
+    "symbolKind" : "subscript",
+    "title" : "subscript(_:)"
   },
   "primaryContentSections" : [
     {
@@ -83,15 +68,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "subscript"
             },
             {
               "kind" : "text",
-              "text" : " "
+              "text" : "("
             },
             {
-              "kind" : "identifier",
-              "text" : "str"
+              "kind" : "internalParam",
+              "text" : "index"
             },
             {
               "kind" : "text",
@@ -99,16 +84,34 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
             },
             {
               "kind" : "text",
-              "text" : "? { "
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "text" : "JSum"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
             },
             {
               "kind" : "keyword",
               "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
             },
             {
               "kind" : "text",
@@ -131,7 +134,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/jsum\/str"
+        "\/documentation\/faircore\/jsum\/subscript(_:)-8sdkc"
       ],
       "traits" : [
         {
@@ -190,58 +193,40 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
 },
-"doc://FairCore/documentation/FairCore/JSum/str": {
+"doc://FairCore/documentation/FairCore/JSum/subscript(_:)-8sdkc": {
   "abstract" : [
-    {
-      "text" : "Returns the underlying String payload if this is a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum.str",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", otherwise ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "subscript"
     },
     {
       "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "str"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
     },
     {
       "kind" : "text",
-      "text" : "?"
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/subscript(_:)-8sdkc",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "str",
+  "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/str"
+  "url" : "\/documentation\/faircore\/jsum\/subscript(_:)-8sdkc"
 }
 }
 }

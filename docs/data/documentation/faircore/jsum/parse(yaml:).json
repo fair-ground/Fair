@@ -1,20 +1,8 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the underlying String payload if this is a ",
+      "text" : "No overview available.",
       "type" : "text"
-    },
-    {
-      "code" : "JSum.str",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", otherwise ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
@@ -27,16 +15,24 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yaml:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore4JSumO3strSSSgvp",
+    "externalID" : "s:8FairCore4JSumO5parse4yamlACSS_tKFZ",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "func"
       },
       {
         "kind" : "text",
@@ -44,7 +40,15 @@
       },
       {
         "kind" : "identifier",
-        "text" : "str"
+        "text" : "parse"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "yaml"
       },
       {
         "kind" : "text",
@@ -57,7 +61,20 @@
       },
       {
         "kind" : "text",
-        "text" : "?"
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "text" : "JSum"
       }
     ],
     "modules" : [
@@ -66,9 +83,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "str"
+    "roleHeading" : "Type Method",
+    "symbolKind" : "method",
+    "title" : "parse(yaml:)"
   },
   "primaryContentSections" : [
     {
@@ -83,7 +100,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
             },
             {
               "kind" : "text",
@@ -91,7 +116,15 @@
             },
             {
               "kind" : "identifier",
-              "text" : "str"
+              "text" : "parse"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "yaml"
             },
             {
               "kind" : "text",
@@ -104,15 +137,21 @@
             },
             {
               "kind" : "text",
-              "text" : "? { "
+              "text" : ") "
             },
             {
               "kind" : "keyword",
-              "text" : "get"
+              "text" : "throws"
             },
             {
               "kind" : "text",
-              "text" : " }"
+              "text" : " -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "text" : "JSum"
             }
           ]
         }
@@ -131,7 +170,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/jsum\/str"
+        "\/documentation\/faircore\/jsum\/parse(yaml:)"
       ],
       "traits" : [
         {
@@ -190,29 +229,22 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
 },
-"doc://FairCore/documentation/FairCore/JSum/str": {
+"doc://FairCore/documentation/FairCore/JSum/parse(yaml:)": {
   "abstract" : [
-    {
-      "text" : "Returns the underlying String payload if this is a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum.str",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", otherwise ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -220,7 +252,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "str"
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "yaml"
     },
     {
       "kind" : "text",
@@ -233,15 +273,28 @@
     },
     {
       "kind" : "text",
-      "text" : "?"
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yaml:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "str",
+  "title" : "parse(yaml:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/str"
+  "url" : "\/documentation\/faircore\/jsum\/parse(yaml:)"
 }
 }
 }
