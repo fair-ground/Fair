@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Must have a no-arg initializer",
+      "text" : "No overview available.",
       "type" : "text"
     }
   ],
@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp12SceneManagerCACycfc",
+    "externalID" : "s:7FairApp12SceneManagerPxycfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -35,6 +35,7 @@
         "name" : "FairApp"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
@@ -51,14 +52,6 @@
             "macOS"
           ],
           "tokens" : [
-            {
-              "kind" : "keyword",
-              "text" : "required"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
             {
               "kind" : "keyword",
               "text" : "init"
@@ -119,12 +112,23 @@
 },
 "doc://FairApp/documentation/FairApp/SceneManager": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "SceneManager",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -150,10 +154,7 @@
 },
 "doc://FairApp/documentation/FairApp/SceneManager/init()": {
   "abstract" : [
-    {
-      "text" : "Must have a no-arg initializer",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -167,6 +168,7 @@
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/init()",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",

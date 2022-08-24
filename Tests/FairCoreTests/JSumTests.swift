@@ -444,8 +444,8 @@ final class JSumTests : XCTestCase {
         )
         XCTAssertEqual(value2.count, 6)
         XCTAssertEqual(value2[0], "::vector")
-        XCTAssertEqual(value2[5][0], "::vector")
-        XCTAssertEqual(value2[5][4], "http://example.com/foo#bar")
+        XCTAssertEqual(value2[5]?[0], "::vector")
+        XCTAssertEqual(value2[5]?[4], "http://example.com/foo#bar")
     }
 
     func testFlowSeq() {
@@ -482,13 +482,13 @@ final class JSumTests : XCTestCase {
 
     func testFlowMap() throws {
         XCTAssertEqual(try yaml("{}"), [:])
+        XCTAssertEqual(try yaml("{\"x\":1}")["x"], 1)
         XCTAssertEqual(try yaml("{x: 1}"), ["x": 1])
         XCTAssertThrowsError(try yaml("{x: 1, x: 2}"))
         XCTAssertEqual(try yaml("{x: 1}")["x"], 1)
         XCTAssertThrowsError(try yaml("{x:1}"))
-        XCTAssertEqual(try yaml("{\"x\":1}")["x"], 1)
         XCTAssertEqual(try yaml("{\"x\":1, 'y': true}")["y"], true)
-        XCTAssertEqual(try yaml("{\"x\":1, 'y': true, z: null}")["z"], nil)
+        XCTAssertEqual(try yaml("{\"x\":1, 'y': true, z: null}")["z"], .nul)
         XCTAssert(try yaml("{first name: \"Behrang\"," +
                                  " last name: 'Noruzi Niya'}") ==
                   ["first name": "Behrang", "last name": "Noruzi Niya"])
@@ -510,7 +510,7 @@ final class JSumTests : XCTestCase {
         XCTAssert(try yaml(" \n  \n \n  \n\nx: 1  \n   \ny: 2" +
                                  "\n   \n  \n ")["y"] == 2)
         XCTAssert(try yaml("x:\n a: 1 # comment \n b: 2\ny: " +
-                                 "\n  c: 3\n  ")["y"]["c"] == 3)
+                                 "\n  c: 3\n  ")["y"]?["c"] == 3)
         XCTAssert(try yaml("# comment \n\n  # x\n  # y \n  \n  x: 1" +
                                  "  \n  y: 2") == ["x": 1, "y": 2])
     }
@@ -553,9 +553,9 @@ final class JSumTests : XCTestCase {
             "  - {it: updates, in: real-time}\n"
         )
         XCTAssertEqual(value.count, 2)
-        XCTAssertEqual(value[0]["just"], "write some")
-        XCTAssertEqual(value[1]["yaml"][0][1], "and")
-        XCTAssertEqual(value[1]["yaml"][1]["in"], "real-time")
+        XCTAssertEqual(value[0]?["just"], "write some")
+        XCTAssertEqual(value[1]?["yaml"]?[0]?[1], "and")
+        XCTAssertEqual(value[1]?["yaml"]?[1]?["in"], "real-time")
 
         XCTAssertEqual(value, [
             [
@@ -575,18 +575,23 @@ final class JSumTests : XCTestCase {
             ]
         ])
 
-        value[0]["just"] = .str("replaced string")
-        XCTAssertEqual(value[0]["just"], "replaced string")
-        value[0]["another"] = .num(2)
-        XCTAssertEqual(value[0]["another"], 2)
-        value[0]["new"]["key"][10]["key"] = .str("Ten")
-        XCTAssertEqual(value[0]["new"]["key"][10]["key"], "Ten")
-        value[0]["new"]["key"][5]["key"] = .str("Five")
-        XCTAssertEqual(value[0]["new"]["key"][5]["key"], "Five")
-        value[0]["new"]["key"][15]["key"] = .str("Fifteen")
-        XCTAssertEqual(value[0]["new"]["key"][15]["key"], "Fifteen")
-        value[2] = .num(2)
-        XCTAssertEqual(value[2], 2)
+        value[0]?["just"] = .str("replaced string")
+        XCTAssertEqual(value[0]?["just"], "replaced string")
+        value[0]?["another"] = .num(2)
+        XCTAssertEqual(value[0]?["another"], 2)
+
+        value[0]?["new"] = [:]
+        value[0]?["new"]?["key"] = .arr(.init(repeating: ["key" : nil], count: 16))
+
+        value[0]?["new"]?["key"]?[10]?["key"] = .str("Ten")
+        XCTAssertEqual(value[0]?["new"]?["key"]?[10]?["key"], "Ten")
+        value[0]?["new"]?["key"]?[5]?["key"] = .str("Five")
+        XCTAssertEqual(value[0]?["new"]?["key"]?[5]?["key"], "Five")
+        value[0]?["new"]?["key"]?[15]?["key"] = .str("Fifteen")
+        XCTAssertEqual(value[0]?["new"]?["key"]?[15]?["key"], "Fifteen")
+        
+//        value[2] = .num(2)
+//        XCTAssertEqual(value[2], 2)
         value = nil
         XCTAssertEqual(value, nil)
     }
@@ -635,8 +640,8 @@ final class JSumTests : XCTestCase {
             "  - Atlanta Braves\n"
         )
         XCTAssertEqual(value.count, 2)
-        XCTAssertEqual(value["national"].count, 3)
-        XCTAssertEqual(value["national"][2], "Atlanta Braves")
+        XCTAssertEqual(value["national"]?.count, 3)
+        XCTAssertEqual(value["national"]?[2], "Atlanta Braves")
 
         XCTAssertEqual(value, [
             "american": ["Boston Red Sox", "Detroit Tigers", "New York Yankees"],
@@ -656,7 +661,7 @@ final class JSumTests : XCTestCase {
             "  avg:  0.288\n"
         )
         XCTAssertEqual(value.count, 2)
-        XCTAssertEqual(value[1]["avg"].double!, 0.288, accuracy: 0.00001)
+        XCTAssertEqual(value[1]?["avg"]?.double ?? .nan, 0.288, accuracy: 0.00001)
 
         XCTAssertEqual(value, [
             [
@@ -679,8 +684,8 @@ final class JSumTests : XCTestCase {
             "- [Sammy Sosa  , 63, 0.288]\n"
         )
         XCTAssertEqual(value.count, 3)
-        XCTAssertEqual(value[2].count, 3)
-        XCTAssertEqual(value[2][2].double!, 0.288, accuracy: 0.00001)
+        XCTAssertEqual(value[2]?.count, 3)
+        XCTAssertEqual(value[2]?[2]?.double ?? .nan, 0.288, accuracy: 0.00001)
     }
 
     func testExample6() throws {
@@ -691,8 +696,8 @@ final class JSumTests : XCTestCase {
             "    avg: 0.288\n" +
             "  }\n"
         )
-        XCTAssertEqual(value["Mark McGwire"]["hr"], 65)
-        XCTAssertEqual(value["Sammy Sosa"]["hr"], 63)
+        XCTAssertEqual(value["Mark McGwire"]?["hr"], 65)
+        XCTAssertEqual(value["Sammy Sosa"]?["hr"], 63)
     }
 
     func testExample7() throws {
@@ -746,8 +751,8 @@ final class JSumTests : XCTestCase {
             "  - Sammy Sosa\n" +
             "  - Ken Griffey\n"
         )
-        XCTAssertEqual(value["hr"][1], "Sammy Sosa")
-        XCTAssertEqual(value["rbi"][1], "Ken Griffey")
+        XCTAssertEqual(value["hr"]?[1], "Sammy Sosa")
+        XCTAssertEqual(value["rbi"]?[1], "Ken Griffey")
     }
 
     func testExample10() throws {
@@ -761,10 +766,10 @@ final class JSumTests : XCTestCase {
             "  - *SS # Subsequent occurrence\n" +
             "  - Ken Griffey\n"
         )
-        XCTAssertEqual(value["hr"].count, 2)
-        XCTAssertEqual(value["hr"][1], "Sammy Sosa")
-        XCTAssertEqual(value["rbi"].count, 2)
-        XCTAssertEqual(value["rbi"][0], "Sammy Sosa")
+        XCTAssertEqual(value["hr"]?.count, 2)
+        XCTAssertEqual(value["hr"]?[1], "Sammy Sosa")
+        XCTAssertEqual(value["rbi"]?.count, 2)
+        XCTAssertEqual(value["rbi"]?[0], "Sammy Sosa")
     }
 
     func XXXtestExample11() throws {
@@ -799,9 +804,9 @@ final class JSumTests : XCTestCase {
             "  quantity: 1\n"
         )
         XCTAssertEqual(value.count, 3)
-        XCTAssertEqual(value[1].count, 2)
-        XCTAssertEqual(value[1]["item"], "Basketball")
-        XCTAssertEqual(value[1]["quantity"], 4)
+        XCTAssertEqual(value[1]?.count, 2)
+        XCTAssertEqual(value[1]?["item"], "Basketball")
+        XCTAssertEqual(value[1]?["quantity"], 4)
         _ = try yaml("quantity")
 //        XCTAssertEqual(value[2][key], 1)
     }
@@ -919,7 +924,7 @@ final class JSumTests : XCTestCase {
         XCTAssertEqual(value["fixed"], 1.23015e+3)
 #endif
         XCTAssertEqual(value["negative infinity"], .num(-Double.infinity))
-        XCTAssertEqual(value["not a number"].double?.isNaN, true)
+        XCTAssertEqual(value["not a number"]?.double?.isNaN, true)
     }
 
     func testExample21() throws {
@@ -929,7 +934,7 @@ final class JSumTests : XCTestCase {
             "string: '012345'\n"
         )
         XCTAssertEqual(value.count, 3)
-        XCTAssertEqual(value["null"], nil)
+        XCTAssertEqual(value["null"], .nul)
         XCTAssertEqual(value["booleans"], [true, false])
         XCTAssertEqual(value["string"], "012345")
     }
@@ -1028,18 +1033,18 @@ final class JSumTests : XCTestCase {
         XCTAssertEqual(value["YAML"], "YAML Ain't Markup Language")
         XCTAssertEqual(value["What It Is"], .str("YAML is a human friendly data" +
                                                  " serialization standard for all programming languages."))
-        XCTAssertEqual(value["YAML Resources"].count, 8)
-        XCTAssert(value["YAML Resources"]["YAML 1.2 (3rd Edition)"] ==
+        XCTAssertEqual(value["YAML Resources"]?.count, 8)
+        XCTAssert(value["YAML Resources"]?["YAML 1.2 (3rd Edition)"] ==
                   "http://yaml.org/spec/1.2/spec.html")
-        XCTAssert(value["YAML Resources"]["YAML IRC Channel"] ==
+        XCTAssert(value["YAML Resources"]?["YAML IRC Channel"] ==
                   "#yaml on irc.freenode.net")
-        XCTAssertEqual(value["Projects"].count, 12)
-        XCTAssertEqual(value["Projects"]["C/C++ Libraries"][2], "yaml-cpp")
-        XCTAssertEqual(value["Projects"]["Perl Modules"].count, 5)
-        XCTAssertEqual(value["Projects"]["Perl Modules"][0], "YAML")
-        XCTAssertEqual(value["Projects"]["Perl Modules"][1], "YAML::XS")
-        XCTAssertEqual(value["Related Projects"].count, 6)
-        XCTAssertEqual(value["News"].count, 2)
+        XCTAssertEqual(value["Projects"]?.count, 12)
+        XCTAssertEqual(value["Projects"]?["C/C++ Libraries"]?[2], "yaml-cpp")
+        XCTAssertEqual(value["Projects"]?["Perl Modules"]?.count, 5)
+        XCTAssertEqual(value["Projects"]?["Perl Modules"]?[0], "YAML")
+        XCTAssertEqual(value["Projects"]?["Perl Modules"]?[1], "YAML::XS")
+        XCTAssertEqual(value["Related Projects"]?.count, 6)
+        XCTAssertEqual(value["News"]?.count, 2)
     }
 
     func testPerformanceExample() {

@@ -39,7 +39,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp12SceneManagerC",
+        "preciseIdentifier" : "s:7FairApp12SceneManagerP",
         "text" : "SceneManager"
       }
     ],
@@ -84,7 +84,7 @@
             {
               "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp12SceneManagerC",
+              "preciseIdentifier" : "s:7FairApp12SceneManagerP",
               "text" : "SceneManager"
             }
           ]
@@ -213,7 +213,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp12SceneManagerC",
+      "preciseIdentifier" : "s:7FairApp12SceneManagerP",
       "text" : "SceneManager"
     }
   ],
@@ -227,12 +227,23 @@
 },
 "doc://FairApp/documentation/FairApp/SceneManager": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "SceneManager",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",

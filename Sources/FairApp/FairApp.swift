@@ -201,7 +201,7 @@ public extension URL {
     /// The settings associated with this app
     @ViewBuilder static func settingsView(store: Self.AppStore) -> Self.SettingsBody
 
-    
+
     /// Launch the app, either in GUI or CLI form
     static func main() async throws
 
@@ -217,23 +217,33 @@ public extension FairContainer {
 }
 
 #if swift(>=5.5)
-@MainActor open class SceneManager: ObservableObject {
-    /// Must have a no-arg initializer
-    public required init() { }
-    
-    /// The actions available globally to this scene
-    open var quickActions: [QuickAction] = []
+/// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
+@MainActor public protocol SceneManager: ObservableObject {
+    init()
 }
 #else
+/// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
 @available(macOS 11.0, iOS 14.0, *)
-open class SceneManager: ObservableObject {
-    /// Must have a no-arg initializer
-    public required init() { }
-
-    /// The actions available globally to this scene
-    open var quickActions: [QuickAction] = []
+public protocol SceneManager: ObservableObject {
+    init()
 }
 #endif
+
+public extension SceneManager {
+    /// The shared static configuration for the bundle of this instance, which is stored in the `App.yml` resource.
+    ///
+    /// The `config` property can be any `Decodable` type, such as `JSum` or a custom type that can be decoded from the contents of the YAML.
+    ///
+    /// - Parameter bundle: the bundle from which to load the resource (typically `.module`)
+    /// - Returns: the decoded type parsed from the YAML file
+    /// - Note: Failure to parse the YAML file or decode the result type is fatal.
+    static func configuration<T: Decodable>(for bundle: Bundle) -> T {
+        let url = bundle.url(forResource: "App", withExtension: "yml", subdirectory: nil)!
+        let source = try! String(contentsOf: url, encoding: .utf8)
+        let yaml = try! JSum.parse(yaml: source)
+        return try! T(json: yaml.json(), dataDecodingStrategy: .base64, dateDecodingStrategy: .iso8601)
+    }
+}
 
 /// A action that is available from an app's icon, either the dock icon in macOS or the app's icon in iOS
 public final class QuickAction: Identifiable {
@@ -418,10 +428,9 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
     @Environment(\.openURL) var openURL
     @Environment(\.scenePhase) var scenePhase
-    @StateObject public var store: Container.AppStore
+    @StateObject public var store = Container.AppStore()
 
     public init() {
-        self._store = .init(wrappedValue: Container.AppStore())
     }
 
     @SceneBuilder public var body: some SwiftUI.Scene {
@@ -482,11 +491,6 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
         Group {
             Container.rootScene(store: store)
                 .onChange(of: scenePhase) { phase in
-                    // update the app delegate's quick actions if needed
-                    AppDelegate.installQuickActions {
-                        store.quickActions
-                    }
-                    
                     switch phase {
                     case .background:
                         break;
@@ -545,43 +549,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
 private final class AppDelegate: NSObject, UXApplicationDelegate {
     /// The global quick actions installed on the app
     fileprivate static var quickActions: [QuickAction]? = nil
-    
-    /// Adds the given `[QuickAction]` array to the list of available actions.
-    static func installQuickActions(actions: () -> [QuickAction]) {
-        if quickActions != nil {
-            return
-        }
-        
-        let acts = actions()
-        self.quickActions = acts
-        
-        #if canImport(UIKit)
-        // on iOS, quick actions are added as
-        let items = acts.map { action in
-            UIApplicationShortcutItem(type: action.id, localizedTitle: action.localizedTitle, localizedSubtitle: action.localizedSubtitle, icon: action.iconSymbol.flatMap(UIApplicationShortcutIcon.init(systemImageName:)), userInfo: [:])
-        }
 
-        UIApplication.shared.shortcutItems = items
-        #endif
-        
-        #if canImport(AppKit)
-        for action in acts {
-            let menuItem = NSMenuItem(title: action.localizedTitle, action: #selector(performQuickAction), keyEquivalent: "")
-            // the action's identifier is stored as the menu item's identifier
-            menuItem.identifier = .init(rawValue: action.id)
-            
-            // the dock menu seems to ignore both the image and tooltip for items, so this doesn't seem to do anything
-            if let symbol = action.iconSymbol {
-                menuItem.image = NSImage(systemSymbolName: symbol, accessibilityDescription: action.localizedTitle)
-            }
-            if let subtitle = action.localizedSubtitle {
-                menuItem.toolTip = subtitle
-            }
-            dockMenu.addItem(menuItem)
-        }
-        #endif
-    }
-    
     #if canImport(AppKit)
     @objc func performQuickAction(_ sender: Any?) {
         dbg(sender)

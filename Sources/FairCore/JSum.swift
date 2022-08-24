@@ -55,63 +55,6 @@ import Swift
 public typealias JObj = [String: JSum]
 
 extension JSum {
-    public subscript(index: Int) -> JSum {
-        get {
-            assert(index >= 0)
-            switch self {
-            case .arr(let array):
-                if array.indices.contains(index) {
-                    return array[index]
-                } else {
-                    return .nul
-                }
-            default:
-                return .nul
-            }
-        }
-        set {
-            assert(index >= 0)
-            switch self {
-            case .arr(let array):
-                let emptyCount = max(0, index + 1 - array.count)
-                let empty = [JSum](repeating: .nul, count: emptyCount)
-                var new = array
-                new.append(contentsOf: empty)
-                new[index] = newValue
-                self = .arr(new)
-            default:
-                var array = [JSum](repeating: .nul, count: index + 1)
-                array[index] = newValue
-                self = .arr(array)
-            }
-        }
-    }
-
-    public subscript(key: JObj.Key) -> JSum {
-        get {
-            switch self {
-            case .obj(let dictionary):
-                return dictionary[key] ?? .nul
-            default:
-                return .nul
-            }
-        }
-        set {
-            switch self {
-            case .obj(let dictionary):
-                var new = dictionary
-                new[key] = newValue
-                self = .obj(new)
-            default:
-                var dictionary = [JObj.Key: JSum]()
-                dictionary[key] = newValue
-                self = .obj(dictionary)
-            }
-        }
-    }
-}
-
-extension JSum {
     var bool: Bool? {
         switch self {
         case .bol(let b):

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "No overview available.",
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "SceneManager",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
       "type" : "text"
     }
   ],
@@ -18,11 +26,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp12SceneManagerC",
+    "externalID" : "s:7FairApp12SceneManagerP",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "protocol"
       },
       {
         "kind" : "text",
@@ -45,8 +53,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
     "title" : "SceneManager"
   },
   "primaryContentSections" : [
@@ -62,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "protocol"
             },
             {
               "kind" : "text",
@@ -71,6 +79,15 @@
             {
               "kind" : "identifier",
               "text" : "SceneManager"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7Combine16ObservableObjectP",
+              "text" : "ObservableObject"
             }
           ]
         }
@@ -81,12 +98,11 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/7Combine16ObservableObjectP",
-        "doc:\/\/FairApp\/s8SendableP"
+        "doc:\/\/FairApp\/7Combine16ObservableObjectP"
       ],
       "kind" : "relationships",
-      "title" : "Conforms To",
-      "type" : "conformsTo"
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
     }
   ],
   "schemaVersion" : {
@@ -106,16 +122,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/quickActions"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(for:)"
       ],
-      "title" : "Instance Properties"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/ObservableObject-Implementations"
-      ],
-      "title" : "Default Implementations"
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -161,12 +170,23 @@
 },
 "doc://FairApp/documentation/FairApp/SceneManager": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "SceneManager",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -190,23 +210,86 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/scenemanager"
 },
-"doc://FairApp/documentation/FairApp/SceneManager/ObservableObject-Implementations": {
+"doc://FairApp/documentation/FairApp/SceneManager/configuration(for:)": {
   "abstract" : [
-
+    {
+      "text" : "The shared static configuration for the bundle of this instance, which is stored in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "App.yml",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " resource.",
+      "type" : "text"
+    }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/ObservableObject-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "ObservableObject Implementations",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSBundle",
+      "text" : "Bundle"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "configuration(for:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/scenemanager\/observableobject-implementations"
+  "url" : "\/documentation\/fairapp\/scenemanager\/configuration(for:)"
 },
 "doc://FairApp/documentation/FairApp/SceneManager/init()": {
   "abstract" : [
-    {
-      "text" : "Must have a no-arg initializer",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -220,56 +303,11 @@
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/init()",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "init()",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/scenemanager\/init()"
-},
-"doc://FairApp/documentation/FairApp/SceneManager/quickActions": {
-  "abstract" : [
-    {
-      "text" : "The actions available globally to this scene",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "quickActions"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp11QuickActionC",
-      "text" : "QuickAction"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/quickActions",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "quickActions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/scenemanager\/quickactions"
-},
-"doc://FairApp/s8SendableP": {
-  "identifier" : "doc:\/\/FairApp\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }

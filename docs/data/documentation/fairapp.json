@@ -71,7 +71,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FileSystemDataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
         "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper"
       ],
       "title" : "Classes"
@@ -81,6 +80,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentable"
       ],
@@ -2102,12 +2102,23 @@
 },
 "doc://FairApp/documentation/FairApp/SceneManager": {
   "abstract" : [
-
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "SceneManager",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
