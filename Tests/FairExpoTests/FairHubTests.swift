@@ -115,8 +115,6 @@ final class FairHubTests: XCTestCase {
             XCTAssertEqual(false, repo.isPrivate)
             XCTAssertEqual(false, repo.isArchived)
             XCTAssertEqual(false, repo.isDisabled)
-
-            XCTAssertEqual("AGPL-3.0", repo.licenseInfo.spdxId)
         } catch {
             if response.result.failureValue?.isRateLimitError == true {
                 throw XCTSkip("Skipping due to rate limit error")
