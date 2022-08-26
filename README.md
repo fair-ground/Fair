@@ -640,6 +640,12 @@ If this causes problems, pin your dependency to a specific version.
 Binary compatibility is never guaranteed.
 
 
+## License
 
+This software is released under the GNU Affero General Public
+License with an exception that permits it to be used
+in apps that are distributed through non-free channels,
+such as a commercial App Store. For more details, see
+the [`LICENSE.txt`](LICENSE.txt) file.
 
 
