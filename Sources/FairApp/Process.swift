@@ -256,6 +256,15 @@ extension Process {
     #endif
 
     #if os(macOS)
+    /// Returns the disassembly of the given binary.
+    ///
+    /// Returns `otool <args> <file>`
+    public static func otool(tool: String = "/usr/bin/otool", url: URL, params args: [String] = ["-tV"]) async throws -> CommandResult {
+        try await exec(cmd: tool, args: [] + args + [url.path])
+    }
+    #endif
+
+    #if os(macOS)
     /// Returns `codesign --remove-signature <file>`.
     public static func codesignStrip(url: URL) async throws -> CommandResult {
         try await exec(cmd: "/usr/bin/codesign", "--remove-signature", url.path)
