@@ -1372,9 +1372,6 @@ public struct FairCommand : AsyncParsableCommand {
             warnExperimental(Self.experimental)
             msg(.info, "Fairseal")
 
-            // When "--fairseal-match" is a number, we use it as a threshold beyond which differences in elements will fail the build
-            let permittedDiffs = sealOptions.permittedDiffs
-
             guard let trustedArtifactFlag = sealOptions.trustedArtifact else {
                 throw FairToolCommand.Errors.missingFlag("-trusted-artifact")
             }
@@ -1507,16 +1504,31 @@ public struct FairCommand : AsyncParsableCommand {
 #if os(macOS) // we can only launch `codesign` on macOS
                 // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
                 if isAppBinary && trustedPayload != untrustedPayload {
-                    func stripSignature(from data: Data) async throws -> Data {
+                    // save the given data to a temporary file
+                    func savetmp(_ data: Data) throws -> URL {
                         let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
                         try data.write(to: tmpFile)
-                        try await Process.codesignStrip(url: tmpFile).expect()
-                        return try Data(contentsOf: tmpFile) // read it back in
+                        return tmpFile
                     }
 
-                    msg(.info, "stripping code signatures: \(trustedEntry.path)")
-                    trustedPayload = try await stripSignature(from: trustedPayload)
-                    untrustedPayload = try await stripSignature(from: untrustedPayload)
+                    func stripSignature(from url: URL) async throws -> Data {
+                        try await Process.codesignStrip(url: url).expect()
+                        return try Data(contentsOf: url)
+                    }
+
+                    func disassemble(_ tool: String, from url: URL) async throws -> Data {
+                        try await Process.otool(tool: tool, url: url).expect().stdout.joined(separator: "\n").utf8Data
+                    }
+
+                    if let otool = sealOptions.disassembler {
+                        msg(.info, "disassembling binary with \(otool) \(trustedEntry.path)")
+                        trustedPayload = try await disassemble(otool, from: savetmp(trustedPayload))
+                        untrustedPayload = try await disassemble(otool, from: savetmp(untrustedPayload))
+                    } else {
+                        msg(.info, "stripping code signatures: \(trustedEntry.path)")
+                        trustedPayload = try await stripSignature(from: savetmp(trustedPayload))
+                        untrustedPayload = try await stripSignature(from: savetmp(untrustedPayload))
+                    }
                 }
 #endif
 
@@ -1555,11 +1567,11 @@ public struct FairCommand : AsyncParsableCommand {
 
                     let totalChanges = diff.insertions.count + diff.removals.count
                     if totalChanges > 0 {
-                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs ?? 0)")
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(sealOptions.permittedDiffs ?? 0)")
 
 
                         if isAppBinary {
-                            if let permittedDiffs = permittedDiffs, totalChanges < permittedDiffs {
+                            if let permittedDiffs = sealOptions.permittedDiffs, totalChanges < permittedDiffs {
                                 // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
                                 // TODO: instead of comparing the bytes of the binary, we should instead use MachOBinary to compare the content of the code pages, which would eliminate the need to strip the signatures
                                 msg(.info, "tolerating \(totalChanges) differences for: \(error)")
@@ -1871,6 +1883,9 @@ public struct FairCommand : AsyncParsableCommand {
 
         @Option(name: [.long], help: ArgumentHelp("the number of diffs for a build to be reproducible.", valueName: "count"))
         public var permittedDiffs: Int?
+
+        @Option(name: [.long], help: ArgumentHelp("the disassembler to use for comparing binaries.", valueName: "cmd"))
+        public var disassembler: String?
 
         public init() { }
     }
