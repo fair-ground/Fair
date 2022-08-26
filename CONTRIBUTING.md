@@ -1,1 +1,1 @@
-This project is not accepting new contributors at this time.
+Please see the README for information on contributing to the project.
