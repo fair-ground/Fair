@@ -1522,13 +1522,13 @@ public struct FairCommand : AsyncParsableCommand {
 
                     if let otool = sealOptions.disassembler {
                         msg(.info, "disassembling binary with \(otool) \(trustedEntry.path)")
-                        trustedPayload = try await disassemble(otool, from: savetmp(trustedPayload))
-                        untrustedPayload = try await disassemble(otool, from: savetmp(untrustedPayload))
+                        let uuid = UUID() // otool includes the path of the binary file in the output, so we need to use the same path for both files, since we'll be diffing the output
+                        trustedPayload = try await disassemble(otool, from: savetmp(trustedPayload, uuid: uuid))
+                        untrustedPayload = try await disassemble(otool, from: savetmp(untrustedPayload, uuid: uuid))
                     } else {
                         msg(.info, "stripping code signatures: \(trustedEntry.path)")
-                        let uuid = UUID() // otool includes the path of the binary file in the output, so we need to use the same path for both files, since we'll be diffing the output
-                        trustedPayload = try await stripSignature(from: savetmp(trustedPayload, uuid: uuid))
-                        untrustedPayload = try await stripSignature(from: savetmp(untrustedPayload, uuid: uuid))
+                        trustedPayload = try await stripSignature(from: savetmp(trustedPayload))
+                        untrustedPayload = try await stripSignature(from: savetmp(untrustedPayload))
                     }
                 }
 #endif
