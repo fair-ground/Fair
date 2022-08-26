@@ -1505,8 +1505,8 @@ public struct FairCommand : AsyncParsableCommand {
                 // TODO: handle plug-ins like: Lottie Motion.app/Contents/PlugIns/Lottie Motion Quicklook.appex/Contents/MacOS/Lottie Motion Quicklook
                 if isAppBinary && trustedPayload != untrustedPayload {
                     // save the given data to a temporary file
-                    func savetmp(_ data: Data) throws -> URL {
-                        let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + UUID().uuidString)
+                    func savetmp(_ data: Data, uuid: UUID = UUID()) throws -> URL {
+                        let tmpFile = URL.tmpdir.appendingPathComponent("fairbinary-" + uuid.uuidString)
                         try data.write(to: tmpFile)
                         return tmpFile
                     }
@@ -1526,8 +1526,9 @@ public struct FairCommand : AsyncParsableCommand {
                         untrustedPayload = try await disassemble(otool, from: savetmp(untrustedPayload))
                     } else {
                         msg(.info, "stripping code signatures: \(trustedEntry.path)")
-                        trustedPayload = try await stripSignature(from: savetmp(trustedPayload))
-                        untrustedPayload = try await stripSignature(from: savetmp(untrustedPayload))
+                        let uuid = UUID() // otool includes the path of the binary file in the output, so we need to use the same path for both files, since we'll be diffing the output
+                        trustedPayload = try await stripSignature(from: savetmp(trustedPayload, uuid: uuid))
+                        untrustedPayload = try await stripSignature(from: savetmp(untrustedPayload, uuid: uuid))
                     }
                 }
 #endif
