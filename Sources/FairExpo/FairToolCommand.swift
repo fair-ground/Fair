@@ -1521,7 +1521,7 @@ public struct FairCommand : AsyncParsableCommand {
                     }
 
                     if let otool = sealOptions.disassembler {
-                        msg(.info, "disassembling binary with \(otool) \(trustedEntry.path)")
+                        msg(.info, "disassembling binary with \(otool) \(trustedEntry.path) \(trustedPayload.count.localizedByteCount()) vs. \(untrustedPayload.count.localizedByteCount())")
                         let uuid = UUID() // otool includes the path of the binary file in the output, so we need to use the same path for both files, since we'll be diffing the output
                         trustedPayload = try await disassemble(otool, from: savetmp(trustedPayload, uuid: uuid))
                         untrustedPayload = try await disassemble(otool, from: savetmp(untrustedPayload, uuid: uuid))
@@ -1537,6 +1537,8 @@ public struct FairCommand : AsyncParsableCommand {
                 //            if trustedEntry.uncompressedSize != untrustedEntry.uncompressedSize {
                 //                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
                 //            }
+
+                msg(.info, "comparing payloads \(trustedEntry.path) (\(trustedPayload.count.localizedByteCount())) vs. \(untrustedEntry.path) (\(untrustedPayload.count.localizedByteCount()))")
 
                 if trustedPayload != untrustedPayload {
                     // if we don't permit any differences at all, then just throw an error
