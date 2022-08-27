@@ -203,7 +203,7 @@ final class FairEntitlementsTests: XCTestCase {
         let appFile = URL(fileURLWithPath: "TextEdit.app", relativeTo: try? FileManager.default.url(for: .applicationDirectory, in: .systemDomainMask, appropriateFor: nil, create: false))
 
         let result = try await Process.codesignVerify(appURL: appFile).expect()
-        let verified = result.stdout + result.stderr
+        let verified = [result.stdout, result.stderr].compacted().compactMap({ $0.utf8String?.split(separator: "\n") }).joined()
 
         // ["Executable=/System/Applications/TextEdit.app/Contents/MacOS/TextEdit", "Identifier=com.apple.TextEdit", "Format=app bundle with Mach-O universal (x86_64 arm64e)", "CodeDirectory v=20400 size=1899 flags=0x0(none) hashes=49+7 location=embedded", "Platform identifier=13", "Signature size=4442", "Authority=Software Signing", "Authority=Apple Code Signing Certification Authority", "Authority=Apple Root CA", "Signed Time=Jul 31, 2021 at 08:16:31", "Info.plist entries=34", "TeamIdentifier=not set", "Sealed Resources version=2 rules=2 files=0", "Internal requirements count=1 size=68"]
         // print(verified)
