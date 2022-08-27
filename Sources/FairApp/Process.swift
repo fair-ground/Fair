@@ -56,8 +56,8 @@ open class HandleStream: TextOutputStream {
 public struct CommandResult {
     public let url: URL
     public let terminationStatus: Int32
-    public let stdout: [String]
-    public let stderr: [String]
+    public let stdout: Data
+    public let stderr: Data
 }
 
 extension CommandResult : LocalizedError {
@@ -111,15 +111,12 @@ extension Process {
 
         try process.run()
 
-        process.waitUntilExit()
-
         let outdata = stdout.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: outdata, encoding: .utf8) ?? ""
-
         let errdata = stderr.fileHandleForReading.readDataToEndOfFile()
-        let errput = String(data: errdata, encoding: .utf8) ?? ""
 
-        return CommandResult(url: executablePath, terminationStatus: process.terminationStatus, stdout: output.split(separator: "\n").map(\.description), stderr: errput.split(separator: "\n").map(\.description))
+        process.waitUntilExit() // needs to come after consuming stdout/stderr
+
+        return CommandResult(url: executablePath, terminationStatus: process.terminationStatus, stdout: outdata, stderr: errdata)
     }
 
 }

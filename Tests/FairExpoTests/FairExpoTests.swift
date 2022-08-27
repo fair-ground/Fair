@@ -132,9 +132,12 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual(nil, catalog.fundingLinks?.first?.platform) // no longer present in AppSource
     }
 
-    #if os(macOS)
-    func testConvertIPA() async throws {
-        let localURL = try await Self.downloadApp(name: "Cloud-Cuckoo", version: nil, platform: .iOS)
+    func fetchApp(named name: String, unzip: Bool = true) async throws -> URL {
+        let localURL = try await Self.downloadApp(name: name, version: nil, platform: .iOS)
+        if !unzip {
+            return localURL
+        }
+
         let downloadName = localURL.deletingPathExtension().lastPathComponent
 
         let targetFolder = URL(fileURLWithPath: UUID().uuidString, isDirectory: true, relativeTo: .tmpdir)
@@ -148,6 +151,12 @@ final class FairExpoTests: XCTestCase {
         try FileManager.default.unzipItem(at: localURL, to: downloadAppURL, skipCRC32: true)
         dbg("unzipped to:", downloadAppURL.path)
 
+        return downloadAppURL
+    }
+
+    #if os(macOS)
+    func testConvertIPA() async throws {
+        let downloadAppURL = try await fetchApp(named: "Cloud-Cuckoo", unzip: true)
         let bundle = try AppBundle(folderAt: downloadAppURL)
 
         try bundle.validatePaths()
@@ -158,6 +167,13 @@ final class FairExpoTests: XCTestCase {
         //try await Process.exec(cmd: "/usr/bin/open", convertedURL.path).expect()
         //try await Process.spctlAssess(appURL: convertedURL).expect()
         try await Process.codesignVerify(appURL: convertedURL).expect()
+    }
+
+    func testDisassembly() async throws {
+        let downloadAppURL = try await fetchApp(named: "Cloud-Cuckoo", unzip: true)
+        let lib = URL(fileURLWithPath: "Payload/Cloud Cuckoo.app/Frameworks/App.framework/App", isDirectory: false, relativeTo: downloadAppURL)
+        let assembly = try await Process.otool(url: lib).expect().stdout
+        XCTAssertNotEqual(0, assembly.count)
     }
     #endif
 
