@@ -1539,6 +1539,12 @@ public struct FairCommand : AsyncParsableCommand {
                 //            }
 
                 if trustedPayload != untrustedPayload {
+                    // if we don't permit any differences at all, then just throw an error
+                    guard let permittedDiffs = sealOptions.permittedDiffs, permittedDiffs > 0 else {
+                        throw AppError("Trusted and untrusted artifact mismatch at \(trustedEntry.path)")
+                    }
+
+                    // otherwise calculate the total differences
                     msg(.info, " scanning payload differences")
                     let diff: CollectionDifference<UInt8> = trustedPayload.difference(from: untrustedPayload) // .inferringMoves()
 
@@ -1572,7 +1578,7 @@ public struct FairCommand : AsyncParsableCommand {
 
 
                         if isAppBinary {
-                            if let permittedDiffs = sealOptions.permittedDiffs, totalChanges < permittedDiffs {
+                            if totalChanges < permittedDiffs {
                                 // when we are analyzing the app binary itself we need to tolerate some minor differences that seem to result from non-reproducible builds
                                 // TODO: instead of comparing the bytes of the binary, we should instead use MachOBinary to compare the content of the code pages, which would eliminate the need to strip the signatures
                                 msg(.info, "tolerating \(totalChanges) differences for: \(error)")
