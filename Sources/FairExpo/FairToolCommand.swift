@@ -399,7 +399,7 @@ public struct SourceCommand : AsyncParsableCommand {
             }
             
             let json = try outputOptions.writeCatalog(dstCatalog)
-            msg(.info, "posted", diffs.count, "changes to catalog", json.count.localizedByteCount(), "old items:", srcCatalog.news?.count ?? 0, "new items:", dstCatalog.news?.count ?? 0)
+            msg(.info, "posted", diffs.count, "changes to catalog", json.count, "old items:", srcCatalog.news?.count ?? 0, "new items:", dstCatalog.news?.count ?? 0)
 
             try indexOptions.writeCatalogIndex(dstCatalog)
         }
@@ -1340,7 +1340,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
             try outputOptions.write(json)
-            msg(.info, "Wrote catalog to", json.count.localizedByteCount())
+            msg(.info, "Wrote catalog size:", json.count)
 
             if let caskFolderFlag = caskOptions.caskFolder {
                 msg(.info, "Writing casks to: \(caskFolderFlag)")
@@ -1521,7 +1521,7 @@ public struct FairCommand : AsyncParsableCommand {
                     }
 
                     if let otool = sealOptions.disassembler {
-                        msg(.info, "disassembling binary with \(otool) \(trustedEntry.path) \(trustedPayload.count.localizedByteCount()) vs. \(untrustedPayload.count.localizedByteCount())")
+                        msg(.info, "disassembling binary with \(otool) \(trustedEntry.path) \(trustedPayload.count) vs. \(untrustedPayload.count)")
                         let uuid = UUID() // otool includes the path of the binary file in the output, so we need to use the same path for both files, since we'll be diffing the output
                         trustedPayload = try await disassemble(otool, from: savetmp(trustedPayload, uuid: uuid))
                         untrustedPayload = try await disassemble(otool, from: savetmp(untrustedPayload, uuid: uuid))
@@ -1538,7 +1538,7 @@ public struct FairCommand : AsyncParsableCommand {
                 //                throw AppError("Trusted and untrusted artifact content size mismatch at \(trustedEntry.path): \(trustedEntry.uncompressedSize) vs. \(untrustedEntry.uncompressedSize)")
                 //            }
 
-                msg(.info, "comparing payloads \(trustedEntry.path) (\(trustedPayload.count.localizedByteCount())) vs. \(untrustedEntry.path) (\(untrustedPayload.count.localizedByteCount()))")
+                msg(.info, "comparing payloads \(trustedEntry.path) (\(trustedPayload.count)) vs. \(untrustedEntry.path) (\(untrustedPayload.count))")
 
                 if trustedPayload != untrustedPayload {
                     // if we don't permit any differences at all, then just throw an error
@@ -1654,7 +1654,7 @@ public struct FairCommand : AsyncParsableCommand {
 
             let fairseal = FairSeal(assets: assets, permissions: permissions.map(AppPermission.init), appSource: sourceInfo, coreSize: Int(coreSize), tint: tint)
 
-            msg(.info, "generated fairseal:", fairseal.debugJSON.count.localizedByteCount())
+            msg(.info, "generated fairseal:", fairseal.debugJSON.count)
 
             // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
             msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
@@ -2108,7 +2108,7 @@ public struct BrewCommand : AsyncParsableCommand {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: self.casksRepo)
             }
             let json = try outputOptions.writeCatalog(catalog)
-            msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count.localizedByteCount())
+            msg(.info, "Wrote", catalog.apps.count, "appcasks to", outputOptions.output, json.count)
         }
     }
 }
@@ -2396,7 +2396,7 @@ public struct IndexingOptions: ParsableArguments {
 
         let md = try catalog.buildAppCatalogMarkdown()
         try output(md.utf8Data, to: indexFlag)
-        //msg(.info, "Wrote index to", indexFlag, md.count.localizedByteCount())
+        //msg(.info, "Wrote index to", indexFlag, md.count)
     }
 }
 
