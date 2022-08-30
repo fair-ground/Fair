@@ -605,12 +605,6 @@ public extension URL {
     }
 }
 
-extension AppCatalogItem : FairCommandOutput {
-}
-
-extension AppNewsPost : FairCommandOutput {
-}
-
 /// A single `AppCatalogItem` entry from a catalog along with a list of validation failures
 public struct AppCatalogVerifyResult : FairCommandOutput, Decodable {
     public var app: AppCatalogItem
@@ -1283,13 +1277,16 @@ public struct FairCommand : AsyncParsableCommand {
     }
 
     public struct MetadataCommand: FairStructuredCommand {
-        public typealias Output = JSum
+        public typealias Output = AppMetadata
         public static let experimental = false
         public static var configuration = CommandConfiguration(commandName: "metadata",
             abstract: "Output metadata for the given app.",
             shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
+
+        @Option(name: [.long, .customShort("x")], help: ArgumentHelp("export deliver metadata folder.", valueName: "dir"))
+        public var export: String?
 
         @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the root key containg the app metadata.", valueName: "key"))
         public var key: String = "app"
@@ -1299,15 +1296,118 @@ public struct FairCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<JSum, Error> {
+        public func executeCommand() async throws -> AsyncThrowingStream<AppMetadata, Error> {
             warnExperimental(Self.experimental)
             return executeSeries(yaml, initialValue: nil) { yaml, prev in
                 msg(.info, "parsing metadata:", yaml)
                 let json = try JSum.parse(yaml: String(contentsOf: URL(fileOrScheme: yaml), encoding: .utf8))
-                return json
+                guard let appJSON = json[key]?.obj else {
+                    throw AppError(String(format: NSLocalizedString("Could not find key in YAML: %@", bundle: .module, comment: "error message"), arguments: [key]))
+                }
+
+                let appMeta = try AppMetadata(json: appJSON.json())
+
+                if let export = export {
+                    let exportURL = URL(fileURLWithPath: export, isDirectory: true)
+
+                    func saveMetadata(locale: String?, meta: AppMetadata) throws {
+                        func save(_ value: String?, _ key: AppMetadata.CodingKeys) throws {
+                            guard let value = value else {
+                                return
+                            }
+
+                            let outputURL = locale == nil ? exportURL : URL(fileURLWithPath: locale ?? "", isDirectory: true, relativeTo: exportURL)
+
+                            try FileManager.default.createDirectory(at: outputURL, withIntermediateDirectories: true)
+
+                            let path = URL(fileURLWithPath: key.rawValue, relativeTo: outputURL)
+                            let file = path.appendingPathExtension("txt")
+                            try value.write(to: file, atomically: false, encoding: .utf8)
+                        }
+
+                        for key in AppMetadata.CodingKeys.allCases {
+                            switch key {
+                            case .copyright: try save(meta.copyright, .copyright)
+                            case .primary_category: try save(meta.primary_category, .primary_category)
+                            case .secondary_category: try save(meta.secondary_category, .secondary_category)
+                            case .primary_first_sub_category: try save(meta.primary_first_sub_category, .primary_first_sub_category)
+                            case .primary_second_sub_category: try save(meta.primary_second_sub_category, .primary_second_sub_category)
+                            case .secondary_first_sub_category: try save(meta.secondary_first_sub_category, .secondary_first_sub_category)
+                            case .secondary_second_sub_category: try save(meta.secondary_second_sub_category, .secondary_second_sub_category)
+                            case .name: try save(meta.name, .name)
+                            case .subtitle: try save(meta.subtitle, .subtitle)
+                            case .privacy_url: try save(meta.privacy_url, .privacy_url)
+                            case .apple_tv_privacy_policy: try save(meta.apple_tv_privacy_policy, .apple_tv_privacy_policy)
+                            case .description: try save(meta.description, .description)
+                            case .keywords: try save(meta.keywords, .keywords)
+                            case .release_notes: try save(meta.release_notes, .release_notes)
+                            case .support_url: try save(meta.support_url, .support_url)
+                            case .marketing_url: try save(meta.marketing_url, .marketing_url)
+                            case .promotional_text: try save(meta.promotional_text, .promotional_text)
+                            case .locales: break
+                            }
+                        }
+                    }
+
+                    // save the root metadatum
+                    try saveMetadata(locale: nil, meta: appMeta)
+
+                    // save the localized app metadatas
+                    for (localeName, localizedAppMeta) in appMeta.locales ?? [:] {
+                        try saveMetadata(locale: localeName, meta: localizedAppMeta)
+                    }
+                }
+                return appMeta
             }
         }
+    }
 
+    /// https://docs.fastlane.tools/actions/deliver/#available-metadata-folder-options
+    public struct AppMetadata : Codable {
+        // Non-Localized Metadata
+        public var copyright: String? // copyright.txt
+        public var primary_category: String? // primary_category.txt
+        public var secondary_category: String? // secondary_category.txt
+        public var primary_first_sub_category: String? // primary_first_sub_category.txt
+        public var primary_second_sub_category: String? // primary_second_sub_category.txt
+        public var secondary_first_sub_category: String? // secondary_first_sub_category.txt
+        public var secondary_second_sub_category: String? // secondary_second_sub_category.txt
+
+        // Localized Metadata
+        public var name: String? // <lang>/name.txt
+        public var subtitle: String? // <lang>/subtitle.txt
+        public var privacy_url: String? // <lang>/privacy_url.txt
+        public var apple_tv_privacy_policy: String? // <lang>/apple_tv_privacy_policy.txt
+        public var description: String? // <lang>/description.txt
+        public var keywords: String? // <lang>/keywords.txt
+        public var release_notes: String? // <lang>/release_notes.txt
+        public var support_url: String? // <lang>/support_url.txt
+        public var marketing_url: String? // <lang>/marketing_url.txt
+        public var promotional_text: String? // <lang>/promotional_text.txt
+
+        // Locale-specific metadata
+        public var locales: [String: AppMetadata]?
+
+        public enum CodingKeys : String, CodingKey, CaseIterable {
+            case copyright
+            case primary_category
+            case secondary_category
+            case primary_first_sub_category
+            case primary_second_sub_category
+            case secondary_first_sub_category
+            case secondary_second_sub_category
+            case name
+            case subtitle
+            case privacy_url
+            case apple_tv_privacy_policy
+            case description
+            case keywords
+            case release_notes
+            case support_url
+            case marketing_url
+            case promotional_text
+            case locales
+        }
     }
 
     public struct CatalogCommand: FairParsableCommand {
@@ -2337,12 +2437,6 @@ extension JSum : SigningContainer {
 }
 
 
-extension JSum : FairCommandOutput {
-}
-
-extension Tweeter.PostResponse : FairCommandOutput {
-}
-
 /// Authentication options for Twitter CLI
 public struct TweetOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("oauth consumer key for sending tweets.", valueName: "key"))
@@ -2432,17 +2526,7 @@ public struct IndexingOptions: ParsableArguments {
     }
 }
 
-
-public protocol FairCommandOutput : Encodable {
-    // TODO: an output form of this instance that displays plain text information for when people don't want to see JSON output
-    //func outputText() throws -> [String]
-}
-
-extension Array : FairCommandOutput where Element : FairCommandOutput {
-}
-
-extension AppCatalog : FairCommandOutput {
-}
+public typealias FairCommandOutput = Encodable // & Decodable
 
 private extension AppCatalog {
     func buildAppCatalogMarkdown() throws -> String {
