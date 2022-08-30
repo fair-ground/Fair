@@ -173,7 +173,7 @@ final class FairHubTests: XCTestCase {
     }
 
     func testFetchSponsorshipListings() async throws {
-        if runningFromCI { // not permitted with default action token: GraphQLError(message: "Resource not accessible by integration", type: Optional("FORBIDDEN"), path: Optional(["repository", "owner", "sponsorsListing"])
+        if runningFromCI || true { // not permitted with default action token: GraphQLError(message: "Resource not accessible by integration", type: Optional("FORBIDDEN"), path: Optional(["repository", "owner", "sponsorsListing"])
             throw XCTSkip("disabled to reduce API load")
         }
 
