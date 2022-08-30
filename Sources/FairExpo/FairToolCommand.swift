@@ -469,8 +469,11 @@ extension NewsItemFormat {
         }
 
         // trim down the news count until we are at the limit
-        catalog.news = (newsLimit ?? 0) == 0 ? nil : news.count > (newsLimit ?? .max) ? news.suffix(newsLimit ?? .max) : news.isEmpty ? nil : news
-
+        if let newsLimit = newsLimit {
+            news = news.suffix(newsLimit)
+        }
+        catalog.news = news.isEmpty ? nil : news
+        
         return responses
     }
 }
@@ -925,6 +928,7 @@ public struct FairCommand : AsyncParsableCommand {
             ValidateCommand.self,
             CatalogCommand.self,
             MergeCommand.self,
+            MetadataCommand.self,
             ]
         + Self.iconCommand
         + Self.fairsealCommand)
@@ -1276,6 +1280,34 @@ public struct FairCommand : AsyncParsableCommand {
                 return data
             }
         }
+    }
+
+    public struct MetadataCommand: FairStructuredCommand {
+        public typealias Output = JSum
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "metadata",
+            abstract: "Output metadata for the given app.",
+            shouldDisplay: !experimental)
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var outputOptions: OutputOptions
+
+        @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the root key containg the app metadata.", valueName: "key"))
+        public var key: String = "app"
+
+        @Argument(help: ArgumentHelp("path to the metadata file", valueName: "App.yml", visibility: .default))
+        public var yaml: [String] = ["App.yml"]
+
+        public init() { }
+
+        public func executeCommand() async throws -> AsyncThrowingStream<JSum, Error> {
+            warnExperimental(Self.experimental)
+            return executeSeries(yaml, initialValue: nil) { yaml, prev in
+                msg(.info, "parsing metadata:", yaml)
+                let json = try JSum.parse(yaml: String(contentsOf: URL(fileOrScheme: yaml), encoding: .utf8))
+                return json
+            }
+        }
+
     }
 
     public struct CatalogCommand: FairParsableCommand {

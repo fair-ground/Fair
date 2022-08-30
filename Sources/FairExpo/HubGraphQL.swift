@@ -248,9 +248,6 @@ extension FairHub {
                         email
                         name
                         createdAt
-                        status {
-                          emoji
-                        }
                       }
                     }
                   }
@@ -289,7 +286,6 @@ extension FairHub {
                             let name: String?
                             let email: String
                             let createdAt: Date
-                            let status: String?
                         }
                     }
                 }
