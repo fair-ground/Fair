@@ -18,11 +18,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A13CommandOutputP",
+    "externalID" : "s:8FairExpo0A13CommandOutputa",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "typealias"
       },
       {
         "kind" : "text",
@@ -45,8 +45,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
     "title" : "FairCommandOutput"
   },
   "primaryContentSections" : [
@@ -62,7 +62,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "typealias"
             },
             {
               "kind" : "text",
@@ -74,7 +74,7 @@
             },
             {
               "kind" : "text",
-              "text" : " : "
+              "text" : " = "
             },
             {
               "kind" : "typeIdentifier",
@@ -85,27 +85,6 @@
         }
       ],
       "kind" : "declarations"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairExpo\/SE"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherits From",
-      "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/Tweeter\/PostResponse"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -130,11 +109,6 @@
   ]
 , 
 "references": {
-"doc://FairExpo/SE": {
-  "identifier" : "doc:\/\/FairExpo\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
 "doc://FairExpo/documentation/FairExpo": {
   "abstract" : [
     {
@@ -149,110 +123,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyFailure": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerifyFailure"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyFailure",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerifyFailure"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogVerifyFailure",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogverifyfailure"
-},
-"doc://FairExpo/documentation/FairExpo/AppCatalogVerifyResult": {
-  "abstract" : [
-    {
-      "text" : "A single ",
-      "type" : "text"
-    },
-    {
-      "code" : "AppCatalogItem",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " entry from a catalog along with a list of validation failures",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerifyResult"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogVerifyResult",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCatalogVerifyResult"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCatalogVerifyResult",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcatalogverifyresult"
-},
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/InfoItem": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCommand.InfoCommand.InfoItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/infoitem"
-},
 "doc://FairExpo/documentation/FairExpo/FairCommandOutput": {
   "abstract" : [
 
@@ -260,7 +130,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "protocol"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -283,40 +153,6 @@
   "title" : "FairCommandOutput",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommandoutput"
-},
-"doc://FairExpo/documentation/FairExpo/Tweeter/PostResponse": {
-  "abstract" : [
-    {
-      "text" : "The response to a tweet can be either success or an error",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "PostResponse"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/Tweeter\/PostResponse",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "PostResponse"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Tweeter.PostResponse",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/tweeter\/postresponse"
 }
 }
 }
