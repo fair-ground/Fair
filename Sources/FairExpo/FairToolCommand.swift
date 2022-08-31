@@ -1684,7 +1684,7 @@ public struct FairCommand : AsyncParsableCommand {
                     }
 
                     func disassemble(_ tool: String, from url: URL) async throws -> Data {
-                        try await Process.otool(tool: tool, url: url).expect().stdout
+                        try await Process.otool(tool: tool, url: url, params: ["-tVX"]).expect().stdout
                     }
 
                     if let otool = sealOptions.disassembler {
