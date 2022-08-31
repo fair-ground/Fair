@@ -1311,12 +1311,18 @@ public struct FairCommand : AsyncParsableCommand {
                     let exportURL = URL(fileURLWithPath: export, isDirectory: true)
 
                     func saveMetadata(locale: String?, meta: AppMetadata) throws {
-                        func save(_ value: String?, _ key: AppMetadata.CodingKeys) throws {
+                        func save(_ value: String?, review: Bool = false, _ key: AppMetadata.CodingKeys) throws {
                             guard let value = value else {
                                 return
                             }
 
-                            let outputURL = locale == nil ? exportURL : URL(fileURLWithPath: locale ?? "", isDirectory: true, relativeTo: exportURL)
+                            var outputURL = exportURL
+                            if let locale = locale {
+                                outputURL = URL(fileURLWithPath: locale, isDirectory: true, relativeTo: outputURL)
+                            }
+                            if review {
+                                outputURL = URL(fileURLWithPath: "review_information", isDirectory: true, relativeTo: outputURL)
+                            }
 
                             try FileManager.default.createDirectory(at: outputURL, withIntermediateDirectories: true)
 
@@ -1334,6 +1340,7 @@ public struct FairCommand : AsyncParsableCommand {
                             case .primary_second_sub_category: try save(meta.primary_second_sub_category, .primary_second_sub_category)
                             case .secondary_first_sub_category: try save(meta.secondary_first_sub_category, .secondary_first_sub_category)
                             case .secondary_second_sub_category: try save(meta.secondary_second_sub_category, .secondary_second_sub_category)
+
                             case .name: try save(meta.name, .name)
                             case .subtitle: try save(meta.subtitle, .subtitle)
                             case .privacy_url: try save(meta.privacy_url, .privacy_url)
@@ -1344,6 +1351,15 @@ public struct FairCommand : AsyncParsableCommand {
                             case .support_url: try save(meta.support_url, .support_url)
                             case .marketing_url: try save(meta.marketing_url, .marketing_url)
                             case .promotional_text: try save(meta.promotional_text, .promotional_text)
+
+                            case .first_name: try save(meta.first_name, review: true, .first_name)
+                            case .last_name: try save(meta.last_name, review: true, .last_name)
+                            case .phone_number: try save(meta.phone_number, review: true, .phone_number)
+                            case .email_address: try save(meta.email_address, review: true, .email_address)
+                            case .demo_user: try save(meta.demo_user, review: true, .demo_user)
+                            case .demo_password: try save(meta.demo_password, review: true, .demo_password)
+                            case .notes: try save(meta.notes, review: true, .notes)
+
                             case .locales: break
                             }
                         }
@@ -1385,6 +1401,15 @@ public struct FairCommand : AsyncParsableCommand {
         public var marketing_url: String? // <lang>/marketing_url.txt
         public var promotional_text: String? // <lang>/promotional_text.txt
 
+        // Review Information
+        public var first_name: String? // review_information/first_name.txt
+        public var last_name: String? // review_information/last_name.txt
+        public var phone_number: String? // review_information/phone_number.txt
+        public var email_address: String? // review_information/email_address.txt
+        public var demo_user: String? // review_information/demo_user.txt
+        public var demo_password: String? // review_information/demo_password.txt
+        public var notes: String? // review_information/notes.txt
+
         // Locale-specific metadata
         public var locales: [String: AppMetadata]?
 
@@ -1396,6 +1421,7 @@ public struct FairCommand : AsyncParsableCommand {
             case primary_second_sub_category
             case secondary_first_sub_category
             case secondary_second_sub_category
+
             case name
             case subtitle
             case privacy_url
@@ -1406,6 +1432,15 @@ public struct FairCommand : AsyncParsableCommand {
             case support_url
             case marketing_url
             case promotional_text
+
+            case first_name
+            case last_name
+            case phone_number
+            case email_address
+            case demo_user
+            case demo_password
+            case notes
+
             case locales
         }
     }
