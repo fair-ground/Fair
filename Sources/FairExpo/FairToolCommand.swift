@@ -1857,7 +1857,9 @@ public struct FairCommand : AsyncParsableCommand {
         private func fetchUntrustedArtifact() async throws -> URL {
             // if we specified the artifact as a local file, just use it directly
             if let untrustedArtifactFlag = sealOptions.untrustedArtifact {
-                return URL(fileURLWithPath: untrustedArtifactFlag)
+                if FileManager.default.fileExists(atPath: untrustedArtifactFlag) {
+                    return URL(fileURLWithPath: untrustedArtifactFlag)
+                }
             }
 
             guard let artifactURLFlag = self.sealOptions.artifactURL,
@@ -1865,7 +1867,16 @@ public struct FairCommand : AsyncParsableCommand {
                 throw FairToolCommand.Errors.missingFlag("-artifact-url")
             }
 
-            return try await fetchArtifact(url: artifactURL)
+            let fetchedURL = try await fetchArtifact(url: artifactURL)
+
+            // if we have specified a target flag for the artifact, copy it over first
+            if let untrustedArtifactFlag = sealOptions.untrustedArtifact {
+                let targetURL = URL(fileURLWithPath: untrustedArtifactFlag)
+                try FileManager.default.moveItem(at: fetchedURL, to: targetURL)
+                return targetURL
+            } else {
+                return fetchedURL
+            }
         }
 
         private func fetchArtifact(url artifactURL: URL) async throws -> URL {
