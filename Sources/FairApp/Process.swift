@@ -256,7 +256,7 @@ extension Process {
     /// Returns the disassembly of the given binary.
     ///
     /// Returns `otool <args> <file>`
-    public static func otool(tool: String = "/usr/bin/otool", url: URL, params args: [String] = ["-tV"]) async throws -> CommandResult {
+    public static func otool(tool: String = "/usr/bin/otool", url: URL, params args: [String]) async throws -> CommandResult {
         try await exec(cmd: tool, args: [] + args + [url.path])
     }
     #endif
