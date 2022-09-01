@@ -288,7 +288,7 @@ public struct AppEntitlement : RawCodable, Equatable, Hashable {
     }
 
     /// The Info.plist properties that are used to explain to end-users the reason for the requested entitlement.
-    /// In order to pass integration, each entitlement added to the `Sandbox.entitlements` file must have a corresponding usage description in the `Info.plist`'s `FairUsage` dictionary that explains in plain language the reason the app will need to request that permission.
+    /// In order to pass integration, each entitlement added to the `sandbox-*.entitlements` files must have a corresponding usage description in the `Info.plist`'s `FairUsage` dictionary that explains in plain language the reason the app will need to request that permission.
     ///
     /// An empty returned array indicates that the entitlement may be used without needing any description (such as `cs_allow_jit`).
     /// A `nil` return value indicates that the property is always forbidden altogether (such as `files_all`)

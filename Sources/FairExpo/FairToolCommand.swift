@@ -1108,19 +1108,21 @@ public struct FairCommand : AsyncParsableCommand {
                 //msg(.info, "Version", buildVersion.version.versionDescription, "(\(buildVersion.build))")
             }
 
-            // 3. Check Sandbox.entitlements
-            do {
-                let path = "Sandbox.entitlements"
+            // 3. Check sandbox-*.entitlements
+            for path in ["sandbox-macos.entitlements", "sandbox-ios.entitlements"] {
                 msg(.debug, "comparing entitlements:", path)
                 let entitlementsURL = projectOptions.projectPathURL(path: path)
                 try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
             }
 
-            // 4. Check LICENSE.txt
+            // 4. Check LICENSE.txt, etc.
             try compareContents(of: "LICENSE.txt", partial: false)
+            try compareContents(of: "COPYING.txt", partial: false)
+            try compareContents(of: "CONTRIBUTION.txt", partial: false)
 
             // 5. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
             try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
+            try compareContents(of: "project.swift", partial: false)
 
             // 6. Check Sources/
             try compareContents(of: "Sources/App/AppMain.swift", partial: false)
@@ -1242,7 +1244,8 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             // if validation passes, we can copy up the output sources
-            try pull("Sandbox.entitlements")
+            try pull("sandbox-macos.entitlements")
+            try pull("sandbox-ios.entitlements")
 
             // copy up the assets, sources, and other metadata
             try pull("appfair.xcconfig")
@@ -1797,10 +1800,17 @@ public struct FairCommand : AsyncParsableCommand {
                 throw AppError(NSLocalizedString("Missing property list", bundle: .module, comment: "error message"))
             }
 
-            let entitlementsURL = projectOptions.projectPathURL(path: "Sandbox.entitlements")
-            let permissions = try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
-            for permission in permissions {
-                msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
+            var permissions: [AppEntitlementPermission] = []
+
+            for entitlementsURL in [
+                projectOptions.projectPathURL(path: "sandbox-macos.entitlements"),
+                projectOptions.projectPathURL(path: "sandbox-ios.entitlements"),
+            ] {
+                let perms = try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
+                for permission in perms {
+                    msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
+                }
+                permissions += perms
             }
 
             let tint = try? parseTintColor()
@@ -3009,7 +3019,7 @@ extension FairToolCommand {
             case .matchFailed(let arg): return "Found no match for: \"\(arg)\""
             case .noBundleID(let url): return "No bundle ID found for app: \"\(url.path)\""
             case .mismatchedBundleID(let url, let sourceID, let destID): return "Update cannot change bundle ID from \"\(sourceID)\" to \"\(destID)\" in app: \(url.path)"
-            case .sandboxRequired: return "The Sandbox.entitlements must activate sandboxing with the \"com.apple.security.app-sandbox\" property"
+            case .sandboxRequired: return "The sandbox-macos.entitlements must activate sandboxing with the \"com.apple.security.app-sandbox\" property"
             case .forbiddenEntitlement(let entitlement): return "The entitlement \"\(entitlement)\" is not permitted."
             case .missingUsageDescription(let entitlement): return "The entitlement \"\(entitlement.entitlementKey)\" requires a corresponding usage description property in the Info.plist FairUsage dictionary"
             case .missingFlag(let flag): return "The operation requires the -\(flag) flag"
