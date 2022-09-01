@@ -172,7 +172,7 @@ final class FairExpoTests: XCTestCase {
     func testDisassembly() async throws {
         let downloadAppURL = try await fetchApp(named: "Cloud-Cuckoo", unzip: true)
         let lib = URL(fileURLWithPath: "Payload/Cloud Cuckoo.app/Frameworks/App.framework/App", isDirectory: false, relativeTo: downloadAppURL)
-        let assembly = try await Process.otool(url: lib).expect().stdout
+        let assembly = try await Process.otool(url: lib, params: ["-tVX"]).expect().stdout
         XCTAssertNotEqual(0, assembly.count)
     }
     #endif
