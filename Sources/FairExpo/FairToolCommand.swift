@@ -1112,7 +1112,7 @@ public struct FairCommand : AsyncParsableCommand {
             for path in ["sandbox-macos.entitlements", "sandbox-ios.entitlements"] {
                 msg(.debug, "comparing entitlements:", path)
                 let entitlementsURL = projectOptions.projectPathURL(path: path)
-                try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties)
+                try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: infoProperties, needsSandbox: entitlementsURL.lastPathComponent == "sandbox-macos.entitlements")
             }
 
             // 4. Check LICENSE.txt, etc.
@@ -1806,7 +1806,7 @@ public struct FairCommand : AsyncParsableCommand {
                 projectOptions.projectPathURL(path: "sandbox-macos.entitlements"),
                 projectOptions.projectPathURL(path: "sandbox-ios.entitlements"),
             ] {
-                let perms = try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist)
+                let perms = try orgOptions.checkEntitlements(entitlementsURL: entitlementsURL, infoProperties: plist, needsSandbox: entitlementsURL.lastPathComponent == "sandbox-macos.entitlements")
                 for permission in perms {
                     msg(.info, "entitlement:", permission.type.rawValue, "usage:", permission.usageDescription)
                 }
@@ -2143,10 +2143,10 @@ public struct FairCommand : AsyncParsableCommand {
 
         /// Loads all the entitlements and matches them to corresponding UsageDescription entires in the app's Info.plist file.
         @discardableResult
-        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist) throws -> Array<AppEntitlementPermission> {
+        func checkEntitlements(entitlementsURL: URL, infoProperties: Plist, needsSandbox: Bool) throws -> Array<AppEntitlementPermission> {
             let entitlements_dict = try Plist(url: entitlementsURL)
 
-            if entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
+            if needsSandbox == true && entitlements_dict.rawValue[AppEntitlement.app_sandbox.entitlementKey] as? NSNumber != true {
                 // despite having LSFileQuarantineEnabled=false and `com.apple.security.files.user-selected.executable`, apps that the catalog browser app writes cannot be launched; the only solution seems to be to disable sandboxing, which is a pity…
                 if !self.isCatalogApp {
                     throw FairToolCommand.Errors.sandboxRequired
