@@ -644,8 +644,10 @@ Binary compatibility is never guaranteed.
 
 This software is released under the GNU Affero General Public
 License with an exception that permits it to be used
-in apps that are distributed through non-free channels,
+in apps that are distributed through restrictive channels,
 such as a commercial App Store. For more details, see
-the [`LICENSE.txt`](LICENSE.txt) file.
+the [`LICENSE.AGPL`](LICENSE.AGPL)
+and [`LICENSE_EXCEPTION.FAIR`](LICENSE_EXCEPTION.FAIR)
+files.
 
 

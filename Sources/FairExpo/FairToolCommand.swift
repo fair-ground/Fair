@@ -1116,8 +1116,8 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             // 4. Check LICENSE.txt, etc.
-            try compareContents(of: "LICENSE.txt", partial: false)
-            try compareContents(of: "COPYING.txt", partial: false)
+            try compareContents(of: "LICENSE.AGPL", partial: false)
+            try compareContents(of: "LICENSE_EXCEPTION.FAIR", partial: false)
             try compareContents(of: "CONTRIBUTION.txt", partial: false)
 
             // 5. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
