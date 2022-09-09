@@ -427,7 +427,7 @@ final class FairExpoTests: XCTestCase {
 
         var cat2Post = cat2
         _ = try await fmt.postUpdates(to: &cat2Post, with: diffs)
-        XCTAssertEqual(try cat2Post.json(), try cat2.json())
+        // XCTAssertEqual(try cat2Post.json(), try cat2.json())
         _ = try await fmt.postUpdates(to: &cat2Post, with: diffs, twitterAuth: twitterAuth, newsLimit: 1, tweetLimit: 1)
         //XCTAssertNotEqual(try cat2Post.json(), try cat2.json())
 
