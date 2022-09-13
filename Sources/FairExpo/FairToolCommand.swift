@@ -1711,10 +1711,10 @@ public struct FairCommand : AsyncParsableCommand {
                 msg(.info, "comparing payloads \(trustedEntry.path) (\(trustedPayload.count)) vs. \(untrustedEntry.path) (\(untrustedPayload.count))")
 
                 if trustedPayload != untrustedPayload {
-                    // if we don't permit any differences at all, then just throw an error
-                    guard let permittedDiffs = sealOptions.permittedDiffs, permittedDiffs > 0 else {
-                        throw AppError("Trusted and untrusted artifact mismatch at \(trustedEntry.path)")
-                    }
+//                    // if we don't permit any differences at all, then just throw an error
+//                    guard let permittedDiffs = sealOptions.permittedDiffs, permittedDiffs > 0 else {
+//                        throw AppError("Trusted and untrusted artifact mismatch at \(trustedEntry.path)")
+//                    }
 
                     // otherwise calculate the total differences
                     msg(.info, " scanning payload differences")
@@ -1732,21 +1732,23 @@ public struct FairCommand : AsyncParsableCommand {
                         }))
                     }
 
-                    let insertionRanges = offsets(in: diff.insertions)
-                    let insertionRangeDesc = insertionRanges
-                        .rangeView
-                        .prefix(10)
-                        .map({ $0.description })
-
-                    let removalRanges = offsets(in: diff.removals)
-                    let removalRangeDesc = removalRanges
-                        .rangeView
-                        .prefix(10)
-                        .map({ $0.description })
+//                    let insertionRanges = offsets(in: diff.insertions)
+//                    let insertionRangeDesc = insertionRanges
+//                        .rangeView
+//                        .prefix(10)
+//                        .map({ $0.description })
+//
+//                    let removalRanges = offsets(in: diff.removals)
+//                    let removalRangeDesc = removalRanges
+//                        .rangeView
+//                        .prefix(10)
+//                        .map({ $0.description })
 
                     let totalChanges = diff.insertions.count + diff.removals.count
                     if totalChanges > 0 {
-                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions in \(insertionRanges.rangeView.count) ranges \(insertionRangeDesc) and \(diff.removals.count) removals in \(removalRanges.rangeView.count) ranges \(removalRangeDesc) and totalChanges \(totalChanges) beyond permitted threshold: \(sealOptions.permittedDiffs ?? 0)")
+                        let permittedDiffs = sealOptions.permittedDiffs ?? 0
+
+                        let error = AppError("Trusted and untrusted artifact content mismatch at \(trustedEntry.path): \(diff.insertions.count) insertions and \(diff.removals.count) removals and totalChanges \(totalChanges) beyond permitted threshold: \(permittedDiffs)")
 
 
                         if isAppBinary {
@@ -1755,6 +1757,7 @@ public struct FairCommand : AsyncParsableCommand {
                                 // TODO: instead of comparing the bytes of the binary, we should instead use MachOBinary to compare the content of the code pages, which would eliminate the need to strip the signatures
                                 msg(.info, "tolerating \(totalChanges) differences for: \(error)")
                             } else {
+                                //for d in diff { }
                                 throw error
                             }
                         } else {
