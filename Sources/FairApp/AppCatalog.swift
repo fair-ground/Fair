@@ -233,13 +233,14 @@ public struct AppStats : Codable, Equatable {
     /// The size of the core code
     public var coreSize: Int?
 
-    public init(downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, coreSize: Int? = nil) {
+    public init(downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, forkCount: Int? = nil, coreSize: Int? = nil) {
         self.downloadCount = downloadCount
         self.impressionCount = impressionCount
         self.viewCount = viewCount
         self.starCount = starCount
         self.watcherCount = watcherCount
         self.issueCount = issueCount
+        self.forkCount = forkCount
         self.coreSize = coreSize
     }
 }

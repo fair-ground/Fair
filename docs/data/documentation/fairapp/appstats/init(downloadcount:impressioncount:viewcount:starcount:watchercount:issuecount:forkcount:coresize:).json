@@ -15,11 +15,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppStats\/init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppStats\/init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:forkCount:coreSize:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B5StatsV13downloadCount010impressionE004viewE004starE007watcherE005issueE08coreSizeACSiSg_A6Ktcfc",
+    "externalID" : "s:7FairApp0B5StatsV13downloadCount010impressionE004viewE004starE007watcherE005issueE004forkE08coreSizeACSiSg_A7Ltcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -133,6 +133,23 @@
       },
       {
         "kind" : "externalParam",
+        "text" : "forkCount"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
         "text" : "coreSize"
       },
       {
@@ -157,7 +174,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:)"
+    "title" : "init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:forkCount:coreSize:)"
   },
   "primaryContentSections" : [
     {
@@ -282,6 +299,23 @@
             },
             {
               "kind" : "externalParam",
+              "text" : "forkCount"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
               "text" : "coreSize"
             },
             {
@@ -314,7 +348,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appstats\/init(downloadcount:impressioncount:viewcount:starcount:watchercount:issuecount:coresize:)"
+        "\/documentation\/fairapp\/appstats\/init(downloadcount:impressioncount:viewcount:starcount:watchercount:issuecount:forkcount:coresize:)"
       ],
       "traits" : [
         {
@@ -381,7 +415,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appstats"
 },
-"doc://FairApp/documentation/FairApp/AppStats/init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:)": {
+"doc://FairApp/documentation/FairApp/AppStats/init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:forkCount:coreSize:)": {
   "abstract" : [
 
   ],
@@ -498,6 +532,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "forkCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "coreSize"
     },
     {
@@ -514,12 +565,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppStats\/init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppStats\/init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:forkCount:coreSize:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:coreSize:)",
+  "title" : "init(downloadCount:impressionCount:viewCount:starCount:watcherCount:issueCount:forkCount:coreSize:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appstats\/init(downloadcount:impressioncount:viewcount:starcount:watchercount:issuecount:coresize:)"
+  "url" : "\/documentation\/fairapp\/appstats\/init(downloadcount:impressioncount:viewcount:starcount:watchercount:issuecount:forkcount:coresize:)"
 }
 }
 }
