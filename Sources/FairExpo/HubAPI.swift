@@ -194,8 +194,18 @@ extension FairHub {
         dbg("fetching fairseals")
 
         var apps: [AppCatalogItem] = []
-        for try await app in createAppCatalogItemsFromForks(title: title, owner: owner, baseRepository: baseRepository, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
-            apps.append(contentsOf: app)
+        var forkBaseRepos = [(owner, baseRepository)]
+        while let (owner, repo) = forkBaseRepos.first {
+            forkBaseRepos.removeFirst()
+
+            for try await catalogApps in createAppCatalogItemsFromForks(title: title, owner: owner, baseRepository: repo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
+                for app in catalogApps {
+                    apps.append(app)
+                    if let stats = app.stats, let forkCount = stats.forkCount, forkCount > 0 {
+                        forkBaseRepos.append((app.appNameHyphenated, baseRepository))
+                    }
+                }
+            }
         }
         let news: [AppNewsPost]? = nil
 
@@ -246,6 +256,8 @@ extension FairHub {
             let starCount = fork.stargazerCount
             let watcherCount = fork.watchers.totalCount
             let issueCount = fork.issues.totalCount
+            let forkCount = fork.forkCount
+
             let fundingLinks = fork.fundingLinks
 
             // get the "appfair-utilities" topic and convert it to the standard "public.app-category.utilities"
@@ -450,7 +462,7 @@ extension FairHub {
                     app.fundingLinks = fundingLinks.map { link in
                         AppFundingLink(platform: link.platform, url: link.url)
                     }
-                    app.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, coreSize: seal?.coreSize)
+                    app.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, forkCount: forkCount, coreSize: seal?.coreSize)
 
                     // walk through the recent releases until we find one that has a fairseal on it
                     if beta == true {
