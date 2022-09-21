@@ -213,8 +213,11 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/p-swift.property",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/pvalue",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/q-swift.property",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/result"
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/qvalue",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/result",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/swapped"
       ],
       "title" : "Instance Properties"
     },
@@ -1724,6 +1727,90 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/p-swift.property"
 },
+"doc://FairCore/documentation/FairCore/XOr/Or/pvalue": {
+  "abstract" : [
+    {
+      "text" : "The underlying value of the p or q, when ",
+      "type" : "text"
+    },
+    {
+      "code" : "P == Q",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", where mutation always sets ",
+      "type" : "text"
+    },
+    {
+      "code" : ".p",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pvalue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "P"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/pvalue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pvalue",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/pvalue"
+},
 "doc://FairCore/documentation/FairCore/XOr/Or/q(_:)": {
   "abstract" : [
 
@@ -1797,6 +1884,90 @@
   "title" : "q",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/q-swift.property"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/qvalue": {
+  "abstract" : [
+    {
+      "text" : "The underlying value of the p or q, when ",
+      "type" : "text"
+    },
+    {
+      "code" : "P == Q",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", where mutation always sets ",
+      "type" : "text"
+    },
+    {
+      "code" : ".q",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "qvalue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "P"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/qvalue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "qvalue",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/qvalue"
 },
 "doc://FairCore/documentation/FairCore/XOr/Or/result": {
   "abstract" : [
@@ -2002,6 +2173,112 @@
   "title" : "result",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/result"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/swapped": {
+  "abstract" : [
+    {
+      "text" : "Returns a flipped view of the ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOr.Or",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", where ",
+      "type" : "text"
+    },
+    {
+      "code" : "P",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " becomes ",
+      "type" : "text"
+    },
+    {
+      "code" : "Q",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and ",
+      "type" : "text"
+    },
+    {
+      "code" : "Q",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " becomes ",
+      "type" : "text"
+    },
+    {
+      "code" : "P",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "swapped"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "text" : "XOr"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Q"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "text" : "Or"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "P"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/swapped",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "swapped",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/swapped"
 },
 "doc://FairCore/documentation/FairCore/XOrType": {
   "abstract" : [

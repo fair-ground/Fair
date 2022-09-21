@@ -107,6 +107,55 @@ public indirect enum XOr<P> : RawRepresentable {
 }
 
 
+extension XOr.Or {
+    /// Returns a flipped view of the `XOr.Or`, where `P` becomes `Q` and `Q` becomes `P`.
+    @inlinable public var swapped: XOr<Q>.Or<P> {
+        get {
+            switch self {
+            case .p(let p): return .q(p)
+            case .q(let q): return .p(q)
+            }
+        }
+
+        set {
+            switch newValue {
+            case .p(let p): self = .q(p)
+            case .q(let q): self = .p(q)
+            }
+        }
+    }
+}
+
+extension XOr.Or where P == Q {
+    /// The underlying value of the p or q, when `P == Q`, where mutation always sets `.p`.
+    @inlinable public var pvalue: P {
+        get {
+            switch self {
+            case .p(let p): return p
+            case .q(let q): return q
+            }
+        }
+
+        set {
+            self = .p(newValue)
+        }
+    }
+
+    /// The underlying value of the p or q, when `P == Q`, where mutation always sets `.q`.
+    @inlinable public var qvalue: P {
+        get {
+            switch self {
+            case .q(let q): return q
+            case .p(let p): return p
+            }
+        }
+
+        set {
+            self = .q(newValue)
+        }
+    }
+}
+
 extension XOr : Equatable where P : Equatable { }
 extension XOr.Or : Equatable where P : Equatable, Q : Equatable { }
 

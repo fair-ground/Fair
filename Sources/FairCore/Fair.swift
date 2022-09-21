@@ -191,6 +191,19 @@ extension Sequence {
 
 // MARK: Misc
 
+extension Optional where Wrapped : Equatable {
+    /// Subscript to default in the specified value if the current value is `.none`
+    @inlinable public subscript(default defaultValue: Wrapped, preserveNil: Bool = false) -> XOr<Wrapped>.Or<Wrapped> {
+        get {
+            flatMap(XOr.Or.p) ?? XOr.Or.q(defaultValue)
+        }
+
+        set {
+            self = preserveNil && newValue.pvalue == defaultValue ? .none : .some(newValue.pvalue)
+        }
+    }
+}
+
 public extension UUID {
     /// Creates a UUID with the given random number generator.
     init<R: RandomNumberGenerator>(rnd: inout R) {
