@@ -196,7 +196,7 @@ final class FairExpoTests: XCTestCase {
     }
 
     func testAppInfoCommandMacOSStream() async throws {
-        var cmd = try AppCommand.InfoCommand.parseAsRoot(["info"]) as! AppCommand.InfoCommand
+        var cmd = try ArchiveCommand.InfoCommand.parseAsRoot(["info"]) as! ArchiveCommand.InfoCommand
 
         cmd.apps = []
         cmd.apps += [try Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString]
