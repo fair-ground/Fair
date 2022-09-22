@@ -23,7 +23,7 @@ on:
 
 jobs:
   api-doc:
-    runs-on: macos-12 # needed to be able to document SwiftUI
+    runs-on: macos-12
     timeout-minutes: 20
     env:
       DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
@@ -35,7 +35,7 @@ jobs:
           export SWIFTPM_ENABLE_COMMAND_PLUGINS=1
           export DOCC_JSON_PRETTYPRINT="YES"
           # add in the docc plugin to generate the docs
-          sed -I "" 's;// zero dependencies;.package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0");g' Package.swift
+          sed -I "" 's;^ *dependencies: \[ *$;dependencies: \[ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),;g' Package.swift
 
           # until https://github.com/apple/swift-docc/issues/255
           # is implemented, we can only have a single target,
