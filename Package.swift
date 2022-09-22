@@ -24,7 +24,7 @@ let package = Package(
         .library(name: "FairKit", targets: ["FairKit"]),
         .library(name: "FairExpo", targets: ["FairExpo"]),
         .executable(name: "fairtool", targets: ["FairTool"]),
-//        .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]),
+        .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]),
     ],
     dependencies: [
     ],
@@ -34,7 +34,7 @@ let package = Package(
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
         .executableTarget(name: "FairTool", dependencies: ["FairExpo"]),
-//        .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["FairTool"]),
+        .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["FairTool"]),
 
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
