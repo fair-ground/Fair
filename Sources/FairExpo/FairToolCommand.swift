@@ -54,6 +54,14 @@ import AppKit
 import UIKit
 #endif
 
+#if os(Linux)
+let (linux, macOS, windows) = (true, false, false)
+#elseif os(Windows)
+let (linux, macOS, windows) = (false, false, true)
+#elseif os(macOS)
+let (linux, macOS, windows) = (false, true, false)
+#endif
+
 public protocol FairMsgCommand : AsyncParsableCommand {
     var msgOptions: MsgOptions { get set }
 }
@@ -130,21 +138,22 @@ public enum MessageKind {
 public struct FairToolCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "fairtool",
-        abstract: "Manage an ecosystem of apps.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            AppCommand.self,
-            FairCommand.self,
-            BrewCommand.self,
-            SocialCommand.self,
-            JSONCommand.self,
-            SourceCommand.self,
-            VersionCommand.self, // `fairtool version` shows the current version
-            ]
-        )
+                                                           abstract: "Manage an ecosystem of apps.",
+                                                           shouldDisplay: !experimental,
+                                                           subcommands: [
+                                                            AppCommand.self,
+                                                            FairCommand.self,
+                                                            ArtifactCommand.self,
+                                                            BrewCommand.self,
+                                                            SocialCommand.self,
+                                                            JSONCommand.self,
+                                                            SourceCommand.self,
+                                                            VersionCommand.self, // `fairtool version` shows the current version
+                                                           ]
+    )
 
     /// This is needed to handle execution of the tool from as a sandboxed command plugin
-    @Option(name: [.long], help: ArgumentHelp("list of targets to apply.", valueName: "target"))
+    @Option(name: [.long], help: ArgumentHelp("List of targets to apply.", valueName: "target"))
     public var target: Array<String> = []
 
     public init() {
@@ -169,22 +178,15 @@ public struct FairToolCommand : AsyncParsableCommand {
     }
 }
 
-public struct AppCommand : AsyncParsableCommand {
+public struct ArtifactCommand : AsyncParsableCommand {
     public static let experimental = false
-    public static var configuration = CommandConfiguration(commandName: "app",
-        abstract: "Commands for creating and validating an App Fair app.",
-        shouldDisplay: !experimental, subcommands: Self.subcommands)
+    public static var configuration = CommandConfiguration(commandName: "artifact",
+                                                           abstract: "Commands for examining a compiled app artifact.",
+                                                           shouldDisplay: !experimental, subcommands: Self.subcommands)
 
-    #if os(macOS)
-    static let subcommands: [ParsableCommand.Type] = [
-        InfoCommand.self,
-        LocalizeCommand.self,
-    ]
-    #else
     static let subcommands: [ParsableCommand.Type] = [
         InfoCommand.self,
     ]
-    #endif
 
     public init() {
     }
@@ -192,8 +194,8 @@ public struct AppCommand : AsyncParsableCommand {
     public struct InfoCommand: FairStructuredCommand {
         public static let experimental = false
         public static var configuration = CommandConfiguration(commandName: "info",
-            abstract: "Output information about the specified app(s).",
-            shouldDisplay: !experimental)
+                                                               abstract: "Output information about the specified app(s).",
+                                                               shouldDisplay: !experimental)
 
         public typealias Output = InfoItem
 
@@ -206,7 +208,7 @@ public struct AppCommand : AsyncParsableCommand {
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var downloadOptions: DownloadOptions
 
-        @Argument(help: ArgumentHelp("path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
+        @Argument(help: ArgumentHelp("Path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
         public var apps: [String]
 
         public init() {
@@ -229,13 +231,30 @@ public struct AppCommand : AsyncParsableCommand {
             return try InfoItem(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
         }
     }
+}
 
-    #if os(macOS)
-    public struct LocalizeCommand: FairMsgCommand {
+#if os(macOS)
+
+public struct AppCommand : AsyncParsableCommand {
+    public static let experimental = false
+    public static var configuration = CommandConfiguration(commandName: "app",
+                                                           abstract: "Commands for creating and validating an App Fair app.",
+                                                           shouldDisplay: !experimental, subcommands: Self.subcommands)
+
+    static let subcommands: [ParsableCommand.Type] = [
+        InfoCommand.self,
+        RefreshCommand.self,
+        LocalizeCommand.self,
+    ]
+
+    public init() {
+    }
+
+    public struct InfoCommand: FairProjectCommand, FairStructuredCommand {
         public static let experimental = false
-        public static var configuration = CommandConfiguration(commandName: "localize",
-            abstract: "Generate Localized.strings files from source code.",
-            shouldDisplay: !experimental)
+        public static var configuration = CommandConfiguration(commandName: "info", abstract: "Output information about the specified app(s).", shouldDisplay: !experimental)
+
+        public typealias Output = FairProjectInfo
 
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var projectOptions: ProjectOptions
@@ -243,52 +262,208 @@ public struct AppCommand : AsyncParsableCommand {
         public init() {
         }
 
-        public func run() async throws {
-            msg(.info, "Scanning strings for localization")
-
-            let locstr = "Localizable.strings"
-
-            let localizedStringsPath = projectOptions.projectPathURL(path: "Sources/App/Resources/en.lproj").appendingPathComponent(locstr)
-
-            var existingEncoding: String.Encoding = .utf8
-
-            // load the initial strings to check for changes
-            let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
-
-            let sourceFiles = try projectOptions.projectPathURL(path: "Sources").fileChildren(deep: true).filter { url in
-                url.pathExtension == "swift"
-            }
-
-            let tmp = projectOptions.projectPathURL(path: ".fairtool").appendingPathComponent(UUID().uuidString)
-            try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
-
-            let args = ["genstrings", "-q", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
-            msg(.info, "running command:", args)
-            let cmd = try await Process.exec(cmd: "/usr/bin/xcrun", args: args)
-
-            let outputFile = tmp.appendingPathComponent(locstr)
-
-            var generatedEncoding: String.Encoding = .utf8
-            let generatedStrings = try String(contentsOf: outputFile, usedEncoding: &generatedEncoding)
-
-            msg(.info, "created strings file", outputFile.path, "encoding:", generatedEncoding)
-
-            if generatedStrings == existingStrings {
-                msg(.info, "No new localizations to add to:", localizedStringsPath.path)
-            } else {
-                try generatedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
-                msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
+        public func executeCommand() -> AsyncThrowingStream<FairProjectInfo, Error> {
+            msg(.debug, "getting info from project:", projectOptions.projectPathFlag)
+            warnExperimental(Self.experimental)
+            let projects = [URL(fileURLWithPath: projectOptions.projectPathFlag)]
+            return executeStream(projects) {
+                try parseGitConfig(from: $0)
             }
         }
     }
-    #endif
+
+    /// An aggregate command that performs the following tasks:
+    ///
+    ///  - create or update the docs/CNAME file
+    ///  - create and update the localized strings file
+    public struct RefreshCommand: FairAppCommand {
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "refresh", abstract: "Update project resources and configuration.", shouldDisplay: !experimental)
+
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
+
+        @Option(name: [.long], help: ArgumentHelp("The app target."))
+        public var target: String = "App"
+
+        @Option(name: [.long], help: ArgumentHelp("The locale to generate."))
+        public var locale: String = "en"
+
+        public init() {
+        }
+
+        public func run() async throws {
+            let info = try parseGitConfig(from: URL(fileURLWithPath: projectOptions.projectPathFlag))
+            msg(.info, "refreshing project:", info.url)
+
+            let host = info.url.deletingLastPathComponent().lastPathComponent.lowercased() + ".appfair.net"
+            if try update(path: "docs/CNAME", contents: host.utf8Data) {
+                msg(.info, "set landing page:", host)
+            }
+
+            try await generateLocalizedStrings()
+        }
+    }
+
+    public struct LocalizeCommand: FairAppCommand {
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "localize", abstract: "Generate Localized.strings files from source code.", shouldDisplay: !experimental)
+
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
+
+        @Option(name: [.long], help: ArgumentHelp("The package localization target."))
+        public var target: String = "App"
+
+        @Option(name: [.long], help: ArgumentHelp("The locale to generate."))
+        public var locale: String = "en"
+
+        public init() {
+        }
+
+        public func run() async throws {
+            try await generateLocalizedStrings()
+        }
+    }
 }
 
+protocol FairProjectCommand : FairMsgCommand {
+    var projectOptions: ProjectOptions { get }
+}
+
+public struct FairProjectInfo : FairCommandOutput, Decodable {
+    public var name: String
+    public var url: URL
+}
+
+extension FairProjectCommand {
+    /// Get the git information from the given repository.
+    func parseGitConfig(from url: URL, configPath: String = ".git/config") throws -> FairProjectInfo {
+        msg(.info, "extracting info: \(url.path)")
+        let gitConfigPath = projectOptions.projectPathURL(path: configPath)
+        if !FileManager.default.isReadableFile(atPath: gitConfigPath.path) {
+            throw AppError(String(format: NSLocalizedString("Project folder expected to be a git repository, but it does not contain a .git/FETCH_HEAD file", bundle: .module, comment: "error message")))
+        }
+
+        let config = try EnvFile(url: gitConfigPath)
+
+        guard let origin = config["url", section: #"remote "origin""#],
+              let originURL = URL(string: origin) else {
+            throw AppError(String(format: NSLocalizedString("Missing remote origin url in .git/config file", bundle: .module, comment: "error message")))
+        }
+
+
+        let repoName = originURL.lastPathComponent
+        let orgName = originURL.deletingLastPathComponent().lastPathComponent
+        let baseURL = originURL.deletingLastPathComponent().deletingLastPathComponent()
+
+        if baseURL.absoluteString != "https://github.com/" {
+            throw AppError(String(format: NSLocalizedString("Unsuported repository host: %@", bundle: .module, comment: "error message"), arguments: [baseURL.absoluteString]))
+        }
+
+        if repoName != "App.git" && repoName != "App" {
+            throw AppError(String(format: NSLocalizedString("Repository must be named “App”, but found “%@”", bundle: .module, comment: "error message"), arguments: [repoName]))
+
+        }
+
+        let org = orgName.dehyphenated()
+        return FairProjectInfo(name: org, url: originURL)
+    }
+}
+
+protocol FairAppCommand : FairProjectCommand {
+    var target: String { get }
+    var locale: String { get }
+}
+
+extension FairAppCommand {
+    /// Updates the contents of the project resource at the given relative path.
+    ///
+    /// - Parameters:
+    ///   - path: the relative path to write to
+    ///   - contents: the contents to write; `nil` deletes the file
+    /// - Returns: true of the file was modified or delete, false if it was unchanged
+    @discardableResult func update(path: String, contents: Data?, encoding: String.Encoding = .utf8) throws -> Bool {
+        let url = projectOptions.projectPathURL(path: path)
+        if let contents = contents {
+            if contents != (try? Data(contentsOf: url)) {
+                try contents.write(to: url)
+                return true
+            } else {
+                return false // no changes
+            }
+        } else {
+            if FileManager.default.isReadableFile(atPath: url.path) {
+                try FileManager.default.removeItem(at: url)
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+
+    /// Run `genstrings` on the source files in the project.
+    func generateLocalizedStrings() async throws {
+        //msg(.info, "Scanning strings for localization")
+
+        let locstr = "Localizable.strings"
+
+        let localizedStringsPath = projectOptions.projectPathURL(path: "Sources")
+            .appendingPathComponent(target)
+            .appendingPathComponent("Resources")
+            .appendingPathComponent(locale)
+            .appendingPathExtension("lproj")
+            .appendingPathComponent(locstr)
+
+        msg(.info, "Scanning strings in \(target) for localization to:", localizedStringsPath.path)
+
+        var existingEncoding: String.Encoding = .utf8
+
+        // load the initial strings to check for changes
+        let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
+
+        let sourceFiles = try projectOptions.projectPathURL(path: "Sources").fileChildren(deep: true).filter { url in
+            url.pathExtension == "swift"
+        }
+
+        let tmp = projectOptions.projectPathURL(path: ".fairtool").appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
+        defer {
+            // clean up temporary localization file
+            try? FileManager.default.removeItem(at: tmp)
+        }
+
+        let args = ["genstrings", "-q", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
+        msg(.debug, "running command:", args)
+        let cmd = try await Process.exec(cmd: "/usr/bin/xcrun", args: args)
+        msg(.debug, "process exited with:", cmd.terminationStatus)
+
+        let outputFile = tmp.appendingPathComponent(locstr)
+
+        var generatedEncoding: String.Encoding = .utf16 // genstrings outputs UTF-16
+        let generatedStrings = try String(contentsOf: outputFile, usedEncoding: &generatedEncoding)
+
+        msg(.debug, "created strings file", outputFile.path, "encoding:", generatedEncoding)
+
+        if generatedStrings == existingStrings {
+            msg(.info, "Localizations unchanged:", localizedStringsPath.path)
+        } else {
+            try generatedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
+            msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
+        }
+
+    }
+
+}
+
+#endif
+
+
 public struct ProjectOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("p")], help: ArgumentHelp("the project to use."))
+    @Option(name: [.long, .customShort("p")], help: ArgumentHelp("The project to use."))
     public var project: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the path to the xcconfig containing metadata.", valueName: "xc"))
+    @Option(name: [.long], help: ArgumentHelp("The path to the xcconfig containing metadata.", valueName: "xc"))
     public var fairProperties: String?
 
     public init() { }
@@ -304,9 +479,9 @@ public struct ProjectOptions: ParsableArguments {
     }
 
     /// If the `--fair-properties` flag was specified, tries to parse the build settings
-    func buildSettings() throws -> BuildSettings? {
+    func buildSettings() throws -> EnvFile? {
         guard let fairProperties = self.fairProperties else { return nil }
-        return try BuildSettings(url: projectPathURL(path: fairProperties))
+        return try EnvFile(url: projectPathURL(path: fairProperties))
     }
 }
 
@@ -314,13 +489,13 @@ public struct ProjectOptions: ParsableArguments {
 public struct SourceCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "source",
-        abstract: "App source catalog management commands.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            CreateCommand.self,
-            VerifyCommand.self,
-            PostReleaseCommand.self,
-        ])
+                                                           abstract: "App source catalog management commands.",
+                                                           shouldDisplay: !experimental,
+                                                           subcommands: [
+                                                            CreateCommand.self,
+                                                            VerifyCommand.self,
+                                                            PostReleaseCommand.self,
+                                                           ])
 
     public init() {
     }
@@ -330,13 +505,13 @@ public struct SourceCommand : AsyncParsableCommand {
         public typealias Output = AppCatalogItem
 
         public static var configuration = CommandConfiguration(commandName: "create",
-            abstract: "Create a source from the specified .ipa or .zip.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Create a source from the specified .ipa or .zip.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
 
         @OptionGroup public var sourceOptions: SourceOptions
 
-        @Argument(help: ArgumentHelp("path(s) or url(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
+        @Argument(help: ArgumentHelp("Path(s) or URL(s) for app folders or ipa archives", valueName: "apps", visibility: .default))
         public var apps: [String]
 
         public init() { }
@@ -400,15 +575,15 @@ public struct SourceCommand : AsyncParsableCommand {
         public typealias Output = AppCatalogVerifyResult
 
         public static var configuration = CommandConfiguration(commandName: "verify",
-            abstract: "Verify the files in the specified catalog JSON.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Verify the files in the specified catalog JSON.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var downloadOptions: DownloadOptions
 
-        @Option(name: [.long], help: ArgumentHelp("verify only the specified bundle ID(s).", valueName: "id"))
+        @Option(name: [.long], help: ArgumentHelp("Verify only the specified bundle ID(s).", valueName: "id"))
         public var bundleID: Array<String> = []
 
-        @Argument(help: ArgumentHelp("path or url for catalog", valueName: "path", visibility: .default))
+        @Argument(help: ArgumentHelp("Path or url for catalog", valueName: "path", visibility: .default))
         public var catalogs: [String]
 
         public init() { }
@@ -439,24 +614,24 @@ public struct SourceCommand : AsyncParsableCommand {
         public typealias Output = AppNewsPost
 
         public static var configuration = CommandConfiguration(commandName: "postrelease",
-            abstract: "Compare sources and post app version changes.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Compare sources and post app version changes.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
         @OptionGroup public var indexOptions: IndexingOptions
         @OptionGroup public var newsOptions: NewsOptions
         @OptionGroup public var tweetOptions: TweetOptions
 
-        @Option(name: [.long], help: ArgumentHelp("the source catalog.", valueName: "src"))
+        @Option(name: [.long], help: ArgumentHelp("The source catalog.", valueName: "src"))
         public var fromCatalog: String
 
-        @Option(name: [.long], help: ArgumentHelp("the destination catalog.", valueName: "dest"))
+        @Option(name: [.long], help: ArgumentHelp("The destination catalog.", valueName: "dest"))
         public var toCatalog: String
 
-        @Option(name: [.long], help: ArgumentHelp("limit number of news items.", valueName: "limit"))
+        @Option(name: [.long], help: ArgumentHelp("Limit number of news items.", valueName: "limit"))
         public var newsItems: Int?
 
-        @Flag(name: [.long], help: ArgumentHelp("update version date for new versions.", valueName: "update"))
+        @Flag(name: [.long], help: ArgumentHelp("Update version date for new versions.", valueName: "update"))
         public var updateVersionDate: Bool = false
 
         public init() { }
@@ -718,14 +893,14 @@ public final class AppCatalogAPI {
     private init() {
     }
 
-//    /// Create a catalog of multiple artifacts.
-//    public func catalogApps(urls: [URL], options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalog {
-//        var items: [AppCatalogItem] = []
-//        for url in urls {
-//            items.append(try await catalogApp(url: url, options: options, clearDownload: clearDownload))
-//        }
-//        return AppCatalog(name: options?.catalogName ?? "CATALOG", identifier: options?.catalogIdentifier ?? "IDENTIFIER", apps: items)
-//    }
+    //    /// Create a catalog of multiple artifacts.
+    //    public func catalogApps(urls: [URL], options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalog {
+    //        var items: [AppCatalogItem] = []
+    //        for url in urls {
+    //            items.append(try await catalogApp(url: url, options: options, clearDownload: clearDownload))
+    //        }
+    //        return AppCatalog(name: options?.catalogName ?? "CATALOG", identifier: options?.catalogIdentifier ?? "IDENTIFIER", apps: items)
+    //    }
 
     /// Create a catalog item for an individual artifact.
     public func catalogApp(url: URL, options: SourceOptions? = nil, clearDownload: Bool = true) async throws -> AppCatalogItem {
@@ -867,7 +1042,7 @@ public final class AppCatalogAPI {
         }
 
         if let sha256 = app.sha256,
-            let fileData = try? Data(contentsOf: file) {
+           let fileData = try? Data(contentsOf: file) {
             let fileChecksum = fileData.sha256()
             if sha256 != fileChecksum.hex() {
                 addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"), msg: msg)
@@ -1008,31 +1183,31 @@ extension Plist {
 public struct FairCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "fair",
-        abstract: "Fairground app utility commands.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            ValidateCommand.self,
-            CatalogCommand.self,
-            MergeCommand.self,
-            MetadataCommand.self,
-            ]
-        + Self.iconCommand
-        + Self.fairsealCommand)
+                                                           abstract: "Fairground app utility commands.",
+                                                           shouldDisplay: !experimental,
+                                                           subcommands: [
+                                                            ValidateCommand.self,
+                                                            CatalogCommand.self,
+                                                            MergeCommand.self,
+                                                            MetadataCommand.self,
+                                                           ]
+                                                           + Self.iconCommand
+                                                           + Self.fairsealCommand)
 
     private static var fairsealCommand: [AsyncParsableCommand.Type] {
-        #if canImport(Compression)
+#if canImport(Compression)
         [FairsealCommand.self]
-        #else
+#else
         []
-        #endif
+#endif
     }
 
     private static var iconCommand: [AsyncParsableCommand.Type] {
-        #if canImport(SwiftUI)
+#if canImport(SwiftUI)
         [IconCommand.self]
-        #else
+#else
         []
-        #endif
+#endif
     }
 
     public init() {
@@ -1042,8 +1217,8 @@ public struct FairCommand : AsyncParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "validate",
-            abstract: "Validate the project.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Validate the project.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var regOptions: RegOptions
@@ -1277,8 +1452,8 @@ public struct FairCommand : AsyncParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "merge",
-            abstract: "Merge base fair-ground updates into the project.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Merge base fair-ground updates into the project.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
         @OptionGroup public var projectOptions: ProjectOptions
@@ -1353,18 +1528,18 @@ public struct FairCommand : AsyncParsableCommand {
 
                 // try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
 
-    //            guard let packageURL = self.basePathURL(path: "Package.swift") else {
-    //                throw CocoaError(.fileReadNoSuchFile)
-    //            }
-    //
-    //            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
-    //            if packageTemplate.count != 2 {
-    //                throw CocoaError(.fileReadNoSuchFile)
-    //            }
-    //
-    //            let str1 = String(data: data, encoding: .utf8) ?? ""
-    //            let str2 = packageTemplate[1]
-    //            return (str1 + str2).utf8Data
+                //            guard let packageURL = self.basePathURL(path: "Package.swift") else {
+                //                throw CocoaError(.fileReadNoSuchFile)
+                //            }
+                //
+                //            let packageTemplate = try String(contentsOf: packageURL, encoding: .utf8).components(separatedBy: Self.packageValidationLine)
+                //            if packageTemplate.count != 2 {
+                //                throw CocoaError(.fileReadNoSuchFile)
+                //            }
+                //
+                //            let str1 = String(data: data, encoding: .utf8) ?? ""
+                //            let str2 = packageTemplate[1]
+                //            return (str1 + str2).utf8Data
 
                 return data
             }
@@ -1375,18 +1550,18 @@ public struct FairCommand : AsyncParsableCommand {
         public typealias Output = AppMetadata
         public static let experimental = false
         public static var configuration = CommandConfiguration(commandName: "metadata",
-            abstract: "Output metadata for the given app.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Output metadata for the given app.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
 
-        @Option(name: [.long, .customShort("x")], help: ArgumentHelp("export deliver metadata folder.", valueName: "dir"))
+        @Option(name: [.long, .customShort("x")], help: ArgumentHelp("Export deliver metadata folder.", valueName: "dir"))
         public var export: String?
 
-        @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the root key containg the app metadata.", valueName: "key"))
+        @Option(name: [.long, .customShort("k")], help: ArgumentHelp("The root key containg the app metadata.", valueName: "key"))
         public var key: String = "app"
 
-        @Argument(help: ArgumentHelp("path to the metadata file", valueName: "App.yml", visibility: .default))
+        @Argument(help: ArgumentHelp("Path to the metadata file", valueName: "App.yml", visibility: .default))
         public var yaml: [String] = ["App.yml"]
 
         public init() { }
@@ -1544,8 +1719,8 @@ public struct FairCommand : AsyncParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "catalog",
-            abstract: "Build the app catalog.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Build the app catalog.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var regOptions: RegOptions
@@ -1554,7 +1729,7 @@ public struct FairCommand : AsyncParsableCommand {
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
-        @Flag(name: [.long], help: ArgumentHelp("whether the include funcing source info.", valueName: "funding"))
+        @Flag(name: [.long], help: ArgumentHelp("Whether the include funcing source info.", valueName: "funding"))
         public var fundingSources: Bool = false
 
         public init() { }
@@ -1613,13 +1788,13 @@ public struct FairCommand : AsyncParsableCommand {
         }
     }
 
-    #if !os(Windows) // no ZipArchive yet
+#if !os(Windows) // no ZipArchive yet
     public struct FairsealCommand: FairParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "fairseal",
-            abstract: "Generates fairseal from trusted artifact.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Generates fairseal from trusted artifact.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var sealOptions: SealOptions
@@ -1803,10 +1978,10 @@ public struct FairCommand : AsyncParsableCommand {
                 msg(.info, "comparing payloads \(trustedEntry.path) (\(trustedPayload.count)) vs. \(untrustedEntry.path) (\(untrustedPayload.count))")
 
                 if trustedPayload != untrustedPayload {
-//                    // if we don't permit any differences at all, then just throw an error
-//                    guard let permittedDiffs = sealOptions.permittedDiffs, permittedDiffs > 0 else {
-//                        throw AppError("Trusted and untrusted artifact mismatch at \(trustedEntry.path)")
-//                    }
+                    //                    // if we don't permit any differences at all, then just throw an error
+                    //                    guard let permittedDiffs = sealOptions.permittedDiffs, permittedDiffs > 0 else {
+                    //                        throw AppError("Trusted and untrusted artifact mismatch at \(trustedEntry.path)")
+                    //                    }
 
                     // otherwise calculate the total differences
                     msg(.info, " scanning payload differences")
@@ -1824,17 +1999,17 @@ public struct FairCommand : AsyncParsableCommand {
                         }))
                     }
 
-//                    let insertionRanges = offsets(in: diff.insertions)
-//                    let insertionRangeDesc = insertionRanges
-//                        .rangeView
-//                        .prefix(10)
-//                        .map({ $0.description })
-//
-//                    let removalRanges = offsets(in: diff.removals)
-//                    let removalRangeDesc = removalRanges
-//                        .rangeView
-//                        .prefix(10)
-//                        .map({ $0.description })
+                    //                    let insertionRanges = offsets(in: diff.insertions)
+                    //                    let insertionRangeDesc = insertionRanges
+                    //                        .rangeView
+                    //                        .prefix(10)
+                    //                        .map({ $0.description })
+                    //
+                    //                    let removalRanges = offsets(in: diff.removals)
+                    //                    let removalRangeDesc = removalRanges
+                    //                        .rangeView
+                    //                        .prefix(10)
+                    //                        .map({ $0.description })
 
                     let totalChanges = diff.insertions.count + diff.removals.count
                     if totalChanges > 0 {
@@ -1913,7 +2088,7 @@ public struct FairCommand : AsyncParsableCommand {
             // extract the AppSource metadata for the item
             let sourceInfo: AppCatalogItem? = {
                 guard let artifactURL = self.sealOptions.artifactURL,
-                    let url = URL(string: artifactURL) else {
+                      let url = URL(string: artifactURL) else {
                     return nil
                 }
                 do {
@@ -1968,7 +2143,7 @@ public struct FairCommand : AsyncParsableCommand {
             }
 
             guard let artifactURLFlag = self.sealOptions.artifactURL,
-                let artifactURL = URL(string: artifactURLFlag) else {
+                  let artifactURL = URL(string: artifactURLFlag) else {
                 throw FairToolCommand.Errors.missingFlag("-artifact-url")
             }
 
@@ -2001,15 +2176,15 @@ public struct FairCommand : AsyncParsableCommand {
         }
 
     }
-    #endif
+#endif
 
-    #if canImport(SwiftUI)
+#if canImport(SwiftUI)
     public struct IconCommand: FairParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "icon",
-            abstract: "Create an icon for the given project.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Create an icon for the given project.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var iconOptions: IconOptions
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var orgOptions: OrgOptions
@@ -2075,12 +2250,12 @@ public struct FairCommand : AsyncParsableCommand {
 
                 let size = max(assetName.width, assetName.height)
                 var scale = Double(assetName.scale ?? 1)
-                #if os(macOS)
+#if os(macOS)
                 if let screen = NSScreen.main, screen.backingScaleFactor > 0.0 {
                     // there should be a better way to do this, but rendering a view seems to use the main screens scale, which on the build host seems to be 1.0 and on a macBook is 2.0; we need to alter the scale in order to generate the correctly-sized images on each host
                     scale /= screen.backingScaleFactor
                 }
-                #endif
+#endif
 
                 let span = CGFloat(size) * CGFloat(scale) // default content scale
                 let bounds = CGRect(origin: CGPoint(x: -span/2, y: -span/2), size: CGSize(width: CGFloat(span), height: CGFloat(span)))
@@ -2132,29 +2307,29 @@ public struct FairCommand : AsyncParsableCommand {
         }
 
     }
-    #endif
+#endif
 
     public struct CaskOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("the output folder for the app casks.", valueName: "dir"))
+        @Option(name: [.long], help: ArgumentHelp("The output folder for the app casks.", valueName: "dir"))
         public var caskFolder: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the artifact extensions."))
+        @Option(name: [.long], help: ArgumentHelp("The artifact extensions."))
         public var artifactExtension: [String] = []
 
-        @Option(name: [.long], help: ArgumentHelp("maximum number of Hub API requests per session."))
+        @Option(name: [.long], help: ArgumentHelp("Maximum number of Hub API requests per session."))
         public var requestLimit: Int?
 
         public init() { }
     }
 
     public struct ValidateOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("the IR title"))
+        @Option(name: [.long], help: ArgumentHelp("The IR title"))
         public var integrationTitle: String?
 
-        @Option(name: [.long, .customShort("b")], help: ArgumentHelp("the base path."))
+        @Option(name: [.long, .customShort("b")], help: ArgumentHelp("The base path."))
         public var base: String?
 
-        @Option(name: [.long], help: ArgumentHelp("commit ref to validate."))
+        @Option(name: [.long], help: ArgumentHelp("Commit ref to validate."))
         public var ref: String?
 
         public init() { }
@@ -2164,39 +2339,39 @@ public struct FairCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("URL for the artifact that will be generated."))
         public var artifactURL: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the artifact created in a trusted environment."))
+        @Option(name: [.long], help: ArgumentHelp("The artifact created in a trusted environment."))
         public var trustedArtifact: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the artifact created in an untrusted environment."))
+        @Option(name: [.long], help: ArgumentHelp("The artifact created in an untrusted environment."))
         public var untrustedArtifact: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the artifact staging folder."))
+        @Option(name: [.long], help: ArgumentHelp("The artifact staging folder."))
         public var artifactStaging: [String] = []
 
-        @Option(name: [.long], help: ArgumentHelp("the number of diffs for a build to be reproducible.", valueName: "count"))
+        @Option(name: [.long], help: ArgumentHelp("The number of diffs for a build to be reproducible.", valueName: "count"))
         public var permittedDiffs: Int?
 
-        @Option(name: [.long], help: ArgumentHelp("the disassembler to use for comparing binaries.", valueName: "cmd"))
+        @Option(name: [.long], help: ArgumentHelp("The disassembler to use for comparing binaries.", valueName: "cmd"))
         public var disassembler: String?
 
         public init() { }
     }
 
     public struct IconOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("path to appiconset/Contents.json."))
+        @Option(name: [.long], help: ArgumentHelp("Path to appiconset/Contents.json."))
         public var appIcon: String?
 
-        @Option(name: [.long], help: ArgumentHelp("path or symbol name to place in the icon.", valueName: "symbol"))
+        @Option(name: [.long], help: ArgumentHelp("Path or symbol name to place in the icon.", valueName: "symbol"))
         public var iconSymbol: [String] = []
 
-        @Option(name: [.long], help: ArgumentHelp("the accent color file.", valueName: "color"))
+        @Option(name: [.long], help: ArgumentHelp("The accent color file.", valueName: "color"))
         public var accentColor: String?
 
         public init() { }
     }
 
     public struct OrgOptions: ParsableArguments {
-        @Option(name: [.long, .customShort("g")], help: ArgumentHelp("the repository to use."))
+        @Option(name: [.long, .customShort("g")], help: ArgumentHelp("The repository to use."))
         public var org: String
 
         public init() { }
@@ -2289,11 +2464,11 @@ public extension Plist {
 public struct BrewCommand : AsyncParsableCommand {
     public static let experimental = true
     public static var configuration = CommandConfiguration(commandName: "brew",
-        abstract: "Homebrew appcask configuration commands.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            AppCasksCommand.self,
-        ])
+                                                           abstract: "Homebrew appcask configuration commands.",
+                                                           shouldDisplay: !experimental,
+                                                           subcommands: [
+                                                            AppCasksCommand.self,
+                                                           ])
 
     public init() {
     }
@@ -2302,39 +2477,39 @@ public struct BrewCommand : AsyncParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "appcasks",
-            abstract: "Build the enhanced appcasks catalog.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Build the enhanced appcasks catalog.",
+                                                               shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var hubOptions: HubOptions
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
         @OptionGroup public var sourceOptions: SourceOptions
 
-        @Option(name: [.long, .customShort("C")], help: ArgumentHelp("the name of the hub's base casks repository.", valueName: "repo"))
+        @Option(name: [.long, .customShort("C")], help: ArgumentHelp("The name of the hub's base casks repository.", valueName: "repo"))
         public var casksRepo: String = "appcasks"
 
-        @Option(name: [.long], help: ArgumentHelp("the maximum number of apps to include.", valueName: "count"))
+        @Option(name: [.long], help: ArgumentHelp("The maximum number of apps to include.", valueName: "count"))
         public var maxApps: Int?
 
-        @Option(name: [.long], help: ArgumentHelp("the endpoint containing additional metadata.", valueName: "url"))
+        @Option(name: [.long], help: ArgumentHelp("The endpoint containing additional metadata.", valueName: "url"))
         public var mergeCaskInfo: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the endpoint containing cask stats.", valueName: "url"))
+        @Option(name: [.long], help: ArgumentHelp("The endpoint containing cask stats.", valueName: "url"))
         public var mergeCaskStats: String?
 
-        @Option(name: [.long], help: ArgumentHelp("app ids to boost in catalog.", valueName: "apps"))
+        @Option(name: [.long], help: ArgumentHelp("App ids to boost in catalog.", valueName: "apps"))
         public var boostApps: [String] = [] // each string can also delimit multiple apps with a "|" separator
 
-        @Option(name: [.long], help: ArgumentHelp("ranking increase for boosted apps.", valueName: "factor"))
+        @Option(name: [.long], help: ArgumentHelp("Ranking increase for boosted apps.", valueName: "factor"))
         public var boostFactor: Int64?
 
-        @Flag(name: [.long], help: ArgumentHelp("whether the include funcing source info.", valueName: "funding"))
+        @Flag(name: [.long], help: ArgumentHelp("Whether the include funcing source info.", valueName: "funding"))
         public var fundingSources: Bool = false
 
-        @Option(name: [.long], help: ArgumentHelp("the topic whose tagged repos will be indexed.", valueName: "topic"))
+        @Option(name: [.long], help: ArgumentHelp("The topic whose tagged repos will be indexed.", valueName: "topic"))
         public var topicName: String?
 
-        @Option(name: [.long], help: ArgumentHelp("the user whose starred repos will be indexed.", valueName: "user"))
+        @Option(name: [.long], help: ArgumentHelp("The user whose starred repos will be indexed.", valueName: "user"))
         public var starrerName: String?
 
         public init() { }
@@ -2373,11 +2548,11 @@ public struct BrewCommand : AsyncParsableCommand {
 public struct SocialCommand : AsyncParsableCommand {
     public static let experimental = true
     public static var configuration = CommandConfiguration(commandName: "social",
-        abstract: "Social media utilities.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            TweetCommand.self,
-        ])
+                                                           abstract: "Social media utilities.",
+                                                           shouldDisplay: !experimental,
+                                                           subcommands: [
+                                                            TweetCommand.self,
+                                                           ])
 
     public init() {
     }
@@ -2388,17 +2563,17 @@ public struct SocialCommand : AsyncParsableCommand {
         public typealias Output = Tweeter.PostResponse
 
         public static var configuration = CommandConfiguration(commandName: "tweet",
-            abstract: "Post a tweet.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Post a tweet.",
+                                                               shouldDisplay: !experimental)
 
         @OptionGroup public var tweetOptions: TweetOptions
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var delayOptions: DelayOptions
 
-        @Flag(name: [.long], help: ArgumentHelp("whether tweets should be grouped into a single conversation."))
+        @Flag(name: [.long], help: ArgumentHelp("Whether tweets should be grouped into a single conversation."))
         public var conversation: Bool = false
 
-        @Argument(help: ArgumentHelp("the contents of the tweet", valueName: "body", visibility: .default))
+        @Argument(help: ArgumentHelp("The contents of the tweet", valueName: "body", visibility: .default))
         public var body: [String]
 
         public init() { }
@@ -2431,12 +2606,12 @@ public struct SocialCommand : AsyncParsableCommand {
 public struct JSONCommand : AsyncParsableCommand {
     public static let experimental = true
     public static var configuration = CommandConfiguration(commandName: "json",
-        abstract: "JSON manipulation tools.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            SignCommand.self,
-            VerifyCommand.self,
-        ])
+                                                           abstract: "JSON manipulation tools.",
+                                                           shouldDisplay: !experimental,
+                                                           subcommands: [
+                                                            SignCommand.self,
+                                                            VerifyCommand.self,
+                                                           ])
 
     public init() {
     }
@@ -2452,22 +2627,22 @@ public struct JSONCommand : AsyncParsableCommand {
         public typealias Output = JSum
 
         public static var configuration = CommandConfiguration(commandName: "sign",
-            abstract: "Adds a message authentication code to the given JSON.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Adds a message authentication code to the given JSON.",
+                                                               shouldDisplay: !experimental)
 
         @OptionGroup public var msgOptions: MsgOptions
 
-        @Option(name: [.long], help: ArgumentHelp("the property in which the signature will be stored", valueName: "prop"))
+        @Option(name: [.long], help: ArgumentHelp("The property in which the signature will be stored", valueName: "prop"))
         public var property: String = "signature"
 
-        @Option(name: [.long], help: ArgumentHelp("the base64 encoding of the key", valueName: "key"))
+        @Option(name: [.long], help: ArgumentHelp("The base64 encoding of the key", valueName: "key"))
         public var keyBase64: String
 
-        //@Argument(help: ArgumentHelp("a string version of the key", valueName: "keystr", visibility: .default))
+        //@Argument(help: ArgumentHelp("A string version of the key", valueName: "keystr", visibility: .default))
         //public var keyString: String?
 
         /// The JSON files (or standard input) to encode
-        @Argument(help: ArgumentHelp("the input JSON to sign", valueName: "body", visibility: .default))
+        @Argument(help: ArgumentHelp("The input JSON to sign", valueName: "body", visibility: .default))
         public var inputs: [String]
 
         public init() { }
@@ -2501,22 +2676,22 @@ public struct JSONCommand : AsyncParsableCommand {
         public typealias Output = [JSum]
 
         public static var configuration = CommandConfiguration(commandName: "verify",
-            abstract: "Verifies a message authentication code for the given JSON.",
-            shouldDisplay: !experimental)
+                                                               abstract: "Verifies a message authentication code for the given JSON.",
+                                                               shouldDisplay: !experimental)
 
         @OptionGroup public var msgOptions: MsgOptions
 
-        @Option(name: [.long], help: ArgumentHelp("the property in which the signature will be stored", valueName: "prop"))
+        @Option(name: [.long], help: ArgumentHelp("The property in which the signature will be stored", valueName: "prop"))
         public var property: String = "signature"
 
-        @Option(name: [.long], help: ArgumentHelp("the base64 encoding of the key", valueName: "key"))
+        @Option(name: [.long], help: ArgumentHelp("The base64 encoding of the key", valueName: "key"))
         public var keyBase64: String
 
-        //@Argument(help: ArgumentHelp("a string version of the key", valueName: "keystr", visibility: .default))
+        //@Argument(help: ArgumentHelp("A string version of the key", valueName: "keystr", visibility: .default))
         //public var keyString: String?
 
         /// The JSON files (or standard input) to encode
-        @Argument(help: ArgumentHelp("the JSON file to verify", valueName: "file", visibility: .default))
+        @Argument(help: ArgumentHelp("The JSON file to verify", valueName: "file", visibility: .default))
         public var inputs: [String]
 
         public init() { }
@@ -2564,16 +2739,16 @@ extension JSum : SigningContainer {
 
 /// Authentication options for Twitter CLI
 public struct TweetOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("oauth consumer key for sending tweets.", valueName: "key"))
+    @Option(name: [.long], help: ArgumentHelp("Oauth consumer key for sending tweets.", valueName: "key"))
     public var twitterConsumerKey: String?
 
-    @Option(name: [.long], help: ArgumentHelp("oauth consumer secret for sending tweets.", valueName: "secret"))
+    @Option(name: [.long], help: ArgumentHelp("Oauth consumer secret for sending tweets.", valueName: "secret"))
     public var twitterConsumerSecret: String?
 
-    @Option(name: [.long], help: ArgumentHelp("oauth token for sending tweets.", valueName: "token"))
+    @Option(name: [.long], help: ArgumentHelp("Oauth token for sending tweets.", valueName: "token"))
     public var twitterToken: String?
 
-    @Option(name: [.long], help: ArgumentHelp("oauth token secret for sending tweets.", valueName: "secret"))
+    @Option(name: [.long], help: ArgumentHelp("Oauth token secret for sending tweets.", valueName: "secret"))
     public var twitterTokenSecret: String?
 
     public init() { }
@@ -2596,28 +2771,28 @@ public struct TweetOptions: ParsableArguments {
 
 
 public struct NewsOptions: ParsableArguments, NewsItemFormat {
-    @Option(name: [.long], help: ArgumentHelp("the post title format.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The post title format.", valueName: "format"))
     public var postTitle: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the post title format for updates.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The post title format for updates.", valueName: "format"))
     public var postTitleUpdate: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the post caption format for new releases.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The post caption format for new releases.", valueName: "format"))
     public var postCaption: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the post caption format for updates.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The post caption format for updates.", valueName: "format"))
     public var postCaptionUpdate: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the post body format.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The post body format.", valueName: "format"))
     public var postBody: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the tweet body format.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The tweet body format.", valueName: "format"))
     public var tweetBody: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the app id for the post.", valueName: "appid"))
+    @Option(name: [.long], help: ArgumentHelp("The app id for the post.", valueName: "appid"))
     public var postAppID: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the post URL format.", valueName: "format"))
+    @Option(name: [.long], help: ArgumentHelp("The post URL format.", valueName: "format"))
     public var postURL: String?
 
     public init() { }
@@ -2625,7 +2800,7 @@ public struct NewsOptions: ParsableArguments, NewsItemFormat {
 }
 
 public struct IndexingOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("catalog index markdown file to generate."))
+    @Option(name: [.long], help: ArgumentHelp("Catalog index markdown file to generate."))
     public var markdownIndex: String?
 
     public init() { }
@@ -2716,8 +2891,8 @@ private extension AppCatalog {
             md += " | "
             if version.isEmpty {
                 // no output
-//            } else if let relURL = URL(string: v, relativeTo: app.releasesURL), isFairApp == true {
-//                md += "[`\(pre(version, limit: 25))`](\(relURL.absoluteString))"
+                //            } else if let relURL = URL(string: v, relativeTo: app.releasesURL), isFairApp == true {
+                //                md += "[`\(pre(version, limit: 25))`](\(relURL.absoluteString))"
             } else {
                 md += "`\(pre(version, limit: 25))`"
             }
@@ -2750,11 +2925,11 @@ private extension AppCatalog {
 
             md += " | "
             if let category = app.categories?.first {
-//                if isFairApp {
-//                    md += "[\(pre(category.baseValue))](https://github.com/topics/appfair-\(category.baseValue)) "
-//                } else {
-                    md += pre(category.rawValue)
-//                }
+                //                if isFairApp {
+                //                    md += "[\(pre(category.baseValue))](https://github.com/topics/appfair-\(category.baseValue)) "
+                //                } else {
+                md += pre(category.rawValue)
+                //                }
             }
 
             md += " |\n"
@@ -2771,7 +2946,7 @@ private extension AppCatalog {
 }
 
 public struct OutputOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("o")], help: ArgumentHelp("the output path."))
+    @Option(name: [.long, .customShort("o")], help: ArgumentHelp("The output path."))
     public var output: String = "-"
 
     public init() { }
@@ -2791,42 +2966,42 @@ public struct OutputOptions: ParsableArguments {
 }
 
 public struct SourceOptions: ParsableArguments {
-    @Option(help: ArgumentHelp("the name of the catalog.", valueName: "name"))
+    @Option(help: ArgumentHelp("The name of the catalog.", valueName: "name"))
     public var catalogName: String?
 
-    @Option(help: ArgumentHelp("the identifier of the catalog.", valueName: "id"))
+    @Option(help: ArgumentHelp("The identifier of the catalog.", valueName: "id"))
     public var catalogIdentifier: String?
 
-    @Option(help: ArgumentHelp("the platform for this catalog.", valueName: "id"))
+    @Option(help: ArgumentHelp("The platform for this catalog.", valueName: "id"))
     public var catalogPlatform: String?
 
-    @Option(help: ArgumentHelp("the description for this catalog.", valueName: "desc"))
+    @Option(help: ArgumentHelp("The description for this catalog.", valueName: "desc"))
     public var catalogLocalizedDescription: String?
 
-    @Option(help: ArgumentHelp("the source URL of the catalog.", valueName: "url"))
+    @Option(help: ArgumentHelp("The source URL of the catalog.", valueName: "url"))
     public var catalogSourceURL: String?
 
-    @Option(help: ArgumentHelp("the icon URL of the catalog.", valueName: "url"))
+    @Option(help: ArgumentHelp("The icon URL of the catalog.", valueName: "url"))
     public var catalogIconURL: String?
 
-    @Option(help: ArgumentHelp("the tint color for this catalog.", valueName: "rgbhex"))
+    @Option(help: ArgumentHelp("The tint color for this catalog.", valueName: "rgbhex"))
     public var catalogTintColor: String?
 
     // Per-app arguments
 
-    @Option(help: ArgumentHelp("the default description(s) for the app(s).", valueName: "desc"))
+    @Option(help: ArgumentHelp("The default description(s) for the app(s).", valueName: "desc"))
     public var appLocalizedDescription: [String] = []
 
-    @Option(help: ArgumentHelp("the default versionDescription for the app(s).", valueName: "desc"))
+    @Option(help: ArgumentHelp("The default versionDescription for the app(s).", valueName: "desc"))
     public var appVersionDescription: [String] = []
 
-    @Option(help: ArgumentHelp("the default subtitle(s) for the app(s).", valueName: "title"))
+    @Option(help: ArgumentHelp("The default subtitle(s) for the app(s).", valueName: "title"))
     public var appSubtitle: [String] = []
 
-    @Option(help: ArgumentHelp("the default developer name(s) for the app(s).", valueName: "email"))
+    @Option(help: ArgumentHelp("The default developer name(s) for the app(s).", valueName: "email"))
     public var appDeveloperName: [String] = []
 
-    @Option(help: ArgumentHelp("the download URLfor the app(s).", valueName: "URL"))
+    @Option(help: ArgumentHelp("The download URLfor the app(s).", valueName: "URL"))
     public var appDownloadURL: [String] = []
 
     public init() {
@@ -2858,13 +3033,13 @@ fileprivate func executeSeries<T, U: FairCommandOutput>(_ arguments: [T], initia
 
 
 public struct MsgOptions: ParsableArguments {
-    @Flag(name: [.long, .customShort("v")], help: ArgumentHelp("whether to display verbose messages."))
+    @Flag(name: [.long, .customShort("v")], help: ArgumentHelp("Whether to display verbose messages."))
     public var verbose: Bool = false
 
-    @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("whether to be suppress output."))
+    @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("Whether to be suppress output."))
     public var quiet: Bool = false
 
-    @Flag(name: [.long, .customShort("J")], help: ArgumentHelp("exclude root JSON array from output."))
+    @Flag(name: [.long, .customShort("J")], help: ArgumentHelp("Exclude root JSON array from output."))
     public var promoteJSON: Bool = false
 
     public var messages: MessageBuffer? = nil
@@ -2920,22 +3095,22 @@ public struct MsgOptions: ParsableArguments {
 }
 
 public struct RegOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR names.", valueName: "pattern"))
+    @Option(name: [.long], help: ArgumentHelp("Allow patterns for integrate PR names.", valueName: "pattern"))
     public var allowName: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR names.", valueName: "pattern"))
+    @Option(name: [.long], help: ArgumentHelp("Disallow patterns for integrate PR names.", valueName: "pattern"))
     public var denyName: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("allow patterns for integrate PR users", valueName: "pattern"))
+    @Option(name: [.long], help: ArgumentHelp("Allow patterns for integrate PR users", valueName: "pattern"))
     public var allowFrom: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("disallow patterns for integrate PR users", valueName: "pattern"))
+    @Option(name: [.long], help: ArgumentHelp("Disallow patterns for integrate PR users", valueName: "pattern"))
     public var denyFrom: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("permitted license IDs.", valueName: "id"))
+    @Option(name: [.long], help: ArgumentHelp("Permitted license IDs.", valueName: "id"))
     public var allowLicense: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("permitted license titles"))
+    @Option(name: [.long], help: ArgumentHelp("Permitted license titles"))
     public var license: [String] = []
 
     public init() {
@@ -2956,19 +3131,19 @@ public struct RegOptions: ParsableArguments {
 ///
 /// E.g., "github.com/appfair"
 public struct HubOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("the name of the hub to use (e.g., gitub.com/appfair).", valueName: "host/org"))
+    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("The name of the hub to use (e.g., gitub.com/appfair).", valueName: "host/org"))
     public var hub: String
 
-    @Option(name: [.long, .customShort("B")], help: ArgumentHelp("the name of the hub's base repository.", valueName: "repo"))
+    @Option(name: [.long, .customShort("B")], help: ArgumentHelp("The name of the hub's base repository.", valueName: "repo"))
     public var baseRepo: String = baseFairgroundRepoName
 
-    @Option(name: [.long, .customShort("k")], help: ArgumentHelp("the token used for the hub's authentication."))
+    @Option(name: [.long, .customShort("k")], help: ArgumentHelp("The token used for the hub's authentication."))
     public var token: String?
 
-    @Option(name: [.long], help: ArgumentHelp("name of the login that issues the fairseal.", valueName: "usr"))
+    @Option(name: [.long], help: ArgumentHelp("Name of the login that issues the fairseal.", valueName: "usr"))
     public var fairsealIssuer: String?
 
-    @Option(name: [.long], help: ArgumentHelp("the base64-encoded signing key for the fairseal issuer.", valueName: "key"))
+    @Option(name: [.long], help: ArgumentHelp("The base64-encoded signing key for the fairseal issuer.", valueName: "key"))
     public var fairsealKey: String?
 
     public init() { }
@@ -3100,7 +3275,7 @@ extension FairToolCommand {
 
 /// Options for how downloading remote files should work.
 public struct DownloadOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("location of folder for downloaded artifacts.", valueName: "dir"))
+    @Option(name: [.long], help: ArgumentHelp("Location of folder for downloaded artifacts.", valueName: "dir"))
     public var cacheFolder: String?
 
     public init() { }
@@ -3122,7 +3297,7 @@ public struct DownloadOptions: ParsableArguments {
             throw URLError(.badServerResponse)
         }
         if let cacheFolder = cacheFolder.flatMap(URL.init(fileURLWithPath:)),
-            FileManager.default.isDirectory(url: cacheFolder) == true {
+           FileManager.default.isDirectory(url: cacheFolder) == true {
             let cacheName = url.cachePathName // the full URL download
             let localURL = URL(fileURLWithPath: cacheName, relativeTo: cacheFolder)
             let _ = try? FileManager.default.trash(url: localURL) // in case it exists
@@ -3134,13 +3309,13 @@ public struct DownloadOptions: ParsableArguments {
 }
 
 public struct DelayOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("amount of time to wait between operations.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Amount of time to wait between operations.", valueName: "secs"))
     public var delay: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("min amount of time to wait between operations.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Min amount of time to wait between operations.", valueName: "secs"))
     public var delayMin: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("max amount of time to wait between operations.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Max amount of time to wait between operations.", valueName: "secs"))
     public var delayMax: TimeInterval?
 
     public init() { }
@@ -3159,10 +3334,10 @@ public struct DelayOptions: ParsableArguments {
 }
 
 public struct RetryOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("amount of time to continue re-trying downloading a resource.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Amount of time to continue re-trying downloading a resource.", valueName: "secs"))
     public var retryDuration: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("backoff time for waiting to retry.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Backoff time for waiting to retry.", valueName: "secs"))
     public var retryWait: TimeInterval = 30
 
     public init() { }
@@ -3346,17 +3521,15 @@ end
     }
 }
 
-/// A build configuration file, used to parse `fairground.xcconfig`.
+/// A generic configuration file, used to parse `fairground.xcconfig` and `.git/config`.
+///
 /// The format is a line-based key/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.
-public struct BuildSettings : RawRepresentable, Hashable {
-    public var rawValue: [String: String]
+/// Items can optionally be part of a "[section]"
+public struct EnvFile : RawRepresentable, Hashable {
+    public var rawValue: [String?: [String: String]]
 
-    public init(rawValue: [String : String]) {
+    public init(rawValue: [String?: [String: String]] = [:]) {
         self.rawValue = rawValue
-    }
-
-    public init() {
-        self.rawValue = [:]
     }
 
     public init(data: Data) throws {
@@ -3364,14 +3537,24 @@ public struct BuildSettings : RawRepresentable, Hashable {
             throw CocoaError(.coderInvalidValue)
         }
 
+        var currentSection: String? = nil
+
         self.rawValue = [:]
         for (index, line) in string.split(separator: "\n").enumerated() {
-            let nocomment = (line.components(separatedBy: "//").first ?? .init(line)).trimmed()
+            let nocomment = (line.components(separatedBy: "// ").first ?? .init(line)).trimmed()
             if nocomment.isEmpty { continue } // blank & comment-only lines are permitted
 
             let parts = nocomment.components(separatedBy: " = ")
             if parts.count != 2 {
-                throw AppError(String(format: NSLocalizedString("Error parsing line %lu: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), arguments: [index]))
+                // handle sectioned out properties, such as .git/config
+                if let section = parts.first?.trimmingCharacters(in: .whitespacesAndNewlines),
+                   section.first == "[",
+                   section.last == "]" {
+                    currentSection = section.dropFirst().dropLast().description
+                    continue
+                } else {
+                    throw AppError(String(format: NSLocalizedString("Error parsing line %lu: key value pairs must be separated by ' = '", bundle: .module, comment: "error message"), arguments: [index]))
+                }
             }
             guard let key = parts.first?.trimmed(), !key.isEmpty else {
                 throw AppError(String(format: NSLocalizedString("Error parsing line %lu: no key", bundle: .module, comment: "error message"), arguments: [index]))
@@ -3379,21 +3562,22 @@ public struct BuildSettings : RawRepresentable, Hashable {
             guard let value = parts.last?.trimmed(), !key.isEmpty else {
                 throw AppError(String(format: NSLocalizedString("Error parsing line %lu: no value", bundle: .module, comment: "error message"), arguments: [index]))
             }
-            self.rawValue[key] = value
+
+            self.rawValue[currentSection, default: [:]][key] = value
         }
     }
 
     public init(url: URL) throws {
-//        do {
-            let data = try Data(contentsOf: url)
-            try self.init(data: data)
-//        } catch {
-//            throw error.withInfo(for: NSLocalizedFailureReasonErrorKey, "Error loading from: \(url.absoluteString)")
-//        }
+        // do {
+        let data = try Data(contentsOf: url)
+        try self.init(data: data)
+        // } catch {
+        // throw error.withInfo(for: NSLocalizedFailureReasonErrorKey, "Error loading from: \(url.absoluteString)")
+        // }
     }
 
-    public subscript(path: String) -> String? {
-        rawValue[path]
+    public subscript(path: String, section section: String? = nil) -> String? {
+        rawValue[section]?[path]
     }
 }
 

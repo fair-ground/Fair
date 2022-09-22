@@ -100,12 +100,6 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem"
-      ],
-      "title" : "Structures"
-    },
-    {
-      "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/init()",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/init(from:)"
       ],
@@ -113,9 +107,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/apps",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/downloadOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/msgOptions"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/msgOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/projectOptions"
       ],
       "title" : "Instance Properties"
     },
@@ -293,37 +286,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/fairstructuredcommand-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/InfoItem": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCommand.InfoCommand.InfoItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/infoitem"
-},
 "doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/Output": {
   "abstract" : [
 
@@ -377,44 +339,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/parsablecommand-implementations"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/apps": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "apps"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/apps",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "apps",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/apps"
-},
 "doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/configuration-5rga3": {
   "abstract" : [
 
@@ -457,40 +381,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/configuration-5rga3"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/downloadOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "downloadOptions"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo15DownloadOptionsV",
-      "text" : "DownloadOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/downloadOptions",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "downloadOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/downloadoptions"
-},
 "doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/executeCommand()": {
   "abstract" : [
 
@@ -523,26 +413,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo10AppCommandV",
-      "text" : "AppCommand"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V",
-      "text" : "InfoCommand"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V0E4ItemV",
-      "text" : "InfoItem"
+      "preciseIdentifier" : "s:8FairExpo0A11ProjectInfoV",
+      "text" : "FairProjectInfo"
     },
     {
       "kind" : "text",
@@ -703,6 +575,40 @@
   "title" : "msgOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/msgoptions"
+},
+"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/projectOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "projectOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo14ProjectOptionsV",
+      "text" : "ProjectOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/projectOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "projectOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/projectoptions"
 },
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [

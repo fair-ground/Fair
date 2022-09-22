@@ -28,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo10AppCommandV04InfoD0V07executeD0ScsyAE0E4ItemVs5Error_pGyF",
+    "externalID" : "s:8FairExpo10AppCommandV04InfoD0V07executeD0ScsyAA0a7ProjectE0Vs5Error_pGyF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,26 +57,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo10AppCommandV",
-        "text" : "AppCommand"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V",
-        "text" : "InfoCommand"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V0E4ItemV",
-        "text" : "InfoItem"
+        "preciseIdentifier" : "s:8FairExpo0A11ProjectInfoV",
+        "text" : "FairProjectInfo"
       },
       {
         "kind" : "text",
@@ -139,30 +121,10 @@
               "text" : "<"
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairProjectInfo",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo10AppCommandV",
-              "text" : "AppCommand"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V",
-              "text" : "InfoCommand"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V0E4ItemV",
-              "text" : "InfoItem"
+              "preciseIdentifier" : "s:8FairExpo0A11ProjectInfoV",
+              "text" : "FairProjectInfo"
             },
             {
               "kind" : "text",
@@ -281,37 +243,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/InfoItem": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand\/InfoItem",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "InfoItem"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCommand.InfoCommand.InfoItem",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/infoitem"
-},
 "doc://FairExpo/documentation/FairExpo/AppCommand/InfoCommand/executeCommand()": {
   "abstract" : [
 
@@ -344,26 +275,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo10AppCommandV",
-      "text" : "AppCommand"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V",
-      "text" : "InfoCommand"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo10AppCommandV04InfoD0V0E4ItemV",
-      "text" : "InfoItem"
+      "preciseIdentifier" : "s:8FairExpo0A11ProjectInfoV",
+      "text" : "FairProjectInfo"
     },
     {
       "kind" : "text",
@@ -385,6 +298,37 @@
   "title" : "executeCommand()",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand\/executecommand()"
+},
+"doc://FairExpo/documentation/FairExpo/FairProjectInfo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairProjectInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairProjectInfo",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairProjectInfo"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairProjectInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairprojectinfo"
 }
 }
 }
