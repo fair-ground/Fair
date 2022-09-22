@@ -32,8 +32,8 @@ let package = Package(
         .library(name: "FairKit", targets: ["FairKit"]),
         .library(name: "FairExpo", targets: ["FairExpo"]),
         .executable(name: "fairtool", targets: ["FairTool"]),
-        .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]),
-    ],
+        macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
+    ].compactMap({ $0 }),
     dependencies: [
     ],
     targets: [
