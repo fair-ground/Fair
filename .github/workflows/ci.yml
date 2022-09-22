@@ -15,7 +15,7 @@
 #
 ##############################################################################
 
-name: Fair CI
+name: Platform Tests
 
 on:
   push:
@@ -58,6 +58,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 45
     env:
+      DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:

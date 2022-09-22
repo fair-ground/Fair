@@ -15,19 +15,18 @@
 #
 ##############################################################################
 
-name: Fair CI
+name: Documentation
 
 on:
   push:
     branches: [ main ]
-  pull_request_target:
-    branches:
-      - '*'
 
 jobs:
   api-doc:
     runs-on: macos-12 # needed to be able to document SwiftUI
     timeout-minutes: 20
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
     steps:
       - uses: actions/checkout@v2
       - name: Build documentation
