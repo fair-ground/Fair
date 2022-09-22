@@ -3,10 +3,12 @@ import PackageDescription
 
 #if os(Linux)
 let (linux, macOS, windows) = (true, false, false)
-#elseif os(Windows)
-let (linux, macOS, windows) = (false, false, true)
 #elseif os(macOS)
 let (linux, macOS, windows) = (false, true, false)
+#elseif os(Windows)
+let (linux, macOS, windows) = (false, false, true)
+#else
+let (linux, macOS, windows) = (false, false, false)
 #endif
 
 let package = Package(
