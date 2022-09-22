@@ -1,23 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "When called within an invocation of body of a view of this type,",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "View.debuggingViewChanges()",
+      "type" : "codeVoice"
     },
     {
-      "text" : "prints the names of the changed dynamic properties that caused the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "result of body to need to be refreshed.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -97,88 +89,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "As well as the physical property names,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "code" : "@self",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " is used to mark that the view value itself has changed, and",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "code" : "@identity",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " to mark that the identity of the view has changed",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "(i.e. that the persistent data associated with the view has been",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "recycled for a new instance of the same type).",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This is only called on iOS 15+ and when ",
-              "type" : "text"
-            },
-            {
-              "code" : "DEBUG",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " is set",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -267,26 +182,7 @@
 },
 "doc://FairKit/documentation/FairKit/TeaserButton/debuggingViewChanges()": {
   "abstract" : [
-    {
-      "text" : "When called within an invocation of body of a view of this type,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "prints the names of the changed dynamic properties that caused the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "result of body to need to be refreshed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

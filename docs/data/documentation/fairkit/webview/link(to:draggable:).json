@@ -1,19 +1,11 @@
 {
   "abstract" : [
     {
-      "text" : "Creates a ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "Link",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given URL, or the Text itself if the link is ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
+      "code" : "View.link(to:draggable:)",
       "type" : "codeVoice"
     },
     {
@@ -207,7 +199,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -296,26 +288,7 @@
 },
 "doc://FairKit/documentation/FairKit/WebView/link(to:draggable:)": {
   "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Link",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given URL, or the Text itself if the link is ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

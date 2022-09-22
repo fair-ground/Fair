@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Refreshes this view at the start of each minute. Useful for a label that displays",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "View.refreshingEveryMinute()",
+      "type" : "codeVoice"
     },
     {
-      "text" : "relative date text like: “Updated N minutes ago…”",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -123,7 +123,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -209,18 +209,7 @@
 },
 "doc://FairKit/documentation/FairKit/TriptychView/refreshingEveryMinute()": {
   "abstract" : [
-    {
-      "text" : "Refreshes this view at the start of each minute. Useful for a label that displays",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "relative date text like: “Updated N minutes ago…”",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

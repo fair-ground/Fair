@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -30,7 +24,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -281,26 +275,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppNameValidation/Errors/withInfo(for:_:prefix:)": {
   "abstract" : [
-    {
-      "text" : "Insert the given info into the user info dictionary key, pre-pending it to an existing message if it already exists.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "Note that this will lose the existing error type and wrap it in an ",
-      "type" : "text"
-    },
-    {
-      "code" : "NSError",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

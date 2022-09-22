@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Signs the JSON-serialized form of this data using the default encoding properties for this type",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "SigningContainer.sign(key:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -145,7 +153,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -234,10 +242,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/sign(key:)": {
   "abstract" : [
-    {
-      "text" : "Signs the JSON-serialized form of this data using the default encoding properties for this type",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

@@ -1,23 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Derives an array from this sequence ensuring that the value at the ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "Hashable",
+      "code" : "Sequence.uniquing(by:)",
       "type" : "codeVoice"
     },
     {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "keyPath",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " has not yet been uniquely seen.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -262,7 +254,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -367,26 +359,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/uniquing(by:)": {
   "abstract" : [
-    {
-      "text" : "Derives an array from this sequence ensuring that the value at the ",
-      "type" : "text"
-    },
-    {
-      "code" : "Hashable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "keyPath",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " has not yet been uniquely seen.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

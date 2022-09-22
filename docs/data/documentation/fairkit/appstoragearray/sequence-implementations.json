@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -309,14 +303,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/array()": {
   "abstract" : [
-    {
-      "text" : "Wraps this sequence in a new ",
-      "type" : "text"
-    },
-    {
-      "code" : "Array",
-      "type" : "codeVoice"
-    }
+
   ],
   "fragments" : [
     {
@@ -370,10 +357,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/asyncMap(_:)": {
   "abstract" : [
-    {
-      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -474,10 +458,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/breadthFirstIterator(children:)": {
   "abstract" : [
-    {
-      "text" : "Returns a breadth-first iterator over all the elements in the sequence.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -593,7 +574,7 @@
         "type" : "text"
       },
       {
-        "code" : "NSRect",
+        "code" : "CGRect",
         "type" : "codeVoice"
       },
       {
@@ -714,10 +695,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/compacted()": {
   "abstract" : [
-    {
-      "text" : "Filters out empty elements",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -845,10 +823,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/concurrentMap(priority:_:)": {
   "abstract" : [
-    {
-      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1131,10 +1106,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/depthFirstIterator(children:)": {
   "abstract" : [
-    {
-      "text" : "Returns a depth-first iterator over all the elements in the sequence.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1225,18 +1197,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/dictionary(latterPrecedence:keyedBy:)": {
   "abstract" : [
-    {
-      "text" : "Crrates a dictionary keying on the given ",
-      "type" : "text"
-    },
-    {
-      "code" : "key",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1355,10 +1316,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/distinct()": {
   "abstract" : [
-    {
-      "text" : "Returns the elements of this sequence by filtering out elements that are equatable to any earlier instance.",
-      "type" : "text"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -1703,7 +1661,7 @@
         "type" : "text"
       },
       {
-        "code" : "NSRect",
+        "code" : "CGRect",
         "type" : "codeVoice"
       },
       {
@@ -2185,10 +2143,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/flatTree(traverse:children:)": {
   "abstract" : [
-    {
-      "text" : "Returns a sequence that flattens a tree using either depth-first or breadth-first traversal.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -2476,10 +2431,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/grouping(by:)": {
   "abstract" : [
-    {
-      "text" : "Groups the sequence by the given hash key",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -2581,10 +2533,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/headAndTail-1j0v9": {
   "abstract" : [
-    {
-      "text" : "Returns the head element and tail elements of this sequence",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -3866,22 +3815,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/set()": {
   "abstract" : [
-    {
-      "text" : "Wraps this sequence of ",
-      "type" : "text"
-    },
-    {
-      "code" : "Hashable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " elements in a new ",
-      "type" : "text"
-    },
-    {
-      "code" : "Set",
-      "type" : "codeVoice"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -4422,10 +4356,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/sorting(by:ascending:)": {
   "abstract" : [
-    {
-      "text" : "Returns this sequence sorted by the given keypath of the element, either ascending (the default) or descending.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -4536,26 +4467,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/sorting(by:ascending:noneFirst:)": {
   "abstract" : [
-    {
-      "text" : "Returns this sequence sorted by the given optional keypath of the element, either ascending (the default) or descending",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with ",
-      "type" : "text"
-    },
-    {
-      "code" : "Optional.none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " elements sorted in the specified order.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -5074,26 +4986,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/uniquing(by:)": {
   "abstract" : [
-    {
-      "text" : "Derives an array from this sequence ensuring that the value at the ",
-      "type" : "text"
-    },
-    {
-      "code" : "Hashable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "keyPath",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " has not yet been uniquely seen.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

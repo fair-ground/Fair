@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Delegate optional initializer to the guaranteed initializer.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable.init(rawValue:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -119,30 +127,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the value to store in the representable",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "rawValue"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -409,10 +398,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/GetSponsorsQuery/QueryResponse/Repository-swift.struct/SponsorsListing/SponsorsGoal/KindName/init(rawValue:)-5zprk": {
   "abstract" : [
-    {
-      "text" : "Delegate optional initializer to the guaranteed initializer.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

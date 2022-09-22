@@ -1,23 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns this sequence sorted by the given optional keypath of the element, either ascending (the default) or descending",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with ",
-      "type" : "text"
-    },
-    {
-      "code" : "Optional.none",
+      "code" : "Sequence.sorting(by:ascending:noneFirst:)",
       "type" : "codeVoice"
     },
     {
-      "text" : " elements sorted in the specified order.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -324,102 +316,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "the sorted elements",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the block or keyPath to use for accessing a comparable",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "by"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "whether to sort in ascending (",
-                  "type" : "text"
-                },
-                {
-                  "code" : "true",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ") or descending (",
-                  "type" : "text"
-                },
-                {
-                  "code" : "false",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ") order",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "ascending"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "whether ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "Optional.none",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " elements should be sorted at the beginning of the list (the default) or the end.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "noneFirst"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -524,26 +425,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/sorting(by:ascending:noneFirst:)": {
   "abstract" : [
-    {
-      "text" : "Returns this sequence sorted by the given optional keypath of the element, either ascending (the default) or descending",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with ",
-      "type" : "text"
-    },
-    {
-      "code" : "Optional.none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " elements sorted in the specified order.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the debug form of the JSON",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable.debugJSON",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -108,7 +116,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -223,10 +231,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/Tweeter/PostResponse/debugJSON": {
   "abstract" : [
-    {
-      "text" : "Returns the debug form of the JSON",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

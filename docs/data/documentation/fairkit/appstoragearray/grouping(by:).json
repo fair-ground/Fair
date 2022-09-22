@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Groups the sequence by the given hash key",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.grouping(by:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -256,35 +264,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This merely invokes ",
-              "type" : "text"
-            },
-            {
-              "code" : "Dictionary.init(grouping:by:)",
-              "type" : "codeVoice"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -389,10 +373,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/grouping(by:)": {
   "abstract" : [
-    {
-      "text" : "Groups the sequence by the given hash key",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

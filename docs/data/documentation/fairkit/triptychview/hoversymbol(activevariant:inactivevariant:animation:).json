@@ -1,27 +1,11 @@
 {
   "abstract" : [
     {
-      "text" : "Causes the view to change its ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "SymbolVariants",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " when it is hovered.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "The animation only works with ",
-      "type" : "text"
-    },
-    {
-      "code" : "symbolRenderingMode(.hierarchical)",
+      "code" : "View.hoverSymbol(activeVariant:inactiveVariant:animation:)",
       "type" : "codeVoice"
     },
     {
@@ -263,7 +247,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -349,34 +333,7 @@
 },
 "doc://FairKit/documentation/FairKit/TriptychView/hoverSymbol(activeVariant:inactiveVariant:animation:)": {
   "abstract" : [
-    {
-      "text" : "Causes the view to change its ",
-      "type" : "text"
-    },
-    {
-      "code" : "SymbolVariants",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " when it is hovered.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "The animation only works with ",
-      "type" : "text"
-    },
-    {
-      "code" : "symbolRenderingMode(.hierarchical)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

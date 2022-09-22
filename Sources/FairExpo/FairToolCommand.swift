@@ -143,6 +143,10 @@ public struct FairToolCommand : AsyncParsableCommand {
             ]
         )
 
+    /// This is needed to handle execution of the tool from as a sandboxed command plugin
+    @Option(name: [.long], help: ArgumentHelp("list of targets to apply.", valueName: "target"))
+    public var target: Array<String> = []
+
     public init() {
     }
 
@@ -168,11 +172,19 @@ public struct FairToolCommand : AsyncParsableCommand {
 public struct AppCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "app",
-        abstract: "App and ipa package tools.",
-        shouldDisplay: !experimental,
-        subcommands: [
-            InfoCommand.self,
-        ])
+        abstract: "Commands for creating and validating an App Fair app.",
+        shouldDisplay: !experimental, subcommands: Self.subcommands)
+
+    #if os(macOS)
+    static let subcommands: [ParsableCommand.Type] = [
+        InfoCommand.self,
+        LocalizeCommand.self,
+    ]
+    #else
+    static let subcommands: [ParsableCommand.Type] = [
+        InfoCommand.self,
+    ]
+    #endif
 
     public init() {
     }
@@ -217,7 +229,87 @@ public struct AppCommand : AsyncParsableCommand {
             return try InfoItem(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
         }
     }
+
+    #if os(macOS)
+    public struct LocalizeCommand: FairMsgCommand {
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "localize",
+            abstract: "Generate Localized.strings files from source code.",
+            shouldDisplay: !experimental)
+
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
+
+        public init() {
+        }
+
+        public func run() async throws {
+            msg(.info, "Scanning strings for localization")
+
+            let locstr = "Localizable.strings"
+
+            let localizedStringsPath = projectOptions.projectPathURL(path: "Sources/App/Resources/en.lproj").appendingPathComponent(locstr)
+
+            var existingEncoding: String.Encoding = .utf8
+
+            // load the initial strings to check for changes
+            let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
+
+            let sourceFiles = try projectOptions.projectPathURL(path: "Sources").fileChildren(deep: true).filter { url in
+                url.pathExtension == "swift"
+            }
+
+            let tmp = projectOptions.projectPathURL(path: ".fairtool").appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
+
+            let args = ["genstrings", "-q", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
+            msg(.info, "running command:", args)
+            let cmd = try await Process.exec(cmd: "/usr/bin/xcrun", args: args)
+
+            let outputFile = tmp.appendingPathComponent(locstr)
+
+            var generatedEncoding: String.Encoding = .utf8
+            let generatedStrings = try String(contentsOf: outputFile, usedEncoding: &generatedEncoding)
+
+            msg(.info, "created strings file", outputFile.path, "encoding:", generatedEncoding)
+
+            if generatedStrings == existingStrings {
+                msg(.info, "No new localizations to add to:", localizedStringsPath.path)
+            } else {
+                try generatedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
+                msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
+            }
+        }
+    }
+    #endif
 }
+
+public struct ProjectOptions: ParsableArguments {
+    @Option(name: [.long, .customShort("p")], help: ArgumentHelp("the project to use."))
+    public var project: String?
+
+    @Option(name: [.long], help: ArgumentHelp("the path to the xcconfig containing metadata.", valueName: "xc"))
+    public var fairProperties: String?
+
+    public init() { }
+
+    /// The flag for the project folder
+    public var projectPathFlag: String {
+        self.project ?? FileManager.default.currentDirectoryPath
+    }
+
+    /// Loads the data for the project file at the given relative path
+    func projectPathURL(path: String) -> URL {
+        URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: projectPathFlag, isDirectory: true))
+    }
+
+    /// If the `--fair-properties` flag was specified, tries to parse the build settings
+    func buildSettings() throws -> BuildSettings? {
+        guard let fairProperties = self.fairProperties else { return nil }
+        return try BuildSettings(url: projectPathURL(path: fairProperties))
+    }
+}
+
 
 public struct SourceCommand : AsyncParsableCommand {
     public static let experimental = false
@@ -2101,32 +2193,6 @@ public struct FairCommand : AsyncParsableCommand {
         public var accentColor: String?
 
         public init() { }
-    }
-
-    public struct ProjectOptions: ParsableArguments {
-        @Option(name: [.long, .customShort("p")], help: ArgumentHelp("the project to use."))
-        public var project: String?
-
-        @Option(name: [.long], help: ArgumentHelp("the path to the xcconfig containing metadata.", valueName: "xc"))
-        public var fairProperties: String?
-
-        public init() { }
-
-        /// The flag for the project folder
-        public var projectPathFlag: String {
-            self.project ?? FileManager.default.currentDirectoryPath
-        }
-
-        /// Loads the data for the project file at the given relative path
-        func projectPathURL(path: String) -> URL {
-            URL(fileURLWithPath: path, isDirectory: false, relativeTo: URL(fileURLWithPath: projectPathFlag, isDirectory: true))
-        }
-
-        /// If the `--fair-properties` flag was specified, tries to parse the build settings
-        func buildSettings() throws -> BuildSettings? {
-            guard let fairProperties = self.fairProperties else { return nil }
-            return try BuildSettings(url: projectPathURL(path: fairProperties))
-        }
     }
 
     public struct OrgOptions: ParsableArguments {

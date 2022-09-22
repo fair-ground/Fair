@@ -107,7 +107,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -119,6 +119,12 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/init()"
       ],
       "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/appName"
+      ],
+      "title" : "Instance Properties"
     },
     {
       "identifiers" : [
@@ -209,6 +215,41 @@
   "title" : "SceneManager",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/scenemanager"
+},
+"doc://FairApp/documentation/FairApp/SceneManager/appName": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4TextV",
+      "text" : "Text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/appName",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "appName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/scenemanager\/appname"
 },
 "doc://FairApp/documentation/FairApp/SceneManager/configuration(for:)": {
   "abstract" : [

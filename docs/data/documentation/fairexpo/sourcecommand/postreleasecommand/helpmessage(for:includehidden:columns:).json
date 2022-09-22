@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the text of the help screen for the given subcommand of this",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "ParsableCommand.helpMessage(for:includeHidden:columns:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "command.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -226,154 +226,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The full help screen for this type.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The subcommand to generate the help screen for.",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "subcommand",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " must be declared in the subcommand tree of this",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "command.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "subcommand"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Include hidden help information in the generated",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "message.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "includeHidden"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The column width to use when wrapping long line in the",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "help screen. If ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "columns",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " is ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "nil",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ", uses the current terminal",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "width, or a default value of ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "80",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " if the terminal width is not",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "available.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "columns"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -482,18 +339,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/helpMessage(for:includeHidden:columns:)": {
   "abstract" : [
-    {
-      "text" : "Returns the text of the help screen for the given subcommand of this",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "command.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

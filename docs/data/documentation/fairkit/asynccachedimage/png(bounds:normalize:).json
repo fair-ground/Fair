@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Takes a snapshot of the view and returns the PNG data.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "View.png(bounds:normalize:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -175,76 +183,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "the PNG data for the view",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the bounds to draw; if ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "nil",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ", attempts to use the view’s ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "intrinsicContentSize",
-                  "type" : "codeVoice"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "viewBounds"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "whether to normalize to 0,0 origin",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "normalize"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -331,10 +274,7 @@
 },
 "doc://FairKit/documentation/FairKit/AsyncCachedImage/png(bounds:normalize:)": {
   "abstract" : [
-    {
-      "text" : "Takes a snapshot of the view and returns the PNG data.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

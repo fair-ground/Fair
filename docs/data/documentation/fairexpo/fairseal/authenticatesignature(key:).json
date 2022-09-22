@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Verifies that this payload was signed with the given key",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSONSignable.authenticateSignature(key:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -127,7 +135,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -216,10 +224,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/authenticateSignature(key:)": {
   "abstract" : [
-    {
-      "text" : "Verifies that this payload was signed with the given key",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

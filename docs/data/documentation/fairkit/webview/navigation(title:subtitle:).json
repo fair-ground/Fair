@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Configure the navigation title and subtitle for the type of device",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "View.navigation(title:subtitle:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -183,7 +191,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -272,10 +280,7 @@
 },
 "doc://FairKit/documentation/FairKit/WebView/navigation(title:subtitle:)": {
   "abstract" : [
-    {
-      "text" : "Configure the navigation title and subtitle for the type of device",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

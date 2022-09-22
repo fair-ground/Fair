@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -10750,26 +10744,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/button(action:)": {
   "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Button",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " with the given ",
-      "type" : "text"
-    },
-    {
-      "code" : "action",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -13818,26 +13793,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/debuggingViewChanges()": {
   "abstract" : [
-    {
-      "text" : "When called within an invocation of body of a view of this type,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "prints the names of the changed dynamic properties that caused the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "result of body to need to be refreshed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -17704,34 +17660,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/hoverSymbol(activeVariant:inactiveVariant:animation:)": {
   "abstract" : [
-    {
-      "text" : "Causes the view to change its ",
-      "type" : "text"
-    },
-    {
-      "code" : "SymbolVariants",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " when it is hovered.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "The animation only works with ",
-      "type" : "text"
-    },
-    {
-      "code" : "symbolRenderingMode(.hierarchical)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -18160,10 +18089,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/initialViewSize(_:)": {
   "abstract" : [
-    {
-      "text" : "The first time this window is shows, set the size to the given amount.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -18855,18 +18781,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:)": {
   "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Link",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given URL.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -18929,26 +18844,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:draggable:)": {
   "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Link",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given URL, or the Text itself if the link is ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -20045,10 +19941,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/navigation(title:subtitle:)": {
   "abstract" : [
-    {
-      "text" : "Configure the navigation title and subtitle for the type of device",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -20746,10 +20639,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/onChange(of:debounce:priority:perform:)": {
   "abstract" : [
-    {
-      "text" : "Performs the given asynchronous action after the specified delay with the option to cancel",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -24396,10 +24286,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/png(bounds:normalize:)": {
   "abstract" : [
-    {
-      "text" : "Takes a snapshot of the view and returns the PNG data.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -25747,18 +25634,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/refreshingEveryMinute()": {
   "abstract" : [
-    {
-      "text" : "Refreshes this view at the start of each minute. Useful for a label that displays",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "relative date text like: “Updated N minutes ago…”",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -30402,10 +30278,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/viewWrapper()": {
   "abstract" : [
-    {
-      "text" : "Derives a native view from this SwiftUI view",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

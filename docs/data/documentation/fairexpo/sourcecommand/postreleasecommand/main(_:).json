@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Executes this command, or one of its subcommands, with the given",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "ParsableCommand.main(_:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "arguments.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -140,110 +140,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "An array of arguments to use for parsing. If",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "arguments",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " is ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "nil",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : ", this uses the program’s command-line arguments.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "arguments"
-        }
-      ]
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This method parses an instance of this type, one of its subcommands, or",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "another built-in ",
-              "type" : "text"
-            },
-            {
-              "code" : "ParsableCommand",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " type, from command-line arguments,",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "and then calls its ",
-              "type" : "text"
-            },
-            {
-              "code" : "run()",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " method, exiting with a relevant error message",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "if necessary.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -352,18 +253,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand/main(_:)": {
   "abstract" : [
-    {
-      "text" : "Executes this command, or one of its subcommands, with the given",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "arguments.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

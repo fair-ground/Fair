@@ -81,7 +81,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-
+        "doc:\/\/FairKit\/objc(cs)WKWebView"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -107,8 +107,7 @@
         "doc:\/\/FairKit\/s28CustomDebugStringConvertibleP",
         "doc:\/\/FairKit\/s23CustomStringConvertibleP",
         "doc:\/\/FairKit\/SQ",
-        "doc:\/\/FairKit\/SH",
-        "doc:\/\/FairKit\/s8SendableP"
+        "doc:\/\/FairKit\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -117,20 +116,11 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
-  ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairKit\/documentation\/FairKit\/WebEngineView\/init(coder:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/WebEngineView\/init(frame:configuration:)"
-      ],
-      "title" : "Initializers"
-    }
   ],
   "variants" : [
     {
@@ -217,98 +207,10 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webengineview"
 },
-"doc://FairKit/documentation/FairKit/WebEngineView/init(coder:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "coder"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSCoder",
-      "text" : "NSCoder"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebEngineView\/init(coder:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(coder:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/webengineview\/init(coder:)"
-},
-"doc://FairKit/documentation/FairKit/WebEngineView/init(frame:configuration:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "frame"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:@S@CGRect",
-      "text" : "CGRect"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "configuration"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)WKWebViewConfiguration",
-      "text" : "WKWebViewConfiguration"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebEngineView\/init(frame:configuration:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(frame:configuration:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/webengineview\/init(frame:configuration:)"
+"doc://FairKit/objc(cs)WKWebView": {
+  "identifier" : "doc:\/\/FairKit\/objc(cs)WKWebView",
+  "title" : "WebKit.WKWebView",
+  "type" : "unresolvable"
 },
 "doc://FairKit/objc(pl)NSAccessibility": {
   "identifier" : "doc:\/\/FairKit\/objc(pl)NSAccessibility",
@@ -388,11 +290,6 @@
 "doc://FairKit/s7CVarArgP": {
   "identifier" : "doc:\/\/FairKit\/s7CVarArgP",
   "title" : "Swift.CVarArg",
-  "type" : "unresolvable"
-},
-"doc://FairKit/s8SendableP": {
-  "identifier" : "doc:\/\/FairKit\/s8SendableP",
-  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

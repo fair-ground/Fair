@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -93,7 +87,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -112,6 +106,12 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand\/init(from:)"
       ],
       "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand\/target"
+      ],
+      "title" : "Instance Properties"
     },
     {
       "identifiers" : [
@@ -431,6 +431,56 @@
   "title" : "init(from:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairtoolcommand\/init(from:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairToolCommand/target": {
+  "abstract" : [
+    {
+      "text" : "This is needed to handle execution of the tool from as a sandboxed command plugin",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "target"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sa",
+      "text" : "Array"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand\/target",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "target",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairtoolcommand\/target"
 }
 }
 }

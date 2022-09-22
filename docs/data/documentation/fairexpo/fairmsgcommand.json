@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -111,6 +105,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/InfoCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand\/AppCasksCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/CatalogCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/FairsealCommand",
@@ -133,7 +128,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -225,6 +220,37 @@
   "title" : "AppCommand.InfoCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/infocommand"
+},
+"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LocalizeCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LocalizeCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.LocalizeCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand"
 },
 "doc://FairExpo/documentation/FairExpo/BrewCommand/AppCasksCommand": {
   "abstract" : [

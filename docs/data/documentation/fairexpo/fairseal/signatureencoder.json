@@ -1,13 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "The default signature encoder uses the instance’s ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-      "isActive" : true,
-      "type" : "reference"
+      "code" : "SigningContainer.signatureEncoder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
     }
   ],
   "hierarchy" : {
@@ -128,7 +131,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -217,15 +220,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/signatureEncoder": {
   "abstract" : [
-    {
-      "text" : "The default signature encoder uses the instance’s ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-      "isActive" : true,
-      "type" : "reference"
-    }
+
   ],
   "fragments" : [
     {
@@ -264,18 +259,6 @@
   "title" : "signatureEncoder",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/signatureencoder"
-},
-"https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html": {
-  "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-  "title" : "JSON Canonicalization Scheme (JCS)",
-  "titleInlineContent" : [
-    {
-      "text" : "JSON Canonicalization Scheme (JCS)",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html"
 }
 }
 }

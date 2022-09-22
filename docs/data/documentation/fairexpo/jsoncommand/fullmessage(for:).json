@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns a full message for the given error, including usage information,",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "ParsableArguments.fullMessage(for:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "if appropriate.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -157,50 +157,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "A message that can be displayed to the user.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "An error to generate a message for.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "error"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -278,18 +239,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/JSONCommand/fullMessage(for:)": {
   "abstract" : [
-    {
-      "text" : "Returns a full message for the given error, including usage information,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "if appropriate.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

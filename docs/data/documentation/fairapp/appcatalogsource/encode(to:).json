@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "A ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "RawCodable",
+      "code" : "RawEncodable.encode(to:)",
       "type" : "codeVoice"
     },
     {
-      "text" : " serializes to the underlying type’s encoding with any intermediate wrapper",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -143,7 +143,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -335,18 +335,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppCatalogSource/encode(to:)": {
   "abstract" : [
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "RawCodable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " serializes to the underlying type’s encoding with any intermediate wrapper",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

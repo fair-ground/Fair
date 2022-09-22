@@ -283,7 +283,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -292,7 +292,6 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/Argument\/init()",
         "doc:\/\/FairCore\/documentation\/FairCore\/Argument\/init(from:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Argument\/init(help:completion:)-5jrny",
         "doc:\/\/FairCore\/documentation\/FairCore\/Argument\/init(help:completion:)-9fnnd",
@@ -409,67 +408,6 @@
   "title" : "Decodable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/argument\/decodable-implementations"
-},
-"doc://FairCore/documentation/FairCore/Argument/init()": {
-  "abstract" : [
-    {
-      "text" : "This initializer works around a quirk of property wrappers, where the",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "compiler will not see no-argument initializers in extensions. Explicitly",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "marking this initializer unavailable means that when ",
-      "type" : "text"
-    },
-    {
-      "code" : "Value",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " conforms to",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "ExpressibleByArgument",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", that overload will be selected instead.",
-      "type" : "text"
-    }
-  ],
-  "deprecated" : true,
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "()"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Argument\/init()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init()",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/argument\/init()"
 },
 "doc://FairCore/documentation/FairCore/Argument/init(from:)": {
   "abstract" : [

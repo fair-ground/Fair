@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -30,7 +24,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -150,18 +144,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/exit(withError:)": {
   "abstract" : [
-    {
-      "text" : "Terminates execution with a message and exit code that is appropriate",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "for the given error.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -220,10 +203,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/exitCode(for:)": {
   "abstract" : [
-    {
-      "text" : "Returns the exit code for the given error.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -282,18 +262,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/fullMessage(for:)": {
   "abstract" : [
-    {
-      "text" : "Returns a full message for the given error, including usage information,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "if appropriate.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -352,10 +321,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/helpMessage(includeHidden:columns:)": {
   "abstract" : [
-    {
-      "text" : "Returns the text of the help screen for this type.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -431,10 +397,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/message(for:)": {
   "abstract" : [
-    {
-      "text" : "Returns a brief message for the given error.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -493,10 +456,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/parse(_:)": {
   "abstract" : [
-    {
-      "text" : "Parses a new instance of this type from command-line arguments.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -554,18 +514,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/CreateCommand/parseOrExit(_:)": {
   "abstract" : [
-    {
-      "text" : "Parses a new instance of this type from command-line arguments or exits",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with a relevant message.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

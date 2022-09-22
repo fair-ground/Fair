@@ -395,8 +395,8 @@ final class FairExpoTests: XCTestCase {
     }
 
     func testCatalogPost() async throws {
-        let pre = try Bundle.module.loadBundleResource(named: "fairapps-pre.json")
-        let post = try Bundle.module.loadBundleResource(named: "fairapps-post.json")
+        let pre = try Bundle.module.loadResource(named: "fairapps-pre.json")
+        let post = try Bundle.module.loadResource(named: "fairapps-post.json")
         XCTAssertNotEqual(pre, post)
 
         let cat1 = try AppCatalog.parse(jsonData: pre)

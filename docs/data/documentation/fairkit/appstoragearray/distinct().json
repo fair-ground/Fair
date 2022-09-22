@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the elements of this sequence by filtering out elements that are equatable to any earlier instance.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.distinct()",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -149,7 +157,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -254,10 +262,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/distinct()": {
   "abstract" : [
-    {
-      "text" : "Returns the elements of this sequence by filtering out elements that are equatable to any earlier instance.",
-      "type" : "text"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [

@@ -1,20 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "Wraps this sequence of ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "Hashable",
+      "code" : "Sequence.set()",
       "type" : "codeVoice"
     },
     {
-      "text" : " elements in a new ",
+      "text" : ".",
       "type" : "text"
-    },
-    {
-      "code" : "Set",
-      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
@@ -179,7 +175,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -284,22 +280,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/set()": {
   "abstract" : [
-    {
-      "text" : "Wraps this sequence of ",
-      "type" : "text"
-    },
-    {
-      "code" : "Hashable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " elements in a new ",
-      "type" : "text"
-    },
-    {
-      "code" : "Set",
-      "type" : "codeVoice"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [

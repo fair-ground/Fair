@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.asyncMap(_:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -245,7 +253,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -350,10 +358,7 @@
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/asyncMap(_:)": {
   "abstract" : [
-    {
-      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

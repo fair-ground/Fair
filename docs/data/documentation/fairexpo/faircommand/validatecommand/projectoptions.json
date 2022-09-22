@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -20,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A7CommandV08ValidateC0V14projectOptionsAC07ProjectF0Vvp",
+    "externalID" : "s:8FairExpo0A7CommandV08ValidateC0V14projectOptionsAA07ProjectF0Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,16 +34,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo0A7CommandV",
-        "text" : "FairCommand"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo0A7CommandV14ProjectOptionsV",
+        "preciseIdentifier" : "s:8FairExpo14ProjectOptionsV",
         "text" : "ProjectOptions"
       }
     ],
@@ -91,19 +76,9 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/ProjectOptions",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo0A7CommandV",
-              "text" : "FairCommand"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/ProjectOptions",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo0A7CommandV14ProjectOptionsV",
+              "preciseIdentifier" : "s:8FairExpo14ProjectOptionsV",
               "text" : "ProjectOptions"
             },
             {
@@ -134,7 +109,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -199,37 +174,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/ProjectOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ProjectOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/ProjectOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ProjectOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairCommand.ProjectOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/projectoptions"
-},
 "doc://FairExpo/documentation/FairExpo/FairCommand/ValidateCommand": {
   "abstract" : [
 
@@ -284,16 +228,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A7CommandV",
-      "text" : "FairCommand"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo0A7CommandV14ProjectOptionsV",
+      "preciseIdentifier" : "s:8FairExpo14ProjectOptionsV",
       "text" : "ProjectOptions"
     }
   ],
@@ -303,6 +238,37 @@
   "title" : "projectOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/validatecommand\/projectoptions"
+},
+"doc://FairExpo/documentation/FairExpo/ProjectOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ProjectOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/ProjectOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ProjectOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ProjectOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/projectoptions"
 }
 }
 }

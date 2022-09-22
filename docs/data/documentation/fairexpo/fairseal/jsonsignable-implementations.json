@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -117,10 +111,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/authenticateSignature(key:)": {
   "abstract" : [
-    {
-      "text" : "Verifies that this payload was signed with the given key",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -170,18 +161,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/embedSignature(key:)": {
   "abstract" : [
-    {
-      "text" : "This will clear the current signature, generate a signature for the payload,",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "and them embed the signature back into the type.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

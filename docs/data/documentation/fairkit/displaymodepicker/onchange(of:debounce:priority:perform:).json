@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Performs the given asynchronous action after the specified delay with the option to cancel",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "View.onChange(of:debounce:priority:perform:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -332,39 +340,11 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "Example usage:",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "code" : [
-            "TextField(text: $searchText)",
-            "   .onChange(of: searchText, debounce: 0.20, action: updateSearchResults) \/\/ a brief delay to allow for more responsive typing"
-          ],
-          "syntax" : null,
-          "type" : "codeListing"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -450,10 +430,7 @@
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/onChange(of:debounce:priority:perform:)": {
   "abstract" : [
-    {
-      "text" : "Performs the given asynchronous action after the specified delay with the option to cancel",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

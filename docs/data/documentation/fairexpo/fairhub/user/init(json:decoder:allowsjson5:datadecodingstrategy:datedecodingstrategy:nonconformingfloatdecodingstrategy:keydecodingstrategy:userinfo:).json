@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Initialized this instance from a JSON string",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable.init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -446,7 +454,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -558,10 +566,7 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/User/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)": {
   "abstract" : [
-    {
-      "text" : "Initialized this instance from a JSON string",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
