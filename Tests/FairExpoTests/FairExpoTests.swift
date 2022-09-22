@@ -179,7 +179,7 @@ final class FairExpoTests: XCTestCase {
 
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
     func testAppInfoCommandiOS() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: ArtifactCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString])
+        let (result, _) = try await runToolOutput(ArtifactCommand.self, cmd: ArtifactCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(0, result.first?.entitlements?.count, "no entitlements expected in this ios app")

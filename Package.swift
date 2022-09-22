@@ -9,17 +9,6 @@ let (linux, macOS, windows) = (false, false, true)
 let (linux, macOS, windows) = (false, true, false)
 #endif
 
-#if canImport(Compression)
-let coreTargets: [Target] = [
-    .target(name: "FairCore", resources: [.process("Resources")]),
-]
-#else
-let coreTargets: [Target] = [
-    .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
-    .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
-]
-#endif
-
 let package = Package(
     name: "Fair",
     defaultLocalization: "en",
