@@ -32,8 +32,8 @@ let package = Package(
         .library(name: "FairKit", targets: ["FairKit"]),
         .library(name: "FairExpo", targets: ["FairExpo"]),
         .executable(name: "fairtool", targets: ["FairTool"]),
-        .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]),
-    ],
+        macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
+    ].compactMap({ $0 }),
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
