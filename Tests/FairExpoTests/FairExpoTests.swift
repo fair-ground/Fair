@@ -187,7 +187,7 @@ final class FairExpoTests: XCTestCase {
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
     func testAppInfoCommandMacOS() async throws {
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .macOS).absoluteString])
+        let (result, _) = try await runToolOutput(ArchiveCommand.self, cmd: ArchiveCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .macOS).absoluteString])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
@@ -297,7 +297,7 @@ final class FairExpoTests: XCTestCase {
 //        if !FileManager.default.itemExists(at: URL(fileURLWithPath: stocksPath)) {
 //            throw XCTSkip("no stocks app") // e.g., Linux
 //        }
-        let (result, _) = try await runToolOutput(AppCommand.self, cmd: AppCommand.InfoCommand.self, [stocksPath])
+        let (result, _) = try await runToolOutput(ArchiveCommand.self, cmd: ArchiveCommand.InfoCommand.self, [stocksPath])
 
         XCTAssertEqual("com.apple.stocks", result.first?.info.obj?["CFBundleIdentifier"]?.str)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
