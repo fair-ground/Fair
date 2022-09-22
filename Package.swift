@@ -37,13 +37,14 @@ let package = Package(
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
-        .target(name: "FairCore", dependencies: linux ? ["CZLib"] : [], resources: [.process("Resources")]),
+        .target(name: "FairCore", dependencies: linux ? ["CZLib"] : [], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
         .executableTarget(name: "FairTool", dependencies: ["FairExpo"]),
-        .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["FairTool"]),
+
+        macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["FairTool"]) : nil,
 
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
