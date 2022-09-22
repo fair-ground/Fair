@@ -67,7 +67,7 @@ Build complete! (9.94s)
 fairtool 0.4.52
 ```
 
-### fairtool app info _file_.app
+### fairtool artifact info _file_.app
 
 The "app info" command will examine a macOS `.app` folder 
 or an unencrypted `.ipa` file or url
@@ -76,7 +76,7 @@ and output a JSON representation of the contents of the app's
 app's primary executable.
 
 ```json5
-// fairtool app info /System/Applications/Calculator.app
+// fairtool artifact info /System/Applications/Calculator.app
 [
   {
     "entitlements" : [
@@ -141,13 +141,13 @@ the binary. Note that in the case of multi-architecture binaries
 output for each processor architectures in the Mach-O binary.
 
 
-### fairtool app info _url_.ipa
+### fairtool artifact info _url_.ipa
 
 The fairtool can also output the same information for an unencrypted
 iOS .ipa file, either a local file or a remote URL:
 
 ```json5
-// fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
+// fairtool artifact info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-iOS.ipa
 [
   {
     "entitlements": [],
@@ -221,7 +221,7 @@ filter, and re-structure JSON. For example, to examine an app's
 privacy-sensitive operations the app is capable of performing), you might run:
 
 ```
-% fairtool app info /Applications/Signal.app | jq '.[].info | with_entries(select(.key|match("UsageDescription")))[]'
+% fairtool artifact info /Applications/Signal.app | jq '.[].info | with_entries(select(.key|match("UsageDescription")))[]'
 
 "This app needs access to Bluetooth"
 "This app needs access to the camera"
@@ -232,7 +232,7 @@ Another useful application might be to download and check the
 version of an online app download. For example:
 
 ```
-% fairtool app info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip | jq '.[].info.CFBundleShortVersionString'
+% fairtool artifact info https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip | jq '.[].info.CFBundleShortVersionString'
 
 downloading from URL: https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip
 extracting info: https://github.com/Cloud-Cuckoo/App/releases/latest/download/Cloud-Cuckoo-macOS.zip
@@ -250,7 +250,7 @@ acquired and analyzed.
 For example, the following command may take some time to complete:
 
 ```
-% fairtool app info /System/Applications/*.app | jq '.[].info.CFBundleName'
+% fairtool artifact info /System/Applications/*.app | jq '.[].info.CFBundleName'
 
 "App Store"
 "Automator"
@@ -274,7 +274,7 @@ which will then enable `jq` to process them as they are produced.
 Contrast this command with the one above:
 
 ```
-% fairtool app info -J /System/Applications/*.app | jq '.info.CFBundleName'
+% fairtool artifact info -J /System/Applications/*.app | jq '.info.CFBundleName'
 ```
 
 The output will be the same, but the latter command with the `-J`
@@ -286,7 +286,7 @@ access to online resources, or when processing may archives at once.
 ### fairtool source create
 
 The `fairtool source create` command will analyze the information
-from `fairtool app info` and generate an App Source Catalog JSON blob. 
+from `fairtool artifact info` and generate an App Source Catalog JSON blob. 
 This catalog format is supported by app installation tools like
 [The App Fair](https://appfair.app) on macOS and
 [AltStore](https://altstore.io) on iOS.

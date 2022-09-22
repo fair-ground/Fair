@@ -48,8 +48,8 @@ public extension Bundle {
 
 public extension Bundle {
     /// Returns the bundle's `infoDictionary` key value
-    subscript<T>(info key: PropertyListKey) -> T? {
-        self.infoDictionary?[key.plistKey] as? T
+    subscript<T>(info key: PropertyListKey, localized localized: Bool = false) -> T? {
+        (localized ? localizedInfoDictionary?[key.plistKey] : infoDictionary?[key.plistKey]) as? T
     }
 
     /// The bundle's `CFBundleName`

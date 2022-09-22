@@ -69,6 +69,15 @@ public extension Bundle {
         Bundle.main.bundleDisplayName ?? Bundle.main.bundleName ?? "App Name"
     }
 
+    /// Returns the localized name of this app from the bundle information.
+    static var localizedAppName: String {
+        Bundle.module[info: .CFBundleDisplayName, localized: true]
+            ?? Bundle.main[info: .CFBundleDisplayName, localized: true]
+            ?? Bundle.main[info: .CFBundleName, localized: false]
+            ?? Bundle.module[info: .CFBundleName, localized: false]
+            ?? "App"
+    }
+
     /// Whether this is the fair-ground catalog browser app itself
     var isCatalogBrowserApp: Bool {
         bundleIdentifier == "app.\(Self.catalogBrowserAppOrg)"
@@ -235,7 +244,6 @@ public extension FairContainer {
 
 /// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
 @MainActor public protocol SceneManager: ObservableObject {
-    var appName: Text { get }
     init()
 }
 
