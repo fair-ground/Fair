@@ -233,19 +233,22 @@ public struct ArtifactCommand : AsyncParsableCommand {
     }
 }
 
-#if os(macOS)
-
 public struct AppCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "app",
                                                            abstract: "Commands for creating and validating an App Fair app.",
                                                            shouldDisplay: !experimental, subcommands: Self.subcommands)
-
+#if os(macOS)
     static let subcommands: [ParsableCommand.Type] = [
         InfoCommand.self,
         RefreshCommand.self,
         LocalizeCommand.self,
     ]
+#else
+    static let subcommands: [ParsableCommand.Type] = [
+        InfoCommand.self,
+    ]
+#endif
 
     public init() {
     }
@@ -271,6 +274,8 @@ public struct AppCommand : AsyncParsableCommand {
             }
         }
     }
+
+#if os(macOS)
 
     /// An aggregate command that performs the following tasks:
     ///
@@ -325,6 +330,8 @@ public struct AppCommand : AsyncParsableCommand {
             try await generateLocalizedStrings()
         }
     }
+
+#endif
 }
 
 protocol FairProjectCommand : FairMsgCommand {
@@ -402,6 +409,7 @@ extension FairAppCommand {
         }
     }
 
+#if os(macOS)
     /// Run `genstrings` on the source files in the project.
     func generateLocalizedStrings() async throws {
         //msg(.info, "Scanning strings for localization")
@@ -453,10 +461,10 @@ extension FairAppCommand {
         }
 
     }
+#endif
 
 }
 
-#endif
 
 
 public struct ProjectOptions: ParsableArguments {
