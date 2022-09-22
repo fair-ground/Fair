@@ -37,11 +37,6 @@ import FoundationNetworking
 #endif
 
 final class FairCoreTests: XCTestCase {
-    func testFairBundle() throws {
-        let readme = try Bundle.fairCore.loadBundleResource(named: "README.md")
-        XCTAssertGreaterThan(readme.count, 50)
-    }
-
     func testXOrOr() throws {
         typealias StringOrInt = XOr<String>.Or<Int>
         let str = StringOrInt("ABC")

@@ -35,6 +35,12 @@ import Foundation
 
 public extension Bundle {
     /// The URL for the `Fair` module's resource bundle
+    static var fairAssetsURL: URL! {
+        Bundle.module.url(forResource: "Assets", withExtension: nil)
+    }
+
+    /// The "Bundle" path is no longer used (becauses it confuses Xcode). Renamed to "Assets".
+    @available(*, deprecated, renamed: "fairAssetsURL")
     static var fairBundleURL: URL! {
         Bundle.module.url(forResource: "Bundle", withExtension: nil)
     }
@@ -85,9 +91,9 @@ extension Bundle {
     /// The version of the FairCore library in use
     public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0, prerelease: false) })
 
-    /// Returns all the URLs in the given folder of the bundle
-    public func bundlePaths(in folder: String, includeLinks: Bool, includeFolders: Bool) throws -> [URL] {
-        guard let bundleURL = url(forResource: folder, withExtension: nil, subdirectory: "Bundle") else {
+    /// Returns all the URLs in the given asset path of the bundle
+    public func assetPaths(in folder: String, includeLinks: Bool, includeFolders: Bool) throws -> [URL] {
+        guard let bundleURL = url(forResource: folder, withExtension: nil, subdirectory: "Assets") else {
             throw CocoaError(.fileReadNoSuchFile)
         }
 
@@ -102,9 +108,9 @@ extension Bundle {
         return try Data(contentsOf: url, options: options)
     }
 
-    /// Loads the resource with the given name from the `Bundle` resource path, which can be used to store non-flattened resource hierarchies
-    public func loadBundleResource(named name: String, options: Data.ReadingOptions = .mappedIfSafe) throws -> Data {
-        guard let url = url(forResource: name, withExtension: nil, subdirectory: "Bundle") else {
+    /// Loads the resource with the given name from the `Assets` resource path, which can be used to store non-flattened resource hierarchies
+    public func loadBundleAsset(named name: String, options: Data.ReadingOptions = .mappedIfSafe) throws -> Data {
+        guard let url = url(forResource: name, withExtension: nil, subdirectory: "Assets") else {
             throw CocoaError(.fileReadNoSuchFile)
         }
         return try Data(contentsOf: url, options: options)

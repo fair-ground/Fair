@@ -233,18 +233,11 @@ public extension FairContainer {
     }
 }
 
-#if swift(>=5.5)
 /// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
 @MainActor public protocol SceneManager: ObservableObject {
+    var appName: Text { get }
     init()
 }
-#else
-/// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
-@available(macOS 11.0, iOS 14.0, *)
-public protocol SceneManager: ObservableObject {
-    init()
-}
-#endif
 
 public extension SceneManager {
     /// The shared static configuration for the bundle of this instance, which is stored in the `App.yml` resource.
