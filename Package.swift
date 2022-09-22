@@ -1,6 +1,14 @@
 // swift-tools-version:5.6
 import PackageDescription
 
+#if os(Linux)
+let (linux, macOS, windows) = (true, false, false)
+#elseif os(Windows)
+let (linux, macOS, windows) = (false, false, true)
+#elseif os(macOS)
+let (linux, macOS, windows) = (false, true, false)
+#endif
+
 #if canImport(Compression)
 let coreTargets: [Target] = [
     .target(name: "FairCore", resources: [.process("Resources")]),
@@ -28,7 +36,8 @@ let package = Package(
     ],
     dependencies: [
     ],
-    targets: coreTargets + [
+    targets: [
+        .target(name: "FairCore", dependencies: linux ? ["CZLib"] : [], resources: [.process("Resources")]),
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
@@ -40,6 +49,8 @@ let package = Package(
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
         .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")], resources: [.process("Resources")]),
         .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
-        .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")], resources: [.process("Resources")])
-    ]
+        .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")], resources: [.process("Resources")]),
+
+        linux ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
+    ].compactMap({ $0 })
 )
