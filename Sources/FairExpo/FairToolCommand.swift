@@ -1401,7 +1401,6 @@ public struct FairCommand : AsyncParsableCommand {
 
             // 6. Check Sources/
             try compareContents(of: "Sources/App/AppMain.swift", partial: false)
-            try compareContents(of: "Sources/App/Bundle/LICENSE.txt", partial: false)
 
             // 7. Check Package.resolved if it exists and we've specified the hub to validate
             if let packageResolvedData = try? load(url: projectOptions.projectPathURL(path: "Package.resolved")) {
