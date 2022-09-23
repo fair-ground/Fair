@@ -407,7 +407,7 @@ extension FairContainer {
 
         do {
             let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: bundle.loadResource(named: "Package.resolved"))
-            for dep in packageResolved.object.pins {
+            for dep in packageResolved.object?.pins ?? [] {
                 let packageVersion = dep.state.version ?? dep.state.branch ?? "none"
                 print("  Dependency: " + dep.package + " " + packageVersion + " " + (dep.state.revision ?? ""), to: &out)
             }
@@ -899,7 +899,7 @@ public struct AppError : LocalizedError {
 
 /// The contents of a `Package.resolved` file
 public struct ResolvedPackage: Codable, Equatable {
-    public var object: Pins
+    public var object: Pins?
     public var version: Int
 
     public struct Pins: Codable, Equatable {
