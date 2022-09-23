@@ -560,7 +560,7 @@ final class FairAppTests: XCTestCase {
         """
 
         let pm = try JSONDecoder().decode(ResolvedPackage.self, from: resolved.utf8Data)
-        XCTAssertEqual(2, pm.object.pins.count)
+        XCTAssertEqual(2, pm.object?.pins.count ?? 0)
     }
 
     /// Ensures that a bare-bones minimal catalog can be loaded

@@ -1412,7 +1412,7 @@ public struct FairCommand : AsyncParsableCommand {
                     // e.g., permit GitLab apps depending on projects in GitHub repos
                     let host = hubURL.deletingLastPathComponent().deletingLastPathComponent()
                     //dbg("verifying hub host:", host)
-                    for pin in packageResolved.object.pins {
+                    for pin in packageResolved.object?.pins ?? [] {
                         if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
                             throw FairToolCommand.Errors.badRepository(host.absoluteString, pin.repositoryURL)
                         }
