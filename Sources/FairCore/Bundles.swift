@@ -485,6 +485,31 @@ extension FileManager {
         #endif
     }
 
+    /// Updates the contents of the project resource at the given relative path.
+    ///
+    /// - Parameters:
+    ///   - url: the url to write to
+    ///   - contents: the contents to write; `nil` deletes the file
+    /// - Returns: the previous data if it was changed or removed, or nil if no write operation was performed
+    @discardableResult public func update(url: URL, with contents: Data?) throws -> Data? {
+        // we simply ignore read errors and treat them as if the file does not exist
+        let existing = try? Data(contentsOf: url)
+        if let contents = contents {
+            if contents != existing {
+                try contents.write(to: url)
+                return existing
+            } else {
+                return nil // no changes
+            }
+        } else {
+            if existing != nil {
+                try removeItem(at: url)
+                return existing
+            } else {
+                return nil
+            }
+        }
+    }
 }
 
 public extension URL {

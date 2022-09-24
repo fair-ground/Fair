@@ -206,8 +206,7 @@ extension AppBundle {
                 // dbg("missing Info.plist node from:", contents.map(\.pathName))
                 return nil
             }
-            dbg("found Info.plist node:", infoNode.pathName) // , "from:", contents.map(\.pathName))
-
+            //dbg("found Info.plist node:", infoNode.pathName) // , "from:", contents.map(\.pathName))
             return try (loadPlist(from: infoNode), parent: node, node: infoNode)
         }
 
