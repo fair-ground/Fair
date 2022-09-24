@@ -301,8 +301,9 @@ public struct AppCommand : AsyncParsableCommand {
             let info = try parseGitConfig(from: URL(fileURLWithPath: projectOptions.projectPathFlag))
             msg(.info, "refreshing project:", info.url)
 
+            let fm = FileManager.default
             let host = info.url.deletingLastPathComponent().lastPathComponent.lowercased() + ".appfair.net"
-            if try update(path: "docs/CNAME", contents: host.utf8Data) {
+            if try fm.update(url: projectOptions.projectPathURL(path: "docs/CNAME"), with: host.utf8Data) != nil {
                 msg(.info, "set landing page:", host)
             }
 
@@ -365,7 +366,7 @@ extension FairProjectCommand {
         let baseURL = originURL.deletingLastPathComponent().deletingLastPathComponent()
 
         if baseURL.absoluteString != "https://github.com/" {
-            throw AppError(String(format: NSLocalizedString("Unsuported repository host: %@", bundle: .module, comment: "error message"), arguments: [baseURL.absoluteString]))
+            throw AppError(String(format: NSLocalizedString("Unsupported repository host: %@", bundle: .module, comment: "error message"), arguments: [baseURL.absoluteString]))
         }
 
         if repoName != "App.git" && repoName != "App" {
@@ -384,30 +385,6 @@ protocol FairAppCommand : FairProjectCommand {
 }
 
 extension FairAppCommand {
-    /// Updates the contents of the project resource at the given relative path.
-    ///
-    /// - Parameters:
-    ///   - path: the relative path to write to
-    ///   - contents: the contents to write; `nil` deletes the file
-    /// - Returns: true of the file was modified or delete, false if it was unchanged
-    @discardableResult func update(path: String, contents: Data?, encoding: String.Encoding = .utf8) throws -> Bool {
-        let url = projectOptions.projectPathURL(path: path)
-        if let contents = contents {
-            if contents != (try? Data(contentsOf: url)) {
-                try contents.write(to: url)
-                return true
-            } else {
-                return false // no changes
-            }
-        } else {
-            if FileManager.default.isReadableFile(atPath: url.path) {
-                try FileManager.default.removeItem(at: url)
-                return true
-            } else {
-                return false
-            }
-        }
-    }
 
 #if os(macOS)
     /// Run `genstrings` on the source files in the project.
