@@ -50,6 +50,7 @@ jobs:
 
       - name: Check fairtool formula
         run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew install fair-ground/tool/fairtool-head
           brew test fairtool-head
           fairtool-head version
