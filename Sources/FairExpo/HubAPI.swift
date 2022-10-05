@@ -275,8 +275,6 @@ extension FairHub {
                 let appTitle = fork.name
                 let forkURL = URL(string: "https://github.com/")!.appendingPathComponent(fork.nameWithOwner)
 
-                // https://raw.githubusercontent.com/fairapps/World-Fair.JackScript/main/Jack.javascript
-
                 var app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, downloadURL: forkURL)
 
                 app.subtitle = subtitle

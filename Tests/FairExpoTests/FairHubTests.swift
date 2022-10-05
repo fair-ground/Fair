@@ -291,8 +291,6 @@ final class FairHubTests: XCTestCase {
         XCTAssertNotNil(app.versionDate, "missing versionDate in app: \(app.bundleIdentifier)")
         XCTAssertNotNil(app.sha256, "missing sha256 in app: \(app.bundleIdentifier)")
         XCTAssertNotNil(app.stats?.downloadCount, "missing downloadCount in app: \(app.bundleIdentifier)")
-        XCTAssertNotNil(app.categories, "missing categories in app: \(app.bundleIdentifier)")
-
 
         if let fundingPlatform = fundingPlatform {
             if let link = app.fundingLinks?.first {
