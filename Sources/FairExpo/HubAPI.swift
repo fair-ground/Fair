@@ -275,7 +275,6 @@ extension FairHub {
                 let appTitle = fork.name
                 let forkURL = URL(string: "https://github.com/")!.appendingPathComponent(fork.nameWithOwner)
 
-                let appTitle =
                 var app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, downloadURL: forkURL)
 
                 app.subtitle = subtitle
