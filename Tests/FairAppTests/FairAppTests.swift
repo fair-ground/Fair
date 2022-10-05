@@ -581,6 +581,13 @@ final class FairAppTests: XCTestCase {
 
         XCTAssertEqual("My App", catalog.apps.first?.name)
     }
+
+    #if canImport(Darwin)
+    func testMemoryUsage() {
+        dbg("memory usage:", ProcessInfo.memoryUsage())
+        XCTAssertNotNil(ProcessInfo.memoryUsage())
+    }
+    #endif
 }
 
 #endif
