@@ -304,3 +304,22 @@ extension Process {
     #endif
 }
 #endif // os(macOS) || os(Linux) || os(Windows)
+
+
+#if canImport(Darwin)
+import Darwin
+
+extension ProcessInfo {
+    /// The `resident_size` of memory in use by the process, in megabytes.
+    public static func memoryUsage() -> Float? {
+        var info = mach_task_basic_info()
+        var count = mach_msg_type_number_t(MemoryLayout.size(ofValue: info) / MemoryLayout<integer_t>.size)
+        let kerr = withUnsafeMutablePointer(to: &info) { infoPtr in
+            infoPtr.withMemoryRebound(to: integer_t.self, capacity: Int(count)) {
+                task_info(mach_task_self_, task_flavor_t(MACH_TASK_BASIC_INFO), $0, &count)
+            }
+        }
+        return kerr == KERN_SUCCESS ? Float(info.resident_size) / (1024 * 1024) : nil
+    }
+}
+#endif

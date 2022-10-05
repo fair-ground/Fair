@@ -1736,12 +1736,14 @@ public struct FairCommand : AsyncParsableCommand {
             // whether to enforce a fairseal check before the app will be listed in the catalog
             let fairsealCheck = true // options.fairseal.contains("skip") != true
 
-            let artifactTarget: ArtifactTarget
+            let artifactTarget: ArtifactTarget?
             switch caskOptions.artifactExtension.first ?? "zip" {
             case "ipa":
                 artifactTarget = ArtifactTarget(artifactType: "ipa", devices: ["iphone", "ipad"])
-            case "zip", _:
+            case "zip":
                 artifactTarget = ArtifactTarget(artifactType: "zip", devices: ["mac"])
+            default:
+                artifactTarget = nil
             }
 
             let configuration = try regOptions.createProjectConfiguration()

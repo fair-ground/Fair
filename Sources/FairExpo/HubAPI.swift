@@ -189,7 +189,7 @@ extension FairHub {
     }
 
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
+    func buildCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
@@ -219,37 +219,31 @@ extension FairHub {
             return lhs.bundleIdentifier < rhs.bundleIdentifier
         }
 
-        let macOS = artifactTarget.devices.contains("mac")
+        let macOS = artifactTarget?.devices.contains("mac") == true
+        let iOS = macOS == false && artifactTarget != nil // artifactTarget?.devices.contains("ios") == true
         let catalogURL = sourceURL
-        let catalog = AppCatalog(name: title, identifier: identifier, platform: macOS ? .macOS : .iOS, sourceURL: catalogURL, apps: apps, news: news)
+        let catalog = AppCatalog(name: title, identifier: identifier, platform: macOS ? .macOS : iOS ? .iOS : nil, sourceURL: catalogURL, apps: apps, news: news)
         return catalog
     }
 
-    func createAppCatalogItemsFromForks(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
+    func createAppCatalogItemsFromForks(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
         sendCursoredRequest(CatalogForksQuery(owner: owner, name: baseRepository))
             .map { forks in try assembleCatalog(fromForks: forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
 
-    private func assembleCatalog(fromForks forks: CatalogForksQuery.Response, artifactTarget: ArtifactTarget, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
-        guard let fairsealIssuer = fairsealIssuer else {
-            throw Errors.missingFairsealIssuer
-        }
-
+    private func assembleCatalog(fromForks forks: CatalogForksQuery.Response, artifactTarget: ArtifactTarget?, fairsealCheck: Bool, configuration: ProjectConfiguration) throws -> [AppCatalogItem] {
         let forkNodes = try forks.result.get().data.repository.forks.nodes
-        //print(wip("#####"), forkNodes.map(\.nameWithOwner))
+        //dbg(forkNodes.map(\.nameWithOwner))
         var apps: [AppCatalogItem] = []
 
         for fork in forkNodes {
             dbg("checking app fork:", fork.owner.appNameWithSpace, fork.name)
             // #warning("TODO validation")
-            //            let invalid = validate(org: fork.owner)
-            //            if !invalid.isEmpty {
-            //                throw Errors.repoInvalid(invalid, org, fork.name)
-            //            }
-            let appTitle = fork.owner.appNameWithSpace // un-hyphenated name
-            let appid = fork.owner.appNameWithHyphen
+            // let invalid = validate(org: fork.owner)
+            // if !invalid.isEmpty {
+            //     throw Errors.repoInvalid(invalid, org, fork.name)
+            // }
 
-            let bundleIdentifier = "app." + appid
             let subtitle = fork.description ?? ""
             let localizedDescription = fork.description ?? "" // these should be different; perhaps extract the first paragraph from the README?
 
@@ -265,8 +259,45 @@ extension FairHub {
                 AppCategoryType.valueFor(base: $0, validate: true)
             })
 
+            let appName = fork.owner.login
+
+            do {
+                try configuration.validateAppName(appName)
+            } catch {
+                // skip packages whose names are not valid
+                dbg(fork.nameWithOwner, "invalid app name:", error)
+                continue
+            }
+
+            // with no fairseal issuer we simply index the bare forks themselves
+            guard let fairsealIssuer = fairsealIssuer else {
+                let bundleIdentifier = fork.nameWithOwner
+                let appTitle = fork.name
+                let forkURL = URL(string: "https://github.com/")!.appendingPathComponent(fork.nameWithOwner)
+
+                // https://raw.githubusercontent.com/fairapps/World-Fair.JackScript/main/Jack.javascript
+
+                var app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, downloadURL: forkURL)
+
+                app.subtitle = subtitle
+                app.localizedDescription = localizedDescription
+                app.categories = (categories.isEmpty ? nil : categories)
+                app.fundingLinks = (fundingLinks.isEmpty ? nil : fundingLinks)?.map { link in
+                    AppFundingLink(platform: link.platform, url: link.url)
+                }
+                app.stats = AppStats(starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, forkCount: forkCount)
+
+                apps.append(app)
+                continue
+            }
+
+            let appTitle = fork.owner.appNameWithSpace // un-hyphenated name
+            let appid = fork.owner.appNameWithHyphen
+            let bundleIdentifier = "app." + appid
+
             var fairsealBetaFound = false
             var fairsealFound = false
+
             for release in (fork.releases.nodes ?? []) {
                 guard let appVersion = AppVersion(string: release.tag.name, prerelease: release.isPrerelease) else {
                     dbg("invalid release tag:", release.tag.name)
@@ -274,7 +305,7 @@ extension FairHub {
                 }
                 dbg("  checking release:", fork.nameWithOwner, appVersion.versionString)
 
-                // commite in the web will be "GitHub Web Flow" and either empty e-mail or "noreply@github.com"
+                // committer from the web will be "GitHub Web Flow" and either empty e-mail or "noreply@github.com"
                 //let developerEmail = release.tagCommit.signature?.signer.email
                 //let developerName = release.tagCommit.signature?.signer.name
 
@@ -287,6 +318,14 @@ extension FairHub {
                 guard let devEmail = release.tagCommit.author?.email else {
                     dbg(fork.nameWithOwner, "no email for commit")
                     continue
+                }
+
+                let developerInfo: String
+
+                if let devName = devName, !devName.isEmpty {
+                    developerInfo = "\(devName) <\(devEmail)>"
+                } else {
+                    developerInfo = devEmail
                 }
 
                 do {
@@ -314,23 +353,6 @@ extension FairHub {
 //                    continue
 //                }
 
-                let appName = fork.owner.login
-
-                do {
-                    try configuration.validateAppName(appName)
-                } catch {
-                    // skip packages whose names are not valid
-                    dbg(fork.nameWithOwner, "invalid app name:", error)
-                    continue
-                }
-
-                let developerInfo: String
-
-                if let devName = devName, !devName.isEmpty {
-                    developerInfo = "\(devName) <\(devEmail)>"
-                } else {
-                    developerInfo = devEmail
-                }
                 let versionDate = release.createdAt
                 let versionDescription = release.description
                 let iconURL = release.releaseAssets.nodes.first { asset in
@@ -346,7 +368,9 @@ extension FairHub {
                 }
 
                 for artifactTarget in [artifactTarget] {
-                    let artifactType = artifactTarget.artifactType
+                    guard let artifactType = artifactTarget?.artifactType else {
+                        continue
+                    }
                     dbg("checking target:", appName, fork.name, appVersion.versionString, "type:", artifactType, "files:", release.releaseAssets.nodes.map(\.name))
                     guard let appArtifact = release.releaseAssets.nodes.first(where: { node in
                         node.name.hasSuffix(artifactType)
@@ -377,7 +401,7 @@ extension FairHub {
                     // scan the comments for the base ref for the matching url seal
                     var urlSeals: [URL: Set<String>] = [:]
                     let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
-                    //print(wip("#### COMMENTS:"), comments)
+                    //dbg(wip("#### COMMENTS:"), comments)
 
                     let fairsealComments = comments.joined().filter({ $0.author.login == fairsealIssuer })
                     for comment in fairsealComments {
@@ -419,9 +443,9 @@ extension FairHub {
                         if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
                             return false
                         }
-                        return artifactTarget.devices.contains { device in
+                        return artifactTarget?.devices.contains { device in
                             node.name.hasPrefix("screenshot") && node.name.contains("-" + device + "-")
-                        }
+                        } == true
                     }
                     .compactMap { node in
                         node.downloadUrl.appendingHash(urlSeals[node.downloadUrl]?.first)
@@ -452,14 +476,14 @@ extension FairHub {
                     app.versionDescription = versionDescription
                     app.tintColor = seal?.tint
                     app.beta = beta
-                    app.categories = categories
+                    app.categories = (categories.isEmpty ? nil : categories)
                     app.sha256 = artifactChecksum
                     app.permissions = seal?.permissions
                     app.metadataURL = metadataURL.appendingHash(metadataChecksum)
                     app.readmeURL = readmeURL.appendingHash(readmeChecksum)
                     app.releaseNotesURL = releaseNotesURL
                     app.homepage = homepage
-                    app.fundingLinks = fundingLinks.map { link in
+                    app.fundingLinks = (fundingLinks.isEmpty ? nil : fundingLinks)?.map { link in
                         AppFundingLink(platform: link.platform, url: link.url)
                     }
                     app.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, forkCount: forkCount, coreSize: seal?.coreSize)
@@ -739,7 +763,7 @@ extension FairHub {
 
         apps.sort { rank(for: $0) > rank(for: $1) }
 
-        let catalog = AppCatalog(name: catalogName, identifier: catalogIdentifier, platform: .macOS, sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
+        let catalog = AppCatalog(name: catalogName, identifier: catalogIdentifier, sourceURL: appfairCaskAppsURL, apps: apps, news: nil)
         return catalog
     }
 
