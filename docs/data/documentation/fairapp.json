@@ -79,6 +79,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
         "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable",
@@ -111,6 +112,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
         "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetCommands",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
@@ -1482,6 +1486,190 @@
   "title" : "DataWrapperPath",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/datawrapperpath"
+},
+"doc://FairApp/documentation/FairApp/Facet": {
+  "abstract" : [
+    {
+      "text" : "On iOS, the facets are represented by tabs.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "On macOS, facets are represented by top-level OutlineView sections.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "By convention, the initial element of the ",
+      "type" : "text"
+    },
+    {
+      "code" : "CaseIterable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " list will be a welcome screen that will be shown on macOS when there is no selection, and is represented by the initial tab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Facet"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Facet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Facet",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet"
+},
+"doc://FairApp/documentation/FairApp/FacetBrowserView": {
+  "abstract" : [
+    {
+      "text" : "A view that can browse facets in either a tabbed or outline view configuration, depending on a combination of the current platform and the value if the ",
+      "type" : "text"
+    },
+    {
+      "code" : "nested",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " setting.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetBrowserView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetBrowserView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetBrowserView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetbrowserview"
+},
+"doc://FairApp/documentation/FairApp/FacetCommands": {
+  "abstract" : [
+    {
+      "text" : "Commands for selecting the facet using menus and keyboard shortcuts",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetCommands"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetCommands",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetCommands"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetCommands",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetcommands"
+},
+"doc://FairApp/documentation/FairApp/FacetHostingView": {
+  "abstract" : [
+    {
+      "text" : "FacetHostingView: a top-level browser fo an app’s ",
+      "type" : "text"
+    },
+    {
+      "code" : "Facet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s,",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "represented as either an outline on macOS or tabs on iOS.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetHostingView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetHostingView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetHostingView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facethostingview"
 },
 "doc://FairApp/documentation/FairApp/FairContainer": {
   "abstract" : [

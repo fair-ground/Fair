@@ -1,0 +1,538 @@
+{
+  "abstract" : [
+    {
+      "text" : "Causes the view to change its ",
+      "type" : "text"
+    },
+    {
+      "code" : "SymbolVariants",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when it is hovered.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The animation only works with ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolRenderingMode(.hierarchical)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/View-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/hoverSymbol(activeVariant:inactiveVariant:animation:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "SwiftUI",
+    "externalID" : "s:7SwiftUI4ViewP7FairAppE11hoverSymbol13activeVariant08inactiveI09animationAA15ModifiedContentVyxAD05HoverG8ModifierVGAA0G8VariantsV_AoA9AnimationVSgtF::SYNTHESIZED::s:7FairApp16FacetBrowserViewV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "hoverSymbol"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "activeVariant"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+        "text" : "SymbolVariants"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "inactiveVariant"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+        "text" : "SymbolVariants"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "animation"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+        "text" : "Animation"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+        "text" : "ModifiedContent"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp19HoverSymbolModifierV",
+        "text" : "HoverSymbolModifier"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "hoverSymbol(activeVariant:inactiveVariant:animation:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "hoverSymbol"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "activeVariant"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+              "text" : "SymbolVariants"
+            },
+            {
+              "kind" : "text",
+              "text" : " = SymbolVariants.fill, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "inactiveVariant"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+              "text" : "SymbolVariants"
+            },
+            {
+              "kind" : "text",
+              "text" : " = SymbolVariants.none, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "animation"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+              "text" : "Animation"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = .default) -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+              "text" : "ModifiedContent"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp19HoverSymbolModifierV",
+              "text" : "HoverSymbolModifier"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/facetbrowserview\/hoversymbol(activevariant:inactivevariant:animation:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/FacetBrowserView": {
+  "abstract" : [
+    {
+      "text" : "A view that can browse facets in either a tabbed or outline view configuration, depending on a combination of the current platform and the value if the ",
+      "type" : "text"
+    },
+    {
+      "code" : "nested",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " setting.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetBrowserView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetBrowserView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetBrowserView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetbrowserview"
+},
+"doc://FairApp/documentation/FairApp/FacetBrowserView/View-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/View-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "View Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetbrowserview\/view-implementations"
+},
+"doc://FairApp/documentation/FairApp/FacetBrowserView/hoverSymbol(activeVariant:inactiveVariant:animation:)": {
+  "abstract" : [
+    {
+      "text" : "Causes the view to change its ",
+      "type" : "text"
+    },
+    {
+      "code" : "SymbolVariants",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " when it is hovered.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "The animation only works with ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolRenderingMode(.hierarchical)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hoverSymbol"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "activeVariant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inactiveVariant"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "animation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AnimationV",
+      "text" : "Animation"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI15ModifiedContentV",
+      "text" : "ModifiedContent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp19HoverSymbolModifierV",
+      "text" : "HoverSymbolModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/hoverSymbol(activeVariant:inactiveVariant:animation:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hoverSymbol(activeVariant:inactiveVariant:animation:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetbrowserview\/hoversymbol(activevariant:inactivevariant:animation:)"
+},
+"doc://FairApp/documentation/FairApp/HoverSymbolModifier": {
+  "abstract" : [
+    {
+      "text" : "A modifier that changes the ",
+      "type" : "text"
+    },
+    {
+      "code" : "symbolVariant",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " based on whether it is hovered over.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HoverSymbolModifier"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HoverSymbolModifier"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HoverSymbolModifier",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hoversymbolmodifier"
+}
+}
+}
