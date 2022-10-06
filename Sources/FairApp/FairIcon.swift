@@ -51,7 +51,7 @@ public struct FairIconView : View, Equatable {
     /// The span factor for the corner radius
     let cornerRadiusFactor: CGFloat
 
-    public init(_ name: String, subtitle: String?, paths: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00, cornerRadiusFactor: CGFloat? = nil) {
+    public init(_ name: String = "", subtitle: String? = nil, paths: [String] = [], iconColor: Color? = nil, borderRatio: CGFloat = 0.00, cornerRadiusFactor: CGFloat? = nil) {
         self.name = name
         self.subtitle = subtitle
         self.paths = paths
