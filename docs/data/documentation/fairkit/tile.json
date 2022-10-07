@@ -1,0 +1,927 @@
+{
+  "abstract" : [
+    {
+      "text" : "An item that contains a title, subtitle, and optional animation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairKit\/documentation\/FairKit"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairKit4TileV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Tile"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairKit"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Tile"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "Tile"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Tile"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/Se",
+        "doc:\/\/FairKit\/SE",
+        "doc:\/\/FairKit\/s12IdentifiableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(from:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/animation",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/background",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/backgroundColors",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/body",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/foregroundColor",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/id-1q1vj",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/subtitle",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/subtitleTrailing",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/title"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/trailing(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/Decodable-Implementations",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/Encodable-Implementations",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/Identifiable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairkit\/tile"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairKit/SE": {
+  "identifier" : "doc:\/\/FairKit\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairKit/Se": {
+  "identifier" : "doc:\/\/FairKit\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://FairKit/documentation/FairKit": {
+  "abstract" : [
+    {
+      "text" : "Extensions to ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairApp",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " around creating useful apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit"
+},
+"doc://FairKit/documentation/FairKit/Tile": {
+  "abstract" : [
+    {
+      "text" : "An item that contains a title, subtitle, and optional animation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile"
+},
+"doc://FairKit/documentation/FairKit/Tile/BannerColor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BannerColor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BannerColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile.BannerColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/bannercolor"
+},
+"doc://FairKit/documentation/FairKit/Tile/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/decodable-implementations"
+},
+"doc://FairKit/documentation/FairKit/Tile/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/encodable-implementations"
+},
+"doc://FairKit/documentation/FairKit/Tile/Identifiable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/Identifiable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Identifiable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/identifiable-implementations"
+},
+"doc://FairKit/documentation/FairKit/Tile/animation": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit15VectorAnimationa",
+      "text" : "VectorAnimation"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/animation",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/animation"
+},
+"doc://FairKit/documentation/FairKit/Tile/background": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "background"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/background",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "background",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/background"
+},
+"doc://FairKit/documentation/FairKit/Tile/backgroundColors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "backgroundColors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV",
+      "text" : "Tile"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV11BannerColorV",
+      "text" : "BannerColor"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/backgroundColors",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "backgroundColors",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/backgroundcolors"
+},
+"doc://FairKit/documentation/FairKit/Tile/body": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/body",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "body",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/body"
+},
+"doc://FairKit/documentation/FairKit/Tile/foregroundColor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "foregroundColor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV",
+      "text" : "Tile"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV11BannerColorV",
+      "text" : "BannerColor"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/foregroundColor",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "foregroundColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/foregroundcolor"
+},
+"doc://FairKit/documentation/FairKit/Tile/id-1q1vj": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4UUIDV",
+      "text" : "UUID"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/id-1q1vj",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/id-1q1vj"
+},
+"doc://FairKit/documentation/FairKit/Tile/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/init(from:)"
+},
+"doc://FairKit/documentation/FairKit/Tile/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4UUIDV",
+      "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "subtitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "subtitleTrailing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "foregroundColor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV",
+      "text" : "Tile"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV11BannerColorV",
+      "text" : "BannerColor"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "backgroundColors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV",
+      "text" : "Tile"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV11BannerColorV",
+      "text" : "BannerColor"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "animation"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit15VectorAnimationa",
+      "text" : "VectorAnimation"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:animation:body:)"
+},
+"doc://FairKit/documentation/FairKit/Tile/subtitle": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "subtitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/subtitle",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subtitle",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/subtitle"
+},
+"doc://FairKit/documentation/FairKit/Tile/subtitleTrailing": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "subtitleTrailing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/subtitleTrailing",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subtitleTrailing",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/subtitletrailing"
+},
+"doc://FairKit/documentation/FairKit/Tile/title": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/title",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "title",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/title"
+},
+"doc://FairKit/documentation/FairKit/Tile/trailing(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trailing"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairKit4TileV",
+      "text" : "Tile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/trailing(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trailing(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/trailing(_:)"
+},
+"doc://FairKit/s12IdentifiableP": {
+  "identifier" : "doc:\/\/FairKit\/s12IdentifiableP",
+  "title" : "Swift.Identifiable",
+  "type" : "unresolvable"
+}
+}
+}

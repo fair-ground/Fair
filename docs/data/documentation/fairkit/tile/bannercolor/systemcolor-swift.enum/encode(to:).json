@@ -1,0 +1,452 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable.encode(to:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairKit\/documentation\/FairKit",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor\/SystemColor-swift.enum",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor\/SystemColor-swift.enum\/RawRepresentable-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor\/SystemColor-swift.enum\/encode(to:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Self",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Encodable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " and ",
+          "type" : "text"
+        },
+        {
+          "code" : "RawValue",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " is ",
+          "type" : "text"
+        },
+        {
+          "code" : "String",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "Swift",
+    "externalID" : "s:SYsSERzSS8RawValueSYRtzrlE6encode2toys7Encoder_p_tKF::SYNTHESIZED::s:7FairKit4TileV11BannerColorV06SystemE0O",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "encode"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "to"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s7EncoderP",
+        "text" : "Encoder"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairKit"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "encode(to:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "encode"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "to"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "encoder"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s7EncoderP",
+              "text" : "Encoder"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairkit\/tile\/bannercolor\/systemcolor-swift.enum\/encode(to:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairKit/documentation/FairKit": {
+  "abstract" : [
+    {
+      "text" : "Extensions to ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairApp",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " around creating useful apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairKit",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit"
+},
+"doc://FairKit/documentation/FairKit/Tile": {
+  "abstract" : [
+    {
+      "text" : "An item that contains a title, subtitle, and optional animation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile"
+},
+"doc://FairKit/documentation/FairKit/Tile/BannerColor": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BannerColor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BannerColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile.BannerColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/bannercolor"
+},
+"doc://FairKit/documentation/FairKit/Tile/BannerColor/SystemColor-swift.enum": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SystemColor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor\/SystemColor-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SystemColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile.BannerColor.SystemColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/bannercolor\/systemcolor-swift.enum"
+},
+"doc://FairKit/documentation/FairKit/Tile/BannerColor/SystemColor-swift.enum/RawRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor\/SystemColor-swift.enum\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/bannercolor\/systemcolor-swift.enum\/rawrepresentable-implementations"
+},
+"doc://FairKit/documentation/FairKit/Tile/BannerColor/SystemColor-swift.enum/encode(to:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Encodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "RawValue",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "String",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "encode"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7EncoderP",
+      "text" : "Encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/BannerColor\/SystemColor-swift.enum\/encode(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "encode(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/bannercolor\/systemcolor-swift.enum\/encode(to:)"
+}
+}
+}

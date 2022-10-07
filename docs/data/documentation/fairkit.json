@@ -94,11 +94,19 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/SponsorButton",
         "doc:\/\/FairKit\/documentation\/FairKit\/SponsoredFeature",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+        "doc:\/\/FairKit\/documentation\/FairKit\/TileView",
         "doc:\/\/FairKit\/documentation\/FairKit\/TriptychView",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView"
       ],
       "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimation"
+      ],
+      "title" : "Type Aliases"
     },
     {
       "identifiers" : [
@@ -676,6 +684,82 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/teaserbutton"
 },
+"doc://FairKit/documentation/FairKit/Tile": {
+  "abstract" : [
+    {
+      "text" : "An item that contains a title, subtitle, and optional animation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile"
+},
+"doc://FairKit/documentation/FairKit/TileView": {
+  "abstract" : [
+    {
+      "text" : "A rendering of a banner item.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TileView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TileView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TileView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TileView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tileview"
+},
 "doc://FairKit/documentation/FairKit/TriptychOrient": {
   "abstract" : [
     {
@@ -774,6 +858,81 @@
   "title" : "URLImage",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage"
+},
+"doc://FairKit/documentation/FairKit/VectorAnimation": {
+  "abstract" : [
+    {
+      "text" : "When Lottie is independently added to a package, a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimation",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " will be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a lottie animation JSON format, which can be included inline in a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Banner Item",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimation"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VectorAnimation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/vectoranimation"
 },
 "doc://FairKit/documentation/FairKit/WebDriver": {
   "abstract" : [

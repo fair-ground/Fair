@@ -38,16 +38,6 @@ import Swift
 #if canImport(SwiftUI)
 import SwiftUI
 
-/// A union of views is also a view.
-extension XOr.Or : View where P : View, Q : View {
-    public var body: some View {
-        switch self {
-        case .p(let pv): pv
-        case .q(let qv): qv
-        }
-    }
-}
-
 public extension Bundle {
     /// Creates a label with the given localized key and the optional icon
     @available(*, deprecated)

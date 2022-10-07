@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "On iOS, the facets are represented by tabs.",
+      "text" : "A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),",
       "type" : "text"
     },
     {
@@ -9,23 +9,7 @@
       "type" : "text"
     },
     {
-      "text" : "On macOS, facets are represented by top-level OutlineView sections.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "By convention, the initial element of the ",
-      "type" : "text"
-    },
-    {
-      "code" : "CaseIterable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " list will be a welcome screen that will be shown on macOS when there is no selection, and is represented by the initial tab.",
+      "text" : "or a secondary-level feature (navigation items on iOS, settings tabs on macOS).",
       "type" : "text"
     }
   ],
@@ -230,6 +214,23 @@
         {
           "inlineContent" : [
             {
+              "text" : "By convention, the initial element of the ",
+              "type" : "text"
+            },
+            {
+              "code" : "CaseIterable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " list will be a welcome view that will be initially displayed by the app.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
               "text" : "The final tab will be the settings tab, which is shown as a tab on iOS and is included in the standard settings window on macOS.",
               "type" : "text"
             }
@@ -251,6 +252,15 @@
       "kind" : "relationships",
       "title" : "Inherits From",
       "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -270,7 +280,14 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias"
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/info(title:symbol:tint:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With"
       ],
       "title" : "Type Aliases"
     }
@@ -329,7 +346,7 @@
 "doc://FairApp/documentation/FairApp/Facet": {
   "abstract" : [
     {
-      "text" : "On iOS, the facets are represented by tabs.",
+      "text" : "A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),",
       "type" : "text"
     },
     {
@@ -337,23 +354,7 @@
       "type" : "text"
     },
     {
-      "text" : "On macOS, facets are represented by top-level OutlineView sections.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "By convention, the initial element of the ",
-      "type" : "text"
-    },
-    {
-      "code" : "CaseIterable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " list will be a welcome screen that will be shown on macOS when there is no selection, and is represented by the initial tab.",
+      "text" : "or a secondary-level feature (navigation items on iOS, settings tabs on macOS).",
       "type" : "text"
     }
   ],
@@ -418,6 +419,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.typealias"
 },
+"doc://FairApp/documentation/FairApp/Facet/With": {
+  "abstract" : [
+    {
+      "text" : "Composition of one facet with another",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "With"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "With"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Facet.With",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/with"
+},
 "doc://FairApp/documentation/FairApp/Facet/facetInfo-swift.property": {
   "abstract" : [
     {
@@ -463,6 +498,167 @@
   "title" : "facetInfo",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.property"
+},
+"doc://FairApp/documentation/FairApp/Facet/info(title:symbol:tint:)": {
+  "abstract" : [
+    {
+      "text" : "Facet metadata convenience builder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "info"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4TextV",
+      "text" : "Text"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "symbol"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0A6SymbolV",
+      "text" : "FairSymbol"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "tint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI5ColorV",
+      "text" : "Color"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+      "text" : "FacetInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/info(title:symbol:tint:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "info(title:symbol:tint:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/info(title:symbol:tint:)"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the text of the license(s) included in the app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LicenseSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LicenseSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LicenseSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting"
+},
+"doc://FairApp/documentation/FairApp/MultiFacet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MultiFacet"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MultiFacet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MultiFacet",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/multifacet"
 },
 "doc://FairApp/s12CaseIterableP": {
   "identifier" : "doc:\/\/FairApp\/s12CaseIterableP",

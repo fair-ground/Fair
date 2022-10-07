@@ -1,0 +1,249 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/Facet-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "Facet Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/info(title:symbol:tint:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/With"
+      ],
+      "title" : "Type Aliases"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/licensesetting\/facet-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the text of the license(s) included in the app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LicenseSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LicenseSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LicenseSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/With": {
+  "abstract" : [
+    {
+      "text" : "Composition of one facet with another",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "With"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/With",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "With"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LicenseSetting.With",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/with"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/info(title:symbol:tint:)": {
+  "abstract" : [
+    {
+      "text" : "Facet metadata convenience builder.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "info"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4TextV",
+      "text" : "Text"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "symbol"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0A6SymbolV",
+      "text" : "FairSymbol"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "tint"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI5ColorV",
+      "text" : "Color"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+      "text" : "FacetInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/info(title:symbol:tint:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "info(title:symbol:tint:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/info(title:symbol:tint:)"
+}
+}
+}

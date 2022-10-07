@@ -225,7 +225,8 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/get()",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/infer()-10ebq",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/infer()-45gln"
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/infer()-45gln",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/map(_:_:)"
       ],
       "title" : "Instance Methods"
     },
@@ -1584,6 +1585,128 @@
   "title" : "init(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/init(_:)-840wh"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/map(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Maps each side of an ",
+      "type" : "text"
+    },
+    {
+      "code" : "XOr.Or",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " through the given function",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "map"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "P"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Q"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "text" : "XOr"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "text" : "Or"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "U"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/map(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "map(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/map(_:_:)"
 },
 "doc://FairCore/documentation/FairCore/XOr/Or/p(_:)": {
   "abstract" : [
