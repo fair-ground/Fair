@@ -21301,6 +21301,1986 @@
                 "type" : "groupMarker"
               },
               {
+                "path" : "\/documentation\/fairapp\/supportcommands\/init(builder:)",
+                "title" : "init(builder: (Text, URL) -> LinkButton)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/supportcommands\/body",
+                "title" : "var body: some View",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/supportcommands\/supportcommandgroupview()",
+                "title" : "func supportCommandGroupView() -> some View",
+                "type" : "method"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accentcolor(_:)",
+                    "title" : "func accentColor(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(activationpoint:)-3iup4",
+                    "title" : "func accessibility(activationPoint: UnitPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(activationpoint:)-6f0fe",
+                    "title" : "func accessibility(activationPoint: CGPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(addtraits:)",
+                    "title" : "func accessibility(addTraits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(hidden:)",
+                    "title" : "func accessibility(hidden: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(hint:)",
+                    "title" : "func accessibility(hint: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(identifier:)",
+                    "title" : "func accessibility(identifier: String) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(inputlabels:)",
+                    "title" : "func accessibility(inputLabels: [Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(label:)",
+                    "title" : "func accessibility(label: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(removetraits:)",
+                    "title" : "func accessibility(removeTraits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(selectionidentifier:)",
+                    "title" : "func accessibility(selectionIdentifier: AnyHashable) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(sortpriority:)",
+                    "title" : "func accessibility(sortPriority: Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibility(value:)",
+                    "title" : "func accessibility(value: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityaction(_:_:)",
+                    "title" : "func accessibilityAction(AccessibilityActionKind, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityaction(action:label:)",
+                    "title" : "func accessibilityAction<Label>(action: () -> Void, label: () -> Label) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityaction(named:_:)-13ds2",
+                    "title" : "func accessibilityAction(named: Text, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityaction(named:_:)-7gxbe",
+                    "title" : "func accessibilityAction<S>(named: S, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityaction(named:_:)-94uks",
+                    "title" : "func accessibilityAction(named: LocalizedStringKey, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityactivationpoint(_:)-67pwb",
+                    "title" : "func accessibilityActivationPoint(CGPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityactivationpoint(_:)-9fhdn",
+                    "title" : "func accessibilityActivationPoint(UnitPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityaddtraits(_:)",
+                    "title" : "func accessibilityAddTraits(AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityadjustableaction(_:)",
+                    "title" : "func accessibilityAdjustableAction((AccessibilityAdjustmentDirection) -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitychartdescriptor(_:)",
+                    "title" : "func accessibilityChartDescriptor<R>(R) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitychildren(children:)",
+                    "title" : "func accessibilityChildren<V>(children: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-10xm6",
+                    "title" : "func accessibilityCustomContent(AccessibilityCustomContentKey, LocalizedStringKey, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-1c903",
+                    "title" : "func accessibilityCustomContent(LocalizedStringKey, LocalizedStringKey, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-1dqe2",
+                    "title" : "func accessibilityCustomContent<V>(AccessibilityCustomContentKey, V, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-1xi7b",
+                    "title" : "func accessibilityCustomContent<L, V>(L, V, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-3c5gv",
+                    "title" : "func accessibilityCustomContent(Text, Text, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-3nmo7",
+                    "title" : "func accessibilityCustomContent<V>(LocalizedStringKey, V, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-5du0c",
+                    "title" : "func accessibilityCustomContent(AccessibilityCustomContentKey, Text?, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitycustomcontent(_:_:importance:)-80w14",
+                    "title" : "func accessibilityCustomContent(LocalizedStringKey, Text, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityelement(children:)",
+                    "title" : "func accessibilityElement(children: AccessibilityChildBehavior) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityfocused(_:)",
+                    "title" : "func accessibilityFocused(AccessibilityFocusState<Bool>.Binding) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityfocused(_:equals:)",
+                    "title" : "func accessibilityFocused<Value>(AccessibilityFocusState<Value>.Binding, equals: Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityheading(_:)",
+                    "title" : "func accessibilityHeading(AccessibilityHeadingLevel) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityhidden(_:)",
+                    "title" : "func accessibilityHidden(Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityhint(_:)-3i0b9",
+                    "title" : "func accessibilityHint(Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityhint(_:)-84y89",
+                    "title" : "func accessibilityHint(LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityhint(_:)-9dnem",
+                    "title" : "func accessibilityHint<S>(S) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityidentifier(_:)",
+                    "title" : "func accessibilityIdentifier(String) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityignoresinvertcolors(_:)",
+                    "title" : "func accessibilityIgnoresInvertColors(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityinputlabels(_:)-26ntb",
+                    "title" : "func accessibilityInputLabels([Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityinputlabels(_:)-5we40",
+                    "title" : "func accessibilityInputLabels([LocalizedStringKey]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityinputlabels(_:)-61gcs",
+                    "title" : "func accessibilityInputLabels<S>([S]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitylabel(_:)-529ns",
+                    "title" : "func accessibilityLabel<S>(S) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitylabel(_:)-945jb",
+                    "title" : "func accessibilityLabel(LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitylabel(_:)-9ownw",
+                    "title" : "func accessibilityLabel(Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitylabeledpair(role:id:in:)",
+                    "title" : "func accessibilityLabeledPair<ID>(role: AccessibilityLabeledPairRole, id: ID, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitylinkedgroup(id:in:)",
+                    "title" : "func accessibilityLinkedGroup<ID>(id: ID, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityremovetraits(_:)",
+                    "title" : "func accessibilityRemoveTraits(AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrepresentation(representation:)",
+                    "title" : "func accessibilityRepresentation<V>(representation: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrespondstouserinteraction(_:)",
+                    "title" : "func accessibilityRespondsToUserInteraction(Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:)-3dyau",
+                    "title" : "func accessibilityRotor<Content>(LocalizedStringKey, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:)-4w415",
+                    "title" : "func accessibilityRotor<L, Content>(L, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:)-5btey",
+                    "title" : "func accessibilityRotor<Content>(Text, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:)-9v6uv",
+                    "title" : "func accessibilityRotor<Content>(AccessibilitySystemRotor, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entryid:entrylabel:)-241eu",
+                    "title" : "func accessibilityRotor<EntryModel, ID>(LocalizedStringKey, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entryid:entrylabel:)-4dj7v",
+                    "title" : "func accessibilityRotor<EntryModel, ID>(AccessibilitySystemRotor, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entryid:entrylabel:)-6dxik",
+                    "title" : "func accessibilityRotor<L, EntryModel, ID>(L, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entryid:entrylabel:)-9t52n",
+                    "title" : "func accessibilityRotor<EntryModel, ID>(Text, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entrylabel:)-4f93k",
+                    "title" : "func accessibilityRotor<L, EntryModel>(L, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entrylabel:)-50sxx",
+                    "title" : "func accessibilityRotor<EntryModel>(LocalizedStringKey, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entrylabel:)-5mgn",
+                    "title" : "func accessibilityRotor<EntryModel>(AccessibilitySystemRotor, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:entries:entrylabel:)-7xmo2",
+                    "title" : "func accessibilityRotor<EntryModel>(Text, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:textranges:)-152vp",
+                    "title" : "func accessibilityRotor<L>(L, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:textranges:)-982y6",
+                    "title" : "func accessibilityRotor(LocalizedStringKey, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:textranges:)-9etnu",
+                    "title" : "func accessibilityRotor(AccessibilitySystemRotor, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotor(_:textranges:)-9ey3u",
+                    "title" : "func accessibilityRotor(Text, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityrotorentry(id:in:)",
+                    "title" : "func accessibilityRotorEntry<ID>(id: ID, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityscrollaction(_:)",
+                    "title" : "func accessibilityScrollAction((Edge) -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityshowslargecontentviewer()",
+                    "title" : "func accessibilityShowsLargeContentViewer() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityshowslargecontentviewer(_:)",
+                    "title" : "func accessibilityShowsLargeContentViewer<V>(() -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitysortpriority(_:)",
+                    "title" : "func accessibilitySortPriority(Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilitytextcontenttype(_:)",
+                    "title" : "func accessibilityTextContentType(AccessibilityTextContentType) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityvalue(_:)-1gqya",
+                    "title" : "func accessibilityValue(Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityvalue(_:)-5s1ib",
+                    "title" : "func accessibilityValue(LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/accessibilityvalue(_:)-vwu2",
+                    "title" : "func accessibilityValue<S>(S) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:actions:)-495qz",
+                    "title" : "func alert<S, A>(S, isPresented: Binding<Bool>, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:actions:)-9ho7p",
+                    "title" : "func alert<A>(Text, isPresented: Binding<Bool>, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:actions:)-qrim",
+                    "title" : "func alert<A>(LocalizedStringKey, isPresented: Binding<Bool>, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:actions:message:)-39r2i",
+                    "title" : "func alert<A, M>(LocalizedStringKey, isPresented: Binding<Bool>, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:actions:message:)-86mlg",
+                    "title" : "func alert<S, A, M>(S, isPresented: Binding<Bool>, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:actions:message:)-91xaq",
+                    "title" : "func alert<A, M>(Text, isPresented: Binding<Bool>, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:presenting:actions:)-1o6ip",
+                    "title" : "func alert<S, A, T>(S, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:presenting:actions:)-4auet",
+                    "title" : "func alert<A, T>(Text, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:presenting:actions:)-7jyhq",
+                    "title" : "func alert<A, T>(LocalizedStringKey, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:presenting:actions:message:)-3d5dr",
+                    "title" : "func alert<A, M, T>(LocalizedStringKey, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:presenting:actions:message:)-78apw",
+                    "title" : "func alert<S, A, M, T>(S, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(_:ispresented:presenting:actions:message:)-9a0qu",
+                    "title" : "func alert<A, M, T>(Text, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(ispresented:content:)",
+                    "title" : "func alert(isPresented: Binding<Bool>, content: () -> Alert) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(ispresented:error:actions:)",
+                    "title" : "func alert<E, A>(isPresented: Binding<Bool>, error: E?, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(ispresented:error:actions:message:)",
+                    "title" : "func alert<E, A, M>(isPresented: Binding<Bool>, error: E?, actions: (E) -> A, message: (E) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alert(item:content:)",
+                    "title" : "func alert<Item>(item: Binding<Item?>, content: (Item) -> Alert) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alignmentguide(_:computevalue:)-5l1hr",
+                    "title" : "func alignmentGuide(VerticalAlignment, computeValue: (ViewDimensions) -> CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/alignmentguide(_:computevalue:)-5nuwq",
+                    "title" : "func alignmentGuide(HorizontalAlignment, computeValue: (ViewDimensions) -> CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/allowshittesting(_:)",
+                    "title" : "func allowsHitTesting(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/allowstightening(_:)",
+                    "title" : "func allowsTightening(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/anchorpreference(key:value:transform:)",
+                    "title" : "func anchorPreference<A, K>(key: K.Type, value: Anchor<A>.Source, transform: (Anchor<A>) -> K.Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/animation(_:)",
+                    "title" : "func animation(Animation?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/animation(_:value:)",
+                    "title" : "func animation<V>(Animation?, value: V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/aspectratio(_:contentmode:)-4b7qv",
+                    "title" : "func aspectRatio(CGSize, contentMode: ContentMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/aspectratio(_:contentmode:)-4t87k",
+                    "title" : "func aspectRatio(CGFloat?, contentMode: ContentMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(_:alignment:)",
+                    "title" : "func background<Background>(Background, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(_:ignoressafeareaedges:)",
+                    "title" : "func background<S>(S, ignoresSafeAreaEdges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(_:in:fillstyle:)-6zsuh",
+                    "title" : "func background<S, T>(S, in: T, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(_:in:fillstyle:)-8brd3",
+                    "title" : "func background<S, T>(S, in: T, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(alignment:content:)",
+                    "title" : "func background<V>(alignment: Alignment, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(ignoressafeareaedges:)",
+                    "title" : "func background(ignoresSafeAreaEdges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(in:fillstyle:)-6gyot",
+                    "title" : "func background<S>(in: S, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/background(in:fillstyle:)-gg6u",
+                    "title" : "func background<S>(in: S, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/backgroundpreferencevalue(_:_:)",
+                    "title" : "func backgroundPreferenceValue<Key, T>(Key.Type, (Key.Value) -> T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/badge(_:)-17dk4",
+                    "title" : "func badge(LocalizedStringKey?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/badge(_:)-6vg71",
+                    "title" : "func badge<S>(S?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/badge(_:)-7gtyq",
+                    "title" : "func badge(Text?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/badge(_:)-8i6gj",
+                    "title" : "func badge(Int) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/blendmode(_:)",
+                    "title" : "func blendMode(BlendMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/blur(radius:opaque:)",
+                    "title" : "func blur(radius: CGFloat, opaque: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/border(_:width:)",
+                    "title" : "func border<S>(S, width: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/brightness(_:)",
+                    "title" : "func brightness(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/button(action:)",
+                    "title" : "func button(action: () -> ()) -> Button<Self>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/buttonbordershape(_:)",
+                    "title" : "func buttonBorderShape(ButtonBorderShape) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/buttonstyle(_:)-4n73n",
+                    "title" : "func buttonStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/buttonstyle(_:)-9len6",
+                    "title" : "func buttonStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/clipshape(_:style:)",
+                    "title" : "func clipShape<S>(S, style: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/clipped(antialiased:)",
+                    "title" : "func clipped(antialiased: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/colorinvert()",
+                    "title" : "func colorInvert() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/colormultiply(_:)",
+                    "title" : "func colorMultiply(Color) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/colorscheme(_:)",
+                    "title" : "func colorScheme(ColorScheme) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/compositinggroup()",
+                    "title" : "func compositingGroup() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:actions:)-5kadz",
+                    "title" : "func confirmationDialog<A>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:actions:)-90vj5",
+                    "title" : "func confirmationDialog<S, A>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:actions:)-9pcns",
+                    "title" : "func confirmationDialog<A>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:actions:message:)-1ol3e",
+                    "title" : "func confirmationDialog<S, A, M>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:actions:message:)-2qcsq",
+                    "title" : "func confirmationDialog<A, M>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:actions:message:)-58y83",
+                    "title" : "func confirmationDialog<A, M>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-4jlp7",
+                    "title" : "func confirmationDialog<S, A, T>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-8pdw1",
+                    "title" : "func confirmationDialog<A, T>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-9bnvq",
+                    "title" : "func confirmationDialog<A, T>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)-3dvdb",
+                    "title" : "func confirmationDialog<S, A, M, T>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)-3zlgq",
+                    "title" : "func confirmationDialog<A, M, T>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)-vhi3",
+                    "title" : "func confirmationDialog<A, M, T>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/containershape(_:)",
+                    "title" : "func containerShape<T>(T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/contentshape(_:_:eofill:)",
+                    "title" : "func contentShape<S>(ContentShapeKinds, S, eoFill: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/contentshape(_:eofill:)",
+                    "title" : "func contentShape<S>(S, eoFill: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/contextmenu(_:)",
+                    "title" : "func contextMenu<MenuItems>(ContextMenu<MenuItems>?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/contextmenu(menuitems:)",
+                    "title" : "func contextMenu<MenuItems>(menuItems: () -> MenuItems) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/contrast(_:)",
+                    "title" : "func contrast(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/controlgroupstyle(_:)",
+                    "title" : "func controlGroupStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/controlsize(_:)",
+                    "title" : "func controlSize(ControlSize) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/coordinatespace(name:)",
+                    "title" : "func coordinateSpace<T>(name: T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/cornerradius(_:antialiased:)",
+                    "title" : "func cornerRadius(CGFloat, antialiased: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/datepickerstyle(_:)",
+                    "title" : "func datePickerStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/debuggingviewchanges()",
+                    "title" : "func debuggingViewChanges()",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/defaultappstorage(_:)",
+                    "title" : "func defaultAppStorage(UserDefaults) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/deletedisabled(_:)",
+                    "title" : "func deleteDisabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/disableautocorrection(_:)",
+                    "title" : "func disableAutocorrection(Bool?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/disabled(_:)",
+                    "title" : "func disabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/drawinggroup(opaque:colormode:)",
+                    "title" : "func drawingGroup(opaque: Bool, colorMode: ColorRenderingMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/dynamictypesize(_:)",
+                    "title" : "func dynamicTypeSize(DynamicTypeSize) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/edgesignoringsafearea(_:)",
+                    "title" : "func edgesIgnoringSafeArea(Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/environment(_:_:)",
+                    "title" : "func environment<V>(WritableKeyPath<EnvironmentValues, V>, V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/environmentobject(_:)",
+                    "title" : "func environmentObject<T>(T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/exportsitemproviders(_:onexport:)",
+                    "title" : "func exportsItemProviders([UTType], onExport: () -> [NSItemProvider]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/exportsitemproviders(_:onexport:onedit:)",
+                    "title" : "func exportsItemProviders([UTType], onExport: () -> [NSItemProvider], onEdit: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fileexporter(ispresented:document:contenttype:defaultfilename:oncompletion:)-69d41",
+                    "title" : "func fileExporter<D>(isPresented: Binding<Bool>, document: D?, contentType: UTType, defaultFilename: String?, onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fileexporter(ispresented:document:contenttype:defaultfilename:oncompletion:)-8978s",
+                    "title" : "func fileExporter<D>(isPresented: Binding<Bool>, document: D?, contentType: UTType, defaultFilename: String?, onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fileexporter(ispresented:documents:contenttype:oncompletion:)-2sdvm",
+                    "title" : "func fileExporter<C>(isPresented: Binding<Bool>, documents: C, contentType: UTType, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fileexporter(ispresented:documents:contenttype:oncompletion:)-84u07",
+                    "title" : "func fileExporter<C>(isPresented: Binding<Bool>, documents: C, contentType: UTType, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fileimporter(ispresented:allowedcontenttypes:allowsmultipleselection:oncompletion:)",
+                    "title" : "func fileImporter(isPresented: Binding<Bool>, allowedContentTypes: [UTType], allowsMultipleSelection: Bool, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fileimporter(ispresented:allowedcontenttypes:oncompletion:)",
+                    "title" : "func fileImporter(isPresented: Binding<Bool>, allowedContentTypes: [UTType], onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/filemover(ispresented:file:oncompletion:)",
+                    "title" : "func fileMover(isPresented: Binding<Bool>, file: URL?, onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/filemover(ispresented:files:oncompletion:)",
+                    "title" : "func fileMover<C>(isPresented: Binding<Bool>, files: C, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fixedsize()",
+                    "title" : "func fixedSize() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/fixedsize(horizontal:vertical:)",
+                    "title" : "func fixedSize(horizontal: Bool, vertical: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/flipsforrighttoleftlayoutdirection(_:)",
+                    "title" : "func flipsForRightToLeftLayoutDirection(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focusscope(_:)",
+                    "title" : "func focusScope(Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focusable(_:)",
+                    "title" : "func focusable(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focusable(_:onfocuschange:)",
+                    "title" : "func focusable(Bool, onFocusChange: (Bool) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focused(_:)",
+                    "title" : "func focused(FocusState<Bool>.Binding) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focused(_:equals:)",
+                    "title" : "func focused<Value>(FocusState<Value>.Binding, equals: Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focusedscenevalue(_:_:)",
+                    "title" : "func focusedSceneValue<T>(WritableKeyPath<FocusedValues, T?>, T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/focusedvalue(_:_:)",
+                    "title" : "func focusedValue<Value>(WritableKeyPath<FocusedValues, Value?>, Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/font(_:)",
+                    "title" : "func font(Font?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/foregroundcolor(_:)",
+                    "title" : "func foregroundColor(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/foregroundstyle(_:)",
+                    "title" : "func foregroundStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/foregroundstyle(_:_:)",
+                    "title" : "func foregroundStyle<S1, S2>(S1, S2) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/foregroundstyle(_:_:_:)",
+                    "title" : "func foregroundStyle<S1, S2, S3>(S1, S2, S3) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/frame()",
+                    "title" : "func frame() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/frame(minwidth:idealwidth:maxwidth:minheight:idealheight:maxheight:alignment:)",
+                    "title" : "func frame(minWidth: CGFloat?, idealWidth: CGFloat?, maxWidth: CGFloat?, minHeight: CGFloat?, idealHeight: CGFloat?, maxHeight: CGFloat?, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/frame(width:height:alignment:)",
+                    "title" : "func frame(width: CGFloat?, height: CGFloat?, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/gesture(_:including:)",
+                    "title" : "func gesture<T>(T, including: GestureMask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/grayscale(_:)",
+                    "title" : "func grayscale(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/groupboxstyle(_:)",
+                    "title" : "func groupBoxStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/handlesexternalevents(preferring:allowing:)",
+                    "title" : "func handlesExternalEvents(preferring: Set<String>, allowing: Set<String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/headerprominence(_:)",
+                    "title" : "func headerProminence(Prominence) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/help(_:)-8qif",
+                    "title" : "func help(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/help(_:)-921gq",
+                    "title" : "func help(LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/help(_:)-vg6j",
+                    "title" : "func help<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/hidden()",
+                    "title" : "func hidden() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/highprioritygesture(_:including:)",
+                    "title" : "func highPriorityGesture<T>(T, including: GestureMask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/horizontalradiogrouplayout()",
+                    "title" : "func horizontalRadioGroupLayout() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/hoversymbol(activevariant:inactivevariant:animation:)",
+                    "title" : "func hoverSymbol(activeVariant: SymbolVariants, inactiveVariant: SymbolVariants, animation: Animation?) -> ModifiedContent<Self, HoverSymbolModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/huerotation(_:)",
+                    "title" : "func hueRotation(Angle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/id(_:)",
+                    "title" : "func id<ID>(ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ignoressafearea(_:edges:)",
+                    "title" : "func ignoresSafeArea(SafeAreaRegions, edges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/imagescale(_:)",
+                    "title" : "func imageScale(Image.Scale) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/importsitemproviders(_:onimport:)",
+                    "title" : "func importsItemProviders([UTType], onImport: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/initialviewsize(_:)",
+                    "title" : "func initialViewSize(CGSize?) -> ModifiedContent<Self, InitialSizeViewModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/interactivedismissdisabled(_:)",
+                    "title" : "func interactiveDismissDisabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/itemprovider(_:)",
+                    "title" : "func itemProvider(Optional<() -> NSItemProvider?>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/keyboardshortcut(_:)-57rs",
+                    "title" : "func keyboardShortcut(KeyboardShortcut?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/keyboardshortcut(_:)-5yarq",
+                    "title" : "func keyboardShortcut(KeyboardShortcut) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/keyboardshortcut(_:modifiers:)",
+                    "title" : "func keyboardShortcut(KeyEquivalent, modifiers: EventModifiers) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/keyboardshortcut(_:modifiers:localization:)",
+                    "title" : "func keyboardShortcut(KeyEquivalent, modifiers: EventModifiers, localization: KeyboardShortcut.Localization) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/labelstyle(_:)",
+                    "title" : "func labelStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/labelshidden()",
+                    "title" : "func labelsHidden() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/layoutpriority(_:)",
+                    "title" : "func layoutPriority(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/linelimit(_:)",
+                    "title" : "func lineLimit(Int?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/linespacing(_:)",
+                    "title" : "func lineSpacing(CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/link(to:)",
+                    "title" : "func link(to: URL) -> Link<Self>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/link(to:draggable:)",
+                    "title" : "func link(to: URL?, draggable: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/listitemtint(_:)-4wcpl",
+                    "title" : "func listItemTint(ListItemTint?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/listitemtint(_:)-57l33",
+                    "title" : "func listItemTint(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/listrowbackground(_:)",
+                    "title" : "func listRowBackground<V>(V?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/listrowinsets(_:)",
+                    "title" : "func listRowInsets(EdgeInsets?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/liststyle(_:)",
+                    "title" : "func listStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/luminancetoalpha()",
+                    "title" : "func luminanceToAlpha() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/mask(_:)",
+                    "title" : "func mask<Mask>(Mask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/mask(alignment:_:)",
+                    "title" : "func mask<Mask>(alignment: Alignment, () -> Mask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/matchedgeometryeffect(id:in:properties:anchor:issource:)",
+                    "title" : "func matchedGeometryEffect<ID>(id: ID, in: Namespace.ID, properties: MatchedGeometryProperties, anchor: UnitPoint, isSource: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/menubuttonstyle(_:)",
+                    "title" : "func menuButtonStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/menuindicator(_:)",
+                    "title" : "func menuIndicator(Visibility) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/menustyle(_:)",
+                    "title" : "func menuStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/minimumscalefactor(_:)",
+                    "title" : "func minimumScaleFactor(CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/modifier(_:)",
+                    "title" : "func modifier<T>(T) -> ModifiedContent<Self, T>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/monospaceddigit()",
+                    "title" : "func monospacedDigit() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/movedisabled(_:)",
+                    "title" : "func moveDisabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/multilinetextalignment(_:)",
+                    "title" : "func multilineTextAlignment(TextAlignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigation(title:subtitle:)",
+                    "title" : "func navigation(title: Text, subtitle: Text?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationsubtitle(_:)-1msbo",
+                    "title" : "func navigationSubtitle(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationsubtitle(_:)-2hvwl",
+                    "title" : "func navigationSubtitle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationsubtitle(_:)-8znyp",
+                    "title" : "func navigationSubtitle(LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationtitle(_:)-1xgxd",
+                    "title" : "func navigationTitle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationtitle(_:)-2csnh",
+                    "title" : "func navigationTitle(LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationtitle(_:)-88wdo",
+                    "title" : "func navigationTitle<V>(() -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationtitle(_:)-9a8b7",
+                    "title" : "func navigationTitle(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/navigationviewstyle(_:)",
+                    "title" : "func navigationViewStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/offset(_:)",
+                    "title" : "func offset(CGSize) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/offset(x:y:)",
+                    "title" : "func offset(x: CGFloat, y: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onappear(perform:)",
+                    "title" : "func onAppear(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onchange(of:debounce:priority:perform:)",
+                    "title" : "func onChange<T>(of: T, debounce: TimeInterval, priority: TaskPriority, perform: (T) async -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onchange(of:perform:)",
+                    "title" : "func onChange<V>(of: V, perform: (V) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/oncommand(_:perform:)",
+                    "title" : "func onCommand(Selector, perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/oncontinueuseractivity(_:perform:)",
+                    "title" : "func onContinueUserActivity(String, perform: (NSUserActivity) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/oncopycommand(perform:)",
+                    "title" : "func onCopyCommand(perform: (() -> [NSItemProvider])?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/oncutcommand(perform:)",
+                    "title" : "func onCutCommand(perform: (() -> [NSItemProvider])?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondeletecommand(perform:)",
+                    "title" : "func onDeleteCommand(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondisappear(perform:)",
+                    "title" : "func onDisappear(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrag(_:)",
+                    "title" : "func onDrag(() -> NSItemProvider) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrag(_:preview:)",
+                    "title" : "func onDrag<V>(() -> NSItemProvider, preview: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrop(of:delegate:)-33dd4",
+                    "title" : "func onDrop(of: [String], delegate: DropDelegate) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrop(of:delegate:)-9rj78",
+                    "title" : "func onDrop(of: [UTType], delegate: DropDelegate) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrop(of:istargeted:perform:)-1yqoq",
+                    "title" : "func onDrop(of: [UTType], isTargeted: Binding<Bool>?, perform: ([NSItemProvider], CGPoint) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrop(of:istargeted:perform:)-59dx7",
+                    "title" : "func onDrop(of: [String], isTargeted: Binding<Bool>?, perform: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrop(of:istargeted:perform:)-8rrnu",
+                    "title" : "func onDrop(of: [UTType], isTargeted: Binding<Bool>?, perform: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ondrop(of:istargeted:perform:)-967hs",
+                    "title" : "func onDrop(of: [String], isTargeted: Binding<Bool>?, perform: ([NSItemProvider], CGPoint) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onexitcommand(perform:)",
+                    "title" : "func onExitCommand(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onhover(perform:)",
+                    "title" : "func onHover(perform: (Bool) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onlongpressgesture(minimumduration:maximumdistance:perform:onpressingchanged:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, maximumDistance: CGFloat, perform: () -> Void, onPressingChanged: ((Bool) -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onlongpressgesture(minimumduration:maximumdistance:pressing:perform:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, maximumDistance: CGFloat, pressing: ((Bool) -> Void)?, perform: () -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onlongpressgesture(minimumduration:perform:onpressingchanged:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, perform: () -> Void, onPressingChanged: ((Bool) -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onlongpressgesture(minimumduration:pressing:perform:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, pressing: ((Bool) -> Void)?, perform: () -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onmovecommand(perform:)",
+                    "title" : "func onMoveCommand(perform: ((MoveCommandDirection) -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onopenurl(perform:)",
+                    "title" : "func onOpenURL(perform: (URL) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onpastecommand(of:perform:)-5zq40",
+                    "title" : "func onPasteCommand(of: [String], perform: ([NSItemProvider]) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onpastecommand(of:perform:)-6iykg",
+                    "title" : "func onPasteCommand(of: [UTType], perform: ([NSItemProvider]) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onpastecommand(of:validator:perform:)-3q7ot",
+                    "title" : "func onPasteCommand<Payload>(of: [UTType], validator: ([NSItemProvider]) -> Payload?, perform: (Payload) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onpastecommand(of:validator:perform:)-8m8mi",
+                    "title" : "func onPasteCommand<Payload>(of: [String], validator: ([NSItemProvider]) -> Payload?, perform: (Payload) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onplaypausecommand(perform:)",
+                    "title" : "func onPlayPauseCommand(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onpreferencechange(_:perform:)",
+                    "title" : "func onPreferenceChange<K>(K.Type, perform: (K.Value) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onreceive(_:perform:)",
+                    "title" : "func onReceive<P>(P, perform: (P.Output) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/onsubmit(of:_:)",
+                    "title" : "func onSubmit(of: SubmitTriggers, (() -> Void)) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/ontapgesture(count:perform:)",
+                    "title" : "func onTapGesture(count: Int, perform: () -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/opacity(_:)",
+                    "title" : "func opacity(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/supportcommands\/overlay(_:alignment:)",
+                    "title" : "func overlay<Overlay>(Overlay, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/overlay(_:ignoressafeareaedges:)",
+                    "title" : "func overlay<S>(S, ignoresSafeAreaEdges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/overlay(_:in:fillstyle:)",
+                    "title" : "func overlay<S, T>(S, in: T, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/overlay(alignment:content:)",
+                    "title" : "func overlay<V>(alignment: Alignment, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/overlaypreferencevalue(_:_:)",
+                    "title" : "func overlayPreferenceValue<Key, T>(Key.Type, (Key.Value) -> T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/padding(_:)-3mku",
+                    "title" : "func padding(EdgeInsets) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/padding(_:)-72dyr",
+                    "title" : "func padding(CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/padding(_:_:)",
+                    "title" : "func padding(Edge.Set, CGFloat?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/pagecommand(value:in:step:)",
+                    "title" : "func pageCommand<V>(value: Binding<V>, in: ClosedRange<V>, step: V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/pickerstyle(_:)",
+                    "title" : "func pickerStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/png(bounds:normalize:)",
+                    "title" : "func png(bounds: CGRect?, normalize: Bool) -> Data?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/popover(ispresented:attachmentanchor:arrowedge:content:)",
+                    "title" : "func popover<Content>(isPresented: Binding<Bool>, attachmentAnchor: PopoverAttachmentAnchor, arrowEdge: Edge, content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/popover(item:attachmentanchor:arrowedge:content:)",
+                    "title" : "func popover<Item, Content>(item: Binding<Item?>, attachmentAnchor: PopoverAttachmentAnchor, arrowEdge: Edge, content: (Item) -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/position(_:)",
+                    "title" : "func position(CGPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/position(x:y:)",
+                    "title" : "func position(x: CGFloat, y: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/preference(key:value:)",
+                    "title" : "func preference<K>(key: K.Type, value: K.Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/preferredcolorscheme(_:)",
+                    "title" : "func preferredColorScheme(ColorScheme?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/prefersdefaultfocus(_:in:)",
+                    "title" : "func prefersDefaultFocus(Bool, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/presentedwindowstyle(_:)",
+                    "title" : "func presentedWindowStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/presentedwindowtoolbarstyle(_:)",
+                    "title" : "func presentedWindowToolbarStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/previewcontext(_:)",
+                    "title" : "func previewContext<C>(C) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/previewdevice(_:)",
+                    "title" : "func previewDevice(PreviewDevice?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/previewdisplayname(_:)",
+                    "title" : "func previewDisplayName(String?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/previewinterfaceorientation(_:)",
+                    "title" : "func previewInterfaceOrientation(InterfaceOrientation) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/previewlayout(_:)",
+                    "title" : "func previewLayout(PreviewLayout) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/privacysensitive(_:)",
+                    "title" : "func privacySensitive(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/progressviewstyle(_:)",
+                    "title" : "func progressViewStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/projectioneffect(_:)",
+                    "title" : "func projectionEffect(ProjectionTransform) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/redacted(reason:)",
+                    "title" : "func redacted(reason: RedactionReasons) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/refreshable(action:)",
+                    "title" : "func refreshable(action: () async -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/refreshingeveryminute()",
+                    "title" : "func refreshingEveryMinute() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/rotation3deffect(_:axis:anchor:anchorz:perspective:)",
+                    "title" : "func rotation3DEffect(Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint, anchorZ: CGFloat, perspective: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/rotationeffect(_:anchor:)",
+                    "title" : "func rotationEffect(Angle, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/safeareainset(edge:alignment:spacing:content:)-59zdb",
+                    "title" : "func safeAreaInset<V>(edge: HorizontalEdge, alignment: VerticalAlignment, spacing: CGFloat?, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/safeareainset(edge:alignment:spacing:content:)-8e565",
+                    "title" : "func safeAreaInset<V>(edge: VerticalEdge, alignment: HorizontalAlignment, spacing: CGFloat?, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/saturation(_:)",
+                    "title" : "func saturation(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/scaleeffect(_:anchor:)-5zk03",
+                    "title" : "func scaleEffect(CGSize, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/scaleeffect(_:anchor:)-73zpo",
+                    "title" : "func scaleEffect(CGFloat, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/scaleeffect(x:y:anchor:)",
+                    "title" : "func scaleEffect(x: CGFloat, y: CGFloat, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/scaledtofill()",
+                    "title" : "func scaledToFill() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/scaledtofit()",
+                    "title" : "func scaledToFit() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/scenepadding(_:)",
+                    "title" : "func scenePadding(Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchcompletion(_:)",
+                    "title" : "func searchCompletion(String) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchable(text:placement:prompt:)-288ha",
+                    "title" : "func searchable(text: Binding<String>, placement: SearchFieldPlacement, prompt: Text?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchable(text:placement:prompt:)-31cr7",
+                    "title" : "func searchable(text: Binding<String>, placement: SearchFieldPlacement, prompt: LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchable(text:placement:prompt:)-6h8xz",
+                    "title" : "func searchable<S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchable(text:placement:prompt:suggestions:)-3nlex",
+                    "title" : "func searchable<S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: Text?, suggestions: () -> S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchable(text:placement:prompt:suggestions:)-4siw4",
+                    "title" : "func searchable<V, S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: S, suggestions: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/searchable(text:placement:prompt:suggestions:)-wgjt",
+                    "title" : "func searchable<S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: LocalizedStringKey, suggestions: () -> S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/shadow(color:radius:x:y:)",
+                    "title" : "func shadow(color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/sheet(ispresented:ondismiss:content:)",
+                    "title" : "func sheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)?, content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/sheet(item:ondismiss:content:)",
+                    "title" : "func sheet<Item, Content>(item: Binding<Item?>, onDismiss: (() -> Void)?, content: (Item) -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/simultaneousgesture(_:including:)",
+                    "title" : "func simultaneousGesture<T>(T, including: GestureMask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/speechadjustedpitch(_:)",
+                    "title" : "func speechAdjustedPitch(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/speechalwaysincludespunctuation(_:)",
+                    "title" : "func speechAlwaysIncludesPunctuation(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/speechannouncementsqueued(_:)",
+                    "title" : "func speechAnnouncementsQueued(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/speechspellsoutcharacters(_:)",
+                    "title" : "func speechSpellsOutCharacters(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/submitlabel(_:)",
+                    "title" : "func submitLabel(SubmitLabel) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/submitscope(_:)",
+                    "title" : "func submitScope(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/swipeactions(edge:allowsfullswipe:content:)",
+                    "title" : "func swipeActions<T>(edge: HorizontalEdge, allowsFullSwipe: Bool, content: () -> T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/symbolrenderingmode(_:)",
+                    "title" : "func symbolRenderingMode(SymbolRenderingMode?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/symbolvariant(_:)",
+                    "title" : "func symbolVariant(SymbolVariants) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/tabitem(_:)",
+                    "title" : "func tabItem<V>(() -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/tabviewstyle(_:)",
+                    "title" : "func tabViewStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/tablestyle(_:)",
+                    "title" : "func tableStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/tag(_:)",
+                    "title" : "func tag<V>(V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/task(id:priority:_:)",
+                    "title" : "func task<T>(id: T, priority: TaskPriority, () async -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/task(priority:_:)",
+                    "title" : "func task(priority: TaskPriority, () async -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/textcase(_:)",
+                    "title" : "func textCase(Text.Case?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/textcontenttype(_:)",
+                    "title" : "func textContentType(NSTextContentType?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/textfieldstyle(_:)",
+                    "title" : "func textFieldStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/textselection(_:)",
+                    "title" : "func textSelection<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/tint(_:)",
+                    "title" : "func tint(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/togglestyle(_:)",
+                    "title" : "func toggleStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/toolbar(content:)-1bhio",
+                    "title" : "func toolbar<Content>(content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/toolbar(content:)-8tdln",
+                    "title" : "func toolbar<Content>(content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/toolbar(id:content:)",
+                    "title" : "func toolbar<Content>(id: String, content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/touchbar(_:)",
+                    "title" : "func touchBar<Content>(TouchBar<Content>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/touchbar(content:)",
+                    "title" : "func touchBar<Content>(content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/touchbarcustomizationlabel(_:)",
+                    "title" : "func touchBarCustomizationLabel(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/touchbaritempresence(_:)",
+                    "title" : "func touchBarItemPresence(TouchBarItemPresence) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/touchbaritemprincipal(_:)",
+                    "title" : "func touchBarItemPrincipal(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/transaction(_:)",
+                    "title" : "func transaction((inout Transaction) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/transformanchorpreference(key:value:transform:)",
+                    "title" : "func transformAnchorPreference<A, K>(key: K.Type, value: Anchor<A>.Source, transform: (inout K.Value, Anchor<A>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/transformeffect(_:)",
+                    "title" : "func transformEffect(CGAffineTransform) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/transformenvironment(_:transform:)",
+                    "title" : "func transformEnvironment<V>(WritableKeyPath<EnvironmentValues, V>, transform: (inout V) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/transformpreference(_:_:)",
+                    "title" : "func transformPreference<K>(K.Type, (inout K.Value) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/transition(_:)",
+                    "title" : "func transition(AnyTransition) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/truncationmode(_:)",
+                    "title" : "func truncationMode(Text.TruncationMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/unredacted()",
+                    "title" : "func unredacted() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/useractivity(_:element:_:)",
+                    "title" : "func userActivity<P>(String, element: P?, (P, NSUserActivity) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/useractivity(_:isactive:_:)",
+                    "title" : "func userActivity(String, isActive: Bool, (NSUserActivity) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/viewwrapper()",
+                    "title" : "func viewWrapper() -> UXView",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/windowtoolbarunified(compact:showstitle:)",
+                    "title" : "func windowToolbarUnified(compact: Bool, showsTitle: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportcommands\/zindex(_:)",
+                    "title" : "func zIndex(Double) -> some View",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/supportcommands\/view-implementations",
+                "title" : "View Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/fairapp\/supportcommands",
+            "title" : "SupportCommands",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
                 "path" : "\/documentation\/fairapp\/usagedescriptionkey\/init(_:)",
                 "title" : "init(String)",
                 "type" : "init"
