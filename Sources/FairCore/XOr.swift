@@ -106,6 +106,15 @@ public indirect enum XOr<P> : RawRepresentable {
     }
 }
 
+extension XOr.Or {
+    /// Maps each side of an `XOr.Or` through the given function
+    @inlinable public func map<T, U>(_ pf: (P) -> T, _ qf: (Q) -> U) -> XOr<T>.Or<U> {
+        switch self {
+        case .p(let p): return .p(pf(p))
+        case .q(let q): return .q(qf(q))
+        }
+    }
+}
 
 extension XOr.Or {
     /// Returns a flipped view of the `XOr.Or`, where `P` becomes `Q` and `Q` becomes `P`.

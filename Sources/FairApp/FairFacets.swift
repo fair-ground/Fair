@@ -33,12 +33,10 @@
  */
 import Swift
 
-#if canImport(SwiftUI)
-import SwiftUI
-
-/// On iOS, the facets are represented by tabs.
-/// On macOS, facets are represented by top-level OutlineView sections.
-/// By convention, the initial element of the `CaseIterable` list will be a welcome screen that will be shown on macOS when there is no selection, and is represented by the initial tab.
+/// A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),
+/// or a secondary-level feature (navigation items on iOS, settings tabs on macOS).
+///
+/// By convention, the initial element of the `CaseIterable` list will be a welcome view that will be initially displayed by the app.
 ///
 /// The final tab will be the settings tab, which is shown as a tab on iOS and is included in the standard settings window on macOS.
 public protocol Facet : CaseIterable, Hashable, RawRepresentable where RawValue == String, AllCases : RandomAccessCollection, AllCases.Index == Int {
@@ -49,6 +47,60 @@ public protocol Facet : CaseIterable, Hashable, RawRepresentable where RawValue 
     /// The title, icon, and tint color for the facet
     var facetInfo: FacetInfo { get }
 }
+
+
+public struct MultiFacet<P : CaseIterable & Facet, Q : CaseIterable & Facet> : Facet {
+    public typealias Choice = XOr<P>.Or<Q>
+    public let choice: Choice
+
+    public init?(rawValue: String) {
+        guard let choice = P(rawValue: rawValue).flatMap(Choice.p) ?? Q(rawValue: rawValue).flatMap(Choice.q) else {
+            return nil
+        }
+        self.choice = choice
+    }
+
+    public var rawValue: String {
+        switch choice {
+        case .p(let p): return p.rawValue
+        case .q(let q): return q.rawValue
+        }
+    }
+
+    public init(choice: XOr<P>.Or<Q>) {
+        self.choice = choice
+    }
+
+    public static var allCases: [MultiFacet<P, Q>] {
+        (P.allCases.map(Choice.p) + Q.allCases.map(Choice.q)).map(MultiFacet.init)
+    }
+
+    public var facetInfo: FacetInfo {
+        choice.map(\.facetInfo, \.facetInfo).pvalue
+    }
+
+}
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+
+/// A union of views is also a view.
+extension XOr.Or : View where P : View, Q : View {
+    public var body: some View {
+        switch self {
+        case .p(let pv): pv
+        case .q(let qv): qv
+        }
+    }
+}
+
+extension MultiFacet : View where P : View, Q : View {
+    @ViewBuilder public var body: some View {
+        choice
+    }
+}
+
 
 
 /// FacetHostingView: a top-level browser fo an app's `Facet`s,
@@ -204,5 +256,47 @@ public struct FacetBrowserView<F: Facet> : View where F : View {
         }
     }
 }
+
+public extension Facet {
+
+    /// Facet metadata convenience builder.
+    ///
+    /// - Parameters:
+    ///   - title: the localized title of the facet
+    ///   - symbol: the symbol to represent the facet
+    ///   - tint: the tint of the facet
+    /// - Returns: a tuple with the metadata needed to show the facet
+    func info(title: Text, symbol: FairSymbol? = nil, tint: Color? = nil) -> FacetInfo {
+        (title, symbol, tint)
+    }
+}
+
+
+extension Facet {
+    /// Composition of one facet with another
+    public typealias With<F: Facet> = MultiFacet<Self, F>
+}
+
+
+// MARK: Standard Facets
+
+
+/// A setting that simply displays the text of the license(s) included in the app.
+public enum LicenseSetting : String, Facet, View {
+    case license
+
+    public var facetInfo: FacetInfo {
+        switch self {
+        case .license:
+            return info(title: Text("License", bundle: .module, comment: "license settings facet title"), symbol: .init(rawValue: "doc.text.magnifyingglass"), tint: .mint)
+        }
+    }
+
+    public var body: some View {
+        TextEditor(text: .constant(wip("LICENSE")))
+    }
+}
+
+
 #endif
 
