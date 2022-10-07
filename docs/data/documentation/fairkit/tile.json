@@ -116,7 +116,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(from:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)"
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)"
       ],
       "title" : "Initializers"
     },
@@ -125,6 +125,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/animation",
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/background",
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/backgroundColors",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/backgroundGradientOpacity",
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/body",
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/foregroundColor",
         "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/id-1q1vj",
@@ -429,6 +430,44 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/tile\/backgroundcolors"
 },
+"doc://FairKit/documentation/FairKit/Tile/backgroundGradientOpacity": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "backgroundGradientOpacity"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/backgroundGradientOpacity",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "backgroundGradientOpacity",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile\/backgroundgradientopacity"
+},
 "doc://FairKit/documentation/FairKit/Tile/body": {
   "abstract" : [
 
@@ -590,7 +629,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/tile\/init(from:)"
 },
-"doc://FairKit/documentation/FairKit/Tile/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)": {
+"doc://FairKit/documentation/FairKit/Tile/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)": {
   "abstract" : [
 
   ],
@@ -725,6 +764,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "backgroundGradientOpacity"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "animation"
     },
     {
@@ -758,12 +814,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)",
+  "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:animation:body:)"
+  "url" : "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:body:)"
 },
 "doc://FairKit/documentation/FairKit/Tile/subtitle": {
   "abstract" : [

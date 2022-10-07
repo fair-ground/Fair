@@ -65,37 +65,48 @@ public typealias VectorAnimation = Lottie.Animation
 /// `.product(name: "Lottie", package: "lottie-ios")`
 ///
 public typealias VectorAnimation = JSum
+
+public extension VectorAnimation {
+    /// Loads the ``VectorAnimation`` from the given resource path in the specified ``Bundle``.
+    static func named(_ path: String, bundle: Bundle) -> Self? {
+        try? bundle.url(forResource: path, withExtension: nil).flatMap({
+            try JSum.parse(json: Data(contentsOf: $0))
+        })
+    }
+}
 #endif
 
 
 /// An item that contains a title, subtitle, and optional animation.
 /// It is uniquely identified and codable, and meant to contain localizable information.
 public struct Tile : Codable, Identifiable {
-    public init(id: UUID, title: String, subtitle: String? = nil, subtitleTrailing: Bool? = nil, foregroundColor: Tile.BannerColor? = nil, backgroundColors: [Tile.BannerColor]? = nil, animation: VectorAnimation? = nil, body: String? = nil) {
-        self.id = id
-        self.title = title
-        self.subtitle = subtitle
-        self.subtitleTrailing = subtitleTrailing
-        self.foregroundColor = foregroundColor
-        self.backgroundColors = backgroundColors
-        self.animation = animation
-        self.body = body
-    }
-
     public var id: UUID
     public var title: String
     public var subtitle: String? = nil
     public var subtitleTrailing: Bool?
     public var foregroundColor: BannerColor? = nil
     public var backgroundColors: [BannerColor]? = nil
+    public var backgroundGradientOpacity: Double? = nil
     public var animation: VectorAnimation? = nil
     public var body: String? = nil
+
+    public init(id: UUID, title: String, subtitle: String? = nil, subtitleTrailing: Bool? = nil, foregroundColor: Tile.BannerColor? = nil, backgroundColors: [Tile.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, animation: VectorAnimation? = nil, body: String? = nil) {
+        self.id = id
+        self.title = title
+        self.subtitle = subtitle
+        self.subtitleTrailing = subtitleTrailing
+        self.foregroundColor = foregroundColor
+        self.backgroundColors = backgroundColors
+        self.backgroundGradientOpacity = backgroundGradientOpacity
+        self.animation = animation
+        self.body = body
+    }
 
     @ViewBuilder public var background: some View {
         if let backgroundColors = backgroundColors, backgroundColors.count > 1 {
             LinearGradient(colors: backgroundColors.compactMap(\.systemColor), startPoint: .top, endPoint: .bottom)
         } else if let color = backgroundColors?.first?.systemColor {
-            LinearGradient(colors: [color, color.opacity(0.75)], startPoint: .top, endPoint: .bottom)
+            LinearGradient(colors: [color, color.opacity(backgroundGradientOpacity ?? 0.75)], startPoint: .top, endPoint: .bottom)
         }
     }
 
@@ -120,6 +131,7 @@ public struct Tile : Codable, Identifiable {
             }
         }
 
+        /// Enumeration definit system UI colors
         public enum SystemColor : String, Codable {
             case red
             case orange
@@ -139,6 +151,7 @@ public struct Tile : Codable, Identifiable {
             case clear
             case primary
             case secondary
+            case accent
 
             public var systemColor: SwiftUI.Color {
                 switch self {
@@ -160,14 +173,14 @@ public struct Tile : Codable, Identifiable {
                 case .clear: return .clear
                 case .primary: return .primary
                 case .secondary: return .secondary
+                case .accent: return .accentColor
                 }
             }
         }
-
     }
 }
 
-/// A rendering of a banner item.
+/// A view that renders a ``Tile`` with the standard treatment.
 public struct TileView : View {
     public let item: Tile
 
@@ -178,7 +191,8 @@ public struct TileView : View {
     public var body: some View {
         VStack {
             Text(atx: item.title)
-                .font(.title)
+                //.font(.title.lowercaseSmallCaps())
+                .font(.system(size: 40, weight: .bold, design: .rounded).lowercaseSmallCaps())
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)
                 .padding()
@@ -190,12 +204,12 @@ public struct TileView : View {
                 // when Lottie is imported, we can render the Bodymovin JSON
                 #if canImport(Lottie)
                 if let animation = item.animation {
-                    VectorAnimationView(animation: animation)
-                        .loopMode(.loop)
-                        .contentMode(.scaleAspectFit)
-                        //.animationSpan(0.3)
-                        //.frame(width: 300)
-                        //.frame(minHeight: 100)
+//                    GeometryReader { proxy in
+                        VectorAnimationView(animation: animation)
+                            .loopMode(.loop)
+                            .contentMode(.scaleAspectFit)
+//                            .frame(minHeight: proxy.size.width)
+//                    }
                 }
                 #endif
                 if item.subtitleTrailing == true, let subtitle = item.subtitle {
@@ -215,14 +229,12 @@ public struct TileView : View {
     private func sub(_ string: String, leading: Bool) -> some View {
         Text(atx: string)
             .multilineTextAlignment(!leading ? .leading : .trailing)
-            .font(.title3)
+            .font(.title)
             .foregroundColor(item.foregroundColor?.systemColor)
             .frame(maxWidth: .infinity)
             .frame(alignment: !leading ? .leading : .trailing)
     }
-
 }
-
 
 #if canImport(Lottie)
 
@@ -236,7 +248,6 @@ public struct VectorAnimationView: View {
     public typealias CMode = LottieContentMode
     #endif
 
-
     fileprivate var _contentMode: CMode?
 
     public init(animation: Lottie.Animation) {
@@ -244,10 +255,11 @@ public struct VectorAnimationView: View {
     }
 
     public var body: some View {
-        GeometryReader { proxy in
-            VectorAnimationViewRepresentable(source: self)
-                .frame(width: _animationSpan == nil ? nil : proxy.size.width * _animationSpan!)
-        }
+        VectorAnimationViewRepresentable(source: self)
+//        GeometryReader { proxy in
+//            VectorAnimationViewRepresentable(source: self)
+//                .frame(width: _animationSpan == nil ? nil : proxy.size.width * _animationSpan!)
+//        }
     }
 
     /// Changes the loop mode.
@@ -310,21 +322,17 @@ private struct VectorAnimationViewRepresentable : UXViewRepresentable {
             animationView.contentMode = contentMode
         }
 
-        animationView.play() // TODO: add start/stop controls
 
         return animationView
     }
 
     func updateUXView(_ view: UXViewType, context: Context) {
+        (view.subviews.first as? AnimationView)?.play() // TODO: add start/stop controls
+
     }
 
     static func dismantleUXView(_ view: UXViewType, coordinator: ()) {
-        //view.stop()
+        (view.subviews.first as? AnimationView)?.stop() // TODO: add start/stop controls
     }
-
-//    func updateUIView(_ uiView: UXViewType, context: Context) {
-//
-//    }
 }
-
 #endif

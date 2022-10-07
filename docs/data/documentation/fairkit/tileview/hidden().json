@@ -195,10 +195,61 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit"
 },
+"doc://FairKit/documentation/FairKit/Tile": {
+  "abstract" : [
+    {
+      "text" : "An item that contains a title, subtitle, and optional animation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Tile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Tile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/tile"
+},
 "doc://FairKit/documentation/FairKit/TileView": {
   "abstract" : [
     {
-      "text" : "A rendering of a banner item.",
+      "text" : "A view that renders a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " with the standard treatment.",
       "type" : "text"
     }
   ],

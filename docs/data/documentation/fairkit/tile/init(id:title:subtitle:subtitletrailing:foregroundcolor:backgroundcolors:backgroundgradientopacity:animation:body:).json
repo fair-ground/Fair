@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)"
+    "url" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairKit4TileV2id5title8subtitle0F8Trailing15foregroundColor16backgroundColors9animation4bodyAC10Foundation4UUIDV_S2SSgSbSgAC06BannerI0VSgSayARGSg0A4Core4JSumOSgAOtcfc",
+    "externalID" : "s:7FairKit4TileV2id5title8subtitle0F8Trailing15foregroundColor16backgroundColors0J15GradientOpacity9animation4bodyAC10Foundation4UUIDV_S2SSgSbSgAC06BannerI0VSgSayASGSgSdSg0A4Core4JSumOSgAPtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -145,6 +145,23 @@
       },
       {
         "kind" : "externalParam",
+        "text" : "backgroundGradientOpacity"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sd",
+        "text" : "Double"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
         "text" : "animation"
       },
       {
@@ -186,7 +203,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)"
+    "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)"
   },
   "primaryContentSections" : [
     {
@@ -333,6 +350,23 @@
             },
             {
               "kind" : "externalParam",
+              "text" : "backgroundGradientOpacity"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sd",
+              "text" : "Double"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
               "text" : "animation"
             },
             {
@@ -383,7 +417,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:animation:body:)"
+        "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:body:)"
       ],
       "traits" : [
         {
@@ -489,7 +523,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/tile\/bannercolor"
 },
-"doc://FairKit/documentation/FairKit/Tile/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)": {
+"doc://FairKit/documentation/FairKit/Tile/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)": {
   "abstract" : [
 
   ],
@@ -624,6 +658,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "backgroundGradientOpacity"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "animation"
     },
     {
@@ -657,12 +708,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile\/init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:animation:body:)",
+  "title" : "init(id:title:subtitle:subtitleTrailing:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:body:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:animation:body:)"
+  "url" : "\/documentation\/fairkit\/tile\/init(id:title:subtitle:subtitletrailing:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:body:)"
 },
 "doc://FairKit/documentation/FairKit/VectorAnimation": {
   "abstract" : [
