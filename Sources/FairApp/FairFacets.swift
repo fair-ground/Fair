@@ -101,8 +101,6 @@ extension MultiFacet : View where P : View, Q : View {
     }
 }
 
-
-
 /// FacetHostingView: a top-level browser fo an app's `Facet`s,
 /// represented as either an outline on macOS or tabs on iOS.
 ///
