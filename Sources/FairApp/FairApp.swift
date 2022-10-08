@@ -275,7 +275,7 @@ extension Never : Facet {
     /// Creates a new scene manager from scratch.
     init()
 
-    /// The bundle with this this manager is associated.
+    /// The bundle this manager is associated with.
     var bundle: Bundle { get }
 }
 
