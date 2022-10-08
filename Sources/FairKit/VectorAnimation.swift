@@ -79,7 +79,7 @@ public extension VectorAnimation {
 }
 #endif
 
-
+#if canImport(SwiftUI)
 public struct VectorAnimationView: View {
     let animation: VectorAnimation
     #if canImport(Lottie)
@@ -176,3 +176,4 @@ private struct VectorAnimationViewRepresentable : UXViewRepresentable {
     }
 }
 #endif
+#endif // canImport(SwiftUI)
