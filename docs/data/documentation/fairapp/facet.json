@@ -86,15 +86,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s12CaseIterableP",
-              "text" : "CaseIterable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SH",
               "text" : "Hashable"
             },
@@ -129,31 +120,6 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "AllCases"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sk",
-              "text" : "RandomAccessCollection"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
               "text" : "RawValue"
             },
             {
@@ -164,39 +130,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SS",
               "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "AllCases"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Index"
-            },
-            {
-              "kind" : "text",
-              "text" : " == "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
             }
           ]
         }
@@ -244,7 +177,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
         "doc:\/\/FairApp\/SY"
@@ -255,8 +187,10 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet"
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -287,9 +221,16 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With"
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/WithStandardSettings"
       ],
       "title" : "Type Aliases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/facets(for:)-6bxw3"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -342,6 +283,40 @@
   "title" : "FairApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppearanceSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the support options as a series of link buttons.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppearanceSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppearanceSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppearanceSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appearancesetting"
 },
 "doc://FairApp/documentation/FairApp/Facet": {
   "abstract" : [
@@ -453,6 +428,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/with"
 },
+"doc://FairApp/documentation/FairApp/Facet/WithStandardSettings": {
+  "abstract" : [
+    {
+      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/WithStandardSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Facet.WithStandardSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/withstandardsettings"
+},
 "doc://FairApp/documentation/FairApp/Facet/facetInfo-swift.property": {
   "abstract" : [
     {
@@ -498,6 +507,80 @@
   "title" : "facetInfo",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.property"
+},
+"doc://FairApp/documentation/FairApp/Facet/facets(for:)-6bxw3": {
+  "abstract" : [
+    {
+      "text" : "Accesses the given facets for the specified scene manager.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "facets"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/facets(for:)-6bxw3",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "facets(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/facets(for:)-6bxw3"
 },
 "doc://FairApp/documentation/FairApp/Facet/info(title:symbol:tint:)": {
   "abstract" : [
@@ -631,7 +714,10 @@
 },
 "doc://FairApp/documentation/FairApp/MultiFacet": {
   "abstract" : [
-
+    {
+      "text" : "A multi-facet is a composition of multiple facets.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -660,10 +746,39 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/multifacet"
 },
-"doc://FairApp/s12CaseIterableP": {
-  "identifier" : "doc:\/\/FairApp\/s12CaseIterableP",
-  "title" : "Swift.CaseIterable",
-  "type" : "unresolvable"
+"doc://FairApp/documentation/FairApp/SupportSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the support options as a series of link buttons.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SupportSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SupportSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SupportSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/supportsetting"
 }
 }
 }

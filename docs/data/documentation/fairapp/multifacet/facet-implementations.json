@@ -40,7 +40,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/With"
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/With",
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/WithStandardSettings"
       ],
       "title" : "Type Aliases"
     }
@@ -83,7 +84,10 @@
 },
 "doc://FairApp/documentation/FairApp/MultiFacet": {
   "abstract" : [
-
+    {
+      "text" : "A multi-facet is a composition of multiple facets.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -145,6 +149,40 @@
   "title" : "MultiFacet.With",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/multifacet\/with"
+},
+"doc://FairApp/documentation/FairApp/MultiFacet/WithStandardSettings": {
+  "abstract" : [
+    {
+      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/WithStandardSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MultiFacet.WithStandardSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/multifacet\/withstandardsettings"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet/info(title:symbol:tint:)": {
   "abstract" : [

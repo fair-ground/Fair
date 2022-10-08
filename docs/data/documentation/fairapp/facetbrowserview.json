@@ -86,7 +86,15 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "F"
+              "text" : "Manager"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "FacetView"
             },
             {
               "kind" : "text",
@@ -102,7 +110,42 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "F"
+              "text" : "Manager"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7Combine16ObservableObjectP",
+              "text" : "ObservableObject"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Manager"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp12FacetManagerP",
+              "text" : "FacetManager"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "FacetView"
             },
             {
               "kind" : "text",
@@ -120,7 +163,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "F"
+              "text" : "FacetView"
             },
             {
               "kind" : "text",
@@ -168,6 +211,12 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/nested"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/facetStyle(_:)"
+      ],
+      "title" : "Instance Methods"
     },
     {
       "generated" : true,
@@ -355,6 +404,72 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetbrowserview\/body"
 },
+"doc://FairApp/documentation/FairApp/FacetBrowserView/facetStyle(_:)": {
+  "abstract" : [
+    {
+      "text" : "Changes the style of this facet browser to the speified style.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "facetStyle"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp10FacetStyleV",
+      "text" : "FacetStyle"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp16FacetBrowserViewV",
+      "text" : "FacetBrowserView"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "FacetView"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/facetStyle(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "facetStyle(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetbrowserview\/facetstyle(_:)"
+},
 "doc://FairApp/documentation/FairApp/FacetBrowserView/init(nested:selection:)": {
   "abstract" : [
 
@@ -404,7 +519,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "F"
+      "text" : "FacetView"
     },
     {
       "kind" : "text",
@@ -454,6 +569,58 @@
   "title" : "nested",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetbrowserview\/nested"
+},
+"doc://FairApp/documentation/FairApp/FacetManager": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " defines the top-level and settings-level ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "s for an app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetmanager"
 }
 }
 }

@@ -87,6 +87,9 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray",
         "doc:\/\/FairKit\/documentation\/FairKit\/AsyncCachedImage",
         "doc:\/\/FairKit\/documentation\/FairKit\/CapsuleProgressViewStyle",
+        "doc:\/\/FairKit\/documentation\/FairKit\/Card",
+        "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard",
+        "doc:\/\/FairKit\/documentation\/FairKit\/CardBoardItemView",
         "doc:\/\/FairKit\/documentation\/FairKit\/Dialog",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker",
         "doc:\/\/FairKit\/documentation\/FairKit\/FairProgressView",
@@ -94,10 +97,9 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/SponsorButton",
         "doc:\/\/FairKit\/documentation\/FairKit\/SponsoredFeature",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton",
-        "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
-        "doc:\/\/FairKit\/documentation\/FairKit\/TileView",
         "doc:\/\/FairKit\/documentation\/FairKit\/TriptychView",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage",
+        "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView"
       ],
       "title" : "Structures"
@@ -329,6 +331,122 @@
   "title" : "CapsuleProgressViewStyle",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/capsuleprogressviewstyle"
+},
+"doc://FairKit/documentation/FairKit/Card": {
+  "abstract" : [
+    {
+      "text" : "An item that contains a title, subtitle, and optional animation.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Card"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Card",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Card"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Card",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/card"
+},
+"doc://FairKit/documentation/FairKit/CardBoard": {
+  "abstract" : [
+    {
+      "text" : "A view that renders a seties of ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Card",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "s in a grid.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CardBoard"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CardBoard"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CardBoard",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/cardboard"
+},
+"doc://FairKit/documentation/FairKit/CardBoardItemView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CardBoardItemView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/CardBoardItemView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CardBoardItemView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CardBoardItemView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/cardboarditemview"
 },
 "doc://FairKit/documentation/FairKit/Dialog": {
   "abstract" : [
@@ -684,91 +802,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/teaserbutton"
 },
-"doc://FairKit/documentation/FairKit/Tile": {
-  "abstract" : [
-    {
-      "text" : "An item that contains a title, subtitle, and optional animation.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Tile"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Tile"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Tile",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/tile"
-},
-"doc://FairKit/documentation/FairKit/TileView": {
-  "abstract" : [
-    {
-      "text" : "A view that renders a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/Tile",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " with the standard treatment.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TileView"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TileView",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TileView"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TileView",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/tileview"
-},
 "doc://FairKit/documentation/FairKit/TriptychOrient": {
   "abstract" : [
     {
@@ -942,6 +975,37 @@
   "title" : "VectorAnimation",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/vectoranimation"
+},
+"doc://FairKit/documentation/FairKit/VectorAnimationView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimationView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimationView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VectorAnimationView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/vectoranimationview"
 },
 "doc://FairKit/documentation/FairKit/WebDriver": {
   "abstract" : [

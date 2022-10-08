@@ -242,9 +242,41 @@ public extension FairContainer {
     }
 }
 
+/// A ``FacetManager`` defines the top-level and settings-level ``Facet``s for an app.
+public protocol FacetManager {
+    /// The top-level facets for this app.
+    associatedtype AppFacets : Facet
+
+    /// The settings-level facets for this app. These will be merged with standard app settings when showing a settings facet.
+    associatedtype ConfigFacets : Facet
+}
+
+/// A Facet of Never is how a non-faceted store can
+extension Never : Facet {
+    public init?(rawValue: String) {
+        return nil
+    }
+
+    public var rawValue: String {
+        fatalError("Never instance never exists")
+    }
+
+    public var facetInfo: FacetInfo {
+        fatalError("Never instance never exists")
+    }
+
+    public static func facets<Manager>(for manager: Manager) -> [Never] where Manager : FacetManager {
+        Array()
+    }
+}
+
 /// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
-@MainActor public protocol SceneManager: ObservableObject {
+@MainActor public protocol SceneManager: FacetManager, ObservableObject {
+    /// Creates a new scene manager from scratch.
     init()
+
+    /// The bundle with this this manager is associated.
+    var bundle: Bundle { get }
 }
 
 public extension SceneManager {
@@ -550,21 +582,22 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
 
         Group {
             Container.rootScene(store: store)
-                .onChange(of: scenePhase) { phase in
-                    switch phase {
-                    case .background:
-                        break;
-                    case .inactive:
-                        break;
-                    case .active:
-                        break;
-                    @unknown default:
-                        break;
-                    }
-                }
+//                .onChange(of: scenePhase) { phase in
+//                    switch phase {
+//                    case .background:
+//                        break;
+//                    case .inactive:
+//                        break;
+//                    case .active:
+//                        break;
+//                    @unknown default:
+//                        break;
+//                    }
+//                }
             #if os(macOS) // on
             Settings {
                 Container.settingsView(store: store)
+                    .withAppearanceSetting()
             }
             #endif
         }

@@ -80,6 +80,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
         "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable",
@@ -115,6 +116,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetCommands",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetStyle",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
@@ -179,8 +181,10 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
-        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting"
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting"
       ],
       "title" : "Enumerations"
     }
@@ -1357,6 +1361,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appusagepermission"
 },
+"doc://FairApp/documentation/FairApp/AppearanceSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the support options as a series of link buttons.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppearanceSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppearanceSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppearanceSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appearancesetting"
+},
 "doc://FairApp/documentation/FairApp/AssetName": {
   "abstract" : [
     {
@@ -1627,7 +1665,7 @@
       "type" : "text"
     },
     {
-      "text" : "represented as either an outline on macOS or tabs on iOS.",
+      "text" : "represented as either an outline list on desktop platforms and a tabbed interface on mobile.",
       "type" : "text"
     }
   ],
@@ -1657,6 +1695,89 @@
   "title" : "FacetHostingView",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facethostingview"
+},
+"doc://FairApp/documentation/FairApp/FacetManager": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " defines the top-level and settings-level ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "s for an app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetmanager"
+},
+"doc://FairApp/documentation/FairApp/FacetStyle": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetStyle"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetStyle",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetStyle"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetStyle",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetstyle"
 },
 "doc://FairApp/documentation/FairApp/FairContainer": {
   "abstract" : [
@@ -2132,7 +2253,10 @@
 },
 "doc://FairApp/documentation/FairApp/MultiFacet": {
   "abstract" : [
-
+    {
+      "text" : "A multi-facet is a composition of multiple facets.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2496,6 +2620,40 @@
   "title" : "SupportCommands",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/supportcommands"
+},
+"doc://FairApp/documentation/FairApp/SupportSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the support options as a series of link buttons.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SupportSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SupportSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SupportSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/supportsetting"
 },
 "doc://FairApp/documentation/FairApp/UXApplication": {
   "abstract" : [

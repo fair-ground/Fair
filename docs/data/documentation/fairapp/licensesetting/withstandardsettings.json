@@ -1,0 +1,382 @@
+{
+  "abstract" : [
+    {
+      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/Facet-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/WithStandardSettings"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp5FacetPAAE20WithStandardSettingsa::SYNTHESIZED::s:7FairApp14LicenseSettingO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "typealias"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "WithStandardSettings"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "WithStandardSettings"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "LicenseSetting.WithStandardSettings"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "typealias"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "WithStandardSettings"
+            },
+            {
+              "kind" : "text",
+              "text" : " = "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp5FacetPAAE4Witha",
+              "text" : "With"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp17AppearanceSettingO",
+              "text" : "AppearanceSetting"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp5FacetPAAE4Witha",
+              "text" : "With"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp14SupportSettingO",
+              "text" : "SupportSetting"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp5FacetPAAE4Witha",
+              "text" : "With"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp14LicenseSettingO",
+              "text" : "LicenseSetting"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/licensesetting\/withstandardsettings"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppearanceSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the support options as a series of link buttons.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppearanceSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppearanceSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppearanceSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appearancesetting"
+},
+"doc://FairApp/documentation/FairApp/Facet/With": {
+  "abstract" : [
+    {
+      "text" : "Composition of one facet with another",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "With"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "With"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Facet.With",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/with"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the text of the license(s) included in the app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LicenseSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LicenseSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LicenseSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/Facet-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/Facet-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Facet Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/facet-implementations"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/WithStandardSettings": {
+  "abstract" : [
+    {
+      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/WithStandardSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LicenseSetting.WithStandardSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/withstandardsettings"
+},
+"doc://FairApp/documentation/FairApp/SupportSetting": {
+  "abstract" : [
+    {
+      "text" : "A setting that simply displays the support options as a series of link buttons.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SupportSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SupportSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SupportSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/supportsetting"
+}
+}
+}

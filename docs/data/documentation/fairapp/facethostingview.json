@@ -17,7 +17,7 @@
       "type" : "text"
     },
     {
-      "text" : "represented as either an outline on macOS or tabs on iOS.",
+      "text" : "represented as either an outline list on desktop platforms and a tabbed interface on mobile.",
       "type" : "text"
     }
   ],
@@ -94,7 +94,7 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "AF"
+              "text" : "Manager"
             },
             {
               "kind" : "text",
@@ -110,17 +110,17 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "AF"
+              "text" : "Manager"
             },
             {
               "kind" : "text",
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp5FacetP",
-              "text" : "Facet"
+              "preciseIdentifier" : "s:7FairApp12SceneManagerP",
+              "text" : "SceneManager"
             },
             {
               "kind" : "text",
@@ -128,7 +128,15 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "AF"
+              "text" : "Manager"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "AppFacets"
             },
             {
               "kind" : "text",
@@ -194,7 +202,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/init()"
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/init(store:)"
       ],
       "title" : "Initializers"
     },
@@ -253,48 +261,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/Facet": {
-  "abstract" : [
-    {
-      "text" : "A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "or a secondary-level feature (navigation items on iOS, settings tabs on macOS).",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Facet"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Facet"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Facet",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facet"
-},
 "doc://FairApp/documentation/FairApp/FacetHostingView": {
   "abstract" : [
     {
@@ -314,7 +280,7 @@
       "type" : "text"
     },
     {
-      "text" : "represented as either an outline on macOS or tabs on iOS.",
+      "text" : "represented as either an outline list on desktop platforms and a tabbed interface on mobile.",
       "type" : "text"
     }
   ],
@@ -398,7 +364,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facethostingview\/body"
 },
-"doc://FairApp/documentation/FairApp/FacetHostingView/init()": {
+"doc://FairApp/documentation/FairApp/FacetHostingView/init(store:)": {
   "abstract" : [
 
   ],
@@ -409,15 +375,73 @@
     },
     {
       "kind" : "text",
-      "text" : "()"
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "store"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/init()",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/init(store:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init()",
+  "title" : "init(store:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facethostingview\/init()"
+  "url" : "\/documentation\/fairapp\/facethostingview\/init(store:)"
+},
+"doc://FairApp/documentation/FairApp/SceneManager": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "SceneManager",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SceneManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SceneManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SceneManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/scenemanager"
 }
 }
 }

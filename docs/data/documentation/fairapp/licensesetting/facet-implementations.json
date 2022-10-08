@@ -40,9 +40,17 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/With"
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/With",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/WithStandardSettings"
       ],
       "title" : "Type Aliases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/facets(for:)"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -148,6 +156,164 @@
   "title" : "LicenseSetting.With",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/licensesetting\/with"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/WithStandardSettings": {
+  "abstract" : [
+    {
+      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/WithStandardSettings",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "WithStandardSettings"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LicenseSetting.WithStandardSettings",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/withstandardsettings"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/facets(for:)": {
+  "abstract" : [
+    {
+      "text" : "The default implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "facets",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CaseIterable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (e.g., an enum) will simply return the cases of the enum.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CaseIterable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "facets"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "AllCases"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/facets(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "facets(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/facets(for:)"
 },
 "doc://FairApp/documentation/FairApp/LicenseSetting/info(title:symbol:tint:)": {
   "abstract" : [
