@@ -32,9 +32,7 @@
  exception statement from your version.
  */
 import FairApp
-#if canImport(CoreFoundation)
-import CoreFoundation
-#endif
+import Foundation
 
 // WARNING: much of this code is only compiled when Lottie is present in an app,
 // and so syntax errors will not show up in the normal Fair CI.
@@ -79,7 +77,7 @@ public extension VectorAnimation {
 }
 #endif
 
-
+#if canImport(SwiftUI)
 public struct VectorAnimationView: View {
     let animation: VectorAnimation
     #if canImport(Lottie)
@@ -176,3 +174,4 @@ private struct VectorAnimationViewRepresentable : UXViewRepresentable {
     }
 }
 #endif
+#endif // canImport(SwiftUI)
