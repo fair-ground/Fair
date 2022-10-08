@@ -32,6 +32,9 @@
  exception statement from your version.
  */
 import FairApp
+#if canImport(CoreFoundation)
+import CoreFoundation
+#endif
 
 // WARNING: much of this code is only compiled when Lottie is present in an app,
 // and so syntax errors will not show up in the normal Fair CI.
