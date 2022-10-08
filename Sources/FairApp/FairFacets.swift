@@ -321,6 +321,14 @@ public extension Facet {
 }
 
 
+extension FairContainer where AppStore.AppFacets : View, AppStore.AppFacets == SettingsBody {
+    /// The app-wide settings view, which, by convention, is the final element of the app's facets.
+    @ViewBuilder public static func settingsView(store: AppStore) -> some View {
+        AppStore.AppFacets.facets(for: store).last.unsafelyUnwrapped
+            .environmentObject(store)
+    }
+}
+
 // MARK: Standard Facets
 
 extension Facet {
