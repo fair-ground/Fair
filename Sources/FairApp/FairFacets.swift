@@ -39,17 +39,27 @@ import Swift
 /// By convention, the initial element of the `CaseIterable` list will be a welcome view that will be initially displayed by the app.
 ///
 /// The final tab will be the settings tab, which is shown as a tab on iOS and is included in the standard settings window on macOS.
-public protocol Facet : CaseIterable, Hashable, RawRepresentable where RawValue == String, AllCases : RandomAccessCollection, AllCases.Index == Int {
+public protocol Facet : Hashable, RawRepresentable where RawValue == String {
 
     /// Metadata for the facet
     typealias FacetInfo = (title: Text, symbol: FairSymbol?, tint: Color?)
 
     /// The title, icon, and tint color for the facet
     var facetInfo: FacetInfo { get }
+
+    /// Accesses the given facets for the specified scene manager.
+    static func facets<Manager: FacetManager>(for manager: Manager) -> [Self]
 }
 
+extension Facet {
+    /// Composition of one facet with another
+    public typealias With<F: Facet> = MultiFacet<Self, F>
+}
 
-public struct MultiFacet<P : CaseIterable & Facet, Q : CaseIterable & Facet> : Facet {
+/// A multi-facet is a composition of multiple facets.
+///
+/// The implementation of `facets` will go through all the available facets.
+public struct MultiFacet<P : Facet, Q : Facet> : Facet {
     public typealias Choice = XOr<P>.Or<Q>
     public let choice: Choice
 
@@ -71,14 +81,13 @@ public struct MultiFacet<P : CaseIterable & Facet, Q : CaseIterable & Facet> : F
         self.choice = choice
     }
 
-    public static var allCases: [MultiFacet<P, Q>] {
-        (P.allCases.map(Choice.p) + Q.allCases.map(Choice.q)).map(MultiFacet.init)
+    public static func facets<Manager: FacetManager>(for manager: Manager) -> [Self] {
+        (P.facets(for: manager).map(Choice.p) + Q.facets(for: manager).map(Choice.q)).map(MultiFacet.init)
     }
 
     public var facetInfo: FacetInfo {
         choice.map(\.facetInfo, \.facetInfo).pvalue
     }
-
 }
 
 #if canImport(SwiftUI)
@@ -102,29 +111,32 @@ extension MultiFacet : View where P : View, Q : View {
 }
 
 /// FacetHostingView: a top-level browser fo an app's `Facet`s,
-/// represented as either an outline on macOS or tabs on iOS.
+/// represented as either an outline list on desktop platforms and a tabbed interface on mobile.
 ///
 /// macOS: OutlineView w/ top-level Settings
 ///   iOS: TabView: Welcome, Settings
-public struct FacetHostingView<AF: Facet & View> : View {
-    @SceneStorage("facetSelection") private var facetSelection: AF.RawValue = .init()
+public struct FacetHostingView<Manager: SceneManager> : View where Manager.AppFacets : View {
+    @SceneStorage("facetSelection") private var facetSelection: Manager.AppFacets.RawValue = .init()
+    @ObservedObject var manager: Manager
 
-    public init() {
+    public init(store manager: Manager) {
+        self.manager = manager
     }
     
     public var body: some View {
-        FacetBrowserView(nested: false, selection: selectionBinding)
+        FacetBrowserView<Manager, Manager.AppFacets>(nested: false, selection: selectionBinding)
+            .withAppearanceSetting()
+            .environmentObject(manager)
             .focusedSceneValue(\.facetSelection, selectionOptionalBinding)
     }
 
-
     /// The current selection is stored as the underlying Raw Value string, which enables us to easily store it if need be.
-    private var selectionBinding: Binding<AF?> {
-        Binding(get: { AF(rawValue: facetSelection) }, set: { facetSelection = $0?.rawValue ?? .init() })
+    private var selectionBinding: Binding<Manager.AppFacets?> {
+        Binding(get: { Manager.AppFacets(rawValue: facetSelection) }, set: { facetSelection = $0?.rawValue ?? .init() })
     }
 
     /// The current selection is stored as the underlying Raw Value string, which enables us to easily store it if need be.
-    private var selectionOptionalBinding: Binding<AF.RawValue?> {
+    private var selectionOptionalBinding: Binding<Manager.AppFacets.RawValue?> {
         Binding(get: { facetSelection }, set: { newValue in self.facetSelection = newValue ?? .init() })
     }
 }
@@ -161,15 +173,17 @@ fileprivate extension KeyEquivalent {
 }
 
 /// Commands for selecting the facet using menus and keyboard shortcuts
-public struct FacetCommands<AF: Facet> : Commands {
-    @FocusedBinding(\.facetSelection) private var facetSelection: AF.RawValue??
+public struct FacetCommands<Store: SceneManager> : Commands {
+    @FocusedBinding(\.facetSelection) private var facetSelection: Store.AppFacets.RawValue??
+    let store: Store
 
-    public init() {
+    public init(store: Store) {
+        self.store = store
     }
     
     public var body: some Commands {
         CommandGroup(before: .toolbar) {
-            ForEach(AF.allCases.dropLast().enumerated().array(), id: \.element) { index, facet in
+            ForEach(Store.AppFacets.facets(for: store).dropLast().enumerated().array(), id: \.element) { index, facet in
                 let menu = facet.facetInfo.title
                     .label(image: facet.facetInfo.symbol)
                     .tint(facet.facetInfo.tint)
@@ -194,29 +208,65 @@ extension Facet {
     var facetTag: Self? { self }
 }
 
+public struct FacetStyle : RawRepresentable, Hashable {
+    public var rawValue: String
+
+    public init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+}
+
+extension FacetStyle {
+    public static let automatic = FacetStyle(rawValue: "automatic")
+
+    public static let outline = FacetStyle(rawValue: "outline")
+    public static let tabs = FacetStyle(rawValue: "tabs")
+}
+
 /// A view that can browse facets in either a tabbed or outline view configuration, depending on a combination of the current platform and the value if the `nested` setting.
-public struct FacetBrowserView<F: Facet> : View where F : View {
+public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetView: Facet> : View where FacetView : View {
     /// Whether the browser is at the top level or a lower level. This will affect whether it is rendered as a navigation hierarchy or a tabbed interface.
     public let nested: Bool
-    @Binding var selection: F?
+    var style: FacetStyle = .automatic
 
-    public init(nested: Bool = true, selection: Binding<F?>) {
+    @Binding var selection: FacetView?
+    @EnvironmentObject var manager: Manager
+
+    public init(nested: Bool = true, selection: Binding<FacetView?>) {
         self.nested = nested
         self._selection = selection
     }
 
+    /// Changes the style of this facet browser to the speified style.
+    public func facetStyle(_ style: FacetStyle) -> Self {
+        var browser = self
+        browser.style = style
+        return browser
+    }
+
+    /// We decide whether to display in tabs based on the style of the facet browser.
     private var displayInTabs: Bool {
-        #if os(macOS)
-        nested
-        #else
-        !nested
-        #endif
+        if style == .automatic {
+            #if os(macOS)
+            return nested
+            #else
+            return !nested
+            #endif
+        } else if style == .tabs {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    var facets: [FacetView] {
+        FacetView.facets(for: manager)
     }
 
     public var body: some View {
         if displayInTabs {
             TabView(selection: $selection) {
-                ForEach(F.allCases, id: \.facetTag) { facet in
+                ForEach(self.facets, id: \.facetTag) { facet in
                     facet
                         .navigationTitle(facet.facetInfo.title)
                         #if os(iOS)
@@ -232,7 +282,7 @@ public struct FacetBrowserView<F: Facet> : View where F : View {
         } else {
             NavigationView {
                 List {
-                    ForEach(F.allCases.dropFirst(nested ? 0 : 1).dropLast(nested ? 0 : 1), id: \.self) { facet in
+                    ForEach(self.facets.dropFirst(nested ? 0 : 1).dropLast(nested ? 0 : 1), id: \.self) { facet in
                         NavigationLink(tag: facet, selection: $selection) {
                             facet
                                 .navigationTitle(facet.facetInfo.title)
@@ -248,7 +298,7 @@ public struct FacetBrowserView<F: Facet> : View where F : View {
 
                 if !nested {
                     // the default placeholder view is the welcome screen
-                    F.allCases.first.unsafelyUnwrapped
+                    self.facets.first.unsafelyUnwrapped
                 }
             }
         }
@@ -270,17 +320,33 @@ public extension Facet {
 }
 
 
-extension Facet {
-    /// Composition of one facet with another
-    public typealias With<F: Facet> = MultiFacet<Self, F>
-}
-
-
 // MARK: Standard Facets
 
+extension Facet {
+    /// Adds on the standard settings to the end of the app-specific facets.
+    public typealias WithStandardSettings = Self.With<AppearanceSetting>.With<SupportSetting>.With<LicenseSetting>
+}
+
+extension Facet where Self : CaseIterable {
+    /// The default implementation of ``facets`` for a ``CaseIterable`` (e.g., an enum) will simply return the cases of the enum.
+    ///
+    /// This is useful for a single static facet that doesn't use any of the properties of the manager.
+    public static func facets<Manager: FacetManager>(for manager: Manager) -> AllCases {
+        allCases
+    }
+}
 
 /// A setting that simply displays the text of the license(s) included in the app.
-public enum LicenseSetting : String, Facet, View {
+///
+/// License files are text files that begin with "LICENSE".
+public enum LicenseSetting : String, Facet, CaseIterable, View {
+    static let licenseTexts: [String : String] = {
+        for child in (try? Bundle.main.resourceURL?.fileChildren(deep: true)) ?? [] {
+            print(wip("### child"), child)
+        }
+        return [:]
+    }()
+
     case license
 
     public var facetInfo: FacetInfo {
@@ -291,10 +357,143 @@ public enum LicenseSetting : String, Facet, View {
     }
 
     public var body: some View {
-        TextEditor(text: .constant(wip("LICENSE")))
+        print(wip("### reading"))
+        for text in Self.licenseTexts {
+            print("### text:", wip(text))
+        }
+        return TextEditor(text: .constant(wip("LICENSE")))
     }
 }
 
+
+/// A setting that simply displays the support options as a series of link buttons.
+public enum SupportSetting : String, Facet, CaseIterable, View {
+    /// Links to support resources: issues, discussions, source code, "fork this app", "Report this App (to the App Fair Council)"), log accessor, and software BOM
+    case support
+
+    public var facetInfo: FacetInfo {
+        switch self {
+        case .support:
+            return info(title: Text("Support", bundle: .module, comment: "license settings facet title"), symbol: .init(rawValue: "questionmark.app"), tint: .mint)
+        }
+    }
+
+    public var body: some View {
+        SupportSettingsView()
+    }
+}
+
+private struct SupportSettingsView : View {
+    var body: some View {
+        List {
+            SupportCommands(builder: {
+                $0.link(to: $1)
+            })
+        }
+    }
+}
+
+//    .preferredColorScheme(store.themeStyle.colorScheme)
+
+
+/// A setting that simply displays the support options as a series of link buttons.
+public enum AppearanceSetting : String, Facet, CaseIterable, View {
+    case appearance
+
+    public var facetInfo: FacetInfo {
+        switch self {
+        case .appearance:
+            return info(title: Text("Appearance", bundle: .module, comment: "appearance settings facet title"), symbol: .init(rawValue: "paintpalette"), tint: .mint)
+        }
+    }
+
+    public var body: some View {
+        AppearanceSettingsView()
+    }
+}
+
+@MainActor class AppearanceManager : ObservableObject {
+    static let shared = AppearanceManager()
+    @AppStorage("themeStyle") var themeStyle = ThemeStyle.system
+
+    private init() {
+    }
+}
+
+struct AppearanceSettingsView : View {
+    @EnvironmentObject var manager: AppearanceManager
+
+    var body: some View {
+        Form {
+            ThemeStylePicker(style: manager.$themeStyle)
+        }
+    }
+}
+
+extension View {
+    /// Applies the user's appearance settings preferences from ``AppearanceSetting`` into this view hierarchy.
+    ///
+    /// This function should be invoked as high as possible in the view hierarchy.
+    public func withAppearanceSetting() -> some View {
+        AppearanceManagerView(content: self)
+            .environmentObject(AppearanceManager.shared)
+    }
+}
+
+private struct AppearanceManagerView<V: View> : View {
+    @EnvironmentObject var appearanceManager: AppearanceManager
+    let content: V
+
+    var body: some View {
+        content
+            .preferredColorScheme(appearanceManager.themeStyle.colorScheme)
+    }
+}
+
+
+/// A view that selects from the available themes
+struct ThemeStylePicker: View {
+    @Binding var style: ThemeStyle
+
+    var body: some View {
+        Picker(selection: $style) {
+            ForEach(ThemeStyle.allCases) { themeStyle in
+                themeStyle.label
+            }
+        } label: {
+            Text("Theme", bundle: .module, comment: "picker title for general preference for theme style")
+        }
+        .pickerStyle(.inline)
+        //.radioPickerStyle()
+    }
+}
+
+/// The preferred theme style for the app
+enum ThemeStyle: String, CaseIterable {
+    case system
+    case light
+    case dark
+}
+
+extension ThemeStyle : Identifiable {
+    var id: Self { self }
+
+    var label: Text {
+        switch self {
+        case .system: return Text("System", comment: "general preference for theme style in popup menu")
+        case .light: return Text("Light", comment: "general preference for theme style in popup menu")
+        case .dark: return Text("Dark", comment: "general preference for theme style in popup menu")
+        }
+    }
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system: return nil
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+}
 
 #endif
 
