@@ -33,6 +33,7 @@
  */
 import Swift
 
+#if canImport(SwiftUI)
 /// A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),
 /// or a secondary-level feature (navigation items on iOS, settings tabs on macOS).
 ///
@@ -496,4 +497,6 @@ extension ThemeStyle : Identifiable {
 }
 
 #endif
+
+#endif // canImport(SwiftUI)
 
