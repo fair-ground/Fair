@@ -33,6 +33,8 @@
  */
 import FairApp
 
+#if canImport(SwiftUI)
+
 /// An item that contains a title, subtitle, and optional animation.
 /// It is uniquely identified and codable, and meant to contain localizable information.
 public struct Card : Codable, Identifiable {
@@ -283,3 +285,5 @@ extension ButtonStyle where Self == ZoomableButtonStyle {
         ZoomableButtonStyle(zoomLevel: level)
     }
 }
+
+#endif // canImport(SwiftUI)
