@@ -530,6 +530,31 @@ public struct HoverSymbolModifier: ViewModifier {
     }
 }
 
+extension View {
+    /// Provides an overlay with the given number (or other ``VectorArithmetic`` type).
+    public func animatingVectorOverlay<N: VectorArithmetic, V: View>(for vector: N, alignment: Alignment = .center, @ViewBuilder content: @escaping (N) -> V) -> some View {
+        modifier(AnimatableVectorArithmeticModifier(animatableData: vector, alignment: alignment, content: content))
+    }
+
+    /// Provides an overlay with the given number (or other ``VectorArithmetic`` type).
+    public func animatingVectorBackground<N: VectorArithmetic, V: View>(for vector: N, alignment: Alignment = .center, @ViewBuilder content: @escaping (N) -> V) -> some View {
+        modifier(AnimatableVectorArithmeticModifier(animatableData: vector, alignment: alignment, content: content))
+    }
+}
+
+/// A modfier that applies the given content as an overlay
+struct AnimatableVectorArithmeticModifier<N: VectorArithmetic, V: View>: AnimatableModifier {
+    var animatableData: N
+    var alignment: Alignment
+    let content: (N) -> V
+
+
+    func body(content: Content) -> some View {
+        content.overlay(alignment: alignment) {
+            self.content(animatableData)
+        }
+    }
+}
 
 
 #endif // canImport(SwiftUI)

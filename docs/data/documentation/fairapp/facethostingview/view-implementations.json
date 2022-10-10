@@ -132,6 +132,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/allowsHitTesting(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/allowsTightening(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/anchorPreference(key:value:transform:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/animatingVectorBackground(for:alignment:content:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/animatingVectorOverlay(for:alignment:content:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/animation(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/animation(_:value:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/aspectRatio(_:contentMode:)-35j9l",
@@ -9300,6 +9302,258 @@
   "title" : "anchorPreference(key:value:transform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facethostingview\/anchorpreference(key:value:transform:)"
+},
+"doc://FairApp/documentation/FairApp/FacetHostingView/animatingVectorBackground(for:alignment:content:)": {
+  "abstract" : [
+    {
+      "text" : "Provides an overlay with the given number (or other ",
+      "type" : "text"
+    },
+    {
+      "code" : "VectorArithmetic",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorBackground"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/animatingVectorBackground(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorBackground(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facethostingview\/animatingvectorbackground(for:alignment:content:)"
+},
+"doc://FairApp/documentation/FairApp/FacetHostingView/animatingVectorOverlay(for:alignment:content:)": {
+  "abstract" : [
+    {
+      "text" : "Provides an overlay with the given number (or other ",
+      "type" : "text"
+    },
+    {
+      "code" : "VectorArithmetic",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorOverlay"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/animatingVectorOverlay(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorOverlay(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facethostingview\/animatingvectoroverlay(for:alignment:content:)"
 },
 "doc://FairApp/documentation/FairApp/FacetHostingView/animation(_:)": {
   "abstract" : [

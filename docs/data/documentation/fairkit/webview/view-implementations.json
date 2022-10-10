@@ -132,6 +132,8 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/allowsHitTesting(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/allowsTightening(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/anchorPreference(key:value:transform:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/animatingVectorBackground(for:alignment:content:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/animatingVectorOverlay(for:alignment:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/animation(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/animation(_:value:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/aspectRatio(_:contentMode:)-6loyc",
@@ -9253,6 +9255,236 @@
   "title" : "anchorPreference(key:value:transform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webview\/anchorpreference(key:value:transform:)"
+},
+"doc://FairKit/documentation/FairKit/WebView/animatingVectorBackground(for:alignment:content:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorBackground"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/animatingVectorBackground(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorBackground(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webview\/animatingvectorbackground(for:alignment:content:)"
+},
+"doc://FairKit/documentation/FairKit/WebView/animatingVectorOverlay(for:alignment:content:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorOverlay"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/animatingVectorOverlay(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorOverlay(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webview\/animatingvectoroverlay(for:alignment:content:)"
 },
 "doc://FairKit/documentation/FairKit/WebView/animation(_:)": {
   "abstract" : [

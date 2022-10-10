@@ -535,6 +535,17 @@ public struct SupportCommands<LinkButton: View> : View {
     }
 }
 
+fileprivate let checkForUpdatesURL: URL? = {
+    if let url = Bundle.appFairURL(for: Bundle.main),
+       url.canLaunchScheme() == true,
+       Bundle.main.isCatalogBrowserApp == false {
+        return url
+    } else {
+        return nil
+    }
+}()
+
+
 // The top-level container in which the `SwiftUI.App` is implemented.
 public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
@@ -548,9 +559,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @SceneBuilder public var body: some SwiftUI.Scene {
         let commands = Group {
             CommandGroup(after: CommandGroupPlacement.appSettings) {
-                if let url = Bundle.appFairURL(for: Bundle.main),
-                    url.canLaunchScheme() == true,
-                   Bundle.main.isCatalogBrowserApp == false {
+                if let url = checkForUpdatesURL {
                     Link(destination: url) {
                         Text("Check for Updates", bundle: .module, comment: "text for command group to check for app updates")
                             .help(Text("Check for updates on the App Fair", bundle: .module, comment: "tooltip for command group to check for updates"))

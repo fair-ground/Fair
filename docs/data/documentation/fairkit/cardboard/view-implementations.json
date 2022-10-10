@@ -132,6 +132,8 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/allowsHitTesting(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/allowsTightening(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/anchorPreference(key:value:transform:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/animatingVectorBackground(for:alignment:content:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/animatingVectorOverlay(for:alignment:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/animation(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/animation(_:value:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/aspectRatio(_:contentMode:)-3o4ck",
@@ -9304,6 +9306,236 @@
   "title" : "anchorPreference(key:value:transform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/cardboard\/anchorpreference(key:value:transform:)"
+},
+"doc://FairKit/documentation/FairKit/CardBoard/animatingVectorBackground(for:alignment:content:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorBackground"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/animatingVectorBackground(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorBackground(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/cardboard\/animatingvectorbackground(for:alignment:content:)"
+},
+"doc://FairKit/documentation/FairKit/CardBoard/animatingVectorOverlay(for:alignment:content:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorOverlay"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/CardBoard\/animatingVectorOverlay(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorOverlay(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/cardboard\/animatingvectoroverlay(for:alignment:content:)"
 },
 "doc://FairKit/documentation/FairKit/CardBoard/animation(_:)": {
   "abstract" : [

@@ -132,6 +132,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/allowsHitTesting(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/allowsTightening(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/anchorPreference(key:value:transform:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/animatingVectorBackground(for:alignment:content:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/animatingVectorOverlay(for:alignment:content:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/animation(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/animation(_:value:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/aspectRatio(_:contentMode:)-4ndmg",
@@ -9285,6 +9287,258 @@
   "title" : "anchorPreference(key:value:transform:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/licensesetting\/anchorpreference(key:value:transform:)"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/animatingVectorBackground(for:alignment:content:)": {
+  "abstract" : [
+    {
+      "text" : "Provides an overlay with the given number (or other ",
+      "type" : "text"
+    },
+    {
+      "code" : "VectorArithmetic",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorBackground"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/animatingVectorBackground(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorBackground(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/animatingvectorbackground(for:alignment:content:)"
+},
+"doc://FairApp/documentation/FairApp/LicenseSetting/animatingVectorOverlay(for:alignment:content:)": {
+  "abstract" : [
+    {
+      "text" : "Provides an overlay with the given number (or other ",
+      "type" : "text"
+    },
+    {
+      "code" : "VectorArithmetic",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "animatingVectorOverlay"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9AlignmentV",
+      "text" : "Alignment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "N"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting\/animatingVectorOverlay(for:alignment:content:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "animatingVectorOverlay(for:alignment:content:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/licensesetting\/animatingvectoroverlay(for:alignment:content:)"
 },
 "doc://FairApp/documentation/FairApp/LicenseSetting/animation(_:)": {
   "abstract" : [
