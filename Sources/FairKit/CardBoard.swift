@@ -49,7 +49,7 @@ public struct Card : Codable, Identifiable {
     public var animationHeight: CGFloat?
     public var body: String?
 
-    public init(id: UUID, title: String, subtitle: String? = nil, foregroundColor: Card.BannerColor? = nil, backgroundColors: [Card.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, animation: VectorAnimation? = nil, animationHeight: CGFloat? = nil, body: String? = nil) {
+    public init(id: UUID = UUID(), title: String, subtitle: String? = nil, foregroundColor: Card.BannerColor? = nil, backgroundColors: [Card.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, animation: VectorAnimation? = nil, animationHeight: CGFloat? = nil, body: String? = nil) {
         self.id = id
         self.title = title
         self.subtitle = subtitle

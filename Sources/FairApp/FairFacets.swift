@@ -333,7 +333,7 @@ extension FairContainer where AppStore.AppFacets : View, AppStore.AppFacets == S
 
 extension Facet {
     /// Adds on the standard settings to the end of the app-specific facets.
-    public typealias WithStandardSettings = Self.With<AppearanceSetting>.With<SupportSetting>.With<LicenseSetting>
+    public typealias WithStandardSettings = Self.With<AppearanceSetting>.With<SupportSetting> // .With<LicenseSetting>
 }
 
 extension Facet where Self : CaseIterable {
@@ -351,7 +351,7 @@ extension Facet where Self : CaseIterable {
 public enum LicenseSetting : String, Facet, CaseIterable, View {
     static let licenseTexts: [String : String] = {
         for child in (try? Bundle.main.resourceURL?.fileChildren(deep: true)) ?? [] {
-            print(wip("### child"), child)
+            //print(wip("### child"), child)
         }
         return [:]
     }()
@@ -366,11 +366,11 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
     }
 
     public var body: some View {
-        print(wip("### reading"))
-        for text in Self.licenseTexts {
-            print("### text:", wip(text))
-        }
-        return TextEditor(text: .constant(wip("LICENSE")))
+        //print(wip("### reading"))
+        //for text in Self.licenseTexts {
+            //print("### text:", wip(text))
+        //}
+        return TextEditor(text: .constant("LICENSE"))
     }
 }
 
