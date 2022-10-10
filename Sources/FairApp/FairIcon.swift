@@ -113,7 +113,7 @@ public struct FairIconView : View, Equatable {
         //Font.system(size: size).smallCaps()
     }
 
-    func iconView(for span: CGFloat) -> some View {
+    func iconView(for span: CGFloat, maskShape: Bool = false) -> some View {
         let parts = name.components(separatedBy: CharacterSet.alphanumerics.inverted)
         let monogram = String(parts.map(\.first).compacted()).uppercased()
 
@@ -147,18 +147,29 @@ public struct FairIconView : View, Equatable {
         let svgPath = iconPath.flatMap { try? SVGPath($0) }
         let isSymbolPath = svgPath == nil // iconPath.flatMap(FairSymbol.allNames.keys.contains)
 
+        func pathShapedMask(in rect: CGRect) -> Path {
+            var shape = Rectangle().path(in: rect)
+            if let svgPath = svgPath {
+                shape.addPath(svgPath.inset(by: span / 7).path(in: rect))
+            }
+            return shape
+        }
+
         return ZStack(alignment: .center) {
             squircle
                 .fill(fillStyle)
+                .mask(pathShapedMask(in: rect).fill(style: FillStyle(eoFill: true)))
                 .frame(width: span, height: span, alignment: .center)
                 //.mask(maskPath().fill(style: FillStyle(eoFill: true)))
 
             ZStack {
                 if let iconPath = iconPath {
                     if isSymbolPath == false, let svgPath = svgPath {
-                        svgPath
-                            .inset(by: span / 7)
-                            .aspectRatio(contentMode: .fit)
+                        if maskShape == false {
+                            svgPath
+                                .inset(by: span / 7)
+                                .aspectRatio(contentMode: .fit)
+                        }
                     } else {
                         Text(Image(systemName: iconPath))
                             .font(iconFont(size: span * 0.5))
