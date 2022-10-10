@@ -113,9 +113,6 @@ extension MultiFacet : View where P : View, Q : View {
 
 /// FacetHostingView: a top-level browser fo an app's `Facet`s,
 /// represented as either an outline list on desktop platforms and a tabbed interface on mobile.
-///
-/// macOS: OutlineView w/ top-level Settings
-///   iOS: TabView: Welcome, Settings
 public struct FacetHostingView<Manager: SceneManager> : View where Manager.AppFacets : View {
     @SceneStorage("facetSelection") private var facetSelection: Manager.AppFacets.RawValue = .init()
     @ObservedObject var manager: Manager
