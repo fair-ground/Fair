@@ -116,23 +116,29 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/animation",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/animationHeight",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/backgroundColors",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/backgroundGradientOpacity",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/body",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/foregroundColor",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphic",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphicHeight",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/id-9rd77",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/subtitle",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/title"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/CardGraphic"
+      ],
+      "title" : "Type Aliases"
     },
     {
       "generated" : true,
@@ -263,6 +269,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/bannercolor"
 },
+"doc://FairApp/documentation/FairApp/Card/CardGraphic": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CardGraphic"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/CardGraphic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CardGraphic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Card.CardGraphic",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/cardgraphic"
+},
 "doc://FairApp/documentation/FairApp/Card/Decodable-Implementations": {
   "abstract" : [
 
@@ -295,82 +332,6 @@
   "title" : "Identifiable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/identifiable-implementations"
-},
-"doc://FairApp/documentation/FairApp/Card/animation": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "animation"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-      "text" : "VectorAnimation"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/animation",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "animation",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/animation"
-},
-"doc://FairApp/documentation/FairApp/Card/animationHeight": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "animationHeight"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:12CoreGraphics7CGFloatV",
-      "text" : "CGFloat"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/animationHeight",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "animationHeight",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/animationheight"
 },
 "doc://FairApp/documentation/FairApp/Card/backgroundColors": {
   "abstract" : [
@@ -542,6 +503,91 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/foregroundcolor"
 },
+"doc://FairApp/documentation/FairApp/Card/graphic": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "graphic"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV0C7Graphica",
+      "text" : "CardGraphic"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphic",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "graphic",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/graphic"
+},
+"doc://FairApp/documentation/FairApp/Card/graphicHeight": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "graphicHeight"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:12CoreGraphics7CGFloatV",
+      "text" : "CGFloat"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphicHeight",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "graphicHeight",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/graphicheight"
+},
 "doc://FairApp/documentation/FairApp/Card/id-9rd77": {
   "abstract" : [
 
@@ -618,7 +664,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/init(from:)"
 },
-"doc://FairApp/documentation/FairApp/Card/init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)": {
+"doc://FairApp/documentation/FairApp/Card/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)": {
   "abstract" : [
 
   ],
@@ -668,6 +714,23 @@
     {
       "kind" : "externalParam",
       "text" : "subtitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
     },
     {
       "kind" : "text",
@@ -753,7 +816,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "animation"
+      "text" : "graphic"
     },
     {
       "kind" : "text",
@@ -761,8 +824,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-      "text" : "VectorAnimation"
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV0C7Graphica",
+      "text" : "CardGraphic"
     },
     {
       "kind" : "text",
@@ -770,7 +842,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "animationHeight"
+      "text" : "graphicHeight"
     },
     {
       "kind" : "text",
@@ -783,32 +855,15 @@
     },
     {
       "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)",
+  "title" : "init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:animationheight:body:)"
+  "url" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:body:foregroundcolor:backgroundcolors:backgroundgradientopacity:graphic:graphicheight:)"
 },
 "doc://FairApp/documentation/FairApp/Card/subtitle": {
   "abstract" : [

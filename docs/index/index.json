@@ -6609,23 +6609,13 @@
                 "type" : "init"
               },
               {
-                "path" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:animationheight:body:)",
-                "title" : "init(id: UUID, title: String, subtitle: String?, foregroundColor: Card.BannerColor?, backgroundColors: [Card.BannerColor]?, backgroundGradientOpacity: Double?, animation: VectorAnimation?, animationHeight: CGFloat?, body: String?)",
+                "path" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:body:foregroundcolor:backgroundcolors:backgroundgradientopacity:graphic:graphicheight:)",
+                "title" : "init(id: UUID, title: String, subtitle: String?, body: String?, foregroundColor: Card.BannerColor?, backgroundColors: [Card.BannerColor]?, backgroundGradientOpacity: Double?, graphic: Card.CardGraphic?, graphicHeight: CGFloat?)",
                 "type" : "init"
               },
               {
                 "title" : "Instance Properties",
                 "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/fairapp\/card\/animation",
-                "title" : "var animation: VectorAnimation?",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/fairapp\/card\/animationheight",
-                "title" : "var animationHeight: CGFloat?",
-                "type" : "property"
               },
               {
                 "path" : "\/documentation\/fairapp\/card\/backgroundcolors",
@@ -6648,6 +6638,16 @@
                 "type" : "property"
               },
               {
+                "path" : "\/documentation\/fairapp\/card\/graphic",
+                "title" : "var graphic: Card.CardGraphic?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/card\/graphicheight",
+                "title" : "var graphicHeight: CGFloat?",
+                "type" : "property"
+              },
+              {
                 "path" : "\/documentation\/fairapp\/card\/id-9rd77",
                 "title" : "var id: UUID",
                 "type" : "property"
@@ -6661,6 +6661,15 @@
                 "path" : "\/documentation\/fairapp\/card\/title",
                 "title" : "var title: String",
                 "type" : "property"
+              },
+              {
+                "title" : "Type Aliases",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/card\/cardgraphic",
+                "title" : "Card.CardGraphic",
+                "type" : "typealias"
               },
               {
                 "title" : "Default Implementations",

@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp4CardV2id5title8subtitle15foregroundColor16backgroundColors0I15GradientOpacity9animation0M6Height4bodyAC10Foundation4UUIDV_S2SSgAC06BannerH0VSgSayARGSgSdSg0A4Core4JSumOSg0S8Graphics7CGFloatVSgAPtcfc",
+    "externalID" : "s:7FairApp4CardV2id5title8subtitle4body15foregroundColor16backgroundColors0J15GradientOpacity7graphic0N6HeightAC10Foundation4UUIDV_S2SSgApC06BannerI0VSgSayARGSgSdSg0A4Core3XOrO2OrOyAA0A6SymbolV_AW4JSumOGSg0S8Graphics7CGFloatVSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -60,6 +60,23 @@
       {
         "kind" : "externalParam",
         "text" : "subtitle"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "body"
       },
       {
         "kind" : "text",
@@ -145,7 +162,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "animation"
+        "text" : "graphic"
       },
       {
         "kind" : "text",
@@ -153,8 +170,17 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-        "text" : "VectorAnimation"
+        "preciseIdentifier" : "s:7FairApp4CardV",
+        "text" : "Card"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp4CardV0C7Graphica",
+        "text" : "CardGraphic"
       },
       {
         "kind" : "text",
@@ -162,7 +188,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "animationHeight"
+        "text" : "graphicHeight"
       },
       {
         "kind" : "text",
@@ -172,23 +198,6 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:12CoreGraphics7CGFloatV",
         "text" : "CGFloat"
-      },
-      {
-        "kind" : "text",
-        "text" : "?, "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "body"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
       },
       {
         "kind" : "text",
@@ -203,7 +212,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)"
+    "title" : "init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)"
   },
   "primaryContentSections" : [
     {
@@ -261,6 +270,23 @@
             {
               "kind" : "externalParam",
               "text" : "subtitle"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "body"
             },
             {
               "kind" : "text",
@@ -350,17 +376,27 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "animation"
+              "text" : "graphic"
             },
             {
               "kind" : "text",
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation",
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-              "text" : "VectorAnimation"
+              "preciseIdentifier" : "s:7FairApp4CardV",
+              "text" : "Card"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/CardGraphic",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp4CardV0C7Graphica",
+              "text" : "CardGraphic"
             },
             {
               "kind" : "text",
@@ -368,7 +404,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "animationHeight"
+              "text" : "graphicHeight"
             },
             {
               "kind" : "text",
@@ -378,23 +414,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:12CoreGraphics7CGFloatV",
               "text" : "CGFloat"
-            },
-            {
-              "kind" : "text",
-              "text" : "? = nil, "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "body"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
             },
             {
               "kind" : "text",
@@ -417,7 +436,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/card\/init(id:title:subtitle:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:animationheight:body:)"
+        "\/documentation\/fairapp\/card\/init(id:title:subtitle:body:foregroundcolor:backgroundcolors:backgroundgradientopacity:graphic:graphicheight:)"
       ],
       "traits" : [
         {
@@ -523,7 +542,38 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/bannercolor"
 },
-"doc://FairApp/documentation/FairApp/Card/init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)": {
+"doc://FairApp/documentation/FairApp/Card/CardGraphic": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CardGraphic"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/CardGraphic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CardGraphic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Card.CardGraphic",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/cardgraphic"
+},
+"doc://FairApp/documentation/FairApp/Card/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)": {
   "abstract" : [
 
   ],
@@ -573,6 +623,23 @@
     {
       "kind" : "externalParam",
       "text" : "subtitle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "body"
     },
     {
       "kind" : "text",
@@ -658,7 +725,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "animation"
+      "text" : "graphic"
     },
     {
       "kind" : "text",
@@ -666,8 +733,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-      "text" : "VectorAnimation"
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV0C7Graphica",
+      "text" : "CardGraphic"
     },
     {
       "kind" : "text",
@@ -675,7 +751,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "animationHeight"
+      "text" : "graphicHeight"
     },
     {
       "kind" : "text",
@@ -688,108 +764,15 @@
     },
     {
       "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(id:title:subtitle:foregroundColor:backgroundColors:backgroundGradientOpacity:animation:animationHeight:body:)",
+  "title" : "init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:foregroundcolor:backgroundcolors:backgroundgradientopacity:animation:animationheight:body:)"
-},
-"doc://FairApp/documentation/FairApp/VectorAnimation": {
-  "abstract" : [
-    {
-      "text" : "When Lottie is independently added to a package, a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " will be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a lottie animation JSON format, which can be included inline in a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VectorAnimation"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VectorAnimation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VectorAnimation",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/vectoranimation"
+  "url" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:body:foregroundcolor:backgroundcolors:backgroundgradientopacity:graphic:graphicheight:)"
 }
 }
 }

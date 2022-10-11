@@ -9,15 +9,15 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/animation"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/CardGraphic"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp4CardV9animation0A4Core4JSumOSgvp",
+    "externalID" : "s:7FairApp4CardV0C7Graphica",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "typealias"
       },
       {
         "kind" : "text",
@@ -25,20 +25,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "animation"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-        "text" : "VectorAnimation"
-      },
-      {
-        "kind" : "text",
-        "text" : "?"
+        "text" : "CardGraphic"
       }
     ],
     "modules" : [
@@ -46,10 +33,16 @@
         "name" : "FairApp"
       }
     ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "CardGraphic"
+      }
+    ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "animation"
+    "roleHeading" : "Type Alias",
+    "symbolKind" : "typealias",
+    "title" : "Card.CardGraphic"
   },
   "primaryContentSections" : [
     {
@@ -64,7 +57,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "typealias"
             },
             {
               "kind" : "text",
@@ -72,11 +65,39 @@
             },
             {
               "kind" : "identifier",
-              "text" : "animation"
+              "text" : "CardGraphic"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : " = "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore3XOrO",
+              "text" : "XOr"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp0A6SymbolV",
+              "text" : "FairSymbol"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+              "text" : "Or"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
             },
             {
               "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation",
@@ -86,7 +107,7 @@
             },
             {
               "kind" : "text",
-              "text" : "?"
+              "text" : ">"
             }
           ]
         }
@@ -105,7 +126,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/card\/animation"
+        "\/documentation\/fairapp\/card\/cardgraphic"
       ],
       "traits" : [
         {
@@ -180,14 +201,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card"
 },
-"doc://FairApp/documentation/FairApp/Card/animation": {
+"doc://FairApp/documentation/FairApp/Card/CardGraphic": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -195,28 +216,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "animation"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp15VectorAnimationa",
-      "text" : "VectorAnimation"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
+      "text" : "CardGraphic"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/animation",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/CardGraphic",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CardGraphic"
+    }
+  ],
   "role" : "symbol",
-  "title" : "animation",
+  "title" : "Card.CardGraphic",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/animation"
+  "url" : "\/documentation\/fairapp\/card\/cardgraphic"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol": {
+  "abstract" : [
+    {
+      "text" : "A symbol that can be interpreted graphically by the host system.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairSymbol"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairSymbol"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairSymbol",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol"
 },
 "doc://FairApp/documentation/FairApp/VectorAnimation": {
   "abstract" : [
