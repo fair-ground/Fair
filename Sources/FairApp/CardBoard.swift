@@ -31,7 +31,7 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
-import FairApp
+import FairCore
 
 #if canImport(SwiftUI)
 
@@ -77,7 +77,7 @@ public struct Card : Codable, Identifiable {
         }
 
         /// Enumeration definit system UI colors
-        public enum SystemColor : String, Codable {
+        public enum SystemColor : String, Codable, CaseIterable {
             case red
             case orange
             case yellow
@@ -264,24 +264,25 @@ public struct CardBoardItemView : View {
         }
         .foregroundColor(item.foregroundColor?.systemColor)
         .textSelection(.enabled)
+        .allowsTightening(true)
     }
 }
 
-struct ZoomableButtonStyle: ButtonStyle {
+public struct ZoomableButtonStyle: ButtonStyle {
     var zoomLevel = 0.95
 
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? zoomLevel : 1, anchor: .center)
     }
 }
 
 extension ButtonStyle where Self == ZoomableButtonStyle {
-    static var zoomable: ZoomableButtonStyle {
+    public static var zoomable: ZoomableButtonStyle {
         ZoomableButtonStyle()
     }
 
-    static func zoomable(level: Double = 0.95) -> ZoomableButtonStyle {
+    public static func zoomable(level: Double = 0.95) -> ZoomableButtonStyle {
         ZoomableButtonStyle(zoomLevel: level)
     }
 }

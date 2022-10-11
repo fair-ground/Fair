@@ -31,7 +31,7 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
-import FairApp
+import FairCore
 import Foundation
 
 // WARNING: much of this code is only compiled when Lottie is present in an app,
@@ -40,12 +40,12 @@ import Foundation
 #if canImport(Lottie)
 import Lottie
 /// When Lottie is independently added to a package, a ``VectorAnimation`` will be
-/// a lottie animation JSON format, which can be included inline in a ``Banner Item``.
+/// a lottie animation JSON format, which can be included inline in a ``Card``.
 /// On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ``JSum``.
 ///
 /// Lottie can be added to a project with the project dependency:
 ///
-/// `.package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.4.3")`
+/// `.package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.5.0")`
 ///
 /// and a target dependency:
 ///
@@ -54,12 +54,12 @@ import Lottie
 public typealias VectorAnimation = Lottie.Animation
 #else
 /// When Lottie is independently added to a package, a ``VectorAnimation`` will be
-/// a lottie animation JSON format, which can be included inline in a ``Banner Item``.
+/// a lottie animation JSON format, which can be included inline in a ``Card``.
 /// On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ``JSum``.
 ///
 /// Lottie can be added to a project with the project dependency:
 ///
-/// `.package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.4.3")`
+/// `.package(url: "https://github.com/airbnb/lottie-ios.git", from: "3.5.0")`
 ///
 /// and a target dependency:
 ///

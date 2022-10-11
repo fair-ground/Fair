@@ -615,14 +615,37 @@ struct EmbeddedBrowserController: UXViewControllerRepresentable {
 
     class Coordinator : NSObject, SFSafariViewControllerDelegate {
         let onDismiss: () -> ()
-
+        
         init(onDismiss: @escaping () -> ()) {
             self.onDismiss = onDismiss
         }
-
+        
         func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-            dbg("closed controller")
+            dbg("safariViewControllerDidFinish", controller)
             onDismiss()
+        }
+        
+        func safariViewController(_ controller: SFSafariViewController, activityItemsFor URL: URL, title: String?) -> [UIActivity] {
+            []
+        }
+        
+        func safariViewController(_ controller: SFSafariViewController, excludedActivityTypesFor URL: URL, title: String?) -> [UIActivity.ActivityType] {
+            []
+        }
+        
+        func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+            dbg("completedLoad:", didLoadSuccessfully, controller)
+//            if didLoadSuccessfully == false {
+//                onDismiss()
+//            }
+        }
+        
+        func safariViewController(_ controller: SFSafariViewController, initialLoadDidRedirectTo URL: URL) {
+            dbg("initialLoadDidRedirectTo:", URL, controller)
+        }
+        
+        func safariViewControllerWillOpenInBrowser(_ controller: SFSafariViewController) {
+            dbg("safariViewControllerWillOpenInBrowser", controller)
         }
 
     }
