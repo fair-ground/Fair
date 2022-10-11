@@ -557,5 +557,78 @@ struct AnimatableVectorArithmeticModifier<N: VectorArithmetic, V: View>: Animata
 }
 
 
+public struct EmbeddedBrowser : View {
+    let url: URL
+    @State var presented = true
+    @Environment(\.dismiss) var dismiss
+
+    public init(url: URL, presented: Bool = true) {
+        self.url = url
+        self.presented = presented
+    }
+
+    public var body: some View {
+        Link(destination: url) {
+            VStack {
+                //Text("Open:", bundle: .module, comment: "show url preview")
+                Text(verbatim: url.absoluteString)
+                    .font(Font.headline.monospaced().bold())
+            }
+                .multilineTextAlignment(.center)
+        }
+#if canImport(SafariServices)
+        #if os(iOS)
+        .fullScreenCover(isPresented: $presented, content: {
+            EmbeddedBrowserController(url: url) {
+                dismiss()
+            }
+        })
+        #endif // os(iOS)
+#endif
+    }
+}
+
+#if canImport(SafariServices)
+import SafariServices
+
+#if os(iOS)
+struct EmbeddedBrowserController: UXViewControllerRepresentable {
+    let url: URL
+    let config: SFSafariViewController.Configuration = .init()
+    let onDismiss: () -> ()
+
+    func makeUXViewController(context: UIViewControllerRepresentableContext<Self>) -> SFSafariViewController {
+        let controller = SFSafariViewController(url: url, configuration: config)
+        controller.delegate = context.coordinator
+        return controller
+    }
+
+    func updateUXViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<Self>) {
+    }
+
+    static func dismantleUXViewController(_ controller: SFSafariViewController, coordinator: Coordinator) {
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onDismiss: onDismiss)
+    }
+
+    class Coordinator : NSObject, SFSafariViewControllerDelegate {
+        let onDismiss: () -> ()
+
+        init(onDismiss: @escaping () -> ()) {
+            self.onDismiss = onDismiss
+        }
+
+        func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+            dbg("closed controller")
+            onDismiss()
+        }
+
+    }
+}
+#endif
+#endif
+
 #endif // canImport(SwiftUI)
 
