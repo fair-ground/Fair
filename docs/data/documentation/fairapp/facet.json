@@ -88,48 +88,6 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SH",
               "text" : "Hashable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SY",
-              "text" : "RawRepresentable"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "where"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "RawValue"
-            },
-            {
-              "kind" : "text",
-              "text" : " == "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
             }
           ]
         }
@@ -178,8 +136,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/SQ",
-        "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/SY"
+        "doc:\/\/FairApp\/SH"
       ],
       "kind" : "relationships",
       "title" : "Inherits From",
@@ -188,6 +145,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting"
@@ -208,7 +166,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/facetInfo-swift.property"
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/facetInfo-swift.property",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/rawValue-swift.property"
       ],
       "title" : "Instance Properties"
     },
@@ -221,6 +180,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/RawValue-swift.typealias",
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/WithStandardSettings"
       ],
@@ -255,11 +215,6 @@
 "doc://FairApp/SQ": {
   "identifier" : "doc:\/\/FairApp\/SQ",
   "title" : "Swift.Equatable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/SY": {
-  "identifier" : "doc:\/\/FairApp\/SY",
-  "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
 "doc://FairApp/documentation/FairApp": {
@@ -393,6 +348,37 @@
   "title" : "Facet.FacetInfo",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.typealias"
+},
+"doc://FairApp/documentation/FairApp/Facet/RawValue-swift.typealias": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawValue"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/RawValue-swift.typealias",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawValue"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Facet.RawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/rawvalue-swift.typealias"
 },
 "doc://FairApp/documentation/FairApp/Facet/With": {
   "abstract" : [
@@ -677,6 +663,83 @@
   "title" : "info(title:symbol:tint:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/info(title:symbol:tint:)"
+},
+"doc://FairApp/documentation/FairApp/Facet/rawValue-swift.property": {
+  "abstract" : [
+    {
+      "text" : "The underlying encoded value for this facet",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp5FacetP8RawValuea",
+      "text" : "RawValue"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/rawValue-swift.property",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet\/rawvalue-swift.property"
+},
+"doc://FairApp/documentation/FairApp/LanguageSetting": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LanguageSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LanguageSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LanguageSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/languagesetting"
 },
 "doc://FairApp/documentation/FairApp/LicenseSetting": {
   "abstract" : [

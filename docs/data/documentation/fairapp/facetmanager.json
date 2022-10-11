@@ -121,6 +121,12 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/ConfigFacets"
       ],
       "title" : "Associated Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/bundle"
+      ],
+      "title" : "Instance Properties"
     }
   ],
   "variants" : [
@@ -328,6 +334,44 @@
   "title" : "ConfigFacets",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetmanager\/configfacets"
+},
+"doc://FairApp/documentation/FairApp/FacetManager/bundle": {
+  "abstract" : [
+    {
+      "text" : "The bundle associated with this manager",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "bundle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSBundle",
+      "text" : "Bundle"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/bundle",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "bundle",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetmanager\/bundle"
 },
 "doc://FairApp/documentation/FairApp/SceneManager": {
   "abstract" : [

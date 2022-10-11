@@ -249,6 +249,9 @@ public protocol FacetManager {
 
     /// The settings-level facets for this app. These will be merged with standard app settings when showing a settings facet.
     associatedtype ConfigFacets : Facet
+
+    /// The bundle associated with this manager
+    var bundle: Bundle { get }
 }
 
 /// A Facet of Never is how a non-faceted store can

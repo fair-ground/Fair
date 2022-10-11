@@ -40,7 +40,11 @@ import Swift
 /// By convention, the initial element of the `CaseIterable` list will be a welcome view that will be initially displayed by the app.
 ///
 /// The final tab will be the settings tab, which is shown as a tab on iOS and is included in the standard settings window on macOS.
-public protocol Facet : Hashable, RawRepresentable where RawValue == String {
+public protocol Facet : Hashable {
+    typealias RawValue = String
+
+    /// The underlying encoded value for this facet
+    var rawValue: RawValue { get }
 
     /// Metadata for the facet
     typealias FacetInfo = (title: Text, symbol: FairSymbol?, tint: Color?)
@@ -63,13 +67,6 @@ extension Facet {
 public struct MultiFacet<P : Facet, Q : Facet> : Facet {
     public typealias Choice = XOr<P>.Or<Q>
     public let choice: Choice
-
-    public init?(rawValue: String) {
-        guard let choice = P(rawValue: rawValue).flatMap(Choice.p) ?? Q(rawValue: rawValue).flatMap(Choice.q) else {
-            return nil
-        }
-        self.choice = choice
-    }
 
     public var rawValue: String {
         switch choice {
@@ -130,7 +127,7 @@ public struct FacetHostingView<Manager: SceneManager> : View where Manager.AppFa
 
     /// The current selection is stored as the underlying Raw Value string, which enables us to easily store it if need be.
     private var selectionBinding: Binding<Manager.AppFacets?> {
-        Binding(get: { Manager.AppFacets(rawValue: facetSelection) }, set: { facetSelection = $0?.rawValue ?? .init() })
+        Binding(get: { Manager.AppFacets.facets(for: manager).first { $0.rawValue == facetSelection } }, set: { facetSelection = $0?.rawValue ?? .init() })
     }
 
     /// The current selection is stored as the underlying Raw Value string, which enables us to easily store it if need be.
@@ -330,7 +327,11 @@ extension FairContainer where AppStore.AppFacets : View, AppStore.AppFacets == S
 
 extension Facet {
     /// Adds on the standard settings to the end of the app-specific facets.
-    public typealias WithStandardSettings = Self.With<AppearanceSetting>.With<SupportSetting> // .With<LicenseSetting>
+    public typealias WithStandardSettings = Self
+        .With<AppearanceSetting>
+        .With<LanguageSetting>
+        .With<SupportSetting>
+        // .With<LicenseSetting>
 }
 
 extension Facet where Self : CaseIterable {
@@ -497,6 +498,48 @@ extension ThemeStyle : Identifiable {
         case .system: return nil
         case .light: return .light
         case .dark: return .dark
+        }
+    }
+}
+
+
+public struct LanguageSetting : Facet, View {
+    let bundle: Bundle
+    public let rawValue = "language"
+
+    init(bundle: Bundle) {
+        self.bundle = bundle
+    }
+
+    public var facetInfo: FacetInfo {
+        FacetInfo(title: Text("Language", bundle: .module, comment: "language setting title"), symbol: .init(rawValue: "flag.badge.ellipsis"), tint: nil)
+    }
+
+    public static func facets<Manager>(for manager: Manager) -> [LanguageSetting] where Manager : FacetManager {
+        [LanguageSetting(bundle: manager.bundle)]
+    }
+
+    public var body: some View {
+        List {
+            ForEach(bundle.localizations.sorted(), id: \.self) { localeName in
+                if let locale = Locale(identifier: localeName) {
+                    LocaleLink(locale: locale)
+                }
+            }
+        }
+    }
+
+}
+
+struct LocaleLink : View {
+    let locale: Locale
+    @Environment(\.locale) var currentLocale
+
+    var body: some View {
+        if let languageName = currentLocale.localizedString(forIdentifier: locale.identifier),
+           let url = URL.fairHubURL("blob/main")?.appendingPathComponent("Sources/App/Resources/\(locale.identifier).lproj/Localizable.strings") {
+            Text(languageName)
+                .link(to: url)
         }
     }
 }

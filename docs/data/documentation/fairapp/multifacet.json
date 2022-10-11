@@ -172,7 +172,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/SY",
         "doc:\/\/FairApp\/7SwiftUI4ViewP"
       ],
       "kind" : "relationships",
@@ -191,8 +190,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/init(choice:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/init(rawValue:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/init(choice:)"
       ],
       "title" : "Initializers"
     },
@@ -221,7 +219,6 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/Equatable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/Facet-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/RawRepresentable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/View-Implementations"
       ],
       "title" : "Default Implementations"
@@ -254,11 +251,6 @@
 "doc://FairApp/SQ": {
   "identifier" : "doc:\/\/FairApp\/SQ",
   "title" : "Swift.Equatable",
-  "type" : "unresolvable"
-},
-"doc://FairApp/SY": {
-  "identifier" : "doc:\/\/FairApp\/SY",
-  "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
 "doc://FairApp/documentation/FairApp": {
@@ -411,17 +403,6 @@
   "title" : "Facet Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/multifacet\/facet-implementations"
-},
-"doc://FairApp/documentation/FairApp/MultiFacet/RawRepresentable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/RawRepresentable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "RawRepresentable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/multifacet\/rawrepresentable-implementations"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet/View-Implementations": {
   "abstract" : [
@@ -700,44 +681,6 @@
   "title" : "init(choice:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/multifacet\/init(choice:)"
-},
-"doc://FairApp/documentation/FairApp/MultiFacet/init(rawValue:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "?("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "rawValue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/init(rawValue:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(rawValue:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/multifacet\/init(rawvalue:)"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet/rawValue": {
   "abstract" : [
