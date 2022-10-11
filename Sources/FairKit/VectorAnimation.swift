@@ -51,7 +51,7 @@ import Lottie
 ///
 /// `.product(name: "Lottie", package: "lottie-ios")`
 ///
-public typealias VectorAnimation = Lottie.Animation
+public typealias VectorAnimation = LottieAnimation
 #else
 /// When Lottie is independently added to a package, a ``VectorAnimation`` will be
 /// a lottie animation JSON format, which can be included inline in a ``Card``.
