@@ -70,7 +70,7 @@ public struct FairIconView : View, Equatable {
     public static func iconColor(name: String) -> Color {
         return renderColor(name: name)
     }
-    
+
     /// The default icon color for the two parts
     /// - Parameters:
     ///   - word1: the first word
@@ -105,7 +105,7 @@ public struct FairIconView : View, Equatable {
         let color = Color(hue: hue, saturation: saturation, brightness: brightness)
         return color
     }
-    
+
     func iconFont(size: CGFloat) -> Font {
         Font.system(size: size, design: Font.Design.rounded)
             .weight(.bold)
@@ -113,7 +113,7 @@ public struct FairIconView : View, Equatable {
         //Font.system(size: size).smallCaps()
     }
 
-    func iconView(for span: CGFloat, maskShape: Bool = false) -> some View {
+    func iconView(for span: CGFloat) -> some View {
         let parts = name.components(separatedBy: CharacterSet.alphanumerics.inverted)
         let monogram = String(parts.map(\.first).compacted()).uppercased()
 
@@ -130,7 +130,6 @@ public struct FairIconView : View, Equatable {
 
         let fillStyle = LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom)
         //let fillStyle = RadialGradient(gradient: gradient, center: .center, startRadius: 0, endRadius: span*0.6)
-
         let textColor = Color.white
 
         let rect = CGRect(origin: .zero, size: CGSize(width: span, height: span))
@@ -146,30 +145,17 @@ public struct FairIconView : View, Equatable {
         let iconPath = paths.first
         let svgPath = iconPath.flatMap { try? SVGPath($0) }
         let isSymbolPath = svgPath == nil // iconPath.flatMap(FairSymbol.allNames.keys.contains)
-
-        func pathShapedMask(in rect: CGRect) -> Path {
-            var shape = Rectangle().path(in: rect)
-            if let svgPath = svgPath {
-                shape.addPath(svgPath.inset(by: span / 7).path(in: rect))
-            }
-            return shape
-        }
-
         return ZStack(alignment: .center) {
             squircle
                 .fill(fillStyle)
-                // ERROR: Asset validation failed (90717) Invalid App Store Icon. The App Store Icon in the asset catalog in 'App.app' can't be transparent nor contain an alpha channel. (ID: faf03718-e172-4d28-8256-b20506c98079)
-                //.mask(pathShapedMask(in: rect).fill(style: FillStyle(eoFill: true)))
                 .frame(width: span, height: span, alignment: .center)
-
+                //.mask(maskPath().fill(style: FillStyle(eoFill: true)))
             ZStack {
                 if let iconPath = iconPath {
                     if isSymbolPath == false, let svgPath = svgPath {
-                        if maskShape == false {
-                            svgPath
-                                .inset(by: span / 7)
-                                .aspectRatio(contentMode: .fit)
-                        }
+                        svgPath
+                            .inset(by: span / 7)
+                            .aspectRatio(contentMode: .fit)
                     } else {
                         Text(Image(systemName: iconPath))
                             .font(iconFont(size: span * 0.5))
@@ -192,7 +178,6 @@ public struct FairIconView : View, Equatable {
             .lineLimit(1)
             .multilineTextAlignment(.center)
             .shadow(color: Color.black.opacity(0.9), radius: span * 0.010, x: 0, y: (isSymbolPath == false ? -1.0 : 1.0) * span / 75.0) // for some reason, path shadows are rendered above instead of below (see https://stackoverflow.com/a/58470832)
-
             if borderRatio > 0.0 {
                 squircle
                     .fill(c3)
@@ -253,13 +238,10 @@ struct FairIconView_Previews: PreviewProvider {
 
     static func preview(seed: UUID = UUID(), count: Int, span: CGFloat, borderRatio: CGFloat = 0.06) -> some View {
 //        var rndgen = SeededRandomNumberGenerator(uuids: seed)
-
 //        var symbolNames = FairSymbol.allCases
 //            .filter({ !$0.rawValue.hasPrefix("N") })
 //            .shuffled(using: &rndgen).map(\.symbolName)
-
         var symbolNames: [String] = [] // [FairSymbol.pc.rawValue]
-
         // the first icon should be a 1/2 circle
         symbolNames.insert("M 0 0 A 25 25 0 1 0 0 50Z", at: 0)
 
@@ -278,7 +260,6 @@ struct FairIconView_Previews: PreviewProvider {
         }
 
         // try? grid.png(bounds: nil)?.write(to: URL(fileURLWithPath: ("~/Desktop/previews.png" as NSString).expandingTildeInPath))
-
         return grid
     }
 }
