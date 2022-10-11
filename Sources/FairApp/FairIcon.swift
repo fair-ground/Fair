@@ -158,9 +158,9 @@ public struct FairIconView : View, Equatable {
         return ZStack(alignment: .center) {
             squircle
                 .fill(fillStyle)
-                .mask(pathShapedMask(in: rect).fill(style: FillStyle(eoFill: true)))
+                // ERROR: Asset validation failed (90717) Invalid App Store Icon. The App Store Icon in the asset catalog in 'App.app' can't be transparent nor contain an alpha channel. (ID: faf03718-e172-4d28-8256-b20506c98079)
+                //.mask(pathShapedMask(in: rect).fill(style: FillStyle(eoFill: true)))
                 .frame(width: span, height: span, alignment: .center)
-                //.mask(maskPath().fill(style: FillStyle(eoFill: true)))
 
             ZStack {
                 if let iconPath = iconPath {
