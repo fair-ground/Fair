@@ -38,6 +38,8 @@ import FairCore
 /// An item that contains a title, subtitle, and optional animation.
 /// It is uniquely identified and codable, and meant to contain localizable information.
 public struct Card : Codable, Identifiable {
+    public typealias CardGraphic = XOr<FairSymbol>.Or<VectorAnimation>
+
     public var id: UUID
     /// The localized title of the card. Will be displayed in caps. Should be very short, and should not include punctuation.
     public var title: String
@@ -45,20 +47,20 @@ public struct Card : Codable, Identifiable {
     public var foregroundColor: BannerColor?
     public var backgroundColors: [BannerColor]?
     public var backgroundGradientOpacity: Double?
-    public var animation: VectorAnimation?
-    public var animationHeight: CGFloat?
     public var body: String?
+    public var graphic: CardGraphic?
+    public var graphicHeight: CGFloat?
 
-    public init(id: UUID = UUID(), title: String, subtitle: String? = nil, foregroundColor: Card.BannerColor? = nil, backgroundColors: [Card.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, animation: VectorAnimation? = nil, animationHeight: CGFloat? = nil, body: String? = nil) {
+    public init(id: UUID = UUID(), title: String, subtitle: String? = nil, body: String? = nil, foregroundColor: Card.BannerColor? = nil, backgroundColors: [Card.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, graphic: CardGraphic? = nil, graphicHeight: CGFloat? = nil) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
+        self.body = body
         self.foregroundColor = foregroundColor
         self.backgroundColors = backgroundColors
         self.backgroundGradientOpacity = backgroundGradientOpacity
-        self.animation = animation
-        self.animationHeight = animationHeight
-        self.body = body
+        self.graphic = graphic
+        self.graphicHeight = graphicHeight
     }
 
     public struct BannerColor : Codable {
@@ -161,12 +163,6 @@ public struct CardBoard : View {
         }
     }
 
-//    public func bodyStack(size: CGSize) -> some View {
-//        LazyVStack(alignment: .center, pinnedViews: [.sectionHeaders, .sectionFooters]) {
-//            cardsView(size: size)
-//        }
-//    }
-
     public func cardsView(size: CGSize, span: CGFloat) -> some View {
         // ForEach(cards.filter({ selectedItem == nil || selectedItem == $0.id }).enumerated().array(), id: \.element.id) { index, item in
         ForEach(cards.enumerated().array(), id: \.element.id) { index, item in
@@ -179,11 +175,10 @@ public struct CardBoard : View {
                 }
             } label: {
                 CardBoardItemView(item: item, span: span)
+                    //.shadow(radius: 1, x: 1, y: 1)
                     .padding()
-                    .background(cardBackground(item))
+                    .background(cardBackground(item).cornerRadius(24).shadow(radius: 1, x: 2, y: 2))
                     .frame(height: selectedItem == item.id ? 600 : 300)
-                    .cornerRadius(24)
-                    .shadow(radius: 1, x: 2, y: 2)
                     .padding()
                     .edgesIgnoringSafeArea(.all)
                     .allowsHitTesting(true)
@@ -245,14 +240,24 @@ public struct CardBoardItemView : View {
                     .frame(alignment: .leading)
             }
 
-            if let animation = item.animation {
-                Spacer(minLength: 0)
-                VectorAnimationView(animation: animation)
-                    .frame(maxWidth: span * 0.50, maxHeight: span * 0.50)
-                    .frame(minWidth: span * 0.25, minHeight: span * 0.25)
-                    .frame(height: item.animationHeight)
-                Spacer(minLength: 0)
+            Spacer(minLength: 0)
+
+            Group {
+                switch item.graphic {
+                case .none:
+                    EmptyView()
+                case .p(let symbol):
+                    Image(symbol).resizable().aspectRatio(contentMode: .fit)
+                        .padding()
+                case .q(let animation):
+                    VectorAnimationView(animation: animation)
+                }
             }
+            .frame(maxWidth: span * 0.50, maxHeight: span * 0.50)
+            .frame(minWidth: span * 0.25, minHeight: span * 0.25)
+            .frame(height: item.graphicHeight)
+
+            Spacer(minLength: 0)
 
             // body
             if let body = item.body {
@@ -262,7 +267,7 @@ public struct CardBoardItemView : View {
                     .lineLimit(nil)
             }
         }
-        .foregroundColor(item.foregroundColor?.systemColor)
+        .foregroundColor(item.foregroundColor?.systemColor ?? .white)
         .textSelection(.enabled)
         .allowsTightening(true)
     }
