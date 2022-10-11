@@ -6359,6 +6359,1992 @@
                 "type" : "groupMarker"
               },
               {
+                "path" : "\/documentation\/fairapp\/embeddedbrowser\/init(url:presented:)",
+                "title" : "init(url: URL, presented: Bool)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/embeddedbrowser\/body",
+                "title" : "var body: some View",
+                "type" : "property"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accentcolor(_:)",
+                    "title" : "func accentColor(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(activationpoint:)-5egq",
+                    "title" : "func accessibility(activationPoint: UnitPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(activationpoint:)-6e4s",
+                    "title" : "func accessibility(activationPoint: CGPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(addtraits:)",
+                    "title" : "func accessibility(addTraits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(hidden:)",
+                    "title" : "func accessibility(hidden: Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(hint:)",
+                    "title" : "func accessibility(hint: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(identifier:)",
+                    "title" : "func accessibility(identifier: String) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(inputlabels:)",
+                    "title" : "func accessibility(inputLabels: [Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(label:)",
+                    "title" : "func accessibility(label: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(removetraits:)",
+                    "title" : "func accessibility(removeTraits: AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(selectionidentifier:)",
+                    "title" : "func accessibility(selectionIdentifier: AnyHashable) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(sortpriority:)",
+                    "title" : "func accessibility(sortPriority: Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibility(value:)",
+                    "title" : "func accessibility(value: Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityaction(_:_:)",
+                    "title" : "func accessibilityAction(AccessibilityActionKind, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityaction(action:label:)",
+                    "title" : "func accessibilityAction<Label>(action: () -> Void, label: () -> Label) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityaction(named:_:)-20mgw",
+                    "title" : "func accessibilityAction<S>(named: S, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityaction(named:_:)-7x5nr",
+                    "title" : "func accessibilityAction(named: LocalizedStringKey, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityaction(named:_:)-88hyo",
+                    "title" : "func accessibilityAction(named: Text, () -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityactivationpoint(_:)-3aik0",
+                    "title" : "func accessibilityActivationPoint(CGPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityactivationpoint(_:)-3d4vt",
+                    "title" : "func accessibilityActivationPoint(UnitPoint) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityaddtraits(_:)",
+                    "title" : "func accessibilityAddTraits(AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityadjustableaction(_:)",
+                    "title" : "func accessibilityAdjustableAction((AccessibilityAdjustmentDirection) -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitychartdescriptor(_:)",
+                    "title" : "func accessibilityChartDescriptor<R>(R) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitychildren(children:)",
+                    "title" : "func accessibilityChildren<V>(children: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-1l9ki",
+                    "title" : "func accessibilityCustomContent(AccessibilityCustomContentKey, LocalizedStringKey, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-1oyey",
+                    "title" : "func accessibilityCustomContent(LocalizedStringKey, Text, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-1q9iz",
+                    "title" : "func accessibilityCustomContent(LocalizedStringKey, LocalizedStringKey, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-2biq7",
+                    "title" : "func accessibilityCustomContent<L, V>(L, V, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-7es4y",
+                    "title" : "func accessibilityCustomContent(AccessibilityCustomContentKey, Text?, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-80uzg",
+                    "title" : "func accessibilityCustomContent<V>(LocalizedStringKey, V, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-9b19a",
+                    "title" : "func accessibilityCustomContent(Text, Text, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitycustomcontent(_:_:importance:)-9lz96",
+                    "title" : "func accessibilityCustomContent<V>(AccessibilityCustomContentKey, V, importance: AXCustomContent.Importance) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityelement(children:)",
+                    "title" : "func accessibilityElement(children: AccessibilityChildBehavior) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityfocused(_:)",
+                    "title" : "func accessibilityFocused(AccessibilityFocusState<Bool>.Binding) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityfocused(_:equals:)",
+                    "title" : "func accessibilityFocused<Value>(AccessibilityFocusState<Value>.Binding, equals: Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityheading(_:)",
+                    "title" : "func accessibilityHeading(AccessibilityHeadingLevel) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityhidden(_:)",
+                    "title" : "func accessibilityHidden(Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityhint(_:)-2abem",
+                    "title" : "func accessibilityHint(Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityhint(_:)-5sd77",
+                    "title" : "func accessibilityHint(LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityhint(_:)-8m9vp",
+                    "title" : "func accessibilityHint<S>(S) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityidentifier(_:)",
+                    "title" : "func accessibilityIdentifier(String) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityignoresinvertcolors(_:)",
+                    "title" : "func accessibilityIgnoresInvertColors(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityinputlabels(_:)-1hsmi",
+                    "title" : "func accessibilityInputLabels([Text]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityinputlabels(_:)-358h8",
+                    "title" : "func accessibilityInputLabels<S>([S]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityinputlabels(_:)-9vch5",
+                    "title" : "func accessibilityInputLabels([LocalizedStringKey]) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitylabel(_:)-2y6ow",
+                    "title" : "func accessibilityLabel<S>(S) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitylabel(_:)-6sosc",
+                    "title" : "func accessibilityLabel(Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitylabel(_:)-81yuc",
+                    "title" : "func accessibilityLabel(LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitylabeledpair(role:id:in:)",
+                    "title" : "func accessibilityLabeledPair<ID>(role: AccessibilityLabeledPairRole, id: ID, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitylinkedgroup(id:in:)",
+                    "title" : "func accessibilityLinkedGroup<ID>(id: ID, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityremovetraits(_:)",
+                    "title" : "func accessibilityRemoveTraits(AccessibilityTraits) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrepresentation(representation:)",
+                    "title" : "func accessibilityRepresentation<V>(representation: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrespondstouserinteraction(_:)",
+                    "title" : "func accessibilityRespondsToUserInteraction(Bool) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:)-3wig7",
+                    "title" : "func accessibilityRotor<Content>(AccessibilitySystemRotor, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:)-48ln7",
+                    "title" : "func accessibilityRotor<Content>(Text, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:)-8subc",
+                    "title" : "func accessibilityRotor<Content>(LocalizedStringKey, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:)-9i2q0",
+                    "title" : "func accessibilityRotor<L, Content>(L, entries: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entryid:entrylabel:)-4njeo",
+                    "title" : "func accessibilityRotor<EntryModel, ID>(LocalizedStringKey, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entryid:entrylabel:)-568jr",
+                    "title" : "func accessibilityRotor<L, EntryModel, ID>(L, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entryid:entrylabel:)-7gjud",
+                    "title" : "func accessibilityRotor<EntryModel, ID>(Text, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entryid:entrylabel:)-siay",
+                    "title" : "func accessibilityRotor<EntryModel, ID>(AccessibilitySystemRotor, entries: [EntryModel], entryID: KeyPath<EntryModel, ID>, entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entrylabel:)-1mox2",
+                    "title" : "func accessibilityRotor<L, EntryModel>(L, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entrylabel:)-2d12x",
+                    "title" : "func accessibilityRotor<EntryModel>(Text, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entrylabel:)-3xl6o",
+                    "title" : "func accessibilityRotor<EntryModel>(LocalizedStringKey, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:entries:entrylabel:)-814og",
+                    "title" : "func accessibilityRotor<EntryModel>(AccessibilitySystemRotor, entries: [EntryModel], entryLabel: KeyPath<EntryModel, String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:textranges:)-21ouc",
+                    "title" : "func accessibilityRotor(LocalizedStringKey, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:textranges:)-3p9w9",
+                    "title" : "func accessibilityRotor<L>(L, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:textranges:)-5vmzs",
+                    "title" : "func accessibilityRotor(AccessibilitySystemRotor, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotor(_:textranges:)-61hyw",
+                    "title" : "func accessibilityRotor(Text, textRanges: [Range<String.Index>]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityrotorentry(id:in:)",
+                    "title" : "func accessibilityRotorEntry<ID>(id: ID, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityscrollaction(_:)",
+                    "title" : "func accessibilityScrollAction((Edge) -> Void) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityshowslargecontentviewer()",
+                    "title" : "func accessibilityShowsLargeContentViewer() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityshowslargecontentviewer(_:)",
+                    "title" : "func accessibilityShowsLargeContentViewer<V>(() -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitysortpriority(_:)",
+                    "title" : "func accessibilitySortPriority(Double) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilitytextcontenttype(_:)",
+                    "title" : "func accessibilityTextContentType(AccessibilityTextContentType) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityvalue(_:)-30g4e",
+                    "title" : "func accessibilityValue(LocalizedStringKey) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityvalue(_:)-5s4l7",
+                    "title" : "func accessibilityValue(Text) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/accessibilityvalue(_:)-8iww3",
+                    "title" : "func accessibilityValue<S>(S) -> ModifiedContent<Self, AccessibilityAttachmentModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:actions:)-229ui",
+                    "title" : "func alert<A>(Text, isPresented: Binding<Bool>, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:actions:)-590e2",
+                    "title" : "func alert<A>(LocalizedStringKey, isPresented: Binding<Bool>, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:actions:)-81dhi",
+                    "title" : "func alert<S, A>(S, isPresented: Binding<Bool>, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:actions:message:)-1gfa7",
+                    "title" : "func alert<A, M>(LocalizedStringKey, isPresented: Binding<Bool>, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:actions:message:)-4ru2r",
+                    "title" : "func alert<A, M>(Text, isPresented: Binding<Bool>, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:actions:message:)-8e1bk",
+                    "title" : "func alert<S, A, M>(S, isPresented: Binding<Bool>, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:presenting:actions:)-5yvb0",
+                    "title" : "func alert<A, T>(LocalizedStringKey, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:presenting:actions:)-8vcxw",
+                    "title" : "func alert<A, T>(Text, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:presenting:actions:)-ef1j",
+                    "title" : "func alert<S, A, T>(S, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:presenting:actions:message:)-7fpow",
+                    "title" : "func alert<S, A, M, T>(S, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:presenting:actions:message:)-87tyd",
+                    "title" : "func alert<A, M, T>(Text, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(_:ispresented:presenting:actions:message:)-jvpj",
+                    "title" : "func alert<A, M, T>(LocalizedStringKey, isPresented: Binding<Bool>, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(ispresented:content:)",
+                    "title" : "func alert(isPresented: Binding<Bool>, content: () -> Alert) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(ispresented:error:actions:)",
+                    "title" : "func alert<E, A>(isPresented: Binding<Bool>, error: E?, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(ispresented:error:actions:message:)",
+                    "title" : "func alert<E, A, M>(isPresented: Binding<Bool>, error: E?, actions: (E) -> A, message: (E) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alert(item:content:)",
+                    "title" : "func alert<Item>(item: Binding<Item?>, content: (Item) -> Alert) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alignmentguide(_:computevalue:)-4g5rd",
+                    "title" : "func alignmentGuide(HorizontalAlignment, computeValue: (ViewDimensions) -> CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/alignmentguide(_:computevalue:)-8wthb",
+                    "title" : "func alignmentGuide(VerticalAlignment, computeValue: (ViewDimensions) -> CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/allowshittesting(_:)",
+                    "title" : "func allowsHitTesting(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/allowstightening(_:)",
+                    "title" : "func allowsTightening(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/anchorpreference(key:value:transform:)",
+                    "title" : "func anchorPreference<A, K>(key: K.Type, value: Anchor<A>.Source, transform: (Anchor<A>) -> K.Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/animatingvectorbackground(for:alignment:content:)",
+                    "title" : "func animatingVectorBackground<N, V>(for: N, alignment: Alignment, content: (N) -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/animatingvectoroverlay(for:alignment:content:)",
+                    "title" : "func animatingVectorOverlay<N, V>(for: N, alignment: Alignment, content: (N) -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/animation(_:)",
+                    "title" : "func animation(Animation?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/animation(_:value:)",
+                    "title" : "func animation<V>(Animation?, value: V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/aspectratio(_:contentmode:)-5vppd",
+                    "title" : "func aspectRatio(CGSize, contentMode: ContentMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/aspectratio(_:contentmode:)-8lfll",
+                    "title" : "func aspectRatio(CGFloat?, contentMode: ContentMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(_:alignment:)",
+                    "title" : "func background<Background>(Background, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(_:ignoressafeareaedges:)",
+                    "title" : "func background<S>(S, ignoresSafeAreaEdges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(_:in:fillstyle:)-1ztqz",
+                    "title" : "func background<S, T>(S, in: T, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(_:in:fillstyle:)-4jocl",
+                    "title" : "func background<S, T>(S, in: T, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(alignment:content:)",
+                    "title" : "func background<V>(alignment: Alignment, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(ignoressafeareaedges:)",
+                    "title" : "func background(ignoresSafeAreaEdges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(in:fillstyle:)-4lseo",
+                    "title" : "func background<S>(in: S, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/background(in:fillstyle:)-8mpr4",
+                    "title" : "func background<S>(in: S, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/backgroundpreferencevalue(_:_:)",
+                    "title" : "func backgroundPreferenceValue<Key, T>(Key.Type, (Key.Value) -> T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/badge(_:)-2f2cq",
+                    "title" : "func badge<S>(S?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/badge(_:)-3c3f7",
+                    "title" : "func badge(Text?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/badge(_:)-7lu0r",
+                    "title" : "func badge(Int) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/badge(_:)-9hl3s",
+                    "title" : "func badge(LocalizedStringKey?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/blendmode(_:)",
+                    "title" : "func blendMode(BlendMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/blur(radius:opaque:)",
+                    "title" : "func blur(radius: CGFloat, opaque: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/border(_:width:)",
+                    "title" : "func border<S>(S, width: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/brightness(_:)",
+                    "title" : "func brightness(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/button(action:)",
+                    "title" : "func button(action: () -> ()) -> Button<Self>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/buttonbordershape(_:)",
+                    "title" : "func buttonBorderShape(ButtonBorderShape) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/buttonstyle(_:)-3qunv",
+                    "title" : "func buttonStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/buttonstyle(_:)-7wye3",
+                    "title" : "func buttonStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/clipshape(_:style:)",
+                    "title" : "func clipShape<S>(S, style: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/clipped(antialiased:)",
+                    "title" : "func clipped(antialiased: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/colorinvert()",
+                    "title" : "func colorInvert() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/colormultiply(_:)",
+                    "title" : "func colorMultiply(Color) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/colorscheme(_:)",
+                    "title" : "func colorScheme(ColorScheme) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/compositinggroup()",
+                    "title" : "func compositingGroup() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:actions:)-1s94o",
+                    "title" : "func confirmationDialog<A>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:actions:)-2hsvk",
+                    "title" : "func confirmationDialog<A>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:actions:)-79ixo",
+                    "title" : "func confirmationDialog<S, A>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:actions:message:)-12902",
+                    "title" : "func confirmationDialog<A, M>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:actions:message:)-338fe",
+                    "title" : "func confirmationDialog<A, M>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:actions:message:)-f57m",
+                    "title" : "func confirmationDialog<S, A, M>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, actions: () -> A, message: () -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-3b7q3",
+                    "title" : "func confirmationDialog<S, A, T>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-6y1n0",
+                    "title" : "func confirmationDialog<A, T>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:)-7wqcb",
+                    "title" : "func confirmationDialog<A, T>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)-146c3",
+                    "title" : "func confirmationDialog<S, A, M, T>(S, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)-1szak",
+                    "title" : "func confirmationDialog<A, M, T>(Text, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/confirmationdialog(_:ispresented:titlevisibility:presenting:actions:message:)-8hujq",
+                    "title" : "func confirmationDialog<A, M, T>(LocalizedStringKey, isPresented: Binding<Bool>, titleVisibility: Visibility, presenting: T?, actions: (T) -> A, message: (T) -> M) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/containershape(_:)",
+                    "title" : "func containerShape<T>(T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/contentshape(_:_:eofill:)",
+                    "title" : "func contentShape<S>(ContentShapeKinds, S, eoFill: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/contentshape(_:eofill:)",
+                    "title" : "func contentShape<S>(S, eoFill: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/contextmenu(_:)",
+                    "title" : "func contextMenu<MenuItems>(ContextMenu<MenuItems>?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/contextmenu(menuitems:)",
+                    "title" : "func contextMenu<MenuItems>(menuItems: () -> MenuItems) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/contrast(_:)",
+                    "title" : "func contrast(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/controlgroupstyle(_:)",
+                    "title" : "func controlGroupStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/controlsize(_:)",
+                    "title" : "func controlSize(ControlSize) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/coordinatespace(name:)",
+                    "title" : "func coordinateSpace<T>(name: T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/cornerradius(_:antialiased:)",
+                    "title" : "func cornerRadius(CGFloat, antialiased: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/datepickerstyle(_:)",
+                    "title" : "func datePickerStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/debuggingviewchanges()",
+                    "title" : "func debuggingViewChanges()",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/defaultappstorage(_:)",
+                    "title" : "func defaultAppStorage(UserDefaults) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/deletedisabled(_:)",
+                    "title" : "func deleteDisabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/disableautocorrection(_:)",
+                    "title" : "func disableAutocorrection(Bool?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/disabled(_:)",
+                    "title" : "func disabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/drawinggroup(opaque:colormode:)",
+                    "title" : "func drawingGroup(opaque: Bool, colorMode: ColorRenderingMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/dynamictypesize(_:)",
+                    "title" : "func dynamicTypeSize(DynamicTypeSize) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/edgesignoringsafearea(_:)",
+                    "title" : "func edgesIgnoringSafeArea(Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/environment(_:_:)",
+                    "title" : "func environment<V>(WritableKeyPath<EnvironmentValues, V>, V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/environmentobject(_:)",
+                    "title" : "func environmentObject<T>(T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/exportsitemproviders(_:onexport:)",
+                    "title" : "func exportsItemProviders([UTType], onExport: () -> [NSItemProvider]) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/exportsitemproviders(_:onexport:onedit:)",
+                    "title" : "func exportsItemProviders([UTType], onExport: () -> [NSItemProvider], onEdit: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fileexporter(ispresented:document:contenttype:defaultfilename:oncompletion:)-44tik",
+                    "title" : "func fileExporter<D>(isPresented: Binding<Bool>, document: D?, contentType: UTType, defaultFilename: String?, onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fileexporter(ispresented:document:contenttype:defaultfilename:oncompletion:)-w6nu",
+                    "title" : "func fileExporter<D>(isPresented: Binding<Bool>, document: D?, contentType: UTType, defaultFilename: String?, onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fileexporter(ispresented:documents:contenttype:oncompletion:)-7nayd",
+                    "title" : "func fileExporter<C>(isPresented: Binding<Bool>, documents: C, contentType: UTType, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fileexporter(ispresented:documents:contenttype:oncompletion:)-8tn47",
+                    "title" : "func fileExporter<C>(isPresented: Binding<Bool>, documents: C, contentType: UTType, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fileimporter(ispresented:allowedcontenttypes:allowsmultipleselection:oncompletion:)",
+                    "title" : "func fileImporter(isPresented: Binding<Bool>, allowedContentTypes: [UTType], allowsMultipleSelection: Bool, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fileimporter(ispresented:allowedcontenttypes:oncompletion:)",
+                    "title" : "func fileImporter(isPresented: Binding<Bool>, allowedContentTypes: [UTType], onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/filemover(ispresented:file:oncompletion:)",
+                    "title" : "func fileMover(isPresented: Binding<Bool>, file: URL?, onCompletion: (Result<URL, Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/filemover(ispresented:files:oncompletion:)",
+                    "title" : "func fileMover<C>(isPresented: Binding<Bool>, files: C, onCompletion: (Result<[URL], Error>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fixedsize()",
+                    "title" : "func fixedSize() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/fixedsize(horizontal:vertical:)",
+                    "title" : "func fixedSize(horizontal: Bool, vertical: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/flipsforrighttoleftlayoutdirection(_:)",
+                    "title" : "func flipsForRightToLeftLayoutDirection(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focusscope(_:)",
+                    "title" : "func focusScope(Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focusable(_:)",
+                    "title" : "func focusable(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focusable(_:onfocuschange:)",
+                    "title" : "func focusable(Bool, onFocusChange: (Bool) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focused(_:)",
+                    "title" : "func focused(FocusState<Bool>.Binding) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focused(_:equals:)",
+                    "title" : "func focused<Value>(FocusState<Value>.Binding, equals: Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focusedscenevalue(_:_:)",
+                    "title" : "func focusedSceneValue<T>(WritableKeyPath<FocusedValues, T?>, T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/focusedvalue(_:_:)",
+                    "title" : "func focusedValue<Value>(WritableKeyPath<FocusedValues, Value?>, Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/font(_:)",
+                    "title" : "func font(Font?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/foregroundcolor(_:)",
+                    "title" : "func foregroundColor(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/foregroundstyle(_:)",
+                    "title" : "func foregroundStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/foregroundstyle(_:_:)",
+                    "title" : "func foregroundStyle<S1, S2>(S1, S2) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/foregroundstyle(_:_:_:)",
+                    "title" : "func foregroundStyle<S1, S2, S3>(S1, S2, S3) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/frame()",
+                    "title" : "func frame() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/frame(minwidth:idealwidth:maxwidth:minheight:idealheight:maxheight:alignment:)",
+                    "title" : "func frame(minWidth: CGFloat?, idealWidth: CGFloat?, maxWidth: CGFloat?, minHeight: CGFloat?, idealHeight: CGFloat?, maxHeight: CGFloat?, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/frame(width:height:alignment:)",
+                    "title" : "func frame(width: CGFloat?, height: CGFloat?, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/gesture(_:including:)",
+                    "title" : "func gesture<T>(T, including: GestureMask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/grayscale(_:)",
+                    "title" : "func grayscale(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/groupboxstyle(_:)",
+                    "title" : "func groupBoxStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/handlesexternalevents(preferring:allowing:)",
+                    "title" : "func handlesExternalEvents(preferring: Set<String>, allowing: Set<String>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/headerprominence(_:)",
+                    "title" : "func headerProminence(Prominence) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/help(_:)-1c8to",
+                    "title" : "func help(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/help(_:)-3g48h",
+                    "title" : "func help(LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/help(_:)-8rt3u",
+                    "title" : "func help<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/hidden()",
+                    "title" : "func hidden() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/highprioritygesture(_:including:)",
+                    "title" : "func highPriorityGesture<T>(T, including: GestureMask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/horizontalradiogrouplayout()",
+                    "title" : "func horizontalRadioGroupLayout() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/hoversymbol(activevariant:inactivevariant:animation:)",
+                    "title" : "func hoverSymbol(activeVariant: SymbolVariants, inactiveVariant: SymbolVariants, animation: Animation?) -> ModifiedContent<Self, HoverSymbolModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/huerotation(_:)",
+                    "title" : "func hueRotation(Angle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/id(_:)",
+                    "title" : "func id<ID>(ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ignoressafearea(_:edges:)",
+                    "title" : "func ignoresSafeArea(SafeAreaRegions, edges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/imagescale(_:)",
+                    "title" : "func imageScale(Image.Scale) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/importsitemproviders(_:onimport:)",
+                    "title" : "func importsItemProviders([UTType], onImport: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/initialviewsize(_:)",
+                    "title" : "func initialViewSize(CGSize?) -> ModifiedContent<Self, InitialSizeViewModifier>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/interactivedismissdisabled(_:)",
+                    "title" : "func interactiveDismissDisabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/itemprovider(_:)",
+                    "title" : "func itemProvider(Optional<() -> NSItemProvider?>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/keyboardshortcut(_:)-23mi1",
+                    "title" : "func keyboardShortcut(KeyboardShortcut?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/keyboardshortcut(_:)-2f4cs",
+                    "title" : "func keyboardShortcut(KeyboardShortcut) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/keyboardshortcut(_:modifiers:)",
+                    "title" : "func keyboardShortcut(KeyEquivalent, modifiers: EventModifiers) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/keyboardshortcut(_:modifiers:localization:)",
+                    "title" : "func keyboardShortcut(KeyEquivalent, modifiers: EventModifiers, localization: KeyboardShortcut.Localization) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/labelstyle(_:)",
+                    "title" : "func labelStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/labelshidden()",
+                    "title" : "func labelsHidden() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/layoutpriority(_:)",
+                    "title" : "func layoutPriority(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/linelimit(_:)",
+                    "title" : "func lineLimit(Int?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/linespacing(_:)",
+                    "title" : "func lineSpacing(CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/link(to:)",
+                    "title" : "func link(to: URL) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/link(to:draggable:)",
+                    "title" : "func link(to: URL?, draggable: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/listitemtint(_:)-1zfwq",
+                    "title" : "func listItemTint(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/listitemtint(_:)-2jrvn",
+                    "title" : "func listItemTint(ListItemTint?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/listrowbackground(_:)",
+                    "title" : "func listRowBackground<V>(V?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/listrowinsets(_:)",
+                    "title" : "func listRowInsets(EdgeInsets?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/liststyle(_:)",
+                    "title" : "func listStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/luminancetoalpha()",
+                    "title" : "func luminanceToAlpha() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/mask(_:)",
+                    "title" : "func mask<Mask>(Mask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/mask(alignment:_:)",
+                    "title" : "func mask<Mask>(alignment: Alignment, () -> Mask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/matchedgeometryeffect(id:in:properties:anchor:issource:)",
+                    "title" : "func matchedGeometryEffect<ID>(id: ID, in: Namespace.ID, properties: MatchedGeometryProperties, anchor: UnitPoint, isSource: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/menubuttonstyle(_:)",
+                    "title" : "func menuButtonStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/menuindicator(_:)",
+                    "title" : "func menuIndicator(Visibility) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/menustyle(_:)",
+                    "title" : "func menuStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/minimumscalefactor(_:)",
+                    "title" : "func minimumScaleFactor(CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/modifier(_:)",
+                    "title" : "func modifier<T>(T) -> ModifiedContent<Self, T>",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/monospaceddigit()",
+                    "title" : "func monospacedDigit() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/movedisabled(_:)",
+                    "title" : "func moveDisabled(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/multilinetextalignment(_:)",
+                    "title" : "func multilineTextAlignment(TextAlignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigation(title:subtitle:)",
+                    "title" : "func navigation(title: Text, subtitle: Text?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationsubtitle(_:)-6jjnx",
+                    "title" : "func navigationSubtitle(LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationsubtitle(_:)-jkip",
+                    "title" : "func navigationSubtitle(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationsubtitle(_:)-mpqw",
+                    "title" : "func navigationSubtitle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationtitle(_:)-6hzgg",
+                    "title" : "func navigationTitle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationtitle(_:)-90cgy",
+                    "title" : "func navigationTitle(LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationtitle(_:)-9v8l3",
+                    "title" : "func navigationTitle(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationtitle(_:)-joh4",
+                    "title" : "func navigationTitle<V>(() -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/navigationviewstyle(_:)",
+                    "title" : "func navigationViewStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/offset(_:)",
+                    "title" : "func offset(CGSize) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/offset(x:y:)",
+                    "title" : "func offset(x: CGFloat, y: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onappear(perform:)",
+                    "title" : "func onAppear(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onchange(of:debounce:priority:perform:)",
+                    "title" : "func onChange<T>(of: T, debounce: TimeInterval, priority: TaskPriority, perform: (T) async -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onchange(of:perform:)",
+                    "title" : "func onChange<V>(of: V, perform: (V) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/oncommand(_:perform:)",
+                    "title" : "func onCommand(Selector, perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/oncontinueuseractivity(_:perform:)",
+                    "title" : "func onContinueUserActivity(String, perform: (NSUserActivity) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/oncopycommand(perform:)",
+                    "title" : "func onCopyCommand(perform: (() -> [NSItemProvider])?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/oncutcommand(perform:)",
+                    "title" : "func onCutCommand(perform: (() -> [NSItemProvider])?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondeletecommand(perform:)",
+                    "title" : "func onDeleteCommand(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondisappear(perform:)",
+                    "title" : "func onDisappear(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrag(_:)",
+                    "title" : "func onDrag(() -> NSItemProvider) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrag(_:preview:)",
+                    "title" : "func onDrag<V>(() -> NSItemProvider, preview: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrop(of:delegate:)-35vvk",
+                    "title" : "func onDrop(of: [String], delegate: DropDelegate) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrop(of:delegate:)-rql2",
+                    "title" : "func onDrop(of: [UTType], delegate: DropDelegate) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrop(of:istargeted:perform:)-3k06g",
+                    "title" : "func onDrop(of: [String], isTargeted: Binding<Bool>?, perform: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrop(of:istargeted:perform:)-61soo",
+                    "title" : "func onDrop(of: [UTType], isTargeted: Binding<Bool>?, perform: ([NSItemProvider]) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrop(of:istargeted:perform:)-7wfwo",
+                    "title" : "func onDrop(of: [String], isTargeted: Binding<Bool>?, perform: ([NSItemProvider], CGPoint) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ondrop(of:istargeted:perform:)-8q6y6",
+                    "title" : "func onDrop(of: [UTType], isTargeted: Binding<Bool>?, perform: ([NSItemProvider], CGPoint) -> Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onexitcommand(perform:)",
+                    "title" : "func onExitCommand(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onhover(perform:)",
+                    "title" : "func onHover(perform: (Bool) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onlongpressgesture(minimumduration:maximumdistance:perform:onpressingchanged:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, maximumDistance: CGFloat, perform: () -> Void, onPressingChanged: ((Bool) -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onlongpressgesture(minimumduration:maximumdistance:pressing:perform:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, maximumDistance: CGFloat, pressing: ((Bool) -> Void)?, perform: () -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onlongpressgesture(minimumduration:perform:onpressingchanged:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, perform: () -> Void, onPressingChanged: ((Bool) -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onlongpressgesture(minimumduration:pressing:perform:)",
+                    "title" : "func onLongPressGesture(minimumDuration: Double, pressing: ((Bool) -> Void)?, perform: () -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onmovecommand(perform:)",
+                    "title" : "func onMoveCommand(perform: ((MoveCommandDirection) -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onopenurl(perform:)",
+                    "title" : "func onOpenURL(perform: (URL) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onpastecommand(of:perform:)-3atfl",
+                    "title" : "func onPasteCommand(of: [UTType], perform: ([NSItemProvider]) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onpastecommand(of:perform:)-60mzm",
+                    "title" : "func onPasteCommand(of: [String], perform: ([NSItemProvider]) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onpastecommand(of:validator:perform:)-35xkw",
+                    "title" : "func onPasteCommand<Payload>(of: [String], validator: ([NSItemProvider]) -> Payload?, perform: (Payload) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onpastecommand(of:validator:perform:)-56s0",
+                    "title" : "func onPasteCommand<Payload>(of: [UTType], validator: ([NSItemProvider]) -> Payload?, perform: (Payload) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onplaypausecommand(perform:)",
+                    "title" : "func onPlayPauseCommand(perform: (() -> Void)?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onpreferencechange(_:perform:)",
+                    "title" : "func onPreferenceChange<K>(K.Type, perform: (K.Value) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onreceive(_:perform:)",
+                    "title" : "func onReceive<P>(P, perform: (P.Output) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/onsubmit(of:_:)",
+                    "title" : "func onSubmit(of: SubmitTriggers, (() -> Void)) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/ontapgesture(count:perform:)",
+                    "title" : "func onTapGesture(count: Int, perform: () -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/opacity(_:)",
+                    "title" : "func opacity(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "deprecated" : true,
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/overlay(_:alignment:)",
+                    "title" : "func overlay<Overlay>(Overlay, alignment: Alignment) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/overlay(_:ignoressafeareaedges:)",
+                    "title" : "func overlay<S>(S, ignoresSafeAreaEdges: Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/overlay(_:in:fillstyle:)",
+                    "title" : "func overlay<S, T>(S, in: T, fillStyle: FillStyle) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/overlay(alignment:content:)",
+                    "title" : "func overlay<V>(alignment: Alignment, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/overlaypreferencevalue(_:_:)",
+                    "title" : "func overlayPreferenceValue<Key, T>(Key.Type, (Key.Value) -> T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/padding(_:)-4psyh",
+                    "title" : "func padding(CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/padding(_:)-6k1j9",
+                    "title" : "func padding(EdgeInsets) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/padding(_:_:)",
+                    "title" : "func padding(Edge.Set, CGFloat?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/pagecommand(value:in:step:)",
+                    "title" : "func pageCommand<V>(value: Binding<V>, in: ClosedRange<V>, step: V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/pickerstyle(_:)",
+                    "title" : "func pickerStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/png(bounds:normalize:)",
+                    "title" : "func png(bounds: CGRect?, normalize: Bool) -> Data?",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/popover(ispresented:attachmentanchor:arrowedge:content:)",
+                    "title" : "func popover<Content>(isPresented: Binding<Bool>, attachmentAnchor: PopoverAttachmentAnchor, arrowEdge: Edge, content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/popover(item:attachmentanchor:arrowedge:content:)",
+                    "title" : "func popover<Item, Content>(item: Binding<Item?>, attachmentAnchor: PopoverAttachmentAnchor, arrowEdge: Edge, content: (Item) -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/position(_:)",
+                    "title" : "func position(CGPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/position(x:y:)",
+                    "title" : "func position(x: CGFloat, y: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/preference(key:value:)",
+                    "title" : "func preference<K>(key: K.Type, value: K.Value) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/preferredcolorscheme(_:)",
+                    "title" : "func preferredColorScheme(ColorScheme?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/prefersdefaultfocus(_:in:)",
+                    "title" : "func prefersDefaultFocus(Bool, in: Namespace.ID) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/presentedwindowstyle(_:)",
+                    "title" : "func presentedWindowStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/presentedwindowtoolbarstyle(_:)",
+                    "title" : "func presentedWindowToolbarStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/previewcontext(_:)",
+                    "title" : "func previewContext<C>(C) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/previewdevice(_:)",
+                    "title" : "func previewDevice(PreviewDevice?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/previewdisplayname(_:)",
+                    "title" : "func previewDisplayName(String?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/previewinterfaceorientation(_:)",
+                    "title" : "func previewInterfaceOrientation(InterfaceOrientation) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/previewlayout(_:)",
+                    "title" : "func previewLayout(PreviewLayout) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/privacysensitive(_:)",
+                    "title" : "func privacySensitive(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/progressviewstyle(_:)",
+                    "title" : "func progressViewStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/projectioneffect(_:)",
+                    "title" : "func projectionEffect(ProjectionTransform) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/redacted(reason:)",
+                    "title" : "func redacted(reason: RedactionReasons) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/refreshable(action:)",
+                    "title" : "func refreshable(action: () async -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/refreshingeveryminute()",
+                    "title" : "func refreshingEveryMinute() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/rotation3deffect(_:axis:anchor:anchorz:perspective:)",
+                    "title" : "func rotation3DEffect(Angle, axis: (x: CGFloat, y: CGFloat, z: CGFloat), anchor: UnitPoint, anchorZ: CGFloat, perspective: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/rotationeffect(_:anchor:)",
+                    "title" : "func rotationEffect(Angle, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/safeareainset(edge:alignment:spacing:content:)-2ihgw",
+                    "title" : "func safeAreaInset<V>(edge: VerticalEdge, alignment: HorizontalAlignment, spacing: CGFloat?, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/safeareainset(edge:alignment:spacing:content:)-344yt",
+                    "title" : "func safeAreaInset<V>(edge: HorizontalEdge, alignment: VerticalAlignment, spacing: CGFloat?, content: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/saturation(_:)",
+                    "title" : "func saturation(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/scaleeffect(_:anchor:)-50raw",
+                    "title" : "func scaleEffect(CGFloat, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/scaleeffect(_:anchor:)-8j223",
+                    "title" : "func scaleEffect(CGSize, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/scaleeffect(x:y:anchor:)",
+                    "title" : "func scaleEffect(x: CGFloat, y: CGFloat, anchor: UnitPoint) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/scaledtofill()",
+                    "title" : "func scaledToFill() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/scaledtofit()",
+                    "title" : "func scaledToFit() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/scenepadding(_:)",
+                    "title" : "func scenePadding(Edge.Set) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchcompletion(_:)",
+                    "title" : "func searchCompletion(String) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchable(text:placement:prompt:)-161hp",
+                    "title" : "func searchable(text: Binding<String>, placement: SearchFieldPlacement, prompt: Text?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchable(text:placement:prompt:)-7nbba",
+                    "title" : "func searchable(text: Binding<String>, placement: SearchFieldPlacement, prompt: LocalizedStringKey) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchable(text:placement:prompt:)-82ji3",
+                    "title" : "func searchable<S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchable(text:placement:prompt:suggestions:)-3mu08",
+                    "title" : "func searchable<S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: LocalizedStringKey, suggestions: () -> S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchable(text:placement:prompt:suggestions:)-68n8w",
+                    "title" : "func searchable<S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: Text?, suggestions: () -> S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/searchable(text:placement:prompt:suggestions:)-nsjl",
+                    "title" : "func searchable<V, S>(text: Binding<String>, placement: SearchFieldPlacement, prompt: S, suggestions: () -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/shadow(color:radius:x:y:)",
+                    "title" : "func shadow(color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/sheet(ispresented:ondismiss:content:)",
+                    "title" : "func sheet<Content>(isPresented: Binding<Bool>, onDismiss: (() -> Void)?, content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/sheet(item:ondismiss:content:)",
+                    "title" : "func sheet<Item, Content>(item: Binding<Item?>, onDismiss: (() -> Void)?, content: (Item) -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/simultaneousgesture(_:including:)",
+                    "title" : "func simultaneousGesture<T>(T, including: GestureMask) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/speechadjustedpitch(_:)",
+                    "title" : "func speechAdjustedPitch(Double) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/speechalwaysincludespunctuation(_:)",
+                    "title" : "func speechAlwaysIncludesPunctuation(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/speechannouncementsqueued(_:)",
+                    "title" : "func speechAnnouncementsQueued(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/speechspellsoutcharacters(_:)",
+                    "title" : "func speechSpellsOutCharacters(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/submitlabel(_:)",
+                    "title" : "func submitLabel(SubmitLabel) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/submitscope(_:)",
+                    "title" : "func submitScope(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/swipeactions(edge:allowsfullswipe:content:)",
+                    "title" : "func swipeActions<T>(edge: HorizontalEdge, allowsFullSwipe: Bool, content: () -> T) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/symbolrenderingmode(_:)",
+                    "title" : "func symbolRenderingMode(SymbolRenderingMode?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/symbolvariant(_:)",
+                    "title" : "func symbolVariant(SymbolVariants) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/tabitem(_:)",
+                    "title" : "func tabItem<V>(() -> V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/tabviewstyle(_:)",
+                    "title" : "func tabViewStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/tablestyle(_:)",
+                    "title" : "func tableStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/tag(_:)",
+                    "title" : "func tag<V>(V) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/task(id:priority:_:)",
+                    "title" : "func task<T>(id: T, priority: TaskPriority, () async -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/task(priority:_:)",
+                    "title" : "func task(priority: TaskPriority, () async -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/textcase(_:)",
+                    "title" : "func textCase(Text.Case?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/textcontenttype(_:)",
+                    "title" : "func textContentType(NSTextContentType?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/textfieldstyle(_:)",
+                    "title" : "func textFieldStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/textselection(_:)",
+                    "title" : "func textSelection<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/tint(_:)",
+                    "title" : "func tint(Color?) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/togglestyle(_:)",
+                    "title" : "func toggleStyle<S>(S) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/toolbar(content:)-1fgcn",
+                    "title" : "func toolbar<Content>(content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/toolbar(content:)-82xtc",
+                    "title" : "func toolbar<Content>(content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/toolbar(id:content:)",
+                    "title" : "func toolbar<Content>(id: String, content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/touchbar(_:)",
+                    "title" : "func touchBar<Content>(TouchBar<Content>) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/touchbar(content:)",
+                    "title" : "func touchBar<Content>(content: () -> Content) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/touchbarcustomizationlabel(_:)",
+                    "title" : "func touchBarCustomizationLabel(Text) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/touchbaritempresence(_:)",
+                    "title" : "func touchBarItemPresence(TouchBarItemPresence) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/touchbaritemprincipal(_:)",
+                    "title" : "func touchBarItemPrincipal(Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/transaction(_:)",
+                    "title" : "func transaction((inout Transaction) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/transformanchorpreference(key:value:transform:)",
+                    "title" : "func transformAnchorPreference<A, K>(key: K.Type, value: Anchor<A>.Source, transform: (inout K.Value, Anchor<A>) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/transformeffect(_:)",
+                    "title" : "func transformEffect(CGAffineTransform) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/transformenvironment(_:transform:)",
+                    "title" : "func transformEnvironment<V>(WritableKeyPath<EnvironmentValues, V>, transform: (inout V) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/transformpreference(_:_:)",
+                    "title" : "func transformPreference<K>(K.Type, (inout K.Value) -> Void) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/transition(_:)",
+                    "title" : "func transition(AnyTransition) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/truncationmode(_:)",
+                    "title" : "func truncationMode(Text.TruncationMode) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/unredacted()",
+                    "title" : "func unredacted() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/useractivity(_:element:_:)",
+                    "title" : "func userActivity<P>(String, element: P?, (P, NSUserActivity) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/useractivity(_:isactive:_:)",
+                    "title" : "func userActivity(String, isActive: Bool, (NSUserActivity) -> ()) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/viewwrapper()",
+                    "title" : "func viewWrapper() -> UXView",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/windowtoolbarunified(compact:showstitle:)",
+                    "title" : "func windowToolbarUnified(compact: Bool, showsTitle: Bool) -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/withappearancesetting()",
+                    "title" : "func withAppearanceSetting() -> some View",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/embeddedbrowser\/zindex(_:)",
+                    "title" : "func zIndex(Double) -> some View",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/embeddedbrowser\/view-implementations",
+                "title" : "View Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/fairapp\/embeddedbrowser",
+            "title" : "EmbeddedBrowser",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
                 "path" : "\/documentation\/fairapp\/facetbrowserview\/init(nested:selection:)",
                 "title" : "init(nested: Bool, selection: Binding<FacetView?>)",
                 "type" : "init"
@@ -7529,7 +9515,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/facetbrowserview\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -9540,7 +11526,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/facethostingview\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -11665,7 +13651,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/faircontentview\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -13680,7 +15666,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/fairiconview\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -15790,7 +17776,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/fairsymbol\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -18079,7 +20065,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/multifacet\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -20668,7 +22654,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/svgpath\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -22872,7 +24858,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/splitdividerview\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -24867,7 +26853,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/supportcommands\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -27613,7 +29599,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/appearancesetting\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -29733,7 +31719,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/licensesetting\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
@@ -31817,7 +33803,7 @@
                   },
                   {
                     "path" : "\/documentation\/fairapp\/supportsetting\/link(to:)",
-                    "title" : "func link(to: URL) -> Link<Self>",
+                    "title" : "func link(to: URL) -> some View",
                     "type" : "method"
                   },
                   {
