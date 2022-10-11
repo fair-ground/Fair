@@ -96,9 +96,16 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton",
         "doc:\/\/FairKit\/documentation\/FairKit\/TriptychView",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage",
+        "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView"
       ],
       "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimation"
+      ],
+      "title" : "Type Aliases"
     },
     {
       "identifiers" : [
@@ -774,6 +781,112 @@
   "title" : "URLImage",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage"
+},
+"doc://FairKit/documentation/FairKit/VectorAnimation": {
+  "abstract" : [
+    {
+      "text" : "When Lottie is independently added to a package, a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimation",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " will be",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "a lottie animation JSON format, which can be included inline in a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Card",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimation"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimation",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimation"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VectorAnimation",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/vectoranimation"
+},
+"doc://FairKit/documentation/FairKit/VectorAnimationView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimationView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VectorAnimationView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "VectorAnimationView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/vectoranimationview"
 },
 "doc://FairKit/documentation/FairKit/WebDriver": {
   "abstract" : [

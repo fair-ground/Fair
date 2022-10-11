@@ -37,9 +37,7 @@ import FairCore
 
 /// An item that contains a title, subtitle, and optional animation.
 /// It is uniquely identified and codable, and meant to contain localizable information.
-public struct Card : Codable, Identifiable {
-    public typealias CardGraphic = XOr<FairSymbol>.Or<VectorAnimation>
-
+public struct Card<Graphic: Codable> : Codable, Identifiable {
     public var id: UUID
     /// The localized title of the card. Will be displayed in caps. Should be very short, and should not include punctuation.
     public var title: String
@@ -48,10 +46,10 @@ public struct Card : Codable, Identifiable {
     public var backgroundColors: [BannerColor]?
     public var backgroundGradientOpacity: Double?
     public var body: String?
-    public var graphic: CardGraphic?
+    public var graphic: Graphic?
     public var graphicHeight: CGFloat?
 
-    public init(id: UUID = UUID(), title: String, subtitle: String? = nil, body: String? = nil, foregroundColor: Card.BannerColor? = nil, backgroundColors: [Card.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, graphic: CardGraphic? = nil, graphicHeight: CGFloat? = nil) {
+    public init(id: UUID = UUID(), title: String, subtitle: String? = nil, body: String? = nil, foregroundColor: Card.BannerColor? = nil, backgroundColors: [Card.BannerColor]? = nil, backgroundGradientOpacity: Double? = nil, graphic: Graphic? = nil, graphicHeight: CGFloat? = nil) {
         self.id = id
         self.title = title
         self.subtitle = subtitle
@@ -128,13 +126,15 @@ public struct Card : Codable, Identifiable {
 }
 
 /// A view that renders a seties of ``Card``s in a grid.
-public struct CardBoard : View {
-    public let cards: [Card]
+public struct CardBoard<Graphic: Codable, GraphicContent: View> : View {
+    public let cards: [Card<Graphic>]
+    let graphicContent: (Graphic?) -> GraphicContent
     @Environment(\.colorScheme) var colorScheme
     @State var selectedItem: Card.ID?
 
-    public init(cards: [Card]) {
+    public init(cards: [Card<Graphic>], @ViewBuilder graphicContent: @escaping (Graphic?) -> GraphicContent) {
         self.cards = cards
+        self.graphicContent = graphicContent
     }
 
     public var body: some View {
@@ -147,7 +147,7 @@ public struct CardBoard : View {
                 .onChange(of: selectedItem) { item in
                     if let item = item {
                         withAnimation {
-                            scroller.scrollTo(item, anchor: .center)
+                            scroller.scrollTo(item, anchor: .top)
                         }
                     }
                 }
@@ -174,7 +174,7 @@ public struct CardBoard : View {
                     selectedItem = selectedItem == item.id ? nil : item.id
                 }
             } label: {
-                CardBoardItemView(item: item, span: span)
+                CardBoardItemView(item: item, span: span, graphicContent: graphicContent)
                     //.shadow(radius: 1, x: 1, y: 1)
                     .padding()
                     .background(cardBackground(item).cornerRadius(24).shadow(radius: 1, x: 2, y: 2))
@@ -199,7 +199,7 @@ public struct CardBoard : View {
         }
     }
 
-    @ViewBuilder public func cardBackground(_ item: Card) -> some View {
+    @ViewBuilder public func cardBackground(_ item: Card<Graphic>) -> some View {
         if let backgroundColors = item.backgroundColors, backgroundColors.count > 1 {
             LinearGradient(colors: backgroundColors.compactMap(\.systemColor), startPoint: .top, endPoint: .bottom)
         } else if let color = item.backgroundColors?.first?.systemColor {
@@ -208,14 +208,10 @@ public struct CardBoard : View {
     }
 }
 
-public struct CardBoardItemView : View {
-    public let item: Card
-    public let span: CGFloat
-
-    public init(item: Card, span: CGFloat) {
-        self.item = item
-        self.span = span
-    }
+struct CardBoardItemView<Graphic: Codable, V : View> : View {
+    let item: Card<Graphic>
+    let span: CGFloat
+    let graphicContent: (Graphic?) -> V
 
     public var body: some View {
         cardView
@@ -243,19 +239,11 @@ public struct CardBoardItemView : View {
             Spacer(minLength: 0)
 
             Group {
-                switch item.graphic {
-                case .none:
-                    EmptyView()
-                case .p(let symbol):
-                    Image(symbol).resizable().aspectRatio(contentMode: .fit)
-                        .padding()
-                case .q(let animation):
-                    VectorAnimationView(animation: animation)
-                }
+                self.graphicContent(item.graphic)
+                    //.frame(maxWidth: span * 0.50, maxHeight: span * 0.50)
+                    .frame(minWidth: span * 0.25, minHeight: span * 0.25)
+                    .frame(height: item.graphicHeight)
             }
-            .frame(maxWidth: span * 0.50, maxHeight: span * 0.50)
-            .frame(minWidth: span * 0.25, minHeight: span * 0.25)
-            .frame(height: item.graphicHeight)
 
             Spacer(minLength: 0)
 

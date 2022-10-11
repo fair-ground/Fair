@@ -80,6 +80,81 @@
             {
               "kind" : "identifier",
               "text" : "CardBoard"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Graphic"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "GraphicContent"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Graphic"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Se",
+              "text" : "Decodable"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Graphic"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SE",
+              "text" : "Encodable"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "GraphicContent"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7SwiftUI4ViewP",
+              "text" : "View"
             }
           ]
         }
@@ -108,7 +183,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(cards:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(cards:graphicContent:)"
       ],
       "title" : "Initializers"
     },
@@ -401,7 +476,15 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Graphic"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
     },
     {
       "kind" : "keyword",
@@ -452,7 +535,15 @@
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Graphic"
+    },
+    {
+      "kind" : "text",
+      "text" : ">]"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cards",
@@ -538,7 +629,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/cardsview(size:span:)"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/init(cards:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/init(cards:graphicContent:)": {
   "abstract" : [
 
   ],
@@ -566,15 +657,47 @@
     },
     {
       "kind" : "text",
-      "text" : "])"
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Graphic"
+    },
+    {
+      "kind" : "text",
+      "text" : ">], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "graphicContent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Graphic"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "GraphicContent"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(cards:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(cards:graphicContent:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(cards:)",
+  "title" : "init(cards:graphicContent:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/init(cards:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/init(cards:graphiccontent:)"
 }
 }
 }

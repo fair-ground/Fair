@@ -114,7 +114,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoardItemView",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
         "doc:\/\/FairApp\/documentation\/FairApp\/EmbeddedBrowser",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
@@ -137,7 +136,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportCommands",
         "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKey",
-        "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimationView",
         "doc:\/\/FairApp\/documentation\/FairApp\/ZoomableButtonStyle"
       ],
       "title" : "Structures"
@@ -180,8 +178,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewController",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewRepresentableContext",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXVisualEffectView",
-        "doc:\/\/FairApp\/documentation\/FairApp\/UXWindow",
-        "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation"
+        "doc:\/\/FairApp\/documentation\/FairApp\/UXWindow"
       ],
       "title" : "Type Aliases"
     },
@@ -1521,37 +1518,6 @@
   "title" : "CardBoard",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard"
-},
-"doc://FairApp/documentation/FairApp/CardBoardItemView": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CardBoardItemView"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoardItemView",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CardBoardItemView"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CardBoardItemView",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboarditemview"
 },
 "doc://FairApp/documentation/FairApp/CommandResult": {
   "abstract" : [
@@ -3959,113 +3925,6 @@
   "title" : "UsageDescriptionKey",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/usagedescriptionkey"
-},
-"doc://FairApp/documentation/FairApp/VectorAnimation": {
-  "abstract" : [
-    {
-      "text" : "When Lottie is independently added to a package, a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " will be",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "a lottie animation JSON format, which can be included inline in a ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VectorAnimation"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimation",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VectorAnimation"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VectorAnimation",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/vectoranimation"
-},
-"doc://FairApp/documentation/FairApp/VectorAnimationView": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "VectorAnimationView"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/VectorAnimationView",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "VectorAnimationView"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "VectorAnimationView",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/vectoranimationview"
 },
 "doc://FairApp/documentation/FairApp/ZipArchiveDataWrapper": {
   "abstract" : [
