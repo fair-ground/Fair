@@ -6375,9 +6375,9 @@ func ioctl(_ a: Int32, _ b: Int32, _ p: UnsafeMutableRawPointer) -> Int32 {
 }
 #elseif canImport(Darwin)
 import Darwin
-//#elseif canImport(CRT)
-//import CRT
-//import WinSDK
+#elseif canImport(CRT)
+import CRT
+import WinSDK
 #endif
 
 /// Complete execution with the given exit code.
@@ -6386,8 +6386,8 @@ func _exit(_ code: Int32) -> Never {
   Glibc.exit(code)
 #elseif canImport(Darwin)
   Darwin.exit(code)
-//#elseif canImport(CRT)
-//  ucrt._exit(code)
+#elseif canImport(CRT)
+  ucrt._exit(code)
 #elseif canImport(WASILibc)
   exit(code)
 #endif
@@ -6398,31 +6398,32 @@ let defaultTerminalSize: (width: Int, height: Int) = (80, 25)
 /// Returns the current terminal size, or the default if the size is
 /// unavailable.
 func _terminalSize() -> (width: Int, height: Int) {
-#if os(WASI)
-  // WASI doesn't yet support terminal size
-  return defaultTerminalSize
-#elseif os(Windows)
-  var csbi: CONSOLE_SCREEN_BUFFER_INFO = CONSOLE_SCREEN_BUFFER_INFO()
-  guard GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi) else {
     return defaultTerminalSize
-  }
-  return (width: Int(csbi.srWindow.Right - csbi.srWindow.Left) + 1,
-          height: Int(csbi.srWindow.Bottom - csbi.srWindow.Top) + 1)
-#else
-  var w = winsize()
-#if os(OpenBSD)
-  // TIOCGWINSZ is a complex macro, so we need the flattened value.
-  let tiocgwinsz = Int32(0x40087468)
-  let err = ioctl(STDOUT_FILENO, tiocgwinsz, &w)
-#else
-  let err = ioctl(STDOUT_FILENO, TIOCGWINSZ, &w)
-#endif
-  let width = Int(w.ws_col)
-  let height = Int(w.ws_row)
-  guard err == 0 else { return defaultTerminalSize }
-  return (width: width > 0 ? width : defaultTerminalSize.width,
-          height: height > 0 ? height : defaultTerminalSize.height)
-#endif
+//#if os(WASI)
+//  // WASI doesn't yet support terminal size
+//  return defaultTerminalSize
+//#elseif os(Windows)
+//  var csbi: CONSOLE_SCREEN_BUFFER_INFO = CONSOLE_SCREEN_BUFFER_INFO()
+//  guard GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi) else {
+//    return defaultTerminalSize
+//  }
+//  return (width: Int(csbi.srWindow.Right - csbi.srWindow.Left) + 1,
+//          height: Int(csbi.srWindow.Bottom - csbi.srWindow.Top) + 1)
+//#else
+//  var w = winsize()
+//#if os(OpenBSD)
+//  // TIOCGWINSZ is a complex macro, so we need the flattened value.
+//  let tiocgwinsz = Int32(0x40087468)
+//  let err = ioctl(STDOUT_FILENO, tiocgwinsz, &w)
+//#else
+//  let err = ioctl(STDOUT_FILENO, TIOCGWINSZ, &w)
+//#endif
+//  let width = Int(w.ws_col)
+//  let height = Int(w.ws_row)
+//  guard err == 0 else { return defaultTerminalSize }
+//  return (width: width > 0 ? width : defaultTerminalSize.width,
+//          height: height > 0 ? height : defaultTerminalSize.height)
+//#endif
 }
 
 enum MessageInfo {
