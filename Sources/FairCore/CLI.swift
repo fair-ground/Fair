@@ -10,24 +10,6 @@
 //===----------------------------------------------------------------------===//
 import Foundation
 
-#if canImport(Glibc)
-import Glibc
-let _exit: (Int32) -> Never = Glibc.exit
-#elseif canImport(Darwin)
-import Darwin
-let _exit: (Int32) -> Never = Darwin.exit
-#elseif canImport(CRT)
-import CRT
-let _exit: (Int32) -> Never = ucrt._exit
-#elseif canImport(WASILibc)
-import WASILibc
-#endif
-
-#if os(Windows)
-import let WinSDK.ERROR_BAD_ARGUMENTS
-#endif
-
-
 /// Header used to validate serialization version of an encoded ToolInfo struct.
 public struct ToolInfoHeader: Decodable {
   /// A sentinel value indicating the version of the ToolInfo struct used to
@@ -6393,19 +6375,36 @@ func ioctl(_ a: Int32, _ b: Int32, _ p: UnsafeMutableRawPointer) -> Int32 {
 }
 #elseif canImport(Darwin)
 import Darwin
-#elseif canImport(CRT)
-import CRT
-import WinSDK
+//#elseif canImport(CRT)
+//import CRT
+//import WinSDK
 #endif
 
+/// Complete execution with the given exit code.
+func _exit(_ code: Int32) -> Never {
+#if canImport(Glibc)
+  Glibc.exit(code)
+#elseif canImport(Darwin)
+  Darwin.exit(code)
+//#elseif canImport(CRT)
+//  ucrt._exit(code)
+#elseif canImport(WASILibc)
+  exit(code)
+#endif
+}
+
+let defaultTerminalSize: (width: Int, height: Int) = (80, 25)
+
+/// Returns the current terminal size, or the default if the size is
+/// unavailable.
 func _terminalSize() -> (width: Int, height: Int) {
 #if os(WASI)
   // WASI doesn't yet support terminal size
-  return (80, 25)
+  return defaultTerminalSize
 #elseif os(Windows)
   var csbi: CONSOLE_SCREEN_BUFFER_INFO = CONSOLE_SCREEN_BUFFER_INFO()
   guard GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi) else {
-    return (80, 25)
+    return defaultTerminalSize
   }
   return (width: Int(csbi.srWindow.Right - csbi.srWindow.Left) + 1,
           height: Int(csbi.srWindow.Bottom - csbi.srWindow.Top) + 1)
@@ -6420,9 +6419,9 @@ func _terminalSize() -> (width: Int, height: Int) {
 #endif
   let width = Int(w.ws_col)
   let height = Int(w.ws_row)
-  guard err == 0 else { return (80, 25) }
-  return (width: width > 0 ? width : 80,
-          height: height > 0 ? height : 25)
+  guard err == 0 else { return defaultTerminalSize }
+  return (width: width > 0 ? width : defaultTerminalSize.width,
+          height: height > 0 ? height : defaultTerminalSize.height)
 #endif
 }
 
