@@ -652,7 +652,7 @@ struct EmbeddedBrowserController: UXViewControllerRepresentable {
         }
         
         func safariViewController(_ controller: SFSafariViewController, activityItemsFor URL: URL, title: String?) -> [UIActivity] {
-            [UIActivity]
+            []
         }
         
         func safariViewController(_ controller: SFSafariViewController, excludedActivityTypesFor URL: URL, title: String?) -> [UIActivity.ActivityType] {
