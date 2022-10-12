@@ -141,8 +141,8 @@ private struct VectorAnimationViewRepresentable : UXViewRepresentable {
         return container
     }
 
-    func makeAnimationView(context: Context) -> AnimationView {
-        let animationView = AnimationView()
+    func makeAnimationView(context: Context) -> LottieAnimationView {
+        let animationView = LottieAnimationView()
 
         #if os(macOS)
         animationView.autoresizingMask = [.height, .width]
@@ -165,12 +165,12 @@ private struct VectorAnimationViewRepresentable : UXViewRepresentable {
     }
 
     func updateUXView(_ view: UXViewType, context: Context) {
-        (view.subviews.first as? AnimationView)?.play() // TODO: add start/stop controls
+        (view.subviews.first as? LottieAnimationView)?.play() // TODO: add start/stop controls
 
     }
 
     static func dismantleUXView(_ view: UXViewType, coordinator: ()) {
-        (view.subviews.first as? AnimationView)?.stop() // TODO: add start/stop controls
+        (view.subviews.first as? LottieAnimationView)?.stop() // TODO: add start/stop controls
     }
 }
 #endif

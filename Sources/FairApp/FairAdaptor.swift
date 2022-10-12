@@ -568,6 +568,28 @@ public struct EmbeddedBrowser : View {
     }
 
     public var body: some View {
+        #if os(iOS)
+        bodyEmbedded
+        #else
+        bodyLink
+        #endif
+    }
+
+    #if canImport(SafariServices)
+    #if os(iOS)
+    public var bodyEmbedded: some View {
+        Link(destination: url) {
+            EmbeddedBrowserController(url: url) {
+                dbg("dismissed browser to:", url)
+                self.dismiss()
+            }
+            //.navigationBarHidden(true)
+        }
+    }
+    #endif
+    #endif // os(iOS)
+
+    public var bodyLink: some View {
         Link(destination: url) {
             VStack {
                 //Text("Open:", bundle: .module, comment: "show url preview")
@@ -576,7 +598,7 @@ public struct EmbeddedBrowser : View {
             }
                 .multilineTextAlignment(.center)
         }
-#if canImport(SafariServices)
+        #if canImport(SafariServices)
         #if os(iOS)
         .fullScreenCover(isPresented: $presented, content: {
             EmbeddedBrowserController(url: url) {
@@ -584,7 +606,7 @@ public struct EmbeddedBrowser : View {
             }
         })
         #endif // os(iOS)
-#endif
+        #endif
     }
 }
 
@@ -599,6 +621,10 @@ struct EmbeddedBrowserController: UXViewControllerRepresentable {
 
     func makeUXViewController(context: UIViewControllerRepresentableContext<Self>) -> SFSafariViewController {
         let controller = SFSafariViewController(url: url, configuration: config)
+        controller.preferredControlTintColor = .tintColor
+        controller.preferredBarTintColor = .systemGroupedBackground
+        controller.dismissButtonStyle = .cancel
+
         controller.delegate = context.coordinator
         return controller
     }
@@ -626,7 +652,7 @@ struct EmbeddedBrowserController: UXViewControllerRepresentable {
         }
         
         func safariViewController(_ controller: SFSafariViewController, activityItemsFor URL: URL, title: String?) -> [UIActivity] {
-            []
+            [UIActivity]
         }
         
         func safariViewController(_ controller: SFSafariViewController, excludedActivityTypesFor URL: URL, title: String?) -> [UIActivity.ActivityType] {
