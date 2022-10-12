@@ -479,6 +479,36 @@ final class FairExpoTests: XCTestCase {
         }
 
     }
+
+    func testLocalizableStrings() throws {
+        do {
+            let strings = """
+            "A" = "B";
+            """
+            let file = try LocalizedStringsFile(fileContents: strings)
+            XCTAssertEqual(["A"], file.keys)
+        }
+
+        do {
+            let strings = """
+            // comment 1
+            "A" = "B";
+            /* comment 2 */
+            "C" = "D";
+            """
+            var file = try LocalizedStringsFile(fileContents: strings)
+            XCTAssertEqual(["A", "C"], file.keys)
+            try file.update(strings: .init(rawValue: ["A": "X"]))
+            XCTAssertEqual(["A"], file.keys)
+
+            XCTAssertEqual(file.fileContents, """
+            // comment 1
+            "A" = "X";
+            /* comment 2 */
+            "C" = "D";
+            """)
+        }
+    }
 }
 
 public struct PackageManifest : Pure {

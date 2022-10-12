@@ -289,10 +289,10 @@ public struct AppCommand : AsyncParsableCommand {
         @OptionGroup public var projectOptions: ProjectOptions
 
         @Option(name: [.long], help: ArgumentHelp("The app target."))
-        public var target: String = "App"
+        public var targets: [String] = ["App"]
 
-        @Option(name: [.long], help: ArgumentHelp("The locale to generate."))
-        public var locale: String = "en"
+        @Option(name: [.long], help: ArgumentHelp("The languages to generate."))
+        public var languages: [String] = []
 
         public init() {
         }
@@ -319,10 +319,10 @@ public struct AppCommand : AsyncParsableCommand {
         @OptionGroup public var projectOptions: ProjectOptions
 
         @Option(name: [.long], help: ArgumentHelp("The package localization target."))
-        public var target: String = "App"
+        public var targets: [String] = ["App"]
 
         @Option(name: [.long], help: ArgumentHelp("The locale to generate."))
-        public var locale: String = "en"
+        public var languages: [String] = []
 
         public init() {
         }
@@ -380,61 +380,167 @@ extension FairProjectCommand {
 }
 
 protocol FairAppCommand : FairProjectCommand {
-    var target: String { get }
-    var locale: String { get }
+    var targets: [String] { get }
+    var languages: [String] { get }
+}
+
+/// A representation of a `Localized.strings` file that retains its formatting and comments.
+struct LocalizedStringsFile {
+    private(set) var fileContents: String
+    private(set) var plist: Plist
+    /// An index of the plist keys to the lines in the property list file.
+    private(set) var keyLines: [String?: Int] = [:]
+
+    /// Returns all the keys in this property list
+    var keys: Set<String> {
+        plist.rawValue.allKeys.compactMap({ $0 as? String }).set()
+    }
+
+    var fileLines: [Substring] {
+        fileContents.split(separator: "\n", omittingEmptySubsequences: false)
+    }
+
+    init(fileContents: String) throws {
+        self.fileContents = fileContents
+        self.plist = try Plist(data: fileContents.utf8Data)
+        self.keyLines = Dictionary(fileLines.enumerated().map({ (Self.parseKeyFromLine($1), $0) })) { $1 }
+    }
+
+    static func parseKeyFromLine<S: StringProtocol>(_ line: S) -> String? {
+        guard line.first == #"""# else {
+            return nil
+        }
+
+        let parts = (line.dropFirst(1)).components(separatedBy: #"" = ""#)
+        guard parts.count == 2 else {
+            dbg("invalid parts count")
+            return nil
+        }
+
+        return parts.first
+    }
+
+    /// Updates the strings file contents with the specified property list dictionary.
+    mutating func update(strings: Plist) throws {
+        var lines = self.fileLines.map(String.init)
+
+        for (key, value) in strings.rawValue {
+            guard let key = key as? String else { continue }
+            guard let value = value as? String else { continue }
+            guard let lineIndex = keyLines[key] else {
+                dbg("no key line for:", key)
+                continue
+            }
+
+            // we need to manually construct the line ourselves, because `PropertyListSerialization.data(fromPropertyList: …, format: .openStep)` doesn't work for writing
+            let newLine = "\"\(key)\" = \"\(value)\";"
+            lines[lineIndex] = newLine
+        }
+
+        self.plist = strings
+        self.fileContents = lines.joined(separator: "\n")
+    }
 }
 
 extension FairAppCommand {
 
 #if os(macOS)
     /// Run `genstrings` on the source files in the project.
-    func generateLocalizedStrings() async throws {
+    func generateLocalizedStrings(locstr: String = "Localizable.strings") async throws {
         //msg(.info, "Scanning strings for localization")
+        let fm = FileManager.default
 
-        let locstr = "Localizable.strings"
+        for target in targets {
+            let resourcesFolder = projectOptions.projectPathURL(path: "Sources")
+                .appendingPathComponent(target)
+                .appendingPathComponent("Resources")
 
-        let localizedStringsPath = projectOptions.projectPathURL(path: "Sources")
-            .appendingPathComponent(target)
-            .appendingPathComponent("Resources")
-            .appendingPathComponent(locale)
-            .appendingPathExtension("lproj")
-            .appendingPathComponent(locstr)
+            let tmp = projectOptions.projectPathURL(path: ".fairtool").appendingPathComponent(UUID().uuidString)
+            try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
+            defer {
+                // clean up temporary localization file
+                try? FileManager.default.removeItem(at: tmp)
+            }
 
-        msg(.info, "Scanning strings in \(target) for localization to:", localizedStringsPath.path)
+            let sourceFiles = try projectOptions.projectPathURL(path: "Sources").fileChildren(deep: true).filter { url in
+                url.pathExtension == "swift"
+            }
 
-        var existingEncoding: String.Encoding = .utf8
+            let args = ["genstrings", "-q", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
+            msg(.debug, "running command:", args)
+            let cmd = try await Process.exec(cmd: "/usr/bin/xcrun", args: args)
+            msg(.debug, "process exited with:", cmd.terminationStatus)
 
-        // load the initial strings to check for changes
-        let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
+            let outputFile = tmp.appendingPathComponent(locstr)
 
-        let sourceFiles = try projectOptions.projectPathURL(path: "Sources").fileChildren(deep: true).filter { url in
-            url.pathExtension == "swift"
-        }
+            var generatedEncoding: String.Encoding = .utf16 // genstrings outputs UTF-16
+            let generatedStrings = try String(contentsOf: outputFile, usedEncoding: &generatedEncoding)
+            // the generated locale file
+            let generatedLocaleFile = try LocalizedStringsFile(fileContents: generatedStrings)
 
-        let tmp = projectOptions.projectPathURL(path: ".fairtool").appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
-        defer {
-            // clean up temporary localization file
-            try? FileManager.default.removeItem(at: tmp)
-        }
+            msg(.debug, "created strings file", outputFile.path, "encoding:", generatedEncoding)
 
-        let args = ["genstrings", "-q", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
-        msg(.debug, "running command:", args)
-        let cmd = try await Process.exec(cmd: "/usr/bin/xcrun", args: args)
-        msg(.debug, "process exited with:", cmd.terminationStatus)
+            func loadLocalizations() throws -> [String: (URL, Plist)] {
+                var localizations: [String: (URL, Plist)] = [:]
+                for childURL in try fm.contentsOfDirectory(at: resourcesFolder, includingPropertiesForKeys: [.isDirectoryKey]) {
+                    if childURL.pathIsDirectory && childURL.pathExtension == "lproj" {
+                        let languageCode = childURL.deletingPathExtension().lastPathComponent
+                        let localizableStrings = childURL.appendingPathComponent("Localizable.strings")
 
-        let outputFile = tmp.appendingPathComponent(locstr)
+                        let locale = Locale(identifier: languageCode)
+                        let languageNameCurrent = Locale.current.localizedString(forLanguageCode: languageCode) ?? ""
+                        let languageName = locale.localizedString(forLanguageCode: languageCode) ?? ""
 
-        var generatedEncoding: String.Encoding = .utf16 // genstrings outputs UTF-16
-        let generatedStrings = try String(contentsOf: outputFile, usedEncoding: &generatedEncoding)
+                        let comments = [
+                            "Localized \(languageNameCurrent) (\(languageName)) strings for this App Fair App.",
+                            "Translators wanted! Edit this file to fork the repository and contribute your translated strings.",
+                            "Visit https://appfair.net/#translators for more details.",
+                        ]
 
-        msg(.debug, "created strings file", outputFile.path, "encoding:", generatedEncoding)
+                        if fm.isReadableFile(atPath: localizableStrings.path) {
+                            let resource = try PropertyListSerialization.propertyList(from: Data(contentsOf: localizableStrings), format: nil)
+                            if let resource = resource as? NSDictionary {
+                                //msg(.debug, "loaded resource for", resource)
+                                localizations[languageCode] = (localizableStrings, Plist(rawValue: resource))
+                            }
+                        }
+                    }
+                }
 
-        if generatedStrings == existingStrings {
-            msg(.info, "Localizations unchanged:", localizedStringsPath.path)
-        } else {
-            try generatedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
-            msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
+                return localizations
+            }
+
+            for (lang, (url, plist)) in try loadLocalizations() {
+                if !languages.isEmpty && !languages.contains(lang) {
+                    msg(.info, "skipping excluded language code:", lang)
+                    continue
+                }
+
+                let localizedStringsPath = resourcesFolder
+                    .appendingPathComponent(lang)
+                    .appendingPathExtension("lproj")
+                    .appendingPathComponent(locstr)
+
+                msg(.info, "Scanning strings in \(target) for localization to:", localizedStringsPath.path)
+
+                var existingEncoding: String.Encoding = .utf8
+
+                // load the initial strings to check for changes
+                let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
+                let existingLocaleFile = try LocalizedStringsFile(fileContents: existingStrings)
+
+                var baseLocale = generatedLocaleFile
+                try baseLocale.update(strings: existingLocaleFile.plist)
+                let localizedStrings = baseLocale.fileContents
+                //generatedLocaleFile
+
+                if localizedStrings == existingStrings {
+                    msg(.info, "Localizations unchanged:", localizedStringsPath.path)
+                } else {
+                    try localizedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
+                    msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
+                }
+            }
         }
 
     }

@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "FairAppCommand.target",
+      "code" : "FairAppCommand.languages",
       "type" : "codeVoice"
     },
     {
@@ -18,17 +18,17 @@
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/target"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/languages"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo10AppCommandV08LocalizeD0V6targetSSvp",
+    "externalID" : "s:8FairExpo10AppCommandV07RefreshD0V9languagesSaySSGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -40,16 +40,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "target"
+        "text" : "languages"
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:SS",
         "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -60,7 +64,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "target"
+    "title" : "languages"
   },
   "primaryContentSections" : [
     {
@@ -83,11 +87,11 @@
             },
             {
               "kind" : "identifier",
-              "text" : "target"
+              "text" : "languages"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ["
             },
             {
               "kind" : "typeIdentifier",
@@ -96,7 +100,7 @@
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : "] { "
             },
             {
               "kind" : "keyword",
@@ -131,7 +135,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/appcommand\/localizecommand\/target"
+        "\/documentation\/fairexpo\/appcommand\/refreshcommand\/languages"
       ],
       "traits" : [
         {
@@ -187,9 +191,12 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand": {
+"doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand": {
   "abstract" : [
-
+    {
+      "text" : "An aggregate command that performs the following tasks:",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -202,23 +209,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "LocalizeCommand"
+      "text" : "RefreshCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "LocalizeCommand"
+      "text" : "RefreshCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "AppCommand.LocalizeCommand",
+  "title" : "AppCommand.RefreshCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand"
+  "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand/target": {
+"doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand/languages": {
   "abstract" : [
 
   ],
@@ -233,24 +240,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "target"
+      "text" : "languages"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/target",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/languages",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "target",
+  "title" : "languages",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/target"
+  "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/languages"
 }
 }
 }

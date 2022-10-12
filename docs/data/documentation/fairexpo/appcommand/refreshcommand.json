@@ -153,10 +153,10 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/locale",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/languages",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/msgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/projectOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/target"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/targets"
       ],
       "title" : "Instance Properties"
     },
@@ -488,7 +488,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/init(from:)"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand/locale": {
+"doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand/languages": {
   "abstract" : [
 
   ],
@@ -503,24 +503,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "locale"
+      "text" : "languages"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/locale",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/languages",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "locale",
+  "title" : "languages",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/locale"
+  "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/languages"
 },
 "doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand/msgOptions": {
   "abstract" : [
@@ -631,7 +635,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/run()"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand/target": {
+"doc://FairExpo/documentation/FairExpo/AppCommand/RefreshCommand/targets": {
   "abstract" : [
 
   ],
@@ -646,24 +650,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "target"
+      "text" : "targets"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/target",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/RefreshCommand\/targets",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "target",
+  "title" : "targets",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/target"
+  "url" : "\/documentation\/fairexpo\/appcommand\/refreshcommand\/targets"
 },
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [

@@ -105,10 +105,10 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/locale",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/languages",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/msgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/projectOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/target"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/targets"
       ],
       "title" : "Instance Properties"
     },
@@ -437,7 +437,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/init(from:)"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand/locale": {
+"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand/languages": {
   "abstract" : [
 
   ],
@@ -452,24 +452,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "locale"
+      "text" : "languages"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/locale",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/languages",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "locale",
+  "title" : "languages",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/locale"
+  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/languages"
 },
 "doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand/msgOptions": {
   "abstract" : [
@@ -580,7 +584,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/run()"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand/target": {
+"doc://FairExpo/documentation/FairExpo/AppCommand/LocalizeCommand/targets": {
   "abstract" : [
 
   ],
@@ -595,24 +599,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "target"
+      "text" : "targets"
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/target",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand\/LocalizeCommand\/targets",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "target",
+  "title" : "targets",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/target"
+  "url" : "\/documentation\/fairexpo\/appcommand\/localizecommand\/targets"
 },
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [
