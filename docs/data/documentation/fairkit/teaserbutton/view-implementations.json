@@ -255,8 +255,8 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/layoutPriority(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/lineLimit(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/lineSpacing(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/link(to:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/link(to:draggable:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/link(to:embedded:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/listItemTint(_:)-33229",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/listItemTint(_:)-77nmv",
         "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/listRowBackground(_:)",
@@ -19015,65 +19015,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/teaserbutton\/linespacing(_:)"
 },
-"doc://FairKit/documentation/FairKit/TeaserButton/link(to:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/link(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/teaserbutton\/link(to:)"
-},
 "doc://FairKit/documentation/FairKit/TeaserButton/link(to:draggable:)": {
   "abstract" : [
 
@@ -19149,6 +19090,82 @@
   "title" : "link(to:draggable:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/teaserbutton\/link(to:draggable:)"
+},
+"doc://FairKit/documentation/FairKit/TeaserButton/link(to:embedded:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "link"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "embedded"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/TeaserButton\/link(to:embedded:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "link(to:embedded:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/teaserbutton\/link(to:embedded:)"
 },
 "doc://FairKit/documentation/FairKit/TeaserButton/listItemTint(_:)-33229": {
   "abstract" : [

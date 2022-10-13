@@ -255,8 +255,8 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/layoutPriority(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/lineLimit(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/lineSpacing(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/link(to:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/link(to:draggable:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/link(to:embedded:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/listItemTint(_:)-7bk2h",
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/listItemTint(_:)-9a037",
         "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/listRowBackground(_:)",
@@ -19012,65 +19012,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/vectoranimationview\/linespacing(_:)"
 },
-"doc://FairKit/documentation/FairKit/VectorAnimationView/link(to:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/link(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/vectoranimationview\/link(to:)"
-},
 "doc://FairKit/documentation/FairKit/VectorAnimationView/link(to:draggable:)": {
   "abstract" : [
 
@@ -19146,6 +19087,82 @@
   "title" : "link(to:draggable:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/vectoranimationview\/link(to:draggable:)"
+},
+"doc://FairKit/documentation/FairKit/VectorAnimationView/link(to:embedded:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "link"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "embedded"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/VectorAnimationView\/link(to:embedded:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "link(to:embedded:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/vectoranimationview\/link(to:embedded:)"
 },
 "doc://FairKit/documentation/FairKit/VectorAnimationView/listItemTint(_:)-7bk2h": {
   "abstract" : [

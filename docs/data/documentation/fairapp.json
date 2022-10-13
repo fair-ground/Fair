@@ -114,6 +114,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AssetName",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor",
         "doc:\/\/FairApp\/documentation\/FairApp\/CommandResult",
         "doc:\/\/FairApp\/documentation\/FairApp\/EmbeddedBrowser",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView",
@@ -121,7 +122,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetStyle",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainerApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol",
         "doc:\/\/FairApp\/documentation\/FairApp\/HexColor",
@@ -187,7 +187,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting"
       ],
@@ -1437,15 +1436,7 @@
 "doc://FairApp/documentation/FairApp/Card": {
   "abstract" : [
     {
-      "text" : "An item that contains a title, subtitle, and optional animation.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "text" : "An item that contains a title, subtitle, and optional flair, which can be an image or animation.",
       "type" : "text"
     }
   ],
@@ -1518,6 +1509,56 @@
   "title" : "CardBoard",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard"
+},
+"doc://FairApp/documentation/FairApp/CodableColor": {
+  "abstract" : [
+    {
+      "text" : "An encodable color, which can use either a system color name (e.g. ",
+      "type" : "text"
+    },
+    {
+      "code" : "accent",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " or ",
+      "type" : "text"
+    },
+    {
+      "code" : "pink",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ") or a hex string.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CodableColor"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CodableColor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CodableColor",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/codablecolor"
 },
 "doc://FairApp/documentation/FairApp/CommandResult": {
   "abstract" : [
@@ -1980,103 +2021,6 @@
   "title" : "FairContainerApp",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/faircontainerapp"
-},
-"doc://FairApp/documentation/FairApp/FairContentType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairContentType"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContentType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairContentType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairContentType",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/faircontenttype"
-},
-"doc://FairApp/documentation/FairApp/FairContentView": {
-  "abstract" : [
-    {
-      "text" : "The ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairContentView",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " offers pre-defined functionality for an fair-ground App.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "The default ",
-      "type" : "text"
-    },
-    {
-      "code" : ".placeholder",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " content is the initial content for a new",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "app, and provides guidance for the developer on how to get started.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairContentView"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContentView",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairContentView"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairContentView",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/faircontentview"
 },
 "doc://FairApp/documentation/FairApp/FairIconView": {
   "abstract" : [

@@ -87,7 +87,7 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "Graphic"
+              "text" : "Flair"
             },
             {
               "kind" : "text",
@@ -95,7 +95,7 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "GraphicContent"
+              "text" : "FlairContent"
             },
             {
               "kind" : "text",
@@ -111,41 +111,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Graphic"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Se",
-              "text" : "Decodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Graphic"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SE",
-              "text" : "Encodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "GraphicContent"
+              "text" : "FlairContent"
             },
             {
               "kind" : "text",
@@ -183,7 +149,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(cards:graphicContent:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(selection:cards:flairContent:)"
       ],
       "title" : "Initializers"
     },
@@ -196,9 +162,10 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/bodyGrid(size:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/autocycle(interval:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/bodyGrid()",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackground(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardsView(size:span:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardsView()"
       ],
       "title" : "Instance Methods"
     },
@@ -254,15 +221,7 @@
 "doc://FairApp/documentation/FairApp/Card": {
   "abstract" : [
     {
-      "text" : "An item that contains a title, subtitle, and optional animation.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "text" : "An item that contains a title, subtitle, and optional flair, which can be an image or animation.",
       "type" : "text"
     }
   ],
@@ -347,6 +306,68 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/view-implementations"
 },
+"doc://FairApp/documentation/FairApp/CardBoard/autocycle(interval:)": {
+  "abstract" : [
+    {
+      "text" : "Start cycling through all the possible cards with the given interval and delay.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "autocycle"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interval"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/autocycle(interval:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "autocycle(interval:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cardboard\/autocycle(interval:)"
+},
 "doc://FairApp/documentation/FairApp/CardBoard/body": {
   "abstract" : [
 
@@ -389,7 +410,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/body"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/bodyGrid(size:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/bodyGrid()": {
   "abstract" : [
 
   ],
@@ -408,24 +429,7 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "size"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:@S@CGSize",
-      "text" : "CGSize"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
+      "text" : "() -> "
     },
     {
       "kind" : "keyword",
@@ -441,12 +445,12 @@
       "text" : "View"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/bodyGrid(size:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/bodyGrid()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "bodyGrid(size:)",
+  "title" : "bodyGrid()",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/bodygrid(size:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/bodygrid()"
 },
 "doc://FairApp/documentation/FairApp/CardBoard/cardBackground(_:)": {
   "abstract" : [
@@ -480,24 +484,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Graphic"
+      "text" : "Flair"
     },
     {
       "kind" : "text",
       "text" : ">) -> "
     },
     {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
+      "preciseIdentifier" : "s:7SwiftUI14LinearGradientV",
+      "text" : "LinearGradient"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackground(_:)",
@@ -539,7 +535,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Graphic"
+      "text" : "Flair"
     },
     {
       "kind" : "text",
@@ -553,7 +549,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/cards"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/cardsView(size:span:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/cardsView()": {
   "abstract" : [
 
   ],
@@ -572,41 +568,7 @@
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "size"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:@S@CGSize",
-      "text" : "CGSize"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "span"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:12CoreGraphics7CGFloatV",
-      "text" : "CGFloat"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
+      "text" : "() -> "
     },
     {
       "kind" : "keyword",
@@ -622,14 +584,14 @@
       "text" : "View"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardsView(size:span:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardsView()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "cardsView(size:span:)",
+  "title" : "cardsView()",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/cardsview(size:span:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/cardsview()"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/init(cards:graphicContent:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/init(selection:cards:flairContent:)": {
   "abstract" : [
 
   ],
@@ -641,6 +603,32 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selection"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI7BindingV",
+      "text" : "Binding"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4UUIDV",
+      "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?>, "
     },
     {
       "kind" : "externalParam",
@@ -661,7 +649,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Graphic"
+      "text" : "Flair"
     },
     {
       "kind" : "text",
@@ -669,7 +657,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graphicContent"
+      "text" : "flairContent"
     },
     {
       "kind" : "text",
@@ -677,27 +665,27 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Graphic"
+      "text" : "Flair"
     },
     {
       "kind" : "text",
-      "text" : "?) -> "
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "GraphicContent"
+      "text" : "FlairContent"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(cards:graphicContent:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(selection:cards:flairContent:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(cards:graphicContent:)",
+  "title" : "init(selection:cards:flairContent:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/init(cards:graphiccontent:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/init(selection:cards:flaircontent:)"
 }
 }
 }

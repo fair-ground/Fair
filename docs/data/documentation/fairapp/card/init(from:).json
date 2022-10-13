@@ -17,7 +17,8 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card"
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Decodable-Implementations"
       ]
     ]
   },
@@ -27,7 +28,40 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp4CardV4fromACyxGs7Decoder_p_tKcfc",
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Flair",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Decodable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp4CardVAASeRzlE4fromACyxGs7Decoder_p_tKcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -170,15 +204,7 @@
 "doc://FairApp/documentation/FairApp/Card": {
   "abstract" : [
     {
-      "text" : "An item that contains a title, subtitle, and optional animation.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "text" : "An item that contains a title, subtitle, and optional flair, which can be an image or animation.",
       "type" : "text"
     }
   ],
@@ -209,10 +235,53 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card"
 },
+"doc://FairApp/documentation/FairApp/Card/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/decodable-implementations"
+},
 "doc://FairApp/documentation/FairApp/Card/init(from:)": {
   "abstract" : [
 
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Flair",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Decodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "identifier",

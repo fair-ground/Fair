@@ -263,8 +263,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/layoutPriority(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/lineLimit(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/lineSpacing(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/link(to:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/link(to:draggable:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/link(to:embedded:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/listItemTint(_:)-2b3j0",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/listItemTint(_:)-5s3qv",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/listRowBackground(_:)",
@@ -19287,76 +19287,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/linespacing(_:)"
 },
-"doc://FairApp/documentation/FairApp/FairSymbol/link(to:)": {
-  "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Link",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given URL.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/link(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairsymbol\/link(to:)"
-},
 "doc://FairApp/documentation/FairApp/FairSymbol/link(to:draggable:)": {
   "abstract" : [
     {
@@ -19451,6 +19381,93 @@
   "title" : "link(to:draggable:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairsymbol\/link(to:draggable:)"
+},
+"doc://FairApp/documentation/FairApp/FairSymbol/link(to:embedded:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Link",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to the given URL.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "link"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "embedded"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairSymbol\/link(to:embedded:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "link(to:embedded:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/fairsymbol\/link(to:embedded:)"
 },
 "doc://FairApp/documentation/FairApp/FairSymbol/listItemTint(_:)-2b3j0": {
   "abstract" : [

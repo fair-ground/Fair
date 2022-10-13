@@ -256,8 +256,8 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/layoutPriority(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/lineLimit(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/lineSpacing(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/link(to:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/link(to:draggable:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/link(to:embedded:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/listItemTint(_:)-6afjs",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/listItemTint(_:)-9r1py",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/listRowBackground(_:)",
@@ -19125,65 +19125,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/linespacing(_:)"
 },
-"doc://FairKit/documentation/FairKit/URLImage/link(to:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/link(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/link(to:)"
-},
 "doc://FairKit/documentation/FairKit/URLImage/link(to:draggable:)": {
   "abstract" : [
 
@@ -19259,6 +19200,82 @@
   "title" : "link(to:draggable:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/link(to:draggable:)"
+},
+"doc://FairKit/documentation/FairKit/URLImage/link(to:embedded:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "link"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "embedded"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/link(to:embedded:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "link(to:embedded:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/urlimage\/link(to:embedded:)"
 },
 "doc://FairKit/documentation/FairKit/URLImage/listItemTint(_:)-6afjs": {
   "abstract" : [

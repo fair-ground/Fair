@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "An item that contains a title, subtitle, and optional animation.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "text" : "An item that contains a title, subtitle, and optional flair, which can be an image or animation.",
       "type" : "text"
     }
   ],
@@ -86,54 +78,44 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "Graphic"
+              "text" : "Flair"
             },
             {
               "kind" : "text",
-              "text" : "> "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "where"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Graphic"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Se",
-              "text" : "Decodable"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Graphic"
-            },
-            {
-              "kind" : "text",
-              "text" : " : "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SE",
-              "text" : "Encodable"
+              "text" : ">"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The “flair” is context-specific, and may be a system symbol name, or could be a ",
+              "type" : "text"
+            },
+            {
+              "code" : "VectorAnimation",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " for projects that import Lottie.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -141,7 +123,10 @@
       "identifiers" : [
         "doc:\/\/FairApp\/Se",
         "doc:\/\/FairApp\/SE",
-        "doc:\/\/FairApp\/s12IdentifiableP"
+        "doc:\/\/FairApp\/SQ",
+        "doc:\/\/FairApp\/SH",
+        "doc:\/\/FairApp\/s12IdentifiableP",
+        "doc:\/\/FairApp\/s8SendableP"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -159,25 +144,18 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/BannerColor"
-      ],
-      "title" : "Structures"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foreground:background:backgroundGradientOpacity:flair:flairHeight:)"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/backgroundColors",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/background",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/backgroundGradientOpacity",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/body",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/foregroundColor",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphic",
-        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphicHeight",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/flair",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/flairHeight",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/foreground",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/id-9rd77",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/subtitle",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/title"
@@ -189,6 +167,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Decodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Encodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Equatable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Identifiable-Implementations"
       ],
       "title" : "Default Implementations"
@@ -211,6 +190,16 @@
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SH": {
+  "identifier" : "doc:\/\/FairApp\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/SQ": {
+  "identifier" : "doc:\/\/FairApp\/SQ",
+  "title" : "Swift.Equatable",
   "type" : "unresolvable"
 },
 "doc://FairApp/Se": {
@@ -243,15 +232,7 @@
 "doc://FairApp/documentation/FairApp/Card": {
   "abstract" : [
     {
-      "text" : "An item that contains a title, subtitle, and optional animation.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "It is uniquely identified and codable, and meant to contain localizable information.",
+      "text" : "An item that contains a title, subtitle, and optional flair, which can be an image or animation.",
       "type" : "text"
     }
   ],
@@ -282,37 +263,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card"
 },
-"doc://FairApp/documentation/FairApp/Card/BannerColor": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BannerColor"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/BannerColor",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BannerColor"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Card.BannerColor",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/bannercolor"
-},
 "doc://FairApp/documentation/FairApp/Card/Decodable-Implementations": {
   "abstract" : [
 
@@ -335,6 +285,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/encodable-implementations"
 },
+"doc://FairApp/documentation/FairApp/Card/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/equatable-implementations"
+},
 "doc://FairApp/documentation/FairApp/Card/Identifiable-Implementations": {
   "abstract" : [
 
@@ -346,7 +307,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/identifiable-implementations"
 },
-"doc://FairApp/documentation/FairApp/Card/backgroundColors": {
+"doc://FairApp/documentation/FairApp/Card/background": {
   "abstract" : [
 
   ],
@@ -361,7 +322,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "backgroundColors"
+      "text" : "background"
     },
     {
       "kind" : "text",
@@ -369,37 +330,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV",
-      "text" : "Card"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Graphic"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV11BannerColorV",
-      "text" : "BannerColor"
+      "preciseIdentifier" : "s:7FairApp12CodableColorV",
+      "text" : "CodableColor"
     },
     {
       "kind" : "text",
       "text" : "]?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/backgroundColors",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/background",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "backgroundColors",
+  "title" : "background",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/backgroundcolors"
+  "url" : "\/documentation\/fairapp\/card\/background"
 },
 "doc://FairApp/documentation/FairApp/Card/backgroundGradientOpacity": {
   "abstract" : [
@@ -477,7 +421,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/body"
 },
-"doc://FairApp/documentation/FairApp/Card/foregroundColor": {
+"doc://FairApp/documentation/FairApp/Card/flair": {
   "abstract" : [
 
   ],
@@ -492,7 +436,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "foregroundColor"
+      "text" : "flair"
     },
     {
       "kind" : "text",
@@ -500,39 +444,21 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV",
-      "text" : "Card"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Graphic"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV11BannerColorV",
-      "text" : "BannerColor"
+      "text" : "Flair"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/foregroundColor",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/flair",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "foregroundColor",
+  "title" : "flair",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/foregroundcolor"
+  "url" : "\/documentation\/fairapp\/card\/flair"
 },
-"doc://FairApp/documentation/FairApp/Card/graphic": {
+"doc://FairApp/documentation/FairApp/Card/flairHeight": {
   "abstract" : [
 
   ],
@@ -547,44 +473,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "graphic"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Graphic"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphic",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "graphic",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/graphic"
-},
-"doc://FairApp/documentation/FairApp/Card/graphicHeight": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "graphicHeight"
+      "text" : "flairHeight"
     },
     {
       "kind" : "text",
@@ -600,12 +489,50 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/graphicHeight",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/flairHeight",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "graphicHeight",
+  "title" : "flairHeight",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/graphicheight"
+  "url" : "\/documentation\/fairapp\/card\/flairheight"
+},
+"doc://FairApp/documentation/FairApp/Card/foreground": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "foreground"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp12CodableColorV",
+      "text" : "CodableColor"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/foreground",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "foreground",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/card\/foreground"
 },
 "doc://FairApp/documentation/FairApp/Card/id-9rd77": {
   "abstract" : [
@@ -641,49 +568,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/card\/id-9rd77"
 },
-"doc://FairApp/documentation/FairApp/Card/init(from:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "from"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7DecoderP",
-      "text" : "Decoder"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(from:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(from:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/init(from:)"
-},
-"doc://FairApp/documentation/FairApp/Card/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)": {
+"doc://FairApp/documentation/FairApp/Card/init(id:title:subtitle:body:foreground:background:backgroundGradientOpacity:flair:flairHeight:)": {
   "abstract" : [
 
   ],
@@ -766,7 +651,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "foregroundColor"
+      "text" : "foreground"
     },
     {
       "kind" : "text",
@@ -774,25 +659,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV",
-      "text" : "Card"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Graphic"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV11BannerColorV",
-      "text" : "BannerColor"
+      "preciseIdentifier" : "s:7FairApp12CodableColorV",
+      "text" : "CodableColor"
     },
     {
       "kind" : "text",
@@ -800,7 +668,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "backgroundColors"
+      "text" : "background"
     },
     {
       "kind" : "text",
@@ -808,25 +676,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV",
-      "text" : "Card"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Graphic"
-    },
-    {
-      "kind" : "text",
-      "text" : ">."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp4CardV11BannerColorV",
-      "text" : "BannerColor"
+      "preciseIdentifier" : "s:7FairApp12CodableColorV",
+      "text" : "CodableColor"
     },
     {
       "kind" : "text",
@@ -851,7 +702,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graphic"
+      "text" : "flair"
     },
     {
       "kind" : "text",
@@ -859,7 +710,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Graphic"
+      "text" : "Flair"
     },
     {
       "kind" : "text",
@@ -867,7 +718,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "graphicHeight"
+      "text" : "flairHeight"
     },
     {
       "kind" : "text",
@@ -883,12 +734,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Card\/init(id:title:subtitle:body:foreground:background:backgroundGradientOpacity:flair:flairHeight:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(id:title:subtitle:body:foregroundColor:backgroundColors:backgroundGradientOpacity:graphic:graphicHeight:)",
+  "title" : "init(id:title:subtitle:body:foreground:background:backgroundGradientOpacity:flair:flairHeight:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:body:foregroundcolor:backgroundcolors:backgroundgradientopacity:graphic:graphicheight:)"
+  "url" : "\/documentation\/fairapp\/card\/init(id:title:subtitle:body:foreground:background:backgroundgradientopacity:flair:flairheight:)"
 },
 "doc://FairApp/documentation/FairApp/Card/subtitle": {
   "abstract" : [
@@ -968,6 +819,11 @@
 "doc://FairApp/s12IdentifiableP": {
   "identifier" : "doc:\/\/FairApp\/s12IdentifiableP",
   "title" : "Swift.Identifiable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/s8SendableP": {
+  "identifier" : "doc:\/\/FairApp\/s8SendableP",
+  "title" : "Swift.Sendable",
   "type" : "unresolvable"
 }
 }

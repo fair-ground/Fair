@@ -385,6 +385,13 @@ protocol FairAppCommand : FairProjectCommand {
 }
 
 /// A representation of a `Localized.strings` file that retains its formatting and comments.
+///
+/// This structure is meant to be used to parse the output from `genstrings`, which saves
+/// to a UTF-16 OpenStep simplified `.plist` with comments for the translation context.
+///
+/// Since all the native plist parsers do not preserve comments, we save the raw string from the
+/// strings file, and any updates to the dictionary will preserve the existing comment for that key
+/// (assuming it exists).
 struct LocalizedStringsFile {
     private(set) var fileContents: String
     private(set) var plist: Plist
@@ -466,7 +473,12 @@ extension FairAppCommand {
                 url.pathExtension == "swift"
             }
 
-            let args = ["genstrings", "-q", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
+            // rather than forking genstrings, some simple regular expressions for
+            // NSLocalizedString(…) might suffice.
+            // SwiftUI.Text(…) interpolation might make it a bit tricker, since inline
+            // parameter values would need to be handled (which would involve parsing a subset
+            // of the Swift language).
+            let args = ["genstrings", "-SwiftUI", "-o", tmp.path] + sourceFiles.map(\.path)
             msg(.debug, "running command:", args)
             let cmd = try await Process.exec(cmd: "/usr/bin/xcrun", args: args)
             msg(.debug, "process exited with:", cmd.terminationStatus)
@@ -487,16 +499,6 @@ extension FairAppCommand {
                         let languageCode = childURL.deletingPathExtension().lastPathComponent
                         let localizableStrings = childURL.appendingPathComponent("Localizable.strings")
 
-                        let locale = Locale(identifier: languageCode)
-                        let languageNameCurrent = Locale.current.localizedString(forLanguageCode: languageCode) ?? ""
-                        let languageName = locale.localizedString(forLanguageCode: languageCode) ?? ""
-
-                        let comments = [
-                            "Localized \(languageNameCurrent) (\(languageName)) strings for this App Fair App.",
-                            "Translators wanted! Edit this file to fork the repository and contribute your translated strings.",
-                            "Visit https://appfair.net/#translators for more details.",
-                        ]
-
                         if fm.isReadableFile(atPath: localizableStrings.path) {
                             let resource = try PropertyListSerialization.propertyList(from: Data(contentsOf: localizableStrings), format: nil)
                             if let resource = resource as? NSDictionary {
@@ -512,7 +514,7 @@ extension FairAppCommand {
 
             for (lang, (url, plist)) in try loadLocalizations() {
                 if !languages.isEmpty && !languages.contains(lang) {
-                    msg(.info, "skipping excluded language code:", lang)
+                    msg(.info, "skipping excluded language code:", lang, url.absoluteString)
                     continue
                 }
 
@@ -529,10 +531,23 @@ extension FairAppCommand {
                 let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
                 let existingLocaleFile = try LocalizedStringsFile(fileContents: existingStrings)
 
-                var baseLocale = generatedLocaleFile
-                try baseLocale.update(strings: existingLocaleFile.plist)
-                let localizedStrings = baseLocale.fileContents
+                var updatedLocale = generatedLocaleFile
+                try updatedLocale.update(strings: existingLocaleFile.plist)
+                var localizedStrings = updatedLocale.fileContents
                 //generatedLocaleFile
+
+                let locale = Locale(identifier: lang)
+                let languageNameCurrent = Locale.current.localizedString(forLanguageCode: lang) ?? ""
+                let languageName = locale.localizedString(forLanguageCode: lang) ?? ""
+
+                let comments = [
+                    "Localized \(languageNameCurrent) (\(languageName)) strings for this App Fair App.",
+                    "Translators: edit this file to fork the repository and contribute your translated strings.",
+                    "Visit https://appfair.net/#translation for more details.",
+                ]
+
+                // create a comment header for the file
+                localizedStrings = comments.map({ "// " + $0 }).joined(separator: "\n") + "\n\n" + localizedStrings
 
                 if localizedStrings == existingStrings {
                     msg(.info, "Localizations unchanged:", localizedStringsPath.path)

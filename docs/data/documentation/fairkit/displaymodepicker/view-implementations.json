@@ -255,8 +255,8 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/layoutPriority(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/lineLimit(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/lineSpacing(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:draggable:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:embedded:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/listItemTint(_:)-3ro9m",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/listItemTint(_:)-9yz2u",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/listRowBackground(_:)",
@@ -19012,65 +19012,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/displaymodepicker\/linespacing(_:)"
 },
-"doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/displaymodepicker\/link(to:)"
-},
 "doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:draggable:)": {
   "abstract" : [
 
@@ -19146,6 +19087,82 @@
   "title" : "link(to:draggable:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/displaymodepicker\/link(to:draggable:)"
+},
+"doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:embedded:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "link"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "embedded"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:embedded:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "link(to:embedded:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/displaymodepicker\/link(to:embedded:)"
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/listItemTint(_:)-3ro9m": {
   "abstract" : [
