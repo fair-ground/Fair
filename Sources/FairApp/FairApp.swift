@@ -777,10 +777,16 @@ extension SwiftUI.Text {
 
 extension SwiftUI.View {
     /// Creates a `Link` to the given URL.
-    public func link(to destination: URL) -> some View {
+    @ViewBuilder public func link(to destination: URL, embedded: Bool = true) -> some View {
         #if os(iOS)
-        NavigationLink(destination: EmbeddedBrowser(url: destination)) {
-            self
+        if embedded {
+            NavigationLink(destination: EmbeddedBrowser(url: destination)) {
+                self
+            }
+        } else {
+            Link(destination: destination) {
+                self
+            }
         }
         #else
         Link(destination: destination) {

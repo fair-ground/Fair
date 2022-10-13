@@ -42,6 +42,13 @@ public struct FairSymbol : Pure, RawRepresentable {
     }
 }
 
+extension FairSymbol : ExpressibleByStringLiteral {
+    /// Enables a FairSymbol to be created from string literal.
+    public init(stringLiteral value: StringLiteralType) {
+        self.init(rawValue: value)
+    }
+}
+
 #if canImport(SwiftUI)
 import SwiftUI
 

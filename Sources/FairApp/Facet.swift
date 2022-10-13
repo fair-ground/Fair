@@ -34,6 +34,8 @@
 import Swift
 
 #if canImport(SwiftUI)
+import SwiftUI
+
 /// A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),
 /// or a secondary-level feature (navigation items on iOS, settings tabs on macOS).
 ///
@@ -87,10 +89,6 @@ public struct MultiFacet<P : Facet, Q : Facet> : Facet {
         choice.map(\.facetInfo, \.facetInfo).pvalue
     }
 }
-
-#if canImport(SwiftUI)
-import SwiftUI
-
 
 /// A union of views is also a view.
 extension XOr.Or : View where P : View, Q : View {
@@ -359,7 +357,7 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .license:
-            return info(title: Text("License", bundle: .module, comment: "license settings facet title"), symbol: .init(rawValue: "doc.text.magnifyingglass"), tint: .mint)
+            return info(title: Text("License", bundle: .module, comment: "license settings facet title"), symbol: "doc.text.magnifyingglass", tint: .mint)
         }
     }
 
@@ -381,7 +379,7 @@ public enum SupportSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .support:
-            return info(title: Text("Support", bundle: .module, comment: "license settings facet title"), symbol: .init(rawValue: "questionmark.app"), tint: .mint)
+            return info(title: Text("Support", bundle: .module, comment: "license settings facet title"), symbol: "questionmark.app", tint: .mint)
         }
     }
 
@@ -410,7 +408,7 @@ public enum AppearanceSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .appearance:
-            return info(title: Text("Appearance", bundle: .module, comment: "appearance settings facet title"), symbol: .init(rawValue: "paintpalette"), tint: .mint)
+            return info(title: Text("Appearance", bundle: .module, comment: "appearance settings facet title"), symbol: "paintpalette", tint: .mint)
         }
     }
 
@@ -512,7 +510,7 @@ public struct LanguageSetting : Facet, View {
     }
 
     public var facetInfo: FacetInfo {
-        FacetInfo(title: Text("Language", bundle: .module, comment: "language setting title"), symbol: .init(rawValue: "flag.badge.ellipsis"), tint: nil)
+        FacetInfo(title: Text("Language", bundle: .module, comment: "language setting title"), symbol: "flag.badge.ellipsis", tint: nil)
     }
 
     public static func facets<Manager>(for manager: Manager) -> [LanguageSetting] where Manager : FacetManager {
@@ -544,7 +542,4 @@ struct LocaleLink : View {
     }
 }
 
-#endif
-
 #endif // canImport(SwiftUI)
-
