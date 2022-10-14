@@ -1306,12 +1306,14 @@ public struct CodableColor : Codable, Hashable, Sendable {
         self.color = .init(color)
     }
 
+    #if canImport(SwiftUI)
     public var systemColor: SwiftUI.Color? {
         switch color {
         case .p(let color): return color.systemColor
         case .q(let hex): return HexColor(hexString: hex)?.sRGBColor()
         }
     }
+    #endif
 
     /// The system accent color
     public static let accentColor = CodableColor(SystemColor.accent)
@@ -1341,6 +1343,7 @@ public struct CodableColor : Codable, Hashable, Sendable {
         case secondary
         case accent
 
+        #if canImport(SwiftUI)
         public var systemColor: SwiftUI.Color {
             switch self {
             case .red: return .red
@@ -1364,6 +1367,7 @@ public struct CodableColor : Codable, Hashable, Sendable {
             case .accent: return .accentColor
             }
         }
+        #endif
     }
 }
 
