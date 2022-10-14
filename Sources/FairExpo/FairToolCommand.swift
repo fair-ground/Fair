@@ -513,6 +513,7 @@ extension FairAppCommand {
             }
 
             for (lang, (url, plist)) in try loadLocalizations() {
+                _ = plist
                 if !languages.isEmpty && !languages.contains(lang) {
                     msg(.info, "skipping excluded language code:", lang, url.absoluteString)
                     continue
