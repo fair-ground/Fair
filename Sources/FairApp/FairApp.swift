@@ -756,10 +756,17 @@ public struct SearchBarCommands: Commands {
 
 extension SwiftUI.Text {
     /// Creates a Text from the given attributed string, falling back to the unformatted string if it fails to parse.
-    public init(atx attributedText: String, languageCode: String? = nil) {
-        if let attributedString = try? attributedText.atx(languageCode: languageCode) {
-            self.init(attributedString)
-        } else {
+    ///
+    /// - Parameters:
+    ///   - attributedText: the markdown text that will attempt to be parsed
+    ///   - languageCode: the optional language code
+    ///   - attributes: any attributes to set on the text. E.g., `[.textEffect: NSAttributedString.TextEffectStyle.letterpressStyle]`
+    @inlinable public init(atx attributedText: String, languageCode: String? = nil, attributes: AttributeContainer = AttributeContainer()) {
+        do {
+            let attributedString = try attributedText.atx(languageCode: languageCode)
+            self.init(attributedString.settingAttributes(attributes))
+        } catch {
+            dbg("error parsing attributed text", attributedText.count, error)
             self.init(attributedText) // failure to parse will just display the formatted string raw
         }
     }
@@ -1288,6 +1295,139 @@ public extension HexColor {
         }
     }
 }
+
+
+/// An encodable color, which can use either a system color name (e.g. `accent` or `pink`) or a hex string.
+public struct CodableColor : Codable, Hashable, Sendable {
+    public typealias HexString = String
+    public let color: XOr<SystemColor>.Or<HexString>
+
+    public init(_ color: SystemColor) {
+        self.color = .init(color)
+    }
+
+    public var systemColor: SwiftUI.Color? {
+        switch color {
+        case .p(let color): return color.systemColor
+        case .q(let hex): return HexColor(hexString: hex)?.sRGBColor()
+        }
+    }
+
+    /// Enumeration definit system UI colors
+    public enum SystemColor : String, Codable, CaseIterable, Sendable {
+        case red
+        case orange
+        case yellow
+        case green
+        case mint
+        case teal
+        case cyan
+        case blue
+        case indigo
+        case purple
+        case pink
+        case brown
+        case white
+        case gray
+        case black
+        case clear
+        case primary
+        case secondary
+        case accent
+
+        public var systemColor: SwiftUI.Color {
+            switch self {
+            case .red: return .red
+            case .orange: return .orange
+            case .yellow: return .yellow
+            case .green: return .green
+            case .mint: return .mint
+            case .teal: return .teal
+            case .cyan: return .cyan
+            case .blue: return .blue
+            case .indigo: return .indigo
+            case .purple: return .purple
+            case .pink: return .pink
+            case .brown: return .brown
+            case .white: return .white
+            case .gray: return .gray
+            case .black: return .black
+            case .clear: return .clear
+            case .primary: return .primary
+            case .secondary: return .secondary
+            case .accent: return .accentColor
+            }
+        }
+    }
+}
+
+
+
+extension ButtonStyle where Self == ZoomableButtonStyle {
+    /// A button style that scales the button out when pressed
+    public static var zoomable: ZoomableButtonStyle {
+        ZoomableButtonStyle()
+    }
+
+    /// A button style that scales the button out when pressed
+    public static func zoomable(level: Double = 0.98) -> ZoomableButtonStyle {
+        ZoomableButtonStyle(zoomLevel: level)
+    }
+}
+
+public struct ZoomableButtonStyle: ButtonStyle {
+    var zoomLevel = 0.98
+
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? zoomLevel : 1, anchor: .center)
+    }
+}
+
+
+//extension ToggleStyle where Self == OutlineToggleStyle {
+//    /// A toggle style that shows an outine around the control.
+//    public static func outline(color: Color) -> OutlineToggleStyle {
+//        OutlineToggleStyle(color: color)
+//    }
+//}
+//
+//public struct OutlineToggleStyle: ToggleStyle {
+//    let color: Color
+//
+//    public func makeBody(configuration: Configuration) -> some View {
+//        configuration.label
+//            .border(color, width: configuration.isOn ? 4 : 0)
+//    }
+//}
+
+
+#if canImport(NaturalLanguage)
+import NaturalLanguage
+
+extension String {
+    /// An estimate of the number words in the given string.
+    public var wordCount: Int {
+        let tokenizer = NLTokenizer(unit: .word)
+        tokenizer.string = self
+        var wordCount = 0
+        tokenizer.enumerateTokens(in: startIndex..<endIndex) { tokenRange, _ in
+            wordCount += 1
+            return true
+        }
+        return wordCount
+    }
+}
+#else
+extension String {
+    /// An estimate of the number words in the given string.
+    ///
+    /// When NaturalLanguage is not available, this merely splits on whitespace and newlines and returns the count, with is a decent approximation for many Western languages.
+    public var wordCount: Int {
+        components(separatedBy: .whitespacesAndNewlines).count
+    }
+}
+#endif
 
 #if canImport(SwiftUI)
 public extension HexColor {

@@ -618,7 +618,15 @@
 "doc://FairCore/documentation/FairCore/ZipArchive/compacted()": {
   "abstract" : [
     {
-      "text" : "Filters out empty elements",
+      "text" : "Filters out empty elements, equivalent to calling ",
+      "type" : "text"
+    },
+    {
+      "code" : "compactMap({ $0 })",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],

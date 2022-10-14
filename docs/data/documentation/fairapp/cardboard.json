@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A view that renders a seties of ",
+      "text" : "A view that renders a collection of ",
       "type" : "text"
     },
     {
@@ -149,7 +149,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(selection:cards:flairContent:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(selection:cards:flairContent:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(selection:selectedMode:unselectedMode:selectedVariants:unselectedVariants:cards:)"
       ],
       "title" : "Initializers"
     },
@@ -164,8 +165,11 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/autocycle(interval:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/bodyGrid()",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackground(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardsView()"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackground(_:inverted:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackgroundLinear(_:order:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackgroundRadial(_:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardsView()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/gradientColors(_:)"
       ],
       "title" : "Instance Methods"
     },
@@ -255,7 +259,7 @@
 "doc://FairApp/documentation/FairApp/CardBoard": {
   "abstract" : [
     {
-      "text" : "A view that renders a seties of ",
+      "text" : "A view that renders a collection of ",
       "type" : "text"
     },
     {
@@ -452,7 +456,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/bodygrid()"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/cardBackground(_:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/cardBackground(_:inverted:)": {
   "abstract" : [
 
   ],
@@ -488,7 +492,24 @@
     },
     {
       "kind" : "text",
-      "text" : ">) -> "
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inverted"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -496,12 +517,131 @@
       "text" : "LinearGradient"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackground(_:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackground(_:inverted:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "cardBackground(_:)",
+  "title" : "cardBackground(_:inverted:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/cardbackground(_:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/cardbackground(_:inverted:)"
+},
+"doc://FairApp/documentation/FairApp/CardBoard/cardBackgroundLinear(_:order:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cardBackgroundLinear"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Flair"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "order"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI9UnitPointV",
+      "text" : "UnitPoint"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14LinearGradientV",
+      "text" : "LinearGradient"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackgroundLinear(_:order:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cardBackgroundLinear(_:order:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cardboard\/cardbackgroundlinear(_:order:)"
+},
+"doc://FairApp/documentation/FairApp/CardBoard/cardBackgroundRadial(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cardBackgroundRadial"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Flair"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14RadialGradientV",
+      "text" : "RadialGradient"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/cardBackgroundRadial(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cardBackgroundRadial(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cardboard\/cardbackgroundradial(_:)"
 },
 "doc://FairApp/documentation/FairApp/CardBoard/cards": {
   "abstract" : [
@@ -591,6 +731,57 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/cardsview()"
 },
+"doc://FairApp/documentation/FairApp/CardBoard/gradientColors(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "gradientColors"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Flair"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI8GradientV",
+      "text" : "Gradient"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/gradientColors(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "gradientColors(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cardboard\/gradientcolors(_:)"
+},
 "doc://FairApp/documentation/FairApp/CardBoard/init(selection:cards:flairContent:)": {
   "abstract" : [
 
@@ -669,6 +860,15 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
       "text" : ") -> "
     },
     {
@@ -686,6 +886,213 @@
   "title" : "init(selection:cards:flairContent:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/init(selection:cards:flaircontent:)"
+},
+"doc://FairApp/documentation/FairApp/CardBoard/init(selection:selectedMode:unselectedMode:selectedVariants:unselectedVariants:cards:)": {
+  "abstract" : [
+    {
+      "text" : "Creates standard flair content for cards whose ",
+      "type" : "text"
+    },
+    {
+      "code" : "Flair",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Flair",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "String",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "FlairContent",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "SymbolFlairContent",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selection"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI7BindingV",
+      "text" : "Binding"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4UUIDV",
+      "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?>, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selectedMode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI19SymbolRenderingModeV",
+      "text" : "SymbolRenderingMode"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "unselectedMode"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI19SymbolRenderingModeV",
+      "text" : "SymbolRenderingMode"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "selectedVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "unselectedVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI14SymbolVariantsV",
+      "text" : "SymbolVariants"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cards"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp4CardV",
+      "text" : "Card"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Flair"
+    },
+    {
+      "kind" : "text",
+      "text" : ">])"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/init(selection:selectedMode:unselectedMode:selectedVariants:unselectedVariants:cards:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(selection:selectedMode:unselectedMode:selectedVariants:unselectedVariants:cards:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/cardboard\/init(selection:selectedmode:unselectedmode:selectedvariants:unselectedvariants:cards:)"
 }
 }
 }
