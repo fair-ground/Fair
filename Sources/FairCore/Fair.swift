@@ -128,7 +128,7 @@ public extension Sequence {
         Array(self)
     }
 
-    /// Filters out empty elements
+    /// Filters out empty elements, equivalent to calling `compactMap({ $0 })`.
     @inlinable func compacted<T>() -> Array<T> where Element == Optional<T> {
         compactMap({ $0 })
     }
@@ -489,7 +489,7 @@ public extension StringProtocol {
 extension String {
     #if swift(>=5.5)
     /// Parses the attributed text string into an `AttributedString`
-    public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .inlineOnlyPreservingWhitespace, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
+    @inlinable public func atx(interpret: AttributedString.MarkdownParsingOptions.InterpretedSyntax = .inlineOnlyPreservingWhitespace, allowsExtendedAttributes: Bool = true, languageCode: String? = nil) throws -> AttributedString {
         try AttributedString(markdown: self, options: .init(allowsExtendedAttributes: allowsExtendedAttributes, interpretedSyntax: interpret, failurePolicy: .returnPartiallyParsedIfPossible, languageCode: languageCode))
     }
     #endif

@@ -69,85 +69,14 @@ extension Card : Equatable where Flair : Equatable { }
 extension Card : Hashable where Flair : Hashable { }
 extension Card : Sendable where Flair : Sendable { }
 
-/// An encodable color, which can use either a system color name (e.g. `accent` or `pink`) or a hex string.
-public struct CodableColor : Codable, Hashable, Sendable {
-    public typealias HexString = String
-    public let color: XOr<SystemColor>.Or<HexString>
-
-    public init(_ color: SystemColor) {
-        self.color = .init(color)
-    }
-
-    public var systemColor: SwiftUI.Color? {
-        switch color {
-        case .p(let color): return color.systemColor
-        case .q(let hex): return HexColor(hexString: hex)?.sRGBColor()
-        }
-    }
-
-    /// Enumeration definit system UI colors
-    public enum SystemColor : String, Codable, CaseIterable, Sendable {
-        case red
-        case orange
-        case yellow
-        case green
-        case mint
-        case teal
-        case cyan
-        case blue
-        case indigo
-        case purple
-        case pink
-        case brown
-        case white
-        case gray
-        case black
-        case clear
-        case primary
-        case secondary
-        case accent
-
-        public var systemColor: SwiftUI.Color {
-            switch self {
-            case .red: return .red
-            case .orange: return .orange
-            case .yellow: return .yellow
-            case .green: return .green
-            case .mint: return .mint
-            case .teal: return .teal
-            case .cyan: return .cyan
-            case .blue: return .blue
-            case .indigo: return .indigo
-            case .purple: return .purple
-            case .pink: return .pink
-            case .brown: return .brown
-            case .white: return .white
-            case .gray: return .gray
-            case .black: return .black
-            case .clear: return .clear
-            case .primary: return .primary
-            case .secondary: return .secondary
-            case .accent: return .accentColor
-            }
-        }
-    }
-}
-
-/// A view that renders a seties of ``Card``s in a grid.
+/// A view that renders a collection of ``Card``s in a grid.
 public struct CardBoard<Flair, FlairContent: View> : View {
     public let cards: [Card<Flair>]
-    let flairContent: (Flair) -> FlairContent
+    let flairContent: (Flair, Bool) -> FlairContent
     @Environment(\.colorScheme) var colorScheme
-    @Namespace var namespace
     @Binding var selectedItem: Card.ID?
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    var isNarrow: Bool { horizontalSizeClass == .compact }
-    #else
-    var isNarrow: Bool { false }
-    #endif
 
-    public init(selection: Binding<Card.ID?>, cards: [Card<Flair>], @ViewBuilder flairContent: @escaping (Flair) -> FlairContent) {
+    public init(selection: Binding<Card.ID?>, cards: [Card<Flair>], @ViewBuilder flairContent: @escaping (Flair, Bool) -> FlairContent) {
         self._selectedItem = selection
         self.cards = cards
         self.flairContent = flairContent
@@ -160,8 +89,8 @@ public struct CardBoard<Flair, FlairContent: View> : View {
                 bodyGrid()
             }
             .onChange(of: selectedItem) { item in
-                // if there is no selected item, scroll to the top
-                if let item = item ?? cards.first?.id {
+                // whenever the selection changes (either through a user's tap or through autocycling), scroll to make the top of the card visible
+                if let item = item {
                     withAnimation {
                         scroller.scrollTo(item, anchor: .top)
                     }
@@ -178,13 +107,9 @@ public struct CardBoard<Flair, FlairContent: View> : View {
             return nil // the default time
         }
 
-        guard let body = card.body else {
-            return nil
-        }
-
-        let text = card.title + "\n" + (card.subtitle ?? "") + "\n" + body
+        let text = [card.title, card.subtitle, card.body].compacted().joined(separator: "\n")
         let wordCount = text.wordCount
-        let interval = (TimeInterval(wordCount) + 5.0) / 2.5
+        let interval = (TimeInterval(wordCount) + 5.0) / 2
         dbg("showing card “\(card.title)” for \(interval) seconds")
         return interval
     }
@@ -197,7 +122,7 @@ public struct CardBoard<Flair, FlairContent: View> : View {
         task(id: self.selectedItem, priority: .background) {
             do {
                 // wait an initial delay before auto-cycling
-                try await Task.sleep(interval: interval ?? cardCycleDuration ?? 15)
+                try await Task.sleep(interval: interval ?? cardCycleDuration ?? 10)
             } catch {
                 // an expected cancellation error, which will occur when the user switches away from the view
                 dbg("cancelled autocycle:", error)
@@ -233,12 +158,17 @@ public struct CardBoard<Flair, FlairContent: View> : View {
                 }
             } label: {
                 let selected = selectedItem == item.id
-                let background = RoundedRectangle(cornerRadius: 24, style: .continuous)
-
-                CardBoardItemView(item: item, flairContent: flairContent)
+                let outline = RoundedRectangle(cornerRadius: 24, style: .continuous)
+                let cardBackground = outline
+                    //.strokeBorder(Color.accentColor, lineWidth: selected ? 3.0 : 0.0)
+                    .strokeBorder(cardBackground(item, inverted: true), lineWidth: selected ? 3 : 0)
+                    .shadow(radius: 1, x: 1, y: 1)
+                    .background(outline.fill(cardBackground(item)).animation(.none, value: 0))
+                    //.animation(.linear(duration: 0.01), value: selectedItem)
+                CardBoardItemView(item: item, flairContent: { flair in flairContent(flair, selected) })
                     //.shadow(radius: 1, x: 1, y: 1)
                     .padding()
-                    .background(background.strokeBorder(Color.primary, lineWidth: selected ? 2.0 : 0.0).shadow(radius: 1, x: 2, y: 2).background(background.fill(cardBackground(item)).animation(.none, value: 0)))
+                    .background(cardBackground)
                     .frame(maxHeight: selected ? nil : 350)
                     .padding()
                     .edgesIgnoringSafeArea(.all)
@@ -248,27 +178,29 @@ public struct CardBoard<Flair, FlairContent: View> : View {
         }
     }
 
-    /// The arrangement of the gradient is relative to the background, which will probably be defined by the current color scheme.
-    ///
-    /// Since the default gradient treatment has lighter colors coming from the top
-    /// - Parameter colors: the colors to make a gradient from
-    func schemeRelativeGradient(_ colors: [SwiftUI.Color]) -> LinearGradient {
-        switch colorScheme {
-        case .dark: return LinearGradient(colors: colors, startPoint: .bottom, endPoint: .top)
-        case .light: return LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
-        @unknown default: return LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
+    public func cardBackground(_ item: Card<Flair>, inverted: Bool = false) -> LinearGradient {
+        //cardBackgroundRadial(item)
+        cardBackgroundLinear(item, order: colorScheme == (inverted ? .light : .dark) ? [.top, .bottom] : [.bottom, .top])
+    }
+
+    public func cardBackgroundLinear(_ item: Card<Flair>, order points: [UnitPoint]) -> LinearGradient {
+        LinearGradient(gradient: gradientColors(item), startPoint: points.first ?? .top, endPoint: points.last ?? .bottom)
+    }
+
+    public func cardBackgroundRadial(_ item: Card<Flair>) -> RadialGradient {
+        return RadialGradient(gradient: gradientColors(item), center: .center, startRadius: 10, endRadius: 200)
+    }
+
+    public func gradientColors(_ item: Card<Flair>) -> Gradient {
+        if let background = item.background, background.count > 1 {
+            return Gradient(colors: background.compactMap(\.systemColor))
+        } else if let color = item.background?.first?.systemColor {
+            return Gradient(colors: [color, color.opacity(item.backgroundGradientOpacity ?? 0.75)])
+        } else {
+            return Gradient(colors: [Color.clear])
         }
     }
 
-    public func cardBackground(_ item: Card<Flair>) -> LinearGradient {
-        if let background = item.background, background.count > 1 {
-            return LinearGradient(colors: background.compactMap(\.systemColor), startPoint: .top, endPoint: .bottom)
-        } else if let color = item.background?.first?.systemColor {
-            return schemeRelativeGradient([color.opacity(item.backgroundGradientOpacity ?? 0.75), color])
-        } else {
-            return LinearGradient(Color.clear)
-        }
-    }
 }
 
 struct CardBoardItemView<Flair, V : View> : View {
@@ -283,11 +215,11 @@ struct CardBoardItemView<Flair, V : View> : View {
         VStack(spacing: 12) {
             Text(atx: item.title)
                 .allowsTightening(true)
-                .font(.system(size: 30, weight: .bold, design: .rounded).lowercaseSmallCaps())
+                .font(.system(size: 30, weight: .semibold, design: .default))
                 .lineLimit(nil)
                 .truncationMode(.middle)
                 .multilineTextAlignment(.center)
-                .shadow(radius: 1, x: 1, y: 1)
+                //.shadow(radius: 1, x: 1, y: 1)
                 .frame(alignment: .center)
 
             // subtitle
@@ -320,51 +252,32 @@ struct CardBoardItemView<Flair, V : View> : View {
     }
 }
 
-public struct ZoomableButtonStyle: ButtonStyle {
-    var zoomLevel = 0.98
-
-    public func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? zoomLevel : 1, anchor: .center)
-    }
-}
-
-extension ButtonStyle where Self == ZoomableButtonStyle {
-    public static var zoomable: ZoomableButtonStyle {
-        ZoomableButtonStyle()
-    }
-
-    public static func zoomable(level: Double = 0.98) -> ZoomableButtonStyle {
-        ZoomableButtonStyle(zoomLevel: level)
-    }
-}
-
-
-#if canImport(NaturalLanguage)
-import NaturalLanguage
-
-extension String {
-    /// An estimate of the number words in the given string.
-    public var wordCount: Int {
-        let tokenizer = NLTokenizer(unit: .word)
-        tokenizer.string = self
-        var wordCount = 0
-        tokenizer.enumerateTokens(in: startIndex..<endIndex) { tokenRange, _ in
-            wordCount += 1
-            return true
+extension CardBoard where Flair == String, FlairContent == SymbolFlairContent {
+    /// Creates standard flair content for cards whose `Flair` is a `String`.
+    /// - Parameters:
+    ///   - selection: the card selection
+    ///   - cards: the array of cards to display
+    public init(selection: Binding<Card.ID?>, selectedMode: SymbolRenderingMode? = nil, unselectedMode: SymbolRenderingMode? = nil, selectedVariants: SymbolVariants? = nil, unselectedVariants: SymbolVariants? = nil, cards: [Card<Flair>]) {
+        self.init(selection: selection, cards: cards) { flair, selected in
+            SymbolFlairContent(symbolName: flair, symbolRenderingMode: selected ? selectedMode : unselectedMode, symbolVariants: selected ? selectedVariants : unselectedVariants)
         }
-        return wordCount
     }
 }
-#else
-extension String {
-    /// An estimate of the number words in the given string.
-    ///
-    /// When NaturalLanguage is not available, this merely splits on whitespace and newlines and returns the count, with is a decent approximation for many Western languages.
-    public var wordCount: Int {
-        components(separatedBy: .whitespacesAndNewlines).count
+
+/// Fair content that renders a symbol
+public struct SymbolFlairContent : View {
+    let symbolName: String
+    let symbolRenderingMode: SymbolRenderingMode?
+    let symbolVariants: SymbolVariants?
+
+    public var body: some View {
+        // the center image for the card; this can be any SwiftUI view, such as a Lottie VectorAnimation
+        Text(Image(systemName: symbolName))
+            .symbolRenderingMode(symbolRenderingMode)
+            .symbolVariant(symbolVariants ?? .none)
+            .font(.system(size: 80, weight: .semibold, design: .rounded))
+            .shadow(radius: 2)
     }
 }
-#endif
 
 #endif // canImport(SwiftUI)
