@@ -1313,6 +1313,12 @@ public struct CodableColor : Codable, Hashable, Sendable {
         }
     }
 
+    /// The system accent color
+    public static let accentColor = CodableColor(SystemColor.accent)
+
+    /// The system colors
+    public static var systemColors = [.orange, .teal, .brown, .cyan, .blue, .green, .red, .indigo, .purple, .mint, .pink].map(CodableColor.init)
+
     /// Enumeration definit system UI colors
     public enum SystemColor : String, Codable, CaseIterable, Sendable {
         case red
