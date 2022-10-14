@@ -159,7 +159,7 @@ public struct CardBoard<Flair, FlairContent: View> : View {
             } label: {
                 let selected = selectedItem == item.id
                 let outline = RoundedRectangle(cornerRadius: 24, style: .continuous)
-                let cardBackground = outline
+                let background = outline
                     //.strokeBorder(Color.accentColor, lineWidth: selected ? 3.0 : 0.0)
                     .strokeBorder(cardBackground(item, inverted: true), lineWidth: selected ? 3 : 0)
                     .shadow(radius: 1, x: 1, y: 1)
@@ -168,7 +168,7 @@ public struct CardBoard<Flair, FlairContent: View> : View {
                 CardBoardItemView(item: item, flairContent: { flair in flairContent(flair, selected) })
                     //.shadow(radius: 1, x: 1, y: 1)
                     .padding()
-                    .background(cardBackground)
+                    .background(background)
                     .frame(maxHeight: selected ? nil : 350)
                     .padding()
                     .edgesIgnoringSafeArea(.all)
