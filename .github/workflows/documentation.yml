@@ -85,7 +85,7 @@ jobs:
 
           # FairTool executable
           swift package --allow-writing-to-directory docs-fairtool \
-            generate-documentation --target FairTool \
+            generate-documentation --target fairtool \
             --disable-indexing \
             --transform-for-static-hosting \
             --hosting-base-path Fair \
