@@ -107,7 +107,7 @@ jobs:
 
   bottle_linux:
     name: Homebrew bottle (linux)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [release]
     steps:
       - name: Build bottle
@@ -132,7 +132,7 @@ jobs:
 
   update_bottle:
     name: Add bottles to formula
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: [release, bottle_macos, bottle_linux]
     steps:
       - uses: marcprux/update-homebrew-formula-action@main
