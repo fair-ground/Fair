@@ -154,6 +154,7 @@ jobs:
 
       - name: Check released bottle
         run: |
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew install --force-bottle fair-ground/tool/fairtool
           fairtool version
 
