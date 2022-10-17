@@ -1,46 +1,37 @@
 {
   "abstract" : [
     {
-      "text" : "A ",
+      "text" : "The top-level facets for this app.",
       "type" : "text"
-    },
+    }
+  ],
+  "defaultImplementationsSections" : [
     {
-      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " defines the top-level and settings-level ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : "s for an app.",
-      "type" : "text"
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/AppFacets-swift.typealias"
+      ],
+      "title" : "FacetManager Implementations"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/FairApp\/documentation\/FairApp"
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/AppFacets-swift.associatedtype"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp12FacetManagerP",
+    "externalID" : "s:7FairApp12FacetManagerP0B6FacetsQa",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "protocol"
+        "text" : "associatedtype"
       },
       {
         "kind" : "text",
@@ -48,7 +39,16 @@
       },
       {
         "kind" : "identifier",
-        "text" : "FacetManager"
+        "text" : "AppFacets"
+      },
+      {
+        "kind" : "text",
+        "text" : " : "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:7FairApp5FacetP",
+        "text" : "Facet"
       }
     ],
     "modules" : [
@@ -56,16 +56,11 @@
         "name" : "FairApp"
       }
     ],
-    "navigatorTitle" : [
-      {
-        "kind" : "identifier",
-        "text" : "FacetManager"
-      }
-    ],
+    "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Protocol",
-    "symbolKind" : "protocol",
-    "title" : "FacetManager"
+    "roleHeading" : "Associated Type",
+    "symbolKind" : "associatedtype",
+    "title" : "AppFacets"
   },
   "primaryContentSections" : [
     {
@@ -80,7 +75,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "protocol"
+              "text" : "associatedtype"
             },
             {
               "kind" : "text",
@@ -88,22 +83,22 @@
             },
             {
               "kind" : "identifier",
-              "text" : "FacetManager"
+              "text" : "AppFacets"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp5FacetP",
+              "text" : "Facet"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager"
-      ],
-      "kind" : "relationships",
-      "title" : "Inherited By",
-      "type" : "inheritedBy"
     }
   ],
   "schemaVersion" : {
@@ -114,25 +109,10 @@
   "sections" : [
 
   ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/AppFacets-swift.associatedtype",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/ConfigFacets-swift.associatedtype"
-      ],
-      "title" : "Associated Types"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/bundle"
-      ],
-      "title" : "Instance Properties"
-    }
-  ],
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/facetmanager"
+        "\/documentation\/fairapp\/facetmanager\/appfacets-swift.associatedtype"
       ],
       "traits" : [
         {
@@ -298,18 +278,46 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetmanager\/appfacets-swift.associatedtype"
 },
-"doc://FairApp/documentation/FairApp/FacetManager/ConfigFacets-swift.associatedtype": {
+"doc://FairApp/documentation/FairApp/FacetManager/AppFacets-swift.typealias": {
   "abstract" : [
-    {
-      "text" : "The settings-level facets for this app. These will be merged with standard app settings when showing a settings facet.",
-      "type" : "text"
-    }
+
   ],
-  "defaultImplementations" : 1,
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "SceneManager",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "associatedtype"
+      "text" : "typealias"
     },
     {
       "kind" : "text",
@@ -317,105 +325,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ConfigFacets"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp5FacetP",
-      "text" : "Facet"
+      "text" : "AppFacets"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/ConfigFacets-swift.associatedtype",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "ConfigFacets",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facetmanager\/configfacets-swift.associatedtype"
-},
-"doc://FairApp/documentation/FairApp/FacetManager/bundle": {
-  "abstract" : [
-    {
-      "text" : "The bundle associated with this manager",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "bundle"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSBundle",
-      "text" : "Bundle"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/bundle",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "bundle",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facetmanager\/bundle"
-},
-"doc://FairApp/documentation/FairApp/SceneManager": {
-  "abstract" : [
-    {
-      "text" : "The ",
-      "type" : "text"
-    },
-    {
-      "code" : "SceneManager",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SceneManager"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/AppFacets-swift.typealias",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SceneManager"
+      "text" : "AppFacets"
     }
   ],
   "role" : "symbol",
-  "title" : "SceneManager",
+  "title" : "FacetManager.AppFacets",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/scenemanager"
+  "url" : "\/documentation\/fairapp\/facetmanager\/appfacets-swift.typealias"
 }
 }
 }
