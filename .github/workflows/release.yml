@@ -9,7 +9,7 @@ jobs:
   release:
     name: Create GitHub release
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
       current_version: ${{ steps.get_version.outputs.current_version }}
