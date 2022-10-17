@@ -1306,12 +1306,14 @@ public struct CodableColor : Codable, Hashable, Sendable {
         self.color = .init(color)
     }
 
+    #if canImport(SwiftUI)
     public var systemColor: SwiftUI.Color? {
         switch color {
         case .p(let color): return color.systemColor
         case .q(let hex): return HexColor(hexString: hex)?.sRGBColor()
         }
     }
+    #endif
 
     /// The system accent color
     public static let accentColor = CodableColor(SystemColor.accent)
@@ -1341,6 +1343,7 @@ public struct CodableColor : Codable, Hashable, Sendable {
         case secondary
         case accent
 
+        #if canImport(SwiftUI)
         public var systemColor: SwiftUI.Color {
             switch self {
             case .red: return .red
@@ -1364,11 +1367,12 @@ public struct CodableColor : Codable, Hashable, Sendable {
             case .accent: return .accentColor
             }
         }
+        #endif
     }
 }
 
 
-
+#if canImport(SwiftUI)
 extension ButtonStyle where Self == ZoomableButtonStyle {
     /// A button style that scales the button out when pressed
     public static var zoomable: ZoomableButtonStyle {
@@ -1389,23 +1393,7 @@ public struct ZoomableButtonStyle: ButtonStyle {
             .scaleEffect(configuration.isPressed ? zoomLevel : 1, anchor: .center)
     }
 }
-
-
-//extension ToggleStyle where Self == OutlineToggleStyle {
-//    /// A toggle style that shows an outine around the control.
-//    public static func outline(color: Color) -> OutlineToggleStyle {
-//        OutlineToggleStyle(color: color)
-//    }
-//}
-//
-//public struct OutlineToggleStyle: ToggleStyle {
-//    let color: Color
-//
-//    public func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .border(color, width: configuration.isOn ? 4 : 0)
-//    }
-//}
+#endif // canImport(SwiftUI)
 
 
 #if canImport(NaturalLanguage)

@@ -756,6 +756,9 @@ extension FairHub {
                 }
                 let app = createApp(token: token, release: nil, repo: nil, cask: cask, stats: caskStats)
                 dbg("created app:", app)
+                if let app = app {
+                    apps.append(app)
+                }
             }
         }
 

@@ -22,8 +22,9 @@ let package = Package(
         .library(name: "FairApp", targets: ["FairApp"]),
         .library(name: "FairKit", targets: ["FairKit"]),
         .library(name: "FairExpo", targets: ["FairExpo"]),
-        .executable(name: "fairtool", targets: ["FairTool"]),
+        .executable(name: "fairtool", targets: ["fairtool"]),
         macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
+        macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
     ].compactMap({ $0 }),
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
@@ -33,15 +34,17 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
         .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
-        .executableTarget(name: "FairTool", dependencies: ["FairExpo"]),
+        .executableTarget(name: "fairtool", dependencies: ["FairExpo"]),
 
-        macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["FairTool"]) : nil,
+        macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
+
+        macOS ? .plugin(name: "FairBuild", capability: .buildTool(), dependencies: ["fairtool"]) : nil,
 
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
         .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")], resources: [.process("Resources")]),
         .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
-        .testTarget(name: "FairToolTests", dependencies: [.target(name: "FairTool")], resources: [.process("Resources")]),
+        .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]),
 
         linux ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
     ].compactMap({ $0 })
