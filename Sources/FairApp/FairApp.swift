@@ -273,6 +273,14 @@ extension Never : Facet {
     }
 }
 
+extension FacetManager where Self : SceneManager {
+    public typealias ConfigFacets = Never
+}
+
+extension FacetManager where Self : SceneManager {
+    public typealias AppFacets = Never
+}
+
 /// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
 @MainActor public protocol SceneManager: FacetManager, ObservableObject {
     /// Creates a new scene manager from scratch.
