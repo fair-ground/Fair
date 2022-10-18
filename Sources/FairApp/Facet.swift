@@ -327,7 +327,7 @@ extension Facet {
     /// Adds on the standard settings to the end of the app-specific facets.
     public typealias WithStandardSettings = Self
         .With<AppearanceSetting>
-        //.With<LanguageSetting>
+        .With<LanguageSetting>
         .With<SupportSetting>
         // .With<LicenseSetting>
 }
