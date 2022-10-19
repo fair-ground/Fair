@@ -329,7 +329,7 @@ extension Facet {
         .With<AppearanceSetting>
         .With<LanguageSetting>
         .With<SupportSetting>
-        // .With<LicenseSetting>
+        .With<LicenseSetting>
 }
 
 extension Facet where Self : CaseIterable {
@@ -345,11 +345,17 @@ extension Facet where Self : CaseIterable {
 ///
 /// License files are text files that begin with "LICENSE".
 public enum LicenseSetting : String, Facet, CaseIterable, View {
-    static let licenseTexts: [String : String] = {
-        for child in (try? Bundle.main.resourceURL?.fileChildren(deep: true)) ?? [] {
-            //print(wip("### child"), child)
+    static let licenseTexts: [Bundle : [URL]] = {
+        var licenseTexts: [Bundle : [URL]] = [:]
+        for bundle in Bundle.allBundles {
+            // dbg("bundle", bundle.bundleName)
+            for url in (try? bundle.resourceURL?.fileChildren(deep: false)) ?? [] {
+                if url.lastPathComponent.hasPrefix("LICENSE") {
+                    licenseTexts[bundle, default: []].append(url)
+                }
+            }
         }
-        return [:]
+        return licenseTexts
     }()
 
     case license
@@ -357,16 +363,43 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .license:
-            return info(title: Text("License", bundle: .module, comment: "license settings facet title"), symbol: "doc.text.magnifyingglass", tint: .mint)
+            return info(title: Text("Licenses", bundle: .module, comment: "licenses settings facet title"), symbol: "doc.text.magnifyingglass", tint: .mint)
         }
     }
 
     public var body: some View {
-        //print(wip("### reading"))
-        //for text in Self.licenseTexts {
-            //print("### text:", wip(text))
-        //}
-        return TextEditor(text: .constant("LICENSE"))
+        List {
+            Section {
+                ForEach(Self.licenseTexts.array(), id: \.key) { bundle, licenseURLs in
+                    NavigationLink {
+                        // when there is only a single license, just display it
+                        if licenseURLs.count <= 1, let licenseURL = licenseURLs.first {
+                            textView(url: licenseURL)
+                        } else {
+                            List {
+                                ForEach(licenseURLs.uniquing(by: \.self).array(), id: \.self) { licenseURL in
+                                    NavigationLink {
+                                        textView(url: licenseURL)
+                                    } label: {
+                                        Text(licenseURL.lastPathComponent)
+                                    }
+                                }
+                            }
+                        }
+                    } label: {
+                        Text(bundle.bundleName == "App_App" ? NSLocalizedString("The App Fair", bundle: .module, comment: "title of The App Fair") : bundle.bundleDisplayName ?? bundle.bundleName ?? "bundle")
+                    }
+                }
+            } footer: {
+                Text("These are the software licenses used by this App Fair app.", bundle: .module, comment: "footer text for licenses setting screen")
+            }
+        }
+    }
+
+    func textView(url: URL) -> some View {
+        TextEditor(text: .constant((try? String(contentsOf: url, encoding: .utf8)) ?? ""))
+            .font(Font.caption.monospaced())
+            .textSelection(.enabled)
     }
 }
 
@@ -391,9 +424,13 @@ public enum SupportSetting : String, Facet, CaseIterable, View {
 private struct SupportSettingsView : View {
     var body: some View {
         List {
-            SupportCommands(builder: {
-                $0.link(to: $1)
-            })
+            Section {
+                SupportCommands(builder: {
+                    $0.link(to: $1)
+                })
+            } footer: {
+                Text("This section contains links for seeking help or reporting issues with this App Fair app.", bundle: .module, comment: "footer text for support setting screen")
+            }
         }
     }
 }
@@ -518,15 +555,49 @@ public struct LanguageSetting : Facet, View {
     }
 
     public var body: some View {
+        LocalesList(bundle: bundle)
+    }
+}
+
+struct LocalesList : View {
+    let bundle: Bundle
+    @Environment(\.locale) var currentLocale
+
+    var body: some View {
         List {
-            ForEach(bundle.localizations.sorted(), id: \.self) { localeName in
-                if let locale = Locale(identifier: localeName) {
-                    LocaleLink(locale: locale)
+            let preferredLocales = bundle.locales(preferred: true, for: currentLocale)
+            Section {
+                ForEach(preferredLocales, id: \.self) { loc in
+                    LocaleLink(locale: loc)
                 }
+            } header: {
+                preferredLocales.count == 1
+                    ? Text("Current Language", bundle: .module, comment: "header text for language setting screen")
+                    : Text("Current Languages", bundle: .module, comment: "header text for language setting screen")
+            }
+
+            Section {
+                ForEach(bundle.locales(preferred: false, for: currentLocale), id: \.self) { loc in
+                    LocaleLink(locale: loc)
+                }
+            } header: {
+                Text("All Languages", bundle: .module, comment: "header text for language setting screen")
+            } footer: {
+                Text("This list contains all the languages this app can be translated info. Help contribute a translation by tapping on the language.", bundle: .module, comment: "footer text for language setting screen")
             }
         }
     }
+}
 
+extension Bundle {
+    /// The locals from the list of bundle localizations
+    func locales(preferred: Bool, for locale: Locale) -> [Locale] {
+        (preferred ? preferredLocalizations : localizations)
+            .compactMap(Locale.init(identifier:))
+            .sorted { a, b in
+                locale.localizedString(forIdentifier: a.identifier)?.localizedStandardCompare(locale.localizedString(forIdentifier: b.identifier) ?? "") == .orderedAscending
+            }
+    }
 }
 
 struct LocaleLink : View {
