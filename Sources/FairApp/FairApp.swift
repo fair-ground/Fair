@@ -498,7 +498,7 @@ public struct SupportCommands<LinkButton: View> : View {
 
     @ViewBuilder public func supportCommandGroupView() -> some View {
         if let home = Bundle.appHomeURL(for: Bundle.main) {
-            builder(Text("Home", bundle: .module), home)
+            builder(Text("\(Bundle.localizedAppName) Home", bundle: .module, comment: "command name for going to the app's home page"), home)
         }
 
         if let discussions = URL.fairHubURL("discussions") {
