@@ -240,11 +240,11 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
     /// We decide whether to display in tabs based on the style of the facet browser.
     private var displayInTabs: Bool {
         if style == .automatic {
-            #if os(macOS)
+#if os(macOS)
             return nested
-            #else
+#else
             return !nested
-            #endif
+#endif
         } else if style == .tabs {
             return true
         } else {
@@ -262,9 +262,9 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
                 ForEach(self.facets, id: \.facetTag) { facet in
                     facet
                         .navigationTitle(facet.facetInfo.title)
-                        #if os(iOS)
+#if os(iOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                         .tabItem {
                             facet.facetInfo.title.label(image: facet.facetInfo.symbol)
                                 .symbolVariant(.fill)
@@ -280,14 +280,12 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
                             facet
                                 .navigationTitle(facet.facetInfo.title)
                         } label: {
-                            facet.facetInfo.title.label(image: facet.facetInfo.symbol) // .foregroundStyle(facet.facetInfo.tint!)) // makes the label tint color stand out
-
+                            facet.facetInfo.title.label(image: facet.facetInfo.symbol
+                                .foregroundStyle(facet.facetInfo.tint ?? .accentColor)) // makes the label tint color stand out
                         }
                     }
                 }
-                #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-                #endif
+                .navigation(title: Text(Bundle.localizedAppName), subtitle: nil)
 
                 if !nested {
                     // the default placeholder view is the welcome screen
@@ -329,7 +327,7 @@ extension Facet {
         .With<AppearanceSetting>
         .With<LanguageSetting>
         .With<SupportSetting>
-        .With<LicenseSetting>
+        //.With<LicenseSetting>
 }
 
 extension Facet where Self : CaseIterable {
@@ -340,6 +338,9 @@ extension Facet where Self : CaseIterable {
         allCases
     }
 }
+
+// TODO: remove facet implementation if we keep licenses embedded in the support view
+// extension LicenseSetting : Facet { }
 
 /// A setting that simply displays the text of the license(s) included in the app.
 ///
@@ -363,37 +364,42 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .license:
-            return info(title: Text("Licenses", bundle: .module, comment: "licenses settings facet title"), symbol: "doc.text.magnifyingglass", tint: .mint)
+            return info(title: Text("Licenses", bundle: .module, comment: "licenses settings facet title"), symbol: "doc.text.magnifyingglass", tint: .brown)
         }
     }
 
     public var body: some View {
         List {
             Section {
-                ForEach(Self.licenseTexts.array(), id: \.key) { bundle, licenseURLs in
-                    NavigationLink {
-                        // when there is only a single license, just display it
-                        if licenseURLs.count <= 1, let licenseURL = licenseURLs.first {
-                            textView(url: licenseURL)
-                        } else {
-                            List {
-                                ForEach(licenseURLs.uniquing(by: \.self).array(), id: \.self) { licenseURL in
-                                    NavigationLink {
-                                        textView(url: licenseURL)
-                                    } label: {
-                                        Text(licenseURL.lastPathComponent)
-                                    }
-                                }
-                            }
-                        }
-                    } label: {
-                        Text(bundle.bundleName == "App_App" ? NSLocalizedString("The App Fair", bundle: .module, comment: "title of The App Fair") : bundle.bundleDisplayName ?? bundle.bundleName ?? "bundle")
-                    }
-                }
+                licensesList
             } footer: {
                 Text("These are the software licenses used by this App Fair app.", bundle: .module, comment: "footer text for licenses setting screen")
             }
         }
+    }
+
+    var licensesList: some View {
+        ForEach(Self.licenseTexts.array(), id: \.key) { bundle, licenseURLs in
+            NavigationLink {
+                // when there is only a single license, just display it
+                if licenseURLs.count <= 1, let licenseURL = licenseURLs.first {
+                    textView(url: licenseURL)
+                } else {
+                    List {
+                        ForEach(licenseURLs.uniquing(by: \.self).array(), id: \.self) { licenseURL in
+                            NavigationLink {
+                                textView(url: licenseURL)
+                            } label: {
+                                Text(licenseURL.lastPathComponent)
+                            }
+                        }
+                    }
+                }
+            } label: {
+                Text(bundle.bundleName == "App_App" ? Bundle.localizedAppName : bundle.bundleDisplayName ?? bundle.bundleName ?? "bundle")
+            }
+        }
+
     }
 
     func textView(url: URL) -> some View {
@@ -412,7 +418,7 @@ public enum SupportSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .support:
-            return info(title: Text("Support", bundle: .module, comment: "license settings facet title"), symbol: "questionmark.app", tint: .mint)
+            return info(title: Text("Support", bundle: .module, comment: "license settings facet title"), symbol: "questionmark.app", tint: .red)
         }
     }
 
@@ -429,7 +435,13 @@ private struct SupportSettingsView : View {
                     $0.link(to: $1)
                 })
             } footer: {
-                Text("This section contains links for seeking help or reporting issues with this App Fair app.", bundle: .module, comment: "footer text for support setting screen")
+                Text("This section contains links for seeking help or reporting issues with this app.", bundle: .module, comment: "footer text for support setting screen")
+            }
+
+            Section {
+                LicenseSetting.license.licensesList
+            } header: {
+                Text("Software Licenses", bundle: .module, comment: "header text for licenses section")
             }
         }
     }
@@ -445,7 +457,7 @@ public enum AppearanceSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .appearance:
-            return info(title: Text("Appearance", bundle: .module, comment: "appearance settings facet title"), symbol: "paintpalette", tint: .mint)
+            return info(title: Text("Appearance", bundle: .module, comment: "appearance settings facet title"), symbol: "paintpalette", tint: .cyan)
         }
     }
 
@@ -547,7 +559,7 @@ public struct LanguageSetting : Facet, View {
     }
 
     public var facetInfo: FacetInfo {
-        FacetInfo(title: Text("Language", bundle: .module, comment: "language setting title"), symbol: "flag.badge.ellipsis", tint: nil)
+        FacetInfo(title: Text("Language", bundle: .module, comment: "language setting title"), symbol: "flag.badge.ellipsis", tint: .green)
     }
 
     public static func facets<Manager>(for manager: Manager) -> [LanguageSetting] where Manager : FacetManager {
@@ -568,22 +580,22 @@ struct LocalesList : View {
             let preferredLocales = bundle.locales(preferred: true, for: currentLocale)
             Section {
                 ForEach(preferredLocales, id: \.self) { loc in
-                    LocaleLink(locale: loc)
+                    LocaleLink(locale: loc, bundle: bundle)
                 }
             } header: {
                 preferredLocales.count == 1
-                    ? Text("Current Language", bundle: .module, comment: "header text for language setting screen")
-                    : Text("Current Languages", bundle: .module, comment: "header text for language setting screen")
+                ? Text("Current Language", bundle: .module, comment: "header text for language setting screen")
+                : Text("Current Languages", bundle: .module, comment: "header text for language setting screen")
             }
 
             Section {
                 ForEach(bundle.locales(preferred: false, for: currentLocale), id: \.self) { loc in
-                    LocaleLink(locale: loc)
+                    LocaleLink(locale: loc, bundle: bundle)
                 }
             } header: {
                 Text("All Languages", bundle: .module, comment: "header text for language setting screen")
             } footer: {
-                Text("This list contains all the languages this app can be translated info. Help contribute a translation by tapping on the language.", bundle: .module, comment: "footer text for language setting screen")
+                Text("This list contains all the languages this app can be translated into. Help contribute a translation by tapping on the language.", bundle: .module, comment: "footer text for language setting screen")
             }
         }
     }
@@ -602,14 +614,84 @@ extension Bundle {
 
 struct LocaleLink : View {
     let locale: Locale
+    let bundle: Bundle
     @Environment(\.locale) var currentLocale
+    @State var translationPercent: Double? = nil
 
     var body: some View {
-        if let languageName = currentLocale.localizedString(forIdentifier: locale.identifier),
-           let url = URL.fairHubURL("blob/main")?.appendingPathComponent("Sources/App/Resources/\(locale.identifier).lproj/Localizable.strings") {
-            Text(languageName)
-                .link(to: url)
+        if let localLanguageName = currentLocale.localizedString(forIdentifier: locale.identifier),
+           let nativeLanguageName = locale.localizedString(forIdentifier: locale.identifier),
+           let url = localeLink {
+            HStack(alignment: .center) {
+                VStack(alignment: .leading) {
+                    Text(nativeLanguageName) // e.g., “Deutsch”
+                    Text(localLanguageName) // e.g., “German”
+                        .font(.caption)
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    if let translationPercent = translationPercent {
+                        Text(translationPercent, format: .percent.rounded(rule: .towardZero, increment: 1))
+                            .font(.callout.monospacedDigit())
+                            .foregroundColor(.secondary)
+                    } else {
+                        ProgressView()
+                    }
+                }
+            }
+            .link(to: url)
+            .task {
+                if translationPercent == nil {
+                    await checkTranslationPercent()
+                }
+            }
         }
+    }
+
+    var localeLink: URL? {
+        URL.fairHubURL("blob/main")?.appendingPathComponent("Sources/App/Resources/\(locale.identifier).lproj/Localizable.strings")
+    }
+
+    func checkTranslationPercent() async {
+        func checkStrings(for localeIdentifier: String?) -> URL? {
+            bundle.urls(forResourcesWithExtension: "strings", subdirectory: nil, localization: localeIdentifier)?.first(where: { $0.lastPathComponent == "Localizable.strings" })
+        }
+
+        guard let localeURL = checkStrings(for: locale.identifier) else {
+            return dbg("no localizable strings for locale:", locale.identifier)
+        }
+
+        guard let devLocaleURL = checkStrings(for: bundle.developmentLocalization) else {
+            return dbg("no localizable strings for developer locale:", bundle.developmentLocalization)
+        }
+
+        do {
+            self.translationPercent = try Self.checkLocalization(locale: locale, url: localeURL, base: devLocaleURL)
+        } catch {
+            dbg("error loading language plist:", error)
+        }
+    }
+
+    static func checkLocalization(locale: Locale, url: URL, base: URL) throws -> Double {
+        let basePlist = try Plist(url: base)
+        let plist = try Plist(url: url)
+        dbg("loaded plist for:", locale.identifier, "keys", plist.rawValue.count, "base", basePlist.rawValue.count)
+        if base == url {
+            return 1.0 // the development locale is, by definition, 100% translated
+        }
+
+        // translation percent is simply the count of keys whose values differ from their root
+        var keyCount = 0, translationCount = 0
+        for keyValue in basePlist.rawValue {
+            guard let key = keyValue.key as? String else {
+                continue
+            }
+            keyCount += 1
+            if plist.rawValue[key] as? String != keyValue.value as? String {
+                translationCount += 1
+            }
+        }
+        return Double(translationCount) / Double(keyCount)
     }
 }
 
