@@ -53,6 +53,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/concurrentMap(priority:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/contains(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/contains(where:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/countedSet()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/depthFirstIterator(children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/dictionary(latterPrecedence:keyedBy:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/distinct()",
@@ -1049,6 +1050,104 @@
   "title" : "contains(where:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/contains(where:)"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/countedSet()": {
+  "abstract" : [
+    {
+      "text" : "Returns a dictionary with the counts of each of the elements.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Hashable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "countedSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SD",
+      "text" : "Dictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/countedSet()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "countedSet()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/countedset()"
 },
 "doc://FairCore/documentation/FairCore/IndexedCollection/depthFirstIterator(children:)": {
   "abstract" : [

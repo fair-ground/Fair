@@ -54,6 +54,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/concurrentMap(priority:_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/contains(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/contains(where:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/countedSet()",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/depthFirstIterator(children:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/dictionary(latterPrecedence:keyedBy:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/distinct()",
@@ -1103,6 +1104,101 @@
   "title" : "contains(where:)",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/appstoragearray\/contains(where:)"
+},
+"doc://FairKit/documentation/FairKit/AppStorageArray/countedSet()": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Hashable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "countedSet"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SD",
+      "text" : "Dictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/countedSet()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "countedSet()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/appstoragearray\/countedset()"
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/depthFirstIterator(children:)": {
   "abstract" : [
