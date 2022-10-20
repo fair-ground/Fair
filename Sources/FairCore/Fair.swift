@@ -96,6 +96,18 @@ extension Sequence {
     }
 }
 
+extension Sequence where Element : Hashable {
+    /// Returns a dictionary with the counts of each of the elements.
+    /// - Returns: a dictionary with keys for each of the unique elements in the set, along with counts
+    @inlinable public func countedSet() -> Dictionary<Element, Int> {
+        var dict = Dictionary<Element, Int>()
+        for element in self {
+            dict[element, default: 0] += 1
+        }
+        return dict
+    }
+}
+
 public extension Sequence {
     /// Returns this sequence sorted by the given keypath of the element, either ascending (the default) or descending.
     @inlinable func sorting<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) -> [Element] {

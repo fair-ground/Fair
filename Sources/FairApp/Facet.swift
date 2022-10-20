@@ -349,9 +349,10 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
     static let licenseTexts: [Bundle : [URL]] = {
         var licenseTexts: [Bundle : [URL]] = [:]
         for bundle in Bundle.allBundles {
-            // dbg("bundle", bundle.bundleName)
+            dbg("bundle", bundle.bundleName)
             for url in (try? bundle.resourceURL?.fileChildren(deep: false)) ?? [] {
                 if url.lastPathComponent.hasPrefix("LICENSE") {
+                    dbg("found license in bundle", bundle.bundleName, url.path)
                     licenseTexts[bundle, default: []].append(url)
                 }
             }
