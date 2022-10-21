@@ -273,11 +273,11 @@ extension Never : Facet {
     }
 }
 
-extension FacetManager where Self : SceneManager {
+extension FairContainer where Self : SceneManager {
     public typealias ConfigFacets = Never
 }
 
-extension FacetManager where Self : SceneManager {
+extension FairContainer where Self : SceneManager {
     public typealias AppFacets = Never
 }
 
@@ -524,7 +524,7 @@ public struct SupportCommands<LinkButton: View> : View {
                 Menu {
                     ForEach(fundingLinks.uniquing(by: \.url).array(), id: \.url, content: fundingLinkView)
                 } label: {
-                    Text("Support", bundle: .module, comment: "menu title for funding help sub-menu")
+                    Text.SupportText
                 }
             }
         }
@@ -1403,6 +1403,18 @@ public struct ZoomableButtonStyle: ButtonStyle {
 }
 #endif // canImport(SwiftUI)
 
+extension String {
+    /// Checks whether the string contains the given regular expression.
+    /// - Parameters:
+    ///   - regex: the expression to parse
+    ///   - expressionOptions: options like `.caseInsensitive` and `.anchorsMatchLines`
+    ///   - matchingOptions: options like `.anchored`
+    /// - Returns: whether the string matches or not
+    @inlinable public func matches(regex: String, expressionOptions: NSRegularExpression.Options? = nil, matchingOptions: NSRegularExpression.MatchingOptions = []) throws -> Bool {
+        let regex = try NSRegularExpression(pattern: regex, options: expressionOptions ?? [])
+        return regex.matches(in: self, options: matchingOptions, range: self.span).isEmpty == false
+    }
+}
 
 #if canImport(NaturalLanguage)
 import NaturalLanguage

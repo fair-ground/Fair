@@ -256,10 +256,15 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
         FacetView.facets(for: manager)
     }
 
+    // TODO: this is where we might be able to inject things like toolbars that need to fit between the parent TabView/ForEach or NavigationView/List
+    private func decorate<V: View>(_ forEach: ForEach<[FacetView], FacetView?, V>) -> some View {
+        forEach
+    }
+
     public var body: some View {
         if displayInTabs {
             TabView(selection: $selection) {
-                ForEach(self.facets, id: \.facetTag) { facet in
+                decorate(ForEach(self.facets, id: \.facetTag) { facet in
                     facet
                         .navigationTitle(facet.facetInfo.title)
 #if os(iOS)
@@ -270,12 +275,12 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
                                 .symbolVariant(.fill)
                         }
                         .tint(facet.facetInfo.tint)
-                }
+                })
             }
         } else {
             NavigationView {
                 List {
-                    ForEach(self.facets.dropFirst(nested ? 0 : 1).dropLast(nested ? 0 : 1), id: \.self) { facet in
+                    decorate(ForEach(self.facets.dropFirst(nested ? 0 : 1).dropLast(nested ? 0 : 1).array(), id: \.facetTag) { facet in
                         NavigationLink(tag: facet, selection: $selection) {
                             facet
                                 .navigationTitle(facet.facetInfo.title)
@@ -283,7 +288,7 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
                             facet.facetInfo.title.label(image: facet.facetInfo.symbol
                                 .foregroundStyle(facet.facetInfo.tint ?? .accentColor)) // makes the label tint color stand out
                         }
-                    }
+                    })
                 }
                 .navigation(title: Text(Bundle.localizedAppName), subtitle: nil)
 
@@ -419,7 +424,7 @@ public enum SupportSetting : String, Facet, CaseIterable, View {
     public var facetInfo: FacetInfo {
         switch self {
         case .support:
-            return info(title: Text("Support", bundle: .module, comment: "license settings facet title"), symbol: "questionmark.app", tint: .red)
+            return info(title: Text.SupportText, symbol: "questionmark.app", tint: .red)
         }
     }
 
@@ -516,7 +521,7 @@ struct ThemeStylePicker: View {
                 themeStyle.label
             }
         } label: {
-            Text("Theme", bundle: .module, comment: "picker title for general preference for theme style")
+            Text.ThemesText
         }
         .pickerStyle(.inline)
         //.radioPickerStyle()
@@ -560,7 +565,7 @@ public struct LanguageSetting : Facet, View {
     }
 
     public var facetInfo: FacetInfo {
-        FacetInfo(title: Text("Language", bundle: .module, comment: "language setting title"), symbol: "flag.badge.ellipsis", tint: .green)
+        FacetInfo(title: .LanguageText, symbol: "flag.badge.ellipsis", tint: .green)
     }
 
     public static func facets<Manager>(for manager: Manager) -> [LanguageSetting] where Manager : FacetManager {
