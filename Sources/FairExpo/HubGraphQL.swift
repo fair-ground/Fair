@@ -816,7 +816,7 @@ extension FairHub {
         /// the number of releases to scan
         public var releaseCount: Int = 10
         /// the number of release assets to process
-        public var assetCount: Int = 25
+        public var assetCount: Int = 40
         /// the number of recent PRs to scan for a fairseal
         public var prCount: Int = 10
         /// the number of initial comments to scan for a fairseal

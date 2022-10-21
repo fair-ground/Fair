@@ -355,7 +355,7 @@ public struct TranslateCommand : AsyncParsableCommand {
     ///  - create or update the docs/CNAME file
     ///  - create and update the localized strings file
     public struct ScanCommand: FairMsgCommand {
-        public static let experimental = false
+        public static let experimental = true
         public static var configuration = CommandConfiguration(commandName: "scan", abstract: "Scans translations for the given key(s).", shouldDisplay: !experimental)
 
         @OptionGroup public var msgOptions: MsgOptions
