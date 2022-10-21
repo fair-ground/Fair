@@ -3672,7 +3672,7 @@ cask "\(caskName)" do
   end
 
   zap trash: [
-    \(app.installationDataLocations.joined(separator: ",\n    "))
+    \(app.installationDataLocations.map({ $0.enquote(with: #"""#) }).joined(separator: ",\n    "))
   ]
 end
 """
