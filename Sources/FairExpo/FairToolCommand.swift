@@ -62,6 +62,7 @@ let (linux, macOS, windows) = (false, false, true)
 let (linux, macOS, windows) = (false, true, false)
 #endif
 
+/// A command that contains options for how messages will be conveyed to the user
 public protocol FairMsgCommand : AsyncParsableCommand {
     var msgOptions: MsgOptions { get set }
 }
@@ -142,6 +143,7 @@ public struct FairToolCommand : AsyncParsableCommand {
                                                            shouldDisplay: !experimental,
                                                            subcommands: [
                                                             AppCommand.self,
+                                                            TranslateCommand.self,
                                                             FairCommand.self,
                                                             ArtifactCommand.self,
                                                             BrewCommand.self,
@@ -335,6 +337,68 @@ public struct AppCommand : AsyncParsableCommand {
 #endif
 }
 
+public struct TranslateCommand : AsyncParsableCommand {
+    public static let experimental = false
+    public static var configuration = CommandConfiguration(commandName: "translate",
+                                                           abstract: "Commands for handling localizations.",
+                                                           shouldDisplay: !experimental, subcommands: Self.subcommands)
+    static let subcommands: [ParsableCommand.Type] = [
+        ScanCommand.self,
+    ]
+
+    public init() {
+    }
+
+
+    /// An aggregate command that performs the following tasks:
+    ///
+    ///  - create or update the docs/CNAME file
+    ///  - create and update the localized strings file
+    public struct ScanCommand: FairMsgCommand {
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "scan", abstract: "Scans translations for the given key(s).", shouldDisplay: !experimental)
+
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
+
+        @Option(name: [.long], help: ArgumentHelp("The translation keys to search for."))
+        public var key: [String] = [".*"]
+
+        @Argument(help: ArgumentHelp("Resources folder to scan", valueName: "dir", visibility: .default))
+        public var dir: [String]
+
+        public init() {
+        }
+
+        public func run() async throws {
+            for dir in dir {
+                msg(.info, "scanning", dir)
+                do {
+                    let locales: [String : [(URL, Plist)]] = try loadLocalizations(resourcesFolder: URL(fileOrScheme: dir), localeFileName: ".*.strings")
+                    msg(.info, "loaded", locales.count, "languages", locales.keys.sorted())
+                    for (_, localeFiles) in locales {
+                        //msg(.info, "locale", localeName)
+                        for (localeFile, plist) in localeFiles {
+                            for keyArg in self.key {
+                                for (pkey, pvalue) in plist.rawValue {
+                                    guard let skey = pkey as? String else { continue }
+                                    if try skey.matches(regex: keyArg) {
+                                        msg(.info, dir, "locale:", localeFile.path, "key:", skey, "value:", pvalue)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch {
+                    msg(.info, "error loading:", dir, error)
+                }
+            }
+        }
+    }
+}
+
+
+/// A command that requires the presence of a project
 protocol FairProjectCommand : FairMsgCommand {
     var projectOptions: ProjectOptions { get }
 }
@@ -451,11 +515,10 @@ struct LocalizedStringsFile {
 
 extension FairAppCommand {
 
-#if os(macOS)
+    #if os(macOS)
     /// Run `genstrings` on the source files in the project.
     func generateLocalizedStrings(locstr: String = "Localizable.strings") async throws {
         //msg(.info, "Scanning strings for localization")
-        let fm = FileManager.default
 
         for target in targets {
             let resourcesFolder = projectOptions.projectPathURL(path: "Sources")
@@ -492,79 +555,85 @@ extension FairAppCommand {
 
             msg(.debug, "created strings file", outputFile.path, "encoding:", generatedEncoding)
 
-            func loadLocalizations() throws -> [String: (URL, Plist)] {
-                var localizations: [String: (URL, Plist)] = [:]
-                for childURL in try fm.contentsOfDirectory(at: resourcesFolder, includingPropertiesForKeys: [.isDirectoryKey]) {
-                    if childURL.pathIsDirectory && childURL.pathExtension == "lproj" {
-                        let languageCode = childURL.deletingPathExtension().lastPathComponent
-                        let localizableStrings = childURL.appendingPathComponent("Localizable.strings")
+            for (lang, matches) in try loadLocalizations(resourcesFolder: resourcesFolder) {
+                for (url, plist) in matches {
+                    _ = plist
+                    if !languages.isEmpty && !languages.contains(lang) {
+                        msg(.info, "skipping excluded language code:", lang, url.absoluteString)
+                        continue
+                    }
 
-                        if fm.isReadableFile(atPath: localizableStrings.path) {
-                            let resource = try PropertyListSerialization.propertyList(from: Data(contentsOf: localizableStrings), format: nil)
-                            if let resource = resource as? NSDictionary {
-                                //msg(.debug, "loaded resource for", resource)
-                                localizations[languageCode] = (localizableStrings, Plist(rawValue: resource))
-                            }
-                        }
+                    let localizedStringsPath = resourcesFolder
+                        .appendingPathComponent(lang)
+                        .appendingPathExtension("lproj")
+                        .appendingPathComponent(locstr)
+
+                    msg(.info, "Scanning strings in \(target) for localization to:", localizedStringsPath.path)
+
+                    var existingEncoding: String.Encoding = .utf8
+
+                    // load the initial strings to check for changes
+                    let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
+                    let existingLocaleFile = try LocalizedStringsFile(fileContents: existingStrings)
+
+                    var updatedLocale = generatedLocaleFile
+                    try updatedLocale.update(strings: existingLocaleFile.plist)
+                    var localizedStrings = updatedLocale.fileContents
+                    //generatedLocaleFile
+
+                    let locale = Locale(identifier: lang)
+                    let languageNameCurrent = Locale.current.localizedString(forLanguageCode: lang) ?? ""
+                    let languageName = locale.localizedString(forLanguageCode: lang) ?? ""
+
+                    let comments = [
+                        "Localized \(languageNameCurrent) (\(languageName)) strings for this App Fair App.",
+                        "Translators: edit this file to fork the repository and contribute your translated strings.",
+                        "Visit https://appfair.net/#translation for more details.",
+                    ]
+
+                    // create a comment header for the file
+                    localizedStrings = comments.map({ "// " + $0 }).joined(separator: "\n") + "\n\n" + localizedStrings
+
+                    if localizedStrings == existingStrings {
+                        msg(.info, "Localizations unchanged:", localizedStringsPath.path)
+                    } else {
+                        try localizedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
+                        msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
                     }
                 }
-
-                return localizations
             }
+        }
+    }
+    #endif
+}
 
-            for (lang, (url, plist)) in try loadLocalizations() {
-                _ = plist
-                if !languages.isEmpty && !languages.contains(lang) {
-                    msg(.info, "skipping excluded language code:", lang, url.absoluteString)
-                    continue
-                }
+extension FairMsgCommand {
+    func loadLocalizations(resourcesFolder: URL, localeFileName: String = "Localizable.strings") throws -> [String: [(URL, Plist)]] {
+        let fm = FileManager.default
+        var localizations: [String: [(URL, Plist)]] = [:]
+        for childURL in try fm.contentsOfDirectory(at: resourcesFolder, includingPropertiesForKeys: [.isDirectoryKey], options: .producesRelativePathURLs) {
+            if childURL.pathIsDirectory && childURL.pathExtension == "lproj" {
+                let languageCode = childURL.deletingPathExtension().lastPathComponent
 
-                let localizedStringsPath = resourcesFolder
-                    .appendingPathComponent(lang)
-                    .appendingPathExtension("lproj")
-                    .appendingPathComponent(locstr)
+                for localeChildURL in try fm.contentsOfDirectory(at: childURL, includingPropertiesForKeys: [.isDirectoryKey], options: .producesRelativePathURLs) {
 
-                msg(.info, "Scanning strings in \(target) for localization to:", localizedStringsPath.path)
+                    if try localeChildURL.lastPathComponent.matches(regex: localeFileName) == false {
+                        continue
+                    }
 
-                var existingEncoding: String.Encoding = .utf8
-
-                // load the initial strings to check for changes
-                let existingStrings = try String(contentsOf: localizedStringsPath, usedEncoding: &existingEncoding)
-                let existingLocaleFile = try LocalizedStringsFile(fileContents: existingStrings)
-
-                var updatedLocale = generatedLocaleFile
-                try updatedLocale.update(strings: existingLocaleFile.plist)
-                var localizedStrings = updatedLocale.fileContents
-                //generatedLocaleFile
-
-                let locale = Locale(identifier: lang)
-                let languageNameCurrent = Locale.current.localizedString(forLanguageCode: lang) ?? ""
-                let languageName = locale.localizedString(forLanguageCode: lang) ?? ""
-
-                let comments = [
-                    "Localized \(languageNameCurrent) (\(languageName)) strings for this App Fair App.",
-                    "Translators: edit this file to fork the repository and contribute your translated strings.",
-                    "Visit https://appfair.net/#translation for more details.",
-                ]
-
-                // create a comment header for the file
-                localizedStrings = comments.map({ "// " + $0 }).joined(separator: "\n") + "\n\n" + localizedStrings
-
-                if localizedStrings == existingStrings {
-                    msg(.info, "Localizations unchanged:", localizedStringsPath.path)
-                } else {
-                    try localizedStrings.write(to: localizedStringsPath, atomically: true, encoding: .utf8)
-                    msg(.info, "wrote updated strings file to:", localizedStringsPath.path)
+                    let resource = try PropertyListSerialization.propertyList(from: Data(contentsOf: localeChildURL), format: nil)
+                    if let resource = resource as? NSDictionary {
+                        //msg(.debug, "loaded resource for", resource)
+                        localizations[languageCode, default: []].append((localeChildURL, Plist(rawValue: resource)))
+                    }
                 }
             }
         }
 
+        return localizations
     }
-#endif
 
 }
-
-
 
 public struct ProjectOptions: ParsableArguments {
     @Option(name: [.long, .customShort("p")], help: ArgumentHelp("The project to use."))

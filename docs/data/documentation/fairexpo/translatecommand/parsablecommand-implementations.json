@@ -1,0 +1,428 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/ParsableCommand-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "ParsableCommand Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/run()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/configuration-3728t"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/helpMessage(for:includeHidden:columns:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/main()-96daa",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/main(_:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/parseAsRoot(_:)"
+      ],
+      "title" : "Type Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/translatecommand\/parsablecommand-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TranslateCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TranslateCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TranslateCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand/configuration-3728t": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore20CommandConfigurationV",
+      "text" : "CommandConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/configuration-3728t",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "configuration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand\/configuration-3728t"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand/helpMessage(for:includeHidden:columns:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "helpMessage"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ParsableCommandP",
+      "text" : "ParsableCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : ".Type, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "includeHidden"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "columns"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/helpMessage(for:includeHidden:columns:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "helpMessage(for:includeHidden:columns:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand\/helpmessage(for:includehidden:columns:)"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand/main()-96daa": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "main"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/main()-96daa",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "main()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand\/main()-96daa"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand/main(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "main"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/main(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "main(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand\/main(_:)"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand/parseAsRoot(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseAsRoot"
+    },
+    {
+      "kind" : "text",
+      "text" : "(["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ParsableCommandP",
+      "text" : "ParsableCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/parseAsRoot(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseAsRoot(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand\/parseasroot(_:)"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand/run()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "run"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand\/run()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "run()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand\/run()"
+}
+}
+}

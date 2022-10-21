@@ -97,6 +97,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SocialCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeed"
       ],
@@ -963,7 +964,10 @@
 },
 "doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
   "abstract" : [
-
+    {
+      "text" : "A command that contains options for how messages will be conveyed to the user",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1951,6 +1955,37 @@
   "title" : "SourceOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourceoptions"
+},
+"doc://FairExpo/documentation/FairExpo/TranslateCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TranslateCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TranslateCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TranslateCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/translatecommand"
 },
 "doc://FairExpo/documentation/FairExpo/TweetOptions": {
   "abstract" : [

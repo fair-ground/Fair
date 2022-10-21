@@ -113,6 +113,13 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/AppFacets",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/ConfigFacets"
+      ],
+      "title" : "Type Aliases"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/cli(args:)-6wqsf",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/launch(bundle:sourceFile:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/main()-3y90e",
@@ -208,6 +215,69 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/faircontainer"
 },
+"doc://FairApp/documentation/FairApp/FairContainer/AppFacets": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "SceneManager",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppFacets"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/AppFacets",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppFacets"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairContainer.AppFacets",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/faircontainer\/appfacets"
+},
 "doc://FairApp/documentation/FairApp/FairContainer/AppStore": {
   "abstract" : [
     {
@@ -245,6 +315,69 @@
   "title" : "AppStore",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/faircontainer\/appstore"
+},
+"doc://FairApp/documentation/FairApp/FairContainer/ConfigFacets": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "SceneManager",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConfigFacets"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/ConfigFacets",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConfigFacets"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairContainer.ConfigFacets",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/faircontainer\/configfacets"
 },
 "doc://FairApp/documentation/FairApp/FairContainer/SceneBody": {
   "abstract" : [
