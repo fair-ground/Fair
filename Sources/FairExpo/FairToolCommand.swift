@@ -611,11 +611,11 @@ extension FairMsgCommand {
     func loadLocalizations(resourcesFolder: URL, localeFileName: String = "Localizable.strings") throws -> [String: [(URL, Plist)]] {
         let fm = FileManager.default
         var localizations: [String: [(URL, Plist)]] = [:]
-        for childURL in try fm.contentsOfDirectory(at: resourcesFolder, includingPropertiesForKeys: [.isDirectoryKey], options: .producesRelativePathURLs) {
+        for childURL in try fm.contentsOfDirectory(at: resourcesFolder, includingPropertiesForKeys: [.isDirectoryKey]) {
             if childURL.pathIsDirectory && childURL.pathExtension == "lproj" {
                 let languageCode = childURL.deletingPathExtension().lastPathComponent
 
-                for localeChildURL in try fm.contentsOfDirectory(at: childURL, includingPropertiesForKeys: [.isDirectoryKey], options: .producesRelativePathURLs) {
+                for localeChildURL in try fm.contentsOfDirectory(at: childURL, includingPropertiesForKeys: [.isDirectoryKey]) {
 
                     if try localeChildURL.lastPathComponent.matches(regex: localeFileName) == false {
                         continue
