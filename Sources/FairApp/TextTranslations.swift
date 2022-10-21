@@ -36,6 +36,7 @@ import Foundation
 #if canImport(SwiftUI)
 import SwiftUI
 
+/// This file contains references to the localized translated Text embedded in the `FairApp` module.
 public extension Text {
     /// A standard translation of "The App Fair"
     static let TheAppFairText = Text("The App Fair", bundle: .module, comment: "standard compact translation of The App Fair")
