@@ -293,8 +293,8 @@ public struct AppCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("The app target."))
         public var targets: [String] = ["App"]
 
-        @Option(name: [.long], help: ArgumentHelp("The languages to generate."))
-        public var languages: [String] = []
+        @Option(name: [.long], help: ArgumentHelp("The language to generate."))
+        public var language: [String] = []
 
         public init() {
         }
@@ -324,7 +324,7 @@ public struct AppCommand : AsyncParsableCommand {
         public var targets: [String] = ["App"]
 
         @Option(name: [.long], help: ArgumentHelp("The locale to generate."))
-        public var languages: [String] = []
+        public var language: [String] = []
 
         public init() {
         }
@@ -445,7 +445,7 @@ extension FairProjectCommand {
 
 protocol FairAppCommand : FairProjectCommand {
     var targets: [String] { get }
-    var languages: [String] { get }
+    var language: [String] { get }
 }
 
 /// A representation of a `Localized.strings` file that retains its formatting and comments.
@@ -558,7 +558,7 @@ extension FairAppCommand {
             for (lang, matches) in try loadLocalizations(resourcesFolder: resourcesFolder) {
                 for (url, plist) in matches {
                     _ = plist
-                    if !languages.isEmpty && !languages.contains(lang) {
+                    if !language.isEmpty && !language.contains(lang) {
                         msg(.info, "skipping excluded language code:", lang, url.absoluteString)
                         continue
                     }
