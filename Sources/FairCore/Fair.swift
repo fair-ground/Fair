@@ -318,10 +318,87 @@ public struct IndexedCollection<Key: Hashable, Value> : RandomAccessCollection {
 import OSLog
 #endif
 
+#if os(macOS) || os(tvOS) || os(iOS) || os(watchOS)
+let systemStderr = Darwin.stderr
+let systemStdout = Darwin.stdout
+#elseif os(Windows)
+let systemStderr = CRT.stderr
+let systemStdout = CRT.stdout
+#elseif canImport(Glibc)
+let systemStderr = Glibc.stderr!
+let systemStdout = Glibc.stdout!
+#elseif canImport(WASILibc)
+let systemStderr = WASILibc.stderr!
+let systemStdout = WASILibc.stdout!
+#else
+#error("Unsupported runtime")
+#endif
+
+#if canImport(WASILibc) || os(Android)
+internal typealias CFilePointer = OpaquePointer
+#else
+internal typealias CFilePointer = UnsafeMutablePointer<FILE>
+#endif
+
+struct StdioOutputStream: TextOutputStream {
+    let file: CFilePointer
+    let flushMode: FlushMode
+
+    func write(_ string: String) {
+        self.contiguousUTF8(string).withContiguousStorageIfAvailable { utf8Bytes in
+            #if os(Windows)
+            _lock_file(self.file)
+            #elseif canImport(WASILibc)
+            // no file locking on WASI
+            #else
+            flockfile(self.file)
+            #endif
+            defer {
+                #if os(Windows)
+                _unlock_file(self.file)
+                #elseif canImport(WASILibc)
+                // no file locking on WASI
+                #else
+                funlockfile(self.file)
+                #endif
+            }
+            _ = fwrite(utf8Bytes.baseAddress!, 1, utf8Bytes.count, self.file)
+            if case .always = self.flushMode {
+                self.flush()
+            }
+        }!
+    }
+
+    /// Flush the underlying stream.
+    /// This has no effect when using the `.always` flush mode, which is the default
+    func flush() {
+        _ = fflush(self.file)
+    }
+
+    func contiguousUTF8(_ string: String) -> String.UTF8View {
+        var contiguousString = string
+        #if compiler(>=5.1)
+        contiguousString.makeContiguousUTF8()
+        #else
+        contiguousString = string + ""
+        #endif
+        return contiguousString.utf8
+    }
+
+    static var stderr = StdioOutputStream(file: systemStderr, flushMode: .always)
+    static var stdout = StdioOutputStream(file: systemStdout, flushMode: .always)
+
+    /// Defines the flushing strategy for the underlying stream.
+    enum FlushMode {
+        case undefined
+        case always
+    }
+}
+
 /// Logs the given items to `os_log` if `DEBUG` is set
 /// - Parameters:
 ///   - level: the level: 0 for default, 1 for debug, 2 for info, 3 for error, 4+ for fault
-@inlinable public func dbg(level: UInt8 = 0, _ arg1: @autoclosure () -> Any? = nil, _ arg2: @autoclosure () -> Any? = nil, _ arg3: @autoclosure () -> Any? = nil, _ arg4: @autoclosure () -> Any? = nil, _ arg5: @autoclosure () -> Any? = nil, _ arg6: @autoclosure () -> Any? = nil, _ arg7: @autoclosure () -> Any? = nil, _ arg8: @autoclosure () -> Any? = nil, _ arg9: @autoclosure () -> Any? = nil, _ arg10: @autoclosure () -> Any? = nil, _ arg11: @autoclosure () -> Any? = nil, _ arg12: @autoclosure () -> Any? = nil, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
+public func dbg(level: UInt8 = 0, _ arg1: @autoclosure () -> Any? = nil, _ arg2: @autoclosure () -> Any? = nil, _ arg3: @autoclosure () -> Any? = nil, _ arg4: @autoclosure () -> Any? = nil, _ arg5: @autoclosure () -> Any? = nil, _ arg6: @autoclosure () -> Any? = nil, _ arg7: @autoclosure () -> Any? = nil, _ arg8: @autoclosure () -> Any? = nil, _ arg9: @autoclosure () -> Any? = nil, _ arg10: @autoclosure () -> Any? = nil, _ arg11: @autoclosure () -> Any? = nil, _ arg12: @autoclosure () -> Any? = nil, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
 
     // log .debug level only in debug mode
     let logit: Bool = assertionsEnabled || (level > 1)
@@ -341,7 +418,7 @@ import OSLog
         #if canImport(OSLog)
         os_log(level == 0 ? .debug : level == 1 ? .default : level == 2 ? .info : level == 3 ? .error : .fault, "%{public}@", message)
         #else
-        print(level == 0 ? "debug" : level == 1 ? "default" : level == 2 ? "info" : level == 3 ? "error" : "fault", message, to: &standardError)
+        print(level == 0 ? "debug" : level == 1 ? "default" : level == 2 ? "info" : level == 3 ? "error" : "fault", message, to: &StdioOutputStream.stderr)
         #endif
     }
 }

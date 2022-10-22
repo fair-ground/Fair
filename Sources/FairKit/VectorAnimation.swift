@@ -66,16 +66,17 @@ public typealias VectorAnimation = LottieAnimation
 /// `.product(name: "Lottie", package: "lottie-ios")`
 ///
 public typealias VectorAnimation = JSum
+#endif
 
 public extension VectorAnimation {
     /// Loads the ``VectorAnimation`` from the given resource path in the specified ``Bundle``.
-    static func named(_ path: String, bundle: Bundle) -> Self? {
-        try? bundle.url(forResource: path, withExtension: nil).flatMap({
-            try JSum.parse(json: Data(contentsOf: $0))
-        })
+    static func load(_ path: String, bundle: Bundle) throws -> Self {
+        guard let url = bundle.url(forResource: path, withExtension: nil) else {
+            throw CocoaError(.fileReadInvalidFileName)
+        }
+        return try JSONDecoder().decode(Self.self, from: Data(contentsOf: url))
     }
 }
-#endif
 
 #if canImport(SwiftUI)
 public struct VectorAnimationView: View {
