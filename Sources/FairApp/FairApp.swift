@@ -498,7 +498,7 @@ public struct SupportCommands<LinkButton: View> : View {
 
     @ViewBuilder public func supportCommandGroupView() -> some View {
         if let home = Bundle.appHomeURL(for: Bundle.main) {
-            builder(Text("\(Bundle.localizedAppName) Home", bundle: .module, comment: "command name for going to the app's home page"), home)
+            builder(Text("Home", bundle: .module, comment: "command name for going to the app's home page"), home)
         }
 
         if let discussions = URL.fairHubURL("discussions") {
@@ -618,6 +618,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
             Settings {
                 Container.settingsView(store: store)
                     .withAppearanceSetting()
+                    .withLocaleSetting()
             }
             #endif
         }
@@ -792,26 +793,31 @@ extension SwiftUI.Text {
 
 extension SwiftUI.View {
     /// Creates a `Link` to the given URL.
-    @ViewBuilder public func link(to destination: URL, embedded: Bool = true) -> some View {
-        #if os(iOS)
-        if embedded {
-            NavigationLink(destination: EmbeddedBrowser(url: destination)) {
-                self
+    @ViewBuilder public func link(to destination: URL?, embedded: Bool = true) -> some View {
+        if let destination = destination {
+            #if os(iOS)
+            if embedded {
+                NavigationLink(destination: EmbeddedBrowser(url: destination)) {
+                    self
+                }
+            } else {
+                Link(destination: destination) {
+                    self
+                }
             }
-        } else {
+            #else
             Link(destination: destination) {
                 self
             }
-        }
-        #else
-        Link(destination: destination) {
+            #endif
+        } else {
             self
         }
-        #endif
     }
 
     /// Creates a `Link` to the given URL, or the Text itself if the link is `.none`.
-    public func link(to destination: URL?, draggable: Bool = true) -> some View {
+    @available(*, deprecated)
+    func linkDraggable(to destination: URL?, draggable: Bool = true) -> some View {
         Group {
             if let destination = destination {
                 Link(destination: destination) {

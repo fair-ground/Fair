@@ -71,6 +71,8 @@ public extension Text {
     /// A standard translation of "Themes"
     static let ThemesText = Text("Themes", bundle: .module, comment: "standard compact translation of Themes")
 
+    /// A standard translation of "Help Please"
+    static let HelpPlease = Text("Help Please", bundle: .module, comment: "translation of Help Please, which should use the native idiom for requesting voluntary help from the community")
 }
 
 #endif
