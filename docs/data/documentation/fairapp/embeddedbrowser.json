@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "A web browser embedded within an app.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -70,6 +76,42 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This browser can be used for previewing links without exiting the app. On platforms where ",
+              "type" : "text"
+            },
+            {
+              "code" : "SafariServices",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is availble, this  implementation will use a ",
+              "type" : "text"
+            },
+            {
+              "code" : "SFSafariViewController",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " instance, which provides a comprehensive in-app browser experience while sill permitting the user to open the link in their chosen system browser.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -155,7 +197,10 @@
 },
 "doc://FairApp/documentation/FairApp/EmbeddedBrowser": {
   "abstract" : [
-
+    {
+      "text" : "A web browser embedded within an app.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -1,23 +1,16 @@
 {
   "abstract" : [
     {
-      "text" : "Creates a ",
+      "text" : "Applies the user’s language settings preferences from ",
       "type" : "text"
     },
     {
-      "code" : "Link",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
-      "text" : " to the given URL, or the Text itself if the link is ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : " into this view hierarchy.",
       "type" : "text"
     }
   ],
@@ -32,12 +25,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView\/link(to:draggable:)"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView\/withLocaleSetting()"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "SwiftUI",
-    "externalID" : "s:7SwiftUI4ViewP7FairAppE4link2to9draggableQr10Foundation3URLVSg_SbtF::SYNTHESIZED::s:7FairApp0A8IconViewV",
+    "externalID" : "s:7SwiftUI4ViewP7FairAppE17withLocaleSettingQryF::SYNTHESIZED::s:7FairApp0A8IconViewV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,45 +42,11 @@
       },
       {
         "kind" : "identifier",
-        "text" : "link"
+        "text" : "withLocaleSetting"
       },
       {
         "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "to"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10Foundation3URLV",
-        "text" : "URL"
-      },
-      {
-        "kind" : "text",
-        "text" : "?, "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "draggable"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sb",
-        "text" : "Bool"
-      },
-      {
-        "kind" : "text",
-        "text" : ") -> "
+        "text" : "() -> "
       },
       {
         "kind" : "keyword",
@@ -111,7 +70,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "link(to:draggable:)"
+    "title" : "withLocaleSetting()"
   },
   "primaryContentSections" : [
     {
@@ -134,53 +93,11 @@
             },
             {
               "kind" : "identifier",
-              "text" : "link"
+              "text" : "withLocaleSetting"
             },
             {
               "kind" : "text",
-              "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "to"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "internalParam",
-              "text" : "destination"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10Foundation3URLV",
-              "text" : "URL"
-            },
-            {
-              "kind" : "text",
-              "text" : "?, "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "draggable"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sb",
-              "text" : "Bool"
-            },
-            {
-              "kind" : "text",
-              "text" : " = true) -> "
+              "text" : "() -> "
             },
             {
               "kind" : "keyword",
@@ -203,6 +120,26 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This function should be invoked as high as possible in the view hierarchy.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -216,7 +153,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/fairiconview\/link(to:draggable:)"
+        "\/documentation\/fairapp\/fairiconview\/withlocalesetting()"
       ],
       "traits" : [
         {
@@ -294,26 +231,19 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/fairiconview\/view-implementations"
 },
-"doc://FairApp/documentation/FairApp/FairIconView/link(to:draggable:)": {
+"doc://FairApp/documentation/FairApp/FairIconView/withLocaleSetting()": {
   "abstract" : [
     {
-      "text" : "Creates a ",
+      "text" : "Applies the user’s language settings preferences from ",
       "type" : "text"
     },
     {
-      "code" : "Link",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
-      "text" : " to the given URL, or the Text itself if the link is ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : " into this view hierarchy.",
       "type" : "text"
     }
   ],
@@ -328,45 +258,11 @@
     },
     {
       "kind" : "identifier",
-      "text" : "link"
+      "text" : "withLocaleSetting"
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "draggable"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
+      "text" : "() -> "
     },
     {
       "kind" : "keyword",
@@ -382,12 +278,43 @@
       "text" : "View"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView\/link(to:draggable:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairIconView\/withLocaleSetting()",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "link(to:draggable:)",
+  "title" : "withLocaleSetting()",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/fairiconview\/link(to:draggable:)"
+  "url" : "\/documentation\/fairapp\/fairiconview\/withlocalesetting()"
+},
+"doc://FairApp/documentation/FairApp/LanguageSetting": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LanguageSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LanguageSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LanguageSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/languagesetting"
 }
 }
 }

@@ -255,7 +255,6 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/layoutPriority(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/lineLimit(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/lineSpacing(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/link(to:draggable:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/link(to:embedded:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/listItemTint(_:)-3jo24",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/listItemTint(_:)-nw9e",
@@ -418,6 +417,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/webViewNavigationResponsePolicy(decide:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/windowToolbarUnified(compact:showsTitle:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/withAppearanceSetting()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/withLocaleSetting()",
         "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/zIndex(_:)"
       ],
       "title" : "Instance Methods"
@@ -19015,82 +19015,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webview\/linespacing(_:)"
 },
-"doc://FairKit/documentation/FairKit/WebView/link(to:draggable:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "draggable"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/link(to:draggable:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:draggable:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/webview\/link(to:draggable:)"
-},
 "doc://FairKit/documentation/FairKit/WebView/link(to:embedded:)": {
   "abstract" : [
 
@@ -19127,7 +19051,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -30912,6 +30836,48 @@
   "title" : "withAppearanceSetting()",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/webview\/withappearancesetting()"
+},
+"doc://FairKit/documentation/FairKit/WebView/withLocaleSetting()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withLocaleSetting"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/WebView\/withLocaleSetting()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withLocaleSetting()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/webview\/withlocalesetting()"
 },
 "doc://FairKit/documentation/FairKit/WebView/zIndex(_:)": {
   "abstract" : [

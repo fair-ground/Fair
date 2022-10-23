@@ -556,7 +556,9 @@ struct AnimatableVectorArithmeticModifier<N: VectorArithmetic, V: View>: Animata
     }
 }
 
-
+/// A web browser embedded within an app.
+///
+/// This browser can be used for previewing links without exiting the app. On platforms where `SafariServices` is availble, this  implementation will use a ``SFSafariViewController`` instance, which provides a comprehensive in-app browser experience while sill permitting the user to open the link in their chosen system browser.
 public struct EmbeddedBrowser : View {
     let url: URL
     @State var presented = true

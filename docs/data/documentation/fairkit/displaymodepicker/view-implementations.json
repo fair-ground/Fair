@@ -255,7 +255,6 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/layoutPriority(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/lineLimit(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/lineSpacing(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:draggable:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:embedded:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/listItemTint(_:)-3ro9m",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/listItemTint(_:)-9yz2u",
@@ -418,6 +417,7 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/webViewNavigationResponsePolicy(decide:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/windowToolbarUnified(compact:showsTitle:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/withAppearanceSetting()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/withLocaleSetting()",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/zIndex(_:)"
       ],
       "title" : "Instance Methods"
@@ -19012,82 +19012,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/displaymodepicker\/linespacing(_:)"
 },
-"doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:draggable:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "draggable"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/link(to:draggable:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:draggable:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairkit\/displaymodepicker\/link(to:draggable:)"
-},
 "doc://FairKit/documentation/FairKit/DisplayModePicker/link(to:embedded:)": {
   "abstract" : [
 
@@ -19124,7 +19048,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -30909,6 +30833,48 @@
   "title" : "withAppearanceSetting()",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/displaymodepicker\/withappearancesetting()"
+},
+"doc://FairKit/documentation/FairKit/DisplayModePicker/withLocaleSetting()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withLocaleSetting"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/withLocaleSetting()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withLocaleSetting()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/displaymodepicker\/withlocalesetting()"
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/zIndex(_:)": {
   "abstract" : [

@@ -119,6 +119,7 @@ public struct FacetHostingView<Manager: SceneManager> : View where Manager.AppFa
     public var body: some View {
         FacetBrowserView<Manager, Manager.AppFacets>(nested: false, selection: selectionBinding)
             .withAppearanceSetting()
+            .withLocaleSetting()
             .environmentObject(manager)
             .focusedSceneValue(\.facetSelection, selectionOptionalBinding)
     }
@@ -332,7 +333,6 @@ extension Facet {
         .With<AppearanceSetting>
         .With<LanguageSetting>
         .With<SupportSetting>
-        //.With<LicenseSetting>
 }
 
 extension Facet where Self : CaseIterable {
@@ -511,6 +511,36 @@ private struct AppearanceManagerView<V: View> : View {
 }
 
 
+@MainActor class LocaleManager : ObservableObject {
+    static let shared = LocaleManager()
+    @AppStorage("localeOverride") var localeOverride = ""
+
+    private init() {
+    }
+}
+
+
+extension View {
+    /// Applies the user's language settings preferences from ``LanguageSetting`` into this view hierarchy.
+    ///
+    /// This function should be invoked as high as possible in the view hierarchy.
+    public func withLocaleSetting() -> some View {
+        LocaleManagerView(content: self)
+            .environmentObject(LocaleManager.shared)
+    }
+}
+
+private struct LocaleManagerView<V: View> : View {
+    @EnvironmentObject var localeManager: LocaleManager
+    @Environment(\.locale) var currentLocale: Locale
+    let content: V
+
+    var body: some View {
+        content
+            .environment(\.locale, !localeManager.localeOverride.isEmpty ? Locale(identifier: localeManager.localeOverride) : currentLocale)
+    }
+}
+
 /// A view that selects from the available themes
 struct ThemeStylePicker: View {
     @Binding var style: ThemeStyle
@@ -555,7 +585,6 @@ extension ThemeStyle : Identifiable {
     }
 }
 
-
 public struct LanguageSetting : Facet, View {
     let bundle: Bundle
     public let rawValue = "language"
@@ -565,7 +594,7 @@ public struct LanguageSetting : Facet, View {
     }
 
     public var facetInfo: FacetInfo {
-        FacetInfo(title: .LanguageText, symbol: "flag.badge.ellipsis", tint: .green)
+        FacetInfo(title: .LanguageText, symbol: "flag", tint: .green)
     }
 
     public static func facets<Manager>(for manager: Manager) -> [LanguageSetting] where Manager : FacetManager {
@@ -580,14 +609,13 @@ public struct LanguageSetting : Facet, View {
 struct LocalesList : View {
     let bundle: Bundle
     @Environment(\.locale) var currentLocale
+    @EnvironmentObject var localeManager: LocaleManager
 
     var body: some View {
         List {
             let preferredLocales = bundle.locales(preferred: true, for: currentLocale)
             Section {
-                ForEach(preferredLocales, id: \.self) { loc in
-                    LocaleLink(locale: loc, bundle: bundle)
-                }
+                ForEach(preferredLocales, id: \.self, content: localeSettingView)
             } header: {
                 preferredLocales.count == 1
                 ? Text("Current Language", bundle: .module, comment: "header text for language setting screen")
@@ -595,15 +623,45 @@ struct LocalesList : View {
             }
 
             Section {
-                ForEach(bundle.locales(preferred: false, for: currentLocale), id: \.self) { loc in
-                    LocaleLink(locale: loc, bundle: bundle)
-                }
+                ForEach(bundle.locales(preferred: false, for: currentLocale), id: \.self, content: localeSettingView)
             } header: {
                 Text("All Languages", bundle: .module, comment: "header text for language setting screen")
             } footer: {
                 Text("This list contains all the languages this app can be translated into. Help contribute a translation by tapping on the language.", bundle: .module, comment: "footer text for language setting screen")
             }
         }
+    }
+
+    @ViewBuilder func localeSettingView(locale: Locale) -> some View {
+        NavigationLink {
+            let localLanguageName = currentLocale.localizedString(forIdentifier: locale.identifier) ?? locale.identifier
+            let nativeLanguageName = locale.localizedString(forIdentifier: locale.identifier) ?? locale.identifier
+
+            Form {
+                Section {
+                    Button {
+                        localeManager.localeOverride = locale.identifier
+                    } label: {
+                        Text("Set Language to \(localLanguageName)", bundle: .module, comment: "button title for overriding the current locale")
+                    }
+                } header: {
+                    let percentComplete = (try? bundle.checkTranslationPercent(locale: locale)) ?? 0.0
+                    Text("Translation Status: \(percentComplete, format: .percent.rounded(rule: .towardZero, increment: 1))", bundle: .module, comment: "header text for localization section")
+                }
+
+                Section {
+                    Text(localLanguageName).link(to: .localeLink(for: locale), embedded: true)
+                } header: {
+                    Text.HelpPlease
+                } footer: {
+                    Text("Help translate this app into \(localLanguageName) by following the link to fork and edit the translation strings (signup required).", bundle: .module, comment: "header text for translation help plea")
+                }
+            }
+            .navigation(title: Text(localLanguageName), subtitle: Text(nativeLanguageName))
+        } label: {
+            LocaleSummaryListItemView(locale: locale, bundle: bundle)
+        }
+
     }
 }
 
@@ -618,64 +676,84 @@ extension Bundle {
     }
 }
 
-struct LocaleLink : View {
+extension Locale {
+    func languageDescription(for locale: Locale) -> (native: String?, foreign: String?) {
+        (locale.localizedString(forIdentifier: self.identifier), self.localizedString(forIdentifier: locale.identifier))
+    }
+}
+
+struct LocaleSummaryListItemView : View {
     let locale: Locale
     let bundle: Bundle
     @Environment(\.locale) var currentLocale
     @State var translationPercent: Double? = nil
 
     var body: some View {
-        if let localLanguageName = currentLocale.localizedString(forIdentifier: locale.identifier),
-           let nativeLanguageName = locale.localizedString(forIdentifier: locale.identifier),
-           let url = localeLink {
-            HStack(alignment: .center) {
-                VStack(alignment: .leading) {
-                    Text(nativeLanguageName) // e.g., “Deutsch”
-                    Text(localLanguageName) // e.g., “German”
-                        .font(.caption)
-                }
-                Spacer()
-                VStack(alignment: .trailing) {
-                    if let translationPercent = translationPercent {
-                        Text(translationPercent, format: .percent.rounded(rule: .towardZero, increment: 1))
-                            .font(.callout.monospacedDigit())
-                            .foregroundColor(.secondary)
-                    } else {
-                        ProgressView()
-                    }
+        let localLanguageName = currentLocale.localizedString(forIdentifier: locale.identifier) ?? locale.identifier
+        let nativeLanguageName = locale.localizedString(forIdentifier: locale.identifier) ?? locale.identifier
+
+        HStack(alignment: .center) {
+            VStack(alignment: .leading) {
+                Text(nativeLanguageName) // e.g., “Deutsch”
+                Text(localLanguageName) // e.g., “German”
+                    .font(.caption)
+            }
+            Spacer()
+            VStack(alignment: .trailing) {
+                if let translationPercent = translationPercent {
+                    Text(translationPercent, format: .percent.rounded(rule: .towardZero, increment: 1))
+                        .font(.callout.monospacedDigit())
+                        .foregroundColor(.secondary)
+                } else {
+                    ProgressView()
                 }
             }
-            .link(to: url)
-            .task {
-                if translationPercent == nil {
-                    await checkTranslationPercent()
+        }
+        //.link(to: url)
+        .task {
+            if translationPercent == nil {
+                do {
+                    self.translationPercent = try bundle.checkTranslationPercent(locale: locale)
+                } catch {
+                    dbg("error calculating translation percent:", error)
                 }
             }
         }
     }
 
-    var localeLink: URL? {
+}
+
+extension URL {
+    /// A link to the translation page for the given locale.
+    /// - Parameter locale: the locale the link to
+    /// - Returns: the URL to the localization link, if it exists
+    static func localeLink(for locale: Locale) -> URL? {
         URL.fairHubURL("blob/main")?.appendingPathComponent("Sources/App/Resources/\(locale.identifier).lproj/Localizable.strings")
     }
 
-    func checkTranslationPercent() async {
+}
+
+extension Bundle {
+    /// Checks the percentage of the `Localized.strings` file for the locale in this bundle that have been translated.
+    ///
+    /// - Parameter locale: the locale the check for
+    /// - Returns: the percentage of strings that have values that differ from the base localization
+    func checkTranslationPercent(locale: Locale) throws -> Double? {
         func checkStrings(for localeIdentifier: String?) -> URL? {
-            bundle.urls(forResourcesWithExtension: "strings", subdirectory: nil, localization: localeIdentifier)?.first(where: { $0.lastPathComponent == "Localizable.strings" })
+            self.urls(forResourcesWithExtension: "strings", subdirectory: nil, localization: localeIdentifier)?.first(where: { $0.lastPathComponent == "Localizable.strings" })
         }
 
         guard let localeURL = checkStrings(for: locale.identifier) else {
-            return dbg("no localizable strings for locale:", locale.identifier)
+            dbg("no localizable strings for locale:", locale.identifier)
+            return nil
         }
 
-        guard let devLocaleURL = checkStrings(for: bundle.developmentLocalization) else {
-            return dbg("no localizable strings for developer locale:", bundle.developmentLocalization)
+        guard let devLocaleURL = checkStrings(for: self.developmentLocalization) else {
+            dbg("no localizable strings for developer locale:", self.developmentLocalization)
+            return nil
         }
 
-        do {
-            self.translationPercent = try Self.checkLocalization(locale: locale, url: localeURL, base: devLocaleURL)
-        } catch {
-            dbg("error loading language plist:", error)
-        }
+        return try Self.checkLocalization(locale: locale, url: localeURL, base: devLocaleURL)
     }
 
     static func checkLocalization(locale: Locale, url: URL, base: URL) throws -> Double {
@@ -699,6 +777,6 @@ struct LocaleLink : View {
         }
         return Double(translationCount) / Double(keyCount)
     }
-}
 
+}
 #endif // canImport(SwiftUI)

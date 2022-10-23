@@ -255,7 +255,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/layoutPriority(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/lineLimit(_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/lineSpacing(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/link(to:draggable:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/link(to:embedded:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/listItemTint(_:)-8vwex",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/listItemTint(_:)-hk7a",
@@ -415,6 +414,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/viewWrapper()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/windowToolbarUnified(compact:showsTitle:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/withAppearanceSetting()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/withLocaleSetting()",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/zIndex(_:)"
       ],
       "title" : "Instance Methods"
@@ -19152,101 +19152,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facethostingview\/linespacing(_:)"
 },
-"doc://FairApp/documentation/FairApp/FacetHostingView/link(to:draggable:)": {
-  "abstract" : [
-    {
-      "text" : "Creates a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Link",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " to the given URL, or the Text itself if the link is ",
-      "type" : "text"
-    },
-    {
-      "code" : ".none",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "link"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "to"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "draggable"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/link(to:draggable:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "link(to:draggable:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facethostingview\/link(to:draggable:)"
-},
 "doc://FairApp/documentation/FairApp/FacetHostingView/link(to:embedded:)": {
   "abstract" : [
     {
@@ -19294,7 +19199,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -30879,6 +30784,60 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facethostingview\/withappearancesetting()"
 },
+"doc://FairApp/documentation/FairApp/FacetHostingView/withLocaleSetting()": {
+  "abstract" : [
+    {
+      "text" : "Applies the user’s language settings preferences from ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " into this view hierarchy.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withLocaleSetting"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetHostingView\/withLocaleSetting()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withLocaleSetting()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facethostingview\/withlocalesetting()"
+},
 "doc://FairApp/documentation/FairApp/FacetHostingView/zIndex(_:)": {
   "abstract" : [
 
@@ -30929,6 +30888,37 @@
   "title" : "zIndex(_:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facethostingview\/zindex(_:)"
+},
+"doc://FairApp/documentation/FairApp/LanguageSetting": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LanguageSetting"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LanguageSetting"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LanguageSetting",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/languagesetting"
 }
 }
 }
