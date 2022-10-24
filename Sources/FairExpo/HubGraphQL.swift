@@ -543,7 +543,7 @@ extension FairHub {
         public var releaseCount: Int
 
         /// the number of release assets to process
-        public var assetCount: Int = 15
+        public var assetCount: Int = 25
 
         public var cursor: GraphQLCursor? = nil
 
