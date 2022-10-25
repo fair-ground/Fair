@@ -119,7 +119,7 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, following the cursor until the `batchHandler` returns a non-`nil` response; the first response element will be returned
-    @discardableResult public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
+    @discardableResult public func requestBatches<T, A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.5, batchHandler: (_ requestIndex: Int, _ urlResponse: URLResponse?, _ batch: A.Response) throws -> T?) async throws -> T? where A.Service == Self {
         var request = request
         for requestIndex in 0... {
             if requestIndex > 0, let interleaveDelay = interleaveDelay {
@@ -188,7 +188,7 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, returning an `AsyncThrowingStream` that yields batches until they are no longer available or they have passed the max batch limit.
-    public func sendCursoredRequest<A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.0) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
+    public func sendCursoredRequest<A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.5) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
         return AsyncThrowingStream { c in
             Task {
                 do {
