@@ -409,6 +409,7 @@ extension View {
     /// ```
     public func onChange<T: Equatable>(of value: T, debounce interval: TimeInterval, priority: TaskPriority, perform action: @escaping (T) async -> ()) -> some View {
         task(id: value, priority: priority) {
+            // TODO: should we use withTaskCancellationHandler instead?
             do {
                 // buffer search typing by a short interval so we can type
                 // without the UI slowing down with live search results

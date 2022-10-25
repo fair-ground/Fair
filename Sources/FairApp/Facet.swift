@@ -511,11 +511,29 @@ private struct AppearanceManagerView<V: View> : View {
 }
 
 
+/// A shared manager for overriding the current locale from within an app (as opposed to chaning it system-wide from the settings).
 @MainActor class LocaleManager : ObservableObject {
     static let shared = LocaleManager()
+    /// The overridden locale identifier; a blank string signifies being un-set
     @AppStorage("localeOverride") var localeOverride = ""
 
     private init() {
+    }
+
+    /// The overidden locale for this manager, or else nil if it is un-set
+    var locale: Locale? {
+        get {
+            localeOverride.isEmpty ? nil : Locale(identifier: localeOverride)
+        }
+
+        set {
+            localeOverride = newValue?.identifier ?? ""
+        }
+    }
+
+    var layoutDirection: LayoutDirection? {
+        // TODO: get a complete list of RTL: Arabic, Aramaic, Azeri, Divehi, Fula, Hebrew, Kurdish, N'ko, Persian, Rohingya, Syriac, Urdu
+        ["ar", "arc", "az", "he", "ku", "fa", "ur"].contains(localeOverride) ? .rightToLeft : nil
     }
 }
 
@@ -533,11 +551,13 @@ extension View {
 private struct LocaleManagerView<V: View> : View {
     @EnvironmentObject var localeManager: LocaleManager
     @Environment(\.locale) var currentLocale: Locale
+    @Environment(\.layoutDirection) var currentLayoutDirection: LayoutDirection
     let content: V
 
     var body: some View {
         content
-            .environment(\.locale, !localeManager.localeOverride.isEmpty ? Locale(identifier: localeManager.localeOverride) : currentLocale)
+            .environment(\.locale, localeManager.locale ?? currentLocale)
+            .environment(\.layoutDirection, localeManager.layoutDirection ?? currentLayoutDirection)
     }
 }
 
@@ -611,6 +631,7 @@ struct LocalesList : View {
     @Environment(\.locale) var currentLocale
     @EnvironmentObject var localeManager: LocaleManager
 
+#warning("TODO: show overridden language setting with option to clear")
     var body: some View {
         List {
             let preferredLocales = bundle.locales(preferred: true, for: currentLocale)
