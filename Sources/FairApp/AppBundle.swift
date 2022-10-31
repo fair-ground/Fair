@@ -136,9 +136,9 @@ extension AppBundle {
 
     public func validatePaths() throws {
         for path in self.source.paths {
-            if path.pathIsLink {
+            if try path.pathIsLink {
                 //dbg("skipping path link:", path)
-            } else if path.pathIsDirectory {
+            } else if try path.pathIsDirectory {
                 //dbg("skipping path directory:", path)
             } else {
                 //dbg("trying to read path:", path, "size:", path.pathSize, "dir:", path.pathIsDirectory)
@@ -185,9 +185,9 @@ extension AppBundle {
         }
 
         // check first for macOS convention executable "AppName.app/Contents/MacOS/CFBundleExecutable"
-        let folder = try self.source.nodes(at: infoParentNode).first(where: { $0.pathIsDirectory && $0.pathName.lastPathComponent == "MacOS" }) ?? infoParentNode
+        let folder = try self.source.nodes(at: infoParentNode).first(where: { try $0.pathIsDirectory && $0.pathName.lastPathComponent == "MacOS" }) ?? infoParentNode
 
-        guard let execNode = try self.source.nodes(at: folder).first(where: { $0.pathName.lastPathComponent == executableName }) else {
+        guard let execNode = try self.source.nodes(at: folder).first(where: { try $0.pathName.lastPathComponent == executableName }) else {
             return nil
         }
 
@@ -202,7 +202,7 @@ extension AppBundle {
         func loadInfoPlist(from node: Source.Path) throws -> (Plist, parent: Source.Path, node: Source.Path)? {
             //dbg("attempting to load Info.plist from:", node.pathName)
             let contents = try source.nodes(at: node)
-            guard let infoNode = contents.first(where: { $0.pathComponents.last == "Info.plist" }) else {
+            guard let infoNode = try contents.first(where: { try $0.pathComponents.last == "Info.plist" }) else {
                 // dbg("missing Info.plist node from:", contents.map(\.pathName))
                 return nil
             }
@@ -214,25 +214,25 @@ extension AppBundle {
             return try Plist(data: source.seekableData(at: infoNode).readData(ofLength: nil))
         }
 
-        func rootFolders(named names: Set<String>) -> [Source.Path] {
-            rootNodes.filter({
-                $0.pathIsDirectory && names.contains($0.pathName.lastPathComponent)
+        func rootFolders(named names: Set<String>) throws -> [Source.Path] {
+            try rootNodes.filter({
+                try $0.pathIsDirectory && names.contains($0.pathName.lastPathComponent)
             })
         }
 
-        if let contentsNode = rootFolders(named: ["Contents"]).first {
+        if let contentsNode = try rootFolders(named: ["Contents"]).first {
             // dbg("contentsNode", contentsNode)
             // check the "Contents/Info.plist" convention (macOS)
             return try loadInfoPlist(from: contentsNode)
-        } else if let infoNode = rootNodes.first(where: { $0.pathName == "Info.plist"}) {
+        } else if let infoNode = try rootNodes.first(where: { try $0.pathName == "Info.plist"}) {
             return try (loadPlist(from: infoNode), parent: nil, node: infoNode)
         } else {
-            for payloadNode in rootFolders(named: ["Payload", "Wrapper"]) {
+            for payloadNode in try rootFolders(named: ["Payload", "Wrapper"]) {
                 // dbg("payloadNode", payloadNode)
                 // check the "Payload/App Name.app/Info.plist" convention
                 let payloadContents = try source.nodes(at: payloadNode)
-                guard let appNode = payloadContents.first(where: {
-                    $0.pathIsDirectory && $0.pathName.hasSuffix(".app")
+                guard let appNode = try payloadContents.first(where: {
+                    try $0.pathIsDirectory && $0.pathName.hasSuffix(".app")
                 }) else {
                     continue
                 }
@@ -242,16 +242,17 @@ extension AppBundle {
         }
 
         // finally, check for root-level .app files; this handles both the case where a macOS app is distributed in a .zip, as well as .ipa files that are missing a root "Payload/" folder
-        for appNode in rootNodes.filter({
-            $0.pathIsDirectory && $0.pathName.hasSuffix(".app")
+        for appNode in try rootNodes.filter({
+            try $0.pathIsDirectory && $0.pathName.hasSuffix(".app")
         }) {
             // check the "App Name.app/Info.plist" convention
             let appContents = try source.nodes(at: appNode)
 
-            dbg("appNode:", appNode.pathName, "appContents:", appContents.map(\.pathName))
+            let contentPaths = try? appContents.map({ try $0.pathName })
+            dbg("appNode:", (try? appNode.pathName), "appContents:", contentPaths)
 
-            if let contentsNode = appContents.first(where: {
-                $0.pathIsDirectory && $0.pathName.lastPathComponent == "Contents"
+            if let contentsNode = try appContents.first(where: {
+                try $0.pathIsDirectory && $0.pathName.lastPathComponent == "Contents"
             }) {
                 // dbg("contentsNode", contentsNode)
                 // check the "AppName.app/Contents/Info.plist" convention (macOS)
@@ -365,13 +366,13 @@ public protocol DataWrapper : AnyObject {
 
 public protocol DataWrapperPath {
     /// The name of this path relative to the root of the file system
-    var pathName: String { get }
+    var pathName: String { get throws }
     /// The size of the element represented by this path
-    var pathSize: UInt64? { get }
+    var pathSize: UInt64? { get throws }
     /// True if the path is a directory
-    var pathIsDirectory: Bool { get }
+    var pathIsDirectory: Bool { get throws }
     /// True if the path is a symbolic link
-    var pathIsLink: Bool { get }
+    var pathIsLink: Bool { get throws }
 }
 
 extension DataWrapperPath {
@@ -379,10 +380,12 @@ extension DataWrapperPath {
     ///
     /// - TODO: on Windows do we need to use backslash?
     var pathComponents: [String] {
-        // (pathName as NSString).pathComponents // not correct: will return "/" elements when they are at the beginning or else
-        pathName
-            .split(separator: "/", omittingEmptySubsequences: true)
-            .map(\.description)
+        get throws {
+            // (pathName as NSString).pathComponents // not correct: will return "/" elements when they are at the beginning or else
+            try pathName
+                .split(separator: "/", omittingEmptySubsequences: true)
+                .map(\.description)
+        }
     }
 }
 
@@ -535,8 +538,8 @@ public class ZipArchiveDataWrapper : DataWrapper {
                 p.path.deletingLastPathComponent == parentPath.path
             })
         } else {
-            let rootEntries = paths.filter({ p in
-                p.pathComponents.count == 1 // all top-level entries
+            let rootEntries = try paths.filter({ p in
+                try p.pathComponents.count == 1 // all top-level entries
             })
 
             //dbg("root entries:", rootEntries.map(\.path))

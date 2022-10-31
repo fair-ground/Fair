@@ -281,8 +281,20 @@ extension FairContainer where Self : SceneManager {
     public typealias AppFacets = Never
 }
 
+//extension Never : FacetView {
+//    public func facetView(for store: FacetStore) -> Never {
+//        fatalError()
+//    }
+//}
+
+public protocol FacetView : Facet {
+    associatedtype FacetStore : FacetManager
+    associatedtype FacetViewType : View
+    @ViewBuilder func facetView(for store: FacetStore) -> FacetViewType
+}
+
 /// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
-@MainActor public protocol SceneManager: FacetManager, ObservableObject {
+@MainActor public protocol SceneManager: FacetManager, ObservableObject where AppFacets : FacetView, ConfigFacets : FacetView  {
     /// Creates a new scene manager from scratch.
     init()
 
@@ -298,8 +310,8 @@ public extension SceneManager {
     /// - Parameter bundle: the bundle from which to load the resource (typically `.module`)
     /// - Returns: the decoded type parsed from the YAML file
     /// - Note: Failure to parse the YAML file or decode the result type is fatal.
-    static func configuration<T: Decodable>(for bundle: Bundle) -> T {
-        let url = bundle.url(forResource: "App", withExtension: "yml", subdirectory: nil)!
+    static func configuration<T: Decodable>(name: String, for bundle: Bundle) -> T {
+        let url = bundle.url(forResource: name, withExtension: "yml", subdirectory: nil)!
         let source = try! String(contentsOf: url, encoding: .utf8)
         let yaml = try! JSum.parse(yaml: source)
         return try! T(json: yaml.json(), dataDecodingStrategy: .base64, dateDecodingStrategy: .iso8601)
@@ -1332,8 +1344,20 @@ public struct CodableColor : Codable, Hashable, Sendable {
     /// The system accent color
     public static let accentColor = CodableColor(SystemColor.accent)
 
-    /// The system colors
-    public static var systemColors = [.orange, .teal, .brown, .cyan, .blue, .green, .red, .indigo, .purple, .mint, .pink].map(CodableColor.init)
+    /// The system colors, in the order they could be displayed in a picker
+    public static var nominalColors = [
+        .orange,
+        .mint,
+        .indigo,
+        .cyan,
+        .pink,
+        .teal,
+        .brown,
+        .blue,
+        .green,
+        .red,
+        .purple,
+    ].map(CodableColor.init)
 
     /// Enumeration definit system UI colors
     public enum SystemColor : String, Codable, CaseIterable, Sendable {
@@ -1484,7 +1508,10 @@ internal func NSLocalizedString(_ key: String, tableName: String? = nil, bundle:
 private let moduleBundle = Bundle(url: Bundle.main.bundleURL.appendingPathComponent("Fair_FairApp.bundle"))
 
 
-/// Work-in-Progress marker
+/// Work-in-Progress marker.
+///
+/// This function returns the value of the parameter unmodified.
+/// It merely serves to raise a warning that the given code should be re-visited.
 @available(*, deprecated, message: "work in progress")
 @inlinable public func wip<T>(_ value: T) -> T { value }
 

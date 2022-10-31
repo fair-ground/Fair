@@ -516,12 +516,17 @@ extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String, catalogName: String, catalogIdentifier: String, baseRepository: String?, topicName: String?, starrerName: String?, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int = 100) async throws -> AppCatalog {
+    func buildAppCasks(owner: String, catalogName: String, catalogIdentifier: String, baseRepository: String?, topicName: String?, starrerName: String?, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int, releaseQueryCount: Int, assetQueryCount: Int, msg messageHandler: (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> () = { dbg($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) }) async throws -> AppCatalog {
 
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
 
-        dbg("building appcasks with maxApps:", maxApps, "boost:", boost)
+        // shim to enable debugging and CLI logging
+        func msg(_ a0: Any?, _ a1: Any? = nil, _ a2: Any? = nil, _ a3: Any? = nil, _ a4: Any? = nil, _ a5: Any? = nil, _ a6: Any? = nil, _ a7: Any? = nil, _ a8: Any? = nil, _ a9: Any? = nil) {
+            messageHandler(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9)
+        }
+
+        msg("building appcasks with maxApps:", maxApps, "boost:", boost)
 
         struct CaskCatalog {
             let casks: [String: CaskItem]
@@ -544,10 +549,12 @@ extension FairHub {
         var starredRepoMap: [String: CaskRepository] = [:]
 
         // 1. Check repositories that have been starred by the fairbot
-        if let starrerName = starrerName {
+        if let starrerName = starrerName, !starrerName.isEmpty {
             for try await starredRepos in sendCursoredRequest(AppCasksStarQuery(starrerName: starrerName, count: caskQueryCount, releaseCount: 5)) {
+
                 // we don't actually treat these as appcasks sources; instead, we just index some metadata that other casks may want to look up
                 for repo in try starredRepos.result.get().data.user.starredRepositories.nodes {
+                    msg("starred by:", starrerName, "repo:", repo.nameWithOwner)
                     if repo.isArchived {
                         continue
                     }
@@ -569,7 +576,7 @@ extension FairHub {
 
         // 2. Check forks of the `appfair/appcasks` repository
         if let baseRepository = baseRepository {
-            for try await forks in sendCursoredRequest(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: caskQueryCount)) {
+            for try await forks in sendCursoredRequest(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: releaseQueryCount, assetCount: assetQueryCount)) {
                 if try await addAppCasks(forks.result.get().data.repository.forks.nodes, caskCatalog: await casks, stats: await stats) == false {
                     break
                 }
@@ -577,8 +584,9 @@ extension FairHub {
             try await Task.sleep(interval: 1.0) // backoff before the next request
         }
 
+
         // 3. Check repos with the "appfair-cask" topic
-        if let topicName = topicName {
+        if let topicName = topicName, !topicName.isEmpty {
             for try await topicRepos in sendCursoredRequest(AppCasksTopicQuery(topicName: topicName, count: caskQueryCount, releaseCount: caskQueryCount)) {
                 if try await addAppCasks(topicRepos.result.get().data.topic.repositories.nodes, caskCatalog: await casks, stats: await stats) == false {
                     break
@@ -588,16 +596,16 @@ extension FairHub {
         }
 
         func addAppCasks(_ repos: [FairHub.CaskRepository], caskCatalog casks: CaskCatalog?, stats: CaskStats?) async throws -> Bool {
-            dbg("fetched appcasks repos:", repos.count)
+            msg("fetched appcasks repos:", repos.count)
             for repo in repos {
 
                 if repo.isArchived {
-                    dbg("skipping archived repository:", repo.nameWithOwner)
+                    msg("skipping archived repository:", repo.nameWithOwner)
                     continue
                 }
 
                 if repo.visibility != .PUBLIC {
-                    dbg("skipping non-public repository:", repo.nameWithOwner)
+                    msg("skipping non-public repository:", repo.nameWithOwner)
                     continue
                 }
 
@@ -605,7 +613,7 @@ extension FairHub {
             }
 
             if let maxApps = maxApps, apps.count >= maxApps {
-                dbg("stopping due to maxapps:", maxApps)
+                msg("stopping due to maxapps:", maxApps)
                 return false
             }
 
@@ -614,23 +622,23 @@ extension FairHub {
 
         func addRepositoryReleases(_ repo: CaskRepository, caskCatalog: CaskCatalog?, stats: CaskStats?) async throws {
             if apps.count >= maxApps ?? .max {
-                return dbg("not adding app beyond max:", maxApps)
+                return msg("not adding app beyond max:", maxApps)
             }
 
-            dbg("checking app repo:", repo.owner.appNameWithSpace, repo.name)
+            msg("checking app repo:", repo.owner.appNameWithSpace, repo.name)
 
             if repo.owner.isVerified != true {
-                return dbg("skipping un-verified owner:", repo.nameWithOwner)
+                return msg("skipping un-verified owner:", repo.nameWithOwner)
             }
 
-            dbg("received release names:", repo.releases.nodes.compactMap(\.name))
+            msg("received release names:", repo.releases.nodes.compactMap(\.name))
             if addReleases(repo: repo, repo.releases.nodes, casks: caskCatalog, stats: stats) == true {
                 if repo.releases.pageInfo?.hasNextPage == true,
                     let releaseCursor = repo.releases.pageInfo?.endCursor {
-                    dbg("traversing release cursor:", releaseCursor)
+                    msg("traversing release cursor:", releaseCursor)
                     for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: repo.id, releaseCount: caskQueryCount, cursor: releaseCursor)) {
                         let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
-                        dbg("received more release names:", moreReleaseNodes.compactMap(\.name))
+                        msg("received more release names:", moreReleaseNodes.compactMap(\.name))
                         if addReleases(repo: repo, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
                             return
                         }
@@ -647,32 +655,32 @@ extension FairHub {
                     continue
                 }
                 if !tag.name.hasPrefix(caskPrefix) {
-                    dbg("tag name", tag.name.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
+                    msg("tag name", tag.name.enquote(), "does not begin with expected prefix", caskPrefix.enquote())
                     continue
                 }
 
                 let token = tag.name.dropFirst(caskPrefix.count).description
                 let cask = casks?.casks[token]
                 if casks != nil && cask == nil {
-                    dbg("  filtering app missing from casks:", token)
+                    msg("  filtering app missing from casks:", token)
                     continue
                 }
 
                 guard let website = repo.owner.websiteUrl else {
-                    dbg("skipping un-set hostname for owner:", repo.nameWithOwner)
+                    msg("skipping un-set hostname for owner:", repo.nameWithOwner)
                     continue
                 }
 
                 guard let homepage = cask?.homepage.flatMap(URL.init(string:)) else {
-                    dbg("skipping un-set hostname for cask:", cask?.homepage)
+                    msg("skipping un-set hostname for cask:", cask?.homepage)
                     continue
                 }
 
-                dbg("validating cask homepage: \(homepage.absoluteString) against fork websiteUrl: \(website.absoluteString)")
+                msg("validating cask homepage: \(homepage.absoluteString) against fork websiteUrl: \(website.absoluteString)")
 
                 if !homepage.absoluteString.hasPrefix(website.absoluteString)
                     && repo.nameWithOwner != "App-Fair/appcasks" { // TODO: specify privileged base repository in args
-                    dbg("skipping un-matched cask homepage and verified url:", homepage, website)
+                    msg("skipping un-matched cask homepage and verified url:", homepage, website)
                     continue
                 }
 
@@ -694,25 +702,25 @@ extension FairHub {
                         // which means that the oldest fork is the fallback for
                         // all metadata lookups
                         if !appids.insert(app.bundleIdentifier).inserted {
-                            dbg("skipping duplicate app id:", app.bundleIdentifier)
+                            msg("skipping duplicate app id:", app.bundleIdentifier)
                             continue
                         }
 
                         // the funding links will transfer from the associated starred repo
                         if let homepage = cask?.homepage,
                            let repo = starredRepoMap[homepage.lowercased()] {
-                            dbg("checking app funding for:", homepage)
+                            msg("checking app funding for:", homepage)
                             if !repo.fundingLinks.isEmpty {
                                 app.fundingLinks = repo.fundingLinks.map { link in
                                     AppFundingLink(platform: link.platform, url: link.url)
                                 }
-                                dbg("added app funding links for \(homepage):", app.fundingLinks?.debugJSON)
+                                msg("added app funding links for \(homepage):", app.fundingLinks?.debugJSON)
                             }
                         }
 
                         apps.append(app)
                         if let maxApps = maxApps, apps.count >= maxApps {
-                            dbg("stopping due to maxapps:", maxApps)
+                            msg("stopping due to maxapps:", maxApps)
                             return false
                         }
                     }
@@ -755,7 +763,7 @@ extension FairHub {
                     continue
                 }
                 let app = createApp(token: token, release: nil, repo: nil, cask: cask, stats: caskStats)
-                dbg("created app:", app)
+                msg("created app:", app)
                 if let app = app {
                     apps.append(app)
                 }

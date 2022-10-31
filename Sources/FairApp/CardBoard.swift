@@ -125,7 +125,7 @@ public struct CardBoard<Flair, FlairContent: View> : View {
                 try await Task.sleep(interval: interval ?? cardCycleDuration ?? 10)
             } catch {
                 // an expected cancellation error, which will occur when the user switches away from the view
-                dbg("cancelled autocycle:", error)
+                //dbg("cancelled autocycle:", error)
                 return
             }
 

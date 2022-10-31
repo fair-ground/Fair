@@ -494,6 +494,7 @@ struct LocalizedStringsFile {
     /// Updates the strings file contents with the specified property list dictionary.
     mutating func update(strings: Plist) throws {
         var lines = self.fileLines.map(String.init)
+        var trimLines = IndexSet()
 
         for (key, value) in strings.rawValue {
             guard let key = key as? String else { continue }
@@ -504,12 +505,30 @@ struct LocalizedStringsFile {
             }
 
             // we need to manually construct the line ourselves, because `PropertyListSerialization.data(fromPropertyList: …, format: .openStep)` doesn't work for writing
+
+            // for multi-line string values,
+            // we can't just trim down the file here, because the keys are not necessarily stored in order.
+            // so instead, save a list of lines to delete
+            if let endStringLine = (lineIndex..<lines.count).first(where: { lines[$0].trimmingCharacters(in: .whitespaces).hasSuffix(#"";"#) }), endStringLine > lineIndex {
+                trimLines.insert(integersIn: (lineIndex+1)...endStringLine)
+            }
+
+            // update the string in-place
             let newLine = "\"\(key)\" = \"\(value)\";"
             lines[lineIndex] = newLine
         }
 
+        // now clear the extra parts of the trailing strings
+        lines.remove(atOffsets: trimLines)
+
         self.plist = strings
         self.fileContents = lines.joined(separator: "\n")
+
+        // now validate by trying to parse the plust before we write it out
+        // TODO: throw a nicer error message when the generated localization file is invalid
+        // Error: The data couldn’t be read because it isn’t in the correct format.
+        dbg("attempting to re-parse Localized.strings size:", self.fileContents.utf8Data.count)
+        _ = try Plist(data: self.fileContents.utf8Data)
     }
 }
 
@@ -2668,6 +2687,15 @@ public struct BrewCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("The maximum number of apps to include.", valueName: "count"))
         public var maxApps: Int?
 
+        @Option(name: [.long], help: ArgumentHelp("The cask query size for the request.", valueName: "count"))
+        public var caskQueryCount: Int = 10
+
+        @Option(name: [.long], help: ArgumentHelp("The release query size for the request.", valueName: "count"))
+        public var releaseQueryCount: Int = 10
+
+        @Option(name: [.long], help: ArgumentHelp("The asset query size for the request.", valueName: "count"))
+        public var assetQueryCount: Int = 10
+
         @Option(name: [.long], help: ArgumentHelp("The endpoint containing additional metadata.", valueName: "url"))
         public var mergeCaskInfo: String?
 
@@ -2710,8 +2738,15 @@ public struct BrewCommand : AsyncParsableCommand {
             // sum up duplicate boosts to get the count
             let boostMap: [String : Int] = Dictionary(appids) { $0 + $1 }
 
+            let catalogName = sourceOptions.catalogName ?? "appcasks"
+            let catalogIdentifier = sourceOptions.catalogIdentifier ?? "identifier"
+            let mergeCasksURL = mergeCaskInfo.flatMap(URL.init(string:))
+            let caskStatsURL = mergeCaskStats.flatMap(URL.init(string:))
+
             // build the catalog filtering on specific artifact extensions
-            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, catalogName: sourceOptions.catalogName ?? "appcasks", catalogIdentifier: sourceOptions.catalogIdentifier ?? "identifier",  baseRepository: self.casksRepo, topicName: topicName, starrerName: starrerName, maxApps: maxApps, mergeCasksURL: mergeCaskInfo.flatMap(URL.init(string:)), caskStatsURL: mergeCaskStats.flatMap(URL.init(string:)), boostMap: boostMap, boostFactor: boostFactor)
+            var catalog = try await hub.buildAppCasks(owner: hubOptions.organizationName, catalogName: catalogName, catalogIdentifier: catalogIdentifier,  baseRepository: self.casksRepo, topicName: topicName, starrerName: starrerName, maxApps: maxApps, mergeCasksURL: mergeCasksURL, caskStatsURL: caskStatsURL, boostMap: boostMap, boostFactor: boostFactor, caskQueryCount: caskQueryCount, releaseQueryCount: releaseQueryCount, assetQueryCount: assetQueryCount, msg: {
+                self.msg(.debug, $0, $1, $2, $3, $4, $5, $6, $7, $8, $9)
+            })
 
             if fundingSources {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: self.casksRepo)
@@ -3349,7 +3384,7 @@ fileprivate extension FairMsgCommand {
             return
         }
 
-        let msg = message.map({ $0.flatMap(String.init(describing:)) ?? "nil" }).joined(separator: " ")
+        let msg = message.compactMap({ $0.flatMap(String.init(describing:)) }).joined(separator: " ")
 
         if kind == .debug && msgOptions.verbose != true {
             return // skip debug output unless we are running verbose
