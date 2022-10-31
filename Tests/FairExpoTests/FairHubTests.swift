@@ -259,7 +259,7 @@ final class FairHubTests: XCTestCase {
 
         let api = HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint)
         let maxApps: Int? = 123 // wip(3808) // 123 // _000_000
-        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, catalogName: "Catalog", catalogIdentifier: "net.catalog.id", baseRepository: "appcasks", topicName: "appfair-cask", starrerName: "appfairbot", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000)
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCasks(owner: appfairName, catalogName: "Catalog", catalogIdentifier: "net.catalog.id", baseRepository: "appcasks", topicName: "appfair-cask", starrerName: "appfairbot", maxApps: maxApps, mergeCasksURL: api.caskList, caskStatsURL: api.caskStats30, boostFactor: 1000, caskQueryCount: 10, releaseQueryCount: 10, assetQueryCount: 10)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         let ids = Set(catalog.apps.map({ $0.bundleIdentifier }))
         dbg("catalog", names.sorted())
@@ -272,7 +272,7 @@ final class FairHubTests: XCTestCase {
         }
 
         XCTAssertTrue(names.contains("CotEditor"))
-        XCTAssertTrue(ids.contains(.init("coteditor")))
+        XCTAssertTrue(ids.contains("coteditor"))
 
         XCTAssertGreaterThanOrEqual(names.count, 1)
 
