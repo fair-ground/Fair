@@ -519,7 +519,10 @@ struct LocalizedStringsFile {
         }
 
         // now clear the extra parts of the trailing strings
-        lines.remove(atOffsets: trimLines)
+        // lines.remove(atOffsets: trimLines) // not available on Linux
+        for removeLine in trimLines.sorted().reversed() {
+            lines.remove(at: removeLine)
+        }
 
         self.plist = strings
         self.fileContents = lines.joined(separator: "\n")
