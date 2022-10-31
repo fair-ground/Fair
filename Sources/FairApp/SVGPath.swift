@@ -200,7 +200,7 @@ public extension CGPath {
     ///   - includeControlPoints: whether the include points that define the curves
     ///
     /// - Returns: the path adjusted to fit within the `sourceRect` parameter, or `nil` if the transform could not be applied
-    func fitting(rect sourceRect: CGRect, inset sourceInset: CGFloat = 0.0, stretch: Bool = false, includeControlPoints: Bool = true) -> CGPath? {
+    func fitting(rect sourceRect: CGRect, inset sourceInset: Double = 0.0, stretch: Bool = false, includeControlPoints: Bool = true) -> CGPath? {
         let (containerWidth, containerHeight) = (sourceRect.width, sourceRect.height)
 
         let bbox = includeControlPoints ? self.boundingBox : self.boundingBoxOfPath // whether we use the control points for fitting the path
@@ -261,29 +261,29 @@ public extension CGPath {
 
 private struct Vector2D
 {
-    let deltaX: CGFloat
-    let deltaY: CGFloat
+    let deltaX: Double
+    let deltaY: Double
 
-    init(deltaX: CGFloat, deltaY: CGFloat)
+    init(deltaX: Double, deltaY: Double)
     {
         self.deltaX = deltaX
         self.deltaY = deltaY
     }
 
-    private var vectorMagnitude: CGFloat
+    private var vectorMagnitude: Double
     {
         let    result = sqrt(self.deltaX*self.deltaX+self.deltaY*self.deltaY)
         return result
     }
 
-    func vectorRatio(vector2: Vector2D) -> CGFloat
+    func vectorRatio(vector2: Vector2D) -> Double
     {
         var result = self.deltaX*vector2.deltaX + self.deltaY*vector2.deltaY
         result /= self.vectorMagnitude*vector2.vectorMagnitude
         return result
     }
 
-    func vectorAngle(vector2: Vector2D) -> CGFloat
+    func vectorAngle(vector2: Vector2D) -> Double
     {
         let vectorRatio = self.vectorRatio(vector2: vector2)
         var  result = acos(vectorRatio)
@@ -295,19 +295,21 @@ private struct Vector2D
     }
 }
 
+#if canImport(CoreGraphics)
+
 private extension CGMutablePath
 {
     struct CGPathBuilder
     {
         private let tokens: [PathToken]
-        var x: CGFloat = 0.0
-        var y: CGFloat = 0.0
+        var x: Double = 0.0
+        var y: Double = 0.0
 
-        var lastCubicX₂: CGFloat?
-        var lastCubicY₂: CGFloat?
+        var lastCubicX₂: Double?
+        var lastCubicY₂: Double?
 
-        var lastQuadX₁: CGFloat?
-        var lastQuadY₁: CGFloat?
+        var lastQuadX₁: Double?
+        var lastQuadY₁: Double?
 
         let mutablePath : CGMutablePath
 
@@ -347,7 +349,7 @@ private extension CGMutablePath
 
          - warning; An end point that equals the start point will result in nothing being drawn.
          **/
-        mutating private func addArc(xRadius radX: CGFloat, yRadius radY: CGFloat, tiltAngle: Double, largeArcFlag: PathToken.ArcChoice, sweepFlag: PathToken.ArcSweep, endX: CGFloat, endY: CGFloat)
+        mutating private func addArc(xRadius radX: Double, yRadius radY: Double, tiltAngle: Double, largeArcFlag: PathToken.ArcChoice, sweepFlag: PathToken.ArcSweep, endX: Double, endY: Double)
         {
             //implementation notes http://www.w3.org/TR/SVG/implnote.html#ArcConversionEndpointToCenter
             // general algorithm from MIT licensed http://code.google.com/p/svg-edit/source/browse/trunk/editor/canvg/canvg.js
@@ -378,8 +380,8 @@ private extension CGMutablePath
                 let xAxisRotationRadians = xAxisRotationDegrees*kDegreesToRadiansConstant
 
 
-                let cosineAxisRotation = CGFloat(cos(xAxisRotationRadians))
-                let sineAxisRotation = CGFloat(sin(xAxisRotationRadians))
+                let cosineAxisRotation = Double(cos(xAxisRotationRadians))
+                let sineAxisRotation = Double(sin(xAxisRotationRadians))
 
                 let deltaX = self.x-endX
                 let deltaY = self.y-endY
@@ -430,7 +432,7 @@ private extension CGMutablePath
                 let  centerScalingDivisor = xRadius²*translatedCurPointY²
                 + yRadius²*translatedCurPointX²
 
-                var    centerScaling = CGFloat(0.0)
+                var    centerScaling = Double(0.0)
 
                 if(centerScalingDivisor != 0.0)
                 {
@@ -481,7 +483,7 @@ private extension CGMutablePath
 
                 if(vectorRatio <= -1)
                 {
-                    angleDelta = CGFloat.pi
+                    angleDelta = Double.pi
                 }
                 else if(vectorRatio >= 1.0)
                 {
@@ -491,16 +493,16 @@ private extension CGMutablePath
                 switch sweepFlag
                 {
                 case .clockwise where angleDelta > 0.0:
-                    angleDelta = angleDelta - 2.0 * CGFloat.pi
+                    angleDelta = angleDelta - 2.0 * Double.pi
                 case .counterclockwise where angleDelta < 0.0:
-                    angleDelta = angleDelta - 2.0 * CGFloat.pi
+                    angleDelta = angleDelta - 2.0 * Double.pi
                 default:
                     break
                 }
 
                 transform = transform.translatedBy(x: centerPoint.x, y: centerPoint.y)
 
-                transform = transform.rotated(by: CGFloat(xAxisRotationRadians))
+                transform = transform.rotated(by: Double(xAxisRotationRadians))
 
                 let radius = (xRadius > yRadius) ? xRadius : yRadius
                 let scaleX = (xRadius > yRadius) ? 1.0 : xRadius / yRadius
@@ -694,8 +696,8 @@ private extension CGMutablePath
 
                     x = newX
                     y = newY
-                    lastCubicX₂ = CGFloat(x₂)
-                    lastCubicY₂ = CGFloat(y₂)
+                    lastCubicX₂ = Double(x₂)
+                    lastCubicY₂ = Double(y₂)
 
                     mutablePath.addCurve(to: CGPoint(x: x, y: y), control1: CGPoint(x: x₁, y: y₁), control2: CGPoint(x: lastCubicX₂!, y: lastCubicY₂!))
 
@@ -757,7 +759,7 @@ private extension CGPath
     }
 }
 
-//#endif
+#endif
 
 
 private struct PathParser
