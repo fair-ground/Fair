@@ -33,6 +33,14 @@
  */
 import Swift
 
+#if canImport(CoreFoundation)
+import CoreFoundation
+#endif
+
+#if canImport(Glibc)
+import Glibc
+#endif
+
 /// A parsed SVG path as per: https://www.w3.org/TR/SVG11/paths.html#PathDataBNF
 ///
 /// Paths can be used to derive a `CGPath`, which in turn can be rendered in a `SwiftUI.Shape`.
