@@ -40,10 +40,16 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/With",
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/WithStandardSettings"
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/With"
       ],
       "title" : "Type Aliases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/facets(for:)-1dvkz"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -150,17 +156,73 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/multifacet\/with"
 },
-"doc://FairApp/documentation/FairApp/MultiFacet/WithStandardSettings": {
+"doc://FairApp/documentation/FairApp/MultiFacet/facets(for:)-1dvkz": {
   "abstract" : [
     {
-      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "text" : "The default implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "facets",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CaseIterable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (e.g., an enum) will simply return the cases of the enum.",
       "type" : "text"
     }
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CaseIterable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -168,21 +230,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "WithStandardSettings"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/WithStandardSettings",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "facets"
+    },
     {
-      "kind" : "identifier",
-      "text" : "WithStandardSettings"
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "AllCases"
     }
   ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/facets(for:)-1dvkz",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "MultiFacet.WithStandardSettings",
+  "title" : "facets(for:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/multifacet\/withstandardsettings"
+  "url" : "\/documentation\/fairapp\/multifacet\/facets(for:)-1dvkz"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet/info(title:symbol:tint:)": {
   "abstract" : [

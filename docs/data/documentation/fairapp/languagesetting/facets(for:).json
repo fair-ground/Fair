@@ -1,15 +1,23 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
+      "text" : "The default implementation of ",
       "type" : "text"
     },
     {
-      "code" : "Facet.facets(for:)",
+      "code" : "facets",
       "type" : "codeVoice"
     },
     {
-      "text" : ".",
+      "text" : " for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CaseIterable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (e.g., an enum) will simply return the cases of the enum.",
       "type" : "text"
     }
   ],
@@ -17,7 +25,8 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting"
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/Facet-Implementations"
       ]
     ]
   },
@@ -27,7 +36,40 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp15LanguageSettingV6facets3forSayACGx_tAA12FacetManagerRzlFZ",
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Self",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "CaseIterable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp5FacetPAAs12CaseIterableRzrlE6facets3for8AllCasessADPQzqd___tAA0C7ManagerRd__lFZ::SYNTHESIZED::s:7FairApp15LanguageSettingO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -75,16 +117,19 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> ["
+        "text" : ") -> "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp15LanguageSettingV",
-        "text" : "LanguageSetting"
+        "text" : "Self"
       },
       {
         "kind" : "text",
-        "text" : "]"
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "AllCases"
       }
     ],
     "modules" : [
@@ -162,17 +207,23 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> ["
+              "text" : ") -> "
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp15LanguageSettingV",
-              "text" : "LanguageSetting"
+              "text" : "Self"
             },
             {
               "kind" : "text",
-              "text" : "] "
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "AllCases"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "keyword",
@@ -200,6 +251,26 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This is useful for a single static facet that doesn’t use any of the properties of the manager.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -347,7 +418,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -371,10 +442,72 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/languagesetting"
 },
-"doc://FairApp/documentation/FairApp/LanguageSetting/facets(for:)": {
+"doc://FairApp/documentation/FairApp/LanguageSetting/Facet-Implementations": {
   "abstract" : [
 
   ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/Facet-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Facet Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/languagesetting\/facet-implementations"
+},
+"doc://FairApp/documentation/FairApp/LanguageSetting/facets(for:)": {
+  "abstract" : [
+    {
+      "text" : "The default implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "facets",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CaseIterable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (e.g., an enum) will simply return the cases of the enum.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CaseIterable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -422,16 +555,19 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> ["
+      "text" : ") -> "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp15LanguageSettingV",
-      "text" : "LanguageSetting"
+      "text" : "Self"
     },
     {
       "kind" : "text",
-      "text" : "]"
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "AllCases"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/facets(for:)",

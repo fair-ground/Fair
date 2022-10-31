@@ -71,6 +71,40 @@
             {
               "kind" : "identifier",
               "text" : "SupportSetting"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp12FacetManagerP",
+              "text" : "FacetManager"
             }
           ]
         }
@@ -82,11 +116,11 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
         "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/SQ",
         "doc:\/\/FairApp\/SH",
-        "doc:\/\/FairApp\/SY",
-        "doc:\/\/FairApp\/7SwiftUI4ViewP"
+        "doc:\/\/FairApp\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -116,18 +150,23 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/body",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/facetInfo"
       ],
       "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/facetView(for:)"
+      ],
+      "title" : "Instance Methods"
     },
     {
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/Equatable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/Facet-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/RawRepresentable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/View-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/FacetView-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -146,11 +185,6 @@
   ]
 , 
 "references": {
-"doc://FairApp/7SwiftUI4ViewP": {
-  "identifier" : "doc:\/\/FairApp\/7SwiftUI4ViewP",
-  "title" : "SwiftUI.View",
-  "type" : "unresolvable"
-},
 "doc://FairApp/SH": {
   "identifier" : "doc:\/\/FairApp\/SH",
   "title" : "Swift.Hashable",
@@ -230,6 +264,89 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet"
 },
+"doc://FairApp/documentation/FairApp/FacetManager": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " defines the top-level and settings-level ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "s for an app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetmanager"
+},
+"doc://FairApp/documentation/FairApp/FacetView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetview"
+},
 "doc://FairApp/documentation/FairApp/SupportSetting": {
   "abstract" : [
     {
@@ -286,6 +403,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/supportsetting\/facet-implementations"
 },
+"doc://FairApp/documentation/FairApp/SupportSetting/FacetView-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/FacetView-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "FacetView Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/supportsetting\/facetview-implementations"
+},
 "doc://FairApp/documentation/FairApp/SupportSetting/RawRepresentable-Implementations": {
   "abstract" : [
 
@@ -296,59 +424,6 @@
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/supportsetting\/rawrepresentable-implementations"
-},
-"doc://FairApp/documentation/FairApp/SupportSetting/View-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/View-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "View Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/supportsetting\/view-implementations"
-},
-"doc://FairApp/documentation/FairApp/SupportSetting/body": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "body"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "some"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4ViewP",
-      "text" : "View"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/body",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "body",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/supportsetting\/body"
 },
 "doc://FairApp/documentation/FairApp/SupportSetting/facetInfo": {
   "abstract" : [
@@ -378,7 +453,15 @@
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Store"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
     },
     {
       "kind" : "typeIdentifier",
@@ -392,6 +475,64 @@
   "title" : "facetInfo",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/supportsetting\/facetinfo"
+},
+"doc://FairApp/documentation/FairApp/SupportSetting/facetView(for:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "facetView"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Store"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "some"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7SwiftUI4ViewP",
+      "text" : "View"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/facetView(for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "facetView(for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/supportsetting\/facetview(for:)"
 },
 "doc://FairApp/documentation/FairApp/SupportSetting/init(rawValue:)": {
   "abstract" : [

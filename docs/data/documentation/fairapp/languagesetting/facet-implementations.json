@@ -40,10 +40,16 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/With",
-        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/WithStandardSettings"
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/With"
       ],
       "title" : "Type Aliases"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/facets(for:)"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -89,7 +95,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -147,17 +153,73 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/languagesetting\/with"
 },
-"doc://FairApp/documentation/FairApp/LanguageSetting/WithStandardSettings": {
+"doc://FairApp/documentation/FairApp/LanguageSetting/facets(for:)": {
   "abstract" : [
     {
-      "text" : "Adds on the standard settings to the end of the app-specific facets.",
+      "text" : "The default implementation of ",
+      "type" : "text"
+    },
+    {
+      "code" : "facets",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CaseIterable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (e.g., an enum) will simply return the cases of the enum.",
       "type" : "text"
     }
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CaseIterable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -165,21 +227,55 @@
     },
     {
       "kind" : "identifier",
-      "text" : "WithStandardSettings"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/WithStandardSettings",
-  "kind" : "symbol",
-  "navigatorTitle" : [
+      "text" : "facets"
+    },
     {
-      "kind" : "identifier",
-      "text" : "WithStandardSettings"
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Manager"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "AllCases"
     }
   ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/facets(for:)",
+  "kind" : "symbol",
   "role" : "symbol",
-  "title" : "LanguageSetting.WithStandardSettings",
+  "title" : "facets(for:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/languagesetting\/withstandardsettings"
+  "url" : "\/documentation\/fairapp\/languagesetting\/facets(for:)"
 },
 "doc://FairApp/documentation/FairApp/LanguageSetting/info(title:symbol:tint:)": {
   "abstract" : [

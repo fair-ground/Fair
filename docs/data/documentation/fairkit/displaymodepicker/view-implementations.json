@@ -328,8 +328,9 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/padding(_:)-263jw",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/padding(_:_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/pageCommand(value:in:step:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/pdf(bounds:normalize:drawHierarchy:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/pickerStyle(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/png(bounds:normalize:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/png(bounds:normalize:drawHierarchy:scale:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/popover(isPresented:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/popover(item:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/position(_:)",
@@ -24396,6 +24397,95 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/displaymodepicker\/pagecommand(value:in:step:)"
 },
+"doc://FairKit/documentation/FairKit/DisplayModePicker/pdf(bounds:normalize:drawHierarchy:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pdf"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "bounds"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGRect",
+      "text" : "CGRect"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "normalize"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "drawHierarchy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/pdf(bounds:normalize:drawHierarchy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pdf(bounds:normalize:drawHierarchy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/displaymodepicker\/pdf(bounds:normalize:drawhierarchy:)"
+},
 "doc://FairKit/documentation/FairKit/DisplayModePicker/pickerStyle(_:)": {
   "abstract" : [
 
@@ -24454,7 +24544,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/displaymodepicker\/pickerstyle(_:)"
 },
-"doc://FairKit/documentation/FairKit/DisplayModePicker/png(bounds:normalize:)": {
+"doc://FairKit/documentation/FairKit/DisplayModePicker/png(bounds:normalize:drawHierarchy:scale:)": {
   "abstract" : [
 
   ],
@@ -24507,7 +24597,41 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "drawHierarchy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "scale"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -24519,12 +24643,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/png(bounds:normalize:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/DisplayModePicker\/png(bounds:normalize:drawHierarchy:scale:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "png(bounds:normalize:)",
+  "title" : "png(bounds:normalize:drawHierarchy:scale:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/displaymodepicker\/png(bounds:normalize:)"
+  "url" : "\/documentation\/fairkit\/displaymodepicker\/png(bounds:normalize:drawhierarchy:scale:)"
 },
 "doc://FairKit/documentation/FairKit/DisplayModePicker/popover(isPresented:attachmentAnchor:arrowEdge:content:)": {
   "abstract" : [

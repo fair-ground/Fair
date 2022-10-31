@@ -36,7 +36,11 @@ import Foundation
 #if canImport(SwiftUI)
 import SwiftUI
 
-/// This file contains references to the localized translated Text embedded in the `FairApp` module.
+/// This file contains references the localized translated Text embedded in the `FairApp` module.
+///
+/// The App Fair's translation strategy is to keep every translatable string in the `Sources/App/Resources/en.lproj/Localizable.strings` file.
+/// This allows a single file that a translator can work with, rather than having translations scattered throughout the localied `Info.plist` and app metadata configuration files.
+/// At integration time, the `fairtool` will scan and assemble all the localized resources and use them in the varilous app storefront submission processes.
 public extension Text {
     /// A standard translation of "The App Fair"
     static let TheAppFairText = Text("The App Fair", bundle: .module, comment: "standard compact translation of The App Fair")

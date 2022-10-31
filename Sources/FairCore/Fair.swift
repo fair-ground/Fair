@@ -161,7 +161,7 @@ public extension Sequence where Element : Hashable {
 
 
 public extension Sequence {
-    /// Crrates a dictionary keying on the given `key`.
+    /// Creates a dictionary keying on the given `key`.
     @inlinable func dictionary<Key: Hashable>(latterPrecedence: Bool = true, keyedBy key: (Element) -> Key) -> Dictionary<Key, Element> {
         Dictionary(self.map({ element in (key(element), element) }), uniquingKeysWith: { key0, key1 in latterPrecedence ? key1 : key0 })
     }
@@ -618,6 +618,46 @@ public extension Data {
     /// The UTF8-encoded String for this data
     @inlinable var utf8String: String? {
         String(data: self, encoding: .utf8)
+    }
+
+    /// Saves the data to the given file URL, unless the contents of the file exactly match this `Data`, in which case it will be left unchanged.
+    /// - Parameters:
+    ///   - url: the URL to write to
+    ///   - options: the writing options
+    /// - Returns: true if the URL was written to successfully
+    @discardableResult @inlinable func overwrite(to url: URL, options: WritingOptions = []) throws -> Bool {
+        var fileSize: Int? = nil
+        let isSymLink: Bool
+        do {
+            let sizeLinkKeys = try url.resourceValues(forKeys: [.isSymbolicLinkKey])
+            if sizeLinkKeys.isSymbolicLink == true {
+                let dest = try FileManager.default.destinationOfSymbolicLink(atPath: url.path)
+                fileSize = try URL(fileURLWithPath: dest).resourceValues(forKeys: [.fileSizeKey]).fileSize
+                isSymLink = true
+            } else { // regular file? TODO: handle directories (probably with an error)
+                fileSize = sizeLinkKeys.fileSize
+                isSymLink = false
+            }
+        } catch {
+            // a file that doens't exist will throw an error from resourceValues, so just ignore it
+            //dbg("error checking size of file at:", url.path, error)
+            isSymLink = false
+        }
+
+        if self.count > 0, fileSize == self.count {
+            // file exists and it is the same size; read it in to verify the contents
+            if try Data(contentsOf: url, options: .mappedIfSafe) == self {
+                return false // contents are the same; do not write
+            }
+        }
+
+        if isSymLink {
+            // the behavior of Data.write to a URL that is a symlink appears to be to overwrite the destination of the symbolic link; instead, we remove the link first and write the data
+            try FileManager.default.removeItem(at: url)
+        }
+
+        try self.write(to: url, options: options)
+        return true
     }
 }
 

@@ -98,6 +98,66 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:7FairApp12FacetManagerP",
               "text" : "FacetManager"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "AppFacets"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp9FacetViewP",
+              "text" : "FacetView"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "ConfigFacets"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp9FacetViewP",
+              "text" : "FacetView"
             }
           ]
         }
@@ -139,7 +199,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(for:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(name:for:)"
       ],
       "title" : "Type Methods"
     }
@@ -279,6 +339,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetmanager"
 },
+"doc://FairApp/documentation/FairApp/FacetView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetview"
+},
 "doc://FairApp/documentation/FairApp/SceneManager": {
   "abstract" : [
     {
@@ -359,7 +450,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/scenemanager\/bundle"
 },
-"doc://FairApp/documentation/FairApp/SceneManager/configuration(for:)": {
+"doc://FairApp/documentation/FairApp/SceneManager/configuration(name:for:)": {
   "abstract" : [
     {
       "text" : "The shared static configuration for the bundle of this instance, which is stored in the ",
@@ -409,6 +500,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "for"
     },
     {
@@ -429,12 +537,12 @@
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(for:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(name:for:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "configuration(for:)",
+  "title" : "configuration(name:for:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/scenemanager\/configuration(for:)"
+  "url" : "\/documentation\/fairapp\/scenemanager\/configuration(name:for:)"
 },
 "doc://FairApp/documentation/FairApp/SceneManager/init()": {
   "abstract" : [

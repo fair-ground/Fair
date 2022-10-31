@@ -140,7 +140,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/accentColor",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/systemColors"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/nominalColors"
       ],
       "title" : "Type Properties"
     },
@@ -573,6 +573,55 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/codablecolor\/init(from:)"
 },
+"doc://FairApp/documentation/FairApp/CodableColor/nominalColors": {
+  "abstract" : [
+    {
+      "text" : "The system colors, in the order they could be displayed in a picker",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nominalColors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp12CodableColorV",
+      "text" : "CodableColor"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/nominalColors",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nominalColors",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/codablecolor\/nominalcolors"
+},
 "doc://FairApp/documentation/FairApp/CodableColor/systemColor-swift.property": {
   "abstract" : [
 
@@ -610,55 +659,6 @@
   "title" : "systemColor",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.property"
-},
-"doc://FairApp/documentation/FairApp/CodableColor/systemColors": {
-  "abstract" : [
-    {
-      "text" : "The system colors",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "systemColors"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp12CodableColorV",
-      "text" : "CodableColor"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/systemColors",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "systemColors",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolors"
 },
 "doc://FairApp/s8SendableP": {
   "identifier" : "doc:\/\/FairApp\/s8SendableP",

@@ -328,8 +328,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/padding(_:)-52ty4",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/padding(_:_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/pageCommand(value:in:step:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/pdf(bounds:normalize:drawHierarchy:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/pickerStyle(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/png(bounds:normalize:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/png(bounds:normalize:drawHierarchy:scale:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/popover(isPresented:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/popover(item:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/position(_:)",
@@ -24545,6 +24546,98 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetbrowserview\/pagecommand(value:in:step:)"
 },
+"doc://FairApp/documentation/FairApp/FacetBrowserView/pdf(bounds:normalize:drawHierarchy:)": {
+  "abstract" : [
+    {
+      "text" : "Takes a snapshot of the view and returns the PDF data.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pdf"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "bounds"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGRect",
+      "text" : "CGRect"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "normalize"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "drawHierarchy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/pdf(bounds:normalize:drawHierarchy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pdf(bounds:normalize:drawHierarchy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetbrowserview\/pdf(bounds:normalize:drawhierarchy:)"
+},
 "doc://FairApp/documentation/FairApp/FacetBrowserView/pickerStyle(_:)": {
   "abstract" : [
 
@@ -24603,7 +24696,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetbrowserview\/pickerstyle(_:)"
 },
-"doc://FairApp/documentation/FairApp/FacetBrowserView/png(bounds:normalize:)": {
+"doc://FairApp/documentation/FairApp/FacetBrowserView/png(bounds:normalize:drawHierarchy:scale:)": {
   "abstract" : [
     {
       "text" : "Takes a snapshot of the view and returns the PNG data.",
@@ -24659,7 +24752,41 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "drawHierarchy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "scale"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -24671,12 +24798,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/png(bounds:normalize:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetBrowserView\/png(bounds:normalize:drawHierarchy:scale:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "png(bounds:normalize:)",
+  "title" : "png(bounds:normalize:drawHierarchy:scale:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facetbrowserview\/png(bounds:normalize:)"
+  "url" : "\/documentation\/fairapp\/facetbrowserview\/png(bounds:normalize:drawhierarchy:scale:)"
 },
 "doc://FairApp/documentation/FairApp/FacetBrowserView/popover(isPresented:attachmentAnchor:arrowEdge:content:)": {
   "abstract" : [
@@ -30888,7 +31015,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",

@@ -70,6 +70,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle",
         "doc:\/\/FairApp\/documentation\/FairApp\/FileSystemDataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LocaleManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
         "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper"
       ],
@@ -81,6 +82,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
         "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXViewControllerRepresentable",
@@ -127,13 +129,14 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/HexColor",
         "doc:\/\/FairApp\/documentation\/FairApp\/HoverSymbolModifier",
         "doc:\/\/FairApp\/documentation\/FairApp\/InitialSizeViewModifier",
-        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/OptionalStringStorage",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage",
         "doc:\/\/FairApp\/documentation\/FairApp\/SVGPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/SVGPathOptions",
         "doc:\/\/FairApp\/documentation\/FairApp\/SearchBarCommands",
         "doc:\/\/FairApp\/documentation\/FairApp\/SplitDividerView",
+        "doc:\/\/FairApp\/documentation\/FairApp\/StringCodableRepresentable",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportCommands",
         "doc:\/\/FairApp\/documentation\/FairApp\/SymbolFlairContent",
         "doc:\/\/FairApp\/documentation\/FairApp\/UsageDescriptionKey",
@@ -188,6 +191,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleErrors",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundleLoader",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/LicenseSetting",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting"
       ],
@@ -1945,6 +1949,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetstyle"
 },
+"doc://FairApp/documentation/FairApp/FacetView": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetView"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetView"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetView",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetview"
+},
 "doc://FairApp/documentation/FairApp/FairContainer": {
   "abstract" : [
     {
@@ -2293,7 +2328,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -2350,6 +2385,40 @@
   "title" : "LicenseSetting",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/licensesetting"
+},
+"doc://FairApp/documentation/FairApp/LocaleManager": {
+  "abstract" : [
+    {
+      "text" : "A shared manager for overriding the current locale from within an app (as opposed to chaning it system-wide from the settings).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LocaleManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LocaleManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LocaleManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LocaleManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/localemanager"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet": {
   "abstract" : [
@@ -2422,6 +2491,40 @@
   "title" : "NID",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/nid"
+},
+"doc://FairApp/documentation/FairApp/OptionalStringStorage": {
+  "abstract" : [
+    {
+      "text" : "A RawRepresentable that can handle an optional String.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OptionalStringStorage"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/OptionalStringStorage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OptionalStringStorage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OptionalStringStorage",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/optionalstringstorage"
 },
 "doc://FairApp/documentation/FairApp/QuickAction": {
   "abstract" : [
@@ -2686,6 +2789,48 @@
   "title" : "SplitDividerView",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/splitdividerview"
+},
+"doc://FairApp/documentation/FairApp/StringCodableRepresentable": {
+  "abstract" : [
+    {
+      "text" : "A wrapper around a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Codable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that stores its contents via encoding it to the String value.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "StringCodableRepresentable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/StringCodableRepresentable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "StringCodableRepresentable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "StringCodableRepresentable",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/stringcodablerepresentable"
 },
 "doc://FairApp/documentation/FairApp/SupportCommands": {
   "abstract" : [
@@ -4010,7 +4155,7 @@
 "doc://FairApp/documentation/FairApp/wip(_:)": {
   "abstract" : [
     {
-      "text" : "Work-in-Progress marker",
+      "text" : "Work-in-Progress marker.",
       "type" : "text"
     }
   ],

@@ -10,7 +10,7 @@
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
         "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting",
-        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/Facet-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/FacetView-Implementations"
       ]
     ]
   },
@@ -21,7 +21,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp5FacetPAAE20WithStandardSettingsa::SYNTHESIZED::s:7FairApp14SupportSettingO",
+    "externalID" : "s:7FairApp9FacetViewPAAE20WithStandardSettingsa::SYNTHESIZED::s:7FairApp14SupportSettingO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -77,7 +77,15 @@
             },
             {
               "kind" : "text",
-              "text" : " = "
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : "> = "
             },
             {
               "kind" : "typeIdentifier",
@@ -105,7 +113,15 @@
             },
             {
               "kind" : "text",
-              "text" : ">."
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : ">>."
             },
             {
               "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
@@ -120,12 +136,20 @@
             {
               "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp15LanguageSettingV",
+              "preciseIdentifier" : "s:7FairApp15LanguageSettingO",
               "text" : "LanguageSetting"
             },
             {
               "kind" : "text",
-              "text" : ">."
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : ">>."
             },
             {
               "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With",
@@ -145,7 +169,37 @@
             },
             {
               "kind" : "text",
-              "text" : ">"
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : ">> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Store"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:7FairApp12FacetManagerP",
+              "text" : "FacetManager"
             }
           ]
         }
@@ -231,6 +285,48 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appearancesetting"
 },
+"doc://FairApp/documentation/FairApp/Facet": {
+  "abstract" : [
+    {
+      "text" : "A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "or a secondary-level feature (navigation items on iOS, settings tabs on macOS).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Facet"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Facet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Facet",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facet"
+},
 "doc://FairApp/documentation/FairApp/Facet/With": {
   "abstract" : [
     {
@@ -265,6 +361,58 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/with"
 },
+"doc://FairApp/documentation/FairApp/FacetManager": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " defines the top-level and settings-level ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "s for an app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetManager"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetManager",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetmanager"
+},
 "doc://FairApp/documentation/FairApp/LanguageSetting": {
   "abstract" : [
 
@@ -272,7 +420,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "enum"
     },
     {
       "kind" : "text",
@@ -330,16 +478,16 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/supportsetting"
 },
-"doc://FairApp/documentation/FairApp/SupportSetting/Facet-Implementations": {
+"doc://FairApp/documentation/FairApp/SupportSetting/FacetView-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/Facet-Implementations",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SupportSetting\/FacetView-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Facet Implementations",
+  "title" : "FacetView Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/supportsetting\/facet-implementations"
+  "url" : "\/documentation\/fairapp\/supportsetting\/facetview-implementations"
 },
 "doc://FairApp/documentation/FairApp/SupportSetting/WithStandardSettings": {
   "abstract" : [

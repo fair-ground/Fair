@@ -43,11 +43,6 @@ import SwiftUI
 ///
 /// The final tab will be the settings tab, which is shown as a tab on iOS and is included in the standard settings window on macOS.
 public protocol Facet : Hashable {
-    typealias RawValue = String
-
-    /// The underlying encoded value for this facet
-    var rawValue: RawValue { get }
-
     /// Metadata for the facet
     typealias FacetInfo = (title: Text, symbol: FairSymbol?, tint: Color?)
 
@@ -70,13 +65,6 @@ public struct MultiFacet<P : Facet, Q : Facet> : Facet {
     public typealias Choice = XOr<P>.Or<Q>
     public let choice: Choice
 
-    public var rawValue: String {
-        switch choice {
-        case .p(let p): return p.rawValue
-        case .q(let q): return q.rawValue
-        }
-    }
-
     public init(choice: XOr<P>.Or<Q>) {
         self.choice = choice
     }
@@ -87,6 +75,27 @@ public struct MultiFacet<P : Facet, Q : Facet> : Facet {
 
     public var facetInfo: FacetInfo {
         choice.map(\.facetInfo, \.facetInfo).pvalue
+    }
+}
+
+extension MultiFacet : RawRepresentable where P : RawRepresentable, Q : RawRepresentable, P.RawValue == Q.RawValue {
+    public typealias RawValue = P.RawValue
+
+    public init?(rawValue: RawValue) {
+        if let p = P(rawValue: rawValue) {
+            self.choice = .init(p)
+        } else if let q = Q(rawValue: rawValue) {
+            self.choice = .init(q)
+        } else {
+            return nil
+        }
+    }
+
+    public var rawValue: RawValue {
+        switch choice {
+        case .p(let p): return p.rawValue
+        case .q(let q): return q.rawValue
+        }
     }
 }
 
@@ -106,44 +115,108 @@ extension MultiFacet : View where P : View, Q : View {
     }
 }
 
+extension MultiFacet : FacetView where P : FacetView, Q : FacetView, P.FacetStore == Q.FacetStore {
+    /// Delegates the `FacetView` implementation to the underlying choice.
+    @ViewBuilder public func facetView(for store: P.FacetStore) -> some View {
+        choice.map {
+            $0.facetView(for: store)
+        } _: {
+            $0.facetView(for: store)
+        }
+    }
+}
+
+extension MultiFacet : CaseIterable where P : CaseIterable, Q : CaseIterable {
+    /// A `MultiFacet` will iterator through all its choice cases.
+    public static var allCases: [MultiFacet<P, Q>] {
+        P.allCases.map({ MultiFacet(choice: .init($0)) }) + Q.allCases.map({ MultiFacet(choice: .init($0)) })
+    }
+}
+
+/// A RawRepresentable that can handle an optional String.
+///
+/// This exists in order to enable a `SceneStorage` or `AppStorage` property that can accept a nil value (which will be serialized as a blank string).
+public struct OptionalStringStorage<T: RawRepresentable> : RawRepresentable where T.RawValue == String {
+    public typealias RawValue = String
+    public var value: T?
+
+    public init(value: T? = nil) {
+        self.value = value
+    }
+
+    public init(rawValue: String) {
+        self.value = .init(rawValue: rawValue)
+    }
+
+    public var rawValue: String {
+        get { value?.rawValue ?? "" }
+    }
+}
+
+/// A wrapper around a `Codable` that stores its contents via encoding it to the String value.
+public struct StringCodableRepresentable<T: Codable> : RawRepresentable {
+    public typealias RawValue = String
+    public var value: T?
+
+    public init(value: T?) {
+        self.value = value
+    }
+
+    public init(rawValue: String) {
+        do {
+            self.value = try T(json: rawValue.utf8Data)
+        } catch {
+            dbg("error decoding string codable:", error)
+            self.value = nil
+            //return nil
+        }
+    }
+
+    public var rawValue: String {
+        get {
+            value.canonicalJSON
+        }
+    }
+}
+
 /// FacetHostingView: a top-level browser fo an app's `Facet`s,
 /// represented as either an outline list on desktop platforms and a tabbed interface on mobile.
-public struct FacetHostingView<Manager: SceneManager> : View where Manager.AppFacets : View {
-    @SceneStorage("facetSelection") private var facetSelection: Manager.AppFacets.RawValue = .init()
+public struct FacetHostingView<Manager: SceneManager> : View where Manager.AppFacets : RawRepresentable, Manager.AppFacets.RawValue == String, Manager.AppFacets.FacetStore == Manager {
+    /// The currently selected facet, which is stored in `SceneStorage` to restore the selection on re-lauch.
+    /// This is wrapped in a `OptionalStringStorage` to support nil values.
+    @SceneStorage("facetSelection") private var facetSelection = OptionalStringStorage<Manager.AppFacets>()
     @ObservedObject var manager: Manager
 
     public init(store manager: Manager) {
         self.manager = manager
     }
-    
+
     public var body: some View {
-        FacetBrowserView<Manager, Manager.AppFacets>(nested: false, selection: selectionBinding)
+        FacetHostingContainerView<Manager>(facetSelection: $facetSelection.value)
+            .environmentObject(manager)
+    }
+}
+
+struct FacetHostingContainerView<Manager: SceneManager> : View where Manager.AppFacets : RawRepresentable, Manager.AppFacets.RawValue == String, Manager.AppFacets.FacetStore == Manager {
+    @Binding var facetSelection: Manager.AppFacets?
+
+    public var body: some View {
+        FacetBrowserView<Manager, Manager.AppFacets>(nested: false, selection: $facetSelection)
             .withAppearanceSetting()
             .withLocaleSetting()
-            .environmentObject(manager)
-            .focusedSceneValue(\.facetSelection, selectionOptionalBinding)
-    }
-
-    /// The current selection is stored as the underlying Raw Value string, which enables us to easily store it if need be.
-    private var selectionBinding: Binding<Manager.AppFacets?> {
-        Binding(get: { Manager.AppFacets.facets(for: manager).first { $0.rawValue == facetSelection } }, set: { facetSelection = $0?.rawValue ?? .init() })
-    }
-
-    /// The current selection is stored as the underlying Raw Value string, which enables us to easily store it if need be.
-    private var selectionOptionalBinding: Binding<Manager.AppFacets.RawValue?> {
-        Binding(get: { facetSelection }, set: { newValue in self.facetSelection = newValue ?? .init() })
+            .focusedSceneValue(\.[focusedBinding: Manager.AppFacets?.none], $facetSelection)
     }
 }
 
 extension FocusedValues {
-    /// The underlying value of the currently-selected facet
-    var facetSelection: Binding<String?>? {
-        get { self[FacetSelectionKey.self] }
-        set { self[FacetSelectionKey.self] = newValue }
+    /// The underlying value of the currently-selected binding to a given type.
+    subscript<T>(focusedBinding defaultValue: T?) -> Binding<T?>? {
+        get { self[FocusedValueBindingKey.self] }
+        set { self[FocusedValueBindingKey.self] = newValue }
     }
 
-    private struct FacetSelectionKey : FocusedValueKey {
-        typealias Value = Binding<String?>
+    private struct FocusedValueBindingKey<T> : FocusedValueKey {
+        typealias Value = Binding<T?>
     }
 }
 
@@ -168,7 +241,7 @@ fileprivate extension KeyEquivalent {
 
 /// Commands for selecting the facet using menus and keyboard shortcuts
 public struct FacetCommands<Store: SceneManager> : Commands {
-    @FocusedBinding(\.facetSelection) private var facetSelection: Store.AppFacets.RawValue??
+    @FocusedBinding(\.[focusedBinding: Store.AppFacets?.none]) private var facetSelection
     let store: Store
 
     public init(store: Store) {
@@ -182,7 +255,7 @@ public struct FacetCommands<Store: SceneManager> : Commands {
                     .label(image: facet.facetInfo.symbol)
                     .tint(facet.facetInfo.tint)
                     .button {
-                        self.facetSelection = facet.rawValue
+                        self.facetSelection = facet
                     }
                     .accessibilityLabel(Text("Select facet view for \(facet.facetInfo.title)", bundle: .module, comment: "accessibility label for facet menu"))
                     .disabled(facetSelection == nil)
@@ -218,15 +291,15 @@ extension FacetStyle {
 }
 
 /// A view that can browse facets in either a tabbed or outline view configuration, depending on a combination of the current platform and the value if the `nested` setting.
-public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetView: Facet> : View where FacetView : View {
+public struct FacetBrowserView<Manager: FacetManager & ObservableObject, F: Facet> : View where F : FacetView, F.FacetStore == Manager {
     /// Whether the browser is at the top level or a lower level. This will affect whether it is rendered as a navigation hierarchy or a tabbed interface.
     public let nested: Bool
     var style: FacetStyle = .automatic
 
-    @Binding var selection: FacetView?
+    @Binding var selection: F?
     @EnvironmentObject var manager: Manager
 
-    public init(nested: Bool = true, selection: Binding<FacetView?>) {
+    public init(nested: Bool, selection: Binding<F?>) {
         self.nested = nested
         self._selection = selection
     }
@@ -253,50 +326,61 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, FacetVi
         }
     }
 
-    var facets: [FacetView] {
-        FacetView.facets(for: manager)
+    var facets: [F] {
+        F.facets(for: manager)
     }
 
     // TODO: this is where we might be able to inject things like toolbars that need to fit between the parent TabView/ForEach or NavigationView/List
-    private func decorate<V: View>(_ forEach: ForEach<[FacetView], FacetView?, V>) -> some View {
+    private func decorate<V: View>(_ forEach: ForEach<[F], F?, V>) -> some View {
         forEach
     }
 
     public var body: some View {
         if displayInTabs {
-            TabView(selection: $selection) {
-                decorate(ForEach(self.facets, id: \.facetTag) { facet in
-                    facet
-                        .navigationTitle(facet.facetInfo.title)
+            bodyTabs
+        } else {
+            bodyNavigation
+        }
+    }
+
+    var bodyTabs: some View {
+        TabView(selection: $selection) {
+            decorate(ForEach(self.facets, id: \.facetTag) { facet in
+                facet
+                    .facetView(for: manager)
+                    .navigationTitle(facet.facetInfo.title)
 #if os(iOS)
-                        .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarTitleDisplayMode(.inline)
 #endif
-                        .tabItem {
-                            facet.facetInfo.title.label(image: facet.facetInfo.symbol)
-                                .symbolVariant(.fill)
-                        }
-                        .tint(facet.facetInfo.tint)
+                    .tabItem {
+                        facet.facetInfo.title.label(image: facet.facetInfo.symbol)
+                            .symbolVariant(.fill)
+                    }
+                    .tint(facet.facetInfo.tint)
+            })
+        }
+    }
+
+    var bodyNavigation: some View {
+        NavigationView {
+            List {
+                decorate(ForEach(self.facets.dropFirst(nested ? 0 : 1).dropLast(nested ? 0 : 1).array(), id: \.facetTag) { facet in
+                    NavigationLink(tag: facet, selection: $selection) {
+                        facet
+                            .facetView(for: manager)
+                            .navigationTitle(facet.facetInfo.title)
+                    } label: {
+                        facet.facetInfo.title.label(image: facet.facetInfo.symbol
+                            .foregroundStyle(facet.facetInfo.tint ?? .accentColor)) // makes the label tint color stand out
+                    }
                 })
             }
-        } else {
-            NavigationView {
-                List {
-                    decorate(ForEach(self.facets.dropFirst(nested ? 0 : 1).dropLast(nested ? 0 : 1).array(), id: \.facetTag) { facet in
-                        NavigationLink(tag: facet, selection: $selection) {
-                            facet
-                                .navigationTitle(facet.facetInfo.title)
-                        } label: {
-                            facet.facetInfo.title.label(image: facet.facetInfo.symbol
-                                .foregroundStyle(facet.facetInfo.tint ?? .accentColor)) // makes the label tint color stand out
-                        }
-                    })
-                }
-                .navigation(title: Text(Bundle.localizedAppName), subtitle: nil)
+            .navigation(title: Text(Bundle.localizedAppName), subtitle: nil)
 
-                if !nested {
-                    // the default placeholder view is the welcome screen
-                    self.facets.first.unsafelyUnwrapped
-                }
+            if !nested {
+                // the default placeholder view is the welcome screen
+                self.facets.first.unsafelyUnwrapped
+                    .facetView(for: manager)
             }
         }
     }
@@ -327,12 +411,12 @@ extension FairContainer where AppStore.AppFacets : View, AppStore.AppFacets == S
 
 // MARK: Standard Facets
 
-extension Facet {
+extension FacetView {
     /// Adds on the standard settings to the end of the app-specific facets.
-    public typealias WithStandardSettings = Self
-        .With<AppearanceSetting>
-        .With<LanguageSetting>
-        .With<SupportSetting>
+    public typealias WithStandardSettings<Store: FacetManager> = Self
+        .With<AppearanceSetting<Store>>
+        .With<LanguageSetting<Store>>
+        .With<SupportSetting<Store>>
 }
 
 extension Facet where Self : CaseIterable {
@@ -346,24 +430,35 @@ extension Facet where Self : CaseIterable {
 
 // TODO: remove facet implementation if we keep licenses embedded in the support view
 // extension LicenseSetting : Facet { }
+private let licenseTexts: [Bundle : [URL]] = {
+    var licenseTexts: [Bundle : [URL]] = [:]
+    for bundle in Bundle.allBundles {
+        dbg("bundle", bundle.bundleName)
+        for url in (try? bundle.resourceURL?.fileChildren(deep: false)) ?? [] {
+            // check for:
+            // LICENSE
+            // LICENSE.AGPL
+            // LICENSE.GPL.txt
+            // LICENSE.txt
+            // LICENSE.md
+            // COPYING
+            // COPYING.txt
+            // COPYING.md
+            if ["LICENSE", "COPYING"].contains(url.deletingPathExtension().deletingPathExtension().deletingPathExtension().lastPathComponent)
+            //&& ["", "txt", "md"].contains(url.pathExtension) { // we need to be able to match things like "LICENSE.GPL"
+            {
+                dbg("found license in bundle", bundle.bundleName, url.path)
+                licenseTexts[bundle, default: []].append(url)
+            }
+        }
+    }
+    return licenseTexts
+}()
 
 /// A setting that simply displays the text of the license(s) included in the app.
 ///
 /// License files are text files that begin with "LICENSE".
-public enum LicenseSetting : String, Facet, CaseIterable, View {
-    static let licenseTexts: [Bundle : [URL]] = {
-        var licenseTexts: [Bundle : [URL]] = [:]
-        for bundle in Bundle.allBundles {
-            dbg("bundle", bundle.bundleName)
-            for url in (try? bundle.resourceURL?.fileChildren(deep: false)) ?? [] {
-                if url.lastPathComponent.hasPrefix("LICENSE") {
-                    dbg("found license in bundle", bundle.bundleName, url.path)
-                    licenseTexts[bundle, default: []].append(url)
-                }
-            }
-        }
-        return licenseTexts
-    }()
+public enum LicenseSetting<Store: FacetManager> : String, FacetView, CaseIterable {
 
     case license
 
@@ -374,7 +469,7 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
         }
     }
 
-    public var body: some View {
+    public func facetView(for store: Store) -> some View {
         List {
             Section {
                 licensesList
@@ -385,7 +480,7 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
     }
 
     var licensesList: some View {
-        ForEach(Self.licenseTexts.array(), id: \.key) { bundle, licenseURLs in
+        ForEach(licenseTexts.array(), id: \.key) { bundle, licenseURLs in
             NavigationLink {
                 // when there is only a single license, just display it
                 if licenseURLs.count <= 1, let licenseURL = licenseURLs.first {
@@ -417,7 +512,7 @@ public enum LicenseSetting : String, Facet, CaseIterable, View {
 
 
 /// A setting that simply displays the support options as a series of link buttons.
-public enum SupportSetting : String, Facet, CaseIterable, View {
+public enum SupportSetting<Store: FacetManager> : String, FacetView, CaseIterable {
     /// Links to support resources: issues, discussions, source code, "fork this app", "Report this App (to the App Fair Council)"), log accessor, and software BOM
     case support
 
@@ -428,12 +523,12 @@ public enum SupportSetting : String, Facet, CaseIterable, View {
         }
     }
 
-    public var body: some View {
-        SupportSettingsView()
+    public func facetView(for store: Store) -> some View {
+        SupportSettingsView<Store>()
     }
 }
 
-private struct SupportSettingsView : View {
+private struct SupportSettingsView<Store: FacetManager> : View {
     var body: some View {
         List {
             Section {
@@ -445,7 +540,7 @@ private struct SupportSettingsView : View {
             }
 
             Section {
-                LicenseSetting.license.licensesList
+                LicenseSetting<Store>.license.licensesList
             } header: {
                 Text("Software Licenses", bundle: .module, comment: "header text for licenses section")
             }
@@ -457,7 +552,7 @@ private struct SupportSettingsView : View {
 
 
 /// A setting that simply displays the support options as a series of link buttons.
-public enum AppearanceSetting : String, Facet, CaseIterable, View {
+public enum AppearanceSetting<Store: FacetManager> : String, FacetView, CaseIterable {
     case appearance
 
     public var facetInfo: FacetInfo {
@@ -467,7 +562,7 @@ public enum AppearanceSetting : String, Facet, CaseIterable, View {
         }
     }
 
-    public var body: some View {
+    public func facetView(for store: Store) -> some View {
         AppearanceSettingsView()
     }
 }
@@ -512,8 +607,8 @@ private struct AppearanceManagerView<V: View> : View {
 
 
 /// A shared manager for overriding the current locale from within an app (as opposed to chaning it system-wide from the settings).
-@MainActor class LocaleManager : ObservableObject {
-    static let shared = LocaleManager()
+@MainActor public class LocaleManager : ObservableObject {
+    public static let shared = LocaleManager()
     /// The overridden locale identifier; a blank string signifies being un-set
     @AppStorage("localeOverride") var localeOverride = ""
 
@@ -521,7 +616,7 @@ private struct AppearanceManagerView<V: View> : View {
     }
 
     /// The overidden locale for this manager, or else nil if it is un-set
-    var locale: Locale? {
+    public var locale: Locale? {
         get {
             localeOverride.isEmpty ? nil : Locale(identifier: localeOverride)
         }
@@ -605,24 +700,15 @@ extension ThemeStyle : Identifiable {
     }
 }
 
-public struct LanguageSetting : Facet, View {
-    let bundle: Bundle
-    public let rawValue = "language"
-
-    init(bundle: Bundle) {
-        self.bundle = bundle
-    }
+public enum LanguageSetting<Store: FacetManager> : String, FacetView, CaseIterable {
+    case language
 
     public var facetInfo: FacetInfo {
         FacetInfo(title: .LanguageText, symbol: "flag", tint: .green)
     }
 
-    public static func facets<Manager>(for manager: Manager) -> [LanguageSetting] where Manager : FacetManager {
-        [LanguageSetting(bundle: manager.bundle)]
-    }
-
-    public var body: some View {
-        LocalesList(bundle: bundle)
+    public func facetView(for store: Store) -> some View {
+        LocalesList(bundle: store.bundle)
     }
 }
 
@@ -688,7 +774,7 @@ struct LocalesList : View {
 
 extension Bundle {
     /// The locals from the list of bundle localizations
-    func locales(preferred: Bool, for locale: Locale) -> [Locale] {
+    public func locales(preferred: Bool, for locale: Locale) -> [Locale] {
         (preferred ? preferredLocalizations : localizations)
             .compactMap(Locale.init(identifier:))
             .sorted { a, b in

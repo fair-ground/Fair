@@ -329,8 +329,9 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/padding(_:)-88s0e",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/padding(_:_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pageCommand(value:in:step:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pdf(bounds:normalize:drawHierarchy:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pickerStyle(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(bounds:normalize:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(bounds:normalize:drawHierarchy:scale:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/popover(isPresented:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/popover(item:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/position(_:)",
@@ -24509,6 +24510,95 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/pagecommand(value:in:step:)"
 },
+"doc://FairKit/documentation/FairKit/URLImage/pdf(bounds:normalize:drawHierarchy:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pdf"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "bounds"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@S@CGRect",
+      "text" : "CGRect"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "normalize"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "drawHierarchy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pdf(bounds:normalize:drawHierarchy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "pdf(bounds:normalize:drawHierarchy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/urlimage\/pdf(bounds:normalize:drawhierarchy:)"
+},
 "doc://FairKit/documentation/FairKit/URLImage/pickerStyle(_:)": {
   "abstract" : [
 
@@ -24567,7 +24657,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/pickerstyle(_:)"
 },
-"doc://FairKit/documentation/FairKit/URLImage/png(bounds:normalize:)": {
+"doc://FairKit/documentation/FairKit/URLImage/png(bounds:normalize:drawHierarchy:scale:)": {
   "abstract" : [
 
   ],
@@ -24620,7 +24710,41 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "drawHierarchy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "scale"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -24632,12 +24756,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(bounds:normalize:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(bounds:normalize:drawHierarchy:scale:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "png(bounds:normalize:)",
+  "title" : "png(bounds:normalize:drawHierarchy:scale:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/png(bounds:normalize:)"
+  "url" : "\/documentation\/fairkit\/urlimage\/png(bounds:normalize:drawhierarchy:scale:)"
 },
 "doc://FairKit/documentation/FairKit/URLImage/popover(isPresented:attachmentAnchor:arrowEdge:content:)": {
   "abstract" : [

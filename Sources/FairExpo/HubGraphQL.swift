@@ -543,7 +543,7 @@ extension FairHub {
         public var releaseCount: Int
 
         /// the number of release assets to process
-        public var assetCount: Int = 25
+        public var assetCount: Int
 
         public var cursor: GraphQLCursor? = nil
 
@@ -624,7 +624,7 @@ extension FairHub {
             url
             homepageUrl
             fundingLinks { __typename, platform, url }
-            releases(first: $releaseCount) {
+            releases(first: $releaseCount, orderBy: {field: CREATED_AT, direction: DESC}) {
               pageInfo { endCursor, hasNextPage, hasPreviousPage, startCursor }
               edges {
                 node {
