@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Facet.facetInfo",
+      "code" : "FacetUI.facetInfo",
       "type" : "codeVoice"
     },
     {
@@ -17,7 +17,8 @@
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet"
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/FacetUI-Implementations"
       ]
     ]
   },
@@ -27,7 +28,56 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp10MultiFacetV9facetInfo7SwiftUI4TextV5title_AA0A6SymbolVSg6symbolAE5ColorVSg4tinttvp",
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "P",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "FacetUI",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " and ",
+          "type" : "text"
+        },
+        {
+          "code" : "Q",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "FacetUI",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp10MultiFacetVA2A0D2UIRzAaDR_rlE9facetInfo05SwiftE04TextV5title_AA0A6SymbolVSg6symbolAF5ColorVSg4tinttvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -72,7 +122,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+        "preciseIdentifier" : "s:7FairApp7FacetUIP0C4Infoa",
         "text" : "FacetInfo"
       }
     ],
@@ -140,9 +190,9 @@
               "text" : ">."
             },
             {
-              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
+              "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI\/FacetInfo-swift.typealias",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+              "preciseIdentifier" : "s:7FairApp7FacetUIP0C4Infoa",
               "text" : "FacetInfo"
             },
             {
@@ -207,7 +257,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp"
 },
-"doc://FairApp/documentation/FairApp/Facet/FacetInfo-swift.typealias": {
+"doc://FairApp/documentation/FairApp/FacetUI/FacetInfo-swift.typealias": {
   "abstract" : [
     {
       "text" : "Metadata for the facet",
@@ -228,7 +278,7 @@
       "text" : "FacetInfo"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI\/FacetInfo-swift.typealias",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -237,9 +287,9 @@
     }
   ],
   "role" : "symbol",
-  "title" : "Facet.FacetInfo",
+  "title" : "FacetUI.FacetInfo",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.typealias"
+  "url" : "\/documentation\/fairapp\/facetui\/facetinfo-swift.typealias"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet": {
   "abstract" : [
@@ -275,10 +325,69 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/multifacet"
 },
+"doc://FairApp/documentation/FairApp/MultiFacet/FacetUI-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MultiFacet\/FacetUI-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "FacetUI Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/multifacet\/facetui-implementations"
+},
 "doc://FairApp/documentation/FairApp/MultiFacet/facetInfo": {
   "abstract" : [
 
   ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "FacetUI",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "FacetUI",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "keyword",
@@ -323,7 +432,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+      "preciseIdentifier" : "s:7FairApp7FacetUIP0C4Infoa",
       "text" : "FacetInfo"
     }
   ],

@@ -548,31 +548,8 @@
           {
             "children" : [
               {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/fairapp\/facet\/facetinfo-swift.property",
-                "title" : "var facetInfo: Self.FacetInfo",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/fairapp\/facet\/info(title:symbol:tint:)",
-                "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
-                "type" : "method"
-              },
-              {
                 "title" : "Type Aliases",
                 "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/fairapp\/facet\/facetinfo-swift.typealias",
-                "title" : "Facet.FacetInfo",
-                "type" : "typealias"
               },
               {
                 "path" : "\/documentation\/fairapp\/facet\/with",
@@ -634,6 +611,40 @@
             ],
             "path" : "\/documentation\/fairapp\/facetmanager",
             "title" : "FacetManager",
+            "type" : "protocol"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/facetui\/facetinfo-swift.property",
+                "title" : "var facetInfo: Self.FacetInfo",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/facetui\/info(title:symbol:tint:)",
+                "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
+                "type" : "method"
+              },
+              {
+                "title" : "Type Aliases",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/facetui\/facetinfo-swift.typealias",
+                "title" : "FacetUI.FacetInfo",
+                "type" : "typealias"
+              }
+            ],
+            "path" : "\/documentation\/fairapp\/facetui",
+            "title" : "FacetUI",
             "type" : "protocol"
           },
           {
@@ -808,8 +819,8 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/fairapp\/scenemanager\/createscreenshots()",
-                "title" : "func createScreenshots() throws -> [ScreenshotResult]",
+                "path" : "\/documentation\/fairapp\/scenemanager\/capturefacetscreens(folder:appfacets:configfacets:locales:devices:)",
+                "title" : "func captureFacetScreens(folder: URL?, appFacets: [Self.AppFacets]?, configFacets: [Self.ConfigFacets]?, locales: [Locale]?, devices: [DevicePreview]?) throws -> [ScreenshotResult]",
                 "type" : "method"
               },
               {
@@ -19720,11 +19731,6 @@
                 "type" : "property"
               },
               {
-                "path" : "\/documentation\/fairapp\/multifacet\/facetinfo",
-                "title" : "var facetInfo: MultiFacet<P, Q>.FacetInfo",
-                "type" : "property"
-              },
-              {
                 "title" : "Type Aliases",
                 "type" : "groupMarker"
               },
@@ -19781,15 +19787,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/multifacet\/info(title:symbol:tint:)",
-                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
-                    "type" : "method"
-                  },
-                  {
                     "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
@@ -19810,6 +19807,31 @@
                 ],
                 "path" : "\/documentation\/fairapp\/multifacet\/facet-implementations",
                 "title" : "Facet Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/multifacet\/facetinfo",
+                    "title" : "var facetInfo: MultiFacet<P, Q>.FacetInfo",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/multifacet\/info(title:symbol:tint:)",
+                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/multifacet\/facetui-implementations",
+                "title" : "FacetUI Implementations",
                 "type" : "symbol"
               },
               {
@@ -31589,15 +31611,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/appearancesetting\/info(title:symbol:tint:)",
-                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
-                    "type" : "method"
-                  },
-                  {
                     "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
@@ -31618,6 +31631,22 @@
                 ],
                 "path" : "\/documentation\/fairapp\/appearancesetting\/facet-implementations",
                 "title" : "Facet Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/appearancesetting\/info(title:symbol:tint:)",
+                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/appearancesetting\/facetui-implementations",
+                "title" : "FacetUI Implementations",
                 "type" : "symbol"
               },
               {
@@ -31727,15 +31756,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/languagesetting\/info(title:symbol:tint:)",
-                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
-                    "type" : "method"
-                  },
-                  {
                     "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
@@ -31756,6 +31776,22 @@
                 ],
                 "path" : "\/documentation\/fairapp\/languagesetting\/facet-implementations",
                 "title" : "Facet Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/languagesetting\/info(title:symbol:tint:)",
+                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/languagesetting\/facetui-implementations",
+                "title" : "FacetUI Implementations",
                 "type" : "symbol"
               },
               {
@@ -31865,15 +31901,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/licensesetting\/info(title:symbol:tint:)",
-                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
-                    "type" : "method"
-                  },
-                  {
                     "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
@@ -31894,6 +31921,22 @@
                 ],
                 "path" : "\/documentation\/fairapp\/licensesetting\/facet-implementations",
                 "title" : "Facet Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/licensesetting\/info(title:symbol:tint:)",
+                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/licensesetting\/facetui-implementations",
+                "title" : "FacetUI Implementations",
                 "type" : "symbol"
               },
               {
@@ -32003,15 +32046,6 @@
               {
                 "children" : [
                   {
-                    "title" : "Instance Methods",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/supportsetting\/info(title:symbol:tint:)",
-                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
-                    "type" : "method"
-                  },
-                  {
                     "title" : "Type Aliases",
                     "type" : "groupMarker"
                   },
@@ -32032,6 +32066,22 @@
                 ],
                 "path" : "\/documentation\/fairapp\/supportsetting\/facet-implementations",
                 "title" : "Facet Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/supportsetting\/info(title:symbol:tint:)",
+                    "title" : "func info(title: Text, symbol: FairSymbol?, tint: Color?) -> Self.FacetInfo",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/supportsetting\/facetui-implementations",
+                "title" : "FacetUI Implementations",
                 "type" : "symbol"
               },
               {

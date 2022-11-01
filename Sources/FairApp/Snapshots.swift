@@ -157,7 +157,8 @@ public extension View {
 }
 
 extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFacets : FacetView & RawRepresentable, AppFacets.RawValue == String, ConfigFacets.RawValue == String, AppFacets.FacetStore == Self {
-    public func createScreenshots() throws -> [ScreenshotResult] {
+
+    @discardableResult public func captureFacetScreens(folder targetFolder: URL? = nil, appFacets: [AppFacets]? = nil, configFacets: [ConfigFacets]? = nil, locales targetLocales: [Locale]? = nil, devices targetDevices: [DevicePreview]? = nil) throws -> [ScreenshotResult] {
 #if canImport(UIKit)
         let animationsWereEnabled = UIView.areAnimationsEnabled
         UIView.setAnimationsEnabled(false)
@@ -165,15 +166,20 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 #endif
 
         // 3 devices x 10 images = 30 * localizations
-        let locales = [Locale(identifier: "en"), Locale(identifier: "fr")]
-        let devices = [DevicePreview.iPhone8Plus]
+        let bundle = Bundle(for: Self.self)
+        dbg("creating screenshots for bundle:", bundle.bundleName)
+        let locales = targetLocales ?? [Locale(identifier: "en"), Locale(identifier: "fr")]
 
-        let folder = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(Bundle.mainBundleID + "/screenshots", isDirectory: true)
+        let devices = targetDevices ?? [DevicePreview.iPhone8Plus]
+
+        let folder = try targetFolder ?? FileManager.default
+            .url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent(Bundle.mainBundleID + "/screenshots", isDirectory: true)
 
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         dbg("saving screens to:", folder.path)
 
-        let shots = try self.captureScreenshots(folder: folder, vector: false, bundle: self.bundle, devices: devices, locales: locales, appFacets: Self.AppFacets.facets(for: self), configFacets: Self.ConfigFacets.facets(for: self))
+        let shots = try self.captureScreenshots(folder: folder, vector: false, bundle: self.bundle, devices: devices, locales: locales, appFacets: appFacets ?? Self.AppFacets.facets(for: self), configFacets: configFacets ?? Self.ConfigFacets.facets(for: self))
 
 //        let expectedShotCount = devices.count * locales.count * 10
 //
@@ -192,7 +198,6 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
     /// https://help.apple.com/app-store-connect/#/devd274dd925
     ///
     /// - Parameters:
-    ///   - manager: the SceneManager to use
     ///   - folder: the folder for outputting screenshot images, if any
     ///   - linkDuplicates: whether to create links for identical screenshot file contents
     ///   - vector: whether to output a vector (PDF) or bitmap (PNG)

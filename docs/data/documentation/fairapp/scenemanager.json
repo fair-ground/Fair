@@ -9,7 +9,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "text" : " is an app-wide singleton that will be used at the root of each scene hierarchy.",
       "type" : "text"
     }
   ],
@@ -163,6 +163,50 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A ",
+              "type" : "text"
+            },
+            {
+              "code" : "SceneManager",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " is a ",
+              "type" : "text"
+            },
+            {
+              "code" : "FacetManager",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " with the ability to create views",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "for the given",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -199,7 +243,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/createScreenshots()"
+        "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/captureFacetScreens(folder:appFacets:configFacets:locales:devices:)"
       ],
       "title" : "Instance Methods"
     },
@@ -347,7 +391,26 @@
 },
 "doc://FairApp/documentation/FairApp/FacetView": {
   "abstract" : [
-
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "FacetView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app ",
+      "type" : "text"
+    },
+    {
+      "code" : "Facet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that knows how to create a view for itself.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -387,7 +450,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "text" : " is an app-wide singleton that will be used at the root of each scene hierarchy.",
       "type" : "text"
     }
   ],
@@ -456,101 +519,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/scenemanager\/bundle"
 },
-"doc://FairApp/documentation/FairApp/SceneManager/configuration(name:for:)": {
-  "abstract" : [
-    {
-      "text" : "The shared static configuration for the bundle of this instance, which is stored in the ",
-      "type" : "text"
-    },
-    {
-      "code" : "App.yml",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " resource.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "configuration"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "name"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "for"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSBundle",
-      "text" : "Bundle"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(name:for:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "configuration(name:for:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/scenemanager\/configuration(name:for:)"
-},
-"doc://FairApp/documentation/FairApp/SceneManager/createScreenshots()": {
+"doc://FairApp/documentation/FairApp/SceneManager/captureFacetScreens(folder:appFacets:configFacets:locales:devices:)": {
   "abstract" : [
 
   ],
@@ -661,11 +630,110 @@
     },
     {
       "kind" : "identifier",
-      "text" : "createScreenshots"
+      "text" : "captureFacetScreens"
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "folder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "appFacets"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "AppFacets"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "configFacets"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "ConfigFacets"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "locales"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation6LocaleV",
+      "text" : "Locale"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "devices"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp13DevicePreviewV",
+      "text" : "DevicePreview"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?) "
     },
     {
       "kind" : "keyword",
@@ -685,12 +753,106 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/createScreenshots()",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/captureFacetScreens(folder:appFacets:configFacets:locales:devices:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "createScreenshots()",
+  "title" : "captureFacetScreens(folder:appFacets:configFacets:locales:devices:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/scenemanager\/createscreenshots()"
+  "url" : "\/documentation\/fairapp\/scenemanager\/capturefacetscreens(folder:appfacets:configfacets:locales:devices:)"
+},
+"doc://FairApp/documentation/FairApp/SceneManager/configuration(name:for:)": {
+  "abstract" : [
+    {
+      "text" : "The shared static configuration for the bundle of this instance, which is stored in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "App.yml",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " resource.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "name"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSBundle",
+      "text" : "Bundle"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager\/configuration(name:for:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "configuration(name:for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/scenemanager\/configuration(name:for:)"
 },
 "doc://FairApp/documentation/FairApp/SceneManager/init()": {
   "abstract" : [

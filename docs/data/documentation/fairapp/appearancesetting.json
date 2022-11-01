@@ -116,6 +116,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
         "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/SQ",
@@ -165,6 +166,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting\/Equatable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting\/Facet-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting\/FacetUI-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting\/FacetView-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting\/RawRepresentable-Implementations"
       ],
@@ -278,6 +280,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appearancesetting\/facet-implementations"
 },
+"doc://FairApp/documentation/FairApp/AppearanceSetting/FacetUI-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppearanceSetting\/FacetUI-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "FacetUI Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appearancesetting\/facetui-implementations"
+},
 "doc://FairApp/documentation/FairApp/AppearanceSetting/FacetView-Implementations": {
   "abstract" : [
 
@@ -365,7 +378,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+      "preciseIdentifier" : "s:7FairApp7FacetUIP0C4Infoa",
       "text" : "FacetInfo"
     }
   ],
@@ -566,9 +579,59 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetmanager"
 },
-"doc://FairApp/documentation/FairApp/FacetView": {
+"doc://FairApp/documentation/FairApp/FacetUI": {
   "abstract" : [
 
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetUI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetui"
+},
+"doc://FairApp/documentation/FairApp/FacetView": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "FacetView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app ",
+      "type" : "text"
+    },
+    {
+      "code" : "Facet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that knows how to create a view for itself.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

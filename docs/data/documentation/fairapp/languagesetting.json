@@ -110,6 +110,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
         "doc:\/\/FairApp\/s12CaseIterableP",
         "doc:\/\/FairApp\/SQ",
@@ -159,6 +160,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/Equatable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/Facet-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/FacetUI-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/FacetView-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/RawRepresentable-Implementations"
       ],
@@ -310,9 +312,59 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetmanager"
 },
-"doc://FairApp/documentation/FairApp/FacetView": {
+"doc://FairApp/documentation/FairApp/FacetUI": {
   "abstract" : [
 
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetUI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetui"
+},
+"doc://FairApp/documentation/FairApp/FacetView": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "FacetView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app ",
+      "type" : "text"
+    },
+    {
+      "code" : "Facet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that knows how to create a view for itself.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -394,6 +446,17 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/languagesetting\/facet-implementations"
 },
+"doc://FairApp/documentation/FairApp/LanguageSetting/FacetUI-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/LanguageSetting\/FacetUI-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "FacetUI Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/languagesetting\/facetui-implementations"
+},
 "doc://FairApp/documentation/FairApp/LanguageSetting/FacetView-Implementations": {
   "abstract" : [
 
@@ -456,7 +519,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
+      "preciseIdentifier" : "s:7FairApp7FacetUIP0C4Infoa",
       "text" : "FacetInfo"
     }
   ],

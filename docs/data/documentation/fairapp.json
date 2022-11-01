@@ -82,6 +82,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/DataWrapperPath",
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetView",
         "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
         "doc:\/\/FairApp\/documentation\/FairApp\/SceneManager",
@@ -1953,7 +1954,10 @@
 },
 "doc://FairApp/documentation/FairApp/FacetStyle": {
   "abstract" : [
-
+    {
+      "text" : "The style of facet representation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1982,9 +1986,59 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facetstyle"
 },
-"doc://FairApp/documentation/FairApp/FacetView": {
+"doc://FairApp/documentation/FairApp/FacetUI": {
   "abstract" : [
 
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FacetUI",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/facetui"
+},
+"doc://FairApp/documentation/FairApp/FacetView": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "FacetView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app ",
+      "type" : "text"
+    },
+    {
+      "code" : "Facet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that knows how to create a view for itself.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2711,7 +2765,7 @@
       "type" : "codeVoice"
     },
     {
-      "text" : " is an app-wide singleton that will be injected at the root of each scene hierarchy.",
+      "text" : " is an app-wide singleton that will be used at the root of each scene hierarchy.",
       "type" : "text"
     }
   ],

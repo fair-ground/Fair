@@ -144,6 +144,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetView"
       ],
       "kind" : "relationships",
@@ -174,19 +175,6 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/facetInfo-swift.property"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/info(title:symbol:tint:)"
-      ],
-      "title" : "Instance Methods"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
         "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/With"
       ],
       "title" : "Type Aliases"
@@ -320,40 +308,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet"
 },
-"doc://FairApp/documentation/FairApp/Facet/FacetInfo-swift.typealias": {
-  "abstract" : [
-    {
-      "text" : "Metadata for the facet",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FacetInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/FacetInfo-swift.typealias",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FacetInfo"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Facet.FacetInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.typealias"
-},
 "doc://FairApp/documentation/FairApp/Facet/With": {
   "abstract" : [
     {
@@ -387,52 +341,6 @@
   "title" : "Facet.With",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/with"
-},
-"doc://FairApp/documentation/FairApp/Facet/facetInfo-swift.property": {
-  "abstract" : [
-    {
-      "text" : "The title, icon, and tint color for the facet",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "facetInfo"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
-      "text" : "FacetInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/facetInfo-swift.property",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "facetInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facet\/facetinfo-swift.property"
 },
 "doc://FairApp/documentation/FairApp/Facet/facets(for:)-6bxw3": {
   "abstract" : [
@@ -508,17 +416,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/facet\/facets(for:)-6bxw3"
 },
-"doc://FairApp/documentation/FairApp/Facet/info(title:symbol:tint:)": {
+"doc://FairApp/documentation/FairApp/FacetUI": {
   "abstract" : [
-    {
-      "text" : "Facet metadata convenience builder.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -526,87 +431,44 @@
     },
     {
       "kind" : "identifier",
-      "text" : "info"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "title"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI4TextV",
-      "text" : "Text"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "symbol"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0A6SymbolV",
-      "text" : "FairSymbol"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "tint"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7SwiftUI5ColorV",
-      "text" : "Color"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp5FacetP0C4Infoa",
-      "text" : "FacetInfo"
+      "text" : "FacetUI"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/Facet\/info(title:symbol:tint:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FacetUI",
   "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FacetUI"
+    }
+  ],
   "role" : "symbol",
-  "title" : "info(title:symbol:tint:)",
+  "title" : "FacetUI",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/facet\/info(title:symbol:tint:)"
+  "url" : "\/documentation\/fairapp\/facetui"
 },
 "doc://FairApp/documentation/FairApp/FacetView": {
   "abstract" : [
-
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "FacetView",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is an app ",
+      "type" : "text"
+    },
+    {
+      "code" : "Facet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that knows how to create a view for itself.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
