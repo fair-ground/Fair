@@ -94,10 +94,16 @@ public struct VectorAnimationView: View {
 
     public init(animation: VectorAnimation) {
         self.animation = animation
+        #if canImport(Lottie)
+        // Use the Core Animation rendering engine if possible,
+        // otherwise fall back to using the Main Thread rendering engine.
+        //  - Call this early in your app lifecycle, such as in the AppDelegate.
+        LottieConfiguration.shared.renderingEngine = .automatic
+        #endif
     }
 
 #if canImport(Lottie)
-    public var body: some View {
+    @ViewBuilder public var body: some View {
         VectorAnimationViewRepresentable(source: self)
     }
 
