@@ -30,6 +30,9 @@ jobs:
   ci-linux:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      FAIRHUB_API_SKIP: true # used by tests to determine load
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Get swift version
@@ -42,11 +45,11 @@ jobs:
         run: |
           swift run fairtool version
 
-      - name: Fair Tests
-        env:
-          FAIRHUB_API_SKIP: true # used by tests to determine load
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: swift test
+      - name: Fair Test Linux (Debug)
+        run: swift test -v --configuration debug
+
+      - name: Fair Test Linux (Release)
+        run: swift test -v --configuration release -Xswiftc -enable-testing
 
       - name: Check fairtool formula
         if: false
