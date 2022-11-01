@@ -217,16 +217,16 @@ public extension URL {
 /// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
 @MainActor public protocol FairContainer {
     /// The store for this instance
-    associatedtype AppStore : SceneManager
+    associatedtype AppManager : SceneManager
 
     associatedtype SceneBody : SwiftUI.Scene
 
     /// The root scene for new windows
-    @SceneBuilder static func rootScene(store: Self.AppStore) -> Self.SceneBody
+    @SceneBuilder static func rootScene(store: AppManager) -> Self.SceneBody
 
     associatedtype SettingsBody : View
     /// The settings associated with this app
-    @ViewBuilder static func settingsView(store: Self.AppStore) -> Self.SettingsBody
+    @ViewBuilder static func settingsView(store: AppManager) -> Self.SettingsBody
 
 
     /// Launch the app, either in GUI or CLI form
@@ -270,12 +270,16 @@ public extension SceneManager {
     ///
     /// - Parameter bundle: the bundle from which to load the resource (typically `.module`)
     /// - Returns: the decoded type parsed from the YAML file
-    /// - Note: Failure to parse the YAML file or decode the result type is fatal.
-    static func configuration<T: Decodable>(name: String, for bundle: Bundle) -> T {
-        let url = bundle.url(forResource: name, withExtension: "yml", subdirectory: nil)!
-        let source = try! String(contentsOf: url, encoding: .utf8)
-        let yaml = try! JSum.parse(yaml: source)
-        return try! T(json: yaml.json(), dataDecodingStrategy: .base64, dateDecodingStrategy: .iso8601)
+    static func configuration<T: Decodable>(name: String, for bundle: Bundle) throws -> T {
+        guard let url = bundle.url(forResource: name, withExtension: "yml", subdirectory: nil) else {
+            throw AppError(String(format: NSLocalizedString("Unable to load resource named: “%@”", bundle: .module, comment: "error message"), name))
+        }
+        if try url.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink == true {
+            dbg("configuration isSymbolicLink for:", name)
+        }
+        let source = try String(contentsOf: url, encoding: .utf8)
+        let yaml = try JSum.parse(yaml: source)
+        return try T(json: yaml.json(), dataDecodingStrategy: .base64, dateDecodingStrategy: .iso8601)
     }
 }
 
@@ -535,7 +539,7 @@ public struct FairContainerApp<Container: FairContainer> : SwiftUI.App {
     @UXApplicationDelegateAdaptor(AppDelegate.self) fileprivate var delegate
     @Environment(\.openURL) var openURL
     @Environment(\.scenePhase) var scenePhase
-    @StateObject public var store = Container.AppStore()
+    @StateObject public var store = Container.AppManager()
 
     public init() {
     }
