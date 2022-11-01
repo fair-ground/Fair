@@ -328,7 +328,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(json:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(plist:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yaml:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parseMultiple(yaml:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yamls:)"
       ],
       "title" : "Type Methods"
     },
@@ -1666,7 +1666,19 @@
 },
 "doc://FairCore/documentation/FairCore/JSum/parse(yaml:)": {
   "abstract" : [
-
+    {
+      "text" : "Parses the given YAML string into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1731,9 +1743,21 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/parse(yaml:)"
 },
-"doc://FairCore/documentation/FairCore/JSum/parseMultiple(yaml:)": {
+"doc://FairCore/documentation/FairCore/JSum/parse(yamls:)": {
   "abstract" : [
-
+    {
+      "text" : "Parses the given YAML string into multuple ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -1754,7 +1778,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "parseMultiple"
+      "text" : "parse"
     },
     {
       "kind" : "text",
@@ -1762,7 +1786,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "yaml"
+      "text" : "yamls"
     },
     {
       "kind" : "text",
@@ -1795,12 +1819,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parseMultiple(yaml:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yamls:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "parseMultiple(yaml:)",
+  "title" : "parse(yamls:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum\/parsemultiple(yaml:)"
+  "url" : "\/documentation\/faircore\/jsum\/parse(yamls:)"
 },
 "doc://FairCore/documentation/FairCore/JSum/str": {
   "abstract" : [

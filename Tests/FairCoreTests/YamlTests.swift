@@ -38,7 +38,7 @@ final class YamlTests : XCTestCase {
     // MARK: YAML Tests
 
     private let yaml = JSum.parse(yaml:)
-    private let yamlMulti = JSum.parseMultiple(yaml:)
+    private let yamlMulti = JSum.parse(yamls:)
 
     func testNull() {
         XCTAssertEqual(try yaml("# comment line"), .nul)

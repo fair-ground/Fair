@@ -1,4 +1,19 @@
 {
+  "abstract" : [
+    {
+      "text" : "Parses the given YAML string into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -151,6 +166,25 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "the YAML string to parse",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "yaml"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
@@ -225,7 +259,19 @@
 },
 "doc://FairCore/documentation/FairCore/JSum/parse(yaml:)": {
   "abstract" : [
-
+    {
+      "text" : "Parses the given YAML string into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
