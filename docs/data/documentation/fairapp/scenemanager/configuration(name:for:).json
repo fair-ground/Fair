@@ -28,7 +28,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp12SceneManagerPAAE13configuration4name3forqd__SS_So8NSBundleCtSeRd__lFZ",
+    "externalID" : "s:7FairApp12SceneManagerPAAE13configuration4name3forqd__SS_So8NSBundleCtKSeRd__lFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -94,7 +94,15 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> "
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
       },
       {
         "kind" : "typeIdentifier",
@@ -194,7 +202,15 @@
             },
             {
               "kind" : "text",
-              "text" : ") -> "
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
             },
             {
               "kind" : "typeIdentifier",
@@ -317,22 +333,6 @@
             }
           ],
           "type" : "paragraph"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Failure to parse the YAML file or decode the result type is fatal.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -504,7 +504,15 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
     },
     {
       "kind" : "typeIdentifier",

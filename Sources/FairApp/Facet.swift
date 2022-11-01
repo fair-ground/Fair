@@ -461,10 +461,10 @@ public extension FacetUI {
 }
 
 
-extension FairContainer where AppStore.AppFacets : View, AppStore.AppFacets == SettingsBody {
+extension FairContainer where AppManager.AppFacets : View, AppManager.AppFacets == SettingsBody {
     /// The app-wide settings view, which, by convention, is the final element of the app's facets.
-    @ViewBuilder public static func settingsView(store: AppStore) -> some View {
-        AppStore.AppFacets.facets(for: store).last.unsafelyUnwrapped
+    @ViewBuilder public static func settingsView(store: AppManager) -> some View {
+        AppManager.AppFacets.facets(for: store).last.unsafelyUnwrapped
             .environmentObject(store)
     }
 }

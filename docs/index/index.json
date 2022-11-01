@@ -718,8 +718,8 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/fairapp\/faircontainer\/appstore",
-                "title" : "AppStore",
+                "path" : "\/documentation\/fairapp\/faircontainer\/appmanager",
+                "title" : "AppManager",
                 "type" : "associatedtype"
               },
               {
@@ -793,7 +793,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/faircontainer\/rootscene(store:)",
-                "title" : "static func rootScene(store: Self.AppStore) -> Self.SceneBody",
+                "title" : "static func rootScene(store: Self.AppManager) -> Self.SceneBody",
                 "type" : "method"
               },
               {
@@ -801,8 +801,8 @@
                   {
                     "children" : [
                       {
-                        "path" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-1b0iv",
-                        "title" : "static func settingsView(store: Self.AppStore) -> some View",
+                        "path" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-614av",
+                        "title" : "static func settingsView(store: Self.AppManager) -> some View",
                         "type" : "method"
                       }
                     ],
@@ -810,8 +810,8 @@
                     "type" : "groupMarker"
                   }
                 ],
-                "path" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-56r4g",
-                "title" : "static func settingsView(store: Self.AppStore) -> Self.SettingsBody",
+                "path" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-711sn",
+                "title" : "static func settingsView(store: Self.AppManager) -> Self.SettingsBody",
                 "type" : "method"
               }
             ],
@@ -854,7 +854,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/scenemanager\/configuration(name:for:)",
-                "title" : "static func configuration<T>(name: String, for: Bundle) -> T",
+                "title" : "static func configuration<T>(name: String, for: Bundle) throws -> T",
                 "type" : "method"
               }
             ],
@@ -15349,7 +15349,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/faircontainerapp\/store",
-                "title" : "var store: Container.AppStore",
+                "title" : "var store: Container.AppManager",
                 "type" : "property"
               },
               {

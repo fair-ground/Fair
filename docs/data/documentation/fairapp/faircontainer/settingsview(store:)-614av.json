@@ -1,33 +1,59 @@
 {
   "abstract" : [
     {
-      "text" : "The settings associated with this app",
+      "text" : "The app-wide settings view, which, by convention, is the final element of the app’s facets.",
       "type" : "text"
-    }
-  ],
-  "defaultImplementationsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-1b0iv"
-      ],
-      "title" : "FairContainer Implementations"
     }
   ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/FairApp\/documentation\/FairApp",
-        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer"
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer",
+        "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-711sn"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-56r4g"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-614av"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0A9ContainerP12settingsView5store12SettingsBodyQz0B5StoreQz_tFZ",
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "SettingsBody",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " is ",
+          "type" : "text"
+        },
+        {
+          "code" : "Self.AppManager.AppFacets",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "FairApp",
+    "externalID" : "s:7FairApp0A9ContainerPAA0B7Manager_0B6FacetsQZ12SettingsBodyRtzrlE12settingsView5storeQrADQz_tFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -71,23 +97,24 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "AppStore"
+        "text" : "AppManager"
       },
       {
         "kind" : "text",
         "text" : ") -> "
       },
       {
-        "kind" : "typeIdentifier",
-        "text" : "Self"
+        "kind" : "keyword",
+        "text" : "some"
       },
       {
         "kind" : "text",
-        "text" : "."
+        "text" : " "
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "SettingsBody"
+        "preciseIdentifier" : "s:7SwiftUI4ViewP",
+        "text" : "View"
       }
     ],
     "modules" : [
@@ -95,7 +122,6 @@
         "name" : "FairApp"
       }
     ],
-    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Type Method",
     "symbolKind" : "method",
@@ -154,23 +180,28 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "AppStore"
+              "text" : "AppManager"
             },
             {
               "kind" : "text",
               "text" : ") -> "
             },
             {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
+              "kind" : "keyword",
+              "text" : "some"
             },
             {
               "kind" : "text",
-              "text" : "."
+              "text" : " "
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "SettingsBody"
+              "preciseIdentifier" : "s:7SwiftUI4ViewP",
+              "text" : "View"
+            },
+            {
+              "kind" : "text",
+              "text" : "\n"
             }
           ]
         }
@@ -189,7 +220,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-56r4g"
+        "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-614av"
       ],
       "traits" : [
         {
@@ -272,7 +303,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/faircontainer"
 },
-"doc://FairApp/documentation/FairApp/FairContainer/settingsView(store:)-1b0iv": {
+"doc://FairApp/documentation/FairApp/FairContainer/settingsView(store:)-614av": {
   "abstract" : [
     {
       "text" : "The app-wide settings view, which, by convention, is the final element of the app’s facets.",
@@ -302,7 +333,7 @@
         "type" : "text"
       },
       {
-        "code" : "Self.AppStore.AppFacets",
+        "code" : "Self.AppManager.AppFacets",
         "type" : "codeVoice"
       },
       {
@@ -354,7 +385,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "AppStore"
+      "text" : "AppManager"
     },
     {
       "kind" : "text",
@@ -374,14 +405,14 @@
       "text" : "View"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-1b0iv",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-614av",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "settingsView(store:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-1b0iv"
+  "url" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-614av"
 },
-"doc://FairApp/documentation/FairApp/FairContainer/settingsView(store:)-56r4g": {
+"doc://FairApp/documentation/FairApp/FairContainer/settingsView(store:)-711sn": {
   "abstract" : [
     {
       "text" : "The settings associated with this app",
@@ -432,7 +463,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "AppStore"
+      "text" : "AppManager"
     },
     {
       "kind" : "text",
@@ -451,13 +482,13 @@
       "text" : "SettingsBody"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-56r4g",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/FairContainer\/settingsView(store:)-711sn",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "settingsView(store:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-56r4g"
+  "url" : "\/documentation\/fairapp\/faircontainer\/settingsview(store:)-711sn"
 }
 }
 }
