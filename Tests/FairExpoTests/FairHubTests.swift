@@ -29,6 +29,7 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
+#if DEBUG // need @testable
 import Swift
 import XCTest
 @testable import FairExpo
@@ -442,3 +443,5 @@ final class FairHubTests: XCTestCase {
 
 }
 #endif // os(Windows)
+#endif // DEBUG for @testable
+

@@ -33,14 +33,16 @@ extension Data {
         return Data(digest)
         #else
         // on Linux & Windows, fall back to a slower pure swift implementation
-        return sha1Internal()
+        return sha1CommonCrypto()
         #endif
     }
 
+    #if canImport(CommonCrypto)
     /// Generates a SHA1 digest of this data using an internal implementation rather than CommonCrypto's
-    @usableFromInline func sha1Internal() -> Data {
+    @inlinable public func sha1CommonCrypto() -> Data {
         return Data(SHA1(self).calculate())
     }
+    #endif
 
     /// Generates a SHA256 digest of this data
     @inlinable public func sha256() -> Data {
@@ -50,14 +52,16 @@ extension Data {
         return Data(digest)
         #else
         // on Linux & Windows, fall back to a slower pure swift implementation
-        return sha256Internal()
+        return sha256CommonCrypto()
         #endif
     }
 
+    #if canImport(CommonCrypto)
     /// Generates a SHA256 digest of this data using an internal implementation rather than CommonCrypto's
-    @usableFromInline func sha256Internal() -> Data {
+    @inlinable public func sha256CommonCrypto() -> Data {
         Data(SHA256(for: self).value)
     }
+    #endif
 
     @inlinable public func hmacSHA(key: Data, hash variant: HMAC.Variant) -> Data {
         #if canImport(CommonCrypto)
@@ -89,11 +93,11 @@ extension Data {
         }
         return Data(digest)
         #else
-        return hmacSHAInternal(key: key, hash: variant)
+        return hmacSHACommonCrypto(key: key, hash: variant)
         #endif
     }
 
-    @usableFromInline func hmacSHAInternal(key: Data, hash variant: HMAC.Variant) -> Data {
+    @inlinable public func hmacSHACommonCrypto(key: Data, hash variant: HMAC.Variant) -> Data {
         Data(HMAC(key: key.array(), variant: variant).authenticate(array()))
     }
 }

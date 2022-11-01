@@ -1230,12 +1230,21 @@ public extension AppIconSet {
 }
 
 
+/// A representation of a hex color with integer red, green, blue, and alpha components.
 public struct HexColor : Hashable {
     public let r, g, b: Int
     public let a: Int?
+
+    public init(r: Int, g: Int, b: Int, a: Int? = nil) {
+        self.r = r
+        self.g = g
+        self.b = b
+        self.a = a
+    }
 }
 
 public extension HexColor {
+    /// Creates a `HexColor` by parsing the given hex string, which optionally may be preceeded by a "#".
     init?(hexString: String) {
         var str = hexString.dropFirst(0)
         if str.hasPrefix("#") {

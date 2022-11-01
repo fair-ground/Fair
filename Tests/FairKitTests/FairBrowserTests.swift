@@ -9,13 +9,13 @@ open class FairBrowserTests: XCTestCase {
     @available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)
     open func testWebState() async throws {
         func titleTest(inlineTitle: String = UUID().uuidString) async throws {
-            try await wv.load(request: URLRequest(url: URL(string: "data:text/html," + "<html><head><title>\(inlineTitle)</title></head><body></body></html>".escapedURLTerm)!))
+            _ = try await wv.load(request: URLRequest(url: URL(string: "data:text/html," + "<html><head><title>\(inlineTitle)</title></head><body></body></html>".escapedURLTerm)!))
             let title = try await wv.webView.evalJS("document.title")
             XCTAssertEqual(inlineTitle as NSString, title as? NSString)
         }
 
         do {
-            try await wv.load(request: URLRequest(url: URL(string: "https://www.example.org")!))
+            _ = try await wv.load(request: URLRequest(url: URL(string: "https://www.example.org")!))
             let title = try await wv.webView.evalJS("document.title")
             XCTAssertEqual("Example Domain", title as? NSString)
         }
@@ -25,7 +25,7 @@ open class FairBrowserTests: XCTestCase {
         }
 
         do {
-            try await wv.load(request: URLRequest(url: URL(string: "https://www.example.com")!))
+            _ = try await wv.load(request: URLRequest(url: URL(string: "https://www.example.com")!))
             let title = try await wv.webView.evalJS("document.title")
             XCTAssertEqual("Example Domain", title as? NSString)
         }
@@ -52,7 +52,7 @@ open class FairBrowserTests: XCTestCase {
         }
 
         do {
-            try await wv.load(request: URLRequest(url: URL(string: "https://www.example.edu")!))
+            _ = try await wv.load(request: URLRequest(url: URL(string: "https://www.example.edu")!))
             let title = try await wv.webView.evalJS("document.title")
             XCTAssertEqual("Example Domain", title as? NSString)
         }
@@ -62,13 +62,13 @@ open class FairBrowserTests: XCTestCase {
         }
 
         do {
-            try await wv.load(request: URLRequest(url: URL(string: "https://www.webkit.org")!))
+            _ = try await wv.load(request: URLRequest(url: URL(string: "https://www.webkit.org")!))
             let title = try await wv.webView.evalJS("document.title")
             XCTAssertEqual("WebKit", title as? NSString)
         }
 
         do {
-            try await wv.load(request: URLRequest(url: URL(string: "https://www.example.net")!))
+            _ = try await wv.load(request: URLRequest(url: URL(string: "https://www.example.net")!))
             let title = try await wv.webView.evalJS("document.title")
             XCTAssertEqual("Example Domain", title as? NSString)
         }

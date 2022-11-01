@@ -275,9 +275,9 @@ extension XOr.Or where Q : XOrType {
     public init(_ rawValue: Q.Q) { self = .init(.init(rawValue)) }
 
     /// `Q.P` if that is the case
-    func infer() -> Q.P? { infer()?.infer() }
+    public func infer() -> Q.P? { infer()?.infer() }
     /// `Q.Q` if that is the case
-    func infer() -> Q.Q? { infer()?.infer() }
+    public func infer() -> Q.Q? { infer()?.infer() }
 }
 
 extension XOr.Or where Q : XOrType, Q.P : XOrType {
@@ -285,9 +285,9 @@ extension XOr.Or where Q : XOrType, Q.P : XOrType {
     public init(_ rawValue: Q.P.Q) { self = .init(.init(.init(rawValue))) }
 
     /// `Q.P.P` if that is the case
-    func infer() -> Q.P.P? { infer()?.infer()?.infer() }
+    public func infer() -> Q.P.P? { infer()?.infer()?.infer() }
     /// `Q.P.Q` if that is the case
-    func infer() -> Q.P.Q? { infer()?.infer()?.infer() }
+    public func infer() -> Q.P.Q? { infer()?.infer()?.infer() }
 }
 
 extension XOr.Or where Q : XOrType, Q.Q : XOrType {
@@ -295,9 +295,9 @@ extension XOr.Or where Q : XOrType, Q.Q : XOrType {
     public init(_ rawValue: Q.Q.Q) { self = .init(.init(.init(rawValue))) }
 
     /// `Q.Q.P` if that is the case
-    func infer() -> Q.Q.P? { infer()?.infer()?.infer() }
+    public func infer() -> Q.Q.P? { infer()?.infer()?.infer() }
     /// `Q.Q.Q` if that is the case
-    func infer() -> Q.Q.Q? { infer()?.infer()?.infer() }
+    public func infer() -> Q.Q.Q? { infer()?.infer()?.infer() }
 }
 
 // … and so on …

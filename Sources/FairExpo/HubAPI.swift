@@ -1267,7 +1267,7 @@ extension AppCatalog {
     }
 
     /// Compare two catalogs and report the changes that indicate version changes between catalog entries with the same bundle identifier
-    static func newReleases(from oldcat: AppCatalog, to newcat: AppCatalog, comparator: (_ new: AppCatalogItem, _ old: AppCatalogItem?) -> Bool = { $0.version != $1?.version }) -> [AppCatalogItem.Diff] {
+    public static func newReleases(from oldcat: AppCatalog, to newcat: AppCatalog, comparator: (_ new: AppCatalogItem, _ old: AppCatalogItem?) -> Bool = { $0.version != $1?.version }) -> [AppCatalogItem.Diff] {
         let oldapps = oldcat.apps.filter { $0.beta != true }
         let newapps = newcat.apps.filter { $0.beta != true }
 

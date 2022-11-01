@@ -623,7 +623,7 @@ extension AppBundle where Source.Path == URL {
 // TODO: Re-implement as read/write to support code signing
 // https://github.com/indygreg/PyOxidizer/blob/main/apple-codesign/src/macho.rs#L36
 
-class MachOBinary {
+public class MachOBinary {
     enum Error: Swift.Error {
         case binaryOpeningError
         case unknownBinaryFormat
@@ -661,7 +661,7 @@ class MachOBinary {
 
     private let binary: SeekableData
 
-    init(binary: SeekableData) throws {
+    public init(binary: SeekableData) throws {
         self.binary = binary.reversedEndian()
     }
 
@@ -689,7 +689,7 @@ class MachOBinary {
         }
     }
 
-    func readEntitlements(fromSliceStartingAt offset: SeekableData.Offset = 0) throws -> [AppEntitlements] {
+    public func readEntitlements(fromSliceStartingAt offset: SeekableData.Offset = 0) throws -> [AppEntitlements] {
         switch try getBinaryType(fromSliceStartingAt: offset) {
         case .singleArch(let headerInfo):
             let headerSize = headerInfo.headerSize

@@ -33,21 +33,21 @@ import Swift
 import XCTest
 #if canImport(SwiftUI)
 import WebKit
-@testable import FairApp
+import FairApp
 
 final class FairIconTests: XCTestCase {
     /// Crashes on GH CI
-        func XXXtestFairIcons() throws {
-        let width = 1600.0, height = 400.0
-
-        for i in 1...20 {
-            try FairIconView_Previews.preview(count: 300, span: height/5)
-                .frame(width: width, height: height, alignment: .center)
-                .offset(x: width/2, y: height/2)
-                .previewLayout(.sizeThatFits)
-                .png(bounds: CGRect(x: 0, y: 0, width: width, height: height))?
-                .write(to: URL(fileURLWithPath: "FairIcon_\(i).png", relativeTo: URL(fileURLWithPath: NSTemporaryDirectory())))
-        }
+    func XXXtestFairIcons() throws {
+//        let width = 1600.0, height = 400.0
+//
+//        for i in 1...20 {
+//            try FairIconView_Previews.preview(count: 300, span: height/5)
+//                .frame(width: width, height: height, alignment: .center)
+//                .offset(x: width/2, y: height/2)
+//                .previewLayout(.sizeThatFits)
+//                .png(bounds: CGRect(x: 0, y: 0, width: width, height: height))?
+//                .write(to: URL(fileURLWithPath: "FairIcon_\(i).png", relativeTo: URL(fileURLWithPath: NSTemporaryDirectory())))
+//        }
     }
 }
 #endif

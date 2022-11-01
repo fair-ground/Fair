@@ -31,7 +31,7 @@
  */
 import Swift
 import XCTest
-@testable import FairCore
+import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif

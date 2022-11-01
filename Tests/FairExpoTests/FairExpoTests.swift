@@ -33,7 +33,7 @@ import Swift
 import XCTest
 import FairCore
 import FairApp
-@testable import FairExpo
+import FairExpo
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif

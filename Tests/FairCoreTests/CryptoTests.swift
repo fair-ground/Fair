@@ -31,7 +31,7 @@
  */
 import Swift
 import XCTest
-@testable import FairCore
+import FairCore
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -87,8 +87,10 @@ final class CryptoTests: XCTestCase {
         for _ in 1...100 {
             let data = randomData(count: Int.random(in: 1...10000))
             let sha1a = data.sha1()
-            let sha1b = data.sha1Internal()
+            #if canImport(CommonCrypto)
+            let sha1b = data.sha1CommonCrypto()
             XCTAssertEqual(sha1a.hex(), sha1b.hex())
+            #endif
         }
     }
 
@@ -97,8 +99,10 @@ final class CryptoTests: XCTestCase {
         for _ in 1...100 {
             let data = randomData(count: Int.random(in: 1...10000))
             let sha256a = data.sha256()
-            let sha256b = data.sha256Internal()
+            #if canImport(CommonCrypto)
+            let sha256b = data.sha256CommonCrypto()
             XCTAssertEqual(sha256a.hex(), sha256b.hex())
+            #endif
         }
     }
 
@@ -108,8 +112,10 @@ final class CryptoTests: XCTestCase {
             let data = randomData(count: Int.random(in: 1...100_000))
             let kdata = randomData(count: Int.random(in: 1...1_000))
             let hmac1 = data.hmacSHA(key: kdata, hash: .sha1)
-            let hmac2 = data.hmacSHAInternal(key: kdata, hash: .sha1)
+            #if canImport(CommonCrypto)
+            let hmac2 = data.hmacSHACommonCrypto(key: kdata, hash: .sha1)
             XCTAssertEqual(hmac1.hex(), hmac2.hex())
+            #endif
         }
     }
 
@@ -119,8 +125,10 @@ final class CryptoTests: XCTestCase {
             let data = randomData(count: Int.random(in: 1...100_000))
             let kdata = randomData(count: Int.random(in: 1...1_000))
             let hmac1 = data.hmacSHA(key: kdata, hash: .sha256)
-            let hmac2 = data.hmacSHAInternal(key: kdata, hash: .sha256)
+            #if canImport(CommonCrypto)
+            let hmac2 = data.hmacSHACommonCrypto(key: kdata, hash: .sha256)
             XCTAssertEqual(hmac1.hex(), hmac2.hex())
+            #endif
         }
     }
 

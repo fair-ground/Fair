@@ -456,14 +456,14 @@ protocol FairAppCommand : FairProjectCommand {
 /// Since all the native plist parsers do not preserve comments, we save the raw string from the
 /// strings file, and any updates to the dictionary will preserve the existing comment for that key
 /// (assuming it exists).
-struct LocalizedStringsFile {
-    private(set) var fileContents: String
-    private(set) var plist: Plist
+public struct LocalizedStringsFile {
+    public private(set) var fileContents: String
+    public private(set) var plist: Plist
     /// An index of the plist keys to the lines in the property list file.
     private(set) var keyLines: [String?: Int] = [:]
 
     /// Returns all the keys in this property list
-    var keys: Set<String> {
+    public var keys: Set<String> {
         plist.rawValue.allKeys.compactMap({ $0 as? String }).set()
     }
 
@@ -471,7 +471,7 @@ struct LocalizedStringsFile {
         fileContents.split(separator: "\n", omittingEmptySubsequences: false)
     }
 
-    init(fileContents: String) throws {
+    public init(fileContents: String) throws {
         self.fileContents = fileContents
         self.plist = try Plist(data: fileContents.utf8Data)
         self.keyLines = Dictionary(fileLines.enumerated().map({ (Self.parseKeyFromLine($1), $0) })) { $1 }
@@ -492,7 +492,7 @@ struct LocalizedStringsFile {
     }
 
     /// Updates the strings file contents with the specified property list dictionary.
-    mutating func update(strings: Plist) throws {
+    public mutating func update(strings: Plist) throws {
         var lines = self.fileLines.map(String.init)
         var trimLines = IndexSet()
 
@@ -873,7 +873,7 @@ public struct SourceCommand : AsyncParsableCommand {
     }
 }
 
-protocol NewsItemFormat {
+public protocol NewsItemFormat {
     var postTitle: String? { get }
     var postTitleUpdate: String? { get }
     var postCaption: String? { get }
@@ -887,7 +887,7 @@ protocol NewsItemFormat {
 extension NewsItemFormat {
     /// Takes the differences from two catalogs and adds them to the postings with the given formats and limits.
     /// Also sends out updates to various channels, such as Twitter (experimental) and ATOM (planned)
-    func postUpdates(to catalog: inout AppCatalog, with diffs: [AppCatalogItem.Diff], twitterAuth: OAuth1.Info? = nil, newsLimit: Int? = nil, tweetLimit: Int? = nil) async throws -> [Tweeter.PostResponse] {
+    public func postUpdates(to catalog: inout AppCatalog, with diffs: [AppCatalogItem.Diff], twitterAuth: OAuth1.Info? = nil, newsLimit: Int? = nil, tweetLimit: Int? = nil) async throws -> [Tweeter.PostResponse] {
         var tweetLimit = tweetLimit ?? .max
         var responses: [Tweeter.PostResponse] = []
 
