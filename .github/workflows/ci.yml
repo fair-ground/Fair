@@ -75,10 +75,10 @@ jobs:
         run: xcrun swift test
  
       - name: Test iOS (Debug)
-        run: test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"
+        run: xcodebuild -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"
 
       - name: Test iOS (Release)
-        run: test -configuration Release -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"
+        run: xcodebuild -configuration Release -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"
 
       - name: Test macOS (Debug)
         run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
