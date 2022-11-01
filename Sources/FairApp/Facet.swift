@@ -33,8 +33,17 @@
  */
 import Swift
 
-#if canImport(SwiftUI)
-import SwiftUI
+/// A ``FacetManager`` defines the top-level and settings-level ``Facet``s for an app.
+public protocol FacetManager {
+    /// The top-level facets for this app.
+    associatedtype AppFacets : Facet
+
+    /// The settings-level facets for this app. These will be merged with standard app settings when showing a settings facet.
+    associatedtype ConfigFacets : Facet
+
+    /// The bundle associated with this manager
+    var bundle: Bundle { get }
+}
 
 /// A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),
 /// or a secondary-level feature (navigation items on iOS, settings tabs on macOS).
@@ -43,15 +52,10 @@ import SwiftUI
 ///
 /// The final tab will be the settings tab, which is shown as a tab on iOS and is included in the standard settings window on macOS.
 public protocol Facet : Hashable {
-    /// Metadata for the facet
-    typealias FacetInfo = (title: Text, symbol: FairSymbol?, tint: Color?)
-
-    /// The title, icon, and tint color for the facet
-    var facetInfo: FacetInfo { get }
-
     /// Accesses the given facets for the specified scene manager.
     static func facets<Manager: FacetManager>(for manager: Manager) -> [Self]
 }
+
 
 extension Facet {
     /// Composition of one facet with another
@@ -73,9 +77,6 @@ public struct MultiFacet<P : Facet, Q : Facet> : Facet {
         (P.facets(for: manager).map(Choice.p) + Q.facets(for: manager).map(Choice.q)).map(MultiFacet.init)
     }
 
-    public var facetInfo: FacetInfo {
-        choice.map(\.facetInfo, \.facetInfo).pvalue
-    }
 }
 
 extension MultiFacet : RawRepresentable where P : RawRepresentable, Q : RawRepresentable, P.RawValue == Q.RawValue {
@@ -97,6 +98,57 @@ extension MultiFacet : RawRepresentable where P : RawRepresentable, Q : RawRepre
         case .q(let q): return q.rawValue
         }
     }
+}
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+
+//extension Never : FacetView {
+//    public func facetView(for store: FacetStore) -> Never {
+//        fatalError()
+//    }
+//}
+
+public protocol FacetUI : Facet {
+    /// Metadata for the facet
+    typealias FacetInfo = (title: Text, symbol: FairSymbol?, tint: Color?)
+
+    /// The title, icon, and tint color for the facet
+    var facetInfo: FacetInfo { get }
+}
+
+extension MultiFacet : FacetUI where P : FacetUI, Q : FacetUI {
+    public var facetInfo: FacetInfo {
+        choice.map(\.facetInfo, \.facetInfo).pvalue
+    }
+}
+
+/// A Facet of Never is how a non-faceted store can
+extension Never : FacetUI {
+    public init?(rawValue: String) {
+        return nil
+    }
+
+    public var rawValue: String {
+        fatalError("Never instance never exists")
+    }
+
+    public var facetInfo: FacetInfo {
+        fatalError("Never instance never exists")
+    }
+
+    public static func facets<Manager>(for manager: Manager) -> [Never] where Manager : FacetManager {
+        Array()
+    }
+}
+
+
+/// A `FacetView` is an app `Facet` that knows how to create a view for itself.
+public protocol FacetView : FacetUI {
+    associatedtype FacetStore : FacetManager
+    associatedtype FacetViewType : View
+    @ViewBuilder func facetView(for store: FacetStore) -> FacetViewType
 }
 
 /// A union of views is also a view.
@@ -129,7 +181,8 @@ extension MultiFacet : FacetView where P : FacetView, Q : FacetView, P.FacetStor
 extension MultiFacet : CaseIterable where P : CaseIterable, Q : CaseIterable {
     /// A `MultiFacet` will iterator through all its choice cases.
     public static var allCases: [MultiFacet<P, Q>] {
-        P.allCases.map({ MultiFacet(choice: .init($0)) }) + Q.allCases.map({ MultiFacet(choice: .init($0)) })
+        P.allCases.map(Choice.p).map(MultiFacet.init) +
+        Q.allCases.map(Choice.q).map(MultiFacet.init)
     }
 }
 
@@ -275,6 +328,7 @@ extension Facet {
     var facetTag: Self? { self }
 }
 
+/// The style of facet representation.
 public struct FacetStyle : RawRepresentable, Hashable {
     public var rawValue: String
 
@@ -284,9 +338,13 @@ public struct FacetStyle : RawRepresentable, Hashable {
 }
 
 extension FacetStyle {
+    /// A style will be automatically chosen based on the platform and the nested status of the browser.
     public static let automatic = FacetStyle(rawValue: "automatic")
 
+    /// Facets will be arranged in an `OutlineView` and use `NavigationLink`s to traverse to their views.
     public static let outline = FacetStyle(rawValue: "outline")
+
+    /// Facets will be displayed in the platforms native tabbing interface.
     public static let tabs = FacetStyle(rawValue: "tabs")
 }
 
@@ -361,6 +419,7 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, F: Face
         }
     }
 
+    /// A navigation view of the facets. When unnested, this will ignore the first facet (Welcome) and the final facet (Settings), since those are handled separately by top-level naviation views.
     var bodyNavigation: some View {
         NavigationView {
             List {
@@ -377,7 +436,7 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, F: Face
             }
             .navigation(title: Text(Bundle.localizedAppName), subtitle: nil)
 
-            if !nested {
+            if !nested && !self.facets.isEmpty {
                 // the default placeholder view is the welcome screen
                 self.facets.first.unsafelyUnwrapped
                     .facetView(for: manager)
@@ -386,7 +445,7 @@ public struct FacetBrowserView<Manager: FacetManager & ObservableObject, F: Face
     }
 }
 
-public extension Facet {
+public extension FacetUI {
 
     /// Facet metadata convenience builder.
     ///

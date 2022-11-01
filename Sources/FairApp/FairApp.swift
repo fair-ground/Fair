@@ -213,6 +213,7 @@ public extension URL {
 }
 
 #if canImport(SwiftUI)
+
 /// A container for an app, which manages a single app-wide state and provides views for the `rootScene` and `settingsView`.
 @MainActor public protocol FairContainer {
     /// The store for this instance
@@ -242,37 +243,6 @@ public extension FairContainer {
     }
 }
 
-/// A ``FacetManager`` defines the top-level and settings-level ``Facet``s for an app.
-public protocol FacetManager {
-    /// The top-level facets for this app.
-    associatedtype AppFacets : Facet
-
-    /// The settings-level facets for this app. These will be merged with standard app settings when showing a settings facet.
-    associatedtype ConfigFacets : Facet
-
-    /// The bundle associated with this manager
-    var bundle: Bundle { get }
-}
-
-/// A Facet of Never is how a non-faceted store can
-extension Never : Facet {
-    public init?(rawValue: String) {
-        return nil
-    }
-
-    public var rawValue: String {
-        fatalError("Never instance never exists")
-    }
-
-    public var facetInfo: FacetInfo {
-        fatalError("Never instance never exists")
-    }
-
-    public static func facets<Manager>(for manager: Manager) -> [Never] where Manager : FacetManager {
-        Array()
-    }
-}
-
 extension FairContainer where Self : SceneManager {
     public typealias ConfigFacets = Never
 }
@@ -281,19 +251,10 @@ extension FairContainer where Self : SceneManager {
     public typealias AppFacets = Never
 }
 
-//extension Never : FacetView {
-//    public func facetView(for store: FacetStore) -> Never {
-//        fatalError()
-//    }
-//}
-
-public protocol FacetView : Facet {
-    associatedtype FacetStore : FacetManager
-    associatedtype FacetViewType : View
-    @ViewBuilder func facetView(for store: FacetStore) -> FacetViewType
-}
-
-/// The `SceneManager` is an app-wide singleton that will be injected at the root of each scene hierarchy.
+/// The `SceneManager` is an app-wide singleton that will be used at the root of each scene hierarchy.
+///
+/// A `SceneManager` is a `FacetManager` with the ability to create views
+/// for the given
 @MainActor public protocol SceneManager: FacetManager, ObservableObject where AppFacets : FacetView, ConfigFacets : FacetView  {
     /// Creates a new scene manager from scratch.
     init()
