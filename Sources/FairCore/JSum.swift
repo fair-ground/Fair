@@ -33,7 +33,7 @@
  */
 import Swift
 
-/// A JSum is a Join Sum type, which is an enumeration that can represent one of:
+/// A JSum is a Joint Sum type, which is an enumeration that can represent one of:
 ///
 /// - `JSum.bol`: `Bool`
 /// - `JSum.str`: `String`
@@ -71,7 +71,8 @@ import Swift
 /// A `JObj` is the associated dictionary type for a `JSum.obj`, which is equivalent to a JSON "object".
 public typealias JObj = [String: JSum]
 
-extension JSum {
+public extension JSum {
+    /// Returns the ``Bool`` value of type ``bol``.
     var bool: Bool? {
         switch self {
         case .bol(let b):
@@ -81,6 +82,7 @@ extension JSum {
         }
     }
 
+    /// Returns the ``Int`` value of type ``num``.
     var int: Int? {
         switch self {
         case .num(let f):
@@ -94,6 +96,7 @@ extension JSum {
         }
     }
 
+    /// Returns the ``Double`` value of type ``num``.
     var double: Double? {
         switch self {
         case .num(let f):
@@ -103,6 +106,7 @@ extension JSum {
         }
     }
 
+    /// Returns the ``String`` value of type ``str``.
     var string: String? {
         switch self {
         case .str(let s):
@@ -112,6 +116,7 @@ extension JSum {
         }
     }
 
+    /// Returns the ``Array<JSum>`` value of type ``arr``.
     var array: [JSum]? {
         switch self {
         case .arr(let array):
@@ -121,6 +126,7 @@ extension JSum {
         }
     }
 
+    /// Returns the ``dictionary<String, JSum>`` value of type ``obj``.
     var dictionary: [JObj.Key: JSum]? {
         switch self {
         case .obj(let dictionary):
@@ -130,6 +136,7 @@ extension JSum {
         }
     }
 
+    /// Returns the number of elements for an ``arr`` or key/values for an ``obj``
     var count: Int? {
         switch self {
         case .arr(let array):
@@ -142,7 +149,7 @@ extension JSum {
     }
 }
 extension JSum : ExpressibleByNilLiteral {
-    /// Creates null JSum
+    /// Creates ``nul`` JSum
     @inlinable public init(nilLiteral: ()) {
         self = .nul
     }
@@ -320,7 +327,7 @@ public struct JSumOptions : OptionSet {
 
 extension NSDictionary {
     /// Converts this instance to a JSum by serializing it to JSON and then de-serializing to a `JSum`.
-    func jsum(options: JSumOptions = []) throws -> JSum {
+    public func jsum(options: JSumOptions = []) throws -> JSum {
         // this fails when there is a <data> elemement
         // try JSum(json: JSONSerialization.data(withJSONObject: self, options: []))
 

@@ -1,4 +1,18 @@
 {
+  "abstract" : [
+    {
+      "text" : "Creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "HexColor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by parsing the given hex string, which optionally may be preceeded by a “#”.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -140,7 +154,10 @@
 },
 "doc://FairApp/documentation/FairApp/HexColor": {
   "abstract" : [
-
+    {
+      "text" : "A representation of a hex color with integer red, green, blue, and alpha components.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -171,7 +188,18 @@
 },
 "doc://FairApp/documentation/FairApp/HexColor/init(hexString:)": {
   "abstract" : [
-
+    {
+      "text" : "Creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "HexColor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by parsing the given hex string, which optionally may be preceeded by a “#”.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

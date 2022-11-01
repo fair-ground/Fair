@@ -32,6 +32,7 @@
  exception statement from your version.
  */
 import Swift
+import Foundation
 
 /// A ``FacetManager`` defines the top-level and settings-level ``Facet``s for an app.
 public protocol FacetManager {
@@ -776,7 +777,8 @@ struct LocalesList : View {
     @Environment(\.locale) var currentLocale
     @EnvironmentObject var localeManager: LocaleManager
 
-#warning("TODO: show overridden language setting with option to clear")
+    // TODO: show overridden language setting with option to clear
+    
     var body: some View {
         List {
             let preferredLocales = bundle.locales(preferred: true, for: currentLocale)

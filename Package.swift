@@ -1,15 +1,25 @@
 // swift-tools-version:5.6
 import PackageDescription
 
-#if os(Linux)
-let (linux, macOS, windows) = (true, false, false)
-#elseif os(macOS)
-let (linux, macOS, windows) = (false, true, false)
+extension Platform {
+#if os(macOS)
+    static let current: Platform = .macOS
+#elseif os(iOS)
+    static let current: Platform = .iOS
+#elseif os(tvOS)
+    static let current: Platform = .tvOS
+#elseif os(watchOS)
+    static let current: Platform = .watchOS
+#elseif os(Android)
+    static let current: Platform = .android
+#elseif os(Linux)
+    static let current: Platform = .linux
 #elseif os(Windows)
-let (linux, macOS, windows) = (false, false, true)
+    static let current: Platform = .windows
 #else
-let (linux, macOS, windows) = (false, false, false)
+    #error("Unsupported platform.")
 #endif
+}
 
 let package = Package(
     name: "Fair",
@@ -23,22 +33,22 @@ let package = Package(
         .library(name: "FairKit", targets: ["FairKit"]),
         .library(name: "FairExpo", targets: ["FairExpo"]),
         .executable(name: "fairtool", targets: ["fairtool"]),
-        macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
-        macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
+        Platform.current == .macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
+        Platform.current == .macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
     ].compactMap({ $0 }),
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
-        .target(name: "FairCore", dependencies: linux ? ["CZLib"] : [], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
+        .target(name: "FairCore", dependencies: Platform.current == .linux ? ["CZLib"] : [], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
         .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
         .executableTarget(name: "fairtool", dependencies: ["FairExpo"]),
 
-        macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
+        Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
 
-        macOS ? .plugin(name: "FairBuild", capability: .buildTool(), dependencies: ["fairtool"]) : nil,
+        Platform.current == .macOS ? .plugin(name: "FairBuild", capability: .buildTool(), dependencies: ["fairtool"]) : nil,
 
         .testTarget(name: "FairCoreTests", dependencies: ["FairCore"], resources: [.process("Resources")]),
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
@@ -46,6 +56,6 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
         .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
         .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]),
 
-        linux ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
+        Platform.current == .linux ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
     ].compactMap({ $0 })
 )

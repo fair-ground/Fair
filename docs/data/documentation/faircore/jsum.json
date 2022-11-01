@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A JSum is a Join Sum type, which is an enumeration that can represent one of:",
+      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
       "type" : "text"
     }
   ],
@@ -301,11 +301,18 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/array",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/bol",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/bool",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/dictionary",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/double",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/int",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/nul-swift.property",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/num",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str"
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/string"
       ],
       "title" : "Instance Properties"
     },
@@ -395,7 +402,7 @@
 "doc://FairCore/documentation/FairCore/JSum": {
   "abstract" : [
     {
-      "text" : "A JSum is a Join Sum type, which is an enumeration that can represent one of:",
+      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
       "type" : "text"
     }
   ],
@@ -649,6 +656,64 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/arr(_:)"
 },
+"doc://FairCore/documentation/FairCore/JSum/array": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Array<JSum>",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "array"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/array",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "array",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/array"
+},
 "doc://FairCore/documentation/FairCore/JSum/bol": {
   "abstract" : [
     {
@@ -739,6 +804,311 @@
   "title" : "JSum.bol(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/bol(_:)"
+},
+"doc://FairCore/documentation/FairCore/JSum/bool": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Bool",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/bol",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/bool",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "bool",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/bool"
+},
+"doc://FairCore/documentation/FairCore/JSum/count": {
+  "abstract" : [
+    {
+      "text" : "Returns the number of elements for an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " or key\/values for an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "count",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/count"
+},
+"doc://FairCore/documentation/FairCore/JSum/dictionary": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "dictionary<String, JSum>",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dictionary"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JObja",
+      "text" : "JObj"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SD3Keya",
+      "text" : "Key"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/dictionary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "dictionary",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/dictionary"
+},
+"doc://FairCore/documentation/FairCore/JSum/double": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Double",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/num",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "double"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/double",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "double",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/double"
+},
+"doc://FairCore/documentation/FairCore/JSum/int": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "Int",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/num",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "int"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/int",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "int",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/int"
 },
 "doc://FairCore/documentation/FairCore/JSum/nul-swift.enum.case": {
   "abstract" : [
@@ -1522,6 +1892,64 @@
   "title" : "JSum.str(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/str(_:)"
+},
+"doc://FairCore/documentation/FairCore/JSum/string": {
+  "abstract" : [
+    {
+      "text" : "Returns the ",
+      "type" : "text"
+    },
+    {
+      "code" : "String",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " value of type ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/str",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "string"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/string",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "string",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/string"
 },
 "doc://FairCore/documentation/FairCore/JSum/subscript(_:)-4kskr": {
   "abstract" : [

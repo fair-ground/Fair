@@ -305,6 +305,31 @@
                 "type" : "groupMarker"
               },
               {
+                "path" : "\/documentation\/fairapp\/machobinary\/init(binary:)",
+                "title" : "init(binary: SeekableData) throws",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/machobinary\/readentitlements(fromslicestartingat:)",
+                "title" : "func readEntitlements(fromSliceStartingAt: UInt64) throws -> [AppEntitlements]",
+                "type" : "method"
+              }
+            ],
+            "path" : "\/documentation\/fairapp\/machobinary",
+            "title" : "MachOBinary",
+            "type" : "class"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
                 "path" : "\/documentation\/fairapp\/quickaction\/init(id:localizedtitle:localizedsubtitle:iconsymbol:block:)",
                 "title" : "init(id: String, localizedTitle: String, localizedSubtitle: String?, iconSymbol: String?, block: ((Bool) -> Void) -> ())",
                 "type" : "init"
@@ -19544,6 +19569,11 @@
               {
                 "path" : "\/documentation\/fairapp\/hexcolor\/init(hexstring:)",
                 "title" : "init?(hexString: String)",
+                "type" : "init"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/hexcolor\/init(r:g:b:a:)",
+                "title" : "init(r: Int, g: Int, b: Int, a: Int?)",
                 "type" : "init"
               },
               {

@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "A representation of a hex color with integer red, green, blue, and alpha components.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -94,7 +100,8 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/HexColor\/init(hexString:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/HexColor\/init(hexString:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/HexColor\/init(r:g:b:a:)"
       ],
       "title" : "Initializers"
     },
@@ -170,7 +177,10 @@
 },
 "doc://FairApp/documentation/FairApp/HexColor": {
   "abstract" : [
-
+    {
+      "text" : "A representation of a hex color with integer red, green, blue, and alpha components.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -369,7 +379,18 @@
 },
 "doc://FairApp/documentation/FairApp/HexColor/init(hexString:)": {
   "abstract" : [
-
+    {
+      "text" : "Creates a ",
+      "type" : "text"
+    },
+    {
+      "code" : "HexColor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " by parsing the given hex string, which optionally may be preceeded by a “#”.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -404,6 +425,95 @@
   "title" : "init(hexString:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/hexcolor\/init(hexstring:)"
+},
+"doc://FairApp/documentation/FairApp/HexColor/init(r:g:b:a:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "r"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "g"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "b"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "a"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/HexColor\/init(r:g:b:a:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(r:g:b:a:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/hexcolor\/init(r:g:b:a:)"
 },
 "doc://FairApp/documentation/FairApp/HexColor/r": {
   "abstract" : [

@@ -71,6 +71,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/FileSystemDataWrapper",
         "doc:\/\/FairApp\/documentation\/FairApp\/HandleStream",
         "doc:\/\/FairApp\/documentation\/FairApp\/LocaleManager",
+        "doc:\/\/FairApp\/documentation\/FairApp\/MachOBinary",
         "doc:\/\/FairApp\/documentation\/FairApp\/QuickAction",
         "doc:\/\/FairApp\/documentation\/FairApp\/ZipArchiveDataWrapper"
       ],
@@ -2295,7 +2296,10 @@
 },
 "doc://FairApp/documentation/FairApp/HexColor": {
   "abstract" : [
-
+    {
+      "text" : "A representation of a hex color with integer red, green, blue, and alpha components.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -2506,6 +2510,37 @@
   "title" : "LocaleManager",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/localemanager"
+},
+"doc://FairApp/documentation/FairApp/MachOBinary": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MachOBinary"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/MachOBinary",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MachOBinary"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MachOBinary",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/machobinary"
 },
 "doc://FairApp/documentation/FairApp/MultiFacet": {
   "abstract" : [

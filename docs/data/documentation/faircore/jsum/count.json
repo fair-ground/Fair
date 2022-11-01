@@ -1,0 +1,357 @@
+{
+  "abstract" : [
+    {
+      "text" : "Returns the number of elements for an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " or key\/values for an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairCore",
+    "externalID" : "s:8FairCore4JSumO5countSiSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "count"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Si",
+        "text" : "Int"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "count"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "count"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Si",
+              "text" : "Int"
+            },
+            {
+              "kind" : "text",
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/jsum\/count"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/JSum": {
+  "abstract" : [
+    {
+      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSum"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSum",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum"
+},
+"doc://FairCore/documentation/FairCore/JSum/arr": {
+  "abstract" : [
+    {
+      "text" : "Returns the underlying Array payload if this is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum.arr",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", otherwise ",
+      "type" : "text"
+    },
+    {
+      "code" : ".none",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "arr"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "arr",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/arr"
+},
+"doc://FairCore/documentation/FairCore/JSum/count": {
+  "abstract" : [
+    {
+      "text" : "Returns the number of elements for an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/arr",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " or key\/values for an ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/count",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "count",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/count"
+},
+"doc://FairCore/documentation/FairCore/JSum/obj": {
+  "abstract" : [
+    {
+      "text" : "Returns the underlying JObj payload if this is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum.obj",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", otherwise ",
+      "type" : "text"
+    },
+    {
+      "code" : ".none",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "obj"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JObja",
+      "text" : "JObj"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/obj",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "obj",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/obj"
+}
+}
+}

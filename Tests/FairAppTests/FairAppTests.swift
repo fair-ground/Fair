@@ -33,7 +33,7 @@ import Swift
 import XCTest
 #if canImport(SwiftUI)
 import WebKit
-@testable import FairApp
+import FairApp
 
 final class FairAppTests: XCTestCase {
 
@@ -43,18 +43,7 @@ final class FairAppTests: XCTestCase {
         //let browser = FairBrowser(url: .constant(url))
         //XCTAssertEqual(nil, browser.web.url)
     }
-
-    @available(macOS 12, iOS 15, *)
-    func XXXtestLocalizable() throws {
-        //let xyz = "XYZ"
-        XCTAssertEqual("Cancel", loc("Cancel"))
-
-        XCTAssertEqual("Cancel", loc("Cancel"))
-        XCTAssertEqual("Abbrechen", loc("Cancel", locale: Locale(identifier: "de")))
-        XCTAssertEqual("キャンセルする", loc("Cancel", locale: Locale(identifier: "ja")))
-        XCTAssertEqual("Отменить", loc("Cancel", locale: Locale(identifier: "ru")))
-    }
-
+    
     func testCatalogLocalizations() async throws {
         var localizations: [String: AppCatalogSource] = [:]
         do {

@@ -1,0 +1,472 @@
+{
+  "abstract" : [
+    {
+      "text" : "A representation of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Localized.strings",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file that retains its formatting and comments.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo20LocalizedStringsFileV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "LocalizedStringsFile"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "LocalizedStringsFile"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "LocalizedStringsFile"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "LocalizedStringsFile"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This structure is meant to be used to parse the output from ",
+              "type" : "text"
+            },
+            {
+              "code" : "genstrings",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", which saves",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to a UTF-16 OpenStep simplified ",
+              "type" : "text"
+            },
+            {
+              "code" : ".plist",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " with comments for the translation context.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Since all the native plist parsers do not preserve comments, we save the raw string from the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "strings file, and any updates to the dictionary will preserve the existing comment for that key",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "(assuming it exists).",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/init(fileContents:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/fileContents",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/keys",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/plist"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/update(strings:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/localizedstringsfile"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile": {
+  "abstract" : [
+    {
+      "text" : "A representation of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Localized.strings",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file that retains its formatting and comments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LocalizedStringsFile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LocalizedStringsFile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LocalizedStringsFile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile"
+},
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile/fileContents": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fileContents"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/fileContents",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fileContents",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile\/filecontents"
+},
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile/init(fileContents:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fileContents"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/init(fileContents:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(fileContents:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile\/init(filecontents:)"
+},
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile/keys": {
+  "abstract" : [
+    {
+      "text" : "Returns all the keys in this property list",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "keys"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/keys",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "keys",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile\/keys"
+},
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile/plist": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "plist"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore5PlistC",
+      "text" : "Plist"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/plist",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "plist",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile\/plist"
+},
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile/update(strings:)": {
+  "abstract" : [
+    {
+      "text" : "Updates the strings file contents with the specified property list dictionary.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "update"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "strings"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore5PlistC",
+      "text" : "Plist"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile\/update(strings:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "update(strings:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile\/update(strings:)"
+}
+}
+}

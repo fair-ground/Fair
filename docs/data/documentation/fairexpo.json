@@ -56,6 +56,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsItemFormat",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeedAdditions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/XMLNodeExpressible"
       ],
@@ -88,6 +89,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/IndexingOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MsgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/OutputOptions",
@@ -1581,6 +1583,48 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/jsoncommand"
 },
+"doc://FairExpo/documentation/FairExpo/LocalizedStringsFile": {
+  "abstract" : [
+    {
+      "text" : "A representation of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Localized.strings",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file that retains its formatting and comments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LocalizedStringsFile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LocalizedStringsFile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LocalizedStringsFile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/localizedstringsfile"
+},
 "doc://FairExpo/documentation/FairExpo/MessageBuffer": {
   "abstract" : [
 
@@ -1707,6 +1751,37 @@
   "title" : "MsgOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/msgoptions"
+},
+"doc://FairExpo/documentation/FairExpo/NewsItemFormat": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NewsItemFormat"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsItemFormat",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NewsItemFormat"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "NewsItemFormat",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/newsitemformat"
 },
 "doc://FairExpo/documentation/FairExpo/NewsOptions": {
   "abstract" : [
