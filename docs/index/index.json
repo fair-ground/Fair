@@ -804,6 +804,15 @@
                 "type" : "property"
               },
               {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/scenemanager\/createscreenshots()",
+                "title" : "func createScreenshots() throws -> [ScreenshotResult]",
+                "type" : "method"
+              },
+              {
                 "title" : "Type Methods",
                 "type" : "groupMarker"
               },
@@ -9016,6 +9025,164 @@
             ],
             "path" : "\/documentation\/fairapp\/commandresult",
             "title" : "CommandResult",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/device",
+                "title" : "var device: PreviewDevice",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.property",
+                "title" : "var deviceClass: DevicePreview.DeviceClass",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/height",
+                "title" : "var height: Double",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/width",
+                "title" : "var width: Double",
+                "type" : "property"
+              },
+              {
+                "title" : "Type Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/ipadpro6",
+                "title" : "static let iPadPro6: DevicePreview",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/iphone14plus",
+                "title" : "static let iPhone14Plus: DevicePreview",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/iphone8plus",
+                "title" : "static let iPhone8Plus: DevicePreview",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/devicepreview\/requireddevices",
+                "title" : "static let requiredDevices: [DevicePreview]",
+                "type" : "property"
+              },
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/ipad",
+                    "title" : "case ipad",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/iphone",
+                    "title" : "case iphone",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/mac",
+                    "title" : "case mac",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/tv",
+                    "title" : "case tv",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/watch",
+                    "title" : "case watch",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/init(rawvalue:)",
+                    "title" : "init?(rawValue: String)",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/platform",
+                    "title" : "var platform: PreviewPlatform",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/hashvalue",
+                        "title" : "var hashValue: Int",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/hash(into:)",
+                        "title" : "func hash(into: inout Hasher)",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum\/rawrepresentable-implementations",
+                    "title" : "RawRepresentable Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/devicepreview\/deviceclass-swift.enum",
+                "title" : "DevicePreview.DeviceClass",
+                "type" : "enum"
+              }
+            ],
+            "path" : "\/documentation\/fairapp\/devicepreview",
+            "title" : "DevicePreview",
             "type" : "struct"
           },
           {
@@ -24515,6 +24682,101 @@
             ],
             "path" : "\/documentation\/fairapp\/svgpathoptions",
             "title" : "SVGPathOptions",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/appfacet",
+                "title" : "var appFacet: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/configfacet",
+                "title" : "var configFacet: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/device",
+                "title" : "var device: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/height",
+                "title" : "var height: Double",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/imagesha256",
+                "title" : "var imageSHA256: String?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/imagesize",
+                "title" : "var imageSize: Int?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/locale",
+                "title" : "var locale: String",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/url",
+                "title" : "var url: URL?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/screenshotresult\/width",
+                "title" : "var width: Double",
+                "type" : "property"
+              },
+              {
+                "title" : "Default Implementations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/screenshotresult\/canonicaljson",
+                    "title" : "var canonicalJSON: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/screenshotresult\/debugjson",
+                    "title" : "var debugJSON: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/screenshotresult\/prettyjson",
+                    "title" : "var prettyJSON: String",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Instance Methods",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/screenshotresult\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                    "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
+                    "type" : "method"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/screenshotresult\/encodable-implementations",
+                "title" : "Encodable Implementations",
+                "type" : "symbol"
+              }
+            ],
+            "path" : "\/documentation\/fairapp\/screenshotresult",
+            "title" : "ScreenshotResult",
             "type" : "struct"
           },
           {

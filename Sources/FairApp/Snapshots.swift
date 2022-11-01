@@ -155,5 +155,240 @@ public extension View {
 #endif
     }
 }
+
+extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFacets : FacetView & RawRepresentable, AppFacets.RawValue == String, ConfigFacets.RawValue == String, AppFacets.FacetStore == Self {
+    public func createScreenshots() throws -> [ScreenshotResult] {
+#if canImport(UIKit)
+        let animationsWereEnabled = UIView.areAnimationsEnabled
+        UIView.setAnimationsEnabled(false)
+        defer { UIView.setAnimationsEnabled(animationsWereEnabled) }
 #endif
 
+        // 3 devices x 10 images = 30 * localizations
+        let locales = [Locale(identifier: "en"), Locale(identifier: "fr")]
+        let devices = [DevicePreview.iPhone8Plus]
+
+        let folder = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent(Bundle.mainBundleID + "/screenshots", isDirectory: true)
+
+        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        dbg("saving screens to:", folder.path)
+
+        let shots = try self.captureScreenshots(folder: folder, vector: false, bundle: self.bundle, devices: devices, locales: locales, appFacets: Self.AppFacets.facets(for: self), configFacets: Self.ConfigFacets.facets(for: self))
+
+//        let expectedShotCount = devices.count * locales.count * 10
+//
+//        XCTAssertEqual(expectedShotCount, shots.count, "expected count to match device/locale matrix")
+//        let hashes = shots.compactMap(\.imageSHA256).set()
+//        XCTAssertLessThanOrEqual(expectedShotCount / 2, hashes.count, "expected at least \(expectedShotCount / 2) distinct shot counts")
+        return shots
+    }
+
+    /// Captures screenshots from the app's top-level facets.
+    ///
+    /// 10 screenshots per 3 device type (5.5" iPhone, 6.5" iPhone, Pad) and 40 locales:
+    ///    5 facets / light/dark mode
+    ///
+    /// Specific screenshot sizes for the App Store can be seen at:
+    /// https://help.apple.com/app-store-connect/#/devd274dd925
+    ///
+    /// - Parameters:
+    ///   - manager: the SceneManager to use
+    ///   - folder: the folder for outputting screenshot images, if any
+    ///   - linkDuplicates: whether to create links for identical screenshot file contents
+    ///   - vector: whether to output a vector (PDF) or bitmap (PNG)
+    ///   - bundle: the bundle in which the localizations are contained
+    ///   - devices: the devices to use for generating screens
+    ///   - orientations: the orientations to use
+    ///   - locales: the locales for screenshot genration; if nil, all the `bundle`'s supported localizations will be used
+    ///   - colorSchemes: the schemes to use for generating screens
+    ///   - appFacets: the facets to render, in order
+    ///   - configFacets: the config facets to render, in order
+    /// - Returns: metadata describing the screenshot that was created, as well as the URL that was written to
+    @MainActor @discardableResult func captureScreenshots(folder: URL? = nil, linkDuplicates: Bool = true, vector: Bool, bundle: Bundle, devices: [DevicePreview] = DevicePreview.requiredDevices, orientations: [InterfaceOrientation] = [.portrait], locales: [Locale]? = nil, colorSchemes: [SwiftUI.ColorScheme] = [.light, .dark], appFacets: [AppFacets], configFacets: [ConfigFacets]) throws -> [ScreenshotResult] {
+        // if the locales are not set, then use every locale in the app's bundle
+        let locales = locales ?? bundle.localizations.map(Locale.init(identifier:))
+
+        var shots: [ScreenshotResult] = []
+
+        // re-scaling needs to be done to size the image correctly
+        let rescale = 2.0
+
+        for deviceType in devices {
+            for locale in locales {
+                var screenindex = 0 // each locale and device combination can have up to 10 screenshots
+                for orientation in orientations {
+                    for colorScheme in colorSchemes {
+                        var device = deviceType
+                        if orientation == .landscapeLeft || orientation == .landscapeRight {
+                            // handling landscape simple swaps the width and height
+                            // swap(&device.width, &device.height)
+                            let (width, height) = (device.width, device.height)
+                            (device.width, device.height) = (height, width)
+                        }
+
+                        var remaining = 5 // 5 screenshots per colorScheme
+
+                        for appFacet in appFacets {
+                            remaining -= 1
+                            if remaining <= 0 { break }
+
+                            let shot = try shootScreen(appFacet: appFacet, configFacet: nil)
+                            dbg("captured screenshot for appFacet:", appFacet.rawValue, "device:", shot)
+
+                            if appFacet == appFacets.last {
+                                // the final facet is the settings: if we have any screenshots remaining, cycle through them to get previews of the preferences, etc.
+                                for configFacet in configFacets {
+                                    let shot = try shootScreen(appFacet: appFacet, configFacet: configFacet)
+                                    dbg("captured screenshot for configFacet:", configFacet.rawValue, "device:", shot)
+                                    remaining -= 1
+                                    if remaining <= 0 { break }
+                                }
+                            }
+
+                        }
+
+                        /// Take a screenshot of the given facet
+                        func shootScreen(appFacet: AppFacets, configFacet: ConfigFacets?) throws -> ScreenshotResult {
+                            assert(Thread.isMainThread)
+                            // LocaleManager.shared.locale = wip(locale) // not working
+                            let view = FacetBrowserView<Self, AppFacets>(nested: false, selection: .constant(appFacet))
+                            //.background(Color.black)
+                                .withLocaleSetting()
+                                .withAppearanceSetting()
+                                .environmentObject(self)
+                            //.environment(\.displayScale, 2.0)
+                                .environment(\.locale, locale)
+                            //.environment(\.layoutDirection, layoutDirection) // TODO
+                                .environment(\.colorScheme, colorScheme)
+                            //.environment(\.verticalSizeClass, .compact) // TODO: set size classes for device
+                            //.environment(\.horizontalSizeClass, .compact) // TODO: set size classes for device
+                            //.previewInterfaceOrientation(orientation)
+
+                            var shot = ScreenshotResult(locale: locale.identifier, device: device.device.rawValue, appFacet: appFacet.rawValue, configFacet: configFacet?.rawValue, width: device.width, height: device.height)
+
+                            //let view2 = Circle().fill(Color.red).padding()
+                            let dwidth = device.width // / wip(2)
+                            let dheight = device.height // / wip(2)
+
+                            let png = view.png(bounds: CGRect(origin: .zero, size: CGSize(width: dwidth / rescale, height: dheight / rescale)), scale: rescale)
+                            // let pdf = view.pdf(bounds: CGRect(origin: .zero, size: CGSize(width: dwidth, height: dheight)))
+                            let img = png // vector ? pdf : png
+
+                            shot.imageSize = img?.count
+                            shot.imageSHA256 = img?.sha256().hex()
+
+                            if let img = img, let folder = folder {
+                                var screenindexName = "\(screenindex)"
+                                if screenindex < 10 { // zero-pad: 01, 02, etc.
+                                    screenindexName = "0" + screenindexName
+                                }
+
+                                let localeFolder = folder.appendingPathComponent(locale.identifier, isDirectory: true)
+
+                                try FileManager.default.createDirectory(at: localeFolder, withIntermediateDirectories: true)
+
+                                let screenshotOutputURL = localeFolder
+                                    .appendingPathComponent("screen-\(device.deviceClass.rawValue)-\(screenindexName)-\(colorScheme)-\(Int(dwidth))x\(Int(dheight))", isDirectory: false)
+                                    .appendingPathExtension(img == png ? "png" : "")
+
+                                //XCTAttachment(image: UIImage)
+                                //XCUIScreenshot
+
+                                if linkDuplicates == true,
+                                   let existingShot = shots.first(where: { $0.imageSHA256 == shot.imageSHA256 }) {
+                                    // if a shot is identical to another shot, simply create a symbolic link between them rather than writing an extra file
+                                    dbg("screenshot duplicates:", shot, existingShot)
+                                    if let existingURL = existingShot.url, existingURL != screenshotOutputURL {
+                                        if FileManager.default.resolvingSymbolicLink(screenshotOutputURL) != existingURL {
+                                            try? FileManager.default.removeItem(at: screenshotOutputURL) // overwrite existing screenshot link
+                                            try FileManager.default.createSymbolicLink(at: screenshotOutputURL, withDestinationURL: existingURL)
+                                        }
+                                    }
+                                } else {
+                                    try img.overwrite(to: screenshotOutputURL)
+                                    shot.url = screenshotOutputURL
+                                }
+                            }
+
+                            screenindex += 1
+                            shots.append(shot)
+                            return shot
+                        }
+
+                    }
+                }
+            }
+        }
+
+        let totalSize = shots.reduce(0) { a, b in a + (b.imageSize ?? 0) }
+        let distinctShots = shots.grouping(by: \.imageSHA256)
+        let totalDistinctSize = distinctShots.reduce(0) { a, b in a + (b.value.first?.imageSize ?? 0) }
+        dbg("captured", shots.count, "screenshots", "total size:", totalSize.localizedByteCount(), "distinct:", distinctShots.count, "distinct size:", totalDistinctSize.localizedByteCount())
+        return shots
+    }
+}
+
+/// A serializable screenshot result that tracks the parameters of the screenshot along with
+public struct ScreenshotResult : Encodable {
+    /// The ``Locale.identifier`` for the screenshot
+    public var locale: String
+    /// The device model name
+    public var device: String
+    /// Which app facet is being rendered
+    public var appFacet: String
+    /// Which config facet is used to render this shot (if any)
+    public var configFacet: String?
+    /// The width of the screenshot
+    public var width: Double
+    /// The height of the screenshot
+    public var height: Double
+    /// The location of the screenshot on disk
+    public var url: URL?
+    /// The total size of the image, in bytes, on disk
+    public var imageSize: Int?
+    /// The image's SHA-256
+    public var imageSHA256: String?
+}
+
+
+public struct DevicePreview {
+    public var device: PreviewDevice
+    public var deviceClass: DeviceClass
+    public var width: Double
+    public var height: Double
+
+    /// The support preview classes
+    public enum DeviceClass : String {
+        case iphone, ipad, mac, tv, watch
+
+        public var platform: PreviewPlatform {
+            switch self {
+            case .iphone: return .iOS
+            case .ipad: return .iOS
+            case .mac: return .macOS
+            case .tv: return .tvOS
+            case .watch: return .watchOS
+            }
+        }
+
+    }
+}
+
+
+
+/// Device constants for https://help.apple.com/app-store-connect/#/devd274dd925
+public extension DevicePreview {
+    /// The minimum set of required screenshots
+    static let requiredDevices: [Self] = [.iPhone8Plus, .iPhone14Plus, .iPadPro6]
+
+    /// 5.5 inch (iPhone 8 Plus, iPhone 7 Plus, iPhone 6s Plus) 1242 x 2208 pixels (portrait)
+    static let iPhone8Plus = DevicePreview(device: PreviewDevice(rawValue: "iPhone 8 Plus"), deviceClass: .iphone, width: 1242, height: 2208)
+
+    /// 6.5 inch device: 1284 x 2778 pixels
+    static let iPhone14Plus = DevicePreview(device: PreviewDevice(rawValue: "iPhone 14 Plus"), deviceClass: .iphone, width: 1284, height: 2778)
+
+    /// 12.9 inch (iPad Pro (6th generation, 5th generation, 4th generation, 3rd generation)) 2048 x 2732 pixels (portrait)
+    static let iPadPro6 = DevicePreview(device: PreviewDevice(rawValue: "iPad Pro (6th generation)"), deviceClass: .ipad, width: 2048, height: 2732)
+}
+
+#endif

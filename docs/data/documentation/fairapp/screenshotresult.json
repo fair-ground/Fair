@@ -1,0 +1,566 @@
+{
+  "abstract" : [
+    {
+      "text" : "A serializable screenshot result that tracks the parameters of the screenshot along with",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:7FairApp16ScreenshotResultV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ScreenshotResult"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ScreenshotResult"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "ScreenshotResult"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ScreenshotResult"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/SE"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/appFacet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/configFacet",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/device",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/height",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/imageSHA256",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/imageSize",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/locale",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/url",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/width"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/Encodable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/screenshotresult"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/SE": {
+  "identifier" : "doc:\/\/FairApp\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult": {
+  "abstract" : [
+    {
+      "text" : "A serializable screenshot result that tracks the parameters of the screenshot along with",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ScreenshotResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ScreenshotResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ScreenshotResult",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/encodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/appFacet": {
+  "abstract" : [
+    {
+      "text" : "Which app facet is being rendered",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appFacet"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/appFacet",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appFacet",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/appfacet"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/configFacet": {
+  "abstract" : [
+    {
+      "text" : "Which config facet is used to render this shot (if any)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "configFacet"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/configFacet",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "configFacet",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/configfacet"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/device": {
+  "abstract" : [
+    {
+      "text" : "The device model name",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "device"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/device",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "device",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/device"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/height": {
+  "abstract" : [
+    {
+      "text" : "The height of the screenshot",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "height"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/height",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "height",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/height"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/imageSHA256": {
+  "abstract" : [
+    {
+      "text" : "The image’s SHA-256",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "imageSHA256"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/imageSHA256",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "imageSHA256",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/imagesha256"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/imageSize": {
+  "abstract" : [
+    {
+      "text" : "The total size of the image, in bytes, on disk",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "imageSize"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/imageSize",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "imageSize",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/imagesize"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/locale": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "Locale.identifier",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for the screenshot",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "locale"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/locale",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "locale",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/locale"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/url": {
+  "abstract" : [
+    {
+      "text" : "The location of the screenshot on disk",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/url",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "url",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/url"
+},
+"doc://FairApp/documentation/FairApp/ScreenshotResult/width": {
+  "abstract" : [
+    {
+      "text" : "The width of the screenshot",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "width"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sd",
+      "text" : "Double"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ScreenshotResult\/width",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "width",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/screenshotresult\/width"
+}
+}
+}
