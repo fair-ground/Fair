@@ -42,7 +42,7 @@ public extension View {
     ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
     ///   - normalize: whether to normalize to 0,0 origin
     /// - Returns: the PNG data for the view
-    func png(bounds viewBounds: CGRect?, normalize: Bool = true, drawHierarchy: Bool = false, scale: Double? = nil) -> Data? {
+    func png(inWindow window: UXWindow? = nil, bounds viewBounds: CGRect?, normalize: Bool = true, drawHierarchy: Bool = false, scale: Double? = nil) -> Data? {
         snapshot(bounds: viewBounds, normalize: normalize, pdf: false, drawHierarchy: drawHierarchy, scale: scale)
     }
 
@@ -51,8 +51,8 @@ public extension View {
     ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
     ///   - normalize: whether to normalize to 0,0 origin
     /// - Returns: the PDF data for the view
-    func pdf(bounds viewBounds: CGRect?, normalize: Bool = true, drawHierarchy: Bool = false) -> Data? {
-        snapshot(bounds: viewBounds, normalize: normalize, pdf: true, drawHierarchy: drawHierarchy, scale: nil)
+    func pdf(inWindow window: UXWindow? = nil, bounds viewBounds: CGRect?, normalize: Bool = true, drawHierarchy: Bool = false) -> Data? {
+        snapshot(inWindow: window, bounds: viewBounds, normalize: normalize, pdf: true, drawHierarchy: drawHierarchy, scale: nil)
     }
 
     /// Takes a snapshot of the view and returns the image data.
@@ -60,19 +60,19 @@ public extension View {
     ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
     ///   - normalize: whether to normalize to 0,0 origin
     /// - Returns: the image data for the view
-    private func snapshot(bounds viewBounds: CGRect?, normalize: Bool = true, pdf: Bool = false, drawHierarchy: Bool = false, scale: Double?) -> Data? {
+    private func snapshot(inWindow: UXWindow? = nil, bounds viewBounds: CGRect?, normalize: Bool = true, pdf: Bool = false, drawHierarchy: Bool = false, scale: Double?) -> Data? {
 
         // size this view with the given bounds
         let v = self.frame(width: viewBounds?.width, height: viewBounds?.height)
-            //.environment(\.displayScale, 2)
+        //.environment(\.displayScale, 2)
 
         let controller = UXHostingController(rootView: v)
 
-        #if canImport(UIKit)
+#if canImport(UIKit)
         let view = controller.view!
-        #elseif canImport(AppKit)
+#elseif canImport(AppKit)
         let view = controller.view
-        #endif
+#endif
 
         var bounds = viewBounds ?? CGRect(origin: .zero, size: view.intrinsicContentSize)
         if normalize {
@@ -80,25 +80,35 @@ public extension View {
             bounds = bounds.offsetBy(dx: -bounds.width / 2, dy: -bounds.height / 2)
         }
 
-        //bounds.size = .init(width: bounds.size.width / 2, height: bounds.size.height / 2)
+        return controller.snapshot(inWindow: inWindow, bounds: bounds, normalize: normalize, pdf: pdf, drawHierarchy: drawHierarchy, scale: scale)
+    }
+}
+
+extension UXViewController {
+    /// Takes a snapshot of the controller's view and returns the image data.
+    /// - Parameters:
+    ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
+    ///   - normalize: whether to normalize to 0,0 origin
+    /// - Returns: the image data for the view
+    public func snapshot(inWindow: UXWindow? = nil, bounds: CGRect, normalize: Bool = true, pdf: Bool, drawHierarchy: Bool = false, scale: Double?) -> Data {
+        let controller = self
 
 #if canImport(UIKit)
-        controller.view.backgroundColor = .clear
-//        controller.view.frame = window.frame
-//        controller.view.translatesAutoresizingMaskIntoConstraints =
-//        viewController.view.translatesAutoresizingMaskIntoConstraints
-        controller.preferredContentSize = bounds.size
-//        viewController.view.frame = controller.view.frame
-//        controller.view.addSubview(viewController.view)
-//        if viewController.view.translatesAutoresizingMaskIntoConstraints {
-//            viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let window = inWindow ?? {
+            let win = UXWindow()
+            win.makeKeyAndVisible() // seems to be the only way to avoid nil screenshots
+            // win.contentScaleFactor = 2.0
+            return win
+        }()
 
+        defer {
+            if inWindow == nil {
+                window.resignKey()
+            }
+        }
 
-        let window = UIWindow(frame: bounds)
-
+        window.bounds = bounds
         window.rootViewController = controller
-        window.makeKeyAndVisible() // FIXME: seems to be the only way to avoid nil screenshots
-        // window.contentScaleFactor = 2.0
 
         // view.backgroundColor = .clear
         view.bounds = bounds
@@ -166,7 +176,11 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 #endif
 
         // let locales = targetLocales ?? [Locale(identifier: "en"), Locale(identifier: "fr")]
-        let locales = bundle.localizations.map(Locale.init(identifier:))
+        // start with the development localization
+        let allLocalizations = ([bundle.developmentLocalization] + bundle.localizations.sorted()).compactMap({ $0 }).uniquing(by: \.self).array()
+        //let allLocalizations = wip([bundle.developmentLocalization!])
+
+        let locales = allLocalizations.map(Locale.init(identifier:))
         dbg("creating screenshots for class:", Self.self, "bundle:", self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier), bundle.preferredLocalizations)
 
         let devices = targetDevices ?? [DevicePreview.iPhone8Plus, .iPhone14Plus, .iPadPro6]
@@ -214,14 +228,32 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
         var shots: [ScreenshotResult] = []
 
+        // since we are running in test cases,
+        let window = UXWindow()
+        window.makeKeyAndVisible() // seems to be the only way to avoid nil screenshots
+        // win.contentScaleFactor = 2.0
+        defer { window.resignKey() }
+
+        let props = ScreenProps<AppFacets>()
+        let container = ScreenshotContainerView<Self>(store: self, props: props)
+        let view = container
+
+
         // re-scaling needs to be done to size the image correctly
         let rescale = 2.0
 
+        let host = UXHostingController(rootView: view)
+
         for deviceType in devices {
+
             for locale in locales {
+                props.locale = locale
+
                 var screenindex = 0 // each locale and device combination can have up to 10 screenshots
                 for orientation in orientations {
                     for colorScheme in colorSchemes {
+                        props.colorScheme = colorScheme
+
                         var device = deviceType
                         if orientation == .landscapeLeft || orientation == .landscapeRight {
                             // handling landscape simple swaps the width and height
@@ -233,97 +265,86 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                         var remaining = 5 // 5 screenshots per colorScheme
 
                         for appFacet in appFacets {
+                            props.appFacet = appFacet
+
                             remaining -= 1
                             if remaining <= 0 { break }
 
-                            let shot = try shootScreen(appFacet: appFacet, configFacet: nil)
+                            let shot = try shootScreen(configFacet: nil)
                             dbg("captured screenshot for appFacet:", appFacet.rawValue, "device:", shot)
 
                             if appFacet == appFacets.last {
                                 // the final facet is the settings: if we have any screenshots remaining, cycle through them to get previews of the preferences, etc.
                                 for configFacet in configFacets {
-                                    let shot = try shootScreen(appFacet: appFacet, configFacet: configFacet)
+                                    let shot = try shootScreen(configFacet: configFacet)
                                     dbg("captured screenshot for configFacet:", configFacet.rawValue, "device:", shot)
                                     remaining -= 1
                                     if remaining <= 0 { break }
                                 }
                             }
 
-                        }
+                            /// Take a screenshot of the given facet
+                            func shootScreen(configFacet: ConfigFacets?) throws -> ScreenshotResult {
+                                assert(Thread.isMainThread)
+                                // LocaleManager.shared.locale = wip(locale) // not working
 
-                        /// Take a screenshot of the given facet
-                        func shootScreen(appFacet: AppFacets, configFacet: ConfigFacets?) throws -> ScreenshotResult {
-                            assert(Thread.isMainThread)
-                            // LocaleManager.shared.locale = wip(locale) // not working
-                            let view = FacetBrowserView<Self, AppFacets>(nested: false, selection: .constant(appFacet))
-                            //.background(Color.black)
-                                .withLocaleSetting()
-                                .withAppearanceSetting()
-                                .environmentObject(self)
-                            //.environment(\.displayScale, 2.0)
-                                .environment(\.locale, locale)
-                            //.environment(\.layoutDirection, layoutDirection) // TODO
-                                .environment(\.colorScheme, colorScheme)
-                            //.environment(\.verticalSizeClass, .compact) // TODO: set size classes for device
-                            //.environment(\.horizontalSizeClass, .compact) // TODO: set size classes for device
-                            //.previewInterfaceOrientation(orientation)
+                                var shot = ScreenshotResult(locale: locale.identifier, device: device.device.rawValue, appFacet: appFacet.rawValue, configFacet: configFacet?.rawValue, width: device.width, height: device.height)
 
-                            var shot = ScreenshotResult(locale: locale.identifier, device: device.device.rawValue, appFacet: appFacet.rawValue, configFacet: configFacet?.rawValue, width: device.width, height: device.height)
+                                //let view2 = Circle().fill(Color.red).padding()
+                                let dwidth = device.width // / wip(2)
+                                let dheight = device.height // / wip(2)
 
-                            //let view2 = Circle().fill(Color.red).padding()
-                            let dwidth = device.width // / wip(2)
-                            let dheight = device.height // / wip(2)
+                                host.view.layoutSubviews()
 
-                            let png = view.png(bounds: CGRect(origin: .zero, size: CGSize(width: dwidth / rescale, height: dheight / rescale)), scale: rescale)
-                            // let pdf = view.pdf(bounds: CGRect(origin: .zero, size: CGSize(width: dwidth, height: dheight)))
-                            let img = png // vector ? pdf : png
+                                let img = host.snapshot(inWindow: window, bounds: CGRect(origin: .zero, size: CGSize(width: dwidth / rescale, height: dheight / rescale)), pdf: vector, scale: rescale)
 
-                            shot.imageSize = img?.count
-                            shot.imageSHA256 = img?.sha256().hex()
+                                shot.imageSize = img.count
+                                shot.imageSHA256 = img.sha256().hex()
 
-                            if let img = img, let folder = folder {
-                                var screenindexName = "\(screenindex)"
-                                if screenindex < 10 { // zero-pad: 01, 02, etc.
-                                    screenindexName = "0" + screenindexName
-                                }
-
-                                // let localeFolder = folder.appendingPathComponent(locale.identifier, isDirectory: true)
-                                // relative paths let us create relative symbolic links, which are respected when relocated or archived
-                                let localeFolder = URL(fileURLWithPath: locale.identifier, isDirectory: true, relativeTo: folder)
-
-                                try FileManager.default.createDirectory(at: localeFolder, withIntermediateDirectories: true)
-
-                                let screenshotOutputURL = localeFolder
-                                    .appendingPathComponent("screen-\(device.deviceClass.rawValue)-\(screenindexName)-\(colorScheme)-\(Int(dwidth))x\(Int(dheight))", isDirectory: false)
-                                    .appendingPathExtension(img == png ? "png" : "")
-
-                                //XCTAttachment(image: UIImage)
-                                //XCUIScreenshot
-
-                                if linkDuplicates == true,
-                                   let existingShot = shots.first(where: { $0.imageSHA256 == shot.imageSHA256 }) {
-                                    // if a shot is identical to another shot, simply create a symbolic link between them rather than writing an extra file
-                                    dbg("screenshot duplicates:", shot, existingShot)
-                                    if let existingURL = existingShot.url, existingURL != screenshotOutputURL {
-                                        if FileManager.default.resolvingSymbolicLink(screenshotOutputURL) != existingURL {
-                                            try? FileManager.default.removeItem(at: screenshotOutputURL) // overwrite existing screenshot link
-
-                                            dbg("creating symbolic link from:", screenshotOutputURL.path, "to:", existingURL.path)
-                                            try FileManager.default.createSymbolicLink(at: screenshotOutputURL, withDestinationURL: existingURL, relative: true)
-                                        }
+                                if let folder = folder {
+                                    var screenindexName = "\(screenindex)"
+                                    if screenindex < 10 { // zero-pad: 01, 02, etc.
+                                        screenindexName = "0" + screenindexName
                                     }
-                                } else {
-                                    dbg("writing screenshot to:", screenshotOutputURL.path)
-                                    try img.overwrite(to: screenshotOutputURL)
-                                    shot.url = screenshotOutputURL
+
+                                    // let localeFolder = folder.appendingPathComponent(locale.identifier, isDirectory: true)
+                                    // relative paths let us create relative symbolic links, which are respected when relocated or archived
+                                    let localeFolder = URL(fileURLWithPath: locale.identifier, isDirectory: true, relativeTo: folder)
+
+                                    try FileManager.default.createDirectory(at: localeFolder, withIntermediateDirectories: true)
+
+                                    let screenshotOutputURL = localeFolder
+                                        .appendingPathComponent("screen-\(device.deviceClass.rawValue)-\(screenindexName)-\(colorScheme)-\(Int(dwidth))x\(Int(dheight))", isDirectory: false)
+                                        .appendingPathExtension(vector ? "pdf": "png")
+
+                                    //XCTAttachment(image: UIImage)
+                                    //XCUIScreenshot
+
+                                    if linkDuplicates == true,
+                                       let existingShot = shots.first(where: { $0.imageSHA256 == shot.imageSHA256 }) {
+                                        // if a shot is identical to another shot, simply create a symbolic link between them rather than writing an extra file
+                                        dbg("screenshot duplicates:", shot, existingShot)
+                                        if let existingURL = existingShot.url, existingURL != screenshotOutputURL {
+                                            if FileManager.default.resolvingSymbolicLink(screenshotOutputURL) != existingURL {
+                                                try? FileManager.default.removeItem(at: screenshotOutputURL) // overwrite existing screenshot link
+
+                                                dbg("creating symbolic link from:", screenshotOutputURL.path, "to:", existingURL.path)
+                                                try FileManager.default.createSymbolicLink(at: screenshotOutputURL, withDestinationURL: existingURL, relative: true)
+                                            }
+                                        }
+                                    } else {
+                                        dbg("writing screenshot to:", screenshotOutputURL.path)
+                                        try img.overwrite(to: screenshotOutputURL)
+                                        shot.url = screenshotOutputURL
+                                    }
                                 }
+
+                                screenindex += 1
+                                shots.append(shot)
+                                return shot
                             }
 
-                            screenindex += 1
-                            shots.append(shot)
-                            return shot
                         }
-
                     }
                 }
             }
@@ -336,6 +357,41 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
         return shots
     }
 }
+
+private final class ScreenProps<AppFacets> : ObservableObject {
+    @Published var appFacet: AppFacets? = nil
+    @Published var locale: Locale? = nil
+    @Published var colorScheme: ColorScheme? = nil
+
+    init() {
+    }
+}
+
+private struct ScreenshotContainerView<Store: SceneManager> : View where Store.AppFacets.FacetStore == Store {
+    @ObservedObject var store: Store
+    @ObservedObject var props: ScreenProps<Store.AppFacets>
+
+    init(store: Store, props: ScreenProps<Store.AppFacets>) {
+        self.store = store
+        self.props = props
+    }
+
+    var body: some View {
+        FacetBrowserView<Store, Store.AppFacets>(nested: false, selection: $props.appFacet)
+                .environmentObject(store)
+                //.background(Color.black)
+                .withLocaleSetting()
+                .withAppearanceSetting()
+                .environment(\.locale, props.locale ?? .current)
+                .environment(\.colorScheme, props.colorScheme ?? .light)
+                //.environment(\.displayScale, 2.0)
+                //.environment(\.layoutDirection, layoutDirection) // TODO
+                //.environment(\.verticalSizeClass, .compact) // TODO: set size classes for device
+                //.environment(\.horizontalSizeClass, .compact) // TODO: set size classes for device
+                //.previewInterfaceOrientation(orientation)
+    }
+}
+
 
 /// A serializable screenshot result that tracks the parameters of the screenshot along with
 public struct ScreenshotResult : Encodable {
