@@ -329,9 +329,9 @@
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/padding(_:)-88s0e",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/padding(_:_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pageCommand(value:in:step:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pdf(bounds:normalize:drawHierarchy:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pdf(inWindow:bounds:normalize:drawHierarchy:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pickerStyle(_:)",
-        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(bounds:normalize:drawHierarchy:scale:)",
+        "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(inWindow:bounds:normalize:drawHierarchy:scale:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/popover(isPresented:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/popover(item:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/position(_:)",
@@ -24510,7 +24510,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/pagecommand(value:in:step:)"
 },
-"doc://FairKit/documentation/FairKit/URLImage/pdf(bounds:normalize:drawHierarchy:)": {
+"doc://FairKit/documentation/FairKit/URLImage/pdf(inWindow:bounds:normalize:drawHierarchy:)": {
   "abstract" : [
 
   ],
@@ -24530,6 +24530,23 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp8UXWindowa",
+      "text" : "UXWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -24592,12 +24609,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pdf(bounds:normalize:drawHierarchy:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/pdf(inWindow:bounds:normalize:drawHierarchy:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "pdf(bounds:normalize:drawHierarchy:)",
+  "title" : "pdf(inWindow:bounds:normalize:drawHierarchy:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/pdf(bounds:normalize:drawhierarchy:)"
+  "url" : "\/documentation\/fairkit\/urlimage\/pdf(inwindow:bounds:normalize:drawhierarchy:)"
 },
 "doc://FairKit/documentation/FairKit/URLImage/pickerStyle(_:)": {
   "abstract" : [
@@ -24657,7 +24674,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/urlimage\/pickerstyle(_:)"
 },
-"doc://FairKit/documentation/FairKit/URLImage/png(bounds:normalize:drawHierarchy:scale:)": {
+"doc://FairKit/documentation/FairKit/URLImage/png(inWindow:bounds:normalize:drawHierarchy:scale:)": {
   "abstract" : [
 
   ],
@@ -24677,6 +24694,23 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp8UXWindowa",
+      "text" : "UXWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -24756,12 +24790,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(bounds:normalize:drawHierarchy:scale:)",
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/URLImage\/png(inWindow:bounds:normalize:drawHierarchy:scale:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "png(bounds:normalize:drawHierarchy:scale:)",
+  "title" : "png(inWindow:bounds:normalize:drawHierarchy:scale:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairkit\/urlimage\/png(bounds:normalize:drawhierarchy:scale:)"
+  "url" : "\/documentation\/fairkit\/urlimage\/png(inwindow:bounds:normalize:drawhierarchy:scale:)"
 },
 "doc://FairKit/documentation/FairKit/URLImage/popover(isPresented:attachmentAnchor:arrowEdge:content:)": {
   "abstract" : [

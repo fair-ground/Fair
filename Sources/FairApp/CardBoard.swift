@@ -67,7 +67,6 @@ extension Card : Encodable where Flair : Encodable { }
 extension Card : Decodable where Flair : Decodable { }
 extension Card : Equatable where Flair : Equatable { }
 extension Card : Hashable where Flair : Hashable { }
-extension Card : Sendable where Flair : Sendable { }
 
 /// A view that renders a collection of ``Card``s in a grid.
 public struct CardBoard<Flair, FlairContent: View> : View {

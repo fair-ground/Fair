@@ -328,9 +328,9 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/padding(_:)-7dywk",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/padding(_:_:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/pageCommand(value:in:step:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/pdf(bounds:normalize:drawHierarchy:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/pdf(inWindow:bounds:normalize:drawHierarchy:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/pickerStyle(_:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/png(bounds:normalize:drawHierarchy:scale:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/png(inWindow:bounds:normalize:drawHierarchy:scale:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/popover(isPresented:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/popover(item:attachmentAnchor:arrowEdge:content:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/position(_:)",
@@ -24581,7 +24581,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/pagecommand(value:in:step:)"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/pdf(bounds:normalize:drawHierarchy:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/pdf(inWindow:bounds:normalize:drawHierarchy:)": {
   "abstract" : [
     {
       "text" : "Takes a snapshot of the view and returns the PDF data.",
@@ -24604,6 +24604,23 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp8UXWindowa",
+      "text" : "UXWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -24666,12 +24683,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/pdf(bounds:normalize:drawHierarchy:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/pdf(inWindow:bounds:normalize:drawHierarchy:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "pdf(bounds:normalize:drawHierarchy:)",
+  "title" : "pdf(inWindow:bounds:normalize:drawHierarchy:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/pdf(bounds:normalize:drawhierarchy:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/pdf(inwindow:bounds:normalize:drawhierarchy:)"
 },
 "doc://FairApp/documentation/FairApp/CardBoard/pickerStyle(_:)": {
   "abstract" : [
@@ -24731,7 +24748,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/cardboard\/pickerstyle(_:)"
 },
-"doc://FairApp/documentation/FairApp/CardBoard/png(bounds:normalize:drawHierarchy:scale:)": {
+"doc://FairApp/documentation/FairApp/CardBoard/png(inWindow:bounds:normalize:drawHierarchy:scale:)": {
   "abstract" : [
     {
       "text" : "Takes a snapshot of the view and returns the PNG data.",
@@ -24754,6 +24771,23 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "inWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp8UXWindowa",
+      "text" : "UXWindow"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -24833,12 +24867,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/png(bounds:normalize:drawHierarchy:scale:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CardBoard\/png(inWindow:bounds:normalize:drawHierarchy:scale:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "png(bounds:normalize:drawHierarchy:scale:)",
+  "title" : "png(inWindow:bounds:normalize:drawHierarchy:scale:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/cardboard\/png(bounds:normalize:drawhierarchy:scale:)"
+  "url" : "\/documentation\/fairapp\/cardboard\/png(inwindow:bounds:normalize:drawhierarchy:scale:)"
 },
 "doc://FairApp/documentation/FairApp/CardBoard/popover(isPresented:attachmentAnchor:arrowEdge:content:)": {
   "abstract" : [
