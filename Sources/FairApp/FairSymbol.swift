@@ -34,7 +34,7 @@
 import Foundation
 
 /// A symbol that can be interpreted graphically by the host system.
-public struct FairSymbol : Pure, RawRepresentable {
+public struct FairSymbol : RawRepresentable, Hashable {
     public let rawValue: String
 
     public init(rawValue: String) {

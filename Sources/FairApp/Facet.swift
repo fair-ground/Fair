@@ -877,11 +877,12 @@ struct LocaleSummaryListItemView : View {
                 }
             }
         }
-        //.link(to: url)
-        .task {
+        .task(id: self.locale, priority: .high) {
             if translationPercent == nil {
                 do {
+                    dbg("checking translation percent for:", locale.identifier)
                     self.translationPercent = try bundle.checkTranslationPercent(locale: locale)
+                    dbg("done translation percent for:", locale.identifier, self.translationPercent)
                 } catch {
                     dbg("error calculating translation percent:", error)
                 }

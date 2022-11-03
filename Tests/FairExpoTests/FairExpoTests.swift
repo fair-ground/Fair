@@ -511,7 +511,7 @@ final class FairExpoTests: XCTestCase {
     }
 }
 
-public struct PackageManifest : Pure {
+public struct PackageManifest : Hashable, Decodable {
     public var name: String
     //public var toolsVersion: String // can be string or dict
     public var products: [Product]
@@ -522,8 +522,8 @@ public struct PackageManifest : Pure {
     public var cLanguageStandard: String?
     public var cxxLanguageStandard: String?
 
-    public struct Target: Pure {
-        public enum TargetType: String, Pure {
+    public struct Target: Hashable, Decodable {
+        public enum TargetType: String, Hashable, Decodable {
             case regular
             case test
             case system
@@ -541,24 +541,24 @@ public struct PackageManifest : Pure {
     }
 
 
-    public struct Product : Pure {
+    public struct Product : Hashable, Decodable {
         //public var `type`: ProductType // can be string or dict
         public var name: String
         public var targets: [String]
 
-        public enum ProductType: String, Pure, CaseIterable {
+        public enum ProductType: String, Hashable, Decodable, CaseIterable {
             case library
             case executable
         }
     }
 
-    public struct Dependency : Pure {
+    public struct Dependency : Hashable, Decodable {
         public var name: String?
         public var url: String
         //public var requirement: Requirement // revision/range/branch/exact
     }
 
-    public struct SupportedPlatform : Pure {
+    public struct SupportedPlatform : Hashable, Decodable {
         var platformName: String
         var version: String
     }

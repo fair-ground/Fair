@@ -288,7 +288,9 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                                     screenindexName = "0" + screenindexName
                                 }
 
-                                let localeFolder = folder.appendingPathComponent(locale.identifier, isDirectory: true)
+                                // let localeFolder = folder.appendingPathComponent(locale.identifier, isDirectory: true)
+                                // relative paths let us create relative symbolic links, which are respected when relocated or archived
+                                let localeFolder = URL(fileURLWithPath: locale.identifier, isDirectory: true, relativeTo: folder)
 
                                 try FileManager.default.createDirectory(at: localeFolder, withIntermediateDirectories: true)
 
@@ -306,7 +308,9 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                                     if let existingURL = existingShot.url, existingURL != screenshotOutputURL {
                                         if FileManager.default.resolvingSymbolicLink(screenshotOutputURL) != existingURL {
                                             try? FileManager.default.removeItem(at: screenshotOutputURL) // overwrite existing screenshot link
-                                            try FileManager.default.createSymbolicLink(at: screenshotOutputURL, withDestinationURL: existingURL)
+
+                                            dbg("creating symbolic link from:", screenshotOutputURL.path, "to:", existingURL.path)
+                                            try FileManager.default.createSymbolicLink(at: screenshotOutputURL, withDestinationURL: existingURL, relative: true)
                                         }
                                     }
                                 } else {

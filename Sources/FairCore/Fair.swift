@@ -33,22 +33,6 @@
  */
 import Foundation
 
-/// A value whose content can be hashed and serialized, and is concurrent-safe
-public typealias Pure = Hashable & Codable & Sendable
-
-//// cannot declare conformance outside of the source file
-//// TODO: use `@unchecked Sendable` once the compiler supports it:
-//// warning: 'UnsafeSendable' is deprecated: Use @unchecked Sendable instead
-//// error: Unknown attribute 'unchecked'
-@available(*, deprecated)
-extension Foundation.Date : UnsafeSendable { }
-
-@available(*, deprecated)
-extension Foundation.URL : UnsafeSendable { }
-
-@available(*, deprecated)
-extension Foundation.UUID : UnsafeSendable { }
-
 // MARK: Result Extensions
 
 public extension Result {
@@ -720,6 +704,51 @@ public extension URL {
         let urlHash = self.absoluteString.utf8Data.sha256().hex()
         let baseName = self.lastPathComponent
         return urlHash + "--" + baseName
+    }
+}
+
+extension FileManager {
+    /// Creates a link from the given URL to the destination URL, optionally creating a relative link between the paths.
+    /// - Parameters:
+    ///   - fromURL: the source URL
+    ///   - toURL: the destination URL
+    ///   - relative: if `true`, attempts to create a relative link between URLs with the same `baseURL`.
+    public func createSymbolicLink(at fromURL: URL, withDestinationURL toURL: URL, relative: Bool) throws {
+        if relative, let relativePath = toURL.pathRelative(to: fromURL) {
+            try createSymbolicLink(atPath: toURL.path, withDestinationPath: relativePath)
+        } else {
+            try createSymbolicLink(at: toURL, withDestinationURL: fromURL)
+        }
+
+    }
+}
+
+extension URL {
+    /// When the two URLs have the same base, returns a relative path linking the two URLs.
+    ///
+    /// This is intended to be used with creating creating relative symbolic links.
+    ///
+    /// Note that the relative path is formed only from the shared root,
+    /// so `a/b/c.txt` and `a/x/y.txt`
+    /// are linked as `a/b/c.txt->../../a/x/y.txt`,
+    /// rather than the more optimal: `a/b/c.txt->../x/y.txt`.
+    ///
+    /// - Parameter url: the target URL to check against
+    /// - Returns: the relative path between the two URLs, suitable for linking
+    public func pathRelative(to url: URL) -> String? {
+        guard let fromBaseURL = self.baseURL,
+              let toBaseURL = url.baseURL,
+              fromBaseURL == toBaseURL else {
+            //dbg("uncommon ancestor between:", self, url)
+            return nil
+        }
+
+        let commonRelative = self.relativePath
+            .split(separator: "/", omittingEmptySubsequences: true)
+            .dropLast(1)
+            .map({ _ in ".." })
+            .joined(separator: "/")
+        return commonRelative + "/" + url.relativePath
     }
 }
 
