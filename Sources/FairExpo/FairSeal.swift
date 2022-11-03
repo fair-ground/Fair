@@ -55,7 +55,7 @@ public struct FairSeal : Codable, JSONSignable {
     // legacy fields that have been removed:
     /// The version of the fairseal JSON
     // public private(set) var fairsealVersion: Version?
-    // public enum Version : Int, Pure, CaseIterable { case v1 = 1 }
+    // public enum Version : Int, Codable, CaseIterable { case v1 = 1 }
 
     /// The version of the fairtool library that initially created this seal
     public internal(set) var generatorVersion: AppVersion?
@@ -73,7 +73,7 @@ public struct FairSeal : Codable, JSONSignable {
     /// The signature for this payload, authenticating the fairseal issuer with HMAC-256
     public var signature: Data?
 
-    public struct Asset : Pure {
+    public struct Asset : Codable {
         /// The asset's URL
         public var url: URL
         /// The asset's size in bytes

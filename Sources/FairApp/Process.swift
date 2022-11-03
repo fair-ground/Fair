@@ -182,7 +182,7 @@ extension Process {
         return process
     }
 
-    enum Errors : Pure, LocalizedError {
+    enum Errors : LocalizedError {
         case processExit(URL, Int32)
 
         public var errorDescription: String? {

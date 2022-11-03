@@ -1132,8 +1132,8 @@ extension FairHub {
         }
     }
 
-    public struct RepositoryOwner : Pure {
-        public enum TypeName : String, Pure { case User, Organization }
+    public struct RepositoryOwner : Hashable, Decodable {
+        public enum TypeName : String, Hashable, Decodable { case User, Organization }
         public let __typename: TypeName
         public var login: String
 
