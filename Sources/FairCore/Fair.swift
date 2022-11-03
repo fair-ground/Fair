@@ -710,14 +710,14 @@ public extension URL {
 extension FileManager {
     /// Creates a link from the given URL to the destination URL, optionally creating a relative link between the paths.
     /// - Parameters:
-    ///   - fromURL: the source URL
-    ///   - toURL: the destination URL
+    ///   - url: The file URL at which to create the new symbolic link. The last path component of the URL issued as the name of the link.
+    ///   - destURL: the destination URL
     ///   - relative: if `true`, attempts to create a relative link between URLs with the same `baseURL`.
-    public func createSymbolicLink(at fromURL: URL, withDestinationURL toURL: URL, relative: Bool) throws {
-        if relative, let relativePath = toURL.pathRelative(to: fromURL) {
-            try createSymbolicLink(atPath: toURL.path, withDestinationPath: relativePath)
+    public func createSymbolicLink(at url: URL, withDestinationURL destURL: URL, relative: Bool) throws {
+        if relative, let relativeDestination = url.pathRelative(to: destURL) {
+            try createSymbolicLink(atPath: url.path, withDestinationPath: relativeDestination)
         } else {
-            try createSymbolicLink(at: toURL, withDestinationURL: fromURL)
+            try createSymbolicLink(at: url, withDestinationURL: destURL)
         }
 
     }

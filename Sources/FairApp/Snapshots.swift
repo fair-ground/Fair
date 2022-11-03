@@ -165,12 +165,11 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
         defer { UIView.setAnimationsEnabled(animationsWereEnabled) }
 #endif
 
-        // 3 devices x 10 images = 30 * localizations
-        let bundle = Bundle(for: Self.self)
-        dbg("creating screenshots for bundle:", bundle.bundleName)
-        let locales = targetLocales ?? [Locale(identifier: "en"), Locale(identifier: "fr")]
+        // let locales = targetLocales ?? [Locale(identifier: "en"), Locale(identifier: "fr")]
+        let locales = bundle.localizations.map(Locale.init(identifier:))
+        dbg("creating screenshots for class:", Self.self, "bundle:", self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier), bundle.preferredLocalizations)
 
-        let devices = targetDevices ?? [DevicePreview.iPhone8Plus]
+        let devices = targetDevices ?? [DevicePreview.iPhone8Plus, .iPhone14Plus, .iPadPro6]
 
         let folder = try targetFolder ?? FileManager.default
             .url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -314,6 +313,7 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                                         }
                                     }
                                 } else {
+                                    dbg("writing screenshot to:", screenshotOutputURL.path)
                                     try img.overwrite(to: screenshotOutputURL)
                                     shot.url = screenshotOutputURL
                                 }
