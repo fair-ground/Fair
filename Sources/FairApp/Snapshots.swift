@@ -90,7 +90,7 @@ extension UXViewController {
     ///   - viewBounds: the bounds to draw; if `nil`, attempts to use the view's `intrinsicContentSize`
     ///   - normalize: whether to normalize to 0,0 origin
     /// - Returns: the image data for the view
-    public func snapshot(inWindow: UXWindow? = nil, bounds: CGRect, normalize: Bool = true, pdf: Bool, drawHierarchy: Bool = false, scale: Double?) -> Data {
+    public func snapshot(inWindow: UXWindow? = nil, bounds: CGRect, normalize: Bool = true, pdf: Bool, drawHierarchy: Bool = false, scale: Double?) -> Data? {
         let controller = self
 
 #if canImport(UIKit)
@@ -223,6 +223,15 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
     ///   - configFacets: the config facets to render, in order
     /// - Returns: metadata describing the screenshot that was created, as well as the URL that was written to
     @MainActor @discardableResult func captureScreenshots(folder: URL? = nil, linkDuplicates: Bool = true, vector: Bool, bundle: Bundle, devices: [DevicePreview] = DevicePreview.requiredDevices, orientations: [InterfaceOrientation] = [.portrait], locales: [Locale]? = nil, colorSchemes: [SwiftUI.ColorScheme] = [.light, .dark], appFacets: [AppFacets], configFacets: [ConfigFacets]) throws -> [ScreenshotResult] {
+
+        #if os(macOS)
+        if ({ true }()) {
+            dbg("screenshots not yet supported on macOS")
+            return []
+        }
+        #endif
+
+
         // if the locales are not set, then use every locale in the app's bundle
         let locales = locales ?? bundle.localizations.map(Locale.init(identifier:))
 
@@ -230,7 +239,9 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
         // since we are running in test cases,
         let window = UXWindow()
+        #if os(iOS)
         window.makeKeyAndVisible() // seems to be the only way to avoid nil screenshots
+        #endif
         // win.contentScaleFactor = 2.0
         defer { window.resignKey() }
 
@@ -284,7 +295,7 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                             }
 
                             /// Take a screenshot of the given facet
-                            func shootScreen(configFacet: ConfigFacets?) throws -> ScreenshotResult {
+                            func shootScreen(configFacet: ConfigFacets?) throws -> ScreenshotResult? {
                                 assert(Thread.isMainThread)
                                 // LocaleManager.shared.locale = wip(locale) // not working
 
@@ -294,9 +305,15 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                                 let dwidth = device.width // / wip(2)
                                 let dheight = device.height // / wip(2)
 
+                                #if os(iOS)
                                 host.view.layoutSubviews()
-
-                                let img = host.snapshot(inWindow: window, bounds: CGRect(origin: .zero, size: CGSize(width: dwidth / rescale, height: dheight / rescale)), pdf: vector, scale: rescale)
+                                #elseif os(macOS)
+                                host.view.layout()
+                                #endif
+                                guard let img = host.snapshot(inWindow: window, bounds: CGRect(origin: .zero, size: CGSize(width: dwidth / rescale, height: dheight / rescale)), pdf: vector, scale: rescale) else {
+                                    dbg("could not create image for host")
+                                    return nil
+                                }
 
                                 shot.imageSize = img.count
                                 shot.imageSHA256 = img.sha256().hex()
