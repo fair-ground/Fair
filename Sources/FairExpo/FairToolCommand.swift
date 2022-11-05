@@ -384,6 +384,7 @@ public struct TranslateCommand : AsyncParsableCommand {
                                     guard let skey = pkey as? String else { continue }
                                     if try skey.matches(regex: keyArg) {
                                         msg(.info, dir, "locale:", localeFile.path, "key:", skey, "value:", pvalue)
+                                        // TODO: store the localized translations
                                     }
                                 }
                             }

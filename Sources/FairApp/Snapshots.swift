@@ -273,7 +273,8 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
                             (device.width, device.height) = (height, width)
                         }
 
-                        var remaining = 5 // 5 screenshots per colorScheme
+                        // var remaining = 5 // 5 screenshots per colorScheme
+                        var remaining = 3 // 3 screenshots per colorScheme
 
                         for appFacet in appFacets {
                             props.appFacet = appFacet
@@ -326,7 +327,14 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
                                     // let localeFolder = folder.appendingPathComponent(locale.identifier, isDirectory: true)
                                     // relative paths let us create relative symbolic links, which are respected when relocated or archived
-                                    let localeFolder = URL(fileURLWithPath: locale.identifier, isDirectory: true, relativeTo: folder)
+
+                                    // the name of the locale's folder should conform to Fastlane's localization identifiers;
+                                    // otherwise the locale won't match up and `fastlane deliver` will fail
+                                    guard let folderName = locale.exportedMetadataFolderName else {
+                                        dbg("no export localization folder for:", locale.identifier)
+                                        return nil
+                                    }
+                                    let localeFolder = URL(fileURLWithPath: folderName, isDirectory: true, relativeTo: folder)
 
                                     try FileManager.default.createDirectory(at: localeFolder, withIntermediateDirectories: true)
 
@@ -471,6 +479,65 @@ public extension DevicePreview {
 
     /// 12.9 inch (iPad Pro (6th generation, 5th generation, 4th generation, 3rd generation)) 2048 x 2732 pixels (portrait)
     static let iPadPro6 = DevicePreview(device: PreviewDevice(rawValue: "iPad Pro (6th generation)"), deviceClass: .ipad, width: 2048, height: 2732)
+}
+
+extension Locale {
+    /// The name of the folder for exporting locales
+    static let exportedLocaleFolders = [
+        "ar": "ar-SA",
+        "ca": "ca",
+        "cs": "cs",
+        "da": "da",
+        "de": "de-DE",
+        "el": "el",
+        "en": "en-US",
+        "en_AU": "en-AU",
+        "en_CA": "en-CA",
+        "en_GB": "en-GB",
+        "en_US": "en-US",
+        "es": "es-ES",
+        "es_ES": "es-ES",
+        "es_419": "es-MX",
+        "fi": "fi",
+        "fr_CA": "fr-CA",
+        "fr_FR": "fr-FR",
+        "fr": "fr-FR",
+        "he": "he",
+        "hi": "hi",
+        "hr": "hr",
+        "hu": "hu",
+        "id": "id",
+        "it": "it",
+        "ja": "ja",
+        "ko": "ko",
+        "ms": "ms",
+        "nl": "nl-NL",
+        "no": "no",
+        "pl": "pl",
+        "pt_BR": "pt-BR",
+        "pt_PT": "pt-PT",
+        "pt": "pt-BR",
+        "ro": "ro",
+        "ru": "ru",
+        "sk": "sk",
+        "sv": "sv",
+        "th": "th",
+        "tr": "tr",
+        "uk": "uk",
+        "vi": "vi",
+        "zh_Hans": "zh-Hans",
+        "zh_Hant": "zh-Hant",
+        "zh-Hans": "zh-Hans",
+        "zh-Hant": "zh-Hant",
+    ]
+
+    /// The name of the folder that would be expected to store the locale information. This is typically the locale identifier with a "-" instead of a `"_"`,
+    /// and generally conforms to https://en.wikipedia.org/wiki/IETF_language_tag.
+    ///
+    /// `["ar-SA", "ca", "cs", "da", "de-DE", "el", "en-AU", "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR", "he", "hi", "hr", "hu", "id", "it", "ja", "ko", "ms", "nl-NL", "no", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant", "default"]`
+    var exportedMetadataFolderName: String? {
+        Self.exportedLocaleFolders[self.identifier]
+    }
 }
 
 #endif
