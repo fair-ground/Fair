@@ -586,7 +586,8 @@ public struct EmbeddedBrowser : View {
                 dbg("dismissed browser to:", url)
                 self.dismiss()
             }
-            //.navigationBarHidden(true)
+            .navigationBarHidden(false)
+            .navigationBarTitleDisplayMode(.inline) // otherwise there is a gap above the browser
         }
     }
     #endif
