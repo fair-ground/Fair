@@ -2712,7 +2712,7 @@ public struct BrewCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("Ranking increase for boosted apps.", valueName: "factor"))
         public var boostFactor: Int64?
 
-        @Flag(name: [.long], help: ArgumentHelp("Whether the include funcing source info.", valueName: "funding"))
+        @Flag(name: [.long], help: ArgumentHelp("Whether to include funding source info.", valueName: "funding"))
         public var fundingSources: Bool = false
 
         @Option(name: [.long], help: ArgumentHelp("The topic whose tagged repos will be indexed.", valueName: "topic"))
