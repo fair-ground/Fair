@@ -71,6 +71,19 @@ final class CryptoTests: XCTestCase {
                 XCTAssertNotEqual(Int64.random(in: .min...(.max), using: &rngA), Int64.random(in: .min...(.max), using: &rngB))
             }
         }
+
+        XCTAssertEqual([58, 109, 151], UInt8.randomSequence(seed: [0]).prefix(3).array())
+        XCTAssertEqual([58, 109, 151], UInt8.randomSequence(seed: [0, 0]).prefix(3).array())
+        XCTAssertEqual([58, 109, 151], UInt8.randomSequence(seed: Array(repeating: 0, count: 256)).prefix(3).array())
+
+        XCTAssertEqual([41, 131, 124], UInt8.randomSequence(seed: [1]).prefix(3).array())
+        XCTAssertEqual([86, 193, 50], UInt8.randomSequence(seed: [1, 2]).prefix(3).array())
+        XCTAssertEqual([180, 176, 90], UInt8.randomSequence(seed: [1, 2, 3]).prefix(3).array())
+        XCTAssertEqual([223, 104, 112], UInt8.randomSequence(seed: [1, 2, 3, 0]).prefix(3).array())
+        XCTAssertEqual([77, 149, 52], UInt8.randomSequence(seed: [1, 2, 3, 4]).prefix(3).array())
+
+        XCTAssertEqual([251, 161, 11], UInt8.randomSequence(seed: [1, 2, 3, 9, 99]).prefix(3).array())
+        XCTAssertEqual([14, 113, 168], UInt8.randomSequence(seed: [1, 2, 3, 9, 99, 0]).prefix(3).array())
     }
 
     private func randomData(count: Int) -> Data {
