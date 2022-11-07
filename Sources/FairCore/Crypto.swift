@@ -149,6 +149,32 @@ public struct SeededRandomNumberGenerator : RandomNumberGenerator {
     }
 }
 
+extension Bool {
+    /// Returns an infinite sequence of boolesns over the given range with a fixed seed.
+    ///
+    /// - Parameters:
+    ///   - seed: the seed for a ``SeededRandomNumberGenerator`` to use for a repeatable seed
+    /// - Returns: an infinite random sequence of booleans
+    public static func randomSequence(seed: [UInt8]? = nil) -> UnfoldSequence<Self, RandomNumberGenerator> {
+        sequence(state: seed != nil ? SeededRandomNumberGenerator(seed: seed!) : SystemRandomNumberGenerator()) { rng in
+            Self.random(using: &rng)
+        }
+    }
+}
+
+extension FixedWidthInteger {
+    /// Returns an infinite sequence of numbers over the given range with a fixed seed.
+    ///
+    /// - Parameters:
+    ///   - range: the range of fixed width integers to choose from; if nil, the entire range of the number wil be used
+    ///   - seed: the seed for a ``SeededRandomNumberGenerator`` to use for a repeatable seed
+    /// - Returns: an infinite random sequence of numbers within the given range.
+    public static func randomSequence(in range: ClosedRange<Self>? = nil, seed: [UInt8]? = nil) -> UnfoldSequence<Self, RandomNumberGenerator> {
+            sequence(state: seed != nil ? SeededRandomNumberGenerator(seed: seed!) : SystemRandomNumberGenerator()) { rng in
+                Self.random(in: range ?? ((.min)...(.max)), using: &rng)
+            }
+    }
+}
 
 
 #if canImport(CommonCrypto)
