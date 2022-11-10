@@ -448,7 +448,7 @@ public final class ZipArchive: Sequence {
     public let url: URL
     /// Access mode for an archive file.
     public let accessMode: AccessMode
-    var archiveFile: UnsafeMutablePointer<FILE>
+    var archiveFile: CFilePointer
     var endOfCentralDirectoryRecord: EndOfCentralDirectoryRecord
     var zip64EndOfCentralDirectory: ZIP64EndOfCentralDirectory?
     var preferredEncoding: String.Encoding?
@@ -588,7 +588,7 @@ public final class ZipArchive: Sequence {
     }
 
     // MARK: - Helpers
-    static func scanForEndOfCentralDirectoryRecord(in file: UnsafeMutablePointer<FILE>)
+    static func scanForEndOfCentralDirectoryRecord(in file: CFilePointer)
     -> EndOfCentralDirectoryStructure? {
         var eocdOffset: UInt64 = 0
         var index = minEndOfCentralDirectoryOffset
@@ -611,7 +611,7 @@ public final class ZipArchive: Sequence {
         return nil
     }
 
-    private static func scanForZIP64EndOfCentralDirectory(in file: UnsafeMutablePointer<FILE>, eocdOffset: UInt64)
+    private static func scanForZIP64EndOfCentralDirectory(in file: CFilePointer, eocdOffset: UInt64)
     -> ZIP64EndOfCentralDirectory? {
         guard UInt64(ZIP64EndOfCentralDirectoryLocator.size) < eocdOffset else {
             return nil
@@ -1668,7 +1668,7 @@ extension Data {
 #endif
     }
 
-    static func readStruct<T>(from file: UnsafeMutablePointer<FILE>, at offset: UInt64)
+    static func readStruct<T>(from file: CFilePointer, at offset: UInt64)
     -> T? where T: DataSerializable {
         guard offset <= .max else { return nil }
         fseeko(file, off_t(offset), SEEK_SET)
@@ -1705,7 +1705,7 @@ extension Data {
         return checksum
     }
 
-    static func readChunk(of size: Int, from file: UnsafeMutablePointer<FILE>) throws -> Data {
+    static func readChunk(of size: Int, from file: CFilePointer) throws -> Data {
         let alignment = MemoryLayout<UInt>.alignment
 #if swift(>=4.1)
         let bytes = UnsafeMutableRawPointer.allocate(byteCount: size, alignment: alignment)
@@ -1725,7 +1725,7 @@ extension Data {
 #endif
     }
 
-    static func write(chunk: Data, to file: UnsafeMutablePointer<FILE>) throws -> Int {
+    static func write(chunk: Data, to file: CFilePointer) throws -> Int {
         var sizeWritten: Int = 0
         chunk.withUnsafeBytes { (rawBufferPointer) in
             if let baseAddress = rawBufferPointer.baseAddress, rawBufferPointer.count > 0 {
@@ -1741,7 +1741,7 @@ extension Data {
     }
 
     static func writeLargeChunk(_ chunk: Data, size: UInt64, bufferSize: Int,
-                                to file: UnsafeMutablePointer<FILE>) throws -> UInt64 {
+                                to file: CFilePointer) throws -> UInt64 {
         var sizeWritten: UInt64 = 0
         chunk.withUnsafeBytes { (rawBufferPointer) in
             if let baseAddress = rawBufferPointer.baseAddress, rawBufferPointer.count > 0 {
@@ -2314,7 +2314,7 @@ extension ZipArchive {
         switch type {
         case .file:
             let entryFileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: fileURL.path)
-            guard let entryFile: UnsafeMutablePointer<FILE> = fopen(entryFileSystemRepresentation, "rb") else {
+            guard let entryFile: CFilePointer = fopen(entryFileSystemRepresentation, "rb") else {
                 throw CocoaError(.fileNoSuchFile)
             }
             defer { fclose(entryFile) }
@@ -2581,7 +2581,7 @@ extension ZipArchive {
             }
             try fileManager.createParentDirectoryStructure(for: url)
             let destinationRepresentation = fileManager.fileSystemRepresentation(withPath: url.path)
-            guard let destinationFile: UnsafeMutablePointer<FILE> = fopen(destinationRepresentation, "wb+") else {
+            guard let destinationFile: CFilePointer = fopen(destinationRepresentation, "wb+") else {
                 throw CocoaError(.fileNoSuchFile)
             }
             defer { fclose(destinationFile) }
@@ -2740,7 +2740,7 @@ class MemoryFile {
         self.data = data
     }
 
-    func open(mode: String) -> UnsafeMutablePointer<FILE>? {
+    func open(mode: String) -> CFilePointer? {
         let cookie = Unmanaged.passRetained(self)
         let writable = mode.count > 0 && (mode.first! != "r" || mode.last! == "+")
         let append = mode.count > 0 && mode.first! == "a"
@@ -3136,13 +3136,13 @@ extension ZipArchive {
 extension ZipArchive {
 
     struct BackingConfiguration {
-        let file: UnsafeMutablePointer<FILE>
+        let file: CFilePointer
         let endOfCentralDirectoryRecord: EndOfCentralDirectoryRecord
         let zip64EndOfCentralDirectory: ZIP64EndOfCentralDirectory?
 #if swift(>=5.0)
         let memoryFile: MemoryFile?
 
-        init(file: UnsafeMutablePointer<FILE>,
+        init(file: CFilePointer,
              endOfCentralDirectoryRecord: EndOfCentralDirectoryRecord,
              zip64EndOfCentralDirectory: ZIP64EndOfCentralDirectory? = nil,
              memoryFile: MemoryFile? = nil) {
@@ -3153,7 +3153,7 @@ extension ZipArchive {
         }
 #else
 
-        init(file: UnsafeMutablePointer<FILE>,
+        init(file: CFilePointer,
              endOfCentralDirectoryRecord: EndOfCentralDirectoryRecord,
              zip64EndOfCentralDirectory: ZIP64EndOfCentralDirectory?) {
             self.file = file
