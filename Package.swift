@@ -32,7 +32,7 @@ let package = Package(
         Platform.current == .android ? nil : .library(name: "FairApp", targets: ["FairApp"]),
         Platform.current == .android ? nil : .library(name: "FairKit", targets: ["FairKit"]),
         Platform.current == .android ? nil : .library(name: "FairExpo", targets: ["FairExpo"]),
-        Platform.current == .macOS ? .executable(name: "fairtool", targets: ["fairtool"]) : nil,
+        Platform.current == .macOS || Platform.current == .linux ? .executable(name: "fairtool", targets: ["fairtool"]) : nil,
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
         Platform.current == .macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
     ].compactMap({ $0 }),
@@ -44,7 +44,7 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
         Platform.current == .android ? nil : .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
-        Platform.current == .macOS ? .executableTarget(name: "fairtool", dependencies: ["FairExpo"]) : nil,
+        Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: ["FairExpo"]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
 
@@ -54,7 +54,7 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
         Platform.current == .android ? nil : .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
-        Platform.current == .macOS ? .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]) : nil,
+        Platform.current == .macOS || Platform.current == .linux ? .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]) : nil,
 
         Platform.current == .linux || Platform.current == .android ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
     ].compactMap({ $0 })
