@@ -44,7 +44,7 @@ let package = Package(
         .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
-        .executableTarget(name: "fairtool", dependencies: ["FairExpo"]),
+        Platform.current == .macOS ? .executableTarget(name: "fairtool", dependencies: ["FairExpo"]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
 
@@ -54,7 +54,7 @@ let package = Package(
         .testTarget(name: "FairAppTests", dependencies: [.target(name: "FairApp")], resources: [.process("Resources")]),
         .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")], resources: [.process("Resources")]),
         .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
-        .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]),
+        Platform.current == .macOS ? .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]) : nil,
 
         Platform.current == .linux ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
     ].compactMap({ $0 })
