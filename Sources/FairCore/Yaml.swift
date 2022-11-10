@@ -727,7 +727,7 @@ private extension YAMLParser {
                 let range = NSMakeRange(0, string.utf16.count)
                 _ = regex.replaceMatches(in: s, options: [], range: range,
                                          withTemplate: template)
-#if os(Linux)
+#if os(Linux) || os(Android)
                 return s._bridgeToSwift()
 #else
                 return s as String
@@ -756,7 +756,7 @@ private extension YAMLParser {
                         s.replaceCharacters(in: offR, with: replacement)
                     }
                 }
-#if os(Linux)
+#if os(Linux) || os(Android)
                 return s._bridgeToSwift()
 #else
                 return s as String

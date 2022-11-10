@@ -159,7 +159,7 @@ final class YamlTests : XCTestCase {
         XCTAssert(try yaml("-.") != 0)
         XCTAssertEqual(try yaml("2."), 2)
         /* Disabled for Linux */
-#if !os(Linux)
+#if !os(Linux) && !os(Android)
         XCTAssertEqual(try yaml(".2"), 0.2)
         XCTAssertEqual(try yaml("+2."), 2)
         XCTAssertEqual(try yaml("+.2"), 0.2)
@@ -765,7 +765,7 @@ final class YamlTests : XCTestCase {
         )
         XCTAssertEqual(value.count, 5)
         /* Disabled for Linux */
-#if !os(Linux)
+#if !os(Linux) && !os(Android)
         XCTAssertEqual(value["canonical"], 1.23015e+3)
         XCTAssertEqual(value["exponential"], 1.23015e+3)
         XCTAssertEqual(value["fixed"], 1.23015e+3)

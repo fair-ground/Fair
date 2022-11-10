@@ -588,7 +588,7 @@ extension URL {
             // we could alternatively use `enumerator` with the `FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants` mask
             return try fm.contentsOfDirectory(at: self, includingPropertiesForKeys: keys, options: mask) // “the only supported option is skipsHiddenFiles”
         } else {
-            #if !os(Linux) && !os(Windows)
+            #if !os(Linux) && !os(Android) && !os(Windows)
             mask.insert(.producesRelativePathURLs) // unavailable on windows
             #endif
 
@@ -614,7 +614,7 @@ public extension Decodable {
     /// Initialized this instance from a JSON string
     init(json: Data, decoder: @autoclosure () -> JSONDecoder = JSONDecoder(), allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws {
         let decoder = decoder()
-    #if !os(Linux) && !os(Windows)
+    #if !os(Linux) && !os(Android) && !os(Windows)
         if #available(macOS 12.0, iOS 15.0, *) {
             decoder.allowsJSON5 = allowsJSON5
         }
@@ -729,7 +729,7 @@ let canonicalJSONEncoder: JSONEncoder = {
 }()
 
 
-#if !os(Linux) && !os(Windows)
+#if !os(Linux) && !os(Android) && !os(Windows)
 /// A watcher for changes to a folder
 public actor FileSystemObserver {
     private let fileDescriptor: CInt
