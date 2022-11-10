@@ -413,7 +413,7 @@ public class FileSystemDataWrapper : DataWrapper {
 
     /// FileManager nodes
     public func nodes(at path: Path?) throws -> [Path] {
-        #if os(Linux) || os(Windows)
+        #if os(Linux) || os(Android) || os(Windows)
         try fm.contentsOfDirectory(at: path ?? root, includingPropertiesForKeys: [.fileSizeKey, .isDirectoryKey], options: []) // .producesRelativePathURLs unavailable
         #else
         try fm.contentsOfDirectory(at: path ?? root, includingPropertiesForKeys: [.fileSizeKey, .isDirectoryKey], options: [.producesRelativePathURLs])

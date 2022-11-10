@@ -54,7 +54,7 @@ final class FairEntitlementsTests: XCTestCase {
         }
 
         dbg("test executable at:", exec.path)
-        #if !os(Linux) && !os(Windows) // binaries are not Mach-O
+        #if !os(Linux) && !os(Android) && !os(Windows) // binaries are not Mach-O
         let entitlements = try extractEntitlements(Data(contentsOf: exec))
         dbg("entitlements:", entitlements.first)
         XCTAssertEqual(true, entitlements.first?.value(forKey: .get_task_allow) as? Bool)
@@ -79,7 +79,7 @@ final class FairEntitlementsTests: XCTestCase {
     }
 
     func testDataWrappers() throws {
-        #if os(Linux)
+        #if os(Linux) || os(Android)
         throw XCTSkip("crashes for some reason")
         #endif
 

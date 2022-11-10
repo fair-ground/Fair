@@ -143,7 +143,7 @@ extension URLSession {
 
 // TODO: @available(*, deprecated, message: "migrate to async")
 public extension URLSession {
-    #if os(Linux) || os(Windows)
+    #if os(Linux) || os(Android) || os(Windows)
     /// Stub for missing async data support on Linux & Windows
     func data(for request: URLRequest, delegate: Void?) async throws -> (data: Data, response: URLResponse) {
         let (data, response) = try await fetch(request: request)
@@ -217,7 +217,7 @@ extension URLSession {
     /// the number of progress segments for the download part; the remainder will be the zip decompression
     public static let progressUnitCount: Int64 = 4
 
-    #if !os(Linux) && !os(Windows) // bytes not available
+    #if !os(Linux) && !os(Android) && !os(Windows) // bytes not available
     /// Downloads the given request to a cached file location.
     ///
     /// - Parameters:
@@ -309,7 +309,7 @@ extension URLSession {
         try fh.close()
         return (downloadedArtifact, response)
     }
-    #endif // !os(Linux) && !os(Windows) 
+    #endif // !os(Linux) && !os(Android) && !os(Windows)
 
     /// Downloads the given file. It should behave the same as the async URLSession.download function (which is missing from linux).
     public func downloadFile(for request: URLRequest, useContentDispositionFileName: Bool = true, useLastModifiedDate: Bool = true) async throws -> (localURL: URL, response: URLResponse) {

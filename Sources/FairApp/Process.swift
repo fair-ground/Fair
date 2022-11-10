@@ -50,7 +50,7 @@ open class HandleStream: TextOutputStream {
     }
 }
 
-#if os(macOS) || os(Linux) || os(Windows)
+#if os(macOS) || os(Linux) || os(Android) || os(Windows)
 
 /// The result of a command execution
 public struct CommandResult {
@@ -303,7 +303,7 @@ extension Process {
     }
     #endif
 }
-#endif // os(macOS) || os(Linux) || os(Windows)
+#endif // os(macOS) || os(Linux) || os(Android) || os(Windows)
 
 
 #if canImport(Darwin)

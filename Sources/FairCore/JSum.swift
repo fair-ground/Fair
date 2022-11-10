@@ -503,7 +503,7 @@ private extension NSNumber {
     /// Returns `true` if this number represents a boolean value.
     var isBool: Bool {
         get {
-#if os(Linux)
+#if !canImport(ObjectiveC)
             let type = CFNumberGetType(unsafeBitCast(self, to: CFNumber.self))
             if type == CFNumberType.sInt8Type && (self.compare(trueNumber) == ComparisonResult.orderedSame || self.compare(falseNumber) == ComparisonResult.orderedSame) {
                 return true
