@@ -32,7 +32,7 @@ let package = Package(
         .library(name: "FairApp", targets: ["FairApp"]),
         .library(name: "FairKit", targets: ["FairKit"]),
         .library(name: "FairExpo", targets: ["FairExpo"]),
-        .executable(name: "fairtool", targets: ["fairtool"]),
+        Platform.current == .macOS ? .executable(name: "fairtool", targets: ["fairtool"]) : nil,
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", targets: ["FairToolPlugin"]) : nil,
         Platform.current == .macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
     ].compactMap({ $0 }),
