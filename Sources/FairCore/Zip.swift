@@ -2744,7 +2744,7 @@ class MemoryFile {
         let cookie = Unmanaged.passRetained(self)
         let writable = mode.count > 0 && (mode.first! != "r" || mode.last! == "+")
         let append = mode.count > 0 && mode.first! == "a"
-#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
+#if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(Android)
         let result = writable
         ? funopen(cookie.toOpaque(), readStub, writeStub, seekStub, closeStub)
         : funopen(cookie.toOpaque(), readStub, nil, seekStub, closeStub)
