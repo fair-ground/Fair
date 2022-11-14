@@ -435,6 +435,10 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual("app.Cloud-Cuckoo", cat2Post.news?.first?.appID)
     }
 
+    func testSemanticForkIndex() async throws {
+        #warning("### TODO")
+    }
+
     func testSignableJSum() throws {
         let key = "another test key"
 
