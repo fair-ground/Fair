@@ -31,7 +31,6 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
-import Swift
 import Foundation
 import FairApp
 #if canImport(CoreFoundation)
