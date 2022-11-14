@@ -141,6 +141,41 @@ extension URLSession {
     }
 }
 
+//extension URLSession {
+//    /// Asynchronously generate a SHA-256 for the contents of this URL (experimental and slow).
+//    @available(*, deprecated, message: "42x slower than Data(contentsOfURL:).sha256()")
+//    func sha256(for url: URL, hashBufferSize: Int = 1024 * 1024) async throws -> Data {
+//        let (asyncBytes, _) = try await self.bytes(for: URLRequest(url: url))
+//
+//        var bytes = Data()
+//        bytes.reserveCapacity(hashBufferSize)
+//
+//        let hasher = SHA256Hasher()
+//
+//        func flushBuffer(_ bytesCount: Int64) async throws {
+//            try Task.checkCancellation()
+//            await hasher.update(data: bytes) // update the running hash
+//            bytes.removeAll(keepingCapacity: true) // clear the buffer
+//        }
+//
+//        var bytesCount: Int64 = 0
+//        for try await byte in asyncBytes {
+//            bytesCount += 1
+//            bytes.append(byte)
+//            if bytes.count == hashBufferSize {
+//                try await flushBuffer(bytesCount)
+//            }
+//        }
+//        if !bytes.isEmpty {
+//            try await flushBuffer(bytesCount)
+//        }
+//
+//        let sha256 = await hasher.final()
+//        return sha256
+//    }
+//}
+
+
 // TODO: @available(*, deprecated, message: "migrate to async")
 public extension URLSession {
     #if os(Linux) || os(Android) || os(Windows)

@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13SourceCommandV011PostReleaseD0V11newsOptionsAA04NewsH0Vvp",
+    "externalID" : "s:8FairExpo13SourceCommandV011PostReleaseD0V11newsOptionsAC04NewsH0Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo11NewsOptionsV",
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+        "text" : "SourceCommand"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV11NewsOptionsV",
         "text" : "NewsOptions"
       }
     ],
@@ -76,9 +85,19 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsOptions",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo11NewsOptionsV",
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+              "text" : "SourceCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/NewsOptions",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV11NewsOptionsV",
               "text" : "NewsOptions"
             },
             {
@@ -143,37 +162,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/NewsOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NewsOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NewsOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NewsOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/newsoptions"
-},
 "doc://FairExpo/documentation/FairExpo/SourceCommand": {
   "abstract" : [
 
@@ -204,6 +192,37 @@
   "title" : "SourceCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/NewsOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "NewsOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/NewsOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "NewsOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.NewsOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/newsoptions"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand": {
   "abstract" : [
@@ -259,7 +278,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo11NewsOptionsV",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+      "text" : "SourceCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV11NewsOptionsV",
       "text" : "NewsOptions"
     }
   ],

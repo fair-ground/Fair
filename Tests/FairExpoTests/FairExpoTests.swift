@@ -31,7 +31,6 @@
  */
 import Swift
 import XCTest
-import FairCore
 import FairApp
 import FairExpo
 #if canImport(FoundationNetworking)
@@ -224,7 +223,9 @@ final class FairExpoTests: XCTestCase {
     func checkSource(catalogURL: URL, count: Int) async throws {
         let cat = try await AppCatalog.parse(jsonData: URLSession.shared.fetch(request: URLRequest(url: catalogURL)).data)
 
-        let apps = cat.apps.sorting(by: \.versionDate, ascending: false)
+        // check the smallest apps
+        // let apps = cat.apps.sorting(by: \.versionDate, ascending: false)
+        let apps = cat.apps.sorting(by: \.size, ascending: true)
 
         for app in apps.prefix(count) {
             dbg("verifying app \(app.bundleIdentifier) in \(catalogURL.absoluteString)")
@@ -435,6 +436,10 @@ final class FairExpoTests: XCTestCase {
         XCTAssertEqual("Updated Release: Cloud Cuckoo 0.9.75", cat2Post.news?.first?.title)
         XCTAssertEqual("Cloud Cuckoo version 0.9.75 has been updated from 0.9.74", cat2Post.news?.first?.caption)
         XCTAssertEqual("app.Cloud-Cuckoo", cat2Post.news?.first?.appID)
+    }
+
+    func testSemanticForkIndex() async throws {
+        #warning("### TODO")
     }
 
     func testSignableJSum() throws {

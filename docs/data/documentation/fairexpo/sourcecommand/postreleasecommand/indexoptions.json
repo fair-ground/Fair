@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo13SourceCommandV011PostReleaseD0V12indexOptionsAA08IndexingH0Vvp",
+    "externalID" : "s:8FairExpo13SourceCommandV011PostReleaseD0V12indexOptionsAC08IndexingH0Vvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo15IndexingOptionsV",
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+        "text" : "SourceCommand"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo13SourceCommandV15IndexingOptionsV",
         "text" : "IndexingOptions"
       }
     ],
@@ -76,9 +85,19 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/IndexingOptions",
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo15IndexingOptionsV",
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+              "text" : "SourceCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/IndexingOptions",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo13SourceCommandV15IndexingOptionsV",
               "text" : "IndexingOptions"
             },
             {
@@ -143,37 +162,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/IndexingOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "IndexingOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/IndexingOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "IndexingOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "IndexingOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/indexingoptions"
-},
 "doc://FairExpo/documentation/FairExpo/SourceCommand": {
   "abstract" : [
 
@@ -204,6 +192,37 @@
   "title" : "SourceCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/sourcecommand"
+},
+"doc://FairExpo/documentation/FairExpo/SourceCommand/IndexingOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "IndexingOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand\/IndexingOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "IndexingOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.IndexingOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/sourcecommand\/indexingoptions"
 },
 "doc://FairExpo/documentation/FairExpo/SourceCommand/PostReleaseCommand": {
   "abstract" : [
@@ -259,7 +278,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo15IndexingOptionsV",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV",
+      "text" : "SourceCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13SourceCommandV15IndexingOptionsV",
       "text" : "IndexingOptions"
     }
   ],

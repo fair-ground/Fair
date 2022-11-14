@@ -91,6 +91,13 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/AppCatalogVerifyFailure",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/AppCatalogVerifyResult"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/catalogApp(url:options:clearDownload:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/verifyAppItem(app:catalogURL:msg:)"
       ],
@@ -161,6 +168,79 @@
   "title" : "AppCatalogAPI",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogapi"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/AppCatalogVerifyFailure": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/AppCatalogVerifyFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogAPI.AppCatalogVerifyFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/appcatalogverifyfailure"
+},
+"doc://FairExpo/documentation/FairExpo/AppCatalogAPI/AppCatalogVerifyResult": {
+  "abstract" : [
+    {
+      "text" : "A single ",
+      "type" : "text"
+    },
+    {
+      "code" : "AppCatalogItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " entry from a catalog along with a list of validation failures",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyResult"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI\/AppCatalogVerifyResult",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCatalogVerifyResult"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCatalogAPI.AppCatalogVerifyResult",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/appcatalogapi\/appcatalogverifyresult"
 },
 "doc://FairExpo/documentation/FairExpo/AppCatalogAPI/catalogApp(url:options:clearDownload:)": {
   "abstract" : [
@@ -417,7 +497,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo22AppCatalogVerifyResultV",
+      "preciseIdentifier" : "s:8FairExpo13AppCatalogAPIC",
+      "text" : "AppCatalogAPI"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo13AppCatalogAPIC0cD12VerifyResultV",
       "text" : "AppCatalogVerifyResult"
     }
   ],
