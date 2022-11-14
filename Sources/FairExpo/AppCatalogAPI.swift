@@ -65,7 +65,7 @@ public final class AppCatalogAPI {
             }
         }
 
-        let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: localURL)
+        let (info, entitlements) = try await AppBundleLoader.loadInfo(fromAppBundle: localURL)
 
         //var item = AppCatalogItem(name: bundleName, bundleIdentifier: bundleID, downloadURL: url)
         guard var item = try info.appCatalogInfo(downloadURL: url) else {
@@ -243,7 +243,7 @@ public final class AppCatalogAPI {
         }
 
         do {
-            let (info, entitlementss) = try AppBundleLoader.loadInfo(fromAppBundle: file)
+            let (info, entitlementss) = try await AppBundleLoader.loadInfo(fromAppBundle: file)
 
             // ensure each *UsageDescription Info.plist property is also surfaced in the catalog metadata permissions
             verifyInfoUsageDescriptions(info)

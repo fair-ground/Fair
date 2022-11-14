@@ -171,6 +171,15 @@ extension Sequence {
         }
         return values
     }
+
+    /// Concurrently executes the given filter, returning the results in the order of the sequence's elements
+    @inlinable public func asyncFilter(_ filter: (Element) async throws -> Bool) async rethrows -> [Element] {
+        try await asyncMap { element in
+            (element, try await filter(element))
+        }
+        .filter({ $0.1 == true })
+        .map(\.0)
+    }
 }
 
 extension Sequence {

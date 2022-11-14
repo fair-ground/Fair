@@ -43,11 +43,11 @@ import FairCore
 // https://iphonedev.wiki/index.php/Ldid
 
 final class FairEntitlementsTests: XCTestCase {
-    func extractEntitlements(_ data: Data) throws -> [AppEntitlements] {
-        try MachOBinary(binary: SeekableDataHandle(data)).readEntitlements()
+    func extractEntitlements(_ data: Data) async throws -> [AppEntitlements] {
+        try await MachOBinary(binary: SeekableDataHandle(data)).readEntitlements()
     }
 
-    func testCurrentExecutable() throws {
+    func testCurrentExecutable() async throws {
         // probably: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Xcode/Agents/xctest
         guard let exec = Bundle.main.executableURL else {
             return XCTFail("no executable URL")
@@ -55,7 +55,7 @@ final class FairEntitlementsTests: XCTestCase {
 
         dbg("test executable at:", exec.path)
         #if !os(Linux) && !os(Android) && !os(Windows) // binaries are not Mach-O
-        let entitlements = try extractEntitlements(Data(contentsOf: exec))
+        let entitlements = try await extractEntitlements(Data(contentsOf: exec))
         dbg("entitlements:", entitlements.first)
         XCTAssertEqual(true, entitlements.first?.value(forKey: .get_task_allow) as? Bool)
         #endif
@@ -131,11 +131,12 @@ final class FairEntitlementsTests: XCTestCase {
         }
     }
 
-    func readEntitlements(_ path: String) throws -> AppEntitlements {
-        try XCTUnwrap(extractEntitlements(Data(contentsOf: URL(fileURLWithPath: dump(path, name: "reading file")))).first)
+    func readEntitlements(_ path: String) async throws -> AppEntitlements {
+        let entitlements = try await extractEntitlements(Data(contentsOf: URL(fileURLWithPath: dump(path, name: "reading file")))).first
+        return try XCTUnwrap(entitlements, "could not find entitlement for \(path)")
     }
 
-    func testMacOSEntitlements() throws {
+    func testMacOSEntitlements() async throws {
 
         let appsFolder = URL(fileURLWithPath: "/Applications")
         if FileManager.default.isDirectory(url: appsFolder) != true {
@@ -153,26 +154,27 @@ final class FairEntitlementsTests: XCTestCase {
                 if FileManager.default.isExecutableFile(atPath: executable.path) {
                     dbg("scanning macOS executable:", executable.path)
 
-                    if executable.lastPathComponent == "Xcode" { continue } // seems to crash on CI
-                    if executable.lastPathComponent == "Firefox" { continue } // seems to crash on CI
+                    if executable.lastPathComponent == "Xcode" { continue }
+                    if executable.lastPathComponent == "Firefox" { continue }
                     if executable.lastPathComponent == "Final Cut Pro" { continue }
                     if executable.lastPathComponent == "Docker" { continue }
                     if executable.lastPathComponent == "Sonos" { continue }
                     if executable.lastPathComponent == "Hex Fiend" { continue }
                     if executable.lastPathComponent == "Transmission" { continue }
                     if executable.lastPathComponent == "eDEX-UI" { continue }
+                    if executable.lastPathComponent == "MacDown" { continue }
 
                     do {
-                        let _ = try readEntitlements(executable.path)
+                        let _ = try await readEntitlements(executable.path)
                     } catch {
                         XCTFail("executable failed: \(executable.path) with error: \(error)")
                     }
 
-                    let archive = try AppBundle(folderAt: FileManager.default.resolvingSymbolicLink(app))
-                    try validate(archive: archive, from: app)
+                    let archive = try await AppBundle(folderAt: FileManager.default.resolvingSymbolicLink(app))
+                    try await validate(archive: archive, from: app)
 
                     if executable.lastPathComponent == "Numbers" {
-                        let sandboxed = try archive.isSandboxed()
+                        let sandboxed = try await archive.isSandboxed()
                         XCTAssertEqual(true, sandboxed, "App not sandboxed: \(executable.lastPathComponent)")
                     }
                 }
@@ -182,18 +184,18 @@ final class FairEntitlementsTests: XCTestCase {
 
     }
 
-    func validate<A: DataWrapper>(archive: AppBundle<A>, from: URL) throws {
+    func validate<A: DataWrapper>(archive: AppBundle<A>, from: URL) async throws {
         let plist = archive.infoDictionary
         dbg("validating:", from.relativePath, plist.CFBundleIdentifier, plist.CFBundleName, plist.CFBundleShortVersionString)
         if plist.CFBundleIdentifier?.hasPrefix("app.") == true {
             // perform fairground-app specific validation
         } else {
-            guard let entitlements = try archive.entitlements(), !entitlements.isEmpty else {
+            guard let entitlements = try await archive.entitlements(), !entitlements.isEmpty else {
                 return XCTFail("no entitlements in executable")
             }
 
             dbg("entitlements:", "app groups:", entitlements.first?.value(forKey: .application_groups))
-            let groups = try? archive.appGroups()
+            let groups = try? await archive.appGroups()
             dbg("app groups:", groups)
         }
     }
