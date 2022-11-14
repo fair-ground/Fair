@@ -495,7 +495,6 @@ extension FairCommand {
 }
 
 extension FairCommand {
-#if canImport(Compression)
     public struct FairsealCommand: FairParsableCommand {
 
         public struct SealOptions: ParsableArguments {
@@ -907,8 +906,6 @@ extension FairCommand {
         }
 
     }
-#endif
-
 }
 
 
