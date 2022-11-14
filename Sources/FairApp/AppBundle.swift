@@ -662,8 +662,8 @@ public class MachOBinary {
 
     private let binary: SeekableData
 
-    public init(binary: SeekableData) throws {
-        self.binary = binary.reversedEndian()
+    public init(binary: SeekableData) async throws {
+        self.binary = await binary.reversedEndian()
     }
 
     fileprivate func getBinaryType(fromSliceStartingAt offset: SeekableData.Offset) async throws -> BinaryType? {

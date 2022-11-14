@@ -69,8 +69,9 @@ jobs:
       # bottling process.
       - name: Verify bottle (x86_64)
         run: |
-          cp -av fairtool--*.bottle.tar.gz /tmp/
-          cd /tmp/
+          TD=`mktemp -d`
+          cp -av fairtool--*.bottle.tar.gz "${TD}"
+          cd "${TD}"
           tar xvzf fairtool--*.bottle.tar.gz
           file ./fairtool/*/bin/fairtool
           ./fairtool/*/bin/fairtool version
