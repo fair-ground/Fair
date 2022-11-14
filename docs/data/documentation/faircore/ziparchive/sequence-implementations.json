@@ -45,6 +45,7 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/allSatisfy(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/array()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncFilter(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/breadthFirstIterator(children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/compactMap(_:)",
@@ -331,6 +332,111 @@
   "title" : "array()",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/ziparchive\/array()"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/asyncFilter(_:)": {
+  "abstract" : [
+    {
+      "text" : "Concurrently executes the given filter, returning the results in the order of the sequence’s elements",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asyncFilter"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncFilter(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asyncFilter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/asyncfilter(_:)"
 },
 "doc://FairCore/documentation/FairCore/ZipArchive/asyncMap(_:)": {
   "abstract" : [

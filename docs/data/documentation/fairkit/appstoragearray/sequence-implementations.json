@@ -45,6 +45,7 @@
       "identifiers" : [
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/allSatisfy(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/array()",
+        "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/asyncFilter(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/asyncMap(_:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/breadthFirstIterator(children:)",
         "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/clip()",
@@ -355,6 +356,108 @@
   "title" : "array()",
   "type" : "topic",
   "url" : "\/documentation\/fairkit\/appstoragearray\/array()"
+},
+"doc://FairKit/documentation/FairKit/AppStorageArray/asyncFilter(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asyncFilter"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairKit\/documentation\/FairKit\/AppStorageArray\/asyncFilter(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asyncFilter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairkit\/appstoragearray\/asyncfilter(_:)"
 },
 "doc://FairKit/documentation/FairKit/AppStorageArray/asyncMap(_:)": {
   "abstract" : [

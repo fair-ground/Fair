@@ -70,7 +70,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "actor"
             },
             {
               "kind" : "text",
@@ -89,7 +89,9 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
+        "doc:\/\/FairCore\/s8SendableP",
+        "doc:\/\/FairCore\/ScA"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -143,6 +145,11 @@
   ]
 , 
 "references": {
+"doc://FairCore/ScA": {
+  "identifier" : "doc:\/\/FairCore\/ScA",
+  "title" : "_Concurrency.Actor",
+  "type" : "unresolvable"
+},
 "doc://FairCore/documentation/FairCore": {
   "abstract" : [
     {
@@ -301,7 +308,15 @@
     },
     {
       "kind" : "text",
-      "text" : "() -> "
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -374,6 +389,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -430,6 +453,14 @@
     {
       "kind" : "text",
       "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -501,6 +532,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     }
   ],
@@ -543,6 +582,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -560,6 +607,11 @@
   "title" : "unsafeRead()",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledatahandle\/unsaferead()"
+},
+"doc://FairCore/s8SendableP": {
+  "identifier" : "doc:\/\/FairCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

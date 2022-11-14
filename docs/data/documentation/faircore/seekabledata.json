@@ -82,7 +82,12 @@
             },
             {
               "kind" : "text",
-              "text" : " : AnyObject"
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:ScA",
+              "text" : "Actor"
             }
           ]
         }
@@ -91,6 +96,15 @@
     }
   ],
   "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/s8SendableP",
+        "doc:\/\/FairCore\/ScA"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
@@ -124,7 +138,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt32()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt64()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUInt8()",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUIntX()-3bruo",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUIntX()-1rz74",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/reversedEndian()",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/seek(to:)"
       ],
@@ -151,6 +165,11 @@
   ]
 , 
 "references": {
+"doc://FairCore/ScA": {
+  "identifier" : "doc:\/\/FairCore\/ScA",
+  "title" : "_Concurrency.Actor",
+  "type" : "unresolvable"
+},
 "doc://FairCore/documentation/FairCore": {
   "abstract" : [
     {
@@ -347,6 +366,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -426,6 +453,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -469,6 +504,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -517,6 +560,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -562,6 +613,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -604,6 +663,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -669,6 +736,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -712,6 +787,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -760,6 +843,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -799,6 +890,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -847,6 +946,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -866,7 +973,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledata\/readuint8()"
 },
-"doc://FairCore/documentation/FairCore/SeekableData/readUIntX()-3bruo": {
+"doc://FairCore/documentation/FairCore/SeekableData/readUIntX()-1rz74": {
   "abstract" : [
 
   ],
@@ -898,6 +1005,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -909,13 +1024,13 @@
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUIntX()-3bruo",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/readUIntX()-1rz74",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "readUIntX()",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekabledata\/readuintx()-3bruo"
+  "url" : "\/documentation\/faircore\/seekabledata\/readuintx()-1rz74"
 },
 "doc://FairCore/documentation/FairCore/SeekableData/reversedEndian()": {
   "abstract" : [
@@ -1013,6 +1128,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     }
   ],
@@ -1103,6 +1226,11 @@
   "title" : "SeekableFileHandle",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekablefilehandle"
+},
+"doc://FairCore/s8SendableP": {
+  "identifier" : "doc:\/\/FairCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
 }
 }
 }

@@ -23,7 +23,7 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()"
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries(sizeThreshold:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -76,7 +76,7 @@
       ]
     },
     "extendedModule" : "FairApp",
-    "externalID" : "s:7FairApp0B6BundleCAA10Foundation3URLV4PathRtzrlE13machOBinariesSayAFGyKF",
+    "externalID" : "s:7FairApp0B6BundleCAA10Foundation3URLV4PathRtzrlE13machOBinaries13sizeThresholdSayAFGs6UInt64V_tYaKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -92,7 +92,32 @@
       },
       {
         "kind" : "text",
-        "text" : "() "
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "sizeThreshold"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s6UInt64V",
+        "text" : "UInt64"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "async"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
       },
       {
         "kind" : "keyword",
@@ -104,15 +129,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "Source"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "text" : "Path"
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
       },
       {
         "kind" : "text",
@@ -127,7 +145,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "machOBinaries()"
+    "title" : "machOBinaries(sizeThreshold:)"
   },
   "primaryContentSections" : [
     {
@@ -154,7 +172,32 @@
             },
             {
               "kind" : "text",
-              "text" : "() "
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "sizeThreshold"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s6UInt64V",
+              "text" : "UInt64"
+            },
+            {
+              "kind" : "text",
+              "text" : " = 1024) "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "async"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
             },
             {
               "kind" : "keyword",
@@ -166,15 +209,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Source"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Path"
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
             },
             {
               "kind" : "text",
@@ -184,6 +220,45 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "an async sequence of the Mach-O binaries within the resource.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "the initial size to filter",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "sizeThreshold"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
@@ -197,7 +272,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairapp\/appbundle\/machobinaries()"
+        "\/documentation\/fairapp\/appbundle\/machobinaries(sizethreshold:)"
       ],
       "traits" : [
         {
@@ -264,7 +339,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle"
 },
-"doc://FairApp/documentation/FairApp/AppBundle/machOBinaries()": {
+"doc://FairApp/documentation/FairApp/AppBundle/machOBinaries(sizeThreshold:)": {
   "abstract" : [
     {
       "text" : "Returns the list of paths that are probably (based on magic header) Mach-O binaries,",
@@ -342,7 +417,32 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "sizeThreshold"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -354,27 +454,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Source"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Path"
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries(sizeThreshold:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "machOBinaries()",
+  "title" : "machOBinaries(sizeThreshold:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appbundle\/machobinaries()"
+  "url" : "\/documentation\/fairapp\/appbundle\/machobinaries(sizethreshold:)"
 }
 }
 }

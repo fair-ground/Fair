@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "SeekableData.readData(ofLength:)",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Concurrently executes the given filter, returning the results in the order of the sequence’s elements",
       "type" : "text"
     }
   ],
@@ -17,17 +9,19 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle"
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Sequence-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle\/readData(ofLength:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncFilter(_:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore18SeekableFileHandleC8readData8ofLength10Foundation0G0Vs6UInt64VSg_tYaKF",
+    "extendedModule" : "Swift",
+    "externalID" : "s:ST8FairCoreE11asyncFilterySay7ElementQzGSbADYaKXEYaKF::SYNTHESIZED::s:8FairCore10ZipArchiveC",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -39,24 +33,15 @@
       },
       {
         "kind" : "identifier",
-        "text" : "readData"
+        "text" : "asyncFilter"
       },
       {
         "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "ofLength"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
+        "text" : "(("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore18SeekableFileHandleC",
-        "text" : "SeekableFileHandle"
+        "text" : "Self"
       },
       {
         "kind" : "text",
@@ -64,12 +49,11 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-        "text" : "Offset"
+        "text" : "Element"
       },
       {
         "kind" : "text",
-        "text" : "?) "
+        "text" : ") "
       },
       {
         "kind" : "keyword",
@@ -89,8 +73,44 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:10Foundation4DataV",
-        "text" : "Data"
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "async"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "rethrows"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -101,7 +121,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "readData(ofLength:)"
+    "title" : "asyncFilter(_:)"
   },
   "primaryContentSections" : [
     {
@@ -124,7 +144,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "readData"
+              "text" : "asyncFilter"
             },
             {
               "kind" : "text",
@@ -132,7 +152,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "ofLength"
+              "text" : "_"
             },
             {
               "kind" : "text",
@@ -140,31 +160,27 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "length"
+              "text" : "filter"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ("
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore18SeekableFileHandleC",
-              "text" : "SeekableFileHandle"
+              "text" : "Self"
             },
             {
               "kind" : "text",
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-              "text" : "Offset"
+              "text" : "Element"
             },
             {
               "kind" : "text",
-              "text" : "?) "
+              "text" : ") "
             },
             {
               "kind" : "keyword",
@@ -184,8 +200,44 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:10Foundation4DataV",
-              "text" : "Data"
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "async"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "rethrows"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> ["
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : "]"
             }
           ]
         }
@@ -204,7 +256,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/seekablefilehandle\/readdata(oflength:)"
+        "\/documentation\/faircore\/ziparchive\/asyncfilter(_:)"
       ],
       "traits" : [
         {
@@ -229,46 +281,11 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/SeekableData/Offset": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Offset"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData\/Offset",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Offset"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SeekableData.Offset",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekabledata\/offset"
-},
-"doc://FairCore/documentation/FairCore/SeekableFileHandle": {
+"doc://FairCore/documentation/FairCore/ZipArchive": {
   "abstract" : [
     {
-      "text" : "SeekableData implementation that is backed by a ",
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
       "type" : "text"
-    },
-    {
-      "code" : "FileHandle",
-      "type" : "codeVoice"
     }
   ],
   "fragments" : [
@@ -282,25 +299,39 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SeekableFileHandle"
+      "text" : "ZipArchive"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SeekableFileHandle"
+      "text" : "ZipArchive"
     }
   ],
   "role" : "symbol",
-  "title" : "SeekableFileHandle",
+  "title" : "ZipArchive",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekablefilehandle"
+  "url" : "\/documentation\/faircore\/ziparchive"
 },
-"doc://FairCore/documentation/FairCore/SeekableFileHandle/readData(ofLength:)": {
+"doc://FairCore/documentation/FairCore/ZipArchive/Sequence-Implementations": {
   "abstract" : [
 
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Sequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Sequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/sequence-implementations"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/asyncFilter(_:)": {
+  "abstract" : [
+    {
+      "text" : "Concurrently executes the given filter, returning the results in the order of the sequence’s elements",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -313,24 +344,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "readData"
+      "text" : "asyncFilter"
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "ofLength"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : "(("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore18SeekableFileHandleC",
-      "text" : "SeekableFileHandle"
+      "text" : "Self"
     },
     {
       "kind" : "text",
@@ -338,12 +360,11 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore12SeekableDataP6Offseta",
-      "text" : "Offset"
+      "text" : "Element"
     },
     {
       "kind" : "text",
-      "text" : "?) "
+      "text" : ") "
     },
     {
       "kind" : "keyword",
@@ -363,16 +384,52 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation4DataV",
-      "text" : "Data"
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle\/readData(ofLength:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/asyncFilter(_:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "readData(ofLength:)",
+  "title" : "asyncFilter(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/seekablefilehandle\/readdata(oflength:)"
+  "url" : "\/documentation\/faircore\/ziparchive\/asyncfilter(_:)"
 }
 }
 }

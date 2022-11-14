@@ -81,7 +81,7 @@ public struct ArtifactCommand : AsyncParsableCommand {
 
         private func extractInfo(from: (from: URL, local: URL)) async throws -> InfoItem {
             msg(.info, "extracting info: \(from.from)")
-            let (info, entitlements) = try AppBundleLoader.loadInfo(fromAppBundle: from.local)
+            let (info, entitlements) = try await AppBundleLoader.loadInfo(fromAppBundle: from.local)
 
             return try InfoItem(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
         }

@@ -145,7 +145,7 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/entitlements()",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/isSandboxed()",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/loadExecutableData()",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries(sizeThreshold:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/maybeMachO(at:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setCatalystPlatform(resign:name:min:max:)",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/setPlatformVersion(resign:params:)",
@@ -313,6 +313,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -615,6 +623,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     },
     {
@@ -657,6 +673,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -808,6 +832,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     }
   ],
@@ -846,6 +878,14 @@
     {
       "kind" : "text",
       "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -950,6 +990,14 @@
     },
     {
       "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
       "text" : "throws"
     }
   ],
@@ -980,6 +1028,14 @@
     {
       "kind" : "text",
       "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -1084,7 +1140,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appbundle\/loadexecutabledata()"
 },
-"doc://FairApp/documentation/FairApp/AppBundle/machOBinaries()": {
+"doc://FairApp/documentation/FairApp/AppBundle/machOBinaries(sizeThreshold:)": {
   "abstract" : [
     {
       "text" : "Returns the list of paths that are probably (based on magic header) Mach-O binaries,",
@@ -1162,7 +1218,32 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "sizeThreshold"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6UInt64V",
+      "text" : "UInt64"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",
@@ -1174,27 +1255,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "Source"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Path"
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
     },
     {
       "kind" : "text",
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries()",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppBundle\/machOBinaries(sizeThreshold:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "machOBinaries()",
+  "title" : "machOBinaries(sizeThreshold:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appbundle\/machobinaries()"
+  "url" : "\/documentation\/fairapp\/appbundle\/machobinaries(sizethreshold:)"
 },
 "doc://FairApp/documentation/FairApp/AppBundle/maybeMachO(at:)": {
   "abstract" : [
@@ -1299,6 +1373,14 @@
     {
       "kind" : "text",
       "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
     },
     {
       "kind" : "keyword",

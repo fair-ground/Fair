@@ -15,17 +15,17 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/init(folderat:)",
-                "title" : "convenience init(folderAt: URL) throws",
+                "title" : "convenience init(folderAt: URL) async throws",
                 "type" : "init"
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/init(source:)",
-                "title" : "init(source: Source) throws",
+                "title" : "init(source: Source) async throws",
                 "type" : "init"
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/init(ziparchiveat:)",
-                "title" : "convenience init(zipArchiveAt: URL) throws",
+                "title" : "convenience init(zipArchiveAt: URL) async throws",
                 "type" : "init"
               },
               {
@@ -53,7 +53,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/appgroups()",
-                "title" : "func appGroups() throws -> [String]?",
+                "title" : "func appGroups() async throws -> [String]?",
                 "type" : "method"
               },
               {
@@ -63,17 +63,17 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/entitlement(for:)",
-                "title" : "func entitlement<T>(for: AppEntitlement) throws -> T?",
+                "title" : "func entitlement<T>(for: AppEntitlement) async throws -> T?",
                 "type" : "method"
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/entitlements()",
-                "title" : "func entitlements() throws -> [AppEntitlements]?",
+                "title" : "func entitlements() async throws -> [AppEntitlements]?",
                 "type" : "method"
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/issandboxed()",
-                "title" : "func isSandboxed() throws -> Bool?",
+                "title" : "func isSandboxed() async throws -> Bool?",
                 "type" : "method"
               },
               {
@@ -82,13 +82,13 @@
                 "type" : "method"
               },
               {
-                "path" : "\/documentation\/fairapp\/appbundle\/machobinaries()",
-                "title" : "func machOBinaries() throws -> [Source.Path]",
+                "path" : "\/documentation\/fairapp\/appbundle\/machobinaries(sizethreshold:)",
+                "title" : "func machOBinaries(sizeThreshold: UInt64) async throws -> [URL]",
                 "type" : "method"
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundle\/maybemacho(at:)",
-                "title" : "func maybeMachO(at: Source.Path) throws -> Bool",
+                "title" : "func maybeMachO(at: Source.Path) async throws -> Bool",
                 "type" : "method"
               },
               {
@@ -306,7 +306,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/machobinary\/init(binary:)",
-                "title" : "init(binary: SeekableData) throws",
+                "title" : "init(binary: SeekableData) async throws",
                 "type" : "init"
               },
               {
@@ -315,7 +315,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/machobinary\/readentitlements(fromslicestartingat:)",
-                "title" : "func readEntitlements(fromSliceStartingAt: UInt64) throws -> [AppEntitlements]",
+                "title" : "func readEntitlements(fromSliceStartingAt: UInt64) async throws -> [AppEntitlements]",
                 "type" : "method"
               }
             ],
@@ -31507,7 +31507,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/appbundleloader\/loadinfo(fromappbundle:)",
-                "title" : "static func loadInfo(fromAppBundle: URL) throws -> (info: Plist, entitlements: [AppEntitlements]?)",
+                "title" : "static func loadInfo(fromAppBundle: URL) async throws -> (info: Plist, entitlements: [AppEntitlements]?)",
                 "type" : "method"
               }
             ],

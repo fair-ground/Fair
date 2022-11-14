@@ -153,7 +153,7 @@ final class FairExpoTests: XCTestCase {
     #if os(macOS)
     func testConvertIPA() async throws {
         let downloadAppURL = try await fetchApp(named: "Cloud-Cuckoo", unzip: true)
-        let bundle = try AppBundle(folderAt: downloadAppURL)
+        let bundle = try await AppBundle(folderAt: downloadAppURL)
 
         try bundle.validatePaths()
 
