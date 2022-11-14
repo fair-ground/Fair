@@ -653,6 +653,24 @@ public extension Date {
 }
 
 public extension URL {
+    /// Initialize this URL with either a full URL with a protocol, or else use the string as a file path.
+    /// - Parameter fileOrScheme: either a full URL like `https://www.example.org` or a file path like `/etc/hosts`.
+    init(fileOrScheme: String) {
+        guard let url = URL(string: fileOrScheme) else {
+            self = URL(fileURLWithPath: fileOrScheme)
+            return
+        }
+
+        if url.scheme == nil {
+            self = URL(fileURLWithPath: fileOrScheme)
+        } else {
+            self = url
+        }
+    }
+}
+
+
+public extension URL {
     /// The temporary directory for this process; note that this will probably vary between launches for sandboxed apps
     static let tmpDir = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
 
