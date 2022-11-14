@@ -32,6 +32,9 @@
  exception statement from your version.
  */
 import Foundation
+#if canImport(_Concurrency)
+import protocol _Concurrency.AnyActor // swift-docc-plugin was failing without this
+#endif
 
 /// A handle to some data that maintains its `offset` location and can access subsets of data
 public protocol SeekableData : AnyActor {
