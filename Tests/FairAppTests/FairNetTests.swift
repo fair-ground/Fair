@@ -32,9 +32,6 @@
 import Swift
 import XCTest
 import FairCore
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 
 final class FairNetTests: XCTestCase {
     #if !os(Linux) && !os(Android) && !os(Windows)

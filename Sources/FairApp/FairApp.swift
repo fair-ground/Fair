@@ -32,8 +32,12 @@
  exception statement from your version.
  */
 import Swift
-import Foundation
+@_exported import Foundation
 @_exported import FairCore
+
+#if canImport(FoundationNetworking)
+@_exported import FoundationNetworking
+#endif
 
 #if canImport(SwiftUI)
 @_exported import SwiftUI

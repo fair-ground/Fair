@@ -31,12 +31,7 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
-import Swift
-import Foundation
 import FairApp
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 
 /// We need an upper bound for the number of forks we can process
 /// GitHub defaults to a rate limit of 5,000 requests per hour, so

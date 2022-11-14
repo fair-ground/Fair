@@ -33,9 +33,6 @@ import Swift
 import XCTest
 import FairApp
 import FairExpo
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 
 /// Tests different command options for the FairToolCommand.
 ///
