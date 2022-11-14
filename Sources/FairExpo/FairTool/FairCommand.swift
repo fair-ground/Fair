@@ -1003,7 +1003,6 @@ extension FairCommand {
 
 
 extension FairCommand {
-#if canImport(SwiftUI)
     public struct IconOptions: ParsableArguments {
         @Option(name: [.long], help: ArgumentHelp("Path to appiconset/Contents.json."))
         public var appIcon: String?
@@ -1017,6 +1016,7 @@ extension FairCommand {
         public init() { }
     }
 
+#if canImport(SwiftUI)
 
     public struct IconCommand: FairParsableCommand {
         public static let experimental = false
