@@ -209,7 +209,7 @@ final class FairHubTests: XCTestCase {
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.BaseFork]] = []
-        let results = hub.sendCursoredRequest(FairHub.CatalogForksQuery(owner: appfairName, name: baseFairgroundRepoName, count: Int.random(in: 8...18)))
+        let results = hub.cursoredStream(FairHub.CatalogForksQuery(owner: appfairName, name: baseFairgroundRepoName, count: Int.random(in: 8...18)))
         for try await result in results {
             let forks = try result.get().data.repository.forks.nodes
             resultResults.append(forks)
@@ -217,6 +217,26 @@ final class FairHubTests: XCTestCase {
 
         XCTAssertEqual(resultResults[0].count, resultResults[1].count)
         XCTAssertEqual(resultResults[0].count, resultResults[2].count)
+    }
+
+    func testSemanticForkIndex() async throws {
+//        if runningFromCI {
+//            throw XCTSkip("disabled to reduce API load")
+//        }
+
+        do {
+            let hub = try Self.hub(skipNoAuth: true)
+            for try await batch in hub.cursoredStream(FairHub.SemanticForksQuery(owner: "appfair", name: "App")) {
+                let repo = try batch.get().data.repository
+                XCTAssertEqual("appfair/App", repo.nameWithOwner)
+                XCTAssertLessThan(20, repo.forks.totalCount ?? 0)
+                let forks = repo.forks.nodes
+                dbg("fetched forks:", forks.count, forks.map(\.nameWithOwner))
+            }
+        } catch {
+            XCTFail("\(error)")
+            throw error
+        }
     }
 
     /// Debugging slow connections to GH API

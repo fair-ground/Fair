@@ -418,7 +418,7 @@ extension FairHub {
         /// the number of release assets to process
         public var assetCount: Int = 25
 
-        public var cursor: GraphQLCursor? = nil
+        public var endCursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
@@ -426,17 +426,17 @@ extension FairHub {
                 "count": count,
                 "releaseCount": releaseCount,
                 "assetCount": assetCount,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query AppCasksTopicQuery($topicName:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            query AppCasksTopicQuery($topicName:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $endCursor:String) {
                __typename
                topic(name: $topicName) {
                 __typename
                 name
-                repositories(after: $cursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
+                repositories(after: $endCursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
                     \(CaskRepositoryFragment)
                 }
               }
@@ -479,7 +479,7 @@ extension FairHub {
         /// the number of release assets to process
         public var assetCount: Int = 25
 
-        public var cursor: GraphQLCursor? = nil
+        public var endCursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
@@ -487,16 +487,16 @@ extension FairHub {
                 "count": count,
                 "releaseCount": releaseCount,
                 "assetCount": assetCount,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query AppCasksTopicQuery($starrerName:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            query AppCasksTopicQuery($starrerName:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $endCursor:String) {
                __typename
                user(login: $starrerName) {
                 __typename
-                starredRepositories(after: $cursor, first: $count, orderBy: { field: STARRED_AT, direction: DESC }) {
+                starredRepositories(after: $endCursor, first: $count, orderBy: { field: STARRED_AT, direction: DESC }) {
                     \(CaskRepositoryFragment)
                 }
               }
@@ -540,7 +540,7 @@ extension FairHub {
         /// the number of release assets to process
         public var assetCount: Int
 
-        public var cursor: GraphQLCursor? = nil
+        public var endCursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
@@ -549,16 +549,16 @@ extension FairHub {
                 "count": count,
                 "releaseCount": releaseCount,
                 "assetCount": assetCount,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query AppCasksForkQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            query AppCasksForkQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $endCursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
-                forks(after: $cursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
+                forks(after: $endCursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
                     \(CaskRepositoryFragment)
                 }
               }
@@ -715,25 +715,25 @@ extension FairHub {
         /// the number of release assets to process
         public var assetCount: Int = 25
 
-        public var cursor: GraphQLCursor?
+        public var endCursor: GraphQLCursor?
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
                 "repositoryNodeID": repositoryNodeID,
                 "releaseCount": releaseCount,
                 "assetCount": assetCount,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query AppCaskReleasesQuery($repositoryNodeID:ID!, $releaseCount:Int!, $assetCount:Int!, $cursor:String) {
+            query AppCaskReleasesQuery($repositoryNodeID:ID!, $releaseCount:Int!, $assetCount:Int!, $endCursor:String) {
               __typename
               node(id: $repositoryNodeID) {
                 id
                 __typename
                 ... on Repository {
-                  releases(after: $cursor, first: $releaseCount) {
+                  releases(after: $endCursor, first: $releaseCount) {
                     pageInfo { endCursor, hasNextPage, hasPreviousPage, startCursor }
                     edges {
                       node {
@@ -817,7 +817,7 @@ extension FairHub {
         /// the number of initial comments to scan for a fairseal
         public var commentCount: Int = 10
 
-        public var cursor: GraphQLCursor? = nil
+        public var endCursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
@@ -828,16 +828,16 @@ extension FairHub {
                 "assetCount": assetCount,
                 "prCount": prCount,
                 "commentCount": count,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query CatalogForksQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $cursor:String) {
+            query CatalogForksQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $endCursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
-                forks(after: $cursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
+                forks(after: $endCursor, first: $count, isLocked: false, privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: DESC}) {
                   __typename
                   totalCount
                   pageInfo { endCursor, hasNextPage, hasPreviousPage, startCursor }
@@ -1206,7 +1206,7 @@ extension FairHub {
         /// The state of the PR
         public var state: PullRequestState
         public var count: Int = 100
-        public var cursor: GraphQLCursor? = nil
+        public var endCursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
@@ -1214,16 +1214,16 @@ extension FairHub {
                 "name": name,
                 "state": state.rawValue,
                 "count": count,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query FindPullRequests($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $cursor:String) {
+            query FindPullRequests($owner:String!, $name:String!, $state:PullRequestState!, $count:Int!, $endCursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                  __typename
-                 pullRequests(states: [$state], orderBy: { field: UPDATED_AT, direction: DESC }, first: $count, after: $cursor) {
+                 pullRequests(states: [$state], orderBy: { field: UPDATED_AT, direction: DESC }, first: $count, after: $endCursor) {
                     totalCount
                     pageInfo { endCursor, hasNextPage, hasPreviousPage, startCursor }
                     edges {
@@ -1294,19 +1294,19 @@ extension FairHub {
         /// the number of forks to return per batch
         public var count: Int = 100
 
-        public var cursor: GraphQLCursor? = nil
+        public var endCursor: GraphQLCursor? = nil
 
         public func postData() throws -> Data? {
             try executeGraphQL(Self.query, variables: [
                 "owner": owner,
                 "name": name,
                 "count": count,
-                "cursor": cursor
+                "endCursor": endCursor
             ])
         }
 
         private static let query = """
-            query GetSponsorsQuery($owner: String!, $name: String!, $count: Int!, $cursor: String) {
+            query GetSponsorsQuery($owner: String!, $name: String!, $count: Int!, $endCursor: String) {
               __typename
               repository(owner: $owner, name: $name) {
                 __typename
@@ -1332,7 +1332,7 @@ extension FairHub {
                     }
                   }
                 }
-                forks(first: $count, after: $cursor) {
+                forks(first: $count, after: $endCursor) {
                   totalCount
                   pageInfo { endCursor, hasNextPage, hasPreviousPage, startCursor }
                   edges {
@@ -1456,6 +1456,157 @@ extension FairHub {
     }
 
 }
+
+// MARK: Semantic Forks
+
+
+extension FairHub {
+
+    public struct SemanticForksQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        /// The owner organization for the PR
+        public var owner: String
+        /// The base repository name for the PR
+        public var name: String
+
+        /// The number of forks to return per batch
+        public var forkCount: Int = 10
+
+        /// The number of most recent releases to index
+        public var releaseCount: Int = 10
+
+        /// The number of assets to include in each release
+        public var assetCount: Int = 10
+
+        public var endCursor: GraphQLCursor? = nil
+
+        public func postData() throws -> Data? {
+            try executeGraphQL(Self.query, variables: [
+                "owner": owner,
+                "name": name,
+                "forkCount": forkCount,
+                "releaseCount": releaseCount,
+                "assetCount": assetCount,
+                "endCursor": endCursor
+            ])
+        }
+
+        private static let query = """
+        query($name: String!, $owner: String!, $forkCount: Int = 10, $releaseCount: Int = 10, $assetCount: Int = 10, $endCursor: String) {
+          __typename
+          repository(owner: $owner, name: $name) {
+            __typename
+            nameWithOwner
+
+            forks(first: $forkCount, after: $endCursor, orderBy: { field: STARGAZERS, direction: DESC }) {
+              totalCount
+              pageInfo { hasNextPage, endCursor }
+              edges {
+                node {
+                  __typename
+                  nameWithOwner
+                  stargazerCount
+                  viewerHasStarred
+                  createdAt
+                  description
+                  hasDiscussionsEnabled
+                  hasIssuesEnabled
+                  forkCount
+                  isArchived
+                  isDisabled
+                  isEmpty
+                  isFork
+                  isInOrganization
+                  isLocked
+                  isMirror
+                  isPrivate
+                  isSecurityPolicyEnabled
+                  openGraphImageUrl
+                  viewerCanAdminister
+                  visibility
+
+                  contactLinks {
+                    __typename
+                    about
+                    name
+                    url
+                  }
+
+                  discussionCategories(first: 10) {
+                    edges {
+                      node {
+                        __typename
+                        name
+                        slug
+                        description
+                        emoji
+                      }
+                    }
+                  }
+
+                  releases(first: $releaseCount, orderBy: { field: CREATED_AT, direction: DESC }) {
+                    edges {
+                      node {
+                        __typename
+                        name
+                        tagName
+                        resourcePath
+                        updatedAt
+                        url
+        
+                        releaseAssets(first: $assetCount) {
+                          edges {
+                            node {
+                              __typename
+                              contentType
+                              createdAt
+                              downloadCount
+                              downloadUrl
+                              name
+                              size
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        """
+
+
+        public typealias Response = GraphQLResponse<QueryResponse>
+
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var endCursor: GraphQLCursor? {
+                repository.forks.pageInfo?.endCursor
+            }
+
+            public var elementCount: Int {
+                repository.forks.nodes.count
+            }
+
+            public enum TypeName : String, Decodable { case Query }
+            public let __typename: TypeName
+            public var repository: Repository
+            public struct Repository : Decodable {
+                public enum Repository : String, Decodable, Hashable { case Repository }
+                public let __typename: Repository
+                public var nameWithOwner: String
+                public var forks: EdgeList<Fork>
+                public struct Fork : Decodable {
+                    public enum TypeName : String, Decodable { case Repository }
+                    public let __typename: TypeName
+                    public var nameWithOwner: String
+                }
+            }
+        }
+    }
+
+}
+
 
 extension FairHub {
 

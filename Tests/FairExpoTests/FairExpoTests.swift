@@ -507,11 +507,6 @@ final class FairExpoTests: XCTestCase {
             """)
         }
     }
-
-    func testSemanticForkIndex() async throws {
-        #warning("### TODO")
-        
-    }
 }
 
 public struct PackageManifest : Hashable, Decodable {
