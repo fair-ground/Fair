@@ -34,9 +34,6 @@
 import Swift
 import FairCore
 import Foundation
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 
 /// The collection of URLs associated with a Homebrew API
 public struct HomebrewAPI {

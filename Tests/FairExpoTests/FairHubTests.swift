@@ -32,11 +32,8 @@
 #if DEBUG // need @testable
 import Swift
 import XCTest
-@testable import FairExpo
 import FairApp
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
+@testable import FairExpo
 
 #if !os(Windows) // Windows doesn't yet seem to support async tests: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'
 final class FairHubTests: XCTestCase {

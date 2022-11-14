@@ -31,13 +31,9 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
-import Foundation
 import FairApp
 #if canImport(CoreFoundation)
 import CoreFoundation
-#endif
-#if canImport(FoundationNetworking)
-import FoundationNetworking
 #endif
 
 #if canImport(SwiftUI)
