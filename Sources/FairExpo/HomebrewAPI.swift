@@ -32,8 +32,7 @@
  exception statement from your version.
  */
 import Swift
-import FairCore
-import Foundation
+import FairApp
 
 /// The collection of URLs associated with a Homebrew API
 public struct HomebrewAPI {
