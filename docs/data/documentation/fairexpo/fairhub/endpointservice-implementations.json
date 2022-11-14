@@ -41,10 +41,10 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildRequest(for:cache:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/cursoredStream(_:cache:interleaveDelay:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/request(_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestAsync(_:cache:retry:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestBatches(_:cache:interleaveDelay:batchHandler:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/sendCursoredRequest(_:cache:interleaveDelay:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestBatches(_:cache:interleaveDelay:batchHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -202,6 +202,139 @@
   "title" : "buildRequest(for:cache:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/buildrequest(for:cache:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/cursoredStream(_:cache:interleaveDelay:)": {
+  "abstract" : [
+    {
+      "text" : "Fetches the web service for the given request, returning an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cursoredStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Response"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/cursoredStream(_:cache:interleaveDelay:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cursoredStream(_:cache:interleaveDelay:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/cursoredstream(_:cache:interleavedelay:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/request(_:)": {
   "abstract" : [
@@ -588,139 +721,6 @@
   "title" : "requestBatches(_:cache:interleaveDelay:batchHandler:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/requestbatches(_:cache:interleavedelay:batchhandler:)"
-},
-"doc://FairExpo/documentation/FairExpo/FairHub/sendCursoredRequest(_:cache:interleaveDelay:)": {
-  "abstract" : [
-    {
-      "text" : "Fetches the web service for the given request, returning an ",
-      "type" : "text"
-    },
-    {
-      "code" : "AsyncThrowingStream",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "sendCursoredRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "cache"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV",
-      "text" : "URLRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
-      "text" : "CachePolicy"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "interleaveDelay"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:@T@NSTimeInterval",
-      "text" : "TimeInterval"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Scs",
-      "text" : "AsyncThrowingStream"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Response"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/sendCursoredRequest(_:cache:interleaveDelay:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "sendCursoredRequest(_:cache:interleaveDelay:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/sendcursoredrequest(_:cache:interleavedelay:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/session": {
   "abstract" : [

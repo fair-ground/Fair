@@ -129,12 +129,12 @@ extension EndpointService {
                 // handler found what it wants
                 return stopValue
             }
-            guard let cursor = batch.endCursor else {
+            guard let endCursor = batch.endCursor else {
                 // no more elements
                 return nil
             }
-            dbg("requesting next cursor:", requestIndex, cursor)
-            request.cursor = cursor // make another request with the new cursor
+            dbg("requesting next cursor:", requestIndex, endCursor)
+            request.endCursor = endCursor // make another request with the new cursor
         }
 
         return nil
@@ -183,7 +183,9 @@ extension EndpointService {
     }
 
     /// Fetches the web service for the given request, returning an `AsyncThrowingStream` that yields batches until they are no longer available or they have passed the max batch limit.
-    public func sendCursoredRequest<A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.5) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
+    ///
+    /// Note that this function does not initiate any requests itself; rather, the `AsyncThrowingStream` will issue a request for each element individually as it is iterated.
+    public func cursoredStream<A: CursoredAPIRequest>(_ request: A, cache: URLRequest.CachePolicy? = nil, interleaveDelay: TimeInterval? = 1.5) -> AsyncThrowingStream<A.Response, Error> where A.Service == Self {
         return AsyncThrowingStream { c in
             Task {
                 do {
@@ -230,8 +232,11 @@ extension XOr.Or : CursoredAPIResponse where P : Error, Q : CursoredAPIResponse 
 
 /// A response from an API that incudes the ability to move through pages.
 public protocol CursoredAPIRequest : APIRequest where Response : CursoredAPIResponse {
-    /// The cursor for the request
-    var cursor: GraphQLCursor? { get set }
+    /// The optional `endCursor` for the paginated request.
+    ///
+    /// This property matches the ability of `gh api graphql --paginate` to
+    /// automatically traverse multiple pages as long as there is a `endCursor` variable.
+    var endCursor: GraphQLCursor? { get set }
 }
 
 

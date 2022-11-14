@@ -222,7 +222,7 @@ extension FairHub {
     }
 
     func createAppCatalogItemsFromForks(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
-        sendCursoredRequest(CatalogForksQuery(owner: owner, name: baseRepository))
+        cursoredStream(CatalogForksQuery(owner: owner, name: baseRepository))
             .map { forks in try assembleCatalog(fromForks: forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
 
@@ -545,7 +545,7 @@ extension FairHub {
 
         // 1. Check repositories that have been starred by the fairbot
         if let starrerName = starrerName, !starrerName.isEmpty {
-            for try await starredRepos in sendCursoredRequest(AppCasksStarQuery(starrerName: starrerName, count: caskQueryCount, releaseCount: 5)) {
+            for try await starredRepos in cursoredStream(AppCasksStarQuery(starrerName: starrerName, count: caskQueryCount, releaseCount: 5)) {
 
                 // we don't actually treat these as appcasks sources; instead, we just index some metadata that other casks may want to look up
                 for repo in try starredRepos.result.get().data.user.starredRepositories.nodes {
@@ -571,7 +571,7 @@ extension FairHub {
 
         // 2. Check forks of the `appfair/appcasks` repository
         if let baseRepository = baseRepository {
-            for try await forks in sendCursoredRequest(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: releaseQueryCount, assetCount: assetQueryCount)) {
+            for try await forks in cursoredStream(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: releaseQueryCount, assetCount: assetQueryCount)) {
                 if try await addAppCasks(forks.result.get().data.repository.forks.nodes, caskCatalog: await casks, stats: await stats) == false {
                     break
                 }
@@ -582,7 +582,7 @@ extension FairHub {
 
         // 3. Check repos with the "appfair-cask" topic
         if let topicName = topicName, !topicName.isEmpty {
-            for try await topicRepos in sendCursoredRequest(AppCasksTopicQuery(topicName: topicName, count: caskQueryCount, releaseCount: caskQueryCount)) {
+            for try await topicRepos in cursoredStream(AppCasksTopicQuery(topicName: topicName, count: caskQueryCount, releaseCount: caskQueryCount)) {
                 if try await addAppCasks(topicRepos.result.get().data.topic.repositories.nodes, caskCatalog: await casks, stats: await stats) == false {
                     break
                 }
@@ -631,7 +631,7 @@ extension FairHub {
                 if repo.releases.pageInfo?.hasNextPage == true,
                     let releaseCursor = repo.releases.pageInfo?.endCursor {
                     msg("traversing release cursor:", releaseCursor)
-                    for try await moreReleasesNode in self.sendCursoredRequest(AppCaskReleasesQuery(repositoryNodeID: repo.id, releaseCount: caskQueryCount, cursor: releaseCursor)) {
+                    for try await moreReleasesNode in self.cursoredStream(AppCaskReleasesQuery(repositoryNodeID: repo.id, releaseCount: caskQueryCount, endCursor: releaseCursor)) {
                         let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
                         msg("received more release names:", moreReleaseNodes.compactMap(\.name))
                         if addReleases(repo: repo, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
@@ -904,7 +904,7 @@ extension FairHub {
         }
 
 
-        for try await forks in sendCursoredRequest(GetSponsorsQuery(owner: owner, name: baseRepository)) {
+        for try await forks in cursoredStream(GetSponsorsQuery(owner: owner, name: baseRepository)) {
             let rootOwner = try forks.get().data.repository.owner
             if sources.isEmpty,
                 let rootSponsor = rootOwner.sponsorsListing,

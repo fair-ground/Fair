@@ -139,7 +139,8 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksTopicQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/FindPullRequests",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GetSponsorsQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -157,7 +158,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest\/cursor"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest\/endCursor"
       ],
       "title" : "Instance Properties"
     }
@@ -258,10 +259,18 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/cursoredapirequest"
 },
-"doc://FairExpo/documentation/FairExpo/CursoredAPIRequest/cursor": {
+"doc://FairExpo/documentation/FairExpo/CursoredAPIRequest/endCursor": {
   "abstract" : [
     {
-      "text" : "The cursor for the request",
+      "text" : "The optional ",
+      "type" : "text"
+    },
+    {
+      "code" : "endCursor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " for the paginated request.",
       "type" : "text"
     }
   ],
@@ -276,7 +285,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "cursor"
+      "text" : "endCursor"
     },
     {
       "kind" : "text",
@@ -292,13 +301,13 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest\/cursor",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest\/endCursor",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "cursor",
+  "title" : "endCursor",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/cursoredapirequest\/cursor"
+  "url" : "\/documentation\/fairexpo\/cursoredapirequest\/endcursor"
 },
 "doc://FairExpo/documentation/FairExpo/CursoredAPIResponse": {
   "abstract" : [
@@ -567,6 +576,37 @@
   "title" : "FairHub.GetSponsorsQuery",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/getsponsorsquery"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SemanticForksQuery"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SemanticForksQuery"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.SemanticForksQuery",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery"
 }
 }
 }
