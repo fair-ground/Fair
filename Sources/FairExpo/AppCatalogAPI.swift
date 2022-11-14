@@ -34,6 +34,7 @@
 import Swift
 import Foundation
 import FairApp
+import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
