@@ -68,6 +68,7 @@ private protocol GraphQLAPIParameter {
     var parameterValue: JSum { get }
 }
 
+extension FairHub.GHID : GraphQLAPIParameter { var parameterValue: JSum { .str(self.rawValue) } }
 extension String : GraphQLAPIParameter { var parameterValue: JSum { .str(self) } }
 extension Double : GraphQLAPIParameter { var parameterValue: JSum { .num(self) } }
 extension Int : GraphQLAPIParameter { var parameterValue: JSum { .num(Double(self)) } }
@@ -128,6 +129,16 @@ extension FairHub {
         return comps.url(relativeTo: baseURL) ?? baseURL
     }
 
+
+    /// A wrapper for an `id` type.
+    ///
+    /// The ID scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as "4") or integer (such as 4) input value will be accepted as an ID.
+    public struct GHID: RawDecodable, Hashable {
+        public var rawValue: String
+        public init(rawValue: String) {
+            self.rawValue = rawValue
+        }
+    }
 
     /// An object ID
     public struct OID : RawDecodable, Hashable {
@@ -313,6 +324,7 @@ extension FairHub {
                __typename
                organization(login: $owner) {
                 __typename
+                id
                 name
                 login
                 email
@@ -647,11 +659,12 @@ extension FairHub {
                     edges {
                       node {
                         __typename
-                        contentType
-                        downloadCount
-                        downloadUrl
+                        id
                         name
                         size
+                        contentType
+                        downloadUrl
+                        downloadCount
                         updatedAt
                         createdAt
                       }
@@ -671,7 +684,7 @@ extension FairHub {
     public struct CaskRepository : Decodable {
         public enum TypeName : String, Decodable { case Repository }
         public let __typename: TypeName
-        public let id: String // used as a base for paginaton
+        public let id: GHID // used as a base for paginaton
         public let name: String
         public let nameWithOwner: String
         public let owner: RepositoryOwner
@@ -719,7 +732,7 @@ extension FairHub {
         public typealias Service = FairHub
 
         /// The opaque ID of the fork repository
-        public let repositoryNodeID: String
+        public let repositoryNodeID: GHID
 
         /// the number of releases to get per batch
         public var releaseCount: Int
@@ -761,11 +774,12 @@ extension FairHub {
                           edges {
                             node {
                               __typename
-                              contentType
-                              downloadCount
-                              downloadUrl
+                              id
                               name
                               size
+                              contentType
+                              downloadUrl
+                              downloadCount
                               updatedAt
                               createdAt
                             }
@@ -801,7 +815,7 @@ extension FairHub {
             public struct Repository : Decodable {
                 public enum TypeName : String, Decodable { case Repository }
                 public let __typename: TypeName
-                public let id: String // used as a base for paginaton
+                public let id: GHID // used as a base for paginaton
 
                 /// We re-use the same release structure between the parent query and the cursored release query
                 public let releases: EdgeList<CaskRepository.Release>
@@ -860,6 +874,7 @@ extension FairHub {
                   edges {
                     node {
                       __typename
+                      id
                       name
                       nameWithOwner
                       owner {
@@ -907,11 +922,12 @@ extension FairHub {
                             edges {
                               node {
                                 __typename
-                                contentType
-                                downloadCount
-                                downloadUrl
+                                id
                                 name
                                 size
+                                contentType
+                                downloadUrl
+                                downloadCount
                                 updatedAt
                                 createdAt
                               }
@@ -1007,6 +1023,7 @@ extension FairHub {
                 public struct Repository : Decodable {
                     public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
+                    public let id: GHID
                     public let name: String
                     public let nameWithOwner: String
                     public let owner: RepositoryOwner
@@ -1362,6 +1379,7 @@ extension FairHub {
                   edges {
                     node {
                       __typename
+                      id
                       nameWithOwner
                       owner {
                         login
@@ -1458,6 +1476,7 @@ extension FairHub {
                 public struct Fork : Decodable {
                     public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
+                    public let id: GHID
                     public var nameWithOwner: String
                     public var owner: Owner
                     public var sponsorsListing: SponsorsListing?
@@ -1468,11 +1487,12 @@ extension FairHub {
 
     /// An asset returned from an API query
     public struct ReleaseAsset : Decodable {
+        public let id: GHID
         public var name: String
         public var size: Int
         public var contentType: String
-        public var downloadCount: Int
         public var downloadUrl: URL
+        public var downloadCount: Int
         public var createdAt: Date
         public var updatedAt: Date
     }
@@ -1523,6 +1543,7 @@ extension FairHub {
           __typename
           repository(owner: $owner, name: $name) {
             __typename
+            id
             nameWithOwner
 
             forks(first: $forkCount, after: $endCursor, orderBy: { field: STARGAZERS, direction: DESC }) {
@@ -1531,18 +1552,19 @@ extension FairHub {
               edges {
                 node {
                   __typename
+                  id
                   nameWithOwner
-                  stargazerCount
                   viewerHasStarred
                   createdAt
                   description
                   hasDiscussionsEnabled
                   hasIssuesEnabled
                   forkCount
+                  stargazerCount
+                  isFork
+                  isEmpty
                   isArchived
                   isDisabled
-                  isEmpty
-                  isFork
                   isInOrganization
                   isLocked
                   isMirror
@@ -1575,6 +1597,7 @@ extension FairHub {
                     edges {
                       node {
                         __typename
+                        id
                         name
                         tagName
                         resourcePath
@@ -1585,11 +1608,12 @@ extension FairHub {
                           edges {
                             node {
                               __typename
+                              id
                               name
                               size
                               contentType
-                              downloadCount
                               downloadUrl
+                              downloadCount
                               createdAt
                               updatedAt
                             }
@@ -1604,7 +1628,6 @@ extension FairHub {
           }
         }
         """
-
 
         public typealias Response = GraphQLResponse<QueryResponse>
 
@@ -1627,24 +1650,26 @@ extension FairHub {
             public struct Repository : Decodable {
                 public enum Repository : String, Decodable, Hashable { case Repository }
                 public let __typename: Repository
+                public let id: GHID
                 public var nameWithOwner: String
 
                 public var forks: EdgeList<Fork>
                 public struct Fork : Decodable {
                     public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
+                    public let id: GHID
                     public var nameWithOwner: String
-                    public var stargazerCount: Int
                     public var viewerHasStarred: Bool
                     public var createdAt: Date
                     public var description: String
                     public var hasDiscussionsEnabled: Bool
                     public var hasIssuesEnabled: Bool
                     public var forkCount: Int
-                    public var isArchived: Bool
-                    public var isDisabled: Bool
+                    public var stargazerCount: Int
                     public var isEmpty: Bool
                     public var isFork: Bool
+                    public var isArchived: Bool
+                    public var isDisabled: Bool
                     public var isInOrganization: Bool
                     public var isLocked: Bool
                     public var isMirror: Bool
@@ -1659,6 +1684,7 @@ extension FairHub {
                     public struct Release : Decodable {
                         public enum TypeName : String, Decodable { case Release }
                         public let __typename: TypeName
+                        public let id: GHID
                         public var name: String?
                         public var tagName: String?
                         public var resourcePath: String?

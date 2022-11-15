@@ -36,6 +36,14 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/!=(_:_:)"
       ],
       "title" : "Operators"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/represent()-1m82o",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/represent()-8ms1m"
+      ],
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -169,6 +177,114 @@
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/plist\/!=(_:_:)"
+},
+"doc://FairCore/documentation/FairCore/Plist/represent()-1m82o": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/represent()-1m82o",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/plist\/represent()-1m82o"
+},
+"doc://FairCore/documentation/FairCore/Plist/represent()-8ms1m": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Plist\/represent()-8ms1m",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/plist\/represent()-8ms1m"
 }
 }
 }

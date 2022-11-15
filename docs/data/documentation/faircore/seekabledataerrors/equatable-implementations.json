@@ -36,6 +36,14 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/!=(_:_:)"
       ],
       "title" : "Operators"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/represent()-7cg4k",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/represent()-7zgmp"
+      ],
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -158,6 +166,114 @@
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekabledataerrors\/!=(_:_:)"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataErrors/represent()-7cg4k": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/represent()-7cg4k",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledataerrors\/represent()-7cg4k"
+},
+"doc://FairCore/documentation/FairCore/SeekableDataErrors/represent()-7zgmp": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors\/represent()-7zgmp",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledataerrors\/represent()-7zgmp"
 }
 }
 }

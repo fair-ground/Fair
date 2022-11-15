@@ -36,6 +36,14 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/ArrayParsingStrategy\/!=(_:_:)"
       ],
       "title" : "Operators"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ArrayParsingStrategy\/represent()-21xf8",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ArrayParsingStrategy\/represent()-726t1"
+      ],
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -177,6 +185,114 @@
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/arrayparsingstrategy\/!=(_:_:)"
+},
+"doc://FairCore/documentation/FairCore/ArrayParsingStrategy/represent()-21xf8": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ArrayParsingStrategy\/represent()-21xf8",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/arrayparsingstrategy\/represent()-21xf8"
+},
+"doc://FairCore/documentation/FairCore/ArrayParsingStrategy/represent()-726t1": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ArrayParsingStrategy\/represent()-726t1",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/arrayparsingstrategy\/represent()-726t1"
 }
 }
 }

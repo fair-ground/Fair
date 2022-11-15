@@ -36,6 +36,14 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoV0\/!=(_:_:)"
       ],
       "title" : "Operators"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoV0\/represent()-1349m",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoV0\/represent()-acqm"
+      ],
+      "title" : "Instance Methods"
     }
   ],
   "variants" : [
@@ -169,6 +177,114 @@
   "title" : "!=(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/toolinfov0\/!=(_:_:)"
+},
+"doc://FairCore/documentation/FairCore/ToolInfoV0/represent()-1349m": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoV0\/represent()-1349m",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/toolinfov0\/represent()-1349m"
+},
+"doc://FairCore/documentation/FairCore/ToolInfoV0/represent()-acqm": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ToolInfoV0\/represent()-acqm",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/toolinfov0\/represent()-acqm"
 }
 }
 }

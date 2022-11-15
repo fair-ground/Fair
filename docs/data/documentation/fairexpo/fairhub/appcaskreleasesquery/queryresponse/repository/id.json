@@ -16,7 +16,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A3HubV20AppCaskReleasesQueryV0G8ResponseV10RepositoryV2idSSvp",
+    "externalID" : "s:8FairExpo0A3HubV20AppCaskReleasesQueryV0G8ResponseV10RepositoryV2idAC4GHIDVvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -36,8 +36,17 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "preciseIdentifier" : "s:8FairExpo0A3HubV",
+        "text" : "FairHub"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairExpo0A3HubV4GHIDV",
+        "text" : "GHID"
       }
     ],
     "modules" : [
@@ -78,9 +87,20 @@
               "text" : ": "
             },
             {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "preciseIdentifier" : "s:8FairExpo0A3HubV",
+              "text" : "FairHub"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GHID",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo0A3HubV4GHIDV",
+              "text" : "GHID"
             }
           ]
         }
@@ -285,8 +305,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV4GHIDV",
+      "text" : "GHID"
     }
   ],
   "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCaskReleasesQuery\/QueryResponse\/Repository\/id",
@@ -295,6 +324,48 @@
   "title" : "id",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcaskreleasesquery\/queryresponse\/repository\/id"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/GHID": {
+  "abstract" : [
+    {
+      "text" : "A wrapper for an ",
+      "type" : "text"
+    },
+    {
+      "code" : "id",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GHID"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/GHID",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GHID"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.GHID",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/ghid"
 }
 }
 }
