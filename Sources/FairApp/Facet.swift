@@ -786,8 +786,8 @@ struct LocalesList : View {
                 ForEach(preferredLocales, id: \.self, content: localeSettingView)
             } header: {
                 preferredLocales.count == 1
-                ? Text("Current Language", bundle: .module, comment: "header text for language setting screen")
-                : Text("Current Languages", bundle: .module, comment: "header text for language setting screen")
+                ? Text("System Language", bundle: .module, comment: "header text for language setting screen")
+                : Text("System Languages", bundle: .module, comment: "header text for language setting screen")
             }
 
             Section {
@@ -808,7 +808,7 @@ struct LocalesList : View {
             Form {
                 Section {
                     Button {
-                        localeManager.localeOverride = locale.identifier
+                        localeManager.localeOverride = locale == Locale.current ? "" : locale.identifier
                     } label: {
                         Text("Set Language to \(localLanguageName)", bundle: .module, comment: "button title for overriding the current locale")
                     }
@@ -867,6 +867,10 @@ struct LocaleSummaryListItemView : View {
                     .font(.caption)
             }
             Spacer()
+            if locale == currentLocale {
+                Image(systemName: "checkmark")
+                    .foregroundColor(.accentColor)
+            }
             VStack(alignment: .trailing) {
                 if let translationPercent = translationPercent {
                     Text(translationPercent, format: .percent.rounded(rule: .towardZero, increment: 1))
