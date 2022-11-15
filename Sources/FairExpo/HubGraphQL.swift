@@ -446,6 +446,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                topic.repositories.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 topic.repositories.pageInfo?.endCursor
             }
@@ -506,6 +510,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                user.starredRepositories.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 user.starredRepositories.pageInfo?.endCursor
             }
@@ -568,6 +576,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                repository.forks.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
@@ -773,6 +785,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                node.releases.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 node.releases.pageInfo?.endCursor
             }
@@ -969,6 +985,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                repository.forks.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
@@ -1248,6 +1268,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                repository.pullRequests.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 repository.pullRequests.pageInfo?.endCursor
             }
@@ -1371,6 +1395,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                repository.forks.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
@@ -1557,12 +1585,13 @@ extension FairHub {
                           edges {
                             node {
                               __typename
-                              contentType
-                              createdAt
-                              downloadCount
-                              downloadUrl
                               name
                               size
+                              contentType
+                              downloadCount
+                              downloadUrl
+                              createdAt
+                              updatedAt
                             }
                           }
                         }
@@ -1580,6 +1609,10 @@ extension FairHub {
         public typealias Response = GraphQLResponse<QueryResponse>
 
         public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                repository.forks.pageInfo?.hasNextPage == true
+            }
+
             public var endCursor: GraphQLCursor? {
                 repository.forks.pageInfo?.endCursor
             }
@@ -1595,11 +1628,44 @@ extension FairHub {
                 public enum Repository : String, Decodable, Hashable { case Repository }
                 public let __typename: Repository
                 public var nameWithOwner: String
+
                 public var forks: EdgeList<Fork>
                 public struct Fork : Decodable {
                     public enum TypeName : String, Decodable { case Repository }
                     public let __typename: TypeName
                     public var nameWithOwner: String
+                    public var stargazerCount: Int
+                    public var viewerHasStarred: Bool
+                    public var createdAt: Date
+                    public var description: String
+                    public var hasDiscussionsEnabled: Bool
+                    public var hasIssuesEnabled: Bool
+                    public var forkCount: Int
+                    public var isArchived: Bool
+                    public var isDisabled: Bool
+                    public var isEmpty: Bool
+                    public var isFork: Bool
+                    public var isInOrganization: Bool
+                    public var isLocked: Bool
+                    public var isMirror: Bool
+                    public var isPrivate: Bool
+                    public var isSecurityPolicyEnabled: Bool
+                    public var openGraphImageUrl: URL?
+                    public var viewerCanAdminister: Bool
+                    public var visibility: RepositoryVisibility // e.g., "PUBLIC"
+
+                    public let releases: EdgeList<Release>
+
+                    public struct Release : Decodable {
+                        public enum TypeName : String, Decodable { case Release }
+                        public let __typename: TypeName
+                        public var name: String?
+                        public var tagName: String?
+                        public var resourcePath: String?
+                        public var updatedAt: Date
+                        public var url: URL
+                        public let releaseAssets: EdgeList<ReleaseAsset>
+                    }
                 }
             }
         }

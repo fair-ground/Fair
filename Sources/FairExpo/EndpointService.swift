@@ -129,10 +129,11 @@ extension EndpointService {
                 // handler found what it wants
                 return stopValue
             }
-            guard let endCursor = batch.endCursor else {
+            guard batch.hasNextPage, let endCursor = batch.endCursor else {
                 // no more elements
                 return nil
             }
+
             dbg("requesting next cursor:", requestIndex, endCursor)
             request.endCursor = endCursor // make another request with the new cursor
         }
@@ -213,6 +214,9 @@ public struct GraphQLCursor : RawRepresentable, Decodable {
 
 /// A response that returns results in batches with a cursor
 public protocol CursoredAPIResponse {
+    /// Whether there are more pages to fetch or not
+    var hasNextPage: Bool { get }
+    /// The cursor to use to continue pagination
     var endCursor: GraphQLCursor? { get }
     /// The number of elements in this response batch
     var elementCount: Int { get }
@@ -222,6 +226,10 @@ public protocol CursoredAPIResponse {
 extension XOr.Or : CursoredAPIResponse where P : Error, Q : CursoredAPIResponse {
     public var elementCount: Int {
         result.successValue?.elementCount ?? 0
+    }
+
+    public var hasNextPage: Bool {
+        result.successValue?.hasNextPage == true
     }
 
     /// Passes the cursor check through to the success value
@@ -247,6 +255,10 @@ public struct GraphQLPayload<T : Decodable> : Decodable {
 
 /// Pass-through cursor support.
 extension GraphQLPayload : CursoredAPIResponse where T : CursoredAPIResponse {
+    public var hasNextPage: Bool {
+        data.hasNextPage
+    }
+
     public var endCursor: GraphQLCursor? {
         data.endCursor
     }
