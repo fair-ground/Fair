@@ -1089,6 +1089,23 @@ public extension RawInitializable {
     }
 }
 
+public extension Equatable {
+    /// Wraps this instance in the `RawInitializable` specified by the type (often expected to be inferred)
+    /// - Returns: a `RawInitializable` wrapper around the type
+    func represent<T: RawInitializable>() -> T where T.RawValue == Self {
+        T(rawValue: self)
+    }
+}
+
+public extension Equatable {
+    /// Wraps this instance in the `RawRepresentable` specified by the type (often expected to be inferred)
+    /// - Returns: a `RawRepresentable` wrapper around the type
+    func represent<T: RawRepresentable>() -> T? where T.RawValue == Self {
+        T(rawValue: self)
+    }
+}
+
+
 /// A `RawDecodable` is a `RawInitializable` with a `Decodable` `RawValue`.
 /// Implementations of this type will decode their `rawValue` payload directly, rather than from an objec with a "rawValue" property.
 public protocol RawDecodable : RawInitializable, Decodable where RawValue : Decodable {

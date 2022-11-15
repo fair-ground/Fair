@@ -338,8 +338,8 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual("net.appfair.catalog", catalog.identifier)
 
         checkApp("app.App-Fair", catalog: catalog)
-        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
-        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
+//        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
+//        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
         dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
@@ -358,8 +358,8 @@ final class FairHubTests: XCTestCase {
         XCTAssertFalse(names.contains(baseFairgroundRepoName))
         XCTAssertEqual("net.appfair.catalog", catalog.identifier)
 
-        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
-        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
+//        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
+//        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
         dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
     }
