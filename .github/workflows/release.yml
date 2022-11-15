@@ -51,7 +51,6 @@ jobs:
     steps:
       - name: Build bottle (x86_64)
         run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           #HOMEBREW_FAIRTOOL_ARCH="x86_64" 
           brew install --build-bottle --verbose fair-ground/tool/fairtool
           file `which fairtool`
@@ -111,9 +110,12 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [release]
     steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
       - name: Build bottle
         run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew tap fair-ground/tool
           brew install --build-bottle --verbose fair-ground/tool/fairtool
           fairtool version
@@ -136,6 +138,10 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [release, bottle_macos, bottle_linux]
     steps:
+      - name: Set up Homebrew
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
       - uses: marcprux/update-homebrew-formula-action@main
         env:
           GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_FAIRTOOL_PUBLISH_TOKEN }}
@@ -155,7 +161,6 @@ jobs:
 
       - name: Check released bottle
         run: |
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           brew install --force-bottle fair-ground/tool/fairtool
           fairtool version
 
