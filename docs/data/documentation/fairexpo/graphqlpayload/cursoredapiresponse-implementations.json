@@ -34,7 +34,8 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/elementCount",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/endCursor"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/endCursor",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/hasNextPage"
       ],
       "title" : "Instance Properties"
     }
@@ -260,6 +261,80 @@
   "title" : "endCursor",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/graphqlpayload\/endcursor"
+},
+"doc://FairExpo/documentation/FairExpo/GraphQLPayload/hasNextPage": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "T",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "CursoredAPIResponse",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Decodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasNextPage"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload\/hasNextPage",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasNextPage",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/graphqlpayload\/hasnextpage"
 }
 }
 }

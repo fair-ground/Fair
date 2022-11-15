@@ -430,7 +430,7 @@ final class FairCoreTests: XCTestCase {
         }
 
         do { // SeekableDataHandle & ReverseEndianSeekableData
-            let data = SeekableDataHandle(Data(bytes)).reversedEndian()
+            let data = await SeekableDataHandle(Data(bytes)).reversedEndian()
             await xeq(32, try data.readUInt8())
             await xeq(69809384, try data.readUInt32())
             await xeq(4294967296, try data.readInt64())
@@ -439,7 +439,7 @@ final class FairCoreTests: XCTestCase {
         }
 
         do { // SeekableDataHandle & ReverseEndianSeekableData & ReverseEndianSeekableData
-            let data = SeekableDataHandle(Data(bytes)).reversedEndian().reversedEndian()
+            let data = await SeekableDataHandle(Data(bytes)).reversedEndian().reversedEndian()
             await xeq(32, try data.readUInt8())
             await xeq(3895732484, try data.readUInt32())
             await xeq(16777216, try data.readInt64())

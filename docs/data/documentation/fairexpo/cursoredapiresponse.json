@@ -108,7 +108,8 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/elementCount",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/endCursor"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/endCursor",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/hasNextPage"
       ],
       "title" : "Instance Properties"
     }
@@ -215,7 +216,10 @@
 },
 "doc://FairExpo/documentation/FairExpo/CursoredAPIResponse/endCursor": {
   "abstract" : [
-
+    {
+      "text" : "The cursor to use to continue pagination",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -251,6 +255,44 @@
   "title" : "endCursor",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/cursoredapiresponse\/endcursor"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIResponse/hasNextPage": {
+  "abstract" : [
+    {
+      "text" : "Whether there are more pages to fetch or not",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasNextPage"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse\/hasNextPage",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "hasNextPage",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapiresponse\/hasnextpage"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/AppCaskReleasesQuery/QueryResponse": {
   "abstract" : [
