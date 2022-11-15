@@ -763,6 +763,8 @@ extension URL {
     /// - Parameter url: the target URL to check against
     /// - Returns: the relative path between the two URLs, suitable for linking
     public func pathRelative(to url: URL) -> String? {
+        // TODO: use FileManager.findCommonRelative() to identify more than a single level up
+
         guard let fromBaseURL = self.baseURL,
               let toBaseURL = url.baseURL,
               fromBaseURL == toBaseURL else {
