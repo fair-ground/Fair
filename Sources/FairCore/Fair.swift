@@ -328,16 +328,16 @@ let systemStdout = WASILibc.stdout!
 #endif
 
 #if canImport(WASILibc) || os(Android)
-internal typealias CFilePointer = OpaquePointer
+@usableFromInline internal typealias CFilePointer = OpaquePointer
 #else
-internal typealias CFilePointer = UnsafeMutablePointer<FILE>
+@usableFromInline internal typealias CFilePointer = UnsafeMutablePointer<FILE>
 #endif
 
-struct StdioOutputStream: TextOutputStream {
-    let file: CFilePointer
-    let flushMode: FlushMode
+@usableFromInline struct StdioOutputStream: TextOutputStream {
+    @usableFromInline let file: CFilePointer
+    @usableFromInline let flushMode: FlushMode
 
-    func write(_ string: String) {
+    @usableFromInline func write(_ string: String) {
         self.contiguousUTF8(string).withContiguousStorageIfAvailable { utf8Bytes in
             #if os(Windows)
             _lock_file(self.file)
@@ -364,11 +364,11 @@ struct StdioOutputStream: TextOutputStream {
 
     /// Flush the underlying stream.
     /// This has no effect when using the `.always` flush mode, which is the default
-    func flush() {
+    @usableFromInline func flush() {
         _ = fflush(self.file)
     }
 
-    func contiguousUTF8(_ string: String) -> String.UTF8View {
+    @usableFromInline func contiguousUTF8(_ string: String) -> String.UTF8View {
         var contiguousString = string
         #if compiler(>=5.1)
         contiguousString.makeContiguousUTF8()
@@ -378,11 +378,11 @@ struct StdioOutputStream: TextOutputStream {
         return contiguousString.utf8
     }
 
-    static var stderr = StdioOutputStream(file: systemStderr, flushMode: .always)
-    static var stdout = StdioOutputStream(file: systemStdout, flushMode: .always)
+    @usableFromInline static var stderr = StdioOutputStream(file: systemStderr, flushMode: .always)
+    @usableFromInline static var stdout = StdioOutputStream(file: systemStdout, flushMode: .always)
 
     /// Defines the flushing strategy for the underlying stream.
-    enum FlushMode {
+    @usableFromInline enum FlushMode {
         case undefined
         case always
     }
