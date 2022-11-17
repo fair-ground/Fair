@@ -261,7 +261,7 @@ public struct SourceCommand : AsyncParsableCommand {
             // … then add items for each of the new releases, purging duplicates as needed
             let tweets = try await newsOptions.postUpdates(to: &dstCatalog, with: diffs, twitterAuth: twitterAuth, newsLimit: newsItems, tweetLimit: nil)
             if !tweets.isEmpty {
-                msg(.info, "posted tweets:", tweets.map(\.debugJSON))
+                msg(.info, "posted tweets:", try tweets.map({ try $0.debugJSON }))
             }
 
             if updateVersionDate {

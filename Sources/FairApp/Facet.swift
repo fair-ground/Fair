@@ -208,30 +208,30 @@ public struct OptionalStringStorage<T: RawRepresentable> : RawRepresentable wher
 }
 
 /// A wrapper around a `Codable` that stores its contents via encoding it to the String value.
-public struct StringCodableRepresentable<T: Codable> : RawRepresentable {
-    public typealias RawValue = String
-    public var value: T?
-
-    public init(value: T?) {
-        self.value = value
-    }
-
-    public init(rawValue: String) {
-        do {
-            self.value = try T(json: rawValue.utf8Data)
-        } catch {
-            dbg("error decoding string codable:", error)
-            self.value = nil
-            //return nil
-        }
-    }
-
-    public var rawValue: String {
-        get {
-            value.canonicalJSON
-        }
-    }
-}
+//public struct StringCodableRepresentable<T: Codable> : RawRepresentable {
+//    public typealias RawValue = String
+//    public var value: T?
+//
+//    public init(value: T?) {
+//        self.value = value
+//    }
+//
+//    public init(rawValue: String) {
+//        do {
+//            self.value = try T(json: rawValue.utf8Data)
+//        } catch {
+//            dbg("error decoding string codable:", error)
+//            self.value = nil
+//            //return nil
+//        }
+//    }
+//
+//    public var rawValue: String {
+//        get {
+//            value.canonicalJSON
+//        }
+//    }
+//}
 
 /// FacetHostingView: a top-level browser fo an app's `Facet`s,
 /// represented as either an outline list on desktop platforms and a tabbed interface on mobile.

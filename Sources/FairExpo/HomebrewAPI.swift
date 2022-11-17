@@ -39,9 +39,6 @@ public struct HomebrewAPI {
     /// The default base for the cask API
     public static let defaultEndpoint = URL(string: "https://formulae.brew.sh/api/cask.json")!
 
-    /// The default Homebrew APPI
-    // public static let `default` = Self(caskAPIEndpoint: Self.defaultCaskAPIEndpoint)
-
     /// The base endpoint for casks
     public let caskAPIEndpoint: URL
 

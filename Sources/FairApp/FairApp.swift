@@ -141,7 +141,7 @@ extension Plist {
 
         do {
             let item = try plist.createCatalogInfo(appName: appName, bundleID: bundleID, downloadURL: downloadURL)
-            dbg("parsed AppCatalogItem from Info.plist:", item.debugJSON)
+            dbg("parsed AppCatalogItem from Info.plist:", try? item.debugJSON)
             return item
         } catch {
             dbg("error creating AppCatalogItem:", error)

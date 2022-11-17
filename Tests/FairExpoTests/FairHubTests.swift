@@ -209,7 +209,7 @@ final class FairHubTests: XCTestCase {
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
         var resultResults: [[FairHub.BaseFork]] = []
-        let results = hub.cursoredStream(FairHub.CatalogForksQuery(owner: appfairName, name: baseFairgroundRepoName, count: Int.random(in: 8...18)))
+        let results = hub.requestBatchedStream(FairHub.CatalogForksQuery(owner: appfairName, name: baseFairgroundRepoName, count: Int.random(in: 8...18)))
         for try await result in results {
             let forks = try result.get().data.repository.forks.nodes
             resultResults.append(forks)
@@ -226,7 +226,7 @@ final class FairHubTests: XCTestCase {
 
         do {
             let hub = try Self.hub(skipNoAuth: true)
-            for try await batch in hub.cursoredStream(FairHub.SemanticForksQuery(owner: "appfair", name: "App")) {
+            for try await batch in hub.requestBatchedStream(FairHub.SemanticForksQuery(owner: "appfair", name: "App")) {
                 let repo = try batch.get().data.repository
                 XCTAssertEqual("appfair/App", repo.nameWithOwner)
                 XCTAssertLessThan(20, repo.forks.totalCount ?? 0)
@@ -289,13 +289,13 @@ final class FairHubTests: XCTestCase {
             XCTAssertEqual(catalog.apps.count, maxApps)
         }
 
-        XCTAssertTrue(names.contains("CotEditor"))
-        XCTAssertTrue(ids.contains("coteditor"))
+//        XCTAssertTrue(names.contains("CotEditor"))
+//        XCTAssertTrue(ids.contains("coteditor"))
 
         XCTAssertGreaterThanOrEqual(names.count, 1)
 
         //dbg(catalog.prettyJSON)
-        dbg("created app casks catalog count:", ids.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        dbg("created app casks catalog count:", ids.count, "size:", try? catalog.prettyJSON.count.localizedByteCount())
     }
 
     @discardableResult private func checkApp(_ id: String, catalog: AppCatalog, fundingPlatform: AppFundingPlatform? = nil) -> AppCatalogItem? {
@@ -329,7 +329,7 @@ final class FairHubTests: XCTestCase {
 
         let target = ArtifactTarget(artifactType: "macOS.zip", devices: ["mac"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair macOS Catalog", identifier: "net.appfair.catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCatalog(title: "The App Fair macOS Catalog", identifier: "net.appfair.catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
         //dbg("### catalog", wip(catalog.prettyJSON))
@@ -341,17 +341,17 @@ final class FairHubTests: XCTestCase {
 //        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
 //        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
-        dbg("created macOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        dbg("created macOS catalog count:", names.count, "size:", try? catalog.prettyJSON.count.localizedByteCount())
     }
 
-    func testBuildIOSCatalog() async throws {
+    func testBuildIOSAppSourceCatalog() async throws {
         if runningFromCI {
             throw XCTSkip("disabled to reduce API load")
         }
 
         let target = ArtifactTarget(artifactType: "iOS.ipa", devices: ["iphone", "ipad"])
         let configuration = try FairHub.ProjectConfiguration()
-        let catalog = try await Self.hub(skipNoAuth: true).buildCatalog(title: "The App Fair iOS Catalog", identifier: "net.appfair.catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
+        let catalog = try await Self.hub(skipNoAuth: true).buildAppCatalog(title: "The App Fair iOS Catalog", identifier: "net.appfair.catalog", owner: appfairName, baseRepository: baseFairgroundRepoName, fairsealCheck: true, artifactTarget: target, configuration: configuration, requestLimit: nil)
         let names = Set(catalog.apps.map({ $0.name })) // + " " + ($0.version ?? "") }))
         dbg("catalog", names.sorted())
 
@@ -361,7 +361,17 @@ final class FairHubTests: XCTestCase {
 //        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
 //        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
-        dbg("created iOS catalog count:", names.count, "size:", catalog.prettyJSON.count.localizedByteCount())
+        dbg("created iOS catalog count:", names.count, "size:", try? catalog.prettyJSON.count.localizedByteCount())
+    }
+
+    func testParseDroidCatalog() async throws {
+        // let catalogData = try Data(contentsOf: URL(fileURLWithPath: "f-droid-index-v2.json", relativeTo: baseDir))
+        let catalogData = try await URLSession.shared.fetch(request: URLRequest(url: FDroidEndpoint.defaultEndpoint)).data
+        let catalog = try FDroidIndex(json: catalogData)
+        XCTAssertLessThan(3_900, catalog.packages.count, "F-Droid catalog should have contained packages")
+
+        let complete = try FDroidIndex.codableComplete(data: catalogData)
+        XCTAssertTrue(complete.difference == nil, "catalog serialized differently")
     }
 
     func testFetchCatalog() async throws {
@@ -446,7 +456,7 @@ final class FairHubTests: XCTestCase {
         let sig = { try seal.sign(key: XCTUnwrap(Data(base64Encoded: key))).base64EncodedString() }
 
         seal.generatorVersion = nil // clear the genrator version which is set on init
-        XCTAssertEqual("{}", seal.debugJSON)
+        XCTAssertEqual("{}", try seal.debugJSON)
 
         XCTAssertEqual("OW2qU590oQOhzk9wUdRSt+BaSIBiQkY+6C8dxdv3t5Q=", try sig(), "signature of empty JSON should be consistent")
 

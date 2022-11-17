@@ -68,12 +68,12 @@ final class FairCoreTests: XCTestCase {
 
         //        let _: XOr<String>.Or<XOr<Int>.Or<XOr<Double>.Or<Float>>> = XOr<String>.Or<Int>.Or<Double>.Or<Float>("")
 
-        XCTAssertEqual("[123]", [XOr<Int>(123)].debugJSON)
-        XCTAssertEqual("[false]", [XOr<String>.Or<Bool>(false)].debugJSON)
-        XCTAssertEqual("[[]]", [XOr<String>.Or<[String]>([])].debugJSON)
-        XCTAssertEqual("[{}]", [XOr<String>.Or<[String: String]>([:])].debugJSON)
-        XCTAssertEqual("[{\"X\":1}]", [XOr<String>.Or<[String: Int]>(["X":1])].debugJSON)
-        XCTAssertEqual("[\"ABC\"]", [XOr<String>.Or<Bool>("ABC")].debugJSON)
+        XCTAssertEqual("[123]", try [XOr<Int>(123)].debugJSON)
+        XCTAssertEqual("[false]", try [XOr<String>.Or<Bool>(false)].debugJSON)
+        XCTAssertEqual("[[]]", try [XOr<String>.Or<[String]>([])].debugJSON)
+        XCTAssertEqual("[{}]", try [XOr<String>.Or<[String: String]>([:])].debugJSON)
+        XCTAssertEqual("[{\"X\":1}]", try [XOr<String>.Or<[String: Int]>(["X":1])].debugJSON)
+        XCTAssertEqual("[\"ABC\"]", try [XOr<String>.Or<Bool>("ABC")].debugJSON)
 
         try rt(XOr<Int>(123))
         try rt(XOr<String>("ABC"))

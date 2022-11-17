@@ -184,7 +184,7 @@ extension FairHub {
     }
 
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
+    func buildAppCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
@@ -196,9 +196,10 @@ extension FairHub {
             for try await catalogApps in createAppCatalogItemsFromForks(title: title, owner: owner, baseRepository: repo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: requestLimit) {
                 for app in catalogApps {
                     apps.append(app)
-                    if let stats = app.stats, let forkCount = stats.forkCount, forkCount > 0 {
-                        forkBaseRepos.append((app.appNameHyphenated, baseRepository))
-                    }
+                    // TODO: how best to recurse into forks?
+//                    if let stats = app.stats, let forkCount = stats.forkCount, forkCount > 0 {
+//                        forkBaseRepos.append((app.appNameHyphenated, baseRepository))
+//                    }
                 }
             }
         }
@@ -222,7 +223,7 @@ extension FairHub {
     }
 
     func createAppCatalogItemsFromForks(title: String, owner: String, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) -> AsyncThrowingMapSequence<AsyncThrowingStream<CatalogForksQuery.Response, Error>, [AppCatalogItem]> {
-        cursoredStream(CatalogForksQuery(owner: owner, name: baseRepository))
+        requestBatchedStream(CatalogForksQuery(owner: owner, name: baseRepository))
             .map { forks in try assembleCatalog(fromForks: forks, artifactTarget: artifactTarget, fairsealCheck: fairsealCheck, configuration: configuration) }
     }
 
@@ -545,7 +546,7 @@ extension FairHub {
 
         // 1. Check repositories that have been starred by the fairbot
         if let starrerName = starrerName, !starrerName.isEmpty {
-            for try await starredRepos in cursoredStream(AppCasksStarQuery(starrerName: starrerName, count: caskQueryCount, releaseCount: 5)) {
+            for try await starredRepos in requestBatchedStream(AppCasksStarQuery(starrerName: starrerName, count: caskQueryCount, releaseCount: 5)) {
 
                 // we don't actually treat these as appcasks sources; instead, we just index some metadata that other casks may want to look up
                 for repo in try starredRepos.result.get().data.user.starredRepositories.nodes {
@@ -571,7 +572,7 @@ extension FairHub {
 
         // 2. Check forks of the `appfair/appcasks` repository
         if let baseRepository = baseRepository {
-            for try await forks in cursoredStream(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: releaseQueryCount, assetCount: assetQueryCount)) {
+            for try await forks in requestBatchedStream(AppCasksForkQuery(owner: owner, name: baseRepository, count: caskQueryCount, releaseCount: releaseQueryCount, assetCount: assetQueryCount)) {
                 if try await addAppCasks(forks.result.get().data.repository.forks.nodes, caskCatalog: await casks, stats: await stats) == false {
                     break
                 }
@@ -582,7 +583,7 @@ extension FairHub {
 
         // 3. Check repos with the "appfair-cask" topic
         if let topicName = topicName, !topicName.isEmpty {
-            for try await topicRepos in cursoredStream(AppCasksTopicQuery(topicName: topicName, count: caskQueryCount, releaseCount: caskQueryCount)) {
+            for try await topicRepos in requestBatchedStream(AppCasksTopicQuery(topicName: topicName, count: caskQueryCount, releaseCount: caskQueryCount)) {
                 if try await addAppCasks(topicRepos.result.get().data.topic.repositories.nodes, caskCatalog: await casks, stats: await stats) == false {
                     break
                 }
@@ -631,7 +632,7 @@ extension FairHub {
                 if repo.releases.pageInfo?.hasNextPage == true,
                     let releaseCursor = repo.releases.pageInfo?.endCursor {
                     msg("traversing release cursor:", releaseCursor)
-                    for try await moreReleasesNode in self.cursoredStream(AppCaskReleasesQuery(repositoryNodeID: repo.id, releaseCount: caskQueryCount, endCursor: releaseCursor)) {
+                    for try await moreReleasesNode in self.requestBatchedStream(AppCaskReleasesQuery(repositoryNodeID: repo.id, releaseCount: caskQueryCount, endCursor: releaseCursor)) {
                         let moreReleaseNodes = try moreReleasesNode.get().data.node.releases.nodes
                         msg("received more release names:", moreReleaseNodes.compactMap(\.name))
                         if addReleases(repo: repo, moreReleaseNodes, casks: caskCatalog, stats: stats) == false {
@@ -709,7 +710,7 @@ extension FairHub {
                                 app.fundingLinks = repo.fundingLinks.map { link in
                                     AppFundingLink(platform: link.platform, url: link.url)
                                 }
-                                msg("added app funding links for \(homepage):", app.fundingLinks?.debugJSON)
+                                msg("added app funding links for \(homepage):", try? app.fundingLinks?.debugJSON)
                             }
                         }
 
@@ -904,7 +905,7 @@ extension FairHub {
         }
 
 
-        for try await forks in cursoredStream(GetSponsorsQuery(owner: owner, name: baseRepository)) {
+        for try await forks in requestBatchedStream(GetSponsorsQuery(owner: owner, name: baseRepository)) {
             let rootOwner = try forks.get().data.repository.owner
             if sources.isEmpty,
                 let rootSponsor = rootOwner.sponsorsListing,
