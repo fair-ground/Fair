@@ -91,6 +91,7 @@ jobs:
 
       - name: Check fairtool formula
         run: |
+          export HOMEBREW_NO_INSTALL_CLEANUP=1
           brew install fair-ground/tool/fairtool-head
           brew test fairtool-head
           fairtool-head version

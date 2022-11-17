@@ -65,7 +65,20 @@ struct FDroidIndex : Codable, Equatable {
     /// A map of language code to the file resource. E.g.: `["en-US": "images/icon/english.svg", "fr-FR": "images/icon/french.svg"]`
     typealias LocalizedFile = Dictionary<String, File>
 
-    /// A map of language code to a file resource set. E.g.: `["en-US": ["images/icon/english.svg"], "fr-FR": ["images/icon/french.svg"]]`
+    /// A map of language code to a file resource set.
+    ///
+    /// E.g.:
+    ///
+    /// ```
+    /// "en-US": [
+    /// {
+    ///   "name": "/app.id/en-US/phoneScreenshots/screen_1.png",
+    ///   "sha256": "9bd71cbed1c2224d4d7a27e12f4ff6b5326605c11cc0ca9d2bb887b50949d110",
+    ///   "size": 112122
+    /// }
+    /// ]
+    /// ```
+    ///
     typealias LocalizedFileList = Dictionary<String, Array<File>>
 
     /// A reference to a resource path
@@ -132,6 +145,7 @@ struct FDroidIndex : Codable, Equatable {
 
     struct Package : Codable, Equatable {
         var metadata: Metadata
+        /// A of versions, keyed by the sha256 of the primary artifact.
         var versions: Dictionary<String, PackageVersion>
 
         struct Metadata : Codable, Equatable {
