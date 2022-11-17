@@ -831,10 +831,10 @@ extension FairCommand {
 
             let fairseal = FairSeal(assets: assets, permissions: permissions.map(AppPermission.init), appSource: sourceInfo, coreSize: Int(coreSize), tint: tint)
 
-            msg(.info, "generated fairseal:", fairseal.debugJSON.count)
+            msg(.info, "generated fairseal:", try fairseal.debugJSON.count)
 
             // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
-            msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", fairseal.debugJSON)
+            msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", try fairseal.debugJSON)
             if let postURL = try await hubOptions.fairHub().postFairseal(fairseal, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo) {
                 msg(.info, "posted fairseal to:", postURL.absoluteString)
             } else {
@@ -938,7 +938,7 @@ extension FairCommand {
         @OptionGroup public var retryOptions: RetryOptions
         @OptionGroup public var outputOptions: OutputOptions
 
-        @Flag(name: [.long], help: ArgumentHelp("Whether the include funcing source info.", valueName: "funding"))
+        @Flag(name: [.long], help: ArgumentHelp("Whether the include funding source info.", valueName: "funding"))
         public var fundingSources: Bool = false
 
         public init() { }
@@ -956,6 +956,7 @@ extension FairCommand {
         }
 
         private func createCatalog() async throws {
+            msg(.debug, "creating catalog")
             let hub = try hubOptions.fairHub()
 
             // whether to enforce a fairseal check before the app will be listed in the catalog
@@ -976,7 +977,7 @@ extension FairCommand {
             let sourceURL = sourceOptions.catalogSourceURL.flatMap(URL.init(string:))
 
             // build the catalog filtering on specific artifact extensions
-            var catalog = try await hub.buildCatalog(title: sourceOptions.catalogName ?? "App Source", identifier: sourceOptions.catalogIdentifier ?? "identifier", owner: hubOptions.organizationName, sourceURL: sourceURL, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.caskOptions.requestLimit)
+            var catalog = try await hub.buildAppCatalog(title: sourceOptions.catalogName ?? "App Source", identifier: sourceOptions.catalogIdentifier ?? "identifier", owner: hubOptions.organizationName, sourceURL: sourceURL, baseRepository: hubOptions.baseRepo, fairsealCheck: fairsealCheck, artifactTarget: artifactTarget, configuration: configuration, requestLimit: self.caskOptions.requestLimit)
             if fundingSources {
                 catalog.fundingSources = try await hub.buildFundingSources(owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo)
             }

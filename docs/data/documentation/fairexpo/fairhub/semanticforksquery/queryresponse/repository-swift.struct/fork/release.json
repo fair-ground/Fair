@@ -104,8 +104,14 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/createdAt",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/description",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/id",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/isDraft",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/isLatest",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/isPrerelease",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/name",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/publishedAt",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/releaseAssets",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/resourcePath",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/tagName",
@@ -392,6 +398,78 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/typename"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/createdAt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "createdAt"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DateV",
+      "text" : "Date"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/createdAt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "createdAt",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/createdat"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/description": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "description"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/description",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "description",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/description"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/id": {
   "abstract" : [
 
@@ -477,6 +555,108 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/init(from:)"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/isDraft": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isDraft"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/isDraft",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isDraft",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/isdraft"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/isLatest": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isLatest"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/isLatest",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isLatest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/islatest"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/isPrerelease": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isPrerelease"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/isPrerelease",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isPrerelease",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/isprerelease"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/name": {
   "abstract" : [
 
@@ -514,6 +694,40 @@
   "title" : "name",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/name"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/publishedAt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "publishedAt"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DateV",
+      "text" : "Date"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/SemanticForksQuery\/QueryResponse\/Repository-swift.struct\/Fork\/Release\/publishedAt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "publishedAt",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/semanticforksquery\/queryresponse\/repository-swift.struct\/fork\/release\/publishedat"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/SemanticForksQuery/QueryResponse/Repository-swift.struct/Fork/Release/releaseAssets": {
   "abstract" : [

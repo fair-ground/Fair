@@ -114,9 +114,9 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/buildRequest(for:cache:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/cursoredStream(_:cache:interleaveDelay:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/request(_:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestAsync(_:cache:retry:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/request(_:cache:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestAsyncWithRateLimit(_:cache:retry:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestBatchedStream(_:cache:interleaveDelay:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestBatches(_:cache:interleaveDelay:batchHandler:)"
       ],
       "title" : "Instance Methods"
@@ -337,7 +337,233 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/endpointservice\/buildrequest(for:cache:)"
 },
-"doc://FairExpo/documentation/FairExpo/EndpointService/cursoredStream(_:cache:interleaveDelay:)": {
+"doc://FairExpo/documentation/FairExpo/EndpointService/request(_:cache:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "request"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Response"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/request(_:cache:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "request(_:cache:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/endpointservice\/request(_:cache:)"
+},
+"doc://FairExpo/documentation/FairExpo/EndpointService/requestAsyncWithRateLimit(_:cache:retry:)": {
+  "abstract" : [
+    {
+      "text" : "Issue a request while waiting for the expected request",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Note: currently unused",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "requestAsyncWithRateLimit"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "retry"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Response"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestAsyncWithRateLimit(_:cache:retry:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "requestAsyncWithRateLimit(_:cache:retry:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/endpointservice\/requestasyncwithratelimit(_:cache:retry:)"
+},
+"doc://FairExpo/documentation/FairExpo/EndpointService/requestBatchedStream(_:cache:interleaveDelay:)": {
   "abstract" : [
     {
       "text" : "Fetches the web service for the given request, returning an ",
@@ -363,7 +589,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "cursoredStream"
+      "text" : "requestBatchedStream"
     },
     {
       "kind" : "text",
@@ -463,201 +689,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/cursoredStream(_:cache:interleaveDelay:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestBatchedStream(_:cache:interleaveDelay:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "cursoredStream(_:cache:interleaveDelay:)",
+  "title" : "requestBatchedStream(_:cache:interleaveDelay:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/endpointservice\/cursoredstream(_:cache:interleavedelay:)"
-},
-"doc://FairExpo/documentation/FairExpo/EndpointService/request(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "request"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Response"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/request(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "request(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/endpointservice\/request(_:)"
-},
-"doc://FairExpo/documentation/FairExpo/EndpointService/requestAsync(_:cache:retry:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "requestAsync"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "cache"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV",
-      "text" : "URLRequest"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
-      "text" : "CachePolicy"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "retry"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "A"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Response"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService\/requestAsync(_:cache:retry:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "requestAsync(_:cache:retry:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/endpointservice\/requestasync(_:cache:retry:)"
+  "url" : "\/documentation\/fairexpo\/endpointservice\/requestbatchedstream(_:cache:interleavedelay:)"
 },
 "doc://FairExpo/documentation/FairExpo/EndpointService/requestBatches(_:cache:interleaveDelay:batchHandler:)": {
   "abstract" : [

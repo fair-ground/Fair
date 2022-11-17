@@ -231,7 +231,7 @@ final class FairExpoTests: XCTestCase {
 
             let result = try XCTUnwrap(results.first)
 
-            dbg("catalog:", result.prettyJSON)
+            dbg("catalog:", try? result.prettyJSON)
             XCTAssertEqual(app.name, result.app.name, "failed to verify app \(app.bundleIdentifier) in \(catalogURL.absoluteString)")
         }
     }

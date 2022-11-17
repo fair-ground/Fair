@@ -37,6 +37,13 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)"
       ],
       "title" : "Initializers"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/codableComplete(data:encoder:decoder:)"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -112,6 +119,174 @@
   "title" : "XOr",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor"
+},
+"doc://FairCore/documentation/FairCore/XOr/codableComplete(data:encoder:decoder:)": {
+  "abstract" : [
+    {
+      "text" : "Parses this codable into the given data structure, along with a raw ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "that will be used to verify that the codable instance contains all the expected properties.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Encodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "codableComplete"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+      "text" : "JSONEncoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> (instance"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", difference"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/codableComplete(data:encoder:decoder:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "codableComplete(data:encoder:decoder:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/codablecomplete(data:encoder:decoder:)"
 },
 "doc://FairCore/documentation/FairCore/XOr/init(from:)-81z3z": {
   "abstract" : [

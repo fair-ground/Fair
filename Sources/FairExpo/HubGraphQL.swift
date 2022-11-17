@@ -149,7 +149,7 @@ extension FairHub {
     }
 
     /// Generic placeholder for a related collection that only has a `totalCount` property requested
-    public struct NodeCount : Codable {
+    public struct NodeCount : Decodable {
         public let totalCount: Int
     }
 
@@ -1573,14 +1573,6 @@ extension FairHub {
                   openGraphImageUrl
                   viewerCanAdminister
                   visibility
-
-                  contactLinks {
-                    __typename
-                    about
-                    name
-                    url
-                  }
-
                   discussionCategories(first: 10) {
                     edges {
                       node {
@@ -1600,7 +1592,13 @@ extension FairHub {
                         id
                         name
                         tagName
+                        isDraft
+                        isLatest
+                        isPrerelease
+                        description
                         resourcePath
+                        createdAt
+                        publishedAt
                         updatedAt
                         url
         
@@ -1687,7 +1685,13 @@ extension FairHub {
                         public let id: GHID
                         public var name: String?
                         public var tagName: String?
+                        public var isDraft: Bool
+                        public var isLatest: Bool
+                        public var isPrerelease: Bool
+                        public var description: String?
                         public var resourcePath: String?
+                        public var createdAt: Date
+                        public var publishedAt: Date
                         public var updatedAt: Date
                         public var url: URL
                         public let releaseAssets: EdgeList<ReleaseAsset>

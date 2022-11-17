@@ -252,10 +252,10 @@ final class JSumTests : XCTestCase {
     }
 
     /// Compare the parsing of YAML to JSON with a randomly created blob
-    func measureParsing(yaml: Bool) {
+    func measureParsing(yaml: Bool) throws {
         var rng = SeededRandomNumberGenerator(uuids: UUID(uuidString: "A2735FD6-9AA2-4D4C-A38C-204032777FB0")!)
 
-        let jsonString = createSampleJSON(depth: 4, breadth: 8, rng: &rng).prettyJSON // 135K of JSON
+        let jsonString = try createSampleJSON(depth: 4, breadth: 8, rng: &rng).prettyJSON // 135K of JSON
         let jsonData = jsonString.utf8Data
         dbg("parsing", yaml ? "YAML" : "JSON", "size:", jsonData.count) // , jsonString)
         measure {
@@ -271,17 +271,38 @@ final class JSumTests : XCTestCase {
         }
     }
 
-    func testJSumPerformance() {
+    func testJSumPerformance() throws {
         // DEBUG: measured [Time, seconds] average: 0.027, relative standard deviation: 17.855%, values: [0.041431, 0.029785, 0.026326, 0.025420, 0.025128, 0.025061, 0.025044, 0.025029, 0.025122, 0.025348]
         // RELEASE: measured [Time, seconds] average: 0.027, relative standard deviation: 7.668%, values: [0.032428, 0.027311, 0.025933, 0.026352, 0.025509, 0.025922, 0.025220, 0.025139, 0.025720, 0.026276]
-        measureParsing(yaml: false)
+        try measureParsing(yaml: false)
     }
 
     func testYamlPerformance() throws {
         // DEBUG: measured [Time, seconds] average: 4.046, relative standard deviation: 1.153%, values: [4.017945, 4.027974, 4.121748, 4.068883, 4.119683, 4.083788, 4.009897, 4.011217, 3.984456, 4.011185]
         // RELEASE: measured [Time, seconds] average: 3.915, relative standard deviation: 0.736%, values: [3.929669, 3.981362, 3.914365, 3.944234, 3.912913, 3.876745, 3.901432, 3.895805, 3.892070, 3.898265]
-        measureParsing(yaml: true)
+        try measureParsing(yaml: true)
     }
 
+    func testCodableComplete() throws {
+        XCTAssertNil(try JSum.codableComplete(data: #"{}"#.utf8Data).difference)
+        XCTAssertNil(try JSum.codableComplete(data: #"[]"#.utf8Data).difference)
+        XCTAssertNil(try JSum.codableComplete(data: #""x""#.utf8Data).difference)
+        XCTAssertNil(try JSum.codableComplete(data: #"12.34"#.utf8Data).difference)
+        XCTAssertNil(try JSum.codableComplete(data: #"false"#.utf8Data).difference)
+        XCTAssertNil(try JSum.codableComplete(data: #"null"#.utf8Data).difference)
+
+        struct Stuff : Codable {
+            let str: String?
+            let num: Int?
+        }
+
+        XCTAssertNil(try Stuff.codableComplete(data: #"{ "str": "abc" }"#.utf8Data).difference)
+        XCTAssertNil(try Stuff.codableComplete(data: #"{ "num": 1234 }"#.utf8Data).difference)
+
+        // missing properties
+        XCTAssertNotNil(try Stuff.codableComplete(data: #"{ "nux": 1234 }"#.utf8Data).difference, "should have shown a difference for unrecognized property")
+        XCTAssertNotNil(try Stuff.codableComplete(data: #"{ "str": "abc", "q": false }"#.utf8Data).difference, "should have shown a difference for unrecognized property")
+
+    }
 }
 

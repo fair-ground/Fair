@@ -1,0 +1,619 @@
+{
+  "abstract" : [
+    {
+      "text" : "Fetches the web service for the given request, returning an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/EndpointService-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestBatchedStream(_:cache:interleaveDelay:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairExpo",
+    "externalID" : "s:8FairExpo15EndpointServicePAAE20requestBatchedStream_5cache15interleaveDelayScsy8ResponseQyd__s5Error_pGqd___So23NSURLRequestCachePolicyVSgSdSgt0D0Qyd__RszAA18CursoredAPIRequestRd__lF::SYNTHESIZED::s:8FairExpo0A3HubV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "requestBatchedStream"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "A"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "A"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "cache"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation10URLRequestV",
+        "text" : "URLRequest"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+        "text" : "CachePolicy"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "interleaveDelay"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "c:@T@NSTimeInterval",
+        "text" : "TimeInterval"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Scs",
+        "text" : "AsyncThrowingStream"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "A"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Response"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s5ErrorP",
+        "text" : "Error"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "requestBatchedStream(_:cache:interleaveDelay:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "requestBatchedStream"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "A"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "request"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "A"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "cache"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation10URLRequestV",
+              "text" : "URLRequest"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+              "text" : "CachePolicy"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "interleaveDelay"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "c:@T@NSTimeInterval",
+              "text" : "TimeInterval"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = 1.5) -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Scs",
+              "text" : "AsyncThrowingStream"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "A"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Response"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s5ErrorP",
+              "text" : "Error"
+            },
+            {
+              "kind" : "text",
+              "text" : "> "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "A"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Service"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "A"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairExpo18CursoredAPIRequestP",
+              "text" : "CursoredAPIRequest"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Note that this function does not initiate any requests itself; rather, the ",
+              "type" : "text"
+            },
+            {
+              "code" : "AsyncThrowingStream",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " will issue a request for each element individually as it is iterated.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/fairhub\/requestbatchedstream(_:cache:interleavedelay:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/CursoredAPIRequest": {
+  "abstract" : [
+    {
+      "text" : "A response from an API that incudes the ability to move through pages.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIRequest"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CursoredAPIRequest"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CursoredAPIRequest",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/cursoredapirequest"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/EndpointService-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/EndpointService-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "EndpointService Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/endpointservice-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/requestBatchedStream(_:cache:interleaveDelay:)": {
+  "abstract" : [
+    {
+      "text" : "Fetches the web service for the given request, returning an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that yields batches until they are no longer available or they have passed the max batch limit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "requestBatchedStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "cache"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV",
+      "text" : "URLRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation10URLRequestV11CachePolicya",
+      "text" : "CachePolicy"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interleaveDelay"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@T@NSTimeInterval",
+      "text" : "TimeInterval"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "A"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Response"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/requestBatchedStream(_:cache:interleaveDelay:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "requestBatchedStream(_:cache:interleaveDelay:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/requestbatchedstream(_:cache:interleavedelay:)"
+}
+}
+}

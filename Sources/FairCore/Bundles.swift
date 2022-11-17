@@ -687,19 +687,25 @@ extension Encodable {
 
     /// Returns the pretty-printed form of the JSON
     public var prettyJSON: String {
-        (try? json(encoder: prettyJSONEncoder).utf8String) ?? "{}"
+        get throws {
+            try json(encoder: prettyJSONEncoder).utf8String ?? "{}"
+        }
     }
 
     /// Returns the canonical form of the JSON.
     ///
     /// The encoder replicates JSON Canonical form [JSON Canonicalization Scheme (JCS)](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html)
     public var canonicalJSON: String {
-        (try? json(encoder: canonicalJSONEncoder).utf8String) ?? "{}"
+        get throws {
+            try json(encoder: canonicalJSONEncoder).utf8String ?? "{}"
+        }
     }
 
     /// Returns the debug form of the JSON
     public var debugJSON: String {
-        (try? json(encoder: debugJSONEncoder).utf8String) ?? "{}"
+        get throws {
+            try json(encoder: debugJSONEncoder).utf8String ?? "{}"
+        }
     }
 }
 
@@ -709,6 +715,13 @@ private let debugJSONEncoder: JSONEncoder = {
     encoder.dateEncodingStrategy = .iso8601
     encoder.dataEncodingStrategy = .base64
     return encoder
+}()
+
+private let debugJSONDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    decoder.dataDecodingStrategy = .base64
+    return decoder
 }()
 
 private let prettyJSONEncoder: JSONEncoder = {
@@ -728,6 +741,27 @@ let canonicalJSONEncoder: JSONEncoder = {
     return encoder
 }()
 
+extension Decodable where Self : Encodable {
+
+    /// Parses this codable into the given data structure, along with a raw `JSum`
+    /// that will be used to verify that the codable instance contains all the expected properties.
+    ///
+    /// - Parameters:
+    ///   - data: the data to parse by the Codable and the JSum
+    ///   - encoder: the custom encoder to use, or `nil` to use the system default
+    ///   - decoder: the custom decoder to use, or `nil` to use the system default
+    /// - Returns: a tuple with both the parsed codable instance, as well as an optional `difference` JSum that will be nil if the codability was an exact match
+    public static func codableComplete(data: Data, encoder: JSONEncoder? = nil, decoder: JSONDecoder? = nil) throws -> (instance: Self, difference: JSum?) {
+        let item = try (decoder ?? debugJSONDecoder).decode(Self.self, from: data)
+        let itemJSON = try item.json(encoder: encoder ?? canonicalJSONEncoder).utf8String
+
+        // parse into a generic JSum and ensure that both the items are serialized the same
+        let raw = try (decoder ?? debugJSONDecoder).decode(JSum.self, from: data)
+        let rawJSON = try raw.json(encoder: encoder ?? canonicalJSONEncoder).utf8String
+
+        return (instance: item, difference: itemJSON == rawJSON ? JSum?.none : raw)
+    }
+}
 
 #if !os(Linux) && !os(Android) && !os(Windows)
 /// A watcher for changes to a folder

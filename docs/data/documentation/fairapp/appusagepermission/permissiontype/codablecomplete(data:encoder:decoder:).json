@@ -1,0 +1,585 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable.codableComplete(data:encoder:decoder:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairApp\/documentation\/FairApp",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType\/Decodable-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType\/codableComplete(data:encoder:decoder:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Self",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Encodable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "Swift",
+    "externalID" : "s:Se8FairCoreSERzrlE15codableComplete4data7encoder7decoderx8instance_AA4JSumOSg10differencet10Foundation4DataV_AK11JSONEncoderCSgAK11JSONDecoderCSgtKFZ::SYNTHESIZED::s:7FairApp0B15UsagePermissionV0D4TypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "codableComplete"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "data"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation4DataV",
+        "text" : "Data"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "encoder"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+        "text" : "JSONEncoder"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "decoder"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+        "text" : "JSONDecoder"
+      },
+      {
+        "kind" : "text",
+        "text" : "?) "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> (instance"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : ", difference"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "text" : "JSum"
+      },
+      {
+        "kind" : "text",
+        "text" : "?)"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairApp"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Type Method",
+    "symbolKind" : "method",
+    "title" : "codableComplete(data:encoder:decoder:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "codableComplete"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "data"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation4DataV",
+              "text" : "Data"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "encoder"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+              "text" : "JSONEncoder"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "decoder"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+              "text" : "JSONDecoder"
+            },
+            {
+              "kind" : "text",
+              "text" : "? = nil) "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> (instance"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ", difference"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "text" : "JSum"
+            },
+            {
+              "kind" : "text",
+              "text" : "?)"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairapp\/appusagepermission\/permissiontype\/codablecomplete(data:encoder:decoder:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairApp/documentation/FairApp": {
+  "abstract" : [
+    {
+      "text" : "Library build atop ",
+      "type" : "text"
+    },
+    {
+      "code" : "FairCore",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to facilitate working with fair-ground apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairApp",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission": {
+  "abstract" : [
+    {
+      "text" : "A permission is a specific entitlement coupled with a description of its usage",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppUsagePermission"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppUsagePermission"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUsagePermission",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission/PermissionType": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PermissionType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PermissionType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppUsagePermission.PermissionType",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/permissiontype"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission/PermissionType/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/permissiontype\/decodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/AppUsagePermission/PermissionType/codableComplete(data:encoder:decoder:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Encodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "codableComplete"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+      "text" : "JSONEncoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> (instance"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", difference"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUsagePermission\/PermissionType\/codableComplete(data:encoder:decoder:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "codableComplete(data:encoder:decoder:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appusagepermission\/permissiontype\/codablecomplete(data:encoder:decoder:)"
+}
+}
+}

@@ -36,6 +36,13 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppPlatform\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)"
       ],
       "title" : "Initializers"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppPlatform\/codableComplete(data:encoder:decoder:)"
+      ],
+      "title" : "Type Methods"
     }
   ],
   "variants" : [
@@ -202,6 +209,159 @@
   "title" : "AppPlatform",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appplatform"
+},
+"doc://FairApp/documentation/FairApp/AppPlatform/codableComplete(data:encoder:decoder:)": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Encodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "codableComplete"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONEncoderC",
+      "text" : "JSONEncoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation11JSONDecoderC",
+      "text" : "JSONDecoder"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> (instance"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", difference"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppPlatform\/codableComplete(data:encoder:decoder:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "codableComplete(data:encoder:decoder:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appplatform\/codablecomplete(data:encoder:decoder:)"
 },
 "doc://FairApp/documentation/FairApp/AppPlatform/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)": {
   "abstract" : [
