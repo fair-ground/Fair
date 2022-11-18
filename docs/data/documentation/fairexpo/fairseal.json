@@ -116,8 +116,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:appSource:coreSize:tint:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(from:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(from:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(metadata:assets:permissions:appSource:coreSize:tint:)"
       ],
       "title" : "Initializers"
     },
@@ -128,6 +128,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/assets",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/coreSize",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/generatorVersion",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/metadata",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/permissions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/signature",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/signatureData",
@@ -525,7 +526,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/generatorversion"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/init(assets:permissions:appSource:coreSize:tint:)": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/init(from:)": {
   "abstract" : [
 
   ],
@@ -537,6 +538,65 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairseal\/init(from:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairSeal/init(metadata:assets:permissions:appSource:coreSize:tint:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "metadata"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -633,29 +693,40 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:appSource:coreSize:tint:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(metadata:assets:permissions:appSource:coreSize:tint:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(assets:permissions:appSource:coreSize:tint:)",
+  "title" : "init(metadata:assets:permissions:appSource:coreSize:tint:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/init(assets:permissions:appsource:coresize:tint:)"
+  "url" : "\/documentation\/fairexpo\/fairseal\/init(metadata:assets:permissions:appsource:coresize:tint:)"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/init(from:)": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/metadata": {
   "abstract" : [
-
+    {
+      "text" : "The contents of the ",
+      "type" : "text"
+    },
+    {
+      "code" : "App.yml",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " metadata",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
-      "kind" : "identifier",
-      "text" : "init"
+      "kind" : "keyword",
+      "text" : "var"
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : " "
     },
     {
-      "kind" : "externalParam",
-      "text" : "from"
+      "kind" : "identifier",
+      "text" : "metadata"
     },
     {
       "kind" : "text",
@@ -663,24 +734,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7DecoderP",
-      "text" : "Decoder"
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
     },
     {
       "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(from:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/metadata",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(from:)",
+  "title" : "metadata",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/init(from:)"
+  "url" : "\/documentation\/fairexpo\/fairseal\/metadata"
 },
 "doc://FairExpo/documentation/FairExpo/FairSeal/permissions": {
   "abstract" : [

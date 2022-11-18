@@ -392,6 +392,9 @@ extension FairMsgCommand {
 }
 
 public struct ProjectOptions: ParsableArguments {
+    @Option(name: [.long, .customShort("m")], help: ArgumentHelp("The project metadata to use."))
+    public var metadata: String?
+
     @Option(name: [.long, .customShort("p")], help: ArgumentHelp("The project to use."))
     public var project: String?
 

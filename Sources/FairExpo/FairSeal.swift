@@ -58,18 +58,20 @@ public struct FairSeal : Codable, JSONSignable {
     /// The version of the fairtool library that initially created this seal
     public internal(set) var generatorVersion: AppVersion?
 
-    /// The permission for this app
-    public var permissions: [AppPermission]?
-    /// The size of the artifact's executable binary
-    public var coreSize: Int?
-    /// The tint color as an RGBA hex string
-    public var tint: String?
-    /// The sealed assets
-    public var assets: [Asset]?
     /// The AppSource metadata from the Info.plist
     public var appSource: AppCatalogItem?
+    /// The sealed assets
+    public var assets: [Asset]?
+    /// The size of the artifact's executable binary
+    public var coreSize: Int?
+    /// The contents of the `App.yml` metadata
+    public var metadata: JSum?
+    /// The permission for this app
+    public var permissions: [AppPermission]?
     /// The signature for this payload, authenticating the fairseal issuer with HMAC-256
     public var signature: Data?
+    /// The tint color as an RGBA hex string
+    public var tint: String?
 
     public struct Asset : Codable {
         /// The asset's URL
@@ -91,7 +93,8 @@ public struct FairSeal : Codable, JSONSignable {
         set { signature = newValue }
     }
 
-    public init(assets: [Asset]? = nil, permissions: [AppPermission]? = nil, appSource: AppCatalogItem? = nil, coreSize: Int? = nil, tint: String? = nil) {
+    public init(metadata: JSum?, assets: [Asset]? = nil, permissions: [AppPermission]? = nil, appSource: AppCatalogItem? = nil, coreSize: Int? = nil, tint: String? = nil) {
+        self.metadata = metadata
         self.generatorVersion = Bundle.fairCoreVersion
         //self.fairsealVersion = Version.allCases.last!
 

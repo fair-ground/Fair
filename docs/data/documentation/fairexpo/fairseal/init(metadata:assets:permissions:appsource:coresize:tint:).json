@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:appSource:coreSize:tint:)"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(metadata:assets:permissions:appSource:coreSize:tint:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A4SealV6assets11permissions9appSource8coreSize4tintACSayAC5AssetVGSg_Say0A4Core3XOrO2OrOy0A3App0O21EntitlementPermissionV_AQyAQyAR0o5UsageQ0V_AR0o14BackgroundModeQ0VG_AR0o12UnrecognizedQ0VGGGSgAR0O11CatalogItemVSgSiSgSSSgtcfc",
+    "externalID" : "s:8FairExpo0A4SealV8metadata6assets11permissions9appSource8coreSize4tintAC0A4Core4JSumOSg_SayAC5AssetVGSgSayAJ3XOrO2OrOy0A3App0Q21EntitlementPermissionV_AUyAUyAV0q5UsageS0V_AV0q14BackgroundModeS0VG_AV0q12UnrecognizedS0VGGGSgAV0Q11CatalogItemVSgSiSgSSSgtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -22,6 +22,23 @@
       {
         "kind" : "text",
         "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "metadata"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "text" : "JSum"
+      },
+      {
+        "kind" : "text",
+        "text" : "?, "
       },
       {
         "kind" : "externalParam",
@@ -126,7 +143,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(assets:permissions:appSource:coreSize:tint:)"
+    "title" : "init(metadata:assets:permissions:appSource:coreSize:tint:)"
   },
   "primaryContentSections" : [
     {
@@ -146,6 +163,23 @@
             {
               "kind" : "text",
               "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "metadata"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "text" : "JSum"
+            },
+            {
+              "kind" : "text",
+              "text" : "?, "
             },
             {
               "kind" : "externalParam",
@@ -260,7 +294,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/fairseal\/init(assets:permissions:appsource:coresize:tint:)"
+        "\/documentation\/fairexpo\/fairseal\/init(metadata:assets:permissions:appsource:coresize:tint:)"
       ],
       "traits" : [
         {
@@ -358,7 +392,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal\/asset"
 },
-"doc://FairExpo/documentation/FairExpo/FairSeal/init(assets:permissions:appSource:coreSize:tint:)": {
+"doc://FairExpo/documentation/FairExpo/FairSeal/init(metadata:assets:permissions:appSource:coreSize:tint:)": {
   "abstract" : [
 
   ],
@@ -370,6 +404,23 @@
     {
       "kind" : "text",
       "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "metadata"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -466,12 +517,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(assets:permissions:appSource:coreSize:tint:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal\/init(metadata:assets:permissions:appSource:coreSize:tint:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(assets:permissions:appSource:coreSize:tint:)",
+  "title" : "init(metadata:assets:permissions:appSource:coreSize:tint:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairseal\/init(assets:permissions:appsource:coresize:tint:)"
+  "url" : "\/documentation\/fairexpo\/fairseal\/init(metadata:assets:permissions:appsource:coresize:tint:)"
 }
 }
 }
