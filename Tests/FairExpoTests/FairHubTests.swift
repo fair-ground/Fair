@@ -452,7 +452,7 @@ final class FairHubTests: XCTestCase {
         let key = "OTFBRTExNEUtQzIxNi00MzQ0LTkyMjktNjM5QTI1QjZGNkRF" // echo -n "91AE114E-C216-4344-9229-639A25B6F6DE" | base64
         XCTAssertEqual("91AE114E-C216-4344-9229-639A25B6F6DE", Data(base64Encoded: key)?.utf8String)
 
-        var seal = FairSeal()
+        var seal = FairSeal(metadata: nil)
         let sig = { try seal.sign(key: XCTUnwrap(Data(base64Encoded: key))).base64EncodedString() }
 
         seal.generatorVersion = nil // clear the genrator version which is set on init

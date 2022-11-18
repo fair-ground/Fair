@@ -829,7 +829,12 @@ extension FairCommand {
                 }
             }()
 
-            let fairseal = FairSeal(assets: assets, permissions: permissions.map(AppPermission.init), appSource: sourceInfo, coreSize: Int(coreSize), tint: tint)
+            // locate the metadata and parse the
+            let metadata = try projectOptions.metadata.flatMap { metadataPath in
+                try JSum.parse(yaml: String(contentsOf: projectOptions.projectPathURL(path: metadataPath)))
+            }
+
+            let fairseal = FairSeal(metadata: metadata, assets: assets, permissions: permissions.map(AppPermission.init), appSource: sourceInfo, coreSize: Int(coreSize), tint: tint)
 
             msg(.info, "generated fairseal:", try fairseal.debugJSON.count)
 
