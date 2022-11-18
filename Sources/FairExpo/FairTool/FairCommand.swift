@@ -435,7 +435,7 @@ extension FairCommand {
 
             // 5. Check Package.swift; we only warn, because the `merge` process will append the authoratative checks to the Package.swift file
             try compareContents(of: "Package.swift", partial: true, warn: true, guardLine: Self.packageValidationLine)
-            try compareContents(of: "project.swift", partial: false)
+            try compareContents(of: "main.swift", partial: false)
 
             // 6. Check Sources/
             try compareContents(of: "Sources/App/AppMain.swift", partial: false)

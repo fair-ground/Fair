@@ -863,7 +863,7 @@ extension FairHub {
         }
 
         private static let query = """
-            query CatalogForksQuery($owner:String!, $name:String!, $count:Int!, $releaseCount:Int!, $assetCount:Int!, $prCount:Int!, $commentCount:Int!, $endCursor:String) {
+            query CatalogForksQuery($owner:String!, $name:String!, $count:Int = 20, $releaseCount:Int = 10, $assetCount:Int = 40, $prCount:Int = 10, $commentCount:Int = 10, $endCursor:String) {
                __typename
                repository(owner: $owner, name: $name) {
                 __typename
