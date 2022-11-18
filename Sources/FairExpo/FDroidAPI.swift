@@ -56,7 +56,10 @@ public struct FDroidEndpoint {
 ///
 /// Python generation code at: [https://gitlab.com/fdroid/fdroidserver/-/blob/master/fdroidserver/index.py#L516]()
 struct FDroidIndex : Codable, Equatable {
+    /// Metadata about the repository
     var repo: Repo
+
+    /// The list of packages (i.e., apps) that make up the catalog
     var packages: Dictionary<String, Package>
 
     /// A map of language code to the translated text. E.g.: `["en-US": "Name", "fr-FR": "Nom"]`
@@ -103,6 +106,7 @@ struct FDroidIndex : Codable, Equatable {
         var numPackages: Int
     }
 
+    /// Metadata about the package repository
     struct Repo : Codable, Equatable {
         var name: LocalizedText
         var icon: LocalizedFile
@@ -112,6 +116,7 @@ struct FDroidIndex : Codable, Equatable {
         var mirrors: Array<Mirror>
         var timestamp: Int64
         var antiFeatures: Dictionary<String, AntiFeature>?
+        /// A mapping of the category name of metadata about the category
         var categories: Dictionary<String, Category>?
         var releaseChannels: Dictionary<String, ReleaseChannel>?
     }
@@ -122,6 +127,8 @@ struct FDroidIndex : Codable, Equatable {
         var isPrimary: Bool? // undocumented
     }
 
+
+    /// Flag for potentially undesirable features (e.g., "Ads", "DisabledAlgorithm", "KnownVuln", "NSFW", "NoSourceSince", "NonFreeAdd", "NonFreeAssets", "NonFreeDep", "NonFreeNet", "Tracking", "UpstreamNonFree")
     struct AntiFeature : Codable, Equatable {
         // icon encoded wrong: https://gitlab.com/fdroid/fdroidclient/-/merge_requests/1139
         // var icon: File?
@@ -130,6 +137,7 @@ struct FDroidIndex : Codable, Equatable {
         var description: LocalizedText?
     }
 
+    /// A categorization of an app (e.g, "Connectivity", "Development", "Games", "Graphics", "Internet", "Money", "Multimedia", "Navigation", "Phone & SMS", "Reading", "Science & Education", "Security", "Sports & Health", "System", "Theming", "Time", "Writing")
     struct Category : Codable, Equatable {
         // icon encoded wrong: https://gitlab.com/fdroid/fdroidclient/-/merge_requests/1139
         // var icon: File?
