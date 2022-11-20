@@ -319,7 +319,7 @@ public struct AppMetadata : Codable {
     public var notes: String? // review_information/notes.txt
 
     // Locale-specific metadata
-    public var locales: [String: AppMetadata]?
+    public var localizations: [String: AppMetadata]?
 
     public enum CodingKeys : String, CodingKey, CaseIterable {
         case copyright
@@ -349,7 +349,7 @@ public struct AppMetadata : Codable {
         case demo_password
         case notes
 
-        case locales
+        case localizations
     }
 }
 
