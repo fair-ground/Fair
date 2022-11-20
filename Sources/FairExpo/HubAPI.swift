@@ -273,7 +273,7 @@ extension FairHub {
                 app.fundingLinks = (fundingLinks.isEmpty ? nil : fundingLinks)?.map { link in
                     AppFundingLink(platform: link.platform, url: link.url)
                 }
-                app.stats = AppStats(starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, forkCount: forkCount)
+                app.stats = AppStats(starCount: starCount == 0 ? nil : starCount, watcherCount: watcherCount == 0 ? nil : watcherCount, issueCount: issueCount == 0 ? nil : issueCount, forkCount: forkCount == 0 ? nil : forkCount)
 
                 apps.append(app)
                 continue
