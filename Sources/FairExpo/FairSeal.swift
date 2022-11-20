@@ -58,7 +58,7 @@ public struct FairSeal : Codable, JSONSignable {
     /// The version of the fairtool library that initially created this seal
     public internal(set) var generatorVersion: AppVersion?
 
-    /// The AppSource metadata from the Info.plist
+    /// The AppSource metadata from `App.yml` and `Info.plist`
     public var appSource: AppCatalogItem?
     /// The sealed assets
     public var assets: [Asset]?
@@ -108,6 +108,17 @@ public struct FairSeal : Codable, JSONSignable {
     /// The app org associated with this seal; this will be the first component of the first URL's path
     public var appOrg: String? {
         assets?.first?.url.path.split(separator: "/").first?.description
+    }
+}
+
+extension FairSeal {
+    /// Tries to parse the "app" property of the metadata as a `AppMetadata`
+    func parseAppMetaData() throws -> AppMetadata? {
+        guard let app = self.metadata?["app"]?.obj else {
+            return nil
+        }
+
+        return try AppMetadata(json: app.json())
     }
 }
 

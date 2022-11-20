@@ -102,7 +102,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:links:localizations:)"
       ],
       "title" : "Initializers"
     },
@@ -125,6 +125,8 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/iconURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/issuesURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/landingPage",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/links",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localizations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localizedDescription",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/metadataURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/name",
@@ -154,6 +156,8 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localize(key:into:)-5lxbd",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localize(key:into:)-6odeq",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/orderedEntitlementPermissions(filterCategories:)"
       ],
       "title" : "Instance Methods"
@@ -401,7 +405,7 @@
 "doc://FairApp/documentation/FairApp/AppCatalogItem/bundleIdentifier": {
   "abstract" : [
     {
-      "text" : "The identifier for the app (e.g., “app.Cloud-Cuckoo”)",
+      "text" : "The identifier for the item (e.g., “app.Cloud-Cuckoo”)",
       "type" : "text"
     }
   ],
@@ -426,6 +430,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/bundleIdentifier",
@@ -662,6 +670,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10Foundation3URLV",
       "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/downloadURL",
@@ -749,10 +761,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/fundingLinks": {
   "abstract" : [
-    {
-      "text" : "The summary of the entitlements that are enabled for this app",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -828,10 +837,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/homepage": {
   "abstract" : [
-    {
-      "text" : "The URL for the app’s homepage",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -950,7 +956,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/init(from:)"
 },
-"doc://FairApp/documentation/FairApp/AppCatalogItem/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:)": {
+"doc://FairApp/documentation/FairApp/AppCatalogItem/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:links:localizations:)": {
   "abstract" : [
 
   ],
@@ -995,7 +1001,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -1114,7 +1120,7 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -1352,15 +1358,67 @@
     },
     {
       "kind" : "text",
-      "text" : "?)"
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "links"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "localizations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:links:localizations:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:)",
+  "title" : "init(name:bundleIdentifier:subtitle:developerName:localizedDescription:size:version:versionDate:downloadURL:iconURL:screenshotURLs:versionDescription:tintColor:beta:categories:sha256:permissions:metadataURL:readmeURL:releaseNotesURL:homepage:fundingLinks:stats:links:localizations:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:sha256:permissions:metadataurl:readmeurl:releasenotesurl:homepag-3t4ed"
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:sha256:permissions:metadataurl:readmeurl:releasenotesurl:homepag-2k3ds"
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/issuesURL": {
   "abstract" : [
@@ -1441,6 +1499,300 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalogitem\/landingpage"
 },
+"doc://FairApp/documentation/FairApp/AppCatalogItem/links": {
+  "abstract" : [
+    {
+      "text" : "Symbolic names for links, like ",
+      "type" : "text"
+    },
+    {
+      "code" : "{ \"metadata\": \"https:\/\/github.com\/Some-App\/App\/App.yml\" }",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "links"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/links",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "links",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/links"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogItem/localizations": {
+  "abstract" : [
+    {
+      "text" : "A map from language name (e.g., “fr-FR”) to a partially localized version of the app.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "localizations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localizations",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "localizations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/localizations"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogItem/localize(key:into:)-5lxbd": {
+  "abstract" : [
+    {
+      "text" : "Localizes the given key path into the specified language code",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "localize"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7KeyPathC",
+      "text" : "KeyPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation6LocaleV",
+      "text" : "Locale"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localize(key:into:)-5lxbd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "localize(key:into:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/localize(key:into:)-5lxbd"
+},
+"doc://FairApp/documentation/FairApp/AppCatalogItem/localize(key:into:)-6odeq": {
+  "abstract" : [
+    {
+      "text" : "Localizes the given key path into the specified language code",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "localize"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "key"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7KeyPathC",
+      "text" : "KeyPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11CatalogItemV",
+      "text" : "AppCatalogItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/localize(key:into:)-6odeq",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "localize(key:into:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcatalogitem\/localize(key:into:)-6odeq"
+},
 "doc://FairApp/documentation/FairApp/AppCatalogItem/localizedDescription": {
   "abstract" : [
     {
@@ -1484,10 +1836,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/metadataURL": {
   "abstract" : [
-    {
-      "text" : "The URL for the app’s metadata",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1973,10 +2322,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/readmeURL": {
   "abstract" : [
-    {
-      "text" : "The URL for the app’s README",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -2014,14 +2360,7 @@
 },
 "doc://FairApp/documentation/FairApp/AppCatalogItem/releaseNotesURL": {
   "abstract" : [
-    {
-      "text" : "The URL for the app’s ",
-      "type" : "text"
-    },
-    {
-      "code" : "RELEASE_NOTES",
-      "type" : "codeVoice"
-    }
+
   ],
   "fragments" : [
     {

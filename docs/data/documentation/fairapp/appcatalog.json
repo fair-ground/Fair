@@ -154,7 +154,7 @@
     {
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(from:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:localizations:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:)"
       ],
       "title" : "Initializers"
     },
@@ -166,7 +166,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/homepage",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/iconURL",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/identifier",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizations",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizedDescription",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/name",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/news",
@@ -175,12 +174,6 @@
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/tintColor"
       ],
       "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localized(into:session:)"
-      ],
-      "title" : "Instance Methods"
     },
     {
       "identifiers" : [
@@ -693,7 +686,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcatalog\/init(from:)"
 },
-"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:localizations:)": {
+"doc://FairApp/documentation/FairApp/AppCatalog/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:)": {
   "abstract" : [
 
   ],
@@ -908,178 +901,15 @@
     },
     {
       "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "localizations"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B13CatalogSourceV",
-      "text" : "AppCatalogSource"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?)"
+      "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:localizations:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:localizations:)",
+  "title" : "init(name:identifier:localizedDescription:platform:homepage:sourceURL:iconURL:tintColor:apps:news:fundingSources:baseLocale:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:baselocale:localizations:)"
-},
-"doc://FairApp/documentation/FairApp/AppCatalog/localizations": {
-  "abstract" : [
-    {
-      "text" : "A map of localizations to catalog providers",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "localizations"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : " : "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B13CatalogSourceV",
-      "text" : "AppCatalogSource"
-    },
-    {
-      "kind" : "text",
-      "text" : "]?"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localizations",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "localizations",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/localizations"
-},
-"doc://FairApp/documentation/FairApp/AppCatalog/localized(into:session:)": {
-  "abstract" : [
-    {
-      "text" : "Attempts to localize the catalog into the given language code.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "localized"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "into"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation6LocaleV",
-      "text" : "Locale"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "session"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)NSURLSession",
-      "text" : "URLSession"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp0B7CatalogV",
-      "text" : "AppCatalog"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalog\/localized(into:session:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "localized(into:session:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcatalog\/localized(into:session:)"
+  "url" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:baselocale:)"
 },
 "doc://FairApp/documentation/FairApp/AppCatalog/localizedDescription": {
   "abstract" : [

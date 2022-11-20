@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The identifier for the app (e.g., “app.Cloud-Cuckoo”)",
+      "text" : "The identifier for the item (e.g., “app.Cloud-Cuckoo”)",
       "type" : "text"
     }
   ],
@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp0B11CatalogItemV16bundleIdentifierSSvp",
+    "externalID" : "s:7FairApp0B11CatalogItemV16bundleIdentifierSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -41,6 +41,10 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:SS",
         "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -84,6 +88,10 @@
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SS",
               "text" : "String"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
             }
           ]
         }
@@ -172,7 +180,7 @@
 "doc://FairApp/documentation/FairApp/AppCatalogItem/bundleIdentifier": {
   "abstract" : [
     {
-      "text" : "The identifier for the app (e.g., “app.Cloud-Cuckoo”)",
+      "text" : "The identifier for the item (e.g., “app.Cloud-Cuckoo”)",
       "type" : "text"
     }
   ],
@@ -197,6 +205,10 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCatalogItem\/bundleIdentifier",

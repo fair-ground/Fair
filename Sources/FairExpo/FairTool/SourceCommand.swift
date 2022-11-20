@@ -204,7 +204,7 @@ public struct SourceCommand : AsyncParsableCommand {
                 // if we are filtering by bundle IDs, find ones that match
                 if !bundleID.isEmpty {
                     let bundleIDs = bundleID.set()
-                    apps = apps.filter({ bundleIDs.contains($0.bundleIdentifier) })
+                    apps = apps.filter({ $0.bundleIdentifier.map(bundleIDs.contains) == true })
                 }
 
                 return apps.mapAsync({ try await AppCatalogAPI.shared.verifyAppItem(app: $0, catalogURL: catalogURL, msg: { msg($0, $1) }) })
@@ -298,7 +298,10 @@ extension NewsItemFormat {
 
         var news: [AppNewsPost] = catalog.news ?? []
         for diff in diffs {
-            let bundleID = diff.new.bundleIdentifier
+            guard let bundleID = diff.new.bundleIdentifier else {
+                dbg("skipping missing id:", diff.new)
+                continue
+            }
 
             let fmt = { (str: String?) in
                 str?.replacing(variables: [

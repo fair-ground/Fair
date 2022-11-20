@@ -979,7 +979,10 @@ extension FairParsableCommand {
         let dependency = "" // isCatalogAppCask ? "" : "depends_on cask: \"\(fairgroundCask)\""
 
         let appDesc = (app.subtitle ?? appNameSpace).replacingOccurrences(of: "\"", with: "'")
-        var downloadURL = app.downloadURL.absoluteString
+        guard var downloadURL = app.downloadURL?.absoluteString else {
+            dbg("missing downloadURL")
+            return false
+        }
 
         // all apps other than the catalog browser are
         let appStanza = "app \"\(appNameSpace).app\", target: \"\(installPrefix)\(appNameSpace).app\""

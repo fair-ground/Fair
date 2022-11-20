@@ -2018,8 +2018,8 @@
                 "type" : "init"
               },
               {
-                "path" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:baselocale:localizations:)",
-                "title" : "init(name: String, identifier: String, localizedDescription: String?, platform: AppPlatform?, homepage: URL?, sourceURL: URL?, iconURL: URL?, tintColor: String?, apps: [AppCatalogItem], news: [AppNewsPost]?, fundingSources: [AppFundingSource]?, baseLocale: String?, localizations: [String : AppCatalogSource]?)",
+                "path" : "\/documentation\/fairapp\/appcatalog\/init(name:identifier:localizeddescription:platform:homepage:sourceurl:iconurl:tintcolor:apps:news:fundingsources:baselocale:)",
+                "title" : "init(name: String, identifier: String, localizedDescription: String?, platform: AppPlatform?, homepage: URL?, sourceURL: URL?, iconURL: URL?, tintColor: String?, apps: [AppCatalogItem], news: [AppNewsPost]?, fundingSources: [AppFundingSource]?, baseLocale: String?)",
                 "type" : "init"
               },
               {
@@ -2057,11 +2057,6 @@
                 "type" : "property"
               },
               {
-                "path" : "\/documentation\/fairapp\/appcatalog\/localizations",
-                "title" : "var localizations: [String : AppCatalogSource]?",
-                "type" : "property"
-              },
-              {
                 "path" : "\/documentation\/fairapp\/appcatalog\/localizeddescription",
                 "title" : "var localizedDescription: String?",
                 "type" : "property"
@@ -2090,15 +2085,6 @@
                 "path" : "\/documentation\/fairapp\/appcatalog\/tintcolor",
                 "title" : "var tintColor: String?",
                 "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/fairapp\/appcatalog\/localized(into:session:)",
-                "title" : "func localized(into: Locale, session: URLSession) async throws -> AppCatalog",
-                "type" : "method"
               },
               {
                 "title" : "Type Methods",
@@ -2147,11 +2133,6 @@
                   {
                     "path" : "\/documentation\/fairapp\/appcatalog\/codingkeys\/identifier",
                     "title" : "case identifier",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/appcatalog\/codingkeys\/localizations",
-                    "title" : "case localizations",
                     "type" : "case"
                   },
                   {
@@ -2399,8 +2380,8 @@
                 "type" : "init"
               },
               {
-                "path" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:sha256:permissions:metadataurl:readmeurl:releasenotesurl:homepag-3t4ed",
-                "title" : "init(name: String, bundleIdentifier: String, subtitle: String?, developerName: String?, localizedDescription: String?, size: Int?, version: String?, versionDate: Date?, downloadURL: URL, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, categories: [AppCategoryType]?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?, releaseNotesURL: URL?, homepage: URL?, fundingLinks: [AppFundingLink]?, stats: AppStats?)",
+                "path" : "\/documentation\/fairapp\/appcatalogitem\/init(name:bundleidentifier:subtitle:developername:localizeddescription:size:version:versiondate:downloadurl:iconurl:screenshoturls:versiondescription:tintcolor:beta:categories:sha256:permissions:metadataurl:readmeurl:releasenotesurl:homepag-2k3ds",
+                "title" : "init(name: String, bundleIdentifier: String?, subtitle: String?, developerName: String?, localizedDescription: String?, size: Int?, version: String?, versionDate: Date?, downloadURL: URL?, iconURL: URL?, screenshotURLs: [URL]?, versionDescription: String?, tintColor: String?, beta: Bool?, categories: [AppCategoryType]?, sha256: String?, permissions: [AppPermission]?, metadataURL: URL?, readmeURL: URL?, releaseNotesURL: URL?, homepage: URL?, fundingLinks: [AppFundingLink]?, stats: AppStats?, links: [String : URL]?, localizations: [String : AppCatalogItem]?)",
                 "type" : "init"
               },
               {
@@ -2419,7 +2400,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/appcatalogitem\/bundleidentifier",
-                "title" : "var bundleIdentifier: String",
+                "title" : "var bundleIdentifier: String?",
                 "type" : "property"
               },
               {
@@ -2449,7 +2430,7 @@
               },
               {
                 "path" : "\/documentation\/fairapp\/appcatalogitem\/downloadurl",
-                "title" : "var downloadURL: URL",
+                "title" : "var downloadURL: URL?",
                 "type" : "property"
               },
               {
@@ -2490,6 +2471,16 @@
               {
                 "path" : "\/documentation\/fairapp\/appcatalogitem\/landingpage",
                 "title" : "var landingPage: URL?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/appcatalogitem\/links",
+                "title" : "var links: [String : URL]?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/appcatalogitem\/localizations",
+                "title" : "var localizations: [String : AppCatalogItem]?",
                 "type" : "property"
               },
               {
@@ -2615,6 +2606,16 @@
               {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/appcatalogitem\/localize(key:into:)-5lxbd",
+                "title" : "func localize<T>(key: KeyPath<AppCatalogItem, T>, into: Locale) -> T",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/appcatalogitem\/localize(key:into:)-6odeq",
+                "title" : "func localize<T>(key: KeyPath<AppCatalogItem, T>, into: String) -> T",
+                "type" : "method"
               },
               {
                 "path" : "\/documentation\/fairapp\/appcatalogitem\/orderedentitlementpermissions(filtercategories:)",
@@ -6307,8 +6308,8 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/fairapp\/appstats\/init(downloadcount:impressioncount:viewcount:starcount:watchercount:issuecount:forkcount:coresize:)",
-                "title" : "init(downloadCount: Int?, impressionCount: Int?, viewCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, forkCount: Int?, coreSize: Int?)",
+                "path" : "\/documentation\/fairapp\/appstats\/init(downloadcount:impressioncount:starcount:watchercount:issuecount:forkcount:coresize:)",
+                "title" : "init(downloadCount: Int?, impressionCount: Int?, starCount: Int?, watcherCount: Int?, issueCount: Int?, forkCount: Int?, coreSize: Int?)",
                 "type" : "init"
               },
               {
