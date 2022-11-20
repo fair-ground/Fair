@@ -68,10 +68,8 @@ public struct AppCatalog : Codable, Equatable {
     public var fundingSources: [AppFundingSource]?
     /// The base localization code for this catalog
     public var baseLocale: String?
-    /// A map of localizations to catalog providers
-    public var localizations: [String : AppCatalogSource]?
 
-    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: URL? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil, baseLocale: String? = nil, localizations: [String : AppCatalogSource]? = nil) {
+    public init(name: String, identifier: String, localizedDescription: String? = nil, platform: AppPlatform? = nil, homepage: URL? = nil, sourceURL: URL? = nil, iconURL: URL? = nil, tintColor: String? = nil, apps: [AppCatalogItem], news: [AppNewsPost]? = nil, fundingSources: [AppFundingSource]? = nil, baseLocale: String? = nil) {
         self.name = name
         self.identifier = identifier
         self.localizedDescription = localizedDescription
@@ -84,7 +82,6 @@ public struct AppCatalog : Codable, Equatable {
         self.news = news
         self.fundingSources = fundingSources
         self.baseLocale = baseLocale
-        self.localizations = localizations
     }
 
     public enum CodingKeys : String, CodingKey, CaseIterable {
@@ -100,7 +97,6 @@ public struct AppCatalog : Codable, Equatable {
         case news
         case fundingSources
         case baseLocale
-        case localizations
     }
 }
 
@@ -133,8 +129,8 @@ public extension AppCatalog {
 public struct AppCatalogItem : Codable, Equatable {
     /// The name of the app (e.g., "Cloud Cuckoo")
     public var name: String
-    /// The identifier for the app (e.g., "app.Cloud-Cuckoo")
-    public var bundleIdentifier: String
+    /// The identifier for the item (e.g., "app.Cloud-Cuckoo")
+    public var bundleIdentifier: String?
     /// A subtitle
     public var subtitle: String?
     /// The real name and e-mail address of the developer of the app
@@ -148,7 +144,7 @@ public struct AppCatalogItem : Codable, Equatable {
     /// The date the version was released
     public var versionDate: Date?
     /// The primary URL for the app download
-    public var downloadURL: URL
+    public var downloadURL: URL?
     /// The URL for the app's icons
     public var iconURL: URL?
     /// The primary screenshot URLs for the app
@@ -169,24 +165,35 @@ public struct AppCatalogItem : Codable, Equatable {
     /// The summary of the entitlements that are enabled for this app
     public var permissions: [AppPermission]?
 
+    /// Symbolic names for links, like `{ "metadata": "https://github.com/Some-App/App/App.yml" }`
+    public var links: [String: URL]?
+
+    /// A map from language name (e.g., "fr-FR") to a partially localized version of the app.
+    public var localizations: [String: AppCatalogItem]?
+
     /// The URL for the app's metadata
+    // TODO: @available(*, deprecated, renamed: "links")
     public var metadataURL: URL?
 
     /// The URL for the app's README
+    // TODO: @available(*, deprecated, renamed: "links")
     public var readmeURL: URL?
 
     /// The URL for the app's `RELEASE_NOTES`
+    // TODO: @available(*, deprecated, renamed: "links")
     public var releaseNotesURL: URL?
 
     /// The URL for the app's homepage
+    // TODO: @available(*, deprecated, renamed: "links")
     public var homepage: URL?
 
     /// The summary of the entitlements that are enabled for this app
+    // TODO: @available(*, deprecated, renamed: "links")
     public var fundingLinks: [AppFundingLink]?
 
     public var stats: AppStats?
 
-    public init(name: String, bundleIdentifier: String, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [AppCategoryType]? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil, stats: AppStats? = nil) {
+    public init(name: String, bundleIdentifier: String? = nil, subtitle: String? = nil, developerName: String? = nil, localizedDescription: String? = nil, size: Int? = nil, version: String? = nil, versionDate: Date? = nil, downloadURL: URL? = nil, iconURL: URL? = nil, screenshotURLs: [URL]? = nil, versionDescription: String? = nil, tintColor: String? = nil, beta: Bool? = nil, categories: [AppCategoryType]? = nil, sha256: String? = nil, permissions: [AppPermission]? = nil, metadataURL: URL? = nil, readmeURL: URL? = nil, releaseNotesURL: URL? = nil, homepage: URL? = nil, fundingLinks: [AppFundingLink]? = nil, stats: AppStats? = nil, links: [String: URL]? = nil, localizations: [String: AppCatalogItem]? = nil) {
         self.name = name
         self.bundleIdentifier = bundleIdentifier
         self.subtitle = subtitle
@@ -210,6 +217,8 @@ public struct AppCatalogItem : Codable, Equatable {
         self.homepage = homepage
         self.fundingLinks = fundingLinks
         self.stats = stats
+        self.links = links
+        self.localizations = localizations
     }
 }
 
@@ -233,10 +242,9 @@ public struct AppStats : Codable, Equatable {
     /// The size of the core code
     public var coreSize: Int?
 
-    public init(downloadCount: Int? = nil, impressionCount: Int? = nil, viewCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, forkCount: Int? = nil, coreSize: Int? = nil) {
+    public init(downloadCount: Int? = nil, impressionCount: Int? = nil, starCount: Int? = nil, watcherCount: Int? = nil, issueCount: Int? = nil, forkCount: Int? = nil, coreSize: Int? = nil) {
         self.downloadCount = downloadCount
         self.impressionCount = impressionCount
-        self.viewCount = viewCount
         self.starCount = starCount
         self.watcherCount = watcherCount
         self.issueCount = issueCount
@@ -749,51 +757,68 @@ public struct AppCatalogSource : RawCodable, Equatable {
     }
 }
 
+extension AppCatalogItem {
+    /// Localizes the given key path into the specified language code
+    /// - Parameter keyPath: the path to localize
+    /// - Returns: the value of the key path
+    public func localize<T>(key keyPath: KeyPath<Self, T>, into code: String) -> T {
+        self.localizations?[code]?[keyPath: keyPath] ?? self[keyPath: keyPath]
+    }
+
+    /// Localizes the given key path into the specified language code
+    /// - Parameter keyPath: the path to localize
+    /// - Returns: the value of the key path
+    public func localize<T>(key keyPath: KeyPath<Self, T>, into locale: Locale) -> T {
+        self.localize(key: keyPath, into: locale.languageTag)
+    }
+
+}
+
 extension AppCatalog {
     /// Attempts to localize the catalog into the given language code.
     ///
     /// This is accomplished by examining the ``localizations`` dictionary
     /// for an appropriate base locale, and then examining each child locale in turn
-    public func localized(into locale: Locale, session: URLSession = URLSession.shared) async throws -> AppCatalog {
-        guard let localizations = self.localizations, !localizations.isEmpty else {
-            return self // no localizations
-        }
-
-        var catalog = self
-        if let localeCatalogSource = localizations[locale.identifier] ?? localizations[locale.languageCode ?? locale.identifier] {
-            let lcat = try await localeCatalogSource.fetchCatalog(with: session)
-            for key in AppCatalog.CodingKeys.allCases {
-                switch key {
-                case .name: catalog.name = lcat.name ?? catalog.name
-                case .identifier: catalog.identifier = lcat.identifier ?? catalog.identifier
-                case .localizedDescription: catalog.localizedDescription = lcat.localizedDescription ?? catalog.localizedDescription
-                case .platform: catalog.platform = lcat.platform ?? catalog.platform
-                case .homepage: catalog.homepage = lcat.homepage ?? catalog.homepage
-                case .sourceURL: catalog.sourceURL = lcat.sourceURL ?? catalog.sourceURL
-                case .tintColor: catalog.tintColor = lcat.tintColor ?? catalog.tintColor
-                case .iconURL: catalog.iconURL = lcat.iconURL ?? catalog.iconURL
-                case .fundingSources: catalog.fundingSources = lcat.fundingSources ?? catalog.fundingSources
-                case .baseLocale: catalog.baseLocale = lcat.baseLocale ?? catalog.baseLocale
-                case .localizations: catalog.localizations = nil // catalog.name = lcat.name ?? catalog.name
-                case .news: break // catalog.news = lcat.news ?? catalog.news
-                case .apps: break // catalog.apps = lcat.apps ?? catalog.apps
-                }
-            }
-
-            // unlike the top-level catalog metadata properties,
-            // the catalog's apps and news items do not override anything,
-            // but instead acts as a complete manifest of the available apps
-            // for that language/region
-            if !lcat.apps.isEmpty {
-                catalog.apps = lcat.apps
-            }
-
-            catalog.news = lcat.news ?? catalog.news
-            catalog.fundingSources = lcat.fundingSources ?? catalog.fundingSources
-        }
-
-        return catalog
-    }
+//    public func localized(into locale: Locale, session: URLSession = URLSession.shared) async throws -> AppCatalog {
+//        guard let localizations = self.localizations, !localizations.isEmpty else {
+//            return self // no localizations
+//        }
+//
+//        var catalog = self
+//        if let localeCatalogSource = localizations[locale.identifier] ?? localizations[locale.languageCode ?? locale.identifier] {
+//            let lcat = try await localeCatalogSource.fetchCatalog(with: session)
+//            for key in AppCatalog.CodingKeys.allCases {
+//                switch key {
+//                case .name: catalog.name = lcat.name ?? catalog.name
+//                case .identifier: catalog.identifier = lcat.identifier ?? catalog.identifier
+//                case .localizedDescription: catalog.localizedDescription = lcat.localizedDescription ?? catalog.localizedDescription
+//                case .platform: catalog.platform = lcat.platform ?? catalog.platform
+//                case .homepage: catalog.homepage = lcat.homepage ?? catalog.homepage
+//                case .sourceURL: catalog.sourceURL = lcat.sourceURL ?? catalog.sourceURL
+//                case .tintColor: catalog.tintColor = lcat.tintColor ?? catalog.tintColor
+//                case .iconURL: catalog.iconURL = lcat.iconURL ?? catalog.iconURL
+//                case .fundingSources: catalog.fundingSources = lcat.fundingSources ?? catalog.fundingSources
+//                case .baseLocale: catalog.baseLocale = lcat.baseLocale ?? catalog.baseLocale
+//                //case .localizations: catalog.localizations = nil // catalog.name = lcat.name ?? catalog.name
+//                case .news: break // catalog.news = lcat.news ?? catalog.news
+//                case .apps: break // catalog.apps = lcat.apps ?? catalog.apps
+//                }
+//            }
+//
+//            // unlike the top-level catalog metadata properties,
+//            // the catalog's apps and news items do not override anything,
+//            // but instead acts as a complete manifest of the available apps
+//            // for that language/region
+//            if !lcat.apps.isEmpty {
+//                catalog.apps = lcat.apps
+//            }
+//
+//            catalog.news = lcat.news ?? catalog.news
+//            catalog.fundingSources = lcat.fundingSources ?? catalog.fundingSources
+//        }
+//
+//        return catalog
+//    }
 }
 
 // MARK: Utilities

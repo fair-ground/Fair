@@ -304,11 +304,11 @@ final class FairHubTests: XCTestCase {
             return nil
         }
 
-        XCTAssertNotNil(app.subtitle, "missing subtitle in app: \(app.bundleIdentifier)")
-        XCTAssertNotNil(app.version, "missing version in app: \(app.bundleIdentifier)")
-        XCTAssertNotNil(app.versionDate, "missing versionDate in app: \(app.bundleIdentifier)")
-        XCTAssertNotNil(app.sha256, "missing sha256 in app: \(app.bundleIdentifier)")
-        XCTAssertNotNil(app.stats?.downloadCount, "missing downloadCount in app: \(app.bundleIdentifier)")
+        XCTAssertNotNil(app.subtitle, "missing subtitle in app: \(app.bundleIdentifier ?? "")")
+        XCTAssertNotNil(app.version, "missing version in app: \(app.bundleIdentifier ?? "")")
+        XCTAssertNotNil(app.versionDate, "missing versionDate in app: \(app.bundleIdentifier ?? "")")
+        XCTAssertNotNil(app.sha256, "missing sha256 in app: \(app.bundleIdentifier ?? "")")
+        XCTAssertNotNil(app.stats?.downloadCount, "missing downloadCount in app: \(app.bundleIdentifier ?? "")")
 
         if let fundingPlatform = fundingPlatform {
             if let link = app.fundingLinks?.first {
@@ -338,8 +338,8 @@ final class FairHubTests: XCTestCase {
         XCTAssertEqual("net.appfair.catalog", catalog.identifier)
 
         checkApp("app.App-Fair", catalog: catalog)
-//        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
-//        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
+        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
+        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
         dbg("created macOS catalog count:", names.count, "size:", try? catalog.prettyJSON.count.localizedByteCount())
     }
@@ -358,10 +358,11 @@ final class FairHubTests: XCTestCase {
         XCTAssertFalse(names.contains(baseFairgroundRepoName))
         XCTAssertEqual("net.appfair.catalog", catalog.identifier)
 
-//        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
-//        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
+        checkApp("app.Cloud-Cuckoo", catalog: catalog, fundingPlatform: .GITHUB)
+        checkApp("app.Tune-Out", catalog: catalog, fundingPlatform: .GITHUB)
 
         dbg("created iOS catalog count:", names.count, "size:", try? catalog.prettyJSON.count.localizedByteCount())
+        try print(catalog.prettyJSON)
     }
 
     func testParseDroidCatalog() async throws {

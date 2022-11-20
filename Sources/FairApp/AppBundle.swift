@@ -951,3 +951,73 @@ extension FatArch : BinaryReadable {
         self = try await FatArch(cputype: data.readInt32(), cpusubtype: data.readInt32(), offset: data.readUIntX(), size: data.readUIntX(), align: data.readUIntX())
     }
 }
+
+
+extension Locale {
+    /// The name of the folder for exporting locales
+    static let exportedLocaleFolders = [
+        "ar": "ar-SA",
+        "ca": "ca",
+        "cs": "cs",
+        "da": "da",
+        "de": "de-DE",
+        "el": "el",
+        "en": "en-US",
+        "en_AU": "en-AU",
+        "en_CA": "en-CA",
+        "en_GB": "en-GB",
+        "en_US": "en-US",
+        "es": "es-ES",
+        "es_ES": "es-ES",
+        "es_419": "es-MX",
+        "fi": "fi",
+        "fr_CA": "fr-CA",
+        "fr_FR": "fr-FR",
+        "fr": "fr-FR",
+        "he": "he",
+        "hi": "hi",
+        "hr": "hr",
+        "hu": "hu",
+        "id": "id",
+        "it": "it",
+        "ja": "ja",
+        "ko": "ko",
+        "ms": "ms",
+        "nl": "nl-NL",
+        "no": "no",
+        "pl": "pl",
+        "pt_BR": "pt-BR",
+        "pt_PT": "pt-PT",
+        "pt": "pt-BR",
+        "ro": "ro",
+        "ru": "ru",
+        "sk": "sk",
+        "sv": "sv",
+        "th": "th",
+        "tr": "tr",
+        "uk": "uk",
+        "vi": "vi",
+        "zh_Hans": "zh-Hans",
+        "zh_Hant": "zh-Hant",
+        "zh-Hans": "zh-Hans",
+        "zh-Hant": "zh-Hant",
+    ]
+
+    /// The name of the folder that would be expected to store the locale information. This is typically the locale identifier with a "-" instead of a `"_"`,
+    /// and generally conforms to https://en.wikipedia.org/wiki/IETF_language_tag
+    ///
+    /// `["ar-SA", "ca", "cs", "da", "de-DE", "el", "en-AU", "en-CA", "en-GB", "en-US", "es-ES", "es-MX", "fi", "fr-CA", "fr-FR", "he", "hi", "hr", "hu", "id", "it", "ja", "ko", "ms", "nl-NL", "no", "pl", "pt-BR", "pt-PT", "ro", "ru", "sk", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant", "default"]`
+    var knownLanguageTag: String? {
+        Self.exportedLocaleFolders[self.identifier]
+    }
+
+    var exportedMetadataFolderName: String? {
+        knownLanguageTag
+    }
+
+    /// The  https://en.wikipedia.org/wiki/IETF_language_tag for this locale, if it exists.
+    public var languageTag: String {
+        knownLanguageTag ?? self.identifier.replacingOccurrences(of: "_", with: "-")
+    }
+}
+

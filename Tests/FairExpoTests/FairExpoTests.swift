@@ -125,7 +125,7 @@ final class FairExpoTests: XCTestCase {
         let catalog = try await AppCatalogAPI.shared.catalogApp(url: url)
         XCTAssertEqual("Cloud Cuckoo", catalog.name)
         XCTAssertEqual("A whimsical game of excitement and delight", catalog.subtitle)
-        XCTAssertEqual(nil, catalog.fundingLinks?.first?.platform) // no longer present in AppSource
+        //XCTAssertEqual(nil, catalog.fundingLinks?.first?.platform) // no longer present in AppSource
     }
 
     func fetchApp(named name: String, unzip: Bool = true) async throws -> URL {
@@ -225,14 +225,18 @@ final class FairExpoTests: XCTestCase {
         let apps = cat.apps.sorting(by: \.size, ascending: true)
 
         for app in apps.prefix(count) {
-            dbg("verifying app \(app.bundleIdentifier) in \(catalogURL.absoluteString)")
+            dbg("verifying app \(app.bundleIdentifier ?? "noid") in \(catalogURL.absoluteString)")
 
-            let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--verbose", "--bundle-id", app.bundleIdentifier, catalogURL.absoluteString])
+            guard let id = app.bundleIdentifier else {
+                XCTFail("missing id for \(app)")
+                continue
+            }
+            let (results, _) = try await runToolOutput(SourceCommand.self, cmd: SourceCommand.VerifyCommand.self, ["--verbose", "--bundle-id", id, catalogURL.absoluteString])
 
             let result = try XCTUnwrap(results.first)
 
             dbg("catalog:", try? result.prettyJSON)
-            XCTAssertEqual(app.name, result.app.name, "failed to verify app \(app.bundleIdentifier) in \(catalogURL.absoluteString)")
+            XCTAssertEqual(app.name, result.app.name, "failed to verify app \(app.bundleIdentifier ?? "noid") in \(catalogURL.absoluteString)")
         }
     }
 

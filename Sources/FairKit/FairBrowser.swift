@@ -696,7 +696,7 @@ open class WebViewState : ObservableObject {
     open var hasOnlySecureContent: Bool { webView?.hasOnlySecureContent ?? false }
 
     /// Register that an error occurred with the app manager
-    open func reportError(_ error: Error) {
+    @MainActor open func reportError(_ error: Error) {
         dbg("error:", error)
         errors.append(error as NSError)
     }
@@ -706,7 +706,7 @@ open class WebViewState : ObservableObject {
         do {
             try await block()
         } catch {
-            reportError(error)
+            await reportError(error)
         }
     }
 

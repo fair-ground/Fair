@@ -139,7 +139,7 @@ public final class AppCatalogAPI {
     }
 
     private func addFailure(to failures: inout [AppCatalogVerifyFailure], app: AppCatalogItem, _ failure: AppCatalogVerifyFailure, msg: ((MessagePayload) -> ())?) {
-        msg?((.warn, ["app verify failure for \(app.downloadURL.absoluteString): \(failure.type) \(failure.message)"]))
+        msg?((.warn, ["app verify failure for \(app.downloadURL?.absoluteString ?? "nourl"): \(failure.type) \(failure.message)"]))
         failures.append(failure)
     }
 
@@ -156,17 +156,20 @@ public final class AppCatalogAPI {
             addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "invalid_size", message: "App size property unset or invalid"), msg: msg)
         }
 
-        var url = app.downloadURL
-        if url.scheme == nil {
-            // permit URLs relative to the catalog URL
-            url = catalogURL?.deletingLastPathComponent().appendingPathComponent(url.path) ?? url
-        }
-        do {
-            dbg("verifying app at URL:", url.absoluteString)
-            let (file, _) = url.isFileURL ? (url, nil) : try await URLSession.shared.downloadFile(for: URLRequest(url: url))
-            failures.append(contentsOf: await validateArtifact(app: app, file: file))
-        } catch {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"), msg: msg)
+        if var url = app.downloadURL {
+            if url.scheme == nil {
+                // permit URLs relative to the catalog URL
+                url = catalogURL?.deletingLastPathComponent().appendingPathComponent(url.path) ?? url
+            }
+            do {
+                dbg("verifying app at URL:", url.absoluteString)
+                let (file, _) = url.isFileURL ? (url, nil) : try await URLSession.shared.downloadFile(for: URLRequest(url: url))
+                failures.append(contentsOf: await validateArtifact(app: app, file: file))
+            } catch {
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "download_failed", message: "Failed to download app from: \(url.absoluteString)"), msg: msg)
+            }
+        } else {
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_url", message: "No download URL"), msg: msg)
         }
         return AppCatalogVerifyResult(app: app, failures: failures.isEmpty ? nil : failures)
     }
@@ -175,14 +178,14 @@ public final class AppCatalogAPI {
         var failures: [AppCatalogVerifyFailure] = []
 
         if !file.isFileURL || !FileManager.default.isReadableFile(atPath: file.path) {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL.absoluteString)"), msg: msg)
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "missing_file", message: "Download file \(file.path) does not exist for: \(app.downloadURL?.absoluteString ?? "nourl")"), msg: msg)
             return failures
         }
 
         if let size = app.size {
             if let fileSize = file.fileSize() {
                 if size != fileSize {
-                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL.absoluteString)"), msg: msg)
+                    addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "size_mismatch", message: "Download size mismatch (\(size) vs. \(fileSize)) from: \(app.downloadURL?.absoluteString ?? "nourl")"), msg: msg)
                 }
             }
         }
@@ -191,7 +194,7 @@ public final class AppCatalogAPI {
            let fileData = try? Data(contentsOf: file) {
             let fileChecksum = fileData.sha256()
             if sha256 != fileChecksum.hex() {
-                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL.absoluteString)"), msg: msg)
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL?.absoluteString ?? "nourl")"), msg: msg)
             }
         }
 
@@ -252,14 +255,14 @@ public final class AppCatalogAPI {
             verifyBackgroundModes(info)
 
             if entitlementss == nil {
-                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL.absoluteString)"), msg: msg)
+                addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "entitlements_missing", message: "No entitlements found in \(app.downloadURL?.absoluteString ?? "nourl")"), msg: msg)
             } else {
                 for entitlements in entitlementss ?? [] {
                     verifyEntitlements(entitlements)
                 }
             }
         } catch {
-            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information for \(app.downloadURL.absoluteString): \(error)"), msg: msg)
+            addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "bundle_load_failed", message: "Could not load bundle information for \(app.downloadURL?.absoluteString ?? "nourl"): \(error)"), msg: msg)
         }
 
         return failures
@@ -282,3 +285,71 @@ public final class AppCatalogAPI {
 
 
 }
+
+/// https://docs.fastlane.tools/actions/deliver/#available-metadata-folder-options
+public struct AppMetadata : Codable {
+    // Non-Localized Metadata
+    public var copyright: String? // copyright.txt
+    public var primary_category: String? // primary_category.txt
+    public var secondary_category: String? // secondary_category.txt
+    public var primary_first_sub_category: String? // primary_first_sub_category.txt
+    public var primary_second_sub_category: String? // primary_second_sub_category.txt
+    public var secondary_first_sub_category: String? // secondary_first_sub_category.txt
+    public var secondary_second_sub_category: String? // secondary_second_sub_category.txt
+
+    // Localized Metadata
+    public var name: String? // <lang>/name.txt
+    public var subtitle: String? // <lang>/subtitle.txt
+    public var privacy_url: String? // <lang>/privacy_url.txt
+    public var apple_tv_privacy_policy: String? // <lang>/apple_tv_privacy_policy.txt
+    public var description: String? // <lang>/description.txt
+    public var keywords: String? // <lang>/keywords.txt
+    public var release_notes: String? // <lang>/release_notes.txt
+    public var support_url: String? // <lang>/support_url.txt
+    public var marketing_url: String? // <lang>/marketing_url.txt
+    public var promotional_text: String? // <lang>/promotional_text.txt
+
+    // Review Information
+    public var first_name: String? // review_information/first_name.txt
+    public var last_name: String? // review_information/last_name.txt
+    public var phone_number: String? // review_information/phone_number.txt
+    public var email_address: String? // review_information/email_address.txt
+    public var demo_user: String? // review_information/demo_user.txt
+    public var demo_password: String? // review_information/demo_password.txt
+    public var notes: String? // review_information/notes.txt
+
+    // Locale-specific metadata
+    public var locales: [String: AppMetadata]?
+
+    public enum CodingKeys : String, CodingKey, CaseIterable {
+        case copyright
+        case primary_category
+        case secondary_category
+        case primary_first_sub_category
+        case primary_second_sub_category
+        case secondary_first_sub_category
+        case secondary_second_sub_category
+
+        case name
+        case subtitle
+        case privacy_url
+        case apple_tv_privacy_policy
+        case description
+        case keywords
+        case release_notes
+        case support_url
+        case marketing_url
+        case promotional_text
+
+        case first_name
+        case last_name
+        case phone_number
+        case email_address
+        case demo_user
+        case demo_password
+        case notes
+
+        case locales
+    }
+}
+

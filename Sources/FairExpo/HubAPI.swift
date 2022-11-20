@@ -212,7 +212,7 @@ extension FairHub {
                 let dl2 = rhs.stats?.downloadCount {
                 return dl1 > dl2
             }
-            return lhs.bundleIdentifier < rhs.bundleIdentifier
+            return lhs.bundleIdentifier ?? lhs.name < rhs.bundleIdentifier ?? rhs.name
         }
 
         let macOS = artifactTarget?.devices.contains("mac") == true
@@ -240,9 +240,6 @@ extension FairHub {
             //     throw Errors.repoInvalid(invalid, org, fork.name)
             // }
 
-            let subtitle = fork.description ?? ""
-            let localizedDescription = fork.description ?? "" // these should be different; perhaps extract the first paragraph from the README?
-
             let starCount = fork.stargazerCount
             let watcherCount = fork.watchers.totalCount
             let issueCount = fork.issues.totalCount
@@ -267,14 +264,11 @@ extension FairHub {
 
             // with no fairseal issuer we simply index the bare forks themselves
             guard let fairsealIssuer = fairsealIssuer else {
-                let bundleIdentifier = fork.nameWithOwner
                 let appTitle = fork.name
-                let forkURL = URL(string: "https://github.com/")!.appendingPathComponent(fork.nameWithOwner)
+                var app = AppCatalogItem(name: appTitle)
 
-                var app = AppCatalogItem(name: appTitle, bundleIdentifier: bundleIdentifier, downloadURL: forkURL)
-
-                app.subtitle = subtitle
-                app.localizedDescription = localizedDescription
+                app.subtitle = fork.description
+                // app.localizedDescription = localizedDescription
                 app.categories = (categories.isEmpty ? nil : categories)
                 app.fundingLinks = (fundingLinks.isEmpty ? nil : fundingLinks)?.map { link in
                     AppFundingLink(platform: link.platform, url: link.url)
@@ -373,17 +367,13 @@ extension FairHub {
                         continue
                     }
 
-                    guard let appMetadata = releaseAsset(named: "Info.plist") else {
-                        dbg("missing app artifact from release")
-                        continue
-                    }
+//                    guard let appMetadata = releaseAsset(named: "Info.plist") else {
+//                        dbg("missing app artifact from release")
+//                        continue
+//                    }
 
-                    guard let appREADME = releaseAsset(named: "README.md") else {
-                        dbg("missing app metadata from release")
-                        continue
-                    }
-
-                    let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
+//                    let appREADME = releaseAsset(named: "README.md")
+//                    let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
 
                     guard let appIcon = releaseAsset(named: appName + ".png") else {
                         dbg("missing appIcon from release")
@@ -394,8 +384,9 @@ extension FairHub {
 
                     // scan the comments for the base ref for the matching url seal
                     var urlSeals: [URL: Set<String>] = [:]
-                    let comments = (fork.defaultBranchRef.associatedPullRequests.nodes ?? []).compactMap(\.comments.nodes)
-                    //dbg(wip("#### COMMENTS:"), comments)
+                    let prs = fork.defaultBranchRef.associatedPullRequests.nodes
+                    //dbg("scanning prs:", prs)
+                    let comments = (prs ?? []).compactMap(\.comments.nodes)
 
                     let fairsealComments = comments.joined().filter({ $0.author.login == fairsealIssuer })
                     for comment in fairsealComments {
@@ -408,6 +399,7 @@ extension FairHub {
                             }
                         } catch {
                             // comments can be anything, so tolerate JSON decoding failures
+                            // this will also catch serialization format changes: HubAPI:408 assembleCatalog: error parsing seal: typeMismatch(Swift.Array<Any>, Swift.DecodingError.Context(codingPath: [CodingKeys(stringValue: "permissions", intValue: nil)], debugDescription: "Expected to decode Array<Any> but found a number instead.", underlyingError: nil))
                             dbg("error parsing seal:", error)
                         }
                     }
@@ -419,19 +411,19 @@ extension FairHub {
                     }
                     dbg("checking artifact url:", artifactURL.absoluteString, "fairseal:", artifactChecksum)
 
-                    let metadataURL = appMetadata.downloadUrl
-                    guard let metadataChecksum = urlSeals[metadataURL]?.first else {
-                        dbg("missing checksum for metadata url:", metadataURL.absoluteString)
-                        continue
-                    }
-
-                    let readmeURL = appREADME.downloadUrl
-                    guard let readmeChecksum = urlSeals[readmeURL]?.first else {
-                        dbg("missing checksum for readme url:", readmeURL.absoluteString)
-                        continue
-                    }
-
-                    let releaseNotesURL = appRELEASENOTES?.downloadUrl
+//                    let metadataURL = appMetadata.downloadUrl
+//                    guard let metadataChecksum = urlSeals[metadataURL]?.first else {
+//                        dbg("missing checksum for metadata url:", metadataURL.absoluteString)
+//                        continue
+//                    }
+//
+//                    let readmeURL = appREADME.downloadUrl
+//                    guard let readmeChecksum = urlSeals[readmeURL]?.first else {
+//                        dbg("missing checksum for readme url:", readmeURL.absoluteString)
+//                        continue
+//                    }
+//
+//                    let releaseNotesURL = appRELEASENOTES?.downloadUrl
 
                     let screenshotURLs = release.releaseAssets.nodes.filter { node in
                         if !(node.name.hasSuffix(".png") || node.name.hasSuffix(".jpg")) {
@@ -447,7 +439,7 @@ extension FairHub {
 
                     let downloadCount = appArtifact.downloadCount
                     let impressionCount = appIcon.downloadCount
-                    let viewCount = appREADME.downloadCount
+//                    let viewCount = appREADME.downloadCount
 
                     let size = appArtifact.size
 
@@ -458,9 +450,7 @@ extension FairHub {
 
                     app.name = appTitle
                     app.bundleIdentifier = bundleIdentifier
-                    app.subtitle = subtitle
                     app.developerName = developerInfo
-                    app.localizedDescription = localizedDescription
                     app.size = size
                     app.version = appVersion.versionString
                     app.versionDate = versionDate
@@ -472,15 +462,49 @@ extension FairHub {
                     app.beta = beta
                     app.categories = (categories.isEmpty ? nil : categories)
                     app.sha256 = artifactChecksum
-                    app.permissions = seal?.permissions
-                    app.metadataURL = metadataURL.appendingHash(metadataChecksum)
-                    app.readmeURL = readmeURL.appendingHash(readmeChecksum)
-                    app.releaseNotesURL = releaseNotesURL
                     app.homepage = homepage
-                    app.fundingLinks = (fundingLinks.isEmpty ? nil : fundingLinks)?.map { link in
-                        AppFundingLink(platform: link.platform, url: link.url)
+                    app.permissions = seal?.permissions
+
+                    // placeholders unless the fairseal contains additional information
+                    app.subtitle = fork.description
+                    app.localizedDescription = fork.description
+
+                    // app.links = wip(nil) // TODO: move metadata/readme/releaseNotes links into this section
+
+//                    app.metadataURL = metadataURL.appendingHash(metadataChecksum)
+//                    app.readmeURL = readmeURL.appendingHash(readmeChecksum)
+//                    app.releaseNotesURL = releaseNotesURL
+//                    app.fundingLinks = (fundingLinks.isEmpty ? nil : fundingLinks)?.map { link in
+//                        AppFundingLink(platform: link.platform, url: link.url)
+//                    }
+
+
+                    app.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, forkCount: forkCount, coreSize: seal?.coreSize)
+
+                    var locs: [String: AppCatalogItem] = [:]
+                    if let appMetaData = try seal?.parseAppMetaData() {
+                        if let subtitle = appMetaData.subtitle {
+                            app.subtitle = subtitle
+                        }
+
+                        if let description = appMetaData.description {
+                            app.localizedDescription = description
+                        }
+
+                        for (langCode, lmd) in appMetaData.locales ?? [:] {
+                            var subItem = AppCatalogItem(name: lmd.name ?? app.name)
+                            subItem.subtitle = lmd.subtitle
+                            subItem.localizedDescription = lmd.description
+                            subItem.subtitle = lmd.subtitle
+                            subItem.versionDescription = lmd.release_notes
+                            subItem.homepage = lmd.marketing_url.flatMap(URL.init(string:))
+                            //subItem.keywords = lmd.keywords
+                            locs[langCode] = subItem
+                        }
                     }
-                    app.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount, starCount: starCount, watcherCount: watcherCount, issueCount: issueCount, forkCount: forkCount, coreSize: seal?.coreSize)
+
+                    app.localizations = locs.isEmpty ? nil : locs
+
 
                     // walk through the recent releases until we find one that has a fairseal on it
                     if beta == true {
@@ -697,7 +721,7 @@ extension FairHub {
                         // the same bundleIdentifier will have precedence over older forks,
                         // which means that the oldest fork is the fallback for
                         // all metadata lookups
-                        if !appids.insert(app.bundleIdentifier).inserted {
+                        guard let id = app.bundleIdentifier, !appids.insert(id).inserted else {
                             msg("skipping duplicate app id:", app.bundleIdentifier)
                             continue
                         }
@@ -734,7 +758,7 @@ extension FairHub {
             ranking += Int64(item.stats?.downloadCount ?? 0)
 
             // each bit of metadata for a cask boosts its position in the rankings
-            if item.readmeURL != nil { ranking += boost }
+//            if item.readmeURL != nil { ranking += boost }
             if item.iconURL != nil { ranking += boost }
             // if item.tintColor != nil { ranking += boost }
             if item.categories?.isEmpty == false { ranking += boost }
@@ -742,7 +766,8 @@ extension FairHub {
 
             // add in explicit boosts
             if let boostMap = boostMap,
-                let boostCount = boostMap[item.bundleIdentifier] {
+               let id = item.bundleIdentifier,
+                let boostCount = boostMap[id] {
                 ranking += .init(boostCount) * boost
             }
 
@@ -810,12 +835,12 @@ extension FairHub {
             .filter({ $0.count == 6 }) // needs to be a 6-digit hex code
             .first
 
-        let appREADME = releaseAsset(named: "README.md")
-        let readmeURL = appREADME?.downloadUrl
-        let viewCount = appREADME?.downloadCount
+//        let appREADME = releaseAsset(named: "README.md")
+//        let readmeURL = appREADME?.downloadUrl
+//        let viewCount = appREADME?.downloadCount
 
-        let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
-        let releaseNotesURL = appRELEASENOTES?.downloadUrl
+//        let appRELEASENOTES = releaseAsset(named: "RELEASE_NOTES.md")
+//        let releaseNotesURL = appRELEASENOTES?.downloadUrl
 
         let appIcon = releaseAsset(named: "AppIcon.png")
         let impressionCount = appIcon?.downloadCount
@@ -858,8 +883,9 @@ extension FairHub {
         appItem.sha256 = checksum
         appItem.size = nil
 
-        appItem.readmeURL = readmeURL
-        appItem.releaseNotesURL = releaseNotesURL
+//        appItem.readmeURL = readmeURL
+//        appItem.releaseNotesURL = releaseNotesURL
+
         appItem.homepage = homepage
 
         // appItem.developerName = nil // may be set from config
@@ -882,7 +908,7 @@ extension FairHub {
         // stats cannot be overridden
 
 
-        appItem.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount, viewCount: viewCount)
+        appItem.stats = AppStats(downloadCount: downloadCount, impressionCount: impressionCount)
 
         appItem.permissions = nil
         appItem.metadataURL = nil
@@ -1167,16 +1193,18 @@ extension AppCatalogItem {
     ///
     /// The files and folders may not exist, but these are the potential locations that will be removed.
     public var installationDataLocations: [String] {
-        [
-            "~/Library/Application Scripts/\(bundleIdentifier)",
-            "~/Library/Application Support/\(bundleIdentifier)",
-            "~/Library/Caches/\(bundleIdentifier)",
-            "~/Library/Containers/\(bundleIdentifier)",
-            "~/Library/HTTPStorages/\(bundleIdentifier)",
-            "~/Library/HTTPStorages/\(bundleIdentifier).binarycookies",
-            "~/Library/Preferences/\(bundleIdentifier).plist",
-            "~/Library/Saved Application State/\(bundleIdentifier).savedState",
-        ]
+        bundleIdentifier.map({ bundleIdentifier in
+            [
+                "~/Library/Application Scripts/\(bundleIdentifier)",
+                "~/Library/Application Support/\(bundleIdentifier)",
+                "~/Library/Caches/\(bundleIdentifier)",
+                "~/Library/Containers/\(bundleIdentifier)",
+                "~/Library/HTTPStorages/\(bundleIdentifier)",
+                "~/Library/HTTPStorages/\(bundleIdentifier).binarycookies",
+                "~/Library/Preferences/\(bundleIdentifier).plist",
+                "~/Library/Saved Application State/\(bundleIdentifier).savedState",
+            ]
+        }) ?? []
     }
 
     /// Returns the list of file URLs for the app's potential installation data
@@ -1205,8 +1233,8 @@ extension AppCatalogItem {
 
         // inject the mandatory properties
         jobj["name"] = self.name.parameterValue
-        jobj["bundleIdentifier"] = self.bundleIdentifier.parameterValue
-        jobj["downloadURL"] = self.downloadURL.absoluteString.parameterValue
+        jobj["bundleIdentifier"] = self.bundleIdentifier?.parameterValue
+        jobj["downloadURL"] = self.downloadURL?.absoluteString.parameterValue
 
         // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
         let appItem = try AppCatalogItem(json: jobj.json())
@@ -1296,7 +1324,7 @@ extension AppCatalog {
         }
 
         // otherwise, guess based on the platform
-        let exts = self.apps.map(\.downloadURL).map(\.pathExtension).set()
+        let exts = self.apps.compactMap(\.downloadURL).map(\.pathExtension).set()
         switch platform {
         case .iOS: return exts.isSubset(of: ["ipa", ""])
         case .macOS: return exts.isSubset(of: ["zip", "dmg", "pkg", "gz", "tgz", "bz2", "tbz", "jar", "tar", ""])

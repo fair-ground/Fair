@@ -1145,6 +1145,93 @@ extension FairHub {
     }
 }
 
+
+// MARK: FairSealQuery
+
+// NOTE: this is not yet used, but it could eventually be used as a more efficient way of generating the catalog than the CatalogForkQuery
+
+extension FairHub {
+
+    /// The query to gather all the fairseal comments for a specific login
+    public struct FairSealQuery : GraphQLAPIRequest & CursoredAPIRequest {
+        public typealias Service = FairHub
+
+        public var login: String
+
+        /// the number of comments to return per batch
+        public var commentCount: Int = 100
+
+        public var endCursor: GraphQLCursor? = nil
+
+        public func postData() throws -> Data? {
+            try executeGraphQL(Self.query, variables: [
+                "login": login,
+            ])
+        }
+
+        private static let query = """
+            query FairSealQuery($login:String!, $commentCount:Int = 100, $endCursor:String) {
+               __typename
+              user(login: $login) {
+                 __typename
+                issueComments(first:$commentCount, orderBy: { field: UPDATED_AT, direction: DESC }) {
+                  pageInfo { endCursor, hasNextPage, hasPreviousPage, startCursor }
+                  edges {
+                    node {
+                      __typename
+                      id
+                      createdAt
+                      pullRequest {
+                        title
+                        baseRepository {
+                          nameWithOwner
+                        }
+                        headRepository {
+                          nameWithOwner
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            """
+
+        public typealias Response = GraphQLResponse<QueryResponse>
+
+        public struct QueryResponse : Decodable, CursoredAPIResponse {
+            public var hasNextPage: Bool {
+                user.issueComments.pageInfo?.hasNextPage == true
+            }
+
+            public var endCursor: GraphQLCursor? {
+                user.issueComments.pageInfo?.endCursor
+            }
+
+            public var elementCount: Int {
+                user.issueComments.nodes.count
+            }
+
+            public enum TypeName : String, Decodable { case Query }
+            public let __typename: TypeName
+
+            public let user: User
+            public struct User : Decodable {
+                public enum TypeName : String, Decodable { case User }
+                public let __typename: TypeName
+                public let issueComments: EdgeList<IssueComment>
+
+                public struct IssueComment : Decodable {
+                    public enum TypeName : String, Decodable { case IssueComment }
+                    public let __typename: TypeName
+                    public let bodyText: String
+                }
+            }
+        }
+    }
+}
+
+
 // MARK: LookupPRNumberQuery
 
 extension FairHub {
