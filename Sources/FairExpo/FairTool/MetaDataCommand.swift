@@ -120,7 +120,7 @@ extension FairCommand {
                             case .demo_password: try save(meta.demo_password, review: true, .demo_password)
                             case .notes: try save(meta.notes, review: true, .notes)
 
-                            case .locales: break
+                            case .localizations: break
                             }
                         }
                     }
@@ -129,7 +129,7 @@ extension FairCommand {
                     try saveMetadata(locale: nil, meta: appMeta)
 
                     // save the localized app metadatas
-                    for (localeName, localizedAppMeta) in appMeta.locales ?? [:] {
+                    for (localeName, localizedAppMeta) in appMeta.localizations ?? [:] {
                         try saveMetadata(locale: localeName, meta: localizedAppMeta)
                     }
                 }

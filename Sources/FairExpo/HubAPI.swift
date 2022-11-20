@@ -491,7 +491,7 @@ extension FairHub {
                             app.localizedDescription = description
                         }
 
-                        for (langCode, lmd) in appMetaData.locales ?? [:] {
+                        for (langCode, lmd) in appMetaData.localizations ?? [:] {
                             var subItem = AppCatalogItem(name: lmd.name ?? app.name)
                             subItem.subtitle = lmd.subtitle
                             subItem.localizedDescription = lmd.description
