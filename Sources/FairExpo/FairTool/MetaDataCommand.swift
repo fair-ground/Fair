@@ -192,8 +192,8 @@ extension FairCommand {
                         }
                     }
 
-                    // save the root metadatum
-                    try saveMetadata(locale: nil, meta: appMeta)
+                    // save the root metadata; if there exists localizations, then save the root localizations to the "default" folder as expected by https://docs.fastlane.tools/actions/deliver/#default-values
+                    try saveMetadata(locale: appMeta.localizations?.isEmpty == false ? "default" : nil, meta: appMeta)
 
                     // save the localized app metadatas
                     for (localeName, localizedAppMeta) in appMeta.localizations ?? [:] {
