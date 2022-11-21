@@ -140,7 +140,7 @@ extension FairCommand {
                             }
 
                             if let maxLength = maximumValueLength(for: key), value.count > maxLength {
-                                throw AppError(String(format: NSLocalizedString("The value for the property “%@” of length %@ is beyond the maximum length of %@", bundle: .module, comment: "error message"), arguments: [locKey, value.count as NSNumber, maxLength as NSNumber]))
+                                throw AppError(String(format: NSLocalizedString("The value for the property “%@” of length %d is beyond the maximum length of %d", bundle: .module, comment: "error message"), arguments: [locKey, value.count, maxLength]))
                             }
 
                             var outputURL = exportURL
