@@ -168,6 +168,14 @@ extension UXViewController {
 
 extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFacets : FacetView & RawRepresentable, AppFacets.RawValue == String, ConfigFacets.RawValue == String, AppFacets.FacetStore == Self {
 
+    /// The locales that have keys defined in the `app.localizations` set of `App.yml`
+    public func configuredLocales() throws -> [Locale]? {
+        let config: JSum = try Self.configuration(name: "App", for: self.bundle)
+        let app = config["app"]
+        let locs = app?["localizations"]?.obj
+        return locs?.keys.map(Locale.init(identifier:))
+    }
+
     @discardableResult public func captureFacetScreens(folder targetFolder: URL? = nil, appFacets: [AppFacets]? = nil, configFacets: [ConfigFacets]? = nil, locales targetLocales: [Locale]? = nil, devices targetDevices: [DevicePreview]? = nil) throws -> [ScreenshotResult] {
 #if canImport(UIKit)
         let animationsWereEnabled = UIView.areAnimationsEnabled
@@ -177,10 +185,16 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
         // let locales = targetLocales ?? [Locale(identifier: "en"), Locale(identifier: "fr")]
         // start with the development localization
-        let allLocalizations = ([bundle.developmentLocalization] + bundle.localizations.sorted()).compactMap({ $0 }).uniquing(by: \.self).array()
+//        let allLocalizations = ([bundle.developmentLocalization] + bundle.localizations.sorted()).compactMap({ $0 }).uniquing(by: \.self).array()
         //let allLocalizations = wip([bundle.developmentLocalization!])
+//        let configuredLocalizations = allLocalizations
+//            .map(Locale.init(identifier:)).filter {
+//            !$0.languageTag.isEmpty
+//        }
 
-        let locales = allLocalizations.map(Locale.init(identifier:))
+        let allLocalizations = try self.configuredLocales()
+
+        let locales = targetLocales ?? allLocalizations ?? []
         dbg("creating screenshots for class:", Self.self, "bundle:", self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier), bundle.preferredLocalizations)
 
         let devices = targetDevices ?? [DevicePreview.iPhone8Plus, .iPhone14Plus, .iPadPro6]
