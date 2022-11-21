@@ -47,8 +47,14 @@ private extension JSum {
 }
 
 private extension JSum {
-    enum ResultError: Error {
+    enum ResultError: LocalizedError {
         case message(String?)
+
+        var errorDescription: String? {
+            switch self {
+            case .message(let x): return x
+            }
+        }
     }
 }
 

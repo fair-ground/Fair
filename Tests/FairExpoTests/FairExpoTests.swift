@@ -511,6 +511,108 @@ final class FairExpoTests: XCTestCase {
             """)
         }
     }
+
+    func testFairMetadataCommand() async throws {
+
+        @discardableResult func check(_ yaml: String, customize: (inout FairCommand.MetadataCommand) -> () = { _ in }) async throws -> (folder: URL, metadata: [AppMetadata]) {
+            let folder = URL(fileURLWithPath: UUID().uuidString, isDirectory: true, relativeTo: URL.tmpdir)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+
+            let metadata = URL(fileURLWithPath: "metadata.yml", isDirectory: false, relativeTo: folder)
+
+            try yaml.write(to: metadata, atomically: true, encoding: .utf8)
+
+            var cmd = try FairCommand.MetadataCommand.parseAsRoot(["metadata"]) as! FairCommand.MetadataCommand
+
+            // cmd.valueOverride = ["key=value"]
+            cmd.yaml = [metadata.absoluteString]
+            cmd.export = folder.path // export to the same folder as the metadata source
+
+            customize(&cmd)
+
+            var results: [AppMetadata] = []
+            for try await result in cmd.executeCommand() {
+                results.append(result)
+            }
+            XCTAssertGreaterThan(results.count, 0, "expected at least one result")
+            return (folder, results)
+        }
+
+        func load(from folder: URL, path: String) throws -> String {
+            try String(contentsOf: URL(fileURLWithPath: path, relativeTo: folder))
+        }
+
+        do {
+            let result = try await check("app:\n  name: 'Some App'\n  subtitle: '123456789012345678901234567890'")
+            XCTAssertEqual("Some App", result.metadata.first?.name)
+            XCTAssertEqual("123456789012345678901234567890", result.metadata.first?.subtitle)
+            XCTAssertEqual("Some App", try load(from: result.folder, path: "name.txt"))
+            XCTAssertEqual("123456789012345678901234567890", try load(from: result.folder, path: "subtitle.txt"))
+        }
+
+
+        // test localized prefix/override
+        do {
+            let result = try await check("""
+            app:
+              name: 'Some App'
+              subtitle: '123456789012345678901234567890'
+              localizations:
+               fr-FR:
+                 name: 'Le App'
+               de-DE:
+                 subtitle: 'Ein App Awesome!'
+               en-GB:
+                 description: 'A super good app that does anything you want.'
+               xxx: # note: we currently tolerate unrecognized locales; should we fail?
+                 name: 'XXX'
+            """) { cmd in
+                cmd.valueAppend = ["fr-FR/name=!!!"]
+                cmd.valueDefault = ["de-DE/description=GERMAN DESCRIPTION"]
+                cmd.valueOverride = ["en-GB/subtitle=A jolly good app"]
+            }
+
+            XCTAssertEqual("Some App", result.metadata.first?.name)
+            XCTAssertEqual("123456789012345678901234567890", result.metadata.first?.subtitle)
+
+            XCTAssertEqual("Some App", try load(from: result.folder, path: "name.txt"))
+            XCTAssertEqual("123456789012345678901234567890", try load(from: result.folder, path: "subtitle.txt"))
+
+            XCTAssertEqual("Le App!!!", try load(from: result.folder, path: "fr-FR/name.txt"))
+
+            XCTAssertEqual("Ein App Awesome!", try load(from: result.folder, path: "de-DE/subtitle.txt"))
+            XCTAssertEqual("GERMAN DESCRIPTION", try load(from: result.folder, path: "de-DE/description.txt"))
+
+            XCTAssertEqual("A jolly good app", try load(from: result.folder, path: "en-GB/subtitle.txt"))
+            XCTAssertEqual("A super good app that does anything you want.", try load(from: result.folder, path: "en-GB/description.txt"))
+
+            // unrecognized locale; maybe we should fail?
+            XCTAssertEqual("XXX", try load(from: result.folder, path: "xxx/name.txt"))
+        }
+
+        do {
+            try await check("app:\n  subtitle: '1234567890123456789012345678901'") { cmd in
+            }
+            XCTFail("expected error from value over max length")
+        } catch {
+            // expected
+        }
+
+        do {
+            try await check("""
+            xapp:
+                name: "parse_error"
+            """) { cmd in
+
+            }
+            XCTFail("expected error from metadata parsing")
+        } catch {
+            // expected
+        }
+
+    }
+
+
 }
 
 public struct PackageManifest : Hashable, Decodable {

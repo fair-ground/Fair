@@ -50,13 +50,58 @@ extension FairCommand {
         @Option(name: [.long, .customShort("k")], help: ArgumentHelp("The root key containg the app metadata.", valueName: "key"))
         public var key: String = "app"
 
+        @Option(name: [.customLong("default")], help: ArgumentHelp("Property default value for the key.", valueName: "key=value"))
+        public var valueDefault: [String] = []
+
+        /// e.g.: `fairtool fair metadata --override "subtitle=A simple app" --override "fr-FR/subtitle=Une app simple"`
+        @Option(name: [.customLong("override")], help: ArgumentHelp("Property override value for the key.", valueName: "key=value"))
+        public var valueOverride: [String] = []
+
+        /// Appends the given property value to the specified metadata key (or, if the key does not exist, replaces it).
+        ///
+        /// e.g.: `fairtool fair metadata --append "description=\n\nSome more info about this app."`
+        @Option(name: [.customLong("append")], help: ArgumentHelp("Property append value for the key.", valueName: "key=value"))
+        public var valueAppend: [String] = []
+
         @Argument(help: ArgumentHelp("Path to the metadata file", valueName: "App.yml", visibility: .default))
         public var yaml: [String] = ["App.yml"]
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<AppMetadata, Error> {
+        /// Takes a string in the format of `key=value` and returns a tuple with the key and value.
+        func keyValueFormattedString(from keyValueString: String) -> (key: String, value: String?)? {
+            let separator: Character = "="
+            let parts = keyValueString.split(separator: separator, maxSplits: 2, omittingEmptySubsequences: false)
+            if parts.count < 2 {
+                return nil
+            }
+            return (key: String(parts[0]), value: parts[1].isEmpty ? nil : String(parts[1]))
+        }
+
+        /// The maximum permitted value of the given metadata key.
+        func maximumValueLength(for key: AppMetadata.CodingKeys) -> Int? {
+            switch key {
+            case .name: return 30
+            case .subtitle: return 30
+            case .keywords: return 100
+            case .description: return 4000
+            default: return nil
+            }
+        }
+
+        public func executeCommand() -> AsyncThrowingStream<AppMetadata, Error> {
             warnExperimental(Self.experimental)
+
+            let keyValues = { (vk: [String]) in
+                vk.compactMap(keyValueFormattedString(from:))
+                    .grouping(by: \.key)
+                    .mapValues(\.first?.value)
+            }
+
+            let overrides = keyValues(valueOverride)
+            let appends = keyValues(valueAppend)
+            let defaults = keyValues(valueDefault)
+
             return executeSeries(yaml, initialValue: nil) { yaml, prev in
                 msg(.info, "parsing metadata:", yaml)
                 let json = try JSum.parse(yaml: String(contentsOf: URL(fileOrScheme: yaml), encoding: .utf8))
@@ -72,8 +117,30 @@ extension FairCommand {
 
                     func saveMetadata(locale: String?, meta: AppMetadata) throws {
                         func save(_ value: String?, review: Bool = false, _ key: AppMetadata.CodingKeys) throws {
-                            guard let value = value else {
+                            if locale != nil && review == true {
+                                // review properties are not localized
                                 return
+                            }
+
+                            // CLI key is either '--default "key=the value"' or '--default "fr-FR/key=le value"'
+                            let locKey = (locale.map({ $0 + "/" }) ?? "") + key.rawValue
+
+                            // check for value-override, value-default, and vaue-append arguments
+                            let valueDefault = defaults[locKey] ?? nil
+                            let valueOverride = overrides[locKey] ?? nil
+                            let valueAppend = appends[locKey] ?? nil
+
+                            guard var value = valueOverride ?? value ?? valueDefault ?? valueAppend else {
+                                return
+                            }
+
+                            // append the value with the given value
+                            if let valueAppend = valueAppend, value != valueAppend {
+                                value = value + valueAppend
+                            }
+
+                            if let maxLength = maximumValueLength(for: key), value.count > maxLength {
+                                throw AppError(String(format: NSLocalizedString("The value for the property “%@” of length %@ is beyond the maximum length of %@", bundle: .module, comment: "error message"), arguments: [locKey, value.count as NSNumber, maxLength as NSNumber]))
                             }
 
                             var outputURL = exportURL
@@ -139,3 +206,4 @@ extension FairCommand {
     }
 }
 
+
