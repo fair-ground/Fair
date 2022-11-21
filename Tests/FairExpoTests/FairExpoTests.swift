@@ -575,8 +575,8 @@ final class FairExpoTests: XCTestCase {
             XCTAssertEqual("Some App", result.metadata.first?.name)
             XCTAssertEqual("123456789012345678901234567890", result.metadata.first?.subtitle)
 
-            XCTAssertEqual("Some App", try load(from: result.folder, path: "name.txt"))
-            XCTAssertEqual("123456789012345678901234567890", try load(from: result.folder, path: "subtitle.txt"))
+            XCTAssertEqual("Some App", try load(from: result.folder, path: "default/name.txt"))
+            XCTAssertEqual("123456789012345678901234567890", try load(from: result.folder, path: "default/subtitle.txt"))
 
             XCTAssertEqual("Le App!!!", try load(from: result.folder, path: "fr-FR/name.txt"))
 
