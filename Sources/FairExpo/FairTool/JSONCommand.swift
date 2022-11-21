@@ -86,7 +86,7 @@ public struct JSONCommand : AsyncParsableCommand {
             throw Errors.invalidBase64Key
         }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<JSum, Error> {
+        public func executeCommand() -> AsyncThrowingStream<JSum, Error> {
             warnExperimental(Self.experimental)
 
             return executeSeries(inputs, initialValue: nil) { input, prev in
@@ -134,7 +134,7 @@ public struct JSONCommand : AsyncParsableCommand {
             throw Errors.invalidBase64Key
         }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<[JSum], Error> {
+        public func executeCommand() -> AsyncThrowingStream<[JSum], Error> {
             warnExperimental(Self.experimental)
 
             return executeSeries(inputs, initialValue: nil) { input, prev in

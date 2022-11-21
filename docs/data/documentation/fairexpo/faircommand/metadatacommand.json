@@ -112,6 +112,9 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/key",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/msgOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/outputOptions",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueAppend",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueDefault",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueOverride",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/yaml"
       ],
       "title" : "Instance Properties"
@@ -404,23 +407,7 @@
     },
     {
       "kind" : "text",
-      "text" : "() "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
+      "text" : "() -> "
     },
     {
       "kind" : "typeIdentifier",
@@ -701,6 +688,130 @@
   "title" : "outputOptions",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/outputoptions"
+},
+"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/valueAppend": {
+  "abstract" : [
+    {
+      "text" : "Appends the given property value to the specified metadata key (or, if the key does not exist, replaces it).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueAppend"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueAppend",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "valueAppend",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valueappend"
+},
+"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/valueDefault": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueDefault"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueDefault",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "valueDefault",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valuedefault"
+},
+"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/valueOverride": {
+  "abstract" : [
+    {
+      "text" : "e.g.: ",
+      "type" : "text"
+    },
+    {
+      "code" : "fairtool fair metadata --override \"subtitle=A simple app\" --override \"fr-FR\/subtitle=Une app simple\"",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "valueOverride"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueOverride",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "valueOverride",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valueoverride"
 },
 "doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/yaml": {
   "abstract" : [

@@ -1,15 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairStructuredCommand.executeCommand()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
+      "text" : "Appends the given property value to the specified metadata key (or, if the key does not exist, replaces it).",
       "type" : "text"
     }
   ],
@@ -17,22 +9,22 @@
     "paths" : [
       [
         "doc:\/\/FairExpo\/documentation\/FairExpo",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand\/SignCommand"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand\/SignCommand\/executeCommand()"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueAppend"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo11JSONCommandV11SignCommandV07executeE0Scsy0A4Core4JSumOs5Error_pGyF",
+    "externalID" : "s:8FairExpo0A7CommandV08MetadataC0V11valueAppendSaySSGvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -40,38 +32,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "executeCommand"
+        "text" : "valueAppend"
       },
       {
         "kind" : "text",
-        "text" : "() -> "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Scs",
-        "text" : "AsyncThrowingStream"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore4JSumO",
-        "text" : "JSum"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s5ErrorP",
-        "text" : "Error"
-      },
-      {
-        "kind" : "text",
-        "text" : ">"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -80,9 +54,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "executeCommand()"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "valueAppend"
   },
   "primaryContentSections" : [
     {
@@ -97,7 +71,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "func"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -105,43 +79,65 @@
             },
             {
               "kind" : "identifier",
-              "text" : "executeCommand"
+              "text" : "valueAppend"
             },
             {
               "kind" : "text",
-              "text" : "() -> "
+              "text" : ": ["
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Scs",
-              "text" : "AsyncThrowingStream"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "<"
+              "text" : "] { "
             },
             {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore4JSumO",
-              "text" : "JSum"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s5ErrorP",
-              "text" : "Error"
+              "kind" : "keyword",
+              "text" : "get"
             },
             {
               "kind" : "text",
-              "text" : ">"
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "e.g.: ",
+              "type" : "text"
+            },
+            {
+              "code" : "fairtool fair metadata --append \"description=\\n\\nSome more info about this app.\"",
+              "type" : "codeVoice"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -155,7 +151,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/jsoncommand\/signcommand\/executecommand()"
+        "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valueappend"
       ],
       "traits" : [
         {
@@ -180,7 +176,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
 },
-"doc://FairExpo/documentation/FairExpo/JSONCommand": {
+"doc://FairExpo/documentation/FairExpo/FairCommand": {
   "abstract" : [
 
   ],
@@ -195,23 +191,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "JSONCommand"
+      "text" : "FairCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "JSONCommand"
+      "text" : "FairCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "JSONCommand",
+  "title" : "FairCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/jsoncommand"
+  "url" : "\/documentation\/fairexpo\/faircommand"
 },
-"doc://FairExpo/documentation/FairExpo/JSONCommand/SignCommand": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand": {
   "abstract" : [
 
   ],
@@ -226,30 +222,33 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SignCommand"
+      "text" : "MetadataCommand"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand\/SignCommand",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SignCommand"
+      "text" : "MetadataCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "JSONCommand.SignCommand",
+  "title" : "FairCommand.MetadataCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/jsoncommand\/signcommand"
+  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand"
 },
-"doc://FairExpo/documentation/FairExpo/JSONCommand/SignCommand/executeCommand()": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/valueAppend": {
   "abstract" : [
-
+    {
+      "text" : "Appends the given property value to the specified metadata key (or, if the key does not exist, replaces it).",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -257,46 +256,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "executeCommand"
+      "text" : "valueAppend"
     },
     {
       "kind" : "text",
-      "text" : "() -> "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Scs",
-      "text" : "AsyncThrowingStream"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore4JSumO",
-      "text" : "JSum"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand\/SignCommand\/executeCommand()",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueAppend",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "executeCommand()",
+  "title" : "valueAppend",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/jsoncommand\/signcommand\/executecommand()"
+  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valueappend"
 }
 }
 }

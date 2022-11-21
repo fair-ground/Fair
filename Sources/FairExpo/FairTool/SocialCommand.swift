@@ -66,14 +66,14 @@ public struct SocialCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<Tweeter.PostResponse, Error> {
+        public func executeCommand() -> AsyncThrowingStream<Tweeter.PostResponse, Error> {
             warnExperimental(Self.experimental)
-            let auth = try tweetOptions.createAuth()
-
             var initialTweetID: Tweeter.TweetID? = nil
 
             return executeSeries(body, initialValue: nil) { body, prev in
                 msg(.info, "tweeting body:", body)
+                let auth = try tweetOptions.createAuth()
+
                 if let prev = prev {
                     initialTweetID = initialTweetID ?? prev.response?.data.id // remember just the initial tweet id
                     if conversation {

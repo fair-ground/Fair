@@ -1,18 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Inherited from ",
-      "type" : "text"
-    },
-    {
-      "code" : "FairStructuredCommand.executeCommand()",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -24,15 +10,15 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/executeCommand()"
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueDefault"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairExpo0A7CommandV08MetadataC0V07executeC0ScsyAA03AppD0Vs5Error_pGyF",
+    "externalID" : "s:8FairExpo0A7CommandV08MetadataC0V12valueDefaultSaySSGvp",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "func"
+        "text" : "var"
       },
       {
         "kind" : "text",
@@ -40,38 +26,20 @@
       },
       {
         "kind" : "identifier",
-        "text" : "executeCommand"
+        "text" : "valueDefault"
       },
       {
         "kind" : "text",
-        "text" : "() -> "
+        "text" : ": ["
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Scs",
-        "text" : "AsyncThrowingStream"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
-        "text" : "<"
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairExpo11AppMetadataV",
-        "text" : "AppMetadata"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s5ErrorP",
-        "text" : "Error"
-      },
-      {
-        "kind" : "text",
-        "text" : ">"
+        "text" : "]"
       }
     ],
     "modules" : [
@@ -80,9 +48,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Method",
-    "symbolKind" : "method",
-    "title" : "executeCommand()"
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "valueDefault"
   },
   "primaryContentSections" : [
     {
@@ -97,7 +65,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "func"
+              "text" : "var"
             },
             {
               "kind" : "text",
@@ -105,39 +73,36 @@
             },
             {
               "kind" : "identifier",
-              "text" : "executeCommand"
+              "text" : "valueDefault"
             },
             {
               "kind" : "text",
-              "text" : "() -> "
+              "text" : ": ["
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Scs",
-              "text" : "AsyncThrowingStream"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "<"
+              "text" : "] { "
             },
             {
-              "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppMetadata",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairExpo11AppMetadataV",
-              "text" : "AppMetadata"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s5ErrorP",
-              "text" : "Error"
+              "kind" : "keyword",
+              "text" : "get"
             },
             {
               "kind" : "text",
-              "text" : ">"
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -156,7 +121,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairexpo\/faircommand\/metadatacommand\/executecommand()"
+        "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valuedefault"
       ],
       "traits" : [
         {
@@ -180,40 +145,6 @@
   "title" : "FairExpo",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo"
-},
-"doc://FairExpo/documentation/FairExpo/AppMetadata": {
-  "abstract" : [
-    {
-      "text" : "https:\/\/docs.fastlane.tools\/actions\/deliver\/#available-metadata-folder-options",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppMetadata"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppMetadata",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppMetadata"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppMetadata",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appmetadata"
 },
 "doc://FairExpo/documentation/FairExpo/FairCommand": {
   "abstract" : [
@@ -277,14 +208,14 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand"
 },
-"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/executeCommand()": {
+"doc://FairExpo/documentation/FairExpo/FairCommand/MetadataCommand/valueDefault": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "func"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -292,46 +223,28 @@
     },
     {
       "kind" : "identifier",
-      "text" : "executeCommand"
+      "text" : "valueDefault"
     },
     {
       "kind" : "text",
-      "text" : "() -> "
+      "text" : ": ["
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Scs",
-      "text" : "AsyncThrowingStream"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairExpo11AppMetadataV",
-      "text" : "AppMetadata"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5ErrorP",
-      "text" : "Error"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
+      "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/executeCommand()",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand\/MetadataCommand\/valueDefault",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "executeCommand()",
+  "title" : "valueDefault",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/executecommand()"
+  "url" : "\/documentation\/fairexpo\/faircommand\/metadatacommand\/valuedefault"
 }
 }
 }

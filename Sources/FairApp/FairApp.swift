@@ -920,6 +920,7 @@ public struct AppError : LocalizedError {
     /// An underlying error
     public let underlyingError: Error?
 
+    @available(*, deprecated, message: "use error message constructor")
     public init(function: StaticString = #function, file: StaticString = #file, line: UInt = #line) {
         self.init("Error at \(function) in \(file):\(line)")
     }

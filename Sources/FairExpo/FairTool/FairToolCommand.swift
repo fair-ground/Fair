@@ -107,7 +107,7 @@ public protocol FairParsableCommand : FairMsgCommand {
 /// A command that will issue an asynchronous stream of output items
 public protocol FairStructuredCommand : FairParsableCommand where Output : FairCommandOutput {
     /// Executes the command and results a streaming result of command responses
-    func executeCommand() async throws -> AsyncThrowingStream<Output, Error>
+    func executeCommand() -> AsyncThrowingStream<Output, Error>
 
     func writeCommandStart() throws
     func writeCommandEnd() throws
@@ -120,7 +120,7 @@ public extension FairStructuredCommand {
     func run() async throws {
         try writeCommandStart()
         msgOptions.writeOutputStart()
-        var elements = try await self.executeCommand().makeAsyncIterator()
+        var elements = self.executeCommand().makeAsyncIterator()
         if let first = try await elements.next() {
             try msgOptions.writeOutput(first)
             while let element = try await elements.next() {

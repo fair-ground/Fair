@@ -119,7 +119,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<Output, Error> {
+        public func executeCommand() -> AsyncThrowingStream<Output, Error> {
             return executeStream(apps) { app in
                 msg(.info, "creating app catalog:", app)
                 let url = URL(fileOrScheme: app)
@@ -191,7 +191,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
         public init() { }
 
-        public func executeCommand() async throws -> AsyncThrowingStream<Output, Error> {
+        public func executeCommand() -> AsyncThrowingStream<Output, Error> {
             return msgOptions.executeStreamJoined(catalogs) { catalog in
                 msg(.debug, "verifying catalog:", catalog)
                 let url = URL(string: catalog)
