@@ -206,4 +206,3 @@ extension FairCommand {
     }
 }
 
-
