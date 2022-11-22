@@ -199,6 +199,9 @@ extension FairCommand {
                         }
                     }
 
+                    // the en-US folder needs to exist for the default metadata to be used in english
+                    try FileManager.default.createDirectory(at: URL(fileURLWithPath: "en-US", isDirectory: true, relativeTo: exportURL), withIntermediateDirectories: true)
+
                     // save the root metadata; if there exists localizations, then save the root localizations to the "default" folder as expected by https://docs.fastlane.tools/actions/deliver/#default-values
                     try saveMetadata(locale: nil, meta: appMeta)
 
