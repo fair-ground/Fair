@@ -546,8 +546,8 @@ final class FairExpoTests: XCTestCase {
             let result = try await check("app:\n  name: 'Some App'\n  subtitle: '123456789012345678901234567890'")
             XCTAssertEqual("Some App", result.metadata.first?.name)
             XCTAssertEqual("123456789012345678901234567890", result.metadata.first?.subtitle)
-            XCTAssertEqual("Some App", try load(from: result.folder, path: "name.txt"))
-            XCTAssertEqual("123456789012345678901234567890", try load(from: result.folder, path: "subtitle.txt"))
+            XCTAssertEqual("Some App", try load(from: result.folder, path: "default/name.txt"))
+            XCTAssertEqual("123456789012345678901234567890", try load(from: result.folder, path: "default/subtitle.txt"))
         }
 
 
