@@ -96,6 +96,9 @@ extension FairCommand {
                 vk.compactMap(keyValueFormattedString(from:))
                     .grouping(by: \.key)
                     .mapValues(\.first?.value)
+                    .mapValues({
+                        $0?.replacingOccurrences(of: "\\n", with: "\n") // allow literal "\n" in the text to indicate line breaks
+                    })
             }
 
             let overrides = keyValues(valueOverride)
@@ -146,7 +149,11 @@ extension FairCommand {
                             var outputURL = exportURL
                             if let locale = locale {
                                 outputURL = URL(fileURLWithPath: locale, isDirectory: true, relativeTo: outputURL)
+                            } else if review == false {
+                                // localizable properties get put in the "default" folder
+                                outputURL = URL(fileURLWithPath: "default", isDirectory: true, relativeTo: outputURL)
                             }
+
                             if review {
                                 outputURL = URL(fileURLWithPath: "review_information", isDirectory: true, relativeTo: outputURL)
                             }
@@ -193,7 +200,7 @@ extension FairCommand {
                     }
 
                     // save the root metadata; if there exists localizations, then save the root localizations to the "default" folder as expected by https://docs.fastlane.tools/actions/deliver/#default-values
-                    try saveMetadata(locale: appMeta.localizations?.isEmpty == false ? "default" : nil, meta: appMeta)
+                    try saveMetadata(locale: nil, meta: appMeta)
 
                     // save the localized app metadatas
                     for (localeName, localizedAppMeta) in appMeta.localizations ?? [:] {
