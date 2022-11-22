@@ -267,6 +267,12 @@ extension FairHub {
                 let appTitle = fork.name
                 var app = AppCatalogItem(name: appTitle)
 
+                // TODO: specify downloadBase as a parameter to the command
+                if let downloadBase = URL(string: "https://github.com/") {
+                    let forkURL = downloadBase.appendingPathComponent(fork.nameWithOwner)
+                    app.downloadURL = forkURL
+                }
+
                 app.subtitle = fork.description
                 // app.localizedDescription = localizedDescription
                 app.categories = (categories.isEmpty ? nil : categories)
