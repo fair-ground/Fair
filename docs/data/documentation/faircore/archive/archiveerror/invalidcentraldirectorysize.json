@@ -1,0 +1,226 @@
+{
+  "abstract" : [
+    {
+      "text" : "Thrown when the size of central directory exceeds ",
+      "type" : "text"
+    },
+    {
+      "code" : "UInt64.max",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (Imposed by ZIP specification).",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/ArchiveError"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/ArchiveError\/invalidCentralDirectorySize"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore7ArchiveC0C5ErrorO27invalidCentralDirectorySizeyA2EmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "invalidCentralDirectorySize"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "Archive.ArchiveError.invalidCentralDirectorySize"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "invalidCentralDirectorySize"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/archive\/archiveerror\/invalidcentraldirectorysize"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/Archive": {
+  "abstract" : [
+    {
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Archive"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Archive"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Archive",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive"
+},
+"doc://FairCore/documentation/FairCore/Archive/ArchiveError": {
+  "abstract" : [
+    {
+      "text" : "An error that occurs during reading, creating or updating a ZIP file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArchiveError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/ArchiveError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArchiveError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Archive.ArchiveError",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive\/archiveerror"
+},
+"doc://FairCore/documentation/FairCore/Archive/ArchiveError/invalidCentralDirectorySize": {
+  "abstract" : [
+    {
+      "text" : "Thrown when the size of central directory exceeds ",
+      "type" : "text"
+    },
+    {
+      "code" : "UInt64.max",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (Imposed by ZIP specification).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidCentralDirectorySize"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/ArchiveError\/invalidCentralDirectorySize",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Archive.ArchiveError.invalidCentralDirectorySize",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive\/archiveerror\/invalidcentraldirectorysize"
+}
+}
+}

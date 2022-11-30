@@ -195,11 +195,12 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
         let allLocalizations = try self.configuredLocales()
 
         let targetloc = targetLocales ?? allLocalizations
-        let devloc = bundle.developmentLocalization.flatMap(Locale.init(identifier:))
+        //let devloc = bundle.developmentLocalization.flatMap(Locale.init(identifier:))
+        let devloc = Locale(identifier: "en-US") // the base screenshots folder
 
-        let locales = ((devloc.map({ [$0] }) ?? []) + (targetloc ?? [])).uniquing(by: \.identifier).array()
+        let locales = ([devloc] + (targetloc ?? [])).uniquing(by: \.identifier).array()
         
-        dbg("creating screenshots for class:", Self.self, "bundle:", self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier), bundle.preferredLocalizations)
+        dbg("creating screenshots for class:", Self.self, "bundle:", self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier))
 
         let devices = targetDevices ?? [DevicePreview.iPhone8Plus, .iPhone14Plus, .iPadPro6]
 
