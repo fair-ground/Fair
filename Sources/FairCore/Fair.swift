@@ -660,6 +660,13 @@ public extension Date {
     func localizedDate(dateStyle: DateFormatter.Style = .medium, timeStyle: DateFormatter.Style = .medium) -> String {
         DateFormatter.localizedString(from: self, dateStyle: dateStyle, timeStyle: timeStyle)
     }
+
+    #if !os(Darwin)
+    /// Shim for missing `ISO8601Format` on Linux; note that it does not take the `Date.ISO8601FormatStyle` argument.
+    func ISO8601Format() -> String {
+        iso8601.string(from: self)
+    }
+    #endif
 }
 
 public extension URL {
