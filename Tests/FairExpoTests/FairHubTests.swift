@@ -208,6 +208,7 @@ final class FairHubTests: XCTestCase {
 
         // tests that paginated queries work and return consistent results
         // Note that this can fail when a catalog update occurs during the sequence of runs
+        // e.g.: testCatalogQuery(): failed: caught error: "The operation couldn’t be completed. Something went wrong while executing your query. This may be the result of a timeout, or it could be a GitHub bug. Please include `EBCB:1386:4A828EB:9901AA6:638F6055` when reporting this issue."
         var resultResults: [[FairHub.BaseFork]] = []
         let results = hub.requestBatchedStream(FairHub.CatalogForksQuery(owner: appfairName, name: baseFairgroundRepoName, count: Int.random(in: 8...18)))
         for try await result in results {

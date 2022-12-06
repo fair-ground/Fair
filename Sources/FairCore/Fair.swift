@@ -1063,6 +1063,73 @@ public final class Plist : RawRepresentable, Hashable {
     }
 }
 
+extension NSDictionary {
+    public func jsum(failure: (Any) throws -> () = { _ in }) rethrows -> JSum {
+        try Self.jsum(dictionary: self, failure: failure)
+    }
+
+    private static func jsum(dictionary: NSDictionary, failure: (Any) throws -> ()) rethrows -> JSum {
+        var obj = JObj()
+
+        for (key, value) in dictionary {
+            guard let key = key as? String else {
+                try failure(key)
+                continue
+            }
+
+            try obj[key] = jsum(element: value, failure: failure)
+        }
+
+        return .obj(obj)
+    }
+
+    private static func jsum(array: NSArray, failure: (Any) throws -> ()) rethrows -> JSum {
+        var arr: [JSum] = []
+
+        for value in array {
+            try arr.append(jsum(element: value, failure: failure))
+        }
+
+        return .arr(arr)
+    }
+
+    /// Converts this `NSDictionary` into a `JSum` type, optionally failing on un-translatable elements.
+    private static func jsum(element: Any, failure: (Any) throws -> ()) rethrows -> JSum {
+        if let obj = element as? NSDictionary {
+            return try jsum(dictionary: obj, failure: failure)
+        } else if let arr = element as? NSArray {
+            return try jsum(array: arr, failure: failure)
+        } else if let data = element as? Data {
+            return .str(data.base64EncodedString())
+        } else if let date = element as? Date {
+            return .str(iso8601.string(from: date))
+        } else if let _ = element as? NSNull {
+            return .nul
+        } else if let str = element as? String {
+            return .str(str)
+        } else if let bol = element as? Bool {
+            return .bol(bol)
+        } else if let num = element as? NSNumber {
+            if CFNumberGetType(num) == .charType {
+                return .bol(num.boolValue)
+            } else {
+                return .num(num.doubleValue)
+            }
+        } else {
+            try failure(element)
+            return .nul
+        }
+    }
+}
+
+/// A shared date formatter for JSON serialization
+private let iso8601: ISO8601DateFormatter = {
+    let formatter = ISO8601DateFormatter()
+    formatter.formatOptions = [.withInternetDateTime]
+    return formatter
+}()
+
+
 extension JSum {
     /// Parses the given JSON data into a JSum structure.
     public static func parse(json data: Data, allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws -> JSum {

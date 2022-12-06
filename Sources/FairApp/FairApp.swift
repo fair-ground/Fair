@@ -164,7 +164,7 @@ extension Plist {
         dict["downloadURL"] = downloadURL.absoluteString
 
         // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
-        var item = try AppCatalogItem(json: Plist(rawValue: NSDictionary(dictionary: dict, copyItems: true)).jsum().json())
+        var item = try AppCatalogItem(jsum: Plist(rawValue: NSDictionary(dictionary: dict, copyItems: true)).jsum())
 
         // clear items that should not be imported from the info plist
         item.sha256 = nil

@@ -784,3 +784,66 @@ public actor FileSystemObserver {
     }
 }
 #endif
+
+public struct DynamicBundleError : LocalizedError {
+    public var errorDescription: String?
+}
+
+extension Bundle {
+    /// Searches for the native library with the given name and invokes `registerLibrary()`.
+    ///
+    /// A dynamic library whose native functionality can be loaded at runtime.
+    ///
+    /// - Parameters:
+    ///   - name: the name of the extensions library
+    ///   - registerPrefix: the prefix for the registration function to invoke.
+    ///   - frameworksFolder: the folder in which to search for frameworks
+    /// - Returns: the return value for the `registerPrefix``extensionName` C function invocation, which must be `@convention(c) () -> Bool` (a no-argument function that reutrns a Bool)
+    public func registerDynamic(name extensionName: String, registerPrefix: String = "register", in frameworksFolder: String? = "PackageFrameworks") throws -> Bool {
+        let bundle = self
+
+        func findPluginPath(for name: String) throws -> URL {
+            guard let frameworksFolder = frameworksFolder else {
+                guard let exeURL = bundle.executableURL else {
+                    throw DynamicBundleError(errorDescription: "Missing executable URL for bundle: \(bundle)")
+                }
+                return exeURL
+            }
+
+            let baseURL = URL(fileURLWithPath: frameworksFolder, isDirectory: true, relativeTo: bundle.bundleURL.appendingPathComponent(".."))
+
+            guard let frameworkBundle = Bundle(url: URL(fileURLWithPath: name + ".framework", isDirectory: true, relativeTo: baseURL)) else {
+                throw DynamicBundleError(errorDescription: "missing \(name).framework folder in \(baseURL.path)")
+            }
+
+            let bundleExecutable = URL(fileURLWithPath: name, isDirectory: false, relativeTo: frameworkBundle.bundleURL)
+            dbg("checking bundleExecutable:", bundleExecutable.path)
+            guard FileManager.default.isExecutableFile(atPath: bundleExecutable.path) else {
+                throw DynamicBundleError(errorDescription: "module is not executable at: \(bundleExecutable.path)")
+            }
+            return bundleExecutable
+        }
+
+        typealias RegisterPluginFunction = @convention(c) () -> Bool
+
+        let bundlePath = try findPluginPath(for: extensionName)
+        let registerFunctionName = registerPrefix + extensionName // the name of the C function to call to register
+
+        guard let pluginHandle = dlopen(bundlePath.path, RTLD_NOW) else {
+            if let error = dlerror() {
+                throw DynamicBundleError(errorDescription: "dlopen error: \(String(cString: error))")
+            } else {
+                throw DynamicBundleError(errorDescription: "Unknown dlopen error")
+            }
+        }
+
+        guard let registerPlugin = dlsym(pluginHandle, registerFunctionName).map({ unsafeBitCast($0, to: (RegisterPluginFunction).self) }) else {
+            throw DynamicBundleError(errorDescription: "Plugin doesn't contain the expected symbol")
+        }
+
+        let result = registerPlugin()
+        return result
+    }
+
+}
+

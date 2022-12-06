@@ -227,7 +227,6 @@ final class FairAppTests: XCTestCase {
 
         XCTAssertEqual(4, colorValues.count)
         XCTAssertEqual(1, Set(colorValues).count, "color values should have all been the same value: \(colorValues)")
-
     }
 
     func testAssetNames() throws {
@@ -442,6 +441,7 @@ final class FairAppTests: XCTestCase {
         let iconSet = try AppIconSet(json: contents.utf8Data)
         let json = try iconSet.json(outputFormatting: [.prettyPrinted, .sortedKeys]).utf8String
         XCTAssertEqual(contents, json)
+        try XCTAssertEqual(iconSet.jsum(), JSum(json: json?.utf8Data ?? .init()))
 
         XCTAssertEqual("appicon-iphone-60x60@2x.png", iconSet.images(idiom: "iphone", scale: "2x", size: "60x60").first?.filename)
         XCTAssertEqual("appicon-iphone-60x60@3x.png", iconSet.images(idiom: "iphone", scale: "3x", size: "60x60").first?.filename)
@@ -557,21 +557,40 @@ final class FairAppTests: XCTestCase {
 
     /// Ensures that a bare-bones minimal catalog can be loaded
     func testParseCatalog() throws {
-        let catalog = try AppCatalog.parse(jsonData: """
-        {
-          "name": "My Catalog",
-          "identifier": "a.b.c",
-          "apps": [
+        do {
+            let catalog = try AppCatalog.parse(jsonData: """
             {
-              "name": "My App",
-              "bundleIdentifier": "x.y.z",
-              "downloadURL": "https://www.example.com/MyApp.ipa"
+              "name": "My Catalog",
+              "apps": []
             }
-          ]
-        }
-        """.utf8Data)
+            """.utf8Data)
 
-        XCTAssertEqual("My App", catalog.apps.first?.name)
+            XCTAssertEqual("My Catalog", catalog.name)
+            XCTAssertEqual(try catalog.jsum().canonicalJSON, """
+            {"apps":[],"name":"My Catalog"}
+            """)
+        }
+
+        do {
+            let catalog = try AppCatalog.parse(jsonData: """
+            {
+              "name": "My Catalog",
+              "identifier": "a.b.c",
+              "apps": [
+                {
+                  "name": "My App",
+                  "bundleIdentifier": "x.y.z",
+                  "downloadURL": "https://www.example.com/MyApp.ipa"
+                }
+              ]
+            }
+            """.utf8Data)
+
+            XCTAssertEqual("My App", catalog.apps.first?.name)
+            XCTAssertEqual(try catalog.jsum().canonicalJSON, """
+            {"apps":[{"bundleIdentifier":"x.y.z","downloadURL":"https://www.example.com/MyApp.ipa","name":"My App"}],"identifier":"a.b.c","name":"My Catalog"}
+            """)
+        }
     }
 
     #if canImport(Darwin)
