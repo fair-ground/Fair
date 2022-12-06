@@ -555,6 +555,14 @@ final class FairCoreTests: XCTestCase {
         XCTAssertTrue(array.isEmpty)
         XCTAssertEqual(0, array.count)
     }
+
+    /// Tests the formatting of `ISO8601Format`, which is absent on Linux and so it implemented via a formatter.
+    func testISO8601Format() {
+        XCTAssertEqual("1970-01-01T00:00:00Z", Date(timeIntervalSince1970: 0).ISO8601Format())
+        XCTAssertEqual("2001-01-01T00:00:00Z", Date(timeIntervalSinceReferenceDate: 0).ISO8601Format())
+        XCTAssertEqual("0001-01-01T00:00:00Z", Date.distantPast.ISO8601Format())
+        XCTAssertEqual("4001-01-01T00:00:00Z", Date.distantFuture.ISO8601Format())
+    }
 }
 
 extension String {
