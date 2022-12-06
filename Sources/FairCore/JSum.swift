@@ -421,6 +421,8 @@ protocol TopLevelJSumEncoder : TopLevelEncoder {
 protocol TopLevelJSumDecoder : TopLevelDecoder {
 }
 #else
+protocol TopLevelJSumEncoder {
+}
 protocol TopLevelJSumDecoder {
 }
 #endif

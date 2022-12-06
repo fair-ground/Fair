@@ -1110,11 +1110,15 @@ extension NSDictionary {
         } else if let bol = element as? Bool {
             return .bol(bol)
         } else if let num = element as? NSNumber {
+            #if canImport(ObjectiveC)
             if CFNumberGetType(num) == .charType {
                 return .bol(num.boolValue)
             } else {
                 return .num(num.doubleValue)
             }
+            #else
+            return .num(num.doubleValue)
+            #endif
         } else {
             try failure(element)
             return .nul
