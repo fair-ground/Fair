@@ -86,7 +86,7 @@ jobs:
       - name: Test macOS (Debug)
         run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
 
-      - name: Build macOS (Release)
+      - name: Test macOS (Release)
         run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
 
       - name: Check fairtool formula
