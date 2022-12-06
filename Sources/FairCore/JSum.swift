@@ -358,8 +358,6 @@ private extension _JSumContainer {
     }
 }
 
-import Combine
-
 /// A set of options for decoding an entity from a `JSum` instance.
 open class JSumDecodingOptions {
     /// The strategy to use in decoding dates. Defaults to `.deferredToDate`.
@@ -420,8 +418,10 @@ open class JSumEncodingOptions {
 import Combine
 protocol TopLevelJSumEncoder : TopLevelEncoder {
 }
+protocol TopLevelJSumDecoder : TopLevelDecoder {
+}
 #else
-protocol TopLevelJSumEncoder {
+protocol TopLevelJSumDecoder {
 }
 #endif
 
@@ -489,7 +489,7 @@ public class JSumEncoder : TopLevelJSumEncoder {
 
 
 /// `JSumDecoder` facilitates the decoding of `JSum` values into `Decodable` types.
-public class JSumDecoder {
+public class JSumDecoder : TopLevelJSumDecoder {
     @usableFromInline let options: JSumDecodingOptions
 
     /// Initializes `self` with default strategies.
