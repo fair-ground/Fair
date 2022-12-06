@@ -79,113 +79,132 @@ final class JSumTests : XCTestCase {
         XCTAssertEqual(js, js2)
     }
 
-    func testJSumDictionary() throws {
-        do {
-            let dict = NSDictionary(dictionary: [
-                "t": NSDate(timeIntervalSinceReferenceDate: 0)
-            ])
-            XCTAssertEqual(["t": "2001-01-01T00:00:00Z"], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "s": "a"
-            ])
-            XCTAssertEqual(["s": "a"], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "i": 1
-            ])
-            XCTAssertEqual(["i": 1], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "d": 1.2
-            ])
-            XCTAssertEqual(["d": 1.2], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "n": NSNull()
-            ])
-            XCTAssertEqual(["n": nil], try dict.jsum())
-        }
-
-        do {
-            for b in [true, false] {
-                let dict = NSDictionary(dictionary: [
-                    "b": NSNumber(booleanLiteral: b)
-                ])
-                XCTAssertEqual(["b": .bol(b)], try dict.jsum())
-            }
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "x": "y",
-                "y": true,
-                "z": 1.2,
-            ])
-            XCTAssertEqual(["x": "y", "y": true, "z": 1.2], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "a": [true, false, "x", [], [:]]
-            ])
-            XCTAssertEqual(["a": [true, false, "x", [], [:]]], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "a": []
-            ])
-            XCTAssertEqual(["a": []], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "a": [[]]
-            ])
-            XCTAssertEqual(["a": [[]]], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "a": [[[:]]]
-            ])
-            XCTAssertEqual(["a": [[[:]]]], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "data": NSData(base64Encoded: "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA")!
-            ])
-            XCTAssertEqual(["data": "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA"], try dict.jsum())
-        }
-
-        do {
-            let dict = NSDictionary(dictionary: [
-                "q": [true, NSUUID(), 3.14159]
-            ])
-            XCTAssertThrowsError(try dict.jsum(), "expected cannotEncode error")
-            XCTAssertEqual(["q": [true, 3.14159]], try dict.jsum(options: [.ignoreNonEncodable]))
-        }
-    }
+//    func testJSumDictionary() throws {
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "t": NSDate(timeIntervalSinceReferenceDate: 0)
+//            ])
+//            XCTAssertEqual(["t": "2001-01-01T00:00:00Z"], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "s": "a"
+//            ])
+//            XCTAssertEqual(["s": "a"], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "i": 1
+//            ])
+//            XCTAssertEqual(["i": 1], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "d": 1.2
+//            ])
+//            XCTAssertEqual(["d": 1.2], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "n": NSNull()
+//            ])
+//            XCTAssertEqual(["n": nil], try dict.jsum())
+//        }
+//
+//        do {
+//            for b in [true, false] {
+//                let dict = NSDictionary(dictionary: [
+//                    "b": NSNumber(booleanLiteral: b)
+//                ])
+//                XCTAssertEqual(["b": .bol(b)], try dict.jsum())
+//            }
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "x": "y",
+//                "y": true,
+//                "z": 1.2,
+//            ])
+//            XCTAssertEqual(["x": "y", "y": true, "z": 1.2], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "a": [true, false, "x", [], [:]]
+//            ])
+//            XCTAssertEqual(["a": [true, false, "x", [], [:]]], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "a": []
+//            ])
+//            XCTAssertEqual(["a": []], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "a": [[]]
+//            ])
+//            XCTAssertEqual(["a": [[]]], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "a": [[[:]]]
+//            ])
+//            XCTAssertEqual(["a": [[[:]]]], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "data": NSData(base64Encoded: "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA")!
+//            ])
+//            XCTAssertEqual(["data": "YnBsaXN0MDDTAQIDBAUGWXN0cmluZ0tleVZpbnRLZXleYXJyYXlPZlN0cmluZ3NTeHl6EAKiBwhTYWJjU2RlZggPGSAvMzU4PAAAAAAAAAEBAAAAAAAAAAkAAAAAAAAAAAAAAAAAAABA"], try dict.jsum())
+//        }
+//
+//        do {
+//            let dict = NSDictionary(dictionary: [
+//                "q": [true, NSUUID(), 3.14159]
+//            ])
+//            XCTAssertThrowsError(try dict.jsum(), "expected cannotEncode error")
+//            XCTAssertEqual(["q": [true, 3.14159]], try dict.jsum(options: [.ignoreNonEncodable]))
+//        }
+//    }
 
     func testJSumPropertyLists() throws {
         func plist(_ value: Data) throws -> JSum {
-            try JSum.parse(plist: value)
+            try Plist(data: value).jsum()
         }
 
         // Old-school NeXTSTEP property list text format
         XCTAssertEqual(["key": "value"], try plist(#"{ "key" = "value"; }"#.utf8Data))
         XCTAssertEqual(["key": ["1"]], try plist(#"{ "key" = ( "1" ); }"#.utf8Data))
         // XCTAssertEqual(["key": [2.0]], try plist(#"{ "key" = ( 2 ); }"#.utf8Data))
+
+        // Old-style plist parser (errors will be like: “missing semicolon or value in dictionary on line 16. Parsing will be abandoned. Break on _CFPropertyListMissingSemicolonOrValue to debug.”)
+        XCTAssertEqual(["key1": "value1", "key2": "2", "key3": "true", "_key4": "xxx"], try plist("""
+        /* comment */
+        "key1" = "value1";
+
+
+        /* comment 2 */
+        "key2" = 2;
+
+        /* multi-line
+           comment */
+
+        "key3" = true;
+
+        // single-line comment
+        _key4 = xxx;
+
+        """.utf8Data))
 
         XCTAssertEqual(["key": ["1"]], try plist("""
             <?xml version="1.0" encoding="UTF-8"?>
@@ -251,36 +270,58 @@ final class JSumTests : XCTestCase {
 
     }
 
+    enum ParseKind : String {
+        case json
+        case yaml
+        case jsum
+    }
+
     /// Compare the parsing of YAML to JSON with a randomly created blob
-    func measureParsing(yaml: Bool) throws {
+    func measureParsing(kind: ParseKind) throws {
         var rng = SeededRandomNumberGenerator(uuids: UUID(uuidString: "A2735FD6-9AA2-4D4C-A38C-204032777FB0")!)
 
-        let jsonString = try createSampleJSON(depth: 4, breadth: 8, rng: &rng).prettyJSON // 135K of JSON
+        // depth=5, breadth=9 => 136K
+        // depth=4, breadth=9 => 14K
+        let jsum = createSampleJSON(depth: 4, breadth: 9, rng: &rng)
+        let jsonString = try jsum.prettyJSON
         let jsonData = jsonString.utf8Data
-        dbg("parsing", yaml ? "YAML" : "JSON", "size:", jsonData.count) // , jsonString)
+        dbg("parsing", kind, "size:", jsonData.count) // , jsonString)
         measure {
             do {
-                if yaml {
-                    let _ = try JSum.parse(yaml: jsonString)
-                } else {
-                    let _ = try JSum.parse(json: jsonData)
+                switch kind {
+                case .yaml:
+                    let x = try JSum.parse(yaml: jsonString)
+                    XCTAssertEqual(jsum, x)
+                case .json:
+                    let x = try JSum.parse(json: jsonData)
+                    XCTAssertEqual(jsum, x)
+                case .jsum:
+                    let x = try JSum(jsum: jsum) // “parse” from an in-memory JSum
+                    XCTAssertEqual(jsum, x)
                 }
             } catch {
-                dbg("error parsing", yaml ? "YAML" : "JSON", error)
+                dbg("error parsing", kind, error)
             }
         }
     }
 
-    func testJSumPerformance() throws {
-        // DEBUG: measured [Time, seconds] average: 0.027, relative standard deviation: 17.855%, values: [0.041431, 0.029785, 0.026326, 0.025420, 0.025128, 0.025061, 0.025044, 0.025029, 0.025122, 0.025348]
-        // RELEASE: measured [Time, seconds] average: 0.027, relative standard deviation: 7.668%, values: [0.032428, 0.027311, 0.025933, 0.026352, 0.025509, 0.025922, 0.025220, 0.025139, 0.025720, 0.026276]
-        try measureParsing(yaml: false)
+
+    func testParseJSONPerformance() throws {
+        // DEBUG: 14K: measured [Time, seconds] average: 0.004, relative standard deviation: 20.388%, values: [0.006096, 0.003659, 0.003470, 0.003649, 0.003550, 0.003524, 0.003419, 0.003496, 0.003568, 0.003460]
+        // DEBUG: 136K: measured [Time, seconds] average: 0.031, relative standard deviation: 20.316%, values: [0.049674, 0.030524, 0.029786, 0.028808, 0.027710, 0.028118, 0.028606, 0.028499, 0.028976, 0.028782]
+        try measureParsing(kind: .json)
     }
 
-    func testYamlPerformance() throws {
-        // DEBUG: measured [Time, seconds] average: 4.046, relative standard deviation: 1.153%, values: [4.017945, 4.027974, 4.121748, 4.068883, 4.119683, 4.083788, 4.009897, 4.011217, 3.984456, 4.011185]
-        // RELEASE: measured [Time, seconds] average: 3.915, relative standard deviation: 0.736%, values: [3.929669, 3.981362, 3.914365, 3.944234, 3.912913, 3.876745, 3.901432, 3.895805, 3.892070, 3.898265]
-        try measureParsing(yaml: true)
+    func testParseJSumPerformance() throws {
+        // DEBUG: 14K: measured [Time, seconds] average: 0.002, relative standard deviation: 4.282%, values: [0.002516, 0.002369, 0.002197, 0.002189, 0.002437, 0.002381, 0.002297, 0.002350, 0.002295, 0.002236]
+        // DEBUG: 136K: measured [Time, seconds] average: 0.021, relative standard deviation: 5.877%, values: [0.023745, 0.022153, 0.020028, 0.020618, 0.019954, 0.020540, 0.019805, 0.020610, 0.019882, 0.019749]
+        try measureParsing(kind: .jsum)
+    }
+
+    func testParseYamlPerformance() throws {
+        // DEBUG: 14K: measured [Time, seconds] average: 0.081, relative standard deviation: 3.798%, values: [0.090366, 0.079533, 0.079839, 0.080473, 0.080046, 0.080640, 0.080295, 0.080028, 0.081053, 0.079762]
+        // DEBUG: 136K: measured [Time, seconds] average: 4.393, relative standard deviation: 0.629%, values: [4.334819, 4.388781, 4.414601, 4.410179, 4.348408, 4.410852, 4.417285, 4.416433, 4.397261, 4.394936]
+        try measureParsing(kind: .yaml)
     }
 
     func testCodableComplete() throws {
@@ -302,7 +343,65 @@ final class JSumTests : XCTestCase {
         // missing properties
         XCTAssertNotNil(try Stuff.codableComplete(data: #"{ "nux": 1234 }"#.utf8Data).difference, "should have shown a difference for unrecognized property")
         XCTAssertNotNil(try Stuff.codableComplete(data: #"{ "str": "abc", "q": false }"#.utf8Data).difference, "should have shown a difference for unrecognized property")
+    }
 
+    func testJSumCoding() throws {
+        struct Simple : Codable {
+            var str: String?
+            var int: Int?
+            var dbl: Double?
+            var obj: [String: Simple]?
+            var arr: [Bool?]?
+            var date: Date?
+            var data: Data?
+            var url: URL?
+        }
+
+        // MARK: Decoding
+
+        XCTAssertEqual("xxx", try Simple(jsum: ["str": "xxx"]).str)
+        XCTAssertEqual(nil, try Simple(jsum: [:]).int)
+        XCTAssertEqual(1, try Simple(jsum: ["int": 1.2]).int)
+        XCTAssertEqual(1.2, try Simple(jsum: ["obj": ["x": [ "dbl": 1.2 ]]]).obj?["x"]?.dbl)
+        XCTAssertEqual(1.2, try Simple(jsum: ["obj": ["x": [ "dbl": 1.2 ]]]).obj?["x"]?.dbl)
+
+        XCTAssertEqual("https://www.example.com", try Simple(jsum: ["str": "", "url": "https://www.example.com"]).url?.absoluteString)
+
+        XCTAssertEqual([false, nil, true], try Simple(jsum: ["arr": [false, nil, true]]).arr)
+
+        XCTAssertEqual(0, try JSumDecoder(options: .init(dateDecodingStrategy: .iso8601)).decode(Simple.self, from: ["date": .str(Date(timeIntervalSinceReferenceDate: 0).ISO8601Format())]).date?.timeIntervalSinceReferenceDate)
+        XCTAssertEqual(0, try JSumDecoder(options: .init(dateDecodingStrategy: .secondsSince1970)).decode(Simple.self, from: ["date": .num(Date(timeIntervalSinceReferenceDate: 0).timeIntervalSince1970)]).date?.timeIntervalSinceReferenceDate)
+        XCTAssertEqual(0, try JSumDecoder(options: .init(dateDecodingStrategy: .millisecondsSince1970)).decode(Simple.self, from: ["date": .num(Date(timeIntervalSinceReferenceDate: 0).timeIntervalSince1970 * 1000)]).date?.timeIntervalSinceReferenceDate)
+
+        XCTAssertEqual("abc".utf8Data, try JSumDecoder(options: .init(dataDecodingStrategy: .base64)).decode(Simple.self, from: ["data": .str("YWJj")]).data)
+
+        // a custom decoder that takes an int and decodes a 0-filled Data of that size
+        XCTAssertEqual(Data(repeating: 0, count: 123), try JSumDecoder(options: .init(dataDecodingStrategy: .custom({ decoder in
+            Data(repeating: 0, count: Int(try decoder.singleValueContainer().decode(JSum.self).obj?[decoder.codingPath.last?.stringValue ?? ""]?.num ?? 0))
+        }))).decode(Simple.self, from: ["data": .num(123)]).data)
+
+        // MARK: Encoding
+
+        //XCTAssertEqual("", try Simple(date: Date(timeIntervalSince1970: 0)).json(encoder: JSONEncoder()).utf8String)
+
+        XCTAssertEqual(["str": "XXX"], try Simple(str: "XXX").jsum())
+
+        XCTAssertEqual(["url": "https://www.example.org"], try Simple(url: URL(string: "https://www.example.org")!).jsum())
+
+        XCTAssertEqual(["date": -978307200], try Simple(date: Date(timeIntervalSince1970: 0)).jsum())
+        XCTAssertEqual(["date": 978307200], try Simple(date: Date(timeIntervalSinceReferenceDate: 0)).jsum(options: JSumEncodingOptions(dateEncodingStrategy: .secondsSince1970)))
+        XCTAssertEqual(["date": 978307200000], try Simple(date: Date(timeIntervalSinceReferenceDate: 0)).jsum(options: JSumEncodingOptions(dateEncodingStrategy: .millisecondsSince1970)))
+        XCTAssertEqual(["date": "2001-01-01T00:00:00Z"], try Simple(date: Date(timeIntervalSinceReferenceDate: 0)).jsum(options: JSumEncodingOptions(dateEncodingStrategy: .iso8601)))
+
+        XCTAssertEqual(["data": "CQ=="], try Simple(data: Data([9])).jsum())
+        XCTAssertEqual(["data": "AQID"], try Simple(data: Data([1,2,3])).jsum(options: JSumEncodingOptions(dataEncodingStrategy: .base64)))
+        XCTAssertEqual(["data": 3], try Simple(data: Data([1,2,3])).jsum(options: JSumEncodingOptions(dataEncodingStrategy: .custom({ data, encoder in
+            // custom encoder that just converts the data into the count
+            var container = encoder.singleValueContainer()
+            try container.encode(data.count)
+        }))))
+
+        XCTAssertEqual(["str": "XXX", "int": 1, "obj": ["s1": ["str": "ZZZ"]], "date": 0.0, "dbl": 2.2, "arr": [false, true, nil], "data": "WFla"], try JSumEncoder().encode(Simple(str: "XXX", int: 1, dbl: 2.2, obj: ["s1": .init(str: "ZZZ")], arr: [false, true, nil], date: Date(timeIntervalSinceReferenceDate: 0), data: "XYZ".utf8Data)))
     }
 }
 

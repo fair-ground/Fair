@@ -33,7 +33,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0\/init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0\/init(jsum:options:)"
       ],
       "title" : "Initializers"
     },
@@ -490,6 +491,68 @@
   "title" : "init(json:decoder:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/commandinfov0\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)"
+},
+"doc://FairCore/documentation/FairCore/CommandInfoV0/init(jsum:options:)": {
+  "abstract" : [
+    {
+      "text" : "Creates an instance from an encoded intermediate representation.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "jsum"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore19JSumDecodingOptionsC",
+      "text" : "JSumDecodingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0\/init(jsum:options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(jsum:options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/commandinfov0\/init(jsum:options:)"
 }
 }
 }

@@ -250,6 +250,31 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "They can also be used to instatiate a ",
+              "type" : "text"
+            },
+            {
+              "code" : "Decodable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " instance directly using the ",
+              "type" : "text"
+            },
+            {
+              "code" : "Decodable.init(jsum:)",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " initializer.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
         }
       ],
       "kind" : "content"

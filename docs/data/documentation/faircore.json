@@ -63,6 +63,10 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Cache",
         "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
         "doc:\/\/FairCore\/documentation\/FairCore\/HMAC",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecoder",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecodingOptions",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncoder",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncodingOptions",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
         "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
@@ -109,6 +113,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0",
         "doc:\/\/FairCore\/documentation\/FairCore\/CompletionKind",
         "doc:\/\/FairCore\/documentation\/FairCore\/Crc32-swift.struct",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DynamicBundleError",
         "doc:\/\/FairCore\/documentation\/FairCore\/ExitCode",
         "doc:\/\/FairCore\/documentation\/FairCore\/Flag",
         "doc:\/\/FairCore\/documentation\/FairCore\/FlagExclusivity",
@@ -1113,6 +1118,37 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/depthfirsttreeofself"
 },
+"doc://FairCore/documentation/FairCore/DynamicBundleError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DynamicBundleError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DynamicBundleError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DynamicBundleError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DynamicBundleError",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/dynamicbundleerror"
+},
 "doc://FairCore/documentation/FairCore/EnumerableFlag": {
   "abstract" : [
     {
@@ -1624,6 +1660,175 @@
   "title" : "JSum",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum"
+},
+"doc://FairCore/documentation/FairCore/JSumDecoder": {
+  "abstract" : [
+    {
+      "code" : "JSumDecoder",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " facilitates the decoding of ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " values into ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " types.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSumDecoder"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecoder",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSumDecoder"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSumDecoder",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsumdecoder"
+},
+"doc://FairCore/documentation/FairCore/JSumDecodingOptions": {
+  "abstract" : [
+    {
+      "text" : "A set of options for decoding an entity from a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSumDecodingOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecodingOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSumDecodingOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSumDecodingOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsumdecodingoptions"
+},
+"doc://FairCore/documentation/FairCore/JSumEncoder": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSumEncoder"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncoder",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSumEncoder"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSumEncoder",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsumencoder"
+},
+"doc://FairCore/documentation/FairCore/JSumEncodingOptions": {
+  "abstract" : [
+    {
+      "text" : "A set of options for encoding an entity from a ",
+      "type" : "text"
+    },
+    {
+      "code" : "JSum",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " instance.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "JSumEncodingOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncodingOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "JSumEncodingOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSumEncodingOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsumencodingoptions"
 },
 "doc://FairCore/documentation/FairCore/JSumOptions": {
   "abstract" : [
