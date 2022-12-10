@@ -244,9 +244,9 @@ public struct SourceCommand : AsyncParsableCommand {
 
             warnExperimental(Self.experimental)
             msg(.info, "posting changes from: \(fromCatalog) to \(toCatalog)")
-            let srcCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
+            let srcCatalog = try AppCatalog.parse(jsonData: await Data(contentsOf: URL(fileURLWithPath: fromCatalog)))
 
-            var dstCatalog = try AppCatalog.parse(jsonData: Data(contentsOf: URL(fileURLWithPath: toCatalog)))
+            var dstCatalog = try AppCatalog.parse(jsonData: await Data(contentsOf: URL(fileURLWithPath: toCatalog)))
             dstCatalog.news = srcCatalog.news
             if updateVersionDate {
                 dstCatalog.importVersionDates(from: srcCatalog)

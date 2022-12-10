@@ -37,14 +37,29 @@ import Foundation
 import FoundationNetworking
 #endif
 
+extension Data {
+    /// Async variant to loading from a URL using a session like the standard shared session.
+    /// - Parameters:
+    ///   - url: the URL to load
+    ///   - session: the session use for loading, defaulting to the system's shared URLSession
+    ///   - syncOptions: if options are specific, the synchonous version of the Data initializer will be used with the specified options.
+    public init(contentsOf url: URL, session: URLSession? = .shared, syncOptions options: Data.ReadingOptions? = nil) async throws {
+        if options == nil, let session = session {
+            self = try await session.fetch(request: URLRequest(url: url)).data
+        } else {
+            self = try Data.init(contentsOf: url, options: options ?? [])
+        }
+    }
+}
+
 public extension URLResponse {
     func validateHTTPCode(inRange: Range<Int> = 200..<300) throws {
         guard let httpResponse = self as? HTTPURLResponse else {
-            throw AppError(String(format: NSLocalizedString("URL response was not HTTP for %@", bundle: .module, comment: "error message"), url?.absoluteString ?? ""))
+            throw URLError(.badServerResponse)
         }
 
         if !inRange.contains(httpResponse.statusCode) {
-            throw AppError(String(format: NSLocalizedString("Bad HTTP response %d for %@", bundle: .module, comment: "error message"), httpResponse.statusCode, url?.absoluteString ?? ""))
+            throw URLError(URLError.Code(rawValue: httpResponse.statusCode), userInfo: [:])
         }
     }
 }
@@ -62,15 +77,14 @@ public extension URLRequest {
         let (data, response) = try await session.fetch(request: self)
         try response?.validateHTTPCode() // ensure the code in within the expected range
 
-        #if canImport(CommonCrypto)
         if validateFragmentHash == true,
             let fragmentHash = self.url?.fragment {
             let dataHash = data.sha256().hex()
             if dataHash != fragmentHash {
-                throw AppError(String(format: NSLocalizedString("Hash mismatch for %@: %@ vs. %@", bundle: .module, comment: "error message"), self.url?.absoluteString ?? "", fragmentHash, dataHash))
+                //throw AppError(String(format: NSLocalizedString("Hash mismatch for %@: %@ vs. %@", bundle: .module, comment: "error message"), self.url?.absoluteString ?? "", fragmentHash, dataHash))
+                throw URLError(.downloadDecodingFailedToComplete)
             }
         }
-        #endif
 
         return data
     }
@@ -95,7 +109,8 @@ extension URLResponse {
         }
 
         guard let httpResponse = self as? HTTPURLResponse else {
-            throw URLError(.badServerResponse)
+            // loading from the file system doesn't expose codes
+            return self // throw URLError(.badServerResponse)
         }
 
         if !codes.contains(httpResponse.statusCode) {
@@ -109,11 +124,7 @@ extension URLResponse {
 extension URLSession {
     /// Fetches the given request asynchronously, optionally validating that the response code is within the given range of HTTP codes.
     public func fetch(request: URLRequest, validate codes: IndexSet? = IndexSet(200..<300)) async throws -> (data: Data, response: URLResponse?) {
-        if let url = request.url, url.isFileURL == true {
-            return (data: try Data(contentsOf: url), response: nil)
-        } else {
-            return try await fetchTask(request: request, validate: codes)
-        }
+        return try await fetchTask(request: request, validate: codes)
     }
 
     /// A shim for async URL download for back-ported async/await without corresponding URLSession API support
@@ -396,7 +407,7 @@ extension URLSession {
                         try? FileManager.default.setAttributes([.creationDate : lastModifiedDate, .modificationDate : lastModifiedDate], ofItemAtPath: destinationURL.path)
                     }
 
-                    dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, destinationURL.pathSize?.localizedByteCount())
+                    dbg("replace download file for:", response?.url, "local:", temporaryLocalURL.path, "moved:", destinationURL.path, (try? destinationURL.self.resourceValues(forKeys: [.fileSizeKey]).fileSize)?.localizedByteCount())
                     return completionHandler(destinationURL, response, error)
                 }
             } catch {

@@ -79,7 +79,6 @@ public struct JSONCommand : AsyncParsableCommand {
 
         private func keyData() throws -> Data {
             if let data = Data(base64Encoded: keyBase64) {
-                //dbg(wip("####"), "KEY:", data.utf8String)
                 return data
             }
 

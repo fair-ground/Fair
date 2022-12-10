@@ -39,7 +39,7 @@ let package = Package(
     dependencies: [
     ],
     targets: [
-        .target(name: "FairCore", dependencies: Platform.current == .linux || Platform.current == .android ? ["CZLib"] : [], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
+        .target(name: "FairCore", dependencies: [], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
@@ -55,7 +55,5 @@ let package = Package(
         Platform.current == .android ? nil : .testTarget(name: "FairKitTests", dependencies: [.target(name: "FairKit")], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
         Platform.current == .macOS || Platform.current == .linux ? .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]) : nil,
-
-        Platform.current == .linux || Platform.current == .android ? .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]) : nil,
     ].compactMap({ $0 })
 )

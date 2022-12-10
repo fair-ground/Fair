@@ -612,7 +612,7 @@ extension AppBundle where Source.Path == URL {
                     //dbg("filtering:", fileURL.pathName, "dir:", fileURL.pathIsDirectory, "size:", fileURL.pathSize, "macho", try? self.maybeMachO(at: fileURL))
                     (fileURL.pathIsDirectory == false) && (fileURL.pathSize ?? 0 > sizeThreshold)
                 }
-                .asyncFilter({
+                .filterAsync({
                     try await self.maybeMachO(at: $0) == true
                 })
     }

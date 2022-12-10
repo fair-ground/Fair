@@ -162,32 +162,48 @@ public extension Sequence {
 }
 
 
+// MARK: async conveniences
+
 extension Sequence {
-    /// Concurrently executes the given transformation, returning the results in the order of the sequence's elements
-    @inlinable public func asyncMap<T>(_ transform: (Element) async throws -> T) async rethrows -> [T] {
-        var values = [T]()
+    /// Variant `Sequence.reduce` that accepts an `async` closure
+    @inlinable public func reduceAsync<Result>(into initialResult: Result, _ updateAccumulatingResult: (inout Result, Self.Element) async throws -> ()) async rethrows -> Result {
+        var result = initialResult
         for element in self {
-            try await values.append(transform(element))
+            try await updateAccumulatingResult(&result, element)
         }
-        return values
+        return result
     }
 
-    /// Concurrently executes the given filter, returning the results in the order of the sequence's elements
-    @inlinable public func asyncFilter(_ filter: (Element) async throws -> Bool) async rethrows -> [Element] {
-        try await asyncMap { element in
-            (element, try await filter(element))
+    /// Variant `Sequence.map` that accepts an `async` closure
+    @inlinable public func mapAsync<T>(_ transform: (Element) async throws -> T) async rethrows -> [T] {
+        try await reduceAsync(into: [T]()) { result, element in
+            try await result.append(transform(element))
         }
-        .filter({ $0.1 == true })
-        .map(\.0)
+    }
+
+    /// Variant `Sequence.flatMap` that accepts an `async` closure
+    @inlinable public func flatMapAsync<T>(_ transform: (Element) async throws -> [T]) async rethrows -> [T] {
+        try await mapAsync(transform).joined().array()
+    }
+
+    /// Variant `Sequence.filter` that accepts an `async` closure
+    @inlinable public func filterAsync(_ filter: (Element) async throws -> Bool) async rethrows -> [Element] {
+        try await mapAsync { element in
+            (element: element, result: try await filter(element))
+        }
+        .filter(\.result)
+        .map(\.element)
     }
 }
 
 extension Sequence {
     /// Concurrently executes the given transformation, returning the results in the order of the sequence's elements
     @inlinable public func concurrentMap<T>(priority: TaskPriority? = nil, _ transform: @escaping (Element) async throws -> T) async rethrows -> [T] {
-        try await map { element in
-            Task(priority: priority) { try await transform(element) }
-        }.asyncMap { task in
+        try await mapAsync { element in
+            Task(priority: priority) {
+                try await transform(element)
+            }
+        }.mapAsync { task in
             try await task.value
         }
     }
@@ -1265,4 +1281,4 @@ private let moduleBundle = Bundle(url: Bundle.main.bundleURL.appendingPathCompon
 
 /// Work-in-Progress marker
 @available(*, deprecated, message: "work in progress")
-internal func wip<T>(_ value: T) -> T { value }
+@usableFromInline internal func wip<T>(_ value: T) -> T { value }
