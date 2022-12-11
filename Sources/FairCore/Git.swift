@@ -1378,7 +1378,9 @@ public enum Git {
         }
     }
 
-    public actor Repository {
+    // TODO: actor crashes in fairtool release build in Linux
+    //public actor Repository {
+    public class Repository {
         public typealias StatusCallback = (([(URL, Status)]) throws -> Void)
         public var status: StatusCallback?
         public let url: URL

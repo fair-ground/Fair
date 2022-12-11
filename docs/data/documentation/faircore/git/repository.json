@@ -57,7 +57,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "actor"
+              "text" : "class"
             },
             {
               "kind" : "text",
@@ -71,17 +71,6 @@
         }
       ],
       "kind" : "declarations"
-    }
-  ],
-  "relationshipsSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/FairCore\/s8SendableP",
-        "doc:\/\/FairCore\/ScA"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforms To",
-      "type" : "conformsTo"
     }
   ],
   "schemaVersion" : {
@@ -139,11 +128,6 @@
   ]
 , 
 "references": {
-"doc://FairCore/ScA": {
-  "identifier" : "doc:\/\/FairCore\/ScA",
-  "title" : "_Concurrency.Actor",
-  "type" : "unresolvable"
-},
 "doc://FairCore/documentation/FairCore": {
   "abstract" : [
     {
@@ -1029,11 +1013,6 @@
   "title" : "url",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/git\/repository\/url"
-},
-"doc://FairCore/s8SendableP": {
-  "identifier" : "doc:\/\/FairCore\/s8SendableP",
-  "title" : "Swift.Sendable",
-  "type" : "unresolvable"
 }
 }
 }
