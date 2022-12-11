@@ -13,7 +13,7 @@ final class RemoteGitTests : XCTestCase {
 
     func testFair() async throws {
         let remote = try XCTUnwrap(URL(string: "https://github.com/fair-ground/Fair.git"))
-        let fetch = try await Git.Rest().download(remote)
+        let fetch = try await Git.Rest().downloadPull(remote)
         let refs = fetch.refs
         XCTAssertLessThanOrEqual(462, refs.count)
         XCTAssertEqual("e9624bee3177db5443e23d65ba54fc28ca343afa", refs.first(where: { $0.name == "refs/tags/0.3.10" })?.branch)
@@ -29,7 +29,7 @@ final class RemoteGitTests : XCTestCase {
         Git.Hub.session.user = "-unused-" // but seems to be needed to send credentials
 
         let rest = Git.Rest()
-        let fetch = try await rest.download(remote)
+        let fetch = try await rest.downloadPull(remote)
         dbg("refs:", fetch.refs)
         guard let initialRef = fetch.refs.first else {
             return XCTFail("no initial ref")
@@ -3094,7 +3094,7 @@ private class MockRest: Git.Rest {
         }
     }
 
-    override func download(_ url: URL) async throws -> Git.Fetch {
+    override func downloadPull(_ url: URL) async throws -> Git.Fetch {
         try await onDownload?(url.absoluteString)
 
         if let fetch = _fetch {
@@ -3104,7 +3104,7 @@ private class MockRest: Git.Rest {
         }
     }
 
-    override func upload(_ remote: URL) async throws -> Git.Fetch {
+    override func uploadPush(_ remote: URL) async throws -> Git.Fetch {
         try await onUpload?(remote.absoluteString)
 
         if let fetch = _fetch {
