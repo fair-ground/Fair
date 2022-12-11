@@ -31,7 +31,7 @@
  */
 import Swift
 import XCTest
-@testable import FairCore
+import FairCore
 
 final class ZipTests: XCTestCase {
     func testDeflate() throws {
