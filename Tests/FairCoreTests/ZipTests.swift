@@ -67,7 +67,6 @@ final class ZipTests: XCTestCase {
                 XCTAssertEqual("4bcac94f5230346328cf482c51c82c56282dd05148c94fb657a8a8a85048c22749a40abccaa8250e00", deflatedx.hex())
             }
         }
-
     }
 
     func testCompression() throws {
@@ -90,8 +89,12 @@ final class ZipTests: XCTestCase {
         let complex = simple1 + simple2 + simple2 + simple2 + simple1 + simple2
         XCTAssertEqual("016e0091ff6162636162636162636162636162636162636162636162636162636162636162633031323334353637383930303132333435363738393030313233343536373839306162636162636162636162636162636162636162636162636162636162636162633031323334353637383930", try compress(complex.utf8Data, 0))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b07ca22690300", try compress(complex.utf8Data, 1))
+        XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b07ca22690300", try compress(complex.utf8Data, 2))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b07ca22690300", try compress(complex.utf8Data, 3))
+        XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b47350100", try compress(complex.utf8Data, 4))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b47350100", try compress(complex.utf8Data, 5))
+        XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b47350100", try compress(complex.utf8Data, 6))
+        XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db0331349300100", try compress(complex.utf8Data, 7))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db0331349300100", try compress(complex.utf8Data, 8))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db0331349300100", try compress(complex.utf8Data, 9))
 
@@ -141,4 +144,3 @@ final class ZipTests: XCTestCase {
     #endif
     #endif
 }
-

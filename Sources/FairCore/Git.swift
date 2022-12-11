@@ -801,19 +801,9 @@ public enum Git {
 
         init() { }
 
-        // TODO: @available(*, deprecated, message: "convert to throwing")
+        //@available(*, deprecated, message: "convert to throwing")
         init?(_ url: URL) async {
-            guard
-                let parse = try? await Parse(url: url.appendingPathComponent(".git/index")),
-                "DIRC" == (try? parse.string()),
-                let version = try? parse.number(),
-                let count = try? parse.number(),
-                let entries = try? (0 ..< count).map({ _ in try entry(parse, url: url) })
-            else { return nil }
-            parse.skipExtensions()
-            id = (try? parse.hash()) ?? ""
-            self.version = version
-            self.entries = entries
+            try? await self.init(url: url)
         }
 
         init(url: URL) async throws {
@@ -1727,7 +1717,7 @@ public enum Git {
                     throw Failure.Commit.none
                 }
             }
-            var index = await Index(url) ?? Index()
+            var index = (try? await Index(url: url)) ?? Index()
             let ignore = await Ignore(url)
             let tree = try await Tree(url, ignore: ignore, update: files, entries: index.entries)
             let treeId = try await tree.save(url)
@@ -1756,7 +1746,7 @@ public enum Git {
             }
             guard !Hub.session.name.isEmpty else { throw Failure.Commit.credentials }
             guard !Hub.session.email.isEmpty else { throw Failure.Commit.credentials }
-            var index = await Index(url) ?? Index()
+            var index = (try? await Index(url: url)) ?? Index()
             let ignore = await Ignore(url)
             let tree = try await Tree(url, ignore: ignore, update: files, entries: index.entries)
             let treeId = try await tree.save(url)
@@ -1837,7 +1827,7 @@ public enum Git {
         func list(_ tree: Tree?) async throws -> [(URL, Status)] {
             guard let url = repository?.url else { return [] }
             let contents = await self.contents
-            let index = await Index(url)
+            let index = try? await Index(url: url)
             var tree = await tree?.list(url) ?? []
             return try await contents.reduceAsync(into: [(URL, Status)]()) { result, url in
                 if let entries = index?.entries.filter({ $0.url == url }), !entries.isEmpty {
