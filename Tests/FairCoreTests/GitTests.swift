@@ -19,7 +19,7 @@ final class RemoteGitTests : XCTestCase {
         XCTAssertEqual("e9624bee3177db5443e23d65ba54fc28ca343afa", refs.first(where: { $0.name == "refs/tags/0.3.10" })?.branch)
     }
 
-    func testDemo() async throws {
+    func XXXtestDemo() async throws {
         let remote = try XCTUnwrap(URL(string: "https://github.com/marcprux/DemoRepo.git"))
         guard let token = authToken else {
             throw XCTSkip("no auth token")

@@ -31,14 +31,6 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
-
-#if canImport(zlib)
-import zlib
-#else
-#error("zlib is required")
-#endif
-
-
 import Swift
 import Foundation
 #if canImport(CoreFoundation)
@@ -49,6 +41,10 @@ import Glibc
 import var Glibc.S_IFREG
 import var Glibc.S_IFDIR
 import var Glibc.S_IFLNK
+#endif
+
+#if canImport(CZLib)
+import CZLib
 #endif
 
 @available(macOS 10.14, iOS 12.0, *)
@@ -503,7 +499,6 @@ public extension Data {
     }
 }
 
-#endif // canImport(XXXCompression)
 
 @available(macOS 10.14, iOS 12.0, *)
 fileprivate extension Data.CompressionAlgorithm {
@@ -579,6 +574,7 @@ fileprivate extension Data.CompressionAlgorithm {
     }
 }
 
+#endif // canImport(XXXCompression)
 
 
 // ZipArchive is mostly based on ZIPFoundation with some patches (notably https://github.com/weichsel/ZIPFoundation/pull/187 ), which uses the following license:
