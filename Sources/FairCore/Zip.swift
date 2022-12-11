@@ -43,9 +43,8 @@ import var Glibc.S_IFDIR
 import var Glibc.S_IFLNK
 #endif
 
-#if canImport(CZLib)
 import CZLib
-#endif
+
 #if canImport(zlib)
 import zlib
 #endif
