@@ -19,7 +19,7 @@ extension Data {
     }
 
     /// Calculate the Crc32 checksum of the data.
-    @inlinable public func crc32() -> Crc32 {
+    @inlinable public func crc32z() -> Crc32 {
         var res = Crc32()
         res.advance(withChunk: self)
         return res
