@@ -46,6 +46,9 @@ import var Glibc.S_IFLNK
 #if canImport(CZLib)
 import CZLib
 #endif
+#if canImport(zlib)
+import zlib
+#endif
 
 @available(macOS 10.14, iOS 12.0, *)
 public extension Data {
