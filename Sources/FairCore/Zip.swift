@@ -792,6 +792,7 @@ extension Archive {
             case .deflate:
                 (sizeWritten, checksum) = try self.writeCompressed(size: uncompressedSize,
                                                                    bufferSize: bufferSize,
+                                                                   level: compressionLevel,
                                                                    progress: progress, provider: provider)
             }
         case .directory:
@@ -956,11 +957,11 @@ extension Archive {
         return (sizeWritten, checksum)
     }
 
-    func writeCompressed(size: Int64, bufferSize: Int, progress: Progress? = nil,
+    func writeCompressed(size: Int64, bufferSize: Int, level: Int?, progress: Progress? = nil,
                          provider: Provider) throws -> (sizeWritten: Int64, checksum: CRC32) {
         var sizeWritten: Int64 = 0
         let consumer: Consumer = { data in sizeWritten += Int64(try Data.write(chunk: data, to: self.archiveFile)) }
-        let checksum = try Data.compress(size: size, bufferSize: bufferSize,
+        let checksum = try Data.compress(level: level, size: size, bufferSize: bufferSize,
                                          provider: { (position, size) -> Data in
                                             if progress?.isCancelled == true { throw ArchiveError.cancelledOperation }
                                             let data = try provider(position, size)
@@ -1889,6 +1890,7 @@ public final class Archive: Sequence {
     var endOfCentralDirectoryRecord: EndOfCentralDirectoryRecord
     var zip64EndOfCentralDirectory: ZIP64EndOfCentralDirectory?
     var preferredEncoding: String.Encoding?
+    let compressionLevel: Int?
 
     var totalNumberOfEntriesInCentralDirectory: UInt64 {
         zip64EndOfCentralDirectory?.record.totalNumberOfEntriesInCentralDirectory
@@ -1919,10 +1921,11 @@ public final class Archive: Sequence {
     ///   - The file URL _must_ point to an existing file for `AccessMode.read`.
     ///   - The file URL _must_ point to a non-existing file for `AccessMode.create`.
     ///   - The file URL _must_ point to an existing file for `AccessMode.update`.
-    public init?(url: URL, accessMode mode: AccessMode, preferredEncoding: String.Encoding? = nil) {
+    public init?(url: URL, accessMode mode: AccessMode, compressionLevel: Int? = nil, preferredEncoding: String.Encoding? = nil) {
         self.url = url
         self.accessMode = mode
         self.preferredEncoding = preferredEncoding
+        self.compressionLevel = compressionLevel
         guard let config = Archive.makeBackingConfiguration(for: url, mode: mode) else {
             return nil
         }
@@ -1949,7 +1952,7 @@ public final class Archive: Sequence {
     /// - Note:
     ///   - The backing `data` _must_ contain a valid ZIP archive for `AccessMode.read` and `AccessMode.update`.
     ///   - The backing `data` _must_ be empty (or omitted) for `AccessMode.create`.
-    public init?(data: Data = Data(), accessMode mode: AccessMode, preferredEncoding: String.Encoding? = nil) {
+    public init?(data: Data = Data(), accessMode mode: AccessMode, compressionLevel: Int? = nil, preferredEncoding: String.Encoding? = nil) {
         guard let url = URL(string: "\(memoryURLScheme)://"),
             let config = Archive.makeBackingConfiguration(for: data, mode: mode) else {
             return nil
@@ -1958,6 +1961,7 @@ public final class Archive: Sequence {
         self.url = url
         self.accessMode = mode
         self.preferredEncoding = preferredEncoding
+        self.compressionLevel = compressionLevel
         self.archiveFile = config.file
         self.memoryFile = config.memoryFile
         self.endOfCentralDirectoryRecord = config.endOfCentralDirectoryRecord
@@ -2176,7 +2180,7 @@ extension Data {
     ///   - provider: A closure that accepts a position and a chunk size. Returns a `Data` chunk.
     ///   - consumer: A closure that processes the result of the compress operation.
     /// - Returns: The checksum of the processed content.
-    public static func compress(level: Int? = nil, size: Int64, bufferSize: Int, provider: Provider, consumer: Consumer) throws -> CRC32 {
+    public static func compress(level: Int?, size: Int64, bufferSize: Int, provider: Provider, consumer: Consumer) throws -> CRC32 {
         #if canImport(XXXCompression)
         return try self.process(operation: COMPRESSION_STREAM_ENCODE, size: size, bufferSize: bufferSize,
                                 provider: provider, consumer: consumer)
