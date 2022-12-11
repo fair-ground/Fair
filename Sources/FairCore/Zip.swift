@@ -44,10 +44,13 @@ import var Glibc.S_IFLNK
 #endif
 
 import CZLib
-
 #if canImport(zlib)
 import zlib
 #endif
+
+//#if canImport(CZLib)
+//import zlib
+//#endif
 
 @available(macOS 10.14, iOS 12.0, *)
 public extension Data {
@@ -64,13 +67,13 @@ public extension Data {
     ///   - level: the zip level to encode
     ///   - checksum: if true verify the compression checksum
     ///   - wrap: whether to wrap in zlib headers with the compression level and a suffix as the adler32
-    func deflate(level: Int? = nil, checksum: Bool = true, wrap: Bool = false) throws -> (crc: CRC32?, data: Data) {
+    func deflatez(level: Int? = nil, checksum: Bool = true, wrap: Bool = false) throws -> (crc: CRC32?, data: Data) {
         func headers(_ source: (crc: CRC32?, data: Data)) -> (crc: CRC32?, data: Data) {
             if !wrap { return source }
             return (source.crc, Data([0x78, level == nil ? 0x9C : (level! <= 5) ? 0x01 : 0xDA]) + source.data + Data.adler32(self))
         }
 
-        #if canImport(zlib)
+        #if canImport(CZLib)
         if let level = level {
             return try headers(zipZlib(level: level))
         }
@@ -81,14 +84,14 @@ public extension Data {
         return try headers(zipLegacy(checksum: checksum))
         #endif
 
-        #if canImport(zlib)
+        #if canImport(CZLib)
         return try headers(zipZlib(level: 5)) // fall back to zlib default compression level 5
         #endif
     }
 
     /// Decompresses the data using the zlib deflate algorithm.
     /// Note that this only creates an individual inflated blob; for multi-file zip support use `ZipArchive` instead.
-    func inflate(checksum: Bool = true, wrapped header: Bool = false) throws -> (crc: CRC32?, data: Data) {
+    func inflatez(checksum: Bool = true, wrapped header: Bool = false) throws -> (crc: CRC32?, data: Data) {
         let head = self.prefix(header ? 2 : 0)
         if head.count == 2 {
             if head[0] != 0x78 {
@@ -101,7 +104,7 @@ public extension Data {
         #if canImport(XXXCompression)
         return try data.unzipLegacy(checksum: checksum)
         #endif
-        #if canImport(zlib)
+        #if canImport(CZLib)
         return try data.unzipZlib(checksum: checksum)
         #endif
     }
@@ -121,7 +124,7 @@ public extension Data {
     }
 }
 
-#if canImport(zlib)
+#if canImport(CZLib)
 
 @available(macOS 10.14, iOS 12.0, *)
 public extension Data {
@@ -137,7 +140,7 @@ public extension Data {
         })
     }
 }
-#endif // canImport(zlib)
+#endif // canImport(CZLib)
 
 
 internal extension Data {
@@ -147,7 +150,7 @@ internal extension Data {
         #if canImport(XXXCompression)
         let decompressed = decompressInternal(self)
         #else
-        let decompressed = try self.inflate(wrapped: true).data
+        let decompressed = try self.inflatez(wrapped: true).data
         #endif
 //        #if DEBUG
 //        let d2 = try source.unzip(wrapped: true).data
@@ -162,7 +165,7 @@ internal extension Data {
     }
 
     @inlinable static func compress(_ source: Data, level: Int) throws -> Data {
-        try source.deflate(level: level, wrap: true).data
+        try source.deflatez(level: level, wrap: true).data
     }
 
     #if canImport(XXXCompression)
@@ -266,7 +269,7 @@ extension Data {
                 // TODO: result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) in
                 result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutablePointer<UInt8>) in
                     stream.next_in = ptr
-                    status = zlib.inflate(&stream, Z_NO_FLUSH)
+                    status = inflate(&stream, Z_NO_FLUSH)
                     guard status != Z_NEED_DICT && status != Z_DATA_ERROR && status != Z_MEM_ERROR else {
                         throw CompressionError.corruptedData
                     }
@@ -946,7 +949,7 @@ extension Archive {
             if progress?.isCancelled == true { throw ArchiveError.cancelledOperation }
             let readSize = (size - position) >= bufferSize ? bufferSize : Int(size - position)
             let entryChunk = try provider(position, readSize)
-            checksum = entryChunk.crc32(checksum: checksum)
+            checksum = entryChunk.crc32z(checksum: checksum)
             sizeWritten += Int64(try Data.write(chunk: entryChunk, to: self.archiveFile))
             position += Int64(bufferSize)
             progress?.completedUnitCount = sizeWritten
@@ -971,7 +974,7 @@ extension Archive {
     func writeSymbolicLink(size: Int, provider: Provider) throws -> (sizeWritten: Int, checksum: CRC32) {
         // The reported size of a symlink is the number of characters in the path it points to.
         let linkData = try provider(0, size)
-        let checksum = linkData.crc32(checksum: 0)
+        let checksum = linkData.crc32z(checksum: 0)
         let sizeWritten = try Data.write(chunk: linkData, to: self.archiveFile)
         return (sizeWritten, checksum)
     }
@@ -1309,7 +1312,7 @@ extension Archive {
             let localFileHeader = entry.localFileHeader
             let size = Int(localFileHeader.compressedSize)
             let data = try Data.readChunk(of: size, from: self.archiveFile)
-            checksum = data.crc32(checksum: 0)
+            checksum = data.crc32z(checksum: 0)
             try consumer(data)
             progress?.completedUnitCount = self.totalUnitCountForReading(entry)
         }
@@ -2122,9 +2125,6 @@ extension Archive.EndOfCentralDirectoryRecord {
 
 // MARK: Data+Compression.swift
 
-#if canImport(zlib)
-import zlib
-#endif
 
 /// The compression method of an `Entry` in a ZIP `Archive`.
 public enum CompressionMethod: UInt16 {
@@ -2159,11 +2159,11 @@ extension Data {
     ///
     /// - Parameter checksum: The starting seed.
     /// - Returns: The checksum calculated from the bytes of the receiver and the starting seed.
-    public func crc32(checksum: CRC32) -> CRC32 {
-        #if canImport(zlib)
+    public func crc32z(checksum: CRC32) -> CRC32 {
+        #if canImport(CZLib)
         return withUnsafeBytes { bufferPointer in
             let length = UInt32(count)
-            return CRC32(zlib.crc32(UInt(checksum), bufferPointer.bindMemory(to: UInt8.self).baseAddress, length))
+            return CRC32(crc32(UInt(checksum), bufferPointer.bindMemory(to: UInt8.self).baseAddress, length))
         }
         #else
         return self.builtInCRC32(checksum: checksum)
@@ -2271,7 +2271,7 @@ extension compression_stream {
 }
 #endif // canImport(XXXCompression)
 
-#if canImport(zlib)
+#if canImport(CZLib)
 
 extension Data {
     @inlinable static func zlibCompress(level: Int?, size: Int64, bufferSize: Int, provider: Provider, consumer: Consumer) throws -> CRC32 {
@@ -2289,7 +2289,7 @@ extension Data {
         repeat {
             let readSize = Int(Swift.min((size - position), Int64(bufferSize)))
             var inputChunk = try provider(position, readSize)
-            zipCRC32 = inputChunk.crc32(checksum: zipCRC32)
+            zipCRC32 = inputChunk.crc32z(checksum: zipCRC32)
             stream.avail_in = UInt32(inputChunk.count)
             try inputChunk.withUnsafeMutableBytes { (rawBufferPointer) in
                 if let baseAddress = rawBufferPointer.baseAddress {
@@ -2311,7 +2311,7 @@ extension Data {
                         }
                         let pointer = baseAddress.assumingMemoryBound(to: UInt8.self)
                         stream.next_out = pointer
-                        result = zlib.deflate(&stream, flush)
+                        result = deflate(&stream, flush)
                     }
                     guard result >= Z_OK else { throw CompressionError.corruptedData }
 
@@ -2339,7 +2339,7 @@ extension Data {
                     } else {
                         throw CompressionError.corruptedData
                     }
-                    result = zlib.inflate(&stream, Z_NO_FLUSH)
+                    result = inflate(&stream, Z_NO_FLUSH)
                     guard result != Z_NEED_DICT &&
                         result != Z_DATA_ERROR &&
                         result != Z_MEM_ERROR else {
@@ -2350,7 +2350,7 @@ extension Data {
                 outputData.count = Int(remainingLength)
                 try consumer(outputData)
                 if unzipCRC32 != nil {
-                    unzipCRC32 = outputData.crc32(checksum: unzipCRC32!)
+                    unzipCRC32 = outputData.crc32z(checksum: unzipCRC32!)
                 }
             } while stream.avail_out == 0
         }
@@ -2383,7 +2383,7 @@ extension Data {
     }
 }
 
-#endif // canImport(zlib)
+#endif // canImport(CZLib)
 
 /// The lookup table used to calculate `CRC32` checksums when using the built-in
 /// CRC32 implementation.
@@ -2550,7 +2550,7 @@ extension Data {
             let data = try provider(bytesRead, chunkSize)
             try consumer(data)
             if !skipCRC32 {
-                checksum = data.crc32(checksum: checksum)
+                checksum = data.crc32z(checksum: checksum)
             }
             bytesRead += Int64(chunkSize)
         }
