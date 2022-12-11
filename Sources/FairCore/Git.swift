@@ -390,7 +390,7 @@ public enum Git {
             if try await repository(local) {
                 throw Failure.Remote.already
             }
-            let fetch = try await rest.download(remote)
+            let fetch = try await rest.downloadPull(remote)
             guard let reference = fetch.branch.first else { throw Failure.Fetch.empty }
             if !FileManager.default.fileExists(atPath: local.path) {
                 try FileManager.default.createDirectory(at: local, withIntermediateDirectories: true)
@@ -406,7 +406,7 @@ public enum Git {
         }
 
         func pull(_ repository: Repository) async throws -> Bool {
-            let fetch = try await rest.download(Hub.head.remote(repository.url))
+            let fetch = try await rest.downloadPull(Hub.head.remote(repository.url))
             guard let reference = fetch.branch.first else { throw Failure.Fetch.empty }
             if await reference == Hub.head.origin(repository.url) {
                 return false // nothing to do
@@ -428,7 +428,7 @@ public enum Git {
         }
 
         func push(_ repository: Repository) async throws {
-            let fetch = try await rest.upload(Hub.head.remote(repository.url))
+            let fetch = try await rest.uploadPush(Hub.head.remote(repository.url))
             guard let current = try? await Hub.head.id(repository.url) else { throw Failure.Remote.empty }
             guard let reference = fetch.branch.first, reference != current else { return }
             try await repository.merger.known(reference)
@@ -605,7 +605,9 @@ public enum Git {
             }
         }
 
-        init() { }
+        init() {
+
+        }
 
         struct Ref {
             var branch: String
@@ -1520,7 +1522,7 @@ public enum Git {
             return request
         }
 
-        private func serviceURL(_ url: URL, path: String, service: String? = nil) -> URL {
+        private func serviceURL(_ url: URL, path: String = "info/refs", service: String? = nil) -> URL {
             let url = url.appendingPathComponent(path)
             if let service = service {
                 // https://git-scm.com/docs/gitprotocol-http#_smart_clients
@@ -1540,12 +1542,12 @@ public enum Git {
             }
         }
 
-        func download(_ remote: URL) async throws -> Fetch {
-            try await Fetch.Pull(fetch(serviceURL(remote, path: "info/refs", service: "git-upload-pack")))
+        func downloadPull(_ remote: URL) async throws -> Fetch {
+            try await Fetch.Pull(fetch(serviceURL(remote, service: "git-upload-pack")))
         }
 
-        func upload(_ remote: URL) async throws -> Fetch {
-            try await Fetch.Push(fetch(serviceURL(remote, path: "info/refs", service: "git-receive-pack")))
+        func uploadPush(_ remote: URL) async throws -> Fetch {
+            try await Fetch.Push(fetch(serviceURL(remote, service: "git-receive-pack")))
         }
 
         func pull(_ remote: URL, want: String, have: String = "") async throws -> Pack {

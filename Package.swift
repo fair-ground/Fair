@@ -39,6 +39,7 @@ let package = Package(
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
+        .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
         .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
         Platform.current == .android ? nil : .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
@@ -56,6 +57,5 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
         Platform.current == .android ? nil : .testTarget(name: "FairExpoTests", dependencies: [.target(name: "FairExpo")], resources: [.process("Resources")]),
         Platform.current == .macOS || Platform.current == .linux ? .testTarget(name: "FairToolTests", dependencies: [.target(name: "fairtool")], resources: [.process("Resources")]) : nil,
 
-        .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
     ].compactMap({ $0 })
 )
