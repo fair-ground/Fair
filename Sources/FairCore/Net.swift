@@ -43,12 +43,13 @@ extension Data {
     ///   - url: the URL to load
     ///   - session: the session use for loading, defaulting to the system's shared URLSession
     ///   - syncOptions: if options are specific, the synchonous version of the Data initializer will be used with the specified options.
-    public init(contentsOf url: URL, session: URLSession? = .shared, syncOptions options: Data.ReadingOptions? = nil) async throws {
-        if options == nil, let session = session {
-            self = try await session.fetch(request: URLRequest(url: url)).data
-        } else {
+    internal init(contentsOf url: URL, session: URLSession? = .shared, syncOptions options: Data.ReadingOptions? = nil) async throws {
+        // TODO: fails on Linux, and need to investigate any performance benefits on macOS (simple testing shows a slight performance degradation in serial tests)
+//        if options == nil, let session = session {
+//            self = try await session.fetch(request: URLRequest(url: url)).data
+//        } else {
             self = try Data.init(contentsOf: url, options: options ?? [])
-        }
+//        }
     }
 }
 

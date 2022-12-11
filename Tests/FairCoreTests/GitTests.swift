@@ -1,3 +1,4 @@
+#if DEBUG // TODO: enable testing in release builds
 import Swift
 import XCTest
 @testable import FairCore
@@ -3169,3 +3170,4 @@ extension XCTestCase {
         }
     }
 }
+#endif // DEBUG
