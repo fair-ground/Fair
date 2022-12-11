@@ -97,7 +97,7 @@ final class CryptoTests: XCTestCase {
 
     /// Checks that the SHA1 hex from random data matches between the internal implementation and the CommonCrypto one
     func testSHA1Implementation() {
-        for _ in 1...100 {
+        DispatchQueue.concurrentPerform(iterations: 10) { _ in
             let data = randomData(count: Int.random(in: 1...10000))
             let sha1a = data.sha1()
             let sha1b = data.sha1Uncommon()
@@ -107,7 +107,7 @@ final class CryptoTests: XCTestCase {
 
     /// Checks that the SHA256 hex from random data matches between the internal implementation and the CommonCrypto one
     func testSHA256Implementation() {
-        for _ in 1...100 {
+        DispatchQueue.concurrentPerform(iterations: 10) { _ in
             let data = randomData(count: Int.random(in: 1...10000))
             let sha256a = data.sha256()
             let sha256b = data.sha256Uncommon()
@@ -117,7 +117,7 @@ final class CryptoTests: XCTestCase {
 
     /// Checks that the HMAC hex from random data matches between the internal implementation and the CommonCrypto one
     func testHMACSHA1Implementation() {
-        for _ in 1...100 {
+        DispatchQueue.concurrentPerform(iterations: 10) { _ in
             let data = randomData(count: Int.random(in: 1...100_000))
             let kdata = randomData(count: Int.random(in: 1...1_000))
             let hmac1 = data.hmacSHA(key: kdata, hash: .sha1)
@@ -127,8 +127,8 @@ final class CryptoTests: XCTestCase {
     }
 
     /// Checks that the HMAC hex from random data matches between the internal implementation and the CommonCrypto one
-    func testHMACSHA256Implementation() {
-        for _ in 1...100 {
+    func testHMACSHA256Implementation() async {
+        DispatchQueue.concurrentPerform(iterations: 10) { _ in
             let data = randomData(count: Int.random(in: 1...100_000))
             let kdata = randomData(count: Int.random(in: 1...1_000))
             let hmac1 = data.hmacSHA(key: kdata, hash: .sha256)
@@ -265,7 +265,7 @@ final class CryptoTests: XCTestCase {
         // try checkCanonical(id: "example", #"{"-0":0,"-1":-1,"0.1":1.0E-1,"1":1,"10.1":1.01E1,"emoji":"😃","escape":"\u001B","lone surrogate":"\uDEAD","whitespace":" \t\n\r"}"#)
 
         try checkCanonical(id: "example", #"{}"#)
-        
+
 //        try checkCanonical(id: "3.object-ordering", #"{"":"empty","\u0000":"U+0000 NULL","\u0001":"U+0001 START OF HEADING","\t":"U+0009 CHARACTER TABULATION","\u001F":"U+001F INFORMATION SEPARATOR ONE"," ":"U+0020 SPACE","\"":"U+0022 QUOTATION MARK","A":"U+0041 LATIN CAPITAL LETTER A","Å":"composition—U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE","\\":"U+005C REVERSE SOLIDUS","deep":["...","filler","...",{"":"empty","\u0000":"U+0000 NULL","\u0001":"U+0001 START OF HEADING","\t":"U+0009 CHARACTER TABULATION","\u001F":"U+001F INFORMATION SEPARATOR ONE"," ":"U+0020 SPACE","\"":"U+0022 QUOTATION MARK","A":"U+0041 LATIN CAPITAL LETTER A","Å":"composition—U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE","\\":"U+005C REVERSE SOLIDUS","deep":"…","é̂":"composition—U+0065 LATIN SMALL LETTER E + U+0301 COMBINING ACUTE ACCENT + U+0302 COMBINING CIRCUMFLEX ACCENT","ế":"composition—U+0065 LATIN SMALL LETTER E + U+0302 COMBINING CIRCUMFLEX ACCENT + U+0301 COMBINING ACUTE ACCENT","":"U+007F DELETE","":"U+0080 PADDING CHARACTER","Å":"U+00C5 LATIN CAPITAL LETTER A WITH RING ABOVE","ế":"composition—U+00EA LATIN SMALL LETTER E WITH CIRCUMFLEX + U+0301 COMBINING ACUTE ACCENT","́":"U+0301 COMBINING ACUTE ACCENT","̂":"U+0302 COMBINING CIRCUMFLEX ACCENT","̇":"U+0307 COMBINING DOT ABOVE","̊":"U+030A COMBINING RING ABOVE","ế":"U+1EBF LATIN SMALL LETTER E WITH CIRCUMFLEX AND ACUTE","Å":"U+212B ANGSTROM SIGN","←":"U+2190 LEFTWARDS ARROW","\uD800":"U+D800 lowest high surrogate","\uD800\uDBFF":"two high surrogates","\uDBFF":"U+DBFF highest high surrogate","\uDC00":"U+DC00 lowest low surrogate","\uDC00\uDBFF":"surrogates—low + high","\uDC00\uDFFF":"two low surrogates","\uDFFF":"U+DFFF highest high surrogate","ﬁ":"U+FB01 LATIN SMALL LIGATURE FI","�":"U+FFFD REPLACEMENT CHARACTER","𐀀":"U+10000 LINEAR B SYLLABLE B008 A","𝌆":"surrogate pair—U+1D306 TETRAGRAM FOR CENTRE"}],"é̂":"composition—U+0065 LATIN SMALL LETTER E + U+0301 COMBINING ACUTE ACCENT + U+0302 COMBINING CIRCUMFLEX ACCENT","ế":"composition—U+0065 LATIN SMALL LETTER E + U+0302 COMBINING CIRCUMFLEX ACCENT + U+0301 COMBINING ACUTE ACCENT","":"U+007F DELETE","":"U+0080 PADDING CHARACTER","Å":"U+00C5 LATIN CAPITAL LETTER A WITH RING ABOVE","ế":"composition—U+00EA LATIN SMALL LETTER E WITH CIRCUMFLEX + U+0301 COMBINING ACUTE ACCENT","́":"U+0301 COMBINING ACUTE ACCENT","̂":"U+0302 COMBINING CIRCUMFLEX ACCENT","̇":"U+0307 COMBINING DOT ABOVE","̊":"U+030A COMBINING RING ABOVE","ế":"U+1EBF LATIN SMALL LETTER E WITH CIRCUMFLEX AND ACUTE","Å":"U+212B ANGSTROM SIGN","←":"U+2190 LEFTWARDS ARROW","\uD800":"U+D800 lowest high surrogate","\uD800\uDBFF":"two high surrogates","\uDBFF":"U+DBFF highest high surrogate","\uDC00":"U+DC00 lowest low surrogate","\uDC00\uDBFF":"surrogates—low + high","\uDC00\uDFFF":"two low surrogates","\uDFFF":"U+DFFF highest high surrogate","ﬁ":"U+FB01 LATIN SMALL LIGATURE FI","�":"U+FFFD REPLACEMENT CHARACTER","𐀀":"U+10000 LINEAR B SYLLABLE B008 A","𝌆":"surrogate pair—U+1D306 TETRAGRAM FOR CENTRE"}"#)
 
         try checkCanonical(id: "1.no-negative-zero", #"["for sig in 0 0.0 0.00; do for e in '' e E; do [ x$e = x ] && echo $sig, && continue; for e_sign in '' '-' '+'; do for exp in 0 00 1 01; do echo $sig$e$e_sign$exp,; done; done; done; done",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]"#)

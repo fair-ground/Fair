@@ -45,9 +45,8 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/allSatisfy(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/array()",
-        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncFilter(_:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/breadthFirstIterator(children:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/clip()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/compactMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/compacted()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/compare(_:_:)",
@@ -61,10 +60,15 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/elementsEqual(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/elementsEqual(_:by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/enumerated()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/fill(using:)-59g4q",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/fill(using:)-71ods",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/fill(using:)-8o0ub",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/filter(_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/filterAsync(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/first(where:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/flatMap(_:)-3y6g",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/flatMap(_:)-45jj5",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/flatMapAsync(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/flatTree(traverse:children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/forEach(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/formatted()",
@@ -76,12 +80,14 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/lexicographicallyPrecedes(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/lexicographicallyPrecedes(_:by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/map(_:)-5x7ib",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/mapAsync(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/max()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/max(by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/min()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/min(by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/reduce(_:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/reduce(into:_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/reduceAsync(into:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/set()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/shuffled()",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/shuffled(using:)",
@@ -344,215 +350,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/array()"
 },
-"doc://FairCore/documentation/FairCore/IndexedCollection/asyncFilter(_:)": {
-  "abstract" : [
-    {
-      "text" : "Concurrently executes the given filter, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asyncFilter"
-    },
-    {
-      "kind" : "text",
-      "text" : "(("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "rethrows"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncFilter(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asyncFilter(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/indexedcollection\/asyncfilter(_:)"
-},
-"doc://FairCore/documentation/FairCore/IndexedCollection/asyncMap(_:)": {
-  "abstract" : [
-    {
-      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asyncMap"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">(("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "rethrows"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncMap(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asyncMap(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/indexedcollection\/asyncmap(_:)"
-},
 "doc://FairCore/documentation/FairCore/IndexedCollection/breadthFirstIterator(children:)": {
   "abstract" : [
     {
@@ -646,6 +443,67 @@
   "title" : "breadthFirstIterator(children:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/breadthfirstiterator(children:)"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/clip()": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "CGRect",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clip"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/clip()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clip()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/clip()"
 },
 "doc://FairCore/documentation/FairCore/IndexedCollection/compactMap(_:)": {
   "abstract" : [
@@ -1802,6 +1660,240 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/enumerated()"
 },
+"doc://FairCore/documentation/FairCore/IndexedCollection/fill(using:)-59g4q": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "(CGRect, gray: CGFloat)",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fill"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "using"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@E@NSCompositingOperation",
+      "text" : "NSCompositingOperation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/fill(using:)-59g4q",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fill(using:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/fill(using:)-59g4q"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/fill(using:)-71ods": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "CGRect",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fill"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "using"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@E@NSCompositingOperation",
+      "text" : "NSCompositingOperation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/fill(using:)-71ods",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fill(using:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/fill(using:)-71ods"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/fill(using:)-8o0ub": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "(CGRect, NSColor)",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fill"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "using"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:@E@NSCompositingOperation",
+      "text" : "NSCompositingOperation"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/fill(using:)-8o0ub",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fill(using:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/fill(using:)-8o0ub"
+},
 "doc://FairCore/documentation/FairCore/IndexedCollection/filter(_:)": {
   "abstract" : [
 
@@ -1887,6 +1979,127 @@
   "title" : "filter(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/filter(_:)"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/filterAsync(_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.filter",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filterAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/filterAsync(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filterAsync(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/filterasync(_:)"
 },
 "doc://FairCore/documentation/FairCore/IndexedCollection/first(where:)": {
   "abstract" : [
@@ -2160,6 +2373,126 @@
   "title" : "flatMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/flatmap(_:)-45jj5"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/flatMapAsync(_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.flatMap",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "flatMapAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/flatMapAsync(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "flatMapAsync(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/flatmapasync(_:)"
 },
 "doc://FairCore/documentation/FairCore/IndexedCollection/flatTree(traverse:children:)": {
   "abstract" : [
@@ -3157,6 +3490,126 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/map(_:)-5x7ib"
 },
+"doc://FairCore/documentation/FairCore/IndexedCollection/mapAsync(_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.map",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mapAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/mapAsync(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mapAsync(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/mapasync(_:)"
+},
 "doc://FairCore/documentation/FairCore/IndexedCollection/max()": {
   "abstract" : [
 
@@ -3796,6 +4249,146 @@
   "title" : "reduce(into:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/reduce(into:_:)"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/reduceAsync(into:_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.reduce",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reduceAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ()) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/reduceAsync(into:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reduceAsync(into:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/reduceasync(into:_:)"
 },
 "doc://FairCore/documentation/FairCore/IndexedCollection/set()": {
   "abstract" : [

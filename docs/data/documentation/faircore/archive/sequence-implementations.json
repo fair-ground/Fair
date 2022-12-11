@@ -45,8 +45,6 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/allSatisfy(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/array()",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/asyncFilter(_:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/asyncMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/breadthFirstIterator(children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/compactMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/compacted()",
@@ -63,21 +61,25 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/elementsEqual(_:by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/enumerated()",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/filter(_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/filterAsync(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/first(where:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/flatMap(_:)-36nll",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/flatMap(_:)-3x774",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/flatMapAsync(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/flatTree(traverse:children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/forEach(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/formatted(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/grouping(by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/lexicographicallyPrecedes(_:by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/map(_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/mapAsync(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/max(by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/min(by:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/prefix(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/prefix(while:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/reduce(_:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/reduce(into:_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/reduceAsync(into:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/reversed()",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/shuffled()",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/shuffled(using:)",
@@ -332,215 +334,6 @@
   "title" : "array()",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/array()"
-},
-"doc://FairCore/documentation/FairCore/Archive/asyncFilter(_:)": {
-  "abstract" : [
-    {
-      "text" : "Concurrently executes the given filter, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asyncFilter"
-    },
-    {
-      "kind" : "text",
-      "text" : "(("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "rethrows"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/asyncFilter(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asyncFilter(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive\/asyncfilter(_:)"
-},
-"doc://FairCore/documentation/FairCore/Archive/asyncMap(_:)": {
-  "abstract" : [
-    {
-      "text" : "Concurrently executes the given transformation, returning the results in the order of the sequence’s elements",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "asyncMap"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">(("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ") "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "async"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "rethrows"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/asyncMap(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "asyncMap(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive\/asyncmap(_:)"
 },
 "doc://FairCore/documentation/FairCore/Archive/breadthFirstIterator(children:)": {
   "abstract" : [
@@ -1903,6 +1696,127 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/filter(_:)"
 },
+"doc://FairCore/documentation/FairCore/Archive/filterAsync(_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.filter",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filterAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/filterAsync(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filterAsync(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive\/filterasync(_:)"
+},
 "doc://FairCore/documentation/FairCore/Archive/first(where:)": {
   "abstract" : [
 
@@ -2175,6 +2089,126 @@
   "title" : "flatMap(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/flatmap(_:)-3x774"
+},
+"doc://FairCore/documentation/FairCore/Archive/flatMapAsync(_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.flatMap",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "flatMapAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/flatMapAsync(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "flatMapAsync(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive\/flatmapasync(_:)"
 },
 "doc://FairCore/documentation/FairCore/Archive/flatTree(traverse:children:)": {
   "abstract" : [
@@ -2825,6 +2859,126 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/map(_:)"
 },
+"doc://FairCore/documentation/FairCore/Archive/mapAsync(_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.map",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mapAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">(("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/mapAsync(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "mapAsync(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive\/mapasync(_:)"
+},
 "doc://FairCore/documentation/FairCore/Archive/max(by:)": {
   "abstract" : [
 
@@ -3459,6 +3613,146 @@
   "title" : "reduce(into:_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/reduce(into:_:)"
+},
+"doc://FairCore/documentation/FairCore/Archive/reduceAsync(into:_:)": {
+  "abstract" : [
+    {
+      "text" : "Variant ",
+      "type" : "text"
+    },
+    {
+      "code" : "Sequence.reduce",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that accepts an ",
+      "type" : "text"
+    },
+    {
+      "code" : "async",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " closure",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "reduceAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ()) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/reduceAsync(into:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "reduceAsync(into:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/archive\/reduceasync(into:_:)"
 },
 "doc://FairCore/documentation/FairCore/Archive/reversed()": {
   "abstract" : [

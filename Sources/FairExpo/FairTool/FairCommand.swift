@@ -680,7 +680,7 @@ extension FairCommand {
 
                     func stripSignature(from url: URL) async throws -> Data {
                         try await Process.codesignStrip(url: url).expect()
-                        return try Data(contentsOf: url)
+                        return try await Data(contentsOf: url)
                     }
 
                     func disassemble(_ tool: String, from url: URL) async throws -> Data {
@@ -1054,7 +1054,7 @@ extension FairCommand {
             let appIconURL = projectOptions.projectPathURL(path: appIconPath)
 
             // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
-            let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
+            let iconSet = try await AppIconSet(json: Data(contentsOf: appIconURL))
 
             let appName = try orgOptions.appNameSpace()
             let iconColor = try parseTintIconColor()

@@ -191,7 +191,7 @@ public final class AppCatalogAPI {
         }
 
         if let sha256 = app.sha256,
-           let fileData = try? Data(contentsOf: file) {
+           let fileData = try? await Data(contentsOf: file) {
             let fileChecksum = fileData.sha256()
             if sha256 != fileChecksum.hex() {
                 addFailure(to: &failures, app: app, AppCatalogVerifyFailure(type: "checksum_failed", message: "Checksum mismatch (\(sha256) vs. \(fileChecksum.hex())) from: \(app.downloadURL?.absoluteString ?? "nourl")"), msg: msg)

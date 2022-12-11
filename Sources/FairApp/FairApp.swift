@@ -282,8 +282,12 @@ public extension SceneManager {
             dbg("configuration isSymbolicLink for:", name)
         }
         let source = try String(contentsOf: url, encoding: .utf8)
-        let yaml = try JSum.parse(yaml: source)
-        return try T(json: yaml.json(), dataDecodingStrategy: .base64, dateDecodingStrategy: .iso8601)
+        let jsum = try JSum.parse(yaml: source)
+        if T.self == JSum.self {
+            return jsum as! T // optimization: no need to re-parse T if it is just a JSum
+        } else {
+            return try T(jsum: jsum, options: .init(dateDecodingStrategy: .iso8601, dataDecodingStrategy: .base64))
+        }
     }
 }
 

@@ -451,6 +451,6 @@ public extension Sequence {
 public extension Collection {
     /// Zips the elements of this collection with its indices
     @inlinable var zippedWithIndices: Zip2Sequence<Self.Indices, Self> {
-        Swift.zip(self.indices, self)
+        zip(self.indices, self)
     }
 }
