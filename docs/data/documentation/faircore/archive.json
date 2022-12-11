@@ -361,8 +361,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(data:accessMode:preferredEncoding:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(url:accessMode:preferredEncoding:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(data:accessMode:compressionLevel:preferredEncoding:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(url:accessMode:compressionLevel:preferredEncoding:)"
       ],
       "title" : "Initializers"
     },
@@ -1559,7 +1559,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/extractdata(from:)"
 },
-"doc://FairCore/documentation/FairCore/Archive/init(data:accessMode:preferredEncoding:)": {
+"doc://FairCore/documentation/FairCore/Archive/init(data:accessMode:compressionLevel:preferredEncoding:)": {
   "abstract" : [
     {
       "text" : "Initializes a new in-memory ZIP ",
@@ -1628,6 +1628,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "compressionLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "preferredEncoding"
     },
     {
@@ -1653,14 +1670,14 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(data:accessMode:preferredEncoding:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(data:accessMode:compressionLevel:preferredEncoding:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(data:accessMode:preferredEncoding:)",
+  "title" : "init(data:accessMode:compressionLevel:preferredEncoding:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive\/init(data:accessmode:preferredencoding:)"
+  "url" : "\/documentation\/faircore\/archive\/init(data:accessmode:compressionlevel:preferredencoding:)"
 },
-"doc://FairCore/documentation/FairCore/Archive/init(url:accessMode:preferredEncoding:)": {
+"doc://FairCore/documentation/FairCore/Archive/init(url:accessMode:compressionLevel:preferredEncoding:)": {
   "abstract" : [
     {
       "text" : "Initializes a new ZIP ",
@@ -1729,6 +1746,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "compressionLevel"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "preferredEncoding"
     },
     {
@@ -1754,12 +1788,12 @@
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(url:accessMode:preferredEncoding:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/init(url:accessMode:compressionLevel:preferredEncoding:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(url:accessMode:preferredEncoding:)",
+  "title" : "init(url:accessMode:compressionLevel:preferredEncoding:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive\/init(url:accessmode:preferredencoding:)"
+  "url" : "\/documentation\/faircore\/archive\/init(url:accessmode:compressionlevel:preferredencoding:)"
 },
 "doc://FairCore/documentation/FairCore/Archive/makeIterator()": {
   "abstract" : [
