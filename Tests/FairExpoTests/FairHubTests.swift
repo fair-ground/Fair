@@ -39,9 +39,9 @@ import FairApp
 final class FairHubTests: XCTestCase {
 
     override class func setUp() {
-        if authToken == nil {
-            XCTFail("Missing GITHUB_TOKEN and GH_TOKEN in environment")
-        }
+//        if authToken == nil {
+//            XCTFail("Missing GITHUB_TOKEN and GH_TOKEN in environment")
+//        }
     }
 
     /// True if we are running from GitHub CI (in which case we skip some tests to reduce load)
@@ -225,18 +225,13 @@ final class FairHubTests: XCTestCase {
 //            throw XCTSkip("disabled to reduce API load")
 //        }
 
-        do {
-            let hub = try Self.hub(skipNoAuth: true)
-            for try await batch in hub.requestBatchedStream(FairHub.SemanticForksQuery(owner: "appfair", name: "App")) {
-                let repo = try batch.get().data.repository
-                XCTAssertEqual("appfair/App", repo.nameWithOwner)
-                XCTAssertLessThan(20, repo.forks.totalCount ?? 0)
-                let forks = repo.forks.nodes
-                dbg("fetched forks:", forks.count, forks.map(\.nameWithOwner))
-            }
-        } catch {
-            XCTFail("\(error)")
-            throw error
+        let hub = try Self.hub(skipNoAuth: true)
+        for try await batch in hub.requestBatchedStream(FairHub.SemanticForksQuery(owner: "appfair", name: "App")) {
+            let repo = try batch.get().data.repository
+            XCTAssertEqual("appfair/App", repo.nameWithOwner)
+            XCTAssertLessThan(20, repo.forks.totalCount ?? 0)
+            let forks = repo.forks.nodes
+            dbg("fetched forks:", forks.count, forks.map(\.nameWithOwner))
         }
     }
 

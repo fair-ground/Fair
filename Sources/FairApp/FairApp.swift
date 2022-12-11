@@ -367,6 +367,7 @@ extension FairContainer {
 
             if isCLI == false { // launch the app itself
                 dumpProcessInfo(bundle: bundle, &stdout) // always log the app info
+                assert(Thread.isMainThread)
                 FairContainerApp<Self>.main()
             } else { // invoke the command-line interface to the app
                 if try Self.cli(args: CommandLine.arguments) == false {

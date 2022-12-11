@@ -265,7 +265,7 @@ extension URLSession {
     /// the number of progress segments for the download part; the remainder will be the zip decompression
     public static let progressUnitCount: Int64 = 4
 
-    #if !os(Linux) && !os(Android) && !os(Windows) // bytes not available
+    #if !os(Linux) && !os(Android) && !os(Windows) // bytes not available: https://github.com/apple/swift-corelibs-foundation/issues/3205
     /// Downloads the given request to a cached file location.
     ///
     /// - Parameters:
@@ -279,7 +279,7 @@ extension URLSession {
     /// Note: this operation downloads directly into memory instead of the potentially-more-efficient download task.
     /// We would like to use a download task to save directly to a file and have progress callbacks go through DownloadDelegate, but it is not working with async/await (see https://stackoverflow.com/questions/68276940/how-to-get-the-download-progress-with-the-new-try-await-urlsession-shared-downlo)
     /// However, an advantage of using streaming bytes is that we can maintain a running sha256 hash for the download without have to load the whole data chunk into memory after the download has completed
-        public func download(request: URLRequest, memoryBufferSize: Int = 1024 * 64, consumer: DataConsumer? = nil, parentProgress: Progress? = nil, responseVerifier: (URLResponse) throws -> Bool = { (200..<300).contains(($0 as? HTTPURLResponse)?.statusCode ?? 200) }) async throws -> (URL, URLResponse) {
+        @inlinable public func download(request: URLRequest, memoryBufferSize: Int = 1024 * 64, consumer: DataConsumer? = nil, parentProgress: Progress? = nil, responseVerifier: (URLResponse) throws -> Bool = { (200..<300).contains(($0 as? HTTPURLResponse)?.statusCode ?? 200) }) async throws -> (URL, URLResponse) {
         let downloadedArtifact: URL
         let (asyncBytes, response) = try await self.bytes(for: request)
         if try responseVerifier(response) == false {
