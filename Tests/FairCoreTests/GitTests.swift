@@ -22,7 +22,7 @@ final class RemoteGitTests : XCTestCase {
     func testDemo() async throws {
         let remote = try XCTUnwrap(URL(string: "https://github.com/marcprux/DemoRepo.git"))
         guard let token = authToken else {
-            return XCTFail("no auth token")
+            throw XCTSkip("no auth token")
         }
 
         Git.Hub.session.password = token
