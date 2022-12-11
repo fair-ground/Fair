@@ -20,6 +20,27 @@ final class RemoteGitTests : XCTestCase {
         XCTAssertEqual("e9624bee3177db5443e23d65ba54fc28ca343afa", refs.first(where: { $0.name == "refs/tags/0.3.10" })?.branch)
     }
 
+    func compareRepoContents(at orgName: String, head: String = "main") async throws {
+        let gitURL = try XCTUnwrap(URL(string: "https://github.com/\(orgName).git"))
+        let zipURL = try XCTUnwrap(URL(string: "https://github.com/\(orgName)/archive/refs/heads/\(head).zip"))
+
+        dbg("downloading zip:", zipURL.absoluteString)
+
+        let session = URLSession.shared
+        let (localURL, response) = try await session.downloadFile(for: URLRequest(url: zipURL), useContentDispositionFileName: true, useLastModifiedDate: true)
+
+        dbg("extracting zip:", localURL.absoluteString)
+
+        let tmpfile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
+
+        let unzipped = try FileManager.default.unzipItem(at: localURL, to: tmpfile, skipCRC32: false, progress: nil, preferredEncoding: nil)
+    }
+
+    func testCompareRepoContents() async throws {
+        try await compareRepoContents(at: "Cloud-Cuckoo/App")
+    }
+
+
     func XXXtestDemo() async throws {
         let remote = try XCTUnwrap(URL(string: "https://github.com/marcprux/DemoRepo.git"))
         guard let token = authToken else {

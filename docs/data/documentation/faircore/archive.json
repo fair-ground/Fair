@@ -380,7 +380,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/addEntry(with:relativeTo:compressionMethod:bufferSize:progress:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/addEntry(with:type:uncompressedSize:modificationDate:permissions:compressionMethod:bufferSize:progress:provider:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:bufferSize:skipCRC32:progress:consumer:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:skipCRC32:progress:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:overwrite:skipCRC32:progress:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extractData(from:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/makeIterator()",
         "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/remove(_:bufferSize:progress:)",
@@ -1341,7 +1341,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/extract(_:buffersize:skipcrc32:progress:consumer:)"
 },
-"doc://FairCore/documentation/FairCore/Archive/extract(_:to:bufferSize:skipCRC32:progress:)": {
+"doc://FairCore/documentation/FairCore/Archive/extract(_:to:bufferSize:overwrite:skipCRC32:progress:)": {
   "abstract" : [
     {
       "text" : "Read a ZIP ",
@@ -1435,6 +1435,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "overwrite"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "skipCRC32"
     },
     {
@@ -1481,12 +1498,12 @@
       "text" : "CRC32"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:skipCRC32:progress:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:overwrite:skipCRC32:progress:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "extract(_:to:bufferSize:skipCRC32:progress:)",
+  "title" : "extract(_:to:bufferSize:overwrite:skipCRC32:progress:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive\/extract(_:to:buffersize:skipcrc32:progress:)"
+  "url" : "\/documentation\/faircore\/archive\/extract(_:to:buffersize:overwrite:skipcrc32:progress:)"
 },
 "doc://FairCore/documentation/FairCore/Archive/extractData(from:)": {
   "abstract" : [

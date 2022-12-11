@@ -37,12 +37,12 @@ final class ZipTests: XCTestCase {
     func testDeflate() throws {
         let data = "blob 16\u{0000}what is up, doc?".utf8Data
         do {
-            let deflated = try data.deflatez(level: -1, checksum: false, wrap: false).data
+            let deflated = try data.deflate(level: -1, checksum: false, wrap: false).data
             XCTAssertEqual("4bcac94f5230346328cf482c51c82c56282dd05148c94fb60700", deflated.hex())
-            let deflated0 = try data.deflatez(level: 0, checksum: false, wrap: false).data
+            let deflated0 = try data.deflate(level: 0, checksum: false, wrap: false).data
             XCTAssertEqual("011800e7ff626c6f6220313600776861742069732075702c20646f633f", deflated0.hex())
             for level in 1...9 {
-                let deflatedx = try data.deflatez(level: level, checksum: false, wrap: false).data
+                let deflatedx = try data.deflate(level: level, checksum: false, wrap: false).data
                 XCTAssertEqual("4bcac94f5230346328cf482c51c82c56282dd05148c94fb60700", deflatedx.hex())
             }
         }
@@ -51,19 +51,19 @@ final class ZipTests: XCTestCase {
             let pad = " xxx ".utf8Data
             let data2 = data + pad + data + pad + pad + data + pad + pad + pad + data + data + data + data
 
-            let deflated = try data2.deflatez(level: -1, checksum: false, wrap: false).data
+            let deflated = try data2.deflate(level: -1, checksum: false, wrap: false).data
             XCTAssertEqual("4bcac94f5230346328cf482c51c82c56282dd05148c94fb657a8a8a85048c22749a40abccaa8250e00", deflated.hex())
 
-            let deflated0 = try data2.deflatez(level: 0, checksum: false, wrap: false).data
+            let deflated0 = try data2.deflate(level: 0, checksum: false, wrap: false).data
             XCTAssertEqual("01c60039ff626c6f6220313600776861742069732075702c20646f633f2078787820626c6f6220313600776861742069732075702c20646f633f20787878202078787820626c6f6220313600776861742069732075702c20646f633f207878782020787878202078787820626c6f6220313600776861742069732075702c20646f633f626c6f6220313600776861742069732075702c20646f633f626c6f6220313600776861742069732075702c20646f633f626c6f6220313600776861742069732075702c20646f633f", deflated0.hex())
 
             for level in 1...3 {
-                let deflatedx = try data2.deflatez(level: level, checksum: false, wrap: false).data
+                let deflatedx = try data2.deflate(level: level, checksum: false, wrap: false).data
                 XCTAssertEqual("4bcac94f5230346328cf482c51c82c56282dd05148c94fb657a8a8a85048c22749a40abcca705940aa3800", deflatedx.hex())
             }
 
             for level in 4...9 {
-                let deflatedx = try data2.deflatez(level: level, checksum: false, wrap: false).data
+                let deflatedx = try data2.deflate(level: level, checksum: false, wrap: false).data
                 XCTAssertEqual("4bcac94f5230346328cf482c51c82c56282dd05148c94fb657a8a8a85048c22749a40abccaa8250e00", deflatedx.hex())
             }
         }

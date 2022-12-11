@@ -31,12 +31,12 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:skipCRC32:progress:)"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:overwrite:skipCRC32:progress:)"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "FairCore",
-    "externalID" : "s:8FairCore7ArchiveC7extract_2to10bufferSize9skipCRC328progresss6UInt32VAC5EntryV_10Foundation3URLVSiSbSo10NSProgressCSgtKF",
+    "externalID" : "s:8FairCore7ArchiveC7extract_2to10bufferSize9overwrite9skipCRC328progresss6UInt32VAC5EntryV_10Foundation3URLVSiS2bSo10NSProgressCSgtKF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -108,6 +108,23 @@
       },
       {
         "kind" : "externalParam",
+        "text" : "overwrite"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:Sb",
+        "text" : "Bool"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
         "text" : "skipCRC32"
       },
       {
@@ -162,7 +179,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "extract(_:to:bufferSize:skipCRC32:progress:)"
+    "title" : "extract(_:to:bufferSize:overwrite:skipCRC32:progress:)"
   },
   "primaryContentSections" : [
     {
@@ -268,6 +285,23 @@
             {
               "kind" : "text",
               "text" : " = defaultReadChunkSize, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "overwrite"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sb",
+              "text" : "Bool"
+            },
+            {
+              "kind" : "text",
+              "text" : " = false, "
             },
             {
               "kind" : "externalParam",
@@ -480,7 +514,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/archive\/extract(_:to:buffersize:skipcrc32:progress:)"
+        "\/documentation\/faircore\/archive\/extract(_:to:buffersize:overwrite:skipcrc32:progress:)"
       ],
       "traits" : [
         {
@@ -581,7 +615,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/archive\/entry"
 },
-"doc://FairCore/documentation/FairCore/Archive/extract(_:to:bufferSize:skipCRC32:progress:)": {
+"doc://FairCore/documentation/FairCore/Archive/extract(_:to:bufferSize:overwrite:skipCRC32:progress:)": {
   "abstract" : [
     {
       "text" : "Read a ZIP ",
@@ -675,6 +709,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "overwrite"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "skipCRC32"
     },
     {
@@ -721,12 +772,12 @@
       "text" : "CRC32"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:skipCRC32:progress:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive\/extract(_:to:bufferSize:overwrite:skipCRC32:progress:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "extract(_:to:bufferSize:skipCRC32:progress:)",
+  "title" : "extract(_:to:bufferSize:overwrite:skipCRC32:progress:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive\/extract(_:to:buffersize:skipcrc32:progress:)"
+  "url" : "\/documentation\/faircore\/archive\/extract(_:to:buffersize:overwrite:skipcrc32:progress:)"
 },
 "doc://FairCore/documentation/FairCore/CRC32-swift.typealias": {
   "abstract" : [
