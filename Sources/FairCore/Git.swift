@@ -32,7 +32,7 @@
  exception statement from your version.
  */
 import Swift
-import XCTest
+import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
