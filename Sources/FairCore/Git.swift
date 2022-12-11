@@ -32,6 +32,7 @@
  exception statement from your version.
  */
 import Swift
+import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
