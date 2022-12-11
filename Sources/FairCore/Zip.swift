@@ -197,15 +197,15 @@ internal extension Data {
 }
 
 extension Data {
-    @inlinable static func unpack(_ size: Int, data: Data, check: Bool = wip(assertionsEnabled)) throws -> (index: Int, result: Data) {
+    @inlinable static func unpack(_ size: Int, data: Data) throws -> (index: Int, result: Data) {
         let check1 = try unpackZlib(size, data: data)
-        if check {
-            #if canImport(CompressionXXX)
+        #if canImport(CompressionXXX)
+        if assertionsEnabled {
             let check2 = try unpackNonPortable(size, data: data)
             assert(check1.result == check2.result)
             assert(check1.index == check2.index)
-            #endif
         }
+        #endif
         return check1
     }
 
@@ -266,9 +266,8 @@ extension Data {
                 stream.avail_out = UInt32(size)
                 stream.avail_in = UInt32(read)
                 var chunk = data[(data.startIndex + advance)..<(data.startIndex + advance + read)]
-                // TODO: result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) in
-                result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutablePointer<UInt8>) in
-                    stream.next_in = ptr
+                result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) in
+                    stream.next_in = ptr.bindMemory(to: UInt8.self).baseAddress
                     status = inflate(&stream, Z_NO_FLUSH)
                     guard status != Z_NEED_DICT && status != Z_DATA_ERROR && status != Z_MEM_ERROR else {
                         throw CompressionError.corruptedData

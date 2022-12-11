@@ -694,14 +694,19 @@ class TestGitContents: LocalGitTest {
         await XXCTAssertEqual(true, await repository.state.needs)
     }
 
-#if !os(Linux) // TODO: fix Linux failures with setStatus
     func testAfterStatus() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let repository = try await Git.Hub.create(url)
         _ = try await repository.state.list
         await XXCTAssertEqual(false, await repository.state.needs)
     }
 
     func testAfterEdition() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let repository = try await Git.Hub.create(url)
         _ = try await repository.state.list
         try "hello\n".write(to: localPath("file.txt"), atomically: true, encoding: .utf8)
@@ -709,6 +714,9 @@ class TestGitContents: LocalGitTest {
     }
 
     func testAfterContentEdition() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let file = localPath("file.txt")
         try "hello\n".write(to: file, atomically: true, encoding: .utf8)
         let repository = try await Git.Hub.create(url)
@@ -720,6 +728,9 @@ class TestGitContents: LocalGitTest {
     }
 
     func testAfterSubtreeEdition() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let dir = localPath("adir")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let file = dir.appendingPathComponent("file.txt")
@@ -733,6 +744,9 @@ class TestGitContents: LocalGitTest {
     }
 
     func testAfterSubSubtreeEdition() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let dir = localPath("adir/inside/another")
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         let file = dir.appendingPathComponent("file.txt")
@@ -744,7 +758,6 @@ class TestGitContents: LocalGitTest {
         try "lorem ipsum\n".write(to: file, atomically: true, encoding: .utf8)
         await XXCTAssertEqual(true, await repository.state.needs)
     }
-    #endif
 }
 
 class TestGitDiff: LocalGitTest {
@@ -1673,36 +1686,36 @@ class TestGitPress: LocalGitTest {
 
     func testTree1() async throws {
         try await fixture(name: "tree1").write(to: localPath(".git/objects/ab/helloworld"))
-        let tree = try? await Git.Tree("abhelloworld", url: url)
-        XCTAssertEqual(1, tree?.items.count)
-        XCTAssertEqual(.blob, tree?.items.first?.category)
-        XCTAssertEqual("hello.json", tree?.items.first?.url.lastPathComponent)
-        XCTAssertEqual("e0f1ee1826f922f041e557a16173f2a93835825e", tree?.items.first?.id)
+        let tree = try await Git.Tree("abhelloworld", url: url)
+        XCTAssertEqual(1, tree.items.count)
+        XCTAssertEqual(.blob, tree.items.first?.category)
+        XCTAssertEqual("hello.json", tree.items.first?.url.lastPathComponent)
+        XCTAssertEqual("e0f1ee1826f922f041e557a16173f2a93835825e", tree.items.first?.id)
     }
 
     func testTree2() async throws {
         try await fixture(name: "tree2").write(to: localPath(".git/objects/ab/helloworld"))
-        let tree = try? await Git.Tree("abhelloworld", url: url)
-        XCTAssertEqual(2, tree?.items.count)
-        XCTAssertEqual(.blob, tree?.items.first?.category)
-        XCTAssertEqual(.tree, tree?.items.last?.category)
-        XCTAssertEqual("hello.json", tree?.items.first?.url.lastPathComponent)
-        XCTAssertEqual("e0f1ee1826f922f041e557a16173f2a93835825e", tree?.items.first?.id)
-        XCTAssertEqual("mydir", tree?.items.last?.url.lastPathComponent)
-        XCTAssertEqual("213190a0fbccf0c01ebf2776edb8011fd935dbba", tree?.items.last?.id)
+        let tree = try await Git.Tree("abhelloworld", url: url)
+        XCTAssertEqual(2, tree.items.count)
+        XCTAssertEqual(.blob, tree.items.first?.category)
+        XCTAssertEqual(.tree, tree.items.last?.category)
+        XCTAssertEqual("hello.json", tree.items.first?.url.lastPathComponent)
+        XCTAssertEqual("e0f1ee1826f922f041e557a16173f2a93835825e", tree.items.first?.id)
+        XCTAssertEqual("mydir", tree.items.last?.url.lastPathComponent)
+        XCTAssertEqual("213190a0fbccf0c01ebf2776edb8011fd935dbba", tree.items.last?.id)
     }
 
     func testTree3() async throws {
         try await fixture(name: "tree3").write(to: localPath(".git/objects/ab/helloworld"))
-        let tree = try? await Git.Tree("abhelloworld", url: url)
-        XCTAssertEqual(11, tree?.items.count)
-        XCTAssertEqual(11, tree?.items.filter({ $0.category != .tree }).count)
+        let tree = try await Git.Tree("abhelloworld", url: url)
+        XCTAssertEqual(11, tree.items.count)
+        XCTAssertEqual(11, tree.items.filter({ $0.category != .tree }).count)
     }
 
     func testTree4() async throws {
         try await fixture(name: "tree4").write(to: localPath(".git/objects/ab/helloworld"))
-        let tree = try? await Git.Tree("abhelloworld", url: url)
-        XCTAssertNotNil(tree?.items.first(where: { $0.id == "71637250a143a4c2eed7103f08b3610cd4f1f1f9" }))
+        let tree = try await Git.Tree("abhelloworld", url: url)
+        XCTAssertNotNil(tree.items.first(where: { $0.id == "71637250a143a4c2eed7103f08b3610cd4f1f1f9" }))
     }
 
     func testCommit0() async throws {
@@ -1865,8 +1878,6 @@ class TestGitPull: LocalGitTest {
         XCTAssertEqual(1, callbacks)
     }
 
-    #if !os(Linux) // TODO: fix Linux failures with setStatus
-
     /* FIXME Linux
      XCTAssertEqual failed: ("0032have 11world
      0032have 11hello
@@ -1877,6 +1888,9 @@ class TestGitPull: LocalGitTest {
      ") -
      */
     func testHave() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         var callbacks = 0
         let fetch = Git.Fetch()
         fetch.refs.append(.init(branch: "hello world"))
@@ -1897,7 +1911,6 @@ class TestGitPull: LocalGitTest {
         
         XCTAssertEqual(1, callbacks)
     }
-    #endif
 
     func testCheckout() async throws {
         let fetch = Git.Fetch()
@@ -2179,7 +2192,6 @@ class TestGitPush: LocalGitTest {
     }
 }
 
-#if !os(Linux) // TODO: fix Linux failures
 class TestGitRefresh: LocalGitTest {
 
     override func setUp() async throws {
@@ -2192,6 +2204,9 @@ class TestGitRefresh: LocalGitTest {
     }
 
     func testAfterCommit() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let expect = expectation(description: "")
         let repository = try await Git.Hub.create(url)
         let file = localPath("myfile.txt")
@@ -2205,6 +2220,9 @@ class TestGitRefresh: LocalGitTest {
     }
 
     func testAfterReset() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let expect = expectation(description: "")
         let repository = try await Git.Hub.create(url)
         let file = localPath("myfile.txt")
@@ -2218,6 +2236,9 @@ class TestGitRefresh: LocalGitTest {
     }
 
     func testAfterUnpack() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let expect = expectation(description: "")
         let repository = try await Git.Hub.create(url)
         await repository.setStatus { _ in
@@ -2228,7 +2249,6 @@ class TestGitRefresh: LocalGitTest {
         await waitForExpectations(timeout: 1)
     }
 }
-#endif // !os(Linux)
 
 class TestGitRepack: LocalGitTest {
     private var rest: MockRest!
@@ -2725,8 +2745,10 @@ class TestGitStatus: LocalGitTest {
         try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
     }
 
-    #if !os(Linux) // TODO: fix Linux failures with setStatus
     func testNoChanges() async throws {
+        #if os(Linux)
+        throw XCTSkip("TODO: fix Linux failures with setStatus")
+        #endif
         let expect = expectation(description: "")
         self.repository = try await Git.Hub.create(url)
         await repository.setStatus {
@@ -2736,7 +2758,6 @@ class TestGitStatus: LocalGitTest {
         try await self.repository.refresh()
         await waitForExpectations(timeout: 1)
     }
-    #endif
 
     func testEmpty() async throws {
         let repository = try await Git.Hub.create(url)
