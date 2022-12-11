@@ -59,7 +59,8 @@ public extension URLResponse {
         }
 
         if !inRange.contains(httpResponse.statusCode) {
-            throw URLError(URLError.Code(rawValue: httpResponse.statusCode), userInfo: [:])
+            let code: URLError.Code? = URLError.Code(rawValue: httpResponse.statusCode) // on linux this is optional
+            throw URLError(code ?? .badServerResponse, userInfo: [:])
         }
     }
 }
