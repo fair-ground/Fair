@@ -91,7 +91,7 @@ final class ZipTests: XCTestCase {
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b07ca22690300", try compress(complex.utf8Data, 1))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b07ca22690300", try compress(complex.utf8Data, 2))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b07ca22690300", try compress(complex.utf8Data, 3))
-        XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b47350100", try compress(complex.utf8Data, 4))
+        XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db03331b5e0360100", try compress(complex.utf8Data, 4))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b47350100", try compress(complex.utf8Data, 5))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db033f16b47350100", try compress(complex.utf8Data, 6))
         XCTAssertEqual("4b4c4a4ec48b0c0c8d8c4d4ccdcc2d2c0db0331349300100", try compress(complex.utf8Data, 7))
