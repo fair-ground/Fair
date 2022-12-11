@@ -195,7 +195,7 @@ extension Data {
     @inlinable static func unpack(_ size: Int, data: Data, check: Bool = wip(assertionsEnabled)) throws -> (index: Int, result: Data) {
         let check1 = try unpackZlib(size, data: data)
         if check {
-            #if canImport(Compression)
+            #if canImport(CompressionXXX)
             let check2 = try unpackNonPortable(size, data: data)
             assert(check1.result == check2.result)
             assert(check1.index == check2.index)
@@ -205,6 +205,7 @@ extension Data {
     }
 
     @inlinable static func unpackZlib(_ size: Int, data: Data) throws -> (index: Int, result: Data) {
+        #if canImport(CompressionXXX)
         func unpackSegmentLegacy(ptr: UnsafeRawBufferPointer, index: inout Int) throws -> Data {
             var stream = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
             let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
@@ -235,6 +236,7 @@ extension Data {
             }
             return result
         }
+        #endif
 
         func unpackSegmentZlib(data: Data, index: inout Int, skipCRC32: Bool = false) throws -> Data {
             // var stream = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
@@ -284,7 +286,7 @@ extension Data {
         }
 
         let startIndex = Swift.max(try compress(data.decompress(), level: -1).count - Swift.max(size / 30, 9), 0)
-
+        #if canImport(CompressionXXX)
         var resultLegacy: (index: Int, data: Data)
         do {
             var index = startIndex
@@ -293,6 +295,7 @@ extension Data {
             })
             resultLegacy = (index, result)
         }
+        #endif
 
         var resultZlib: (index: Int, data: Data)
         do {
@@ -321,23 +324,25 @@ extension Data {
             } while !found
         }
 
-        try validateAdler(resultLegacy.data, index: resultLegacy.index)
         try validateAdler(resultZlib.data, index: resultZlib.index)
-
-        // skip over adler
-        resultLegacy.index += 6
         resultZlib.index += 6
+
+        #if canImport(CompressionXXX)
+        try validateAdler(resultLegacy.data, index: resultLegacy.index)
+        resultLegacy.index += 6
 
         //dbg("compare zlib:", resultZlib, "legacy:", resultLegacy, "indexZlib:", resultZlib.index, "indexLegacy:", resultLegacy.index)
         assert(resultZlib.index == resultLegacy.index)
         assert(resultZlib.data == resultLegacy.data)
+        #endif
 
-        return (resultLegacy.index, resultLegacy.data)
+
+        return (resultZlib.index, resultZlib.data)
     }
 
 }
 
-#if canImport(Compression)
+#if canImport(CompressionXXX)
 import Compression // TODO: remove Compression and use zlib
 
 extension Data {
