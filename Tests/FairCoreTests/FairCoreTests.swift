@@ -460,31 +460,35 @@ final class FairCoreTests: XCTestCase {
         
     }
 
-    #if !os(Linux) && !os(Android)
-    /// Crashes on Linux
-//    func testFileHandleAsync() async throws {
-//        let fh = try FileHandle(forReadingFrom: URL(fileURLWithPath: "/dev/random"))
-//        let xpc = expectation(description: "asyncRead")
-//
-//        let mode: RunLoop.Mode = .common
-//        RunLoop.current.run(mode: mode, before: .distantFuture)
-//
-//        let _ = Task.detached {
-//            var reads = 0
-//            for try await chunk in fh.readDataAsync(queue: OperationQueue.current, forModes: [mode]) {
-//                dbg("read /dev/random chunk:", chunk.count)
-//                reads += 1
-//                if reads > 100 {
-//                    xpc.fulfill()
-//                    break
-//                }
-//            }
-//        }
-//
-//        wait(for: [xpc], timeout: 2)
-//
-//    }
-    #endif
+    func testFileHandleBytesAsync() async throws {
+        #if os(iOS)
+        throw XCTSkip("failing on iOS")
+        #endif
+        let fh = try FileHandle(forReadingFrom: URL(fileURLWithPath: "/dev/urandom"))
+
+        let xpc = expectation(description: "asyncRead")
+
+        let _ = Task.detached {
+            var reads = 0
+            do {
+                for try await b in fh.bytesAsync {
+                    //dbg("read /dev/random chunk:", b)
+                    let _ = b
+                    reads += 1
+                    if reads == 1_000 {
+                        xpc.fulfill()
+                        break
+                    }
+                }
+            } catch {
+                XCTFail("\(error)")
+                xpc.fulfill()
+            }
+        }
+
+        wait(for: [xpc], timeout: 2)
+    }
+
 
 //    func testURLDataAsync() async throws {
 //        let urls = [
