@@ -1,0 +1,588 @@
+{
+  "abstract" : [
+    {
+      "text" : "A collection of data resources, such as a file system hierarchy or a zip archive of files.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore11DataWrapperP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "DataWrapper"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "DataWrapper"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "DataWrapper"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "DataWrapper"
+            },
+            {
+              "kind" : "text",
+              "text" : " : AnyObject"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/Path"
+      ],
+      "title" : "Associated Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/containerURL",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/paths"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/find(pathsMatching:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/nodes(at:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/seekableData(at:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/datawrapper"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper": {
+  "abstract" : [
+    {
+      "text" : "A collection of data resources, such as a file system hierarchy or a zip archive of files.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper/Path": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15DataWrapperPathP",
+      "text" : "DataWrapperPath"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/Path",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Path",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper\/path"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper/containerURL": {
+  "abstract" : [
+    {
+      "text" : "The root URL of this data wrapper",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "containerURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/containerURL",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "containerURL",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper\/containerurl"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper/find(pathsMatching:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "find"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pathsMatching"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSRegularExpression",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/find(pathsMatching:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "find(pathsMatching:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper\/find(pathsmatching:)"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper/nodes(at:)": {
+  "abstract" : [
+    {
+      "text" : "Child nodes of the given parent.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodes"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/nodes(at:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "nodes(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper\/nodes(at:)"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper/paths": {
+  "abstract" : [
+    {
+      "text" : "All the paths contained in this wrapper",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "paths"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/paths",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "paths",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper\/paths"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper/seekableData(at:)": {
+  "abstract" : [
+    {
+      "text" : "A pointer to the data at the given path; this could be either an in-memory structure (in the case if zip archives) or a wrapper around a FilePointer (in the case of a file system hierarchy)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "seekableData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper\/seekableData(at:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "seekableData(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper\/seekabledata(at:)"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FileSystemDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper"
+},
+"doc://FairCore/documentation/FairCore/ZipArchiveDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchiveDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchivedatawrapper"
+}
+}
+}

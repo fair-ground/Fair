@@ -14,7 +14,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore3GitO3HubV5clone_5localy10Foundation3URLV_AJtYaKFZ",
+    "externalID" : "s:8FairCore3GitO3HubV5clone_5localAC5FetchC10Foundation3URLV_ALtYaKFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -77,6 +77,24 @@
       {
         "kind" : "keyword",
         "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore3GitO",
+        "text" : "Git"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore3GitO5FetchC",
+        "text" : "Fetch"
       }
     ],
     "modules" : [
@@ -100,6 +118,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@discardableResult"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "static"
@@ -177,6 +203,26 @@
             {
               "kind" : "keyword",
               "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Git",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore3GitO",
+              "text" : "Git"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Git\/Fetch",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore3GitO5FetchC",
+              "text" : "Fetch"
             }
           ]
         }
@@ -250,6 +296,37 @@
   "title" : "Git",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/git"
+},
+"doc://FairCore/documentation/FairCore/Git/Fetch": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Fetch"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Git\/Fetch",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Fetch"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Git.Fetch",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/git\/fetch"
 },
 "doc://FairCore/documentation/FairCore/Git/Hub": {
   "abstract" : [
@@ -348,6 +425,24 @@
     {
       "kind" : "keyword",
       "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3GitO",
+      "text" : "Git"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3GitO5FetchC",
+      "text" : "Fetch"
     }
   ],
   "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Git\/Hub\/clone(_:local:)",

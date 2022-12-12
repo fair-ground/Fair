@@ -1,0 +1,707 @@
+{
+  "abstract" : [
+    {
+      "text" : "Creates an asynchronous sequence that buffers elements using a specific policy to limit the number of",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "elements that are buffered.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence\/AsyncSequence-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence\/buffer(policy:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Self",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Sendable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " and ",
+          "type" : "text"
+        },
+        {
+          "code" : "Element",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Sendable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "_Concurrency",
+    "externalID" : "s:Sci8FairCores8SendableRzsAB7ElementRpzrlE6buffer6policyAA19AsyncBufferSequenceVyxAA0g5LimitH0CyADGGAJ6PolicyOyAD_G_tF::SYNTHESIZED::s:8FairCore19AsyncBufferSequenceV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "buffer"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "policy"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC",
+        "text" : "AsyncLimitBuffer"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : ">."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC6PolicyO",
+        "text" : "Policy"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore19AsyncBufferSequenceV",
+        "text" : "AsyncBufferSequence"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC",
+        "text" : "AsyncLimitBuffer"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : ">>"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "buffer(policy:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "buffer"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "policy"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "limit"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC",
+              "text" : "AsyncLimitBuffer"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : ">."
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer\/Policy",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC6PolicyO",
+              "text" : "Policy"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore19AsyncBufferSequenceV",
+              "text" : "AsyncBufferSequence"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC",
+              "text" : "AsyncLimitBuffer"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : ">>"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "An asynchronous sequence that buffers elements up to a given limit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A limiting policy behavior on the buffering behavior of the ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "AsyncBufferSequence",
+                  "type" : "codeVoice"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "policy"
+        }
+      ]
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/asyncbuffersequence\/buffer(policy:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/AsyncBufferSequence": {
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncSequence",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that buffers elements utilizing an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncBuffer",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBufferSequence"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBufferSequence"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncBufferSequence",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffersequence"
+},
+"doc://FairCore/documentation/FairCore/AsyncBufferSequence/AsyncSequence-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence\/AsyncSequence-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "AsyncSequence Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffersequence\/asyncsequence-implementations"
+},
+"doc://FairCore/documentation/FairCore/AsyncBufferSequence/buffer(policy:)": {
+  "abstract" : [
+    {
+      "text" : "Creates an asynchronous sequence that buffers elements using a specific policy to limit the number of",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "elements that are buffered.",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Sendable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Sendable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buffer"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "policy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC",
+      "text" : "AsyncLimitBuffer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC6PolicyO",
+      "text" : "Policy"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore19AsyncBufferSequenceV",
+      "text" : "AsyncBufferSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore16AsyncLimitBufferC",
+      "text" : "AsyncLimitBuffer"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">>"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence\/buffer(policy:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buffer(policy:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffersequence\/buffer(policy:)"
+},
+"doc://FairCore/documentation/FairCore/AsyncLimitBuffer": {
+  "abstract" : [
+    {
+      "text" : "A buffer that limits pushed items by a certain count.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncLimitBuffer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncLimitBuffer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncLimitBuffer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asynclimitbuffer"
+},
+"doc://FairCore/documentation/FairCore/AsyncLimitBuffer/Policy": {
+  "abstract" : [
+    {
+      "text" : "A policy for buffering elements to an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncLimitBuffer",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Policy"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer\/Policy",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Policy"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncLimitBuffer.Policy",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asynclimitbuffer\/policy"
+}
+}
+}

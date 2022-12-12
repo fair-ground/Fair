@@ -1,0 +1,380 @@
+{
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "EntryType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the receiver.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/type"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore10ZipArchiveC5EntryV4typeAE0E4TypeOvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "type"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore10ZipArchiveC",
+        "text" : "ZipArchive"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore10ZipArchiveC5EntryV",
+        "text" : "Entry"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore10ZipArchiveC5EntryV0E4TypeO",
+        "text" : "EntryType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "type"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "type"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore10ZipArchiveC",
+              "text" : "ZipArchive"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore10ZipArchiveC5EntryV",
+              "text" : "Entry"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore10ZipArchiveC5EntryV0E4TypeO",
+              "text" : "EntryType"
+            },
+            {
+              "kind" : "text",
+              "text" : " { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/ziparchive\/entry\/type"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive": {
+  "abstract" : [
+    {
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry": {
+  "abstract" : [
+    {
+      "text" : "A value that represents a file, a directory or a symbolic link within a ZIP ",
+      "type" : "text"
+    },
+    {
+      "code" : "Archive",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Entry"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Entry"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType": {
+  "abstract" : [
+    {
+      "text" : "The type of an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Entry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in a ZIP ",
+      "type" : "text"
+    },
+    {
+      "code" : "Archive",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EntryType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EntryType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry.EntryType",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/type": {
+  "abstract" : [
+    {
+      "text" : "The ",
+      "type" : "text"
+    },
+    {
+      "code" : "EntryType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of the receiver.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "type"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore10ZipArchiveC",
+      "text" : "ZipArchive"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore10ZipArchiveC5EntryV",
+      "text" : "Entry"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore10ZipArchiveC5EntryV0E4TypeO",
+      "text" : "EntryType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/type",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "type",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/type"
+}
+}
+}

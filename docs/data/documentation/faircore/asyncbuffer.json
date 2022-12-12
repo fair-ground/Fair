@@ -1,0 +1,468 @@
+{
+  "abstract" : [
+    {
+      "text" : "An asynchronous buffer storage actor protocol used for buffering",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "elements to an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncBufferSequence",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore11AsyncBufferP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "AsyncBuffer"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "AsyncBuffer"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "AsyncBuffer"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "attribute",
+              "text" : "@rethrows"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "AsyncBuffer"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:ScA",
+              "text" : "Actor"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/s8SendableP",
+        "doc:\/\/FairCore\/ScA"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/Input",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/Output"
+      ],
+      "title" : "Associated Types"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/pop()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/push(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/asyncbuffer"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/ScA": {
+  "identifier" : "doc:\/\/FairCore\/ScA",
+  "title" : "_Concurrency.Actor",
+  "type" : "unresolvable"
+},
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/AsyncBuffer": {
+  "abstract" : [
+    {
+      "text" : "An asynchronous buffer storage actor protocol used for buffering",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "elements to an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncBufferSequence",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBuffer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBuffer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncBuffer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffer"
+},
+"doc://FairCore/documentation/FairCore/AsyncBuffer/Input": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Input"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8SendableP",
+      "text" : "Sendable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/Input",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Input",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffer\/input"
+},
+"doc://FairCore/documentation/FairCore/AsyncBuffer/Output": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Output"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s8SendableP",
+      "text" : "Sendable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/Output",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Output",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffer\/output"
+},
+"doc://FairCore/documentation/FairCore/AsyncBuffer/pop()": {
+  "abstract" : [
+    {
+      "text" : "Pop an element from the buffer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "pop"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Output"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/pop()",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "pop()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffer\/pop()"
+},
+"doc://FairCore/documentation/FairCore/AsyncBuffer/push(_:)": {
+  "abstract" : [
+    {
+      "text" : "Push an element to enqueue to the buffer",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "push"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Input"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer\/push(_:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "push(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffer\/push(_:)"
+},
+"doc://FairCore/documentation/FairCore/AsyncLimitBuffer": {
+  "abstract" : [
+    {
+      "text" : "A buffer that limits pushed items by a certain count.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncLimitBuffer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncLimitBuffer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncLimitBuffer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asynclimitbuffer"
+},
+"doc://FairCore/s8SendableP": {
+  "identifier" : "doc:\/\/FairCore\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

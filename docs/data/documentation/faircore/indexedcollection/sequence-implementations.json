@@ -45,6 +45,8 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/allSatisfy(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/array()",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncMap(priority:_:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncReduce(priority:initialResult:_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/breadthFirstIterator(children:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/compactMap(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/compacted()",
@@ -345,6 +347,292 @@
   "title" : "array()",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection\/array()"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/asyncMap(priority:_:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new Task with the specified priority and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " mapping over each element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asyncMap"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "priority"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ScP",
+      "text" : "TaskPriority"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncMap(priority:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asyncMap(priority:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/asyncmap(priority:_:)"
+},
+"doc://FairCore/documentation/FairCore/IndexedCollection/asyncReduce(priority:initialResult:_:)": {
+  "abstract" : [
+    {
+      "text" : "Creates a new Task with the specified priority and returns an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncThrowingStream",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " invoking the block with the initial element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "asyncReduce"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "priority"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:ScP",
+      "text" : "TaskPriority"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "initialResult"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection\/asyncReduce(priority:initialResult:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "asyncReduce(priority:initialResult:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/indexedcollection\/asyncreduce(priority:initialresult:_:)"
 },
 "doc://FairCore/documentation/FairCore/IndexedCollection/breadthFirstIterator(children:)": {
   "abstract" : [

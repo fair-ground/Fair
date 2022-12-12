@@ -1,0 +1,390 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "DataWrapper.seekableData(at:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper\/seekableData(at:)"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore21ZipArchiveDataWrapperC08seekableE02atAA08SeekableE0_pAC0cD4PathV_tKF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "seekableData"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "at"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore21ZipArchiveDataWrapperC",
+        "text" : "ZipArchiveDataWrapper"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore21ZipArchiveDataWrapperC4Patha",
+        "text" : "Path"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
+      },
+      {
+        "kind" : "text",
+        "text" : " -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+        "text" : "SeekableData"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "seekableData(at:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "seekableData"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "at"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "path"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore21ZipArchiveDataWrapperC",
+              "text" : "ZipArchiveDataWrapper"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper\/Path",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore21ZipArchiveDataWrapperC4Patha",
+              "text" : "Path"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "throws"
+            },
+            {
+              "kind" : "text",
+              "text" : " -> "
+            },
+            {
+              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+              "text" : "SeekableData"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/ziparchivedatawrapper\/seekabledata(at:)"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/SeekableData": {
+  "abstract" : [
+    {
+      "text" : "A handle to some data that maintains its ",
+      "type" : "text"
+    },
+    {
+      "code" : "offset",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " location and can access subsets of data",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SeekableData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SeekableData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SeekableData",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/seekabledata"
+},
+"doc://FairCore/documentation/FairCore/ZipArchiveDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchiveDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchivedatawrapper"
+},
+"doc://FairCore/documentation/FairCore/ZipArchiveDataWrapper/Path": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Path"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper\/Path",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Path"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchiveDataWrapper.Path",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchivedatawrapper\/path"
+},
+"doc://FairCore/documentation/FairCore/ZipArchiveDataWrapper/seekableData(at:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "seekableData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21ZipArchiveDataWrapperC",
+      "text" : "ZipArchiveDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21ZipArchiveDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper\/seekableData(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "seekableData(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchivedatawrapper\/seekabledata(at:)"
+}
+}
+}

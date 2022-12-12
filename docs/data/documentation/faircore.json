@@ -59,8 +59,9 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/Archive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer",
         "doc:\/\/FairCore\/documentation\/FairCore\/Cache",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper",
         "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
         "doc:\/\/FairCore\/documentation\/FairCore\/HMAC",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecoder",
@@ -70,14 +71,19 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
         "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SeekableFileHandle",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer",
         "doc:\/\/FairCore\/documentation\/FairCore\/AsyncParsableCommand",
         "doc:\/\/FairCore\/documentation\/FairCore\/DataConsumer",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper",
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapperPath",
         "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOf",
         "doc:\/\/FairCore\/documentation\/FairCore\/DepthFirstTreeOfSelf",
         "doc:\/\/FairCore\/documentation\/FairCore\/EnumerableFlag",
@@ -108,6 +114,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/ArgumentInfoV0",
         "doc:\/\/FairCore\/documentation\/FairCore\/ArgumentVisibility",
         "doc:\/\/FairCore\/documentation\/FairCore\/ArrayParsingStrategy",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferedByteIterator",
         "doc:\/\/FairCore\/documentation\/FairCore\/CleanExit",
         "doc:\/\/FairCore\/documentation\/FairCore\/CommandConfiguration",
         "doc:\/\/FairCore\/documentation\/FairCore\/CommandInfoV0",
@@ -165,8 +173,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeIndexSequence",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeNodeIterator",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeNodeSequence",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XResult",
-        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive"
+        "doc:\/\/FairCore\/documentation\/FairCore\/XResult"
       ],
       "title" : "Type Aliases"
     },
@@ -301,40 +308,6 @@
   "title" : "AppVersion",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion"
-},
-"doc://FairCore/documentation/FairCore/Archive": {
-  "abstract" : [
-    {
-      "text" : "A sequence of uncompressed or compressed ZIP entries.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Archive"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Archive",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Archive"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Archive",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/archive"
 },
 "doc://FairCore/documentation/FairCore/Argument": {
   "abstract" : [
@@ -571,6 +544,206 @@
   "title" : "ArrayParsingStrategy",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/arrayparsingstrategy"
+},
+"doc://FairCore/documentation/FairCore/AsyncBuffer": {
+  "abstract" : [
+    {
+      "text" : "An asynchronous buffer storage actor protocol used for buffering",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "elements to an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncBufferSequence",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBuffer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBuffer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBuffer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncBuffer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffer"
+},
+"doc://FairCore/documentation/FairCore/AsyncBufferSequence": {
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncSequence",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that buffers elements utilizing an ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncBuffer",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBufferSequence"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBufferSequence"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncBufferSequence",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbuffersequence"
+},
+"doc://FairCore/documentation/FairCore/AsyncBufferedByteIterator": {
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncIterator",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that provides a convenient and high-performance implementation",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "of a common architecture for ",
+      "type" : "text"
+    },
+    {
+      "code" : "AsyncSequence",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " of ",
+      "type" : "text"
+    },
+    {
+      "code" : "UInt8",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", otherwise known as byte streams.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBufferedByteIterator"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferedByteIterator",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncBufferedByteIterator"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncBufferedByteIterator",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asyncbufferedbyteiterator"
+},
+"doc://FairCore/documentation/FairCore/AsyncLimitBuffer": {
+  "abstract" : [
+    {
+      "text" : "A buffer that limits pushed items by a certain count.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AsyncLimitBuffer"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AsyncLimitBuffer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AsyncLimitBuffer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AsyncLimitBuffer",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/asynclimitbuffer"
 },
 "doc://FairCore/documentation/FairCore/AsyncParsableCommand": {
   "abstract" : [
@@ -1007,6 +1180,71 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/dataconsumer"
 },
+"doc://FairCore/documentation/FairCore/DataWrapper": {
+  "abstract" : [
+    {
+      "text" : "A collection of data resources, such as a file system hierarchy or a zip archive of files.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper"
+},
+"doc://FairCore/documentation/FairCore/DataWrapperPath": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapperPath"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapperPath",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapperPath"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataWrapperPath",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapperpath"
+},
 "doc://FairCore/documentation/FairCore/DepthFirstTreeOf": {
   "abstract" : [
     {
@@ -1294,6 +1532,37 @@
   "title" : "FILEPointer",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/filepointer"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FileSystemDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper"
 },
 "doc://FairCore/documentation/FairCore/FileSystemObserver": {
   "abstract" : [
@@ -3533,12 +3802,15 @@
 },
 "doc://FairCore/documentation/FairCore/ZipArchive": {
   "abstract" : [
-
+    {
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "class"
     },
     {
       "kind" : "text",
@@ -3561,6 +3833,37 @@
   "title" : "ZipArchive",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/ziparchive"
+},
+"doc://FairCore/documentation/FairCore/ZipArchiveDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchiveDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchiveDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchiveDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchivedatawrapper"
 },
 "doc://FairCore/documentation/FairCore/assertionsEnabled": {
   "abstract" : [

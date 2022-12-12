@@ -1,0 +1,226 @@
+{
+  "abstract" : [
+    {
+      "text" : "Thrown when the size of local header exceeds ",
+      "type" : "text"
+    },
+    {
+      "code" : "Int64.max",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (Imposed by file API).",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/ArchiveError"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/ArchiveError\/invalidLocalHeaderSize"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore10ZipArchiveC0D5ErrorO22invalidLocalHeaderSizeyA2EmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "invalidLocalHeaderSize"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "ZipArchive.ArchiveError.invalidLocalHeaderSize"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "invalidLocalHeaderSize"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/ziparchive\/archiveerror\/invalidlocalheadersize"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive": {
+  "abstract" : [
+    {
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/ArchiveError": {
+  "abstract" : [
+    {
+      "text" : "An error that occurs during reading, creating or updating a ZIP file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ArchiveError"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/ArchiveError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ArchiveError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive.ArchiveError",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/archiveerror"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/ArchiveError/invalidLocalHeaderSize": {
+  "abstract" : [
+    {
+      "text" : "Thrown when the size of local header exceeds ",
+      "type" : "text"
+    },
+    {
+      "code" : "Int64.max",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " (Imposed by file API).",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidLocalHeaderSize"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/ArchiveError\/invalidLocalHeaderSize",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ZipArchive.ArchiveError.invalidLocalHeaderSize",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/archiveerror\/invalidlocalheadersize"
+}
+}
+}

@@ -1,0 +1,685 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore21FileSystemDataWrapperC",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "class"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "FileSystemDataWrapper"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "FileSystemDataWrapper"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Class",
+    "symbolKind" : "class",
+    "title" : "FileSystemDataWrapper"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "class"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "FileSystemDataWrapper"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/init(root:fileManager:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/containerURL",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/paths"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/find(pathsMatching:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/nodes(at:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/parent(of:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/seekableData(at:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/Path"
+      ],
+      "title" : "Type Aliases"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/filesystemdatawrapper"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/DataWrapper": {
+  "abstract" : [
+    {
+      "text" : "A collection of data resources, such as a file system hierarchy or a zip archive of files.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/DataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/datawrapper"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FileSystemDataWrapper"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FileSystemDataWrapper",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/Path": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Path"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/Path",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Path"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FileSystemDataWrapper.Path",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/path"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/containerURL": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "containerURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/containerURL",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "containerURL",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/containerurl"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/find(pathsMatching:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "find"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "pathsMatching"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSRegularExpression",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/find(pathsMatching:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "find(pathsMatching:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/find(pathsmatching:)"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/init(root:fileManager:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "root"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fileManager"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSFileManager",
+      "text" : "FileManager"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/init(root:fileManager:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(root:fileManager:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/init(root:filemanager:)"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/nodes(at:)": {
+  "abstract" : [
+    {
+      "text" : "FileManager nodes",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "nodes"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/nodes(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "nodes(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/nodes(at:)"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/parent(of:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "of"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/parent(of:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parent(of:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/parent(of:)"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/paths": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "paths"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/paths",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "paths",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/paths"
+},
+"doc://FairCore/documentation/FairCore/FileSystemDataWrapper/seekableData(at:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "seekableData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC",
+      "text" : "FileSystemDataWrapper"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore21FileSystemDataWrapperC4Patha",
+      "text" : "Path"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore12SeekableDataP",
+      "text" : "SeekableData"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper\/seekableData(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "seekableData(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/filesystemdatawrapper\/seekabledata(at:)"
+}
+}
+}

@@ -1,0 +1,457 @@
+{
+  "abstract" : [
+    {
+      "text" : "The type of an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Entry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in a ZIP ",
+      "type" : "text"
+    },
+    {
+      "code" : "Archive",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore10ZipArchiveC5EntryV0E4TypeO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "EntryType"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "EntryType"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "ZipArchive.Entry.EntryType"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "EntryType"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/SQ",
+        "doc:\/\/FairCore\/SH",
+        "doc:\/\/FairCore\/SY"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/directory",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/file",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/symlink"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/init(rawValue:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/Equatable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/RawRepresentable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/ziparchive\/entry\/entrytype"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/SH": {
+  "identifier" : "doc:\/\/FairCore\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SQ": {
+  "identifier" : "doc:\/\/FairCore\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SY": {
+  "identifier" : "doc:\/\/FairCore\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive": {
+  "abstract" : [
+    {
+      "text" : "A sequence of uncompressed or compressed ZIP entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ZipArchive"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry": {
+  "abstract" : [
+    {
+      "text" : "A value that represents a file, a directory or a symbolic link within a ZIP ",
+      "type" : "text"
+    },
+    {
+      "code" : "Archive",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Entry"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Entry"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType": {
+  "abstract" : [
+    {
+      "text" : "The type of an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Entry",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " in a ZIP ",
+      "type" : "text"
+    },
+    {
+      "code" : "Archive",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EntryType"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EntryType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry.EntryType",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype\/equatable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType/RawRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype\/rawrepresentable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType/directory": {
+  "abstract" : [
+    {
+      "text" : "Indicates a directory.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "directory"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/directory",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry.EntryType.directory",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype\/directory"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType/file": {
+  "abstract" : [
+    {
+      "text" : "Indicates a regular file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "file"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/file",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry.EntryType.file",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype\/file"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/init(rawValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype\/init(rawvalue:)"
+},
+"doc://FairCore/documentation/FairCore/ZipArchive/Entry/EntryType/symlink": {
+  "abstract" : [
+    {
+      "text" : "Indicates a symbolic link.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "symlink"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ZipArchive\/Entry\/EntryType\/symlink",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "ZipArchive.Entry.EntryType.symlink",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/ziparchive\/entry\/entrytype\/symlink"
+}
+}
+}

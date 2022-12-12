@@ -216,6 +216,7 @@ public enum Git {
 
         func save(_ url: URL) throws {
             let dest = url.appendingPathComponent(".git/config")
+            dbg("saving config to:", dest.path)
             try Data(serial.utf8).write(to: dest, options: .atomic)
         }
 
@@ -386,7 +387,7 @@ public enum Git {
             throw Failure.Repository.invalid
         }
 
-        func clone(_ remote: URL, local: URL) async throws {
+        func clone(_ remote: URL, local: URL) async throws -> Fetch {
             if try await repository(local) {
                 throw Failure.Remote.already
             }
@@ -403,6 +404,8 @@ public enum Git {
             try await Hub.head.update(local, id: reference)
             try Hub.head.origin(local, id: reference)
             try Config(remote.withoutProtocol()).save(local)
+
+            return fetch
         }
 
         func pull(_ repository: Repository) async throws -> Bool {
@@ -743,7 +746,7 @@ public enum Git {
             try factory.delete(repository)
         }
 
-        public static func clone(_ remote: URL, local: URL) async throws {
+        @discardableResult public static func clone(_ remote: URL, local: URL) async throws -> Fetch {
             try await factory.clone(remote, local: local)
         }
     }
@@ -2029,21 +2032,21 @@ public enum Git {
             data.sha1()
         }
 
-        static func file(_ url: URL) async throws -> (Data, String) {
+        static func file(_ url: URL) async throws -> (data: Data, hash: String) {
             return blob(try await Data(contentsOf: url))
         }
 
-        static func blob(_ data: Data) -> (Data, String) {
+        static func blob(_ data: Data) -> (data: Data, hash: String) {
             let packed = "blob \(data.count)\u{0000}".utf8 + data
             return (packed, hash(packed))
         }
 
-        static func tree(_ data: Data) -> (Data, String) {
+        static func tree(_ data: Data) -> (data: Data, hash: String) {
             let packed = "tree \(data.count)\u{0000}".utf8 + data
             return (packed, hash(packed))
         }
 
-        static func commit(_ serial: String) -> (Data, String) {
+        static func commit(_ serial: String) -> (data: Data, hash: String) {
             return {
                 let packed = "commit \($0.count)\u{0000}".utf8 + $0
                 return (packed, hash(packed))
