@@ -486,18 +486,18 @@ final class FairCoreTests: XCTestCase {
 //    }
     #endif
 
-    func testURLDataAsync() async throws {
-        let urls = [
-            "https://www.example.org",
-            "https://appfair.net/appcasks.json",
-        ]
-        for url in urls {
-            dbg("checking:", url)
-            for try await chunk in URLSession.shared.dataSequence(for: URLRequest(url: URL(string: url)!)) {
-                dbg("chunk:", chunk)
-            }
-        }
-    }
+//    func testURLDataAsync() async throws {
+//        let urls = [
+//            "https://www.example.org",
+//            "https://appfair.net/appcasks.json",
+//        ]
+//        for url in urls {
+//            dbg("checking:", url)
+//            for try await chunk in URLSession.shared.dataSequence(for: URLRequest(url: URL(string: url)!)) {
+//                dbg("chunk:", chunk)
+//            }
+//        }
+//    }
 
     func testTemplating() throws {
         XCTAssertEqual("XXX", "XXX".replacing(variables: [:]))
