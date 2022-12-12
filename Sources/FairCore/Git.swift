@@ -332,50 +332,50 @@ public enum Git {
         }
     }
 
-    final class Dispatch {
-        //    private let queue = DispatchQueue(label: "", qos: .background, target: .global(qos: .background))
-
-        func background(_ send: (() -> Void)) {
-            //        queue.async {
-            send()
-            //        }
-        }
-
-
-        func background<R>(_ send: (() throws -> R), success: ((R) throws -> Void)) rethrows {
-            //        queue.async {
-            let result = try send()
-            //            do {
-            try success(result)
-            //            }
-            //        }
-        }
+//    final class Dispatch {
+//        //    private let queue = DispatchQueue(label: "", qos: .background, target: .global(qos: .background))
 //
-//        func background<R>(_ send: (() throws -> R)) rethrows -> R {
+//        func background(_ send: (() -> Void)) {
+//            //        queue.async {
+//            send()
+//            //        }
+//        }
+//
+//
+//        func background<R>(_ send: (() throws -> R), success: ((R) throws -> Void)) rethrows {
 //            //        queue.async {
 //            let result = try send()
 //            //            do {
-//            return result
+//            try success(result)
 //            //            }
 //            //        }
 //        }
-
-        func background<R>(_ send: (() throws -> R), error: ((Error) -> Void),
-                           success: ((R) -> Void)) {
-            //        queue.async {
-            do {
-                let result = try send()
-                //                do {
-                success(result)
-                //                }
-            } catch let exception {
-                //                do {
-                error(exception)
-                //                }
-            }
-            //        }
-        }
-    }
+////
+////        func background<R>(_ send: (() throws -> R)) rethrows -> R {
+////            //        queue.async {
+////            let result = try send()
+////            //            do {
+////            return result
+////            //            }
+////            //        }
+////        }
+//
+//        func background<R>(_ send: (() throws -> R), error: ((Error) -> Void),
+//                           success: ((R) -> Void)) {
+//            //        queue.async {
+//            do {
+//                let result = try send()
+//                //                do {
+//                success(result)
+//                //                }
+//            } catch let exception {
+//                //                do {
+//                error(exception)
+//                //                }
+//            }
+//            //        }
+//        }
+//    }
 
     final class Factory {
         var rest = Rest()
@@ -725,7 +725,6 @@ public enum Git {
 
     public struct Hub {
         public internal(set) static var session = Session()
-        static let dispatch = Dispatch()
         static let content = Content()
         static let head = Head()
         static let factory = Factory()

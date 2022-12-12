@@ -356,11 +356,13 @@ extension URLSession {
         try fh.close()
         return (downloadedArtifact, response)
     }
+    #endif // !os(Linux) && !os(Android) && !os(Windows)
 
-    typealias URLResponseStream = AsyncThrowingStream<URLResponseEvent, Error>
-    typealias URLAuthenticationChallengeHandler = (URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?)
 
-    enum URLResponseEvent {
+    public typealias URLResponseStream = AsyncThrowingStream<URLResponseEvent, Error>
+    public typealias URLAuthenticationChallengeHandler = (URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?)
+
+    public enum URLResponseEvent {
         case waitingForConnectivity
         case response(URLResponse)
         case redirect(_ redirectResponse: HTTPURLResponse, _ newRequest: URLRequest)
@@ -369,7 +371,13 @@ extension URLSession {
         case metrics(URLSessionTaskMetrics)
     }
 
-    func dataSequence(for request: URLRequest, challengeHandler: @escaping URLAuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> URLResponseStream {
+    /// Creates an asynchronous stream of response components (headers, data, redirects, etc.) for the given URL.
+    /// - Parameters:
+    ///   - config: the session configuration to use
+    ///   - request: the URL request
+    ///   - challengeHandler: the callback for when a challenge occurs
+    /// - Returns: an AsyncThrowingStream with the events
+    public static func dataSequence(configuration config: URLSessionConfiguration = .ephemeral, for request: URLRequest, challengeHandler: @escaping URLAuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> URLResponseStream {
         class Delegate : NSObject, URLSessionDataDelegate {
             let continuation: URLResponseStream.Continuation
             let challengeHandler: URLAuthenticationChallengeHandler
@@ -453,13 +461,14 @@ extension URLSession {
         }
 
         return AsyncThrowingStream { c in
-            let task = self.dataTask(with: request)
-            task.delegate = Delegate(c, challengeHandler: challengeHandler)
+            let delegate = Delegate(c, challengeHandler: challengeHandler)
+            let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
+            let task = session.dataTask(with: request)
+            // task.delegate = delegate // note that this would allow us to re-use an existing URLSession rather than creating one anew just to holde the delegate, but this callback is not yet supported in swift core-foundation for non-Darwin platforms
             task.resume()
         }
     }
 
-    #endif // !os(Linux) && !os(Android) && !os(Windows)
 
     /// Downloads the given file. It should behave the same as the async URLSession.download function (which is missing from linux).
     public func downloadFile(for request: URLRequest, useContentDispositionFileName: Bool = true, useLastModifiedDate: Bool = true) async throws -> (localURL: URL, response: URLResponse) {
