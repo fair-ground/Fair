@@ -66,6 +66,129 @@ public extension URLResponse {
     }
 }
 
+extension URLRequest {
+    public typealias ResponseStream = AsyncThrowingStream<URLResponseEvent, Error>
+    public typealias AuthenticationChallengeHandler = (URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?)
+    public typealias RedirectHandler = (_ response: HTTPURLResponse, _ request: URLRequest) -> URLRequest?
+
+    public enum URLResponseEvent {
+        case waitingForConnectivity
+        case response(URLResponse)
+        case redirect(_ redirectResponse: HTTPURLResponse, _ newRequest: URLRequest, _ redirectRequest: URLRequest?)
+        case challenge(URLAuthenticationChallenge)
+        case data(Data)
+        case metrics(URLSessionTaskMetrics)
+    }
+
+//    public func dataStream(configuration config: URLSessionConfiguration = .ephemeral, redirectHandler: @escaping RedirectHandler = { (response, request) in request }, challengeHandler: @escaping AuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> ResponseStream {
+//    }
+
+    /// Creates an asynchronous stream of response components (headers, data, redirects, etc.) for the given URL.
+    ///
+    /// Unlike `URLSession.bytes`, this sequence will return the events for the URL connection, including the stream events.
+    ///
+    /// - Parameters:
+    ///   - config: the session configuration to use
+    ///   - request: the URL request
+    ///   - challengeHandler: the callback for when a challenge occurs
+    /// - Returns: an AsyncThrowingStream with the events
+    public func openStream(configuration config: URLSessionConfiguration = .ephemeral, redirectHandler: @escaping RedirectHandler = { (response, request) in request }, challengeHandler: @escaping AuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> ResponseStream {
+        return AsyncThrowingStream { c in
+            let delegate = Delegate(c, redirectHandler: redirectHandler, challengeHandler: challengeHandler)
+            let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
+            let task = session.dataTask(with: self)
+            // task.delegate = delegate // note that this would allow us to re-use an existing URLSession rather than creating one anew just to holde the delegate, but this callback is not yet supported in swift core-foundation for non-Darwin platforms
+            task.resume()
+        }
+
+        class Delegate : NSObject, URLSessionDataDelegate {
+            let continuation: ResponseStream.Continuation
+            let challengeHandler: AuthenticationChallengeHandler
+            let redirectHandler: RedirectHandler
+
+
+            init(_ continuation: ResponseStream.Continuation, redirectHandler: @escaping RedirectHandler, challengeHandler: @escaping AuthenticationChallengeHandler) {
+                self.continuation = continuation
+                self.challengeHandler = challengeHandler
+                self.redirectHandler = redirectHandler
+            }
+
+            func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping @Sendable (URLSession.ResponseDisposition) -> Void) {
+                dbg("response:", response)
+                continuation.yield(.response(response))
+                completionHandler(.allow)
+            }
+
+//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask)
+//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask)
+
+
+            func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+                //dbg("received:", data)
+                continuation.yield(.data(data))
+            }
+
+
+//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping @Sendable (CachedURLResponse?) -> Void)
+//
+//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse) async -> CachedURLResponse?
+
+
+
+//            @available(macOS 13.0, *)
+//            optional func urlSession(_ session: URLSession, didCreateTask task: URLSessionTask)
+//
+//
+//            @available(macOS 10.13, *)
+//            optional func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping @Sendable (URLSession.DelayedRequestDisposition, URLRequest?) -> Void)
+//
+//            @available(macOS 10.13, *)
+//            optional func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest) async -> (URLSession.DelayedRequestDisposition, URLRequest?)
+//
+
+            func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
+                continuation.yield(.waitingForConnectivity)
+            }
+
+
+            func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) {
+                let redirectRequest = redirectHandler(response, request)
+                continuation.yield(.redirect(response, request, redirectRequest))
+                completionHandler(redirectRequest)
+            }
+
+//            optional func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
+//
+//
+//            optional func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping @Sendable (InputStream?) -> Void)
+//
+//
+//            optional func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
+//
+
+            func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
+                continuation.yield(.metrics(metrics))
+            }
+
+
+            func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+                continuation.finish(throwing: error)
+            }
+
+
+
+//            optional func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?)
+
+
+            func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+                continuation.yield(.challenge(challenge))
+                let (d, c) = self.challengeHandler(challenge)
+                completionHandler(d, c)
+            }
+        }
+    }
+}
+
 public extension URLRequest {
     #if swift(>=5.5)
     /// Downloads the URL and verifies the HTTP success code and, optionally, the validity of the
@@ -357,118 +480,6 @@ extension URLSession {
         return (downloadedArtifact, response)
     }
     #endif // !os(Linux) && !os(Android) && !os(Windows)
-
-
-    public typealias URLResponseStream = AsyncThrowingStream<URLResponseEvent, Error>
-    public typealias URLAuthenticationChallengeHandler = (URLAuthenticationChallenge) -> (URLSession.AuthChallengeDisposition, URLCredential?)
-
-    public enum URLResponseEvent {
-        case waitingForConnectivity
-        case response(URLResponse)
-        case redirect(_ redirectResponse: HTTPURLResponse, _ newRequest: URLRequest)
-        case challenge(URLAuthenticationChallenge)
-        case data(Data)
-        case metrics(URLSessionTaskMetrics)
-    }
-
-    /// Creates an asynchronous stream of response components (headers, data, redirects, etc.) for the given URL.
-    /// - Parameters:
-    ///   - config: the session configuration to use
-    ///   - request: the URL request
-    ///   - challengeHandler: the callback for when a challenge occurs
-    /// - Returns: an AsyncThrowingStream with the events
-    public static func dataSequence(configuration config: URLSessionConfiguration = .ephemeral, for request: URLRequest, challengeHandler: @escaping URLAuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> URLResponseStream {
-        class Delegate : NSObject, URLSessionDataDelegate {
-            let continuation: URLResponseStream.Continuation
-            let challengeHandler: URLAuthenticationChallengeHandler
-
-            init(_ continuation: URLResponseStream.Continuation, challengeHandler: @escaping URLAuthenticationChallengeHandler) {
-                self.continuation = continuation
-                self.challengeHandler = challengeHandler
-            }
-
-            func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping @Sendable (URLSession.ResponseDisposition) -> Void) {
-                dbg("response:", response)
-                continuation.yield(.response(response))
-                completionHandler(.allow)
-            }
-
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask)
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask)
-
-
-            func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-                dbg("received:", data)
-                continuation.yield(.data(data))
-            }
-
-
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping @Sendable (CachedURLResponse?) -> Void)
-//
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse) async -> CachedURLResponse?
-
-
-
-//            @available(macOS 13.0, *)
-//            optional func urlSession(_ session: URLSession, didCreateTask task: URLSessionTask)
-//
-//
-//            @available(macOS 10.13, *)
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping @Sendable (URLSession.DelayedRequestDisposition, URLRequest?) -> Void)
-//
-//            @available(macOS 10.13, *)
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest) async -> (URLSession.DelayedRequestDisposition, URLRequest?)
-//
-
-            func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
-                continuation.yield(.waitingForConnectivity)
-            }
-
-
-            func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) {
-                continuation.yield(.redirect(response, request))
-                completionHandler(request)
-            }
-
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
-//
-//
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping @Sendable (InputStream?) -> Void)
-//
-//
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
-//
-
-            func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
-                continuation.yield(.metrics(metrics))
-            }
-
-
-            func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-                continuation.finish(throwing: error)
-            }
-
-
-
-//            optional func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?)
-
-
-            func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-                continuation.yield(.challenge(challenge))
-                let (d, c) = self.challengeHandler(challenge)
-                completionHandler(d, c)
-            }
-        }
-
-        return AsyncThrowingStream { c in
-            let delegate = Delegate(c, challengeHandler: challengeHandler)
-            let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
-            let task = session.dataTask(with: request)
-            // task.delegate = delegate // note that this would allow us to re-use an existing URLSession rather than creating one anew just to holde the delegate, but this callback is not yet supported in swift core-foundation for non-Darwin platforms
-            task.resume()
-        }
-    }
-
 
     /// Downloads the given file. It should behave the same as the async URLSession.download function (which is missing from linux).
     public func downloadFile(for request: URLRequest, useContentDispositionFileName: Bool = true, useLastModifiedDate: Bool = true) async throws -> (localURL: URL, response: URLResponse) {
