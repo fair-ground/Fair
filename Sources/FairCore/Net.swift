@@ -83,9 +83,11 @@ extension URLRequest {
 //    public func dataStream(configuration config: URLSessionConfiguration = .ephemeral, redirectHandler: @escaping RedirectHandler = { (response, request) in request }, challengeHandler: @escaping AuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> ResponseStream {
 //    }
 
-    /// Creates an asynchronous stream of response components (headers, data, redirects, etc.) for the given URL.
+    /// Creates an asynchronous stream of response components (headers, data, redirects, etc.) for the given network URL.
     ///
     /// Unlike `URLSession.bytes`, this sequence will return the events for the URL connection, including the stream events.
+    ///
+    /// Note that this is only supported for network URLs and not `file://`.
     ///
     /// - Parameters:
     ///   - config: the session configuration to use
@@ -94,13 +96,18 @@ extension URLRequest {
     /// - Returns: an AsyncThrowingStream with the events
     public func openStream(configuration config: URLSessionConfiguration = .ephemeral, redirectHandler: @escaping RedirectHandler = { (response, request) in request }, challengeHandler: @escaping AuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) throws -> ResponseStream {
         guard self.url?.isFileURL != true else {
-            throw URLError(.badURL) // file URLs do work for this on Darwin but not on Linux
+            throw URLError(.badURL) // file URLs do work for this, but only on Darwin but not on Linux
         }
 
         return AsyncThrowingStream { c in
             let delegate = Delegate(c, redirectHandler: redirectHandler, challengeHandler: challengeHandler)
             let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
             let task = session.dataTask(with: self)
+
+            c.onTermination = { _ in
+                task.cancel()
+            }
+
             // task.delegate = delegate // note that this would allow us to re-use an existing URLSession rather than creating one anew just to holde the delegate, but this callback is not yet supported in swift core-foundation for non-Darwin platforms
             task.resume()
         }
@@ -123,32 +130,10 @@ extension URLRequest {
                 completionHandler(.allow)
             }
 
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask)
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome streamTask: URLSessionStreamTask)
-
-
             func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
                 //dbg("received:", data)
                 continuation.yield(.data(data))
             }
-
-
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse, completionHandler: @escaping @Sendable (CachedURLResponse?) -> Void)
-//
-//            optional func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, willCacheResponse proposedResponse: CachedURLResponse) async -> CachedURLResponse?
-
-
-
-//            @available(macOS 13.0, *)
-//            optional func urlSession(_ session: URLSession, didCreateTask task: URLSessionTask)
-//
-//
-//            @available(macOS 10.13, *)
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest, completionHandler: @escaping @Sendable (URLSession.DelayedRequestDisposition, URLRequest?) -> Void)
-//
-//            @available(macOS 10.13, *)
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, willBeginDelayedRequest request: URLRequest) async -> (URLSession.DelayedRequestDisposition, URLRequest?)
-//
 
             func urlSession(_ session: URLSession, taskIsWaitingForConnectivity task: URLSessionTask) {
                 continuation.yield(.waitingForConnectivity)
@@ -161,28 +146,13 @@ extension URLRequest {
                 completionHandler(redirectRequest)
             }
 
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
-//
-//
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping @Sendable (InputStream?) -> Void)
-//
-//
-//            optional func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
-//
-
             func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
                 continuation.yield(.metrics(metrics))
             }
 
-
             func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
                 continuation.finish(throwing: error)
             }
-
-
-
-//            optional func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?)
-
 
             func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
                 continuation.yield(.challenge(challenge))
@@ -378,6 +348,88 @@ extension URLResponse {
     }
 }
 
+extension URLRequest {
+
+    /// Downloads the given request to a cached file location.
+    ///
+    /// - Parameters:
+    ///   - request: the request containing the URL to download
+    ///   - memoryBufferSize: the buffer size
+    ///   - consumer: a consumer for the data, such as  to update a hashing function
+    ///   - parentProgress: the progress to attach to
+    ///
+    /// - Returns: the downloaded file URL along with the request's response
+    public func download(config: URLSessionConfiguration = .ephemeral, consumer: DataConsumer? = nil, parentProgress: Progress? = nil, responseVerifier: (URLResponse) throws -> Bool = { (200..<300).contains(($0 as? HTTPURLResponse)?.statusCode ?? 200) }) async throws -> (URL, URLResponse?) {
+        var urlResponse: URLResponse?
+        var progress: Progress?
+
+        // create a temporary file in the caches directory from which we will extract the data
+        let downloadedArtifact = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            .appendingPathComponent(UUID().uuidString)
+            .appendingPathComponent(self.url?.lastPathComponent ?? "download")
+
+        dbg("downloading to temporary path:", downloadedArtifact.path)
+
+        // ensure parent path exists
+        try FileManager.default.createDirectory(at: downloadedArtifact.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+
+        // the file must exist before we can open the file handle
+        FileManager.default.createFile(atPath: downloadedArtifact.path, contents: nil, attributes: nil)
+
+        var bytesCount: Int64 = 0
+        var fh: FileHandle? = nil
+        defer { try? fh?.close() }
+
+    out:
+        for try await event in try openStream(configuration: config) {
+            switch event {
+            case .waitingForConnectivity:
+                break
+            case .response(let response):
+                if try responseVerifier(response) == false {
+                    break out
+                }
+                let length = response.expectedContentLength
+                let progress1 = Progress(totalUnitCount: length)
+                parentProgress?.addChild(progress1, withPendingUnitCount: 3)
+                progress = progress1
+                urlResponse = response
+                break
+            case .redirect(_, _, _):
+                break
+            case .challenge(_):
+                break // TODO: permit challenge response
+            case .data(let d):
+                // if we receive data before we receive the response, throw an error
+                if urlResponse == nil || progress?.isCancelled == true {
+                    dbg("cancelled")
+                    //try Task.checkCancellation()
+                    throw URLError(.cancelled)
+                }
+                if fh == nil {
+                    // wait to open the file until we have validated the response
+                    fh = try FileHandle(forWritingTo: downloadedArtifact)
+                }
+
+                try fh!.write(contentsOf: d)
+                bytesCount += Int64(d.count)
+
+                let total = Double(progress?.totalUnitCount ?? 0)
+                let percentComplete = total == 0.0 ? 0.0 : Double(progress?.completedUnitCount ?? 0) / total
+                dbg(progress?.completedUnitCount.localizedByteCount(), progress?.totalUnitCount.localizedByteCount(), percentComplete.formatted(.percent))
+                progress?.completedUnitCount = bytesCount
+
+                await consumer?.update(data: d)
+                break
+            case .metrics(_):
+                break
+            }
+        }
+
+        return (downloadedArtifact, urlResponse)
+    }
+}
+
 #if swift(>=5.5)
 extension URLSession {
     /// Issues a `HEAD` request for the given URL and returns the response
@@ -405,7 +457,7 @@ extension URLSession {
     /// Note: this operation downloads directly into memory instead of the potentially-more-efficient download task.
     /// We would like to use a download task to save directly to a file and have progress callbacks go through DownloadDelegate, but it is not working with async/await (see https://stackoverflow.com/questions/68276940/how-to-get-the-download-progress-with-the-new-try-await-urlsession-shared-downlo)
     /// However, an advantage of using streaming bytes is that we can maintain a running sha256 hash for the download without have to load the whole data chunk into memory after the download has completed
-        @inlinable public func download(request: URLRequest, memoryBufferSize: Int = 1024 * 64, consumer: DataConsumer? = nil, parentProgress: Progress? = nil, responseVerifier: (URLResponse) throws -> Bool = { (200..<300).contains(($0 as? HTTPURLResponse)?.statusCode ?? 200) }) async throws -> (URL, URLResponse) {
+    private func downloadOLD(request: URLRequest, memoryBufferSize: Int = 1024 * 64, consumer: DataConsumer? = nil, parentProgress: Progress? = nil, responseVerifier: (URLResponse) throws -> Bool = { (200..<300).contains(($0 as? HTTPURLResponse)?.statusCode ?? 200) }) async throws -> (URL, URLResponse) {
         let downloadedArtifact: URL
         let (asyncBytes, response) = try await self.bytes(for: request)
         if try responseVerifier(response) == false {

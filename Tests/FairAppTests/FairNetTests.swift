@@ -34,20 +34,19 @@ import XCTest
 import FairCore
 
 final class FairNetTests: XCTestCase {
-    #if !os(Linux) && !os(Android) && !os(Windows)
-        func testFairDownload() async throws {
+    func testFairDownload() async throws {
         try await testDownload(sliceable: true)
     }
 
-        func testSliceableDownload() async throws {
+    func testSliceableDownload() async throws {
         try await testDownload(sliceable: true, range: 100...999)
     }
 
-        func testSystemDownload() async throws {
+    func testSystemDownload() async throws {
         try await testDownload(sliceable: false)
     }
 
-        private func testDownload(sliceable: Bool, range: ClosedRange<Int>? = nil) async throws {
+    private func testDownload(sliceable: Bool, range: ClosedRange<Int>? = nil) async throws {
         if ({ true }()) { throw XCTSkip("used for local testing") }
         
         let url = URL(string: "http://localhost:8080/movie101MB.mov")!
@@ -61,10 +60,10 @@ final class FairNetTests: XCTestCase {
         let progress = Progress(totalUnitCount: 100)
 
         let loadURL: URL
-        let response: URLResponse
+        var response: URLResponse?
 
         if sliceable == true {
-            (loadURL, response) = try await URLSession.shared.download(request: req, memoryBufferSize: 1024, consumer: nil, parentProgress: progress, responseVerifier: { response in
+            (loadURL, response) = try await req.download(consumer: nil, parentProgress: progress, responseVerifier: { response in
                 dbg("received response:", response)
                 return true
             })
@@ -80,5 +79,4 @@ final class FairNetTests: XCTestCase {
         }
         XCTAssertEqual(range == nil ? 200 : 206, (response as? HTTPURLResponse)?.statusCode)
     }
-    #endif // !os(Linux) && !os(Android) && !os(Windows)
 }
