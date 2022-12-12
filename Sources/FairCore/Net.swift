@@ -92,7 +92,11 @@ extension URLRequest {
     ///   - request: the URL request
     ///   - challengeHandler: the callback for when a challenge occurs
     /// - Returns: an AsyncThrowingStream with the events
-    public func openStream(configuration config: URLSessionConfiguration = .ephemeral, redirectHandler: @escaping RedirectHandler = { (response, request) in request }, challengeHandler: @escaping AuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) -> ResponseStream {
+    public func openStream(configuration config: URLSessionConfiguration = .ephemeral, redirectHandler: @escaping RedirectHandler = { (response, request) in request }, challengeHandler: @escaping AuthenticationChallengeHandler = { _ in (.performDefaultHandling, nil) }) throws -> ResponseStream {
+        guard self.url?.isFileURL != true else {
+            throw URLError(.badURL) // file URLs do work for this on Darwin but not on Linux
+        }
+
         return AsyncThrowingStream { c in
             let delegate = Delegate(c, redirectHandler: redirectHandler, challengeHandler: challengeHandler)
             let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
