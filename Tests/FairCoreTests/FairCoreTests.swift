@@ -457,12 +457,10 @@ final class FairCoreTests: XCTestCase {
             await xeq(33, try data.readUInt8())
 //            XCTAssertThrowsError(try await data.readData(ofLength: 1))
         }
-        
     }
 
     func testFileHandleBytesAsync() async throws {
         let fh = try FileHandle(forReadingFrom: URL(fileURLWithPath: "/dev/urandom"))
-
         let xpc = expectation(description: "asyncRead")
 
         let _ = Task.detached {
@@ -487,27 +485,48 @@ final class FairCoreTests: XCTestCase {
         wait(for: [xpc], timeout: 2)
     }
 
+    func testURLSessionDataAsync() async throws {
+        try await readURLAsync(url: URL(fileURLWithPath: "/dev/urandom"))
 
-    func dataAsync(for url: URL) async throws {
-        let xpc = expectation(description: url.absoluteString)
-        Task.detached {
-            dbg("checking async:", url)
-            for try await chunk in URLSession.dataSequence(for: URLRequest(url: url)) {
-                dbg("chunk:", chunk)
-            }
-            xpc.fulfill()
-        }
-        wait(for: [xpc], timeout: 20.0)
+        try await readURLAsync(url: URL(string: "https://www.example.org")!, expectRedirect: 0)
+
+        try await readURLAsync(url: URL(string: "https://github.com/fair-ground/Fair")!, expectRedirect: 0)
+        try await readURLAsync(url: URL(string: "https://github.com/fair-ground/Fair.git")!, expectRedirect: 1)
+
+        // two separate redirects: www.github.com -> github.com and Fair.git to Fair/
+        try await readURLAsync(url: URL(string: "https://www.github.com/fair-ground/Fair.git")!, expectRedirect: 2, expectChallenge: 2)
+
+        try await readURLAsync(url: URL(string: "https://github.com/fair-ground/UNKNOWN_REPO")!, expectRedirect: 0, expectChallenge: 1) // unknown repositories response with a challenge
     }
+    
+    func readURLAsync(url: URL, expectRedirect: Int? = nil, expectChallenge: Int? = nil) async throws {
+        var redirectReceived: Int = 0
+        var challengeReceived: Int = 0
+    out:
+        for try await event in URLRequest(url: url).openStream() {
+            switch event {
+            case .response(let response):
+                dbg("response:", response.expectedContentLength, response.mimeType, response.suggestedFilename)
+            case .data(let data):
+                dbg("data:", data)
+                break out
+            case .redirect(let redirectResponse, let newRequest, _):
+                dbg("redirect:", redirectResponse, newRequest)
+                redirectReceived += 1
+            case .challenge(let challenge):
+                dbg("challenge:", challenge)
+                challengeReceived += 1
+            default:
+                dbg("unhandled event:", event)
+            }
+        }
 
-    func testURLDataAsync() async throws {
-        let urls = [
-            "https://www.example.org",
-            "https://appfair.net/appcasks.json",
-            "https://www.gutenberg.org/files/2701/2701-0.txt",
-        ]
-        for url in urls {
-            try await dataAsync(for: URL(string: url)!)
+        if let expectRedirect = expectRedirect {
+            XCTAssertEqual(expectRedirect, redirectReceived, "expected to receive a redirect")
+        }
+
+        if let expectChallenge = expectChallenge {
+            XCTAssertEqual(expectChallenge, challengeReceived, "expected to receive a challenge")
         }
     }
 
