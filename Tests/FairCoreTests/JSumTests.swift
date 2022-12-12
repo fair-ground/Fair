@@ -286,7 +286,7 @@ final class JSumTests : XCTestCase {
         let jsonString = try jsum.prettyJSON
         let jsonData = jsonString.utf8Data
         dbg("parsing", kind, "size:", jsonData.count) // , jsonString)
-        measure {
+//        measure { // relative standard deviation of the measurements failure on linux or parallel
             do {
                 switch kind {
                 case .yaml:
@@ -302,7 +302,7 @@ final class JSumTests : XCTestCase {
             } catch {
                 dbg("error parsing", kind, error)
             }
-        }
+//        }
     }
 
 
