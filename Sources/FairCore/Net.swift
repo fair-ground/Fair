@@ -34,7 +34,7 @@
 import Swift
 import Foundation
 #if canImport(FoundationNetworking)
-import FoundationNetworking
+@_exported import FoundationNetworking
 #endif
 
 extension Data {
