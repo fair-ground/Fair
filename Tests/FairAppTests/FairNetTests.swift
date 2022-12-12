@@ -69,7 +69,7 @@ final class FairNetTests: XCTestCase {
             })
 
         } else {
-            (loadURL, response) = try await URLSession.shared.download(for: req, delegate: nil)
+            (loadURL, response) = try await req.download()
         }
 
         if let range = range {
