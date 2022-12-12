@@ -461,9 +461,6 @@ final class FairCoreTests: XCTestCase {
     }
 
     func testFileHandleBytesAsync() async throws {
-        #if os(iOS)
-        throw XCTSkip("failing on iOS")
-        #endif
         let fh = try FileHandle(forReadingFrom: URL(fileURLWithPath: "/dev/urandom"))
 
         let xpc = expectation(description: "asyncRead")
@@ -475,7 +472,7 @@ final class FairCoreTests: XCTestCase {
                     //dbg("read /dev/random chunk:", b)
                     let _ = b
                     reads += 1
-                    if reads == 1_000 {
+                    if reads == 999 {
                         xpc.fulfill()
                         break
                     }
@@ -486,6 +483,7 @@ final class FairCoreTests: XCTestCase {
             }
         }
 
+        try await Task.sleep(interval: 0.0) // seems to be needed on iOS to start the bytes
         wait(for: [xpc], timeout: 2)
     }
 
