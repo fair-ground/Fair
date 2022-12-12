@@ -49,6 +49,34 @@ import zlib
 #endif
 
 
+
+extension ZipArchive {
+
+    /// Extracts the data from the given entry
+    public func extractData(from entry: ZipArchive.Entry) throws -> Data {
+        var data = Data()
+        let _ = try extract(entry) { data.append($0) }
+        return data
+    }
+
+    /// Extracts the data from the entry asynchronously
+    public func extractAsync(from entry: ZipArchive.Entry, bufferSize: Int = defaultReadChunkSize, skipCRC32: Bool = false, progress: Progress? = nil) -> AsyncThrowingStream<Data, Error> {
+        AsyncThrowingStream { c in
+            Task {
+                do {
+                    _ = try extract(entry, bufferSize: bufferSize, skipCRC32: skipCRC32, progress: progress) {
+                        try Task.checkCancellation()
+                        c.yield($0)
+                    }
+                    c.finish()
+                } catch {
+                    c.finish(throwing: error)
+                }
+            }
+        }
+    }
+}
+
 @available(macOS 10.14, iOS 12.0, *)
 public extension Data {
     enum CompressionAlgorithm : String, CaseIterable, Codable {
@@ -118,6 +146,21 @@ public extension Data {
             d += data
         })
         return (result, d)
+    }
+}
+
+
+extension String {
+    /// Removes the root path of a string.
+    ///
+    /// E.g., "x/y/z" -> "y/z"
+    public var trimmingBasePath: String? {
+        let paths = self.split(separator: "/")
+        if paths.count > 1, let basePath = paths.first, !basePath.isEmpty {
+            return String(self.dropFirst(basePath.count + 1))
+        } else {
+            return nil
+        }
     }
 }
 
@@ -598,6 +641,7 @@ fileprivate extension Data.CompressionAlgorithm {
 
 #endif // canImport(XXXCompression)
 
+fileprivate typealias Archive = ZipArchive
 
 // ZipArchive is mostly based on ZIPFoundation with some patches (notably https://github.com/weichsel/ZIPFoundation/pull/187 ), which uses the following license:
 //
@@ -623,17 +667,6 @@ fileprivate extension Data.CompressionAlgorithm {
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-public typealias ZipArchive = Archive
-
-extension ZipArchive {
-
-    /// Extracts the data from the given entry
-    public func extractData(from entry: ZipArchive.Entry) throws -> Data {
-        var data = Data()
-        let _ = try extract(entry) { data.append($0) }
-        return data
-    }
-}
 
 /// The default chunk size when reading entry data from an archive.
 public let defaultReadChunkSize = Int(16*1024)
@@ -678,7 +711,7 @@ let memoryURLScheme = "memory"
 ///     var archiveURL = URL(fileURLWithPath: "/path/file.zip")
 ///     var archive = Archive(url: archiveURL, accessMode: .update)
 ///     try archive?.addEntry("test.txt", relativeTo: baseURL, compressionMethod: .deflate)
-public final class Archive: Sequence {
+public final class ZipArchive: Sequence {
     typealias LocalFileHeader = Entry.LocalFileHeader
     typealias DataDescriptor = Entry.DefaultDataDescriptor
     typealias ZIP64DataDescriptor = Entry.ZIP64DataDescriptor
@@ -786,14 +819,12 @@ public final class Archive: Sequence {
     ///   - The file URL _must_ point to an existing file for `AccessMode.read`.
     ///   - The file URL _must_ point to a non-existing file for `AccessMode.create`.
     ///   - The file URL _must_ point to an existing file for `AccessMode.update`.
-    public init?(url: URL, accessMode mode: AccessMode, compressionLevel: Int? = nil, preferredEncoding: String.Encoding? = nil) {
+    public init(url: URL, accessMode mode: AccessMode, compressionLevel: Int? = nil, preferredEncoding: String.Encoding? = nil) throws {
         self.url = url
         self.accessMode = mode
         self.preferredEncoding = preferredEncoding
         self.compressionLevel = compressionLevel
-        guard let config = Archive.makeBackingConfiguration(for: url, mode: mode) else {
-            return nil
-        }
+        let config = try Archive.makeBackingConfiguration(for: url, mode: mode)
         self.archiveFile = config.file
         self.endOfCentralDirectoryRecord = config.endOfCentralDirectoryRecord
         self.zip64EndOfCentralDirectory = config.zip64EndOfCentralDirectory
@@ -937,7 +968,7 @@ public final class Archive: Sequence {
     }
 }
 
-extension Archive.EndOfCentralDirectoryRecord {
+extension ZipArchive.EndOfCentralDirectoryRecord {
     var data: Data {
         var endOfCDSignature = self.endOfCentralDirectorySignature
         var numberOfDisk = self.numberOfDisk
@@ -975,7 +1006,7 @@ extension Archive.EndOfCentralDirectoryRecord {
         self.zipFileCommentData = commentData
     }
 
-    init(record: Archive.EndOfCentralDirectoryRecord,
+    init(record: ZipArchive.EndOfCentralDirectoryRecord,
          numberOfEntriesOnDisk: UInt16,
          numberOfEntriesInCentralDirectory: UInt16,
          updatedSizeOfCentralDirectory: UInt32,
@@ -1339,9 +1370,7 @@ extension FileManager {
         guard !fileManager.itemExists(at: destinationURL) else {
             throw CocoaError(.fileWriteFileExists, userInfo: [NSFilePathErrorKey: destinationURL.path])
         }
-        guard let archive = Archive(url: destinationURL, accessMode: .create) else {
-            throw Archive.ArchiveError.unwritableArchive
-        }
+        let archive = try Archive(url: destinationURL, accessMode: .create)
         let isDirectory = try FileManager.typeForItem(at: sourceURL) == .directory
         if isDirectory {
             let subPaths = try self.subpathsOfDirectory(atPath: sourceURL.path)
@@ -1396,9 +1425,7 @@ extension FileManager {
         guard fileManager.itemExists(at: sourceURL) else {
             throw CocoaError(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: sourceURL.path])
         }
-        guard let archive = Archive(url: sourceURL, accessMode: .read, preferredEncoding: preferredEncoding) else {
-            throw Archive.ArchiveError.unreadableArchive
-        }
+        let archive = try Archive(url: sourceURL, accessMode: .read, preferredEncoding: preferredEncoding)
         // Defer extraction of symlinks until all files & directories have been created.
         // This is necessary because we can't create links to files that haven't been created yet.
         let sortedEntries = archive.sorted { (left, right) -> Bool in
@@ -1417,8 +1444,8 @@ extension FileManager {
 
         for entry in sortedEntries {
             var path = preferredEncoding == nil ? entry.path : entry.path(using: preferredEncoding!)
-            if trimBasePath == true, let basePath = path.split(separator: "/").first, !basePath.isEmpty {
-                path = String(path.dropFirst(basePath.count + 1))
+            if trimBasePath == true {
+                path = path.trimmingBasePath ?? path
                 // dbg("trimmed basePath:", basePath, "from path:", path)
             }
 
@@ -1653,7 +1680,7 @@ public extension URL {
 
 extension URL {
 
-    static func temporaryReplacementDirectoryURL(for archive: Archive) -> URL {
+    static func temporaryReplacementDirectoryURL(for archive: ZipArchive) -> URL {
         #if swift(>=5.0) || os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
         if archive.url.isFileURL,
            let tempDir = try? FileManager().url(for: .itemReplacementDirectory, in: .userDomainMask,
@@ -2119,13 +2146,13 @@ extension Data {
 
 // MARK: Archive+MemoryFile.swift
 
-extension Archive {
+extension ZipArchive {
     var isMemoryArchive: Bool { return self.url.scheme == memoryURLScheme }
 }
 
 #if swift(>=5.0)
 
-extension Archive {
+extension ZipArchive {
     /// Returns a `Data` object containing a representation of the receiver.
     public var data: Data? { return self.memoryFile?.data }
 }
@@ -2266,7 +2293,7 @@ private func seekStub(_ cookie: UnsafeMutableRawPointer?,
 
 // MARK: Archive+Progress.swift
 
-extension Archive {
+extension ZipArchive {
     /// The number of the work units that have to be performed when
     /// removing `entry` from the receiver.
     ///
@@ -2699,7 +2726,7 @@ enum ExtraFieldHeaderID: UInt16 {
     case zip64ExtendedInformation = 0x0001
 }
 
-extension Archive {
+extension ZipArchive {
     struct ZIP64EndOfCentralDirectory {
         let record: ZIP64EndOfCentralDirectoryRecord
         let locator: ZIP64EndOfCentralDirectoryLocator
@@ -2729,7 +2756,7 @@ extension Archive {
     }
 }
 
-extension Archive.ZIP64EndOfCentralDirectoryRecord {
+extension ZipArchive.ZIP64EndOfCentralDirectoryRecord {
     var data: Data {
         var zip64EOCDRecordSignature = self.zip64EOCDRecordSignature
         var sizeOfZIP64EOCDRecord = self.sizeOfZIP64EndOfCentralDirectoryRecord
@@ -2773,7 +2800,7 @@ extension Archive.ZIP64EndOfCentralDirectoryRecord {
         self.zip64ExtensibleDataSector = Data()
     }
 
-    init(record: Archive.ZIP64EndOfCentralDirectoryRecord,
+    init(record: ZipArchive.ZIP64EndOfCentralDirectoryRecord,
          numberOfEntriesOnDisk: UInt64,
          numberOfEntriesInCD: UInt64,
          sizeOfCentralDirectory: UInt64,
@@ -2791,7 +2818,7 @@ extension Archive.ZIP64EndOfCentralDirectoryRecord {
     }
 }
 
-extension Archive.ZIP64EndOfCentralDirectoryLocator {
+extension ZipArchive.ZIP64EndOfCentralDirectoryLocator {
     var data: Data {
         var zip64EOCDLocatorSignature = self.zip64EOCDLocatorSignature
         var numberOfDiskWithZIP64EOCD = self.numberOfDiskWithZIP64EOCDRecordStart
@@ -2813,14 +2840,14 @@ extension Archive.ZIP64EndOfCentralDirectoryLocator {
         self.totalNumberOfDisk = data.scanValue(start: 16)
     }
 
-    init(locator: Archive.ZIP64EndOfCentralDirectoryLocator, offsetOfZIP64EOCDRecord: UInt64) {
+    init(locator: ZipArchive.ZIP64EndOfCentralDirectoryLocator, offsetOfZIP64EOCDRecord: UInt64) {
         self.numberOfDiskWithZIP64EOCDRecordStart = locator.numberOfDiskWithZIP64EOCDRecordStart
         self.relativeOffsetOfZIP64EOCDRecord = offsetOfZIP64EOCDRecord
         self.totalNumberOfDisk = locator.totalNumberOfDisk
     }
 }
 
-extension Archive.ZIP64EndOfCentralDirectory {
+extension ZipArchive.ZIP64EndOfCentralDirectory {
     var data: Data { record.data + locator.data }
 }
 
@@ -2838,7 +2865,7 @@ var maxTotalNumberOfEntries: UInt16 { maxUInt16 }
 
 // MARK: Archive+Writing.swift
 
-extension Archive {
+extension ZipArchive {
     enum ModifyOperation: Int {
         case remove = -1
         case add = 1
@@ -3045,7 +3072,7 @@ extension Archive {
         try self.replaceCurrentArchive(with: tempArchive)
     }
 
-    func replaceCurrentArchive(with archive: Archive) throws {
+    func replaceCurrentArchive(with archive: ZipArchive) throws {
         fclose(self.archiveFile)
         if self.isMemoryArchive {
             #if swift(>=5.0)
@@ -3080,7 +3107,7 @@ extension Archive {
 
 // MARK: - Private
 
-private extension Archive {
+private extension ZipArchive {
 
     func updateOffsetInCentralDirectory(centralDirectoryStructure: CentralDirectoryStructure,
                                         updatedOffset: UInt64) -> CentralDirectoryStructure {
@@ -3126,9 +3153,7 @@ private extension Archive {
             let uniqueString = ProcessInfo.processInfo.globallyUniqueString
             let tempArchiveURL = tempDir.appendingPathComponent(uniqueString)
             try manager.createParentDirectoryStructure(for: tempArchiveURL)
-            guard let tempArchive = Archive(url: tempArchiveURL, accessMode: .create) else {
-                throw ArchiveError.unwritableArchive
-            }
+            let tempArchive = try Archive(url: tempArchiveURL, accessMode: .create)
             archive = tempArchive
             url = tempDir
         }
@@ -3142,7 +3167,7 @@ private extension Archive {
 
 // MARK: Archive+Reading.swift
 
-extension Archive {
+extension ZipArchive {
     /// Read a ZIP `Entry` from the receiver and write it to `url`.
     ///
     /// - Parameters:
@@ -3257,7 +3282,7 @@ extension Archive {
 
 // MARK: Archive+Helpers.swift
 
-extension Archive {
+extension ZipArchive {
 
     // MARK: - Reading
 
@@ -3529,7 +3554,7 @@ extension Archive {
 
 // MARK: Archive+BackingConfiguration.swift
 
-extension Archive {
+extension ZipArchive {
 
     struct BackingConfiguration {
         let file: FILEPointer
@@ -3559,15 +3584,15 @@ extension Archive {
         #endif
     }
 
-    static func makeBackingConfiguration(for url: URL, mode: AccessMode)
-    -> BackingConfiguration? {
+    static func makeBackingConfiguration(for url: URL, mode: AccessMode) throws
+    -> BackingConfiguration {
         let fileManager = FileManager()
         switch mode {
         case .read:
             let fileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: url.path)
             guard let archiveFile = fopen(fileSystemRepresentation, "rb"),
                   let (eocdRecord, zip64EOCD) = Archive.scanForEndOfCentralDirectoryRecord(in: archiveFile) else {
-                return nil
+                throw CocoaError(.fileReadNoSuchFile)
             }
             return BackingConfiguration(file: archiveFile,
                                         endOfCentralDirectoryRecord: eocdRecord,
@@ -3580,15 +3605,13 @@ extension Archive {
                                                                           offsetToStartOfCentralDirectory: 0,
                                                                           zipFileCommentLength: 0,
                                                                           zipFileCommentData: Data())
-            do {
-                try endOfCentralDirectoryRecord.data.write(to: url, options: .withoutOverwriting)
-            } catch { return nil }
+            try endOfCentralDirectoryRecord.data.write(to: url, options: .withoutOverwriting)
             fallthrough
         case .update:
             let fileSystemRepresentation = fileManager.fileSystemRepresentation(withPath: url.path)
             guard let archiveFile = fopen(fileSystemRepresentation, "rb+"),
                   let (eocdRecord, zip64EOCD) = Archive.scanForEndOfCentralDirectoryRecord(in: archiveFile) else {
-                return nil
+                throw ArchiveError.unwritableArchive
             }
             fseeko(archiveFile, 0, SEEK_SET)
             return BackingConfiguration(file: archiveFile,

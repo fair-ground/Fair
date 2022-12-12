@@ -544,13 +544,13 @@ extension FairCommand {
             }
 
             let trustedArtifactURL = URL(fileURLWithPath: trustedArtifactFlag)
-            guard let trustedArchive = ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
+            guard let trustedArchive = try? ZipArchive(url: trustedArtifactURL, accessMode: .read, preferredEncoding: .utf8) else {
                 throw AppError(String(format: NSLocalizedString("Error opening trusted archive: %@", bundle: .module, comment: "error message"), arguments: [trustedArtifactURL.absoluteString]))
             }
 
             let untrustedArtifactLocalURL = try await fetchUntrustedArtifact()
 
-            guard let untrustedArchive = ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
+            guard let untrustedArchive = try? ZipArchive(url: untrustedArtifactLocalURL, accessMode: .read, preferredEncoding: .utf8) else {
                 throw AppError(String(format: NSLocalizedString("Error opening untrusted archive: %@", bundle: .module, comment: "error message"), arguments: [untrustedArtifactLocalURL.absoluteString]))
             }
 
@@ -680,7 +680,7 @@ extension FairCommand {
 
                     func stripSignature(from url: URL) async throws -> Data {
                         try await Process.codesignStrip(url: url).expect()
-                        return try await Data(contentsOf: url)
+                        return try Data(contentsOf: url)
                     }
 
                     func disassemble(_ tool: String, from url: URL) async throws -> Data {
@@ -1054,7 +1054,7 @@ extension FairCommand {
             let appIconURL = projectOptions.projectPathURL(path: appIconPath)
 
             // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
-            let iconSet = try await AppIconSet(json: Data(contentsOf: appIconURL))
+            let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
 
             let appName = try orgOptions.appNameSpace()
             let iconColor = try parseTintIconColor()

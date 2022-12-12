@@ -7,6 +7,25 @@ import XCTest
 import FoundationNetworking
 #endif
 
+extension DataWrapper {
+    /// Iterates through the entries of both the wrappers and executes the differentiator against the equivalent paths.
+    /// - Parameters:
+    ///   - against: the wrapper against which to diff
+    ///   - differentiator: the diffing function
+    /// - Returns: the list of differences between the two wrappers
+    func diff<D: DataWrapper, Result>(_ pathKey: (Self.Path) -> String?, against: D, againstPathKey: (D.Path) -> String?, prioriry: TaskPriority? = nil, differentiator: @escaping (Self.Path?, D.Path?) async throws -> Result?) -> AsyncThrowingStream<Result?, Error> {
+        let p1: [String? : Self.Path] = self.paths.dictionary(keyedBy: pathKey)
+        let p2: [String? : D.Path] = against.paths.dictionary(keyedBy: againstPathKey)
+
+        let paths = (Set(p1.keys.compacted()).union(p2.keys.compacted())).sorted()
+        return paths.asyncMap(priority: prioriry) { path in
+            let o1 = p1[path]
+            let o2 = p2[path]
+            return try await differentiator(o1, o2)
+        }
+    }
+}
+
 /// if the environment uses the "GH_TOKEN" or "GITHUB_TOKEN" (e.g., in an Action), then pass it along to the API requests
 fileprivate let authToken: String? = ProcessInfo.processInfo.environment["GH_TOKEN"] ?? ProcessInfo.processInfo.environment["GITHUB_TOKEN"]
 
@@ -20,26 +39,120 @@ final class RemoteGitTests : XCTestCase {
         XCTAssertEqual("e9624bee3177db5443e23d65ba54fc28ca343afa", refs.first(where: { $0.name == "refs/tags/0.3.10" })?.branch)
     }
 
-    func compareRepoContents(at orgName: String, head: String = "main") async throws {
-        let gitURL = try XCTUnwrap(URL(string: "https://github.com/\(orgName).git"))
-        let zipURL = try XCTUnwrap(URL(string: "https://github.com/\(orgName)/archive/refs/heads/\(head).zip"))
 
-        dbg("downloading zip:", zipURL.absoluteString)
+    func XXXtestCompareRepoContentsLocal() async throws {
+        try await compareRepoContentsLocal(zipURL: URL(fileOrScheme: "~/Downloads/MemoZ-main.zip"), fsURL: URL(fileOrScheme: "~/Downloads/MemoZ-main/"))
+    }
 
-        let session = URLSession.shared
-        let (localURL, response) = try await session.downloadFile(for: URLRequest(url: zipURL), useContentDispositionFileName: true, useLastModifiedDate: true)
-
-        dbg("extracting zip:", localURL.absoluteString)
-
-        let tmpfile = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString)
-
-        let unzipped = try FileManager.default.unzipItem(at: localURL, to: tmpfile, skipCRC32: false, progress: nil, preferredEncoding: nil)
+    func compareRepoContentsLocal(zipURL: URL, fsURL: URL) async throws {
+        try await compareWrapperContents(zip: ZipArchiveDataWrapper(archive: ZipArchive(url: zipURL, accessMode: .read)), fs: FileSystemDataWrapper(root: fsURL))
     }
 
     func testCompareRepoContents() async throws {
-        try await compareRepoContents(at: "Cloud-Cuckoo/App")
+        try await compareRepoContents(at: "marcprux/MemoZ")
+//        try await compareRepoContents(at: "jectivex/JXKit") // seems to be wrong branch
+//        try await compareRepoContents(at: "Alamofire/Alamofire") // missing file error
+//        try await compareRepoContents(at: "fair-ground/Fair") // hangs and memory grows on checkout
+//        try await compareRepoContents(at: "Huffle-Puff/App") // The file “b4df97b313d320feea3951333e04b08043c014” couldn’t be opened because there is no such file.
+//        try await compareRepoContents(at: "Cloud-Cuckoo/App") // The file “3effe69ecaac9842fa4a932e65558a29de2d8d” couldn’t be opened because there is no such file.
     }
 
+    func compareRepoContents(at orgName: String, branch: String = "main") async throws {
+        let tmpdir = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString)
+        dbg("tmpdir:", tmpdir.path)
+
+        let gitURL = try XCTUnwrap(URL(string: "https://github.com/\(orgName).git"))
+        let zipURL = try XCTUnwrap(URL(string: "https://github.com/\(orgName)/archive/refs/heads/\(branch).zip"))
+
+
+        let gitout = tmpdir.appendingPathComponent("git", isDirectory: true)
+        try FileManager.default.createDirectory(at: gitout, withIntermediateDirectories: true)
+        dbg("cloning repository:", gitURL.absoluteString, "to:", gitout.path)
+        dbg("downloading zip:", zipURL.absoluteString)
+
+        async let fetch = try Git.Hub.clone(gitURL, local: gitout)
+        async let (localZip, _) = try URLSession.shared.downloadFile(for: URLRequest(url: zipURL), useContentDispositionFileName: true, useLastModifiedDate: true)
+
+        let zip = try await ZipArchiveDataWrapper(archive: ZipArchive(url: localZip, accessMode: .read))
+        let (_, fs) = try await (fetch, FileSystemDataWrapper(root: gitout))
+
+        dbg("downloaded zip:", zip.containerURL.path)
+
+        try await compareWrapperContents(zip: zip, fs: fs)
+    }
+
+    func compareWrapperContents(zip: ZipArchiveDataWrapper, fs: FileSystemDataWrapper) async throws {
+        struct DiffResult {
+            var fsPath: FileSystemDataWrapper.Path? = nil
+            var zipPath: ZipArchiveDataWrapper.Path? = nil
+            var offset: Int? = nil
+        }
+
+        func compare(fsPath: FileSystemDataWrapper.Path?, zipPath: ZipArchiveDataWrapper.Path?) async throws -> DiffResult? {
+//            return try await prf(msg: { result in result == nil ? nil : "compare: \(fsPath?.pathName ?? ""): \(result?.offset ?? 0)" }) {
+                try await compareEntries(fsPath: fsPath, zipPath: zipPath)
+//            }
+        }
+
+        func compareEntries(fsPath: FileSystemDataWrapper.Path?, zipPath: ZipArchiveDataWrapper.Path?) async throws -> DiffResult? {
+            if fsPath?.pathName == ".git" || fsPath?.pathName.hasPrefix(".git/") == true {
+                return nil // .git folders are not included in the zip, so do not compare
+            }
+            if fsPath?.pathName == ".github" || fsPath?.pathName.hasPrefix(".github/") == true {
+                return nil // .github folders may not be in the zip
+            }
+            if zipPath?.pathName.hasSuffix(".github") == true {
+                return nil // .github folders may not be in the zip
+            }
+            guard let fsPath = fsPath, let zipPath = zipPath, let zipEntry = zipPath.entry else {
+                // one or the other path is missing
+                return DiffResult(fsPath: fsPath, zipPath: zipPath)
+            }
+
+            if fsPath.pathIsDirectory && zipPath.pathIsDirectory {
+                // skip over directories
+                return nil
+            }
+
+
+            let zipEntryStream: AsyncThrowingStream<Data, Error> = zip.archive.extractAsync(from: zipEntry)
+            //var zipEntryIterator = zipEntryStream.makeAsyncIterator()
+
+            let fsEntryStream: FileHandle.FileAsyncBytes = try FileHandle(forReadingFrom: fsPath).bytesAsync
+            var fsEntryIterator = fsEntryStream.makeAsyncIterator()
+
+            var offset = 0
+
+            for try await zipEntryDataChunk in zipEntryStream {
+                //dbg("zipEntryDataChunk:", zipEntryDataChunk)
+                for zb in zipEntryDataChunk {
+                    guard let fb = try await fsEntryIterator.next() else { // out of bytes
+                        return DiffResult(fsPath: fsPath, zipPath: zipPath, offset: offset)
+                    }
+                    if fb != zb { // the bytes are different at the given offset
+                        return DiffResult(fsPath: fsPath, zipPath: zipPath, offset: offset)
+                    }
+                    offset += 1
+                }
+            }
+
+            if try await fsEntryIterator.next() != nil { // there are more bytes in the file system: that's a difference
+                return DiffResult(fsPath: fsPath, zipPath: zipPath, offset: offset)
+            }
+
+            return nil
+        }
+
+        for try await diff in fs.diff({ $0.pathName }, against: zip, againstPathKey: \.pathName.trimmingBasePath, differentiator: compare) {
+            if let diff = diff {
+                dbg("diff:", diff)
+                XCTFail("difference in paths: \(diff)")
+                return
+            }
+        }
+
+        // XCTAssertEqual([], diffs, "should have been no differences")
+    }
 
     func XXXtestDemo() async throws {
         let remote = try XCTUnwrap(URL(string: "https://github.com/marcprux/DemoRepo.git"))

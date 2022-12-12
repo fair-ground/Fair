@@ -46,10 +46,10 @@ jobs:
           swift run fairtool version
 
       - name: Fair Test Linux (Debug)
-        run: swift test -v --configuration debug
+        run: swift test -v --configuration debug --parallel
 
       - name: Fair Test Linux (Release)
-        run: swift test -v --configuration release -Xswiftc -enable-testing
+        run: swift test -v --configuration release -Xswiftc -enable-testing --parallel
 
       - name: Check fairtool formula
         if: false
@@ -75,7 +75,7 @@ jobs:
         run: xcrun swift run fairtool version
 
       - name: Fair Tests
-        run: xcrun swift test
+        run: xcrun swift test --parallel
  
       - name: Test iOS (Debug)
         run: xcodebuild -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"

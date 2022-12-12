@@ -207,7 +207,7 @@ public struct SourceCommand : AsyncParsableCommand {
                     apps = apps.filter({ $0.bundleIdentifier.map(bundleIDs.contains) == true })
                 }
 
-                return apps.mapAsync({ try await AppCatalogAPI.shared.verifyAppItem(app: $0, catalogURL: catalogURL, msg: { msg($0, $1) }) })
+                return apps.asyncMap({ try await AppCatalogAPI.shared.verifyAppItem(app: $0, catalogURL: catalogURL, msg: { msg($0, $1) }) })
             }
         }
     }

@@ -1118,53 +1118,14 @@ private func joinWhitespaceSeparated(_ addresses: [String]) -> [String] {
 extension AsyncParsableCommand {
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
     func executeStream<T, U: FairCommandOutput>(_ arguments: [T], block: @escaping (T) async throws -> U) -> AsyncThrowingStream<U, Error> {
-        arguments.mapAsync(block)
+        arguments.asyncMap(block)
     }
 
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the JSON result as it goes.
     func executeSeries<T, U: FairCommandOutput>(_ arguments: [T], initialValue: U?, block: @escaping (T, U?) async throws -> U) -> AsyncThrowingStream<U, Error> {
-        arguments.reduceAsync(initialResult: initialValue, block)
+        arguments.asyncReduce(initialResult: initialValue, block)
     }
 }
-
-extension Sequence {
-    /// Creates a new Task with the specified priority and returns an `AsyncThrowingStream` mapping over each element.
-    public func mapAsync<T>(priority: TaskPriority? = nil, _ block: @escaping (Element) async throws -> T) -> AsyncThrowingStream<T, Error> {
-        AsyncThrowingStream { c in
-            Task(priority: priority) {
-                do {
-                    for item in self {
-                        c.yield(try await block(item))
-                    }
-                    c.finish()
-                } catch {
-                    c.finish(throwing: error)
-                }
-            }
-        }
-    }
-
-    /// Creates a new Task with the specified priority and returns an `AsyncThrowingStream` invoking the block with the initial element.
-    public func reduceAsync<Result>(priority: TaskPriority? = nil, initialResult: Result?, _ nextPartialResult: @escaping (Element, Result?) async throws -> Result) -> AsyncThrowingStream<Result, Error> {
-        AsyncThrowingStream { c in
-            Task(priority: priority) {
-                do {
-                    var previousValue = initialResult
-                    for item in self {
-                        let value = try await nextPartialResult(item, previousValue)
-                        c.yield(value)
-                        previousValue = value
-                    }
-                    c.finish()
-                } catch {
-                    c.finish(throwing: error)
-                }
-            }
-        }
-    }
-}
-
-
 
 
 /// Shim to work around crash with accessing ``Bundle.module`` from a command-line tool.

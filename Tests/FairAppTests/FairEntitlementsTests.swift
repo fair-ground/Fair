@@ -97,10 +97,7 @@ final class FairEntitlementsTests: XCTestCase {
         try FileManager.default.zipItem(at: tmp, to: zipFile, shouldKeepParent: false, compressionMethod: .deflate)
         dbg("zipped file size:", zipFile.fileSize()?.localizedByteCount())
 
-        guard let zip = ZipArchive(url: zipFile, accessMode: .read) else {
-            return XCTFail("could not create zip from: \(zipFile.path)")
-        }
-
+        let zip = try ZipArchive(url: zipFile, accessMode: .read)
         dbg("opened zip archive")
 
         let dw2 = ZipArchiveDataWrapper(archive: zip)

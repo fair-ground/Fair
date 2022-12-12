@@ -460,19 +460,18 @@ final class FairCoreTests: XCTestCase {
         
     }
 
-//    /// Crashes on Linux
-//    func XXXtestFileHandleAsync() async throws {
+    #if !os(Linux) && !os(Android)
+    /// Crashes on Linux
+//    func testFileHandleAsync() async throws {
 //        let fh = try FileHandle(forReadingFrom: URL(fileURLWithPath: "/dev/random"))
 //        let xpc = expectation(description: "asyncRead")
-//
-//        let queue = OperationQueue.current
 //
 //        let mode: RunLoop.Mode = .common
 //        RunLoop.current.run(mode: mode, before: .distantFuture)
 //
 //        let _ = Task.detached {
 //            var reads = 0
-//            for try await chunk in fh.readDataAsync(queue: queue, forModes: [mode]) {
+//            for try await chunk in fh.readDataAsync(queue: OperationQueue.current, forModes: [mode]) {
 //                dbg("read /dev/random chunk:", chunk.count)
 //                reads += 1
 //                if reads > 100 {
@@ -482,14 +481,23 @@ final class FairCoreTests: XCTestCase {
 //            }
 //        }
 //
-////        while true {
-////            RunLoop.current.run(mode: .common, before: .distantFuture)
-////        }
-//        xpc.fulfill() // not working
-//
-//
 //        wait(for: [xpc], timeout: 2)
+//
 //    }
+    #endif
+
+    func testURLDataAsync() async throws {
+        let urls = [
+            "https://www.example.org",
+            "https://appfair.net/appcasks.json",
+        ]
+        for url in urls {
+            dbg("checking:", url)
+            for try await chunk in URLSession.shared.dataSequence(for: URLRequest(url: URL(string: url)!)) {
+                dbg("chunk:", chunk)
+            }
+        }
+    }
 
     func testTemplating() throws {
         XCTAssertEqual("XXX", "XXX".replacing(variables: [:]))

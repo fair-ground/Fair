@@ -161,55 +161,6 @@ public extension Sequence {
     }
 }
 
-
-// MARK: async conveniences
-
-extension Sequence {
-    /// Variant `Sequence.reduce` that accepts an `async` closure
-    @inlinable public func reduceAsync<Result>(into initialResult: Result, _ updateAccumulatingResult: (inout Result, Self.Element) async throws -> ()) async rethrows -> Result {
-        var result = initialResult
-        for element in self {
-            try await updateAccumulatingResult(&result, element)
-        }
-        return result
-    }
-
-    /// Variant `Sequence.map` that accepts an `async` closure
-    @inlinable public func mapAsync<T>(_ transform: (Element) async throws -> T) async rethrows -> [T] {
-        try await reduceAsync(into: [T]()) { result, element in
-            try await result.append(transform(element))
-        }
-    }
-
-    /// Variant `Sequence.flatMap` that accepts an `async` closure
-    @inlinable public func flatMapAsync<T>(_ transform: (Element) async throws -> [T]) async rethrows -> [T] {
-        try await mapAsync(transform).joined().array()
-    }
-
-    /// Variant `Sequence.filter` that accepts an `async` closure
-    @inlinable public func filterAsync(_ filter: (Element) async throws -> Bool) async rethrows -> [Element] {
-        try await mapAsync { element in
-            (element: element, result: try await filter(element))
-        }
-        .filter(\.result)
-        .map(\.element)
-    }
-}
-
-extension Sequence {
-    /// Concurrently executes the given transformation, returning the results in the order of the sequence's elements
-    @inlinable public func concurrentMap<T>(priority: TaskPriority? = nil, _ transform: @escaping (Element) async throws -> T) async rethrows -> [T] {
-        try await mapAsync { element in
-            Task(priority: priority) {
-                try await transform(element)
-            }
-        }.mapAsync { task in
-            try await task.value
-        }
-    }
-}
-
-
 // MARK: Misc
 
 extension Optional where Wrapped : Equatable {
@@ -687,8 +638,13 @@ public extension Date {
 
 public extension URL {
     /// Initialize this URL with either a full URL with a protocol, or else use the string as a file path.
-    /// - Parameter fileOrScheme: either a full URL like `https://www.example.org` or a file path like `/etc/hosts`.
+    /// - Parameter fileOrScheme: either a full URL like `https://www.example.org` or a file path like `/etc/hosts` or `~/Downloads/`.
     init(fileOrScheme: String) {
+        if fileOrScheme.hasPrefix("~") || fileOrScheme.hasPrefix("/") {
+            self = URL(fileURLWithPath: (fileOrScheme as NSString).expandingTildeInPath)
+            return
+        }
+
         guard let url = URL(string: fileOrScheme) else {
             self = URL(fileURLWithPath: fileOrScheme)
             return
@@ -809,34 +765,34 @@ extension FileHandle {
     /// Reads the data in asynchronous chunks from the ``NSFileHandle``.
     ///
     /// Note: “You must call this method from a thread that has an active run loop.”
-    public func readDataAsync(queue: OperationQueue?, forModes modes: [RunLoop.Mode]?) -> AsyncThrowingStream<Data, Error> {
-        return AsyncThrowingStream { c in
-            var observer: NSObjectProtocol?
-
-            func removeObserver() {
-                NotificationCenter.default.removeObserver(self, name: FileHandle.readCompletionNotification, object: observer)
-            }
-
-            observer = NotificationCenter.default.addObserver(forName: FileHandle.readCompletionNotification, object: self, queue: queue) { [weak self] note in
-                guard let self = self else { return }
-
-                if let errorNumber = note.userInfo?["NSFileHandleError"] as? NSNumber {
-                    removeObserver()
-                    c.finish(throwing: CocoaError(CocoaError.Code(rawValue: errorNumber.intValue)))
-                } else if let data = note.userInfo?[NSFileHandleNotificationDataItem] as? Data {
-                    c.yield(data)
-                    self.readInBackgroundAndNotify(forModes: modes) // “Note that this method does not cause a continuous stream of notifications to be sent. If you wish to keep getting notified, you’ll also need to call readInBackgroundAndNotify() in your observer method.”
-                } else {
-                    removeObserver()
-                    observer = nil
-                    c.finish()
-                }
-            }
-
-            // note: “You must call this method from a thread that has an active run loop.”
-            readInBackgroundAndNotify(forModes: modes)
-        }
-    }
+//    public func readDataAsync(queue: OperationQueue?, forModes modes: [RunLoop.Mode]?) -> AsyncThrowingStream<Data, Error> {
+//        return AsyncThrowingStream { c in
+//            var observer: NSObjectProtocol?
+//
+//            func removeObserver() {
+//                NotificationCenter.default.removeObserver(self, name: FileHandle.readCompletionNotification, object: observer)
+//            }
+//
+//            observer = NotificationCenter.default.addObserver(forName: FileHandle.readCompletionNotification, object: self, queue: queue) { [weak self] note in
+//                guard let self = self else { return }
+//
+//                if let errorNumber = note.userInfo?["NSFileHandleError"] as? NSNumber {
+//                    removeObserver()
+//                    c.finish(throwing: CocoaError(CocoaError.Code(rawValue: errorNumber.intValue)))
+//                } else if let data = note.userInfo?[NSFileHandleNotificationDataItem] as? Data {
+//                    c.yield(data)
+//                    self.readInBackgroundAndNotify(forModes: modes) // “Note that this method does not cause a continuous stream of notifications to be sent. If you wish to keep getting notified, you’ll also need to call readInBackgroundAndNotify() in your observer method.”
+//                } else {
+//                    removeObserver()
+//                    observer = nil
+//                    c.finish()
+//                }
+//            }
+//
+//            // note: “You must call this method from a thread that has an active run loop.”
+//            readInBackgroundAndNotify(forModes: modes)
+//        }
+//    }
 }
 
 /// Performs the given block and, if an error occurs, enhances the error description with the given value.
