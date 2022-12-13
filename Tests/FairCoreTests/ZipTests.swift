@@ -80,7 +80,7 @@ final class ZipTests: XCTestCase {
             }
             for try await result in FileManager.default.enumeratorAsync(at: url) {
                 let url = try result.get()
-                if ["zip", "epub"].contains(url.pathExtension) {
+                if ["zip", "epub", "jar"].contains(url.pathExtension) {
                     dbg("checking url:", url.path)
                     try await checkZip(url: url)
                 }
@@ -93,6 +93,7 @@ final class ZipTests: XCTestCase {
         let archive = try ZipArchiveDataWrapper(archive: ZipArchive(url: url, accessMode: .read))
         for path in archive.paths {
             dbg(" - ", path.pathName)
+            let d = try archive.seekableData(at: path)
         }
     }
 
