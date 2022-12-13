@@ -62,7 +62,7 @@ extension ZipArchive {
     /// Extracts the data from the entry asynchronously
     public func extractAsync(from entry: ZipArchive.Entry, bufferSize: Int = defaultReadChunkSize, skipCRC32: Bool = false, progress: Progress? = nil) -> AsyncThrowingStream<Data, Error> {
         AsyncThrowingStream { c in
-            Task {
+//            Task {
                 do {
                     _ = try extract(entry, bufferSize: bufferSize, skipCRC32: skipCRC32, progress: progress) {
                         try Task.checkCancellation()
@@ -72,7 +72,7 @@ extension ZipArchive {
                 } catch {
                     c.finish(throwing: error)
                 }
-            }
+//            }
         }
     }
 }
