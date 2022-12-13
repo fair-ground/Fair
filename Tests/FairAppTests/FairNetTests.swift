@@ -67,7 +67,6 @@ final class FairNetTests: XCTestCase {
                 dbg("received response:", response)
                 return true
             })
-
         } else {
             (loadURL, response) = try await req.download()
         }
