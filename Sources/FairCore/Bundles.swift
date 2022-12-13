@@ -334,35 +334,29 @@ extension FileManager {
     /// Runs ``FileManager.enumerate`` in an async ``Task``, returning an ``AsyncThrowingStream`` with the elements.
     /// - Parameters:
     ///   - url: The location of the directory for which you want an enumeration. This URL must not be a symbolic link that points to the desired directory. You can use the resolvingSymlinksInPath method to resolve any symlinks in the URL.
-    ///   - priority: The ``TaskPriority`` at which to start the enumeration ``Task``.
     ///   - haltOnError: Whether to stop if any errors are encountered
     ///   - resourceKeys: An array of keys that identify the properties that you want pre-fetched for each item in the enumeration.
     ///   - options: Options for the enumeration.
     /// - Returns: An async stream yielding a `Result<URL, Error>`
-    public func enumeratorAsync(at url: URL, priority: TaskPriority? = nil, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<Result<URL, Error>, Error> {
-        return AsyncThrowingStream { c in
-//            Task(priority: priority) {
-                let directoryEnumerator = self.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options) { url, error in
-                    c.yield(.failure(error))
-                    if haltOnError || Task.isCancelled {
-                        return false // stop the enumeration
-                    } else {
-                        return true
-                    }
+    public func enumeratorAsync(at url: URL, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<Result<URL, Error>, Error> {
+        AsyncThrowingStream { c in
+            guard let directoryEnumerator = self.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options, errorHandler: { url, error in
+                c.yield(.failure(error))
+                if haltOnError || Task.isCancelled {
+                    return false // stop the enumeration
+                } else {
+                    return true
                 }
-
-                if let directoryEnumerator = directoryEnumerator {
-                    for case let fileURL as URL in directoryEnumerator {
-                        //try Task.checkCancellation()
-                        c.yield(.success(fileURL))
-                        //try Task.checkCancellation()
-                    }
-                }
-                c.finish()
-//                return true
+            }) else {
+                c.yield(.failure(CocoaError(.fileReadUnknown)))
+                return
             }
 
-//        }
+            for case let fileURL as URL in directoryEnumerator {
+                c.yield(.success(fileURL))
+            }
+            c.finish()
+        }
     }
 
     /// Returns the deep contents of the given file URL, with an option to preserve relative paths in the URLs.

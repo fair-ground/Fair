@@ -80,8 +80,8 @@ final class ZipTests: XCTestCase {
             }
             for try await result in FileManager.default.enumeratorAsync(at: url) {
                 let url = try result.get()
-                dbg("url:", url.path)
                 if ["zip", "epub"].contains(url.pathExtension) {
+                    dbg("checking url:", url.path)
                     try await checkZip(url: url)
                 }
             }
