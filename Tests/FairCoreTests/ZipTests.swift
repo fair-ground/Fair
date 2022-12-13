@@ -69,6 +69,33 @@ final class ZipTests: XCTestCase {
         }
     }
 
+    func testZipFiles() async throws {
+        for url in [
+            URL(fileOrScheme: "~/Documents/Books/epub"),
+            URL(fileURLWithPath: "/opt/src/github/apache/tika"),
+        ] {
+            if url.pathIsDirectory == false {
+                dbg("skipping missing folder:", url.path)
+                continue
+            }
+            for try await result in FileManager.default.enumeratorAsync(at: url) {
+                let url = try result.get()
+                dbg("url:", url.path)
+                if ["zip", "epub"].contains(url.pathExtension) {
+                    try await checkZip(url: url)
+                }
+            }
+        }
+    }
+
+    func checkZip(url: URL) async throws {
+        dbg("checking:", url.path)
+        let archive = try ZipArchiveDataWrapper(archive: ZipArchive(url: url, accessMode: .read))
+        for path in archive.paths {
+            dbg(" - ", path.pathName)
+        }
+    }
+
     func testCompression() throws {
         let compress = {
             try ($0 as Data).zipZlib(level: $1, checksum: true).data.hex()

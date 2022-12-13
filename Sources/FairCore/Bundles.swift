@@ -338,36 +338,31 @@ extension FileManager {
     ///   - haltOnError: Whether to stop if any errors are encountered
     ///   - resourceKeys: An array of keys that identify the properties that you want pre-fetched for each item in the enumeration.
     ///   - options: Options for the enumeration.
-    /// - Returns: An async stream yielding a tuple of URLs with an optional second error item, indicating that a failure occured. If ``haltOnError`` is true, the first such error will end the stream.
-    public static func enumeratorAsync(at url: URL, priority: TaskPriority? = nil, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<(URL, Error?), Error> {
+    /// - Returns: An async stream yielding a `Result<URL, Error>`
+    public func enumeratorAsync(at url: URL, priority: TaskPriority? = nil, haltOnError: Bool = false, includingPropertiesForKeys resourceKeys: [URLResourceKey]? = nil, options: DirectoryEnumerationOptions = []) -> AsyncThrowingStream<Result<URL, Error>, Error> {
         return AsyncThrowingStream { c in
-            Task(priority: priority) {
-                do {
-                    let directoryEnumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options) { url, error in
-                        c.yield((url, error))
-                        if haltOnError || Task.isCancelled {
-                            return false // stop the enumeration
-                        } else {
-                            return true
-                        }
+//            Task(priority: priority) {
+                let directoryEnumerator = self.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: options) { url, error in
+                    c.yield(.failure(error))
+                    if haltOnError || Task.isCancelled {
+                        return false // stop the enumeration
+                    } else {
+                        return true
                     }
-
-                    if let directoryEnumerator = directoryEnumerator {
-                        for case let fileURL as URL in directoryEnumerator {
-                            try Task.checkCancellation()
-                            c.yield((fileURL, nil))
-                            try Task.checkCancellation()
-                        }
-                    }
-                    c.finish()
-                } catch {
-                    // note that this is just cancellation errors;
-                    // individual file URL access errors are included in the
-                    // error tuple element.
-                    c.finish(throwing: error)
                 }
+
+                if let directoryEnumerator = directoryEnumerator {
+                    for case let fileURL as URL in directoryEnumerator {
+                        //try Task.checkCancellation()
+                        c.yield(.success(fileURL))
+                        //try Task.checkCancellation()
+                    }
+                }
+                c.finish()
+//                return true
             }
-        }
+
+//        }
     }
 
     /// Returns the deep contents of the given file URL, with an option to preserve relative paths in the URLs.
@@ -999,12 +994,15 @@ public class ZipArchiveDataWrapper : DataWrapper {
         for parentPath in parentPaths.sorted() {
             var path = parentPath
             while !path.isEmpty {
+                //dbg(path)
                 if allPaths.insert(path).inserted == true {
                     // synthesize a directory entry
                     // dbg("synthesizing parent directory:", parentPath)
                     paths.append(ZipArchivePath(path: path.deletingTrailingSlash, pathIsDirectory: true, entry: nil))
                 }
-                path = path.deletingLastPathComponent
+                let subPath = path.deletingLastPathComponent
+                if path == subPath { break }
+                path = subPath
             }
         }
         self.paths = paths
