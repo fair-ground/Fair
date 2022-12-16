@@ -71,9 +71,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Check tuist
-        run: tuist version
-
       - name: Run fairtool
         run: xcrun swift run fairtool version
 
