@@ -2145,7 +2145,7 @@ extension Data {
                 var chunk = data[(data.startIndex + advance)..<(data.startIndex + advance + read)]
                 result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) in
                     stream.next_in = ptr.bindMemory(to: UInt8.self).baseAddress
-                    status = zlib.inflate(&stream, Z_NO_FLUSH)
+                    status = zlibInflate(&stream, Z_NO_FLUSH)
                     guard status != Z_NEED_DICT && status != Z_DATA_ERROR && status != Z_MEM_ERROR else {
                         throw CompressionError.corruptedData
                     }
@@ -2222,4 +2222,10 @@ extension Data {
     }
 
 }
+
+/// Cover func
+@usableFromInline func zlibInflate(_ strm: z_streamp, _ flush: Int32) -> Int32 {
+    inflate(strm, flush)
+}
+
 #endif // canImport(CZLib)
