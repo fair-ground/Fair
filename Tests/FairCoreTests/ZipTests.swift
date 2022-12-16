@@ -144,7 +144,7 @@ final class ZipTests: XCTestCase {
         let _ = zip // TODO: add support for adding in-memory files
     }
 
-    #if canImport(CZlib)
+    #if canImport(CZLib)
     #if canImport(Compression)
     func testArchiveCompression() throws {
 //        var rng = SeededRandomNumberGenerator(seed: [0])
