@@ -895,8 +895,8 @@ final class YamlTests : XCTestCase {
     }
 
     func testPerformanceExample() {
-        self.measure() {
+        //self.measure() { // stddev fails on Linux
             _ = try? yaml(self.exampleYaml)
-        }
+        //}
     }
 }
