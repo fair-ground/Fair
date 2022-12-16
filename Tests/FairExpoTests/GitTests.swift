@@ -2,6 +2,7 @@
 import Swift
 import XCTest
 @testable import FairCore
+@testable import FairExpo
 
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -280,8 +281,8 @@ class TestGitAdd: LocalGitTest {
     func testCompressDecompress() async throws {
         try Data("hello world".utf8).write(to: localPath("myfile.txt"))
         for level in -1...9 {
-            try await XXCTAssertEqual("hello world", String(decoding: Data.compress(
-                try await Data(contentsOf: localPath("myfile.txt")), level: level).decompress(), as: UTF8.self))
+            try await XXCTAssertEqual("hello world", String(decoding: Data.compressDeflate(
+                try await Data(contentsOf: localPath("myfile.txt")), level: level).decompressInflate(), as: UTF8.self))
         }
     }
 
@@ -579,7 +580,7 @@ Add project files.
         _ = try await Git.Hub.create(url)
         _ = try await Git.Hub.content.add(commit, url: self.url)
         let loaded = try Git.Commit(await Data(contentsOf: localPath(
-            ".git/objects/51/92391e9f907eeb47aa38d1c6a3a4ea78e33564")).decompress())
+            ".git/objects/51/92391e9f907eeb47aa38d1c6a3a4ea78e33564")).decompressInflate())
         XCTAssertEqual(commit.author.name, loaded.author.name)
         XCTAssertEqual(commit.author.email, loaded.author.email)
         XCTAssertEqual(commit.author.date, loaded.author.date)
@@ -600,7 +601,7 @@ Add project files.
         _ = try await Git.Hub.create(url)
         let id = try await Git.Hub.content.add(commit, url: self.url)
         let loaded = try Git.Commit(try await Data(contentsOf: localPath(
-            ".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompress())
+            ".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompressInflate())
         XCTAssertEqual(commit.message, loaded.message)
     }
 
@@ -611,7 +612,7 @@ Add project files.
         _ = try await Git.Hub.create(url)
         let id = try await Git.Hub.content.add(commit, url: self.url)
         let loaded = try Git.Commit(try await Data(contentsOf: localPath(
-            ".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompress())
+            ".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompressInflate())
         XCTAssertEqual(commit.author.name, loaded.author.name)
     }
 
@@ -1804,18 +1805,18 @@ class TestGitPress: LocalGitTest {
     func testCompressed0() async throws {
         try await XXCTAssertEqual("""
         hello world
-        """, await String(decoding: fixture(name: "compressed0").decompress(), as: UTF8.self))
+        """, await String(decoding: fixture(name: "compressed0").decompressInflate(), as: UTF8.self))
     }
 
     func testBlob0() async throws {
         try await XXCTAssertEqual("""
         blob 12\u{0000}hello rorld
 
-        """, await String(decoding: fixture(name: "blob0").decompress(), as: UTF8.self))
+        """, await String(decoding: fixture(name: "blob0").decompressInflate(), as: UTF8.self))
     }
 
     func testTree0() async throws {
-        try await XXCTAssertEqual(839, await fixture(name: "tree0").decompress().count)
+        try await XXCTAssertEqual(839, await fixture(name: "tree0").decompressInflate().count)
     }
 
     func testTree1() async throws {
@@ -1860,7 +1861,7 @@ class TestGitPress: LocalGitTest {
 
         This is my first commit.
 
-        """, String(decoding: await fixture(name: "commit0").decompress(), as: UTF8.self))
+        """, String(decoding: await fixture(name: "commit0").decompressInflate(), as: UTF8.self))
     }
 
     func testCommit1() async throws {
@@ -1872,11 +1873,11 @@ class TestGitPress: LocalGitTest {
 
         My second commit.
 
-        """, String(decoding: await fixture(name: "commit1").decompress(), as: UTF8.self))
+        """, String(decoding: await fixture(name: "commit1").decompressInflate(), as: UTF8.self))
     }
 
     func testParseCommit0() async throws {
-        let commit = try await Git.Commit(fixture(name: "commit0").decompress())
+        let commit = try await Git.Commit(fixture(name: "commit0").decompressInflate())
         XCTAssertNil(commit.parent.first)
         XCTAssertEqual("99ff9f93b7f0f7d300dc3c42d16cdfcdf5c2a82f", commit.tree)
         XCTAssertEqual("vauxhall", commit.author.name)
@@ -1890,13 +1891,13 @@ class TestGitPress: LocalGitTest {
     }
 
     func testParseCommit1() async throws {
-        let commit = try await Git.Commit(fixture(name: "commit1").decompress())
+        let commit = try await Git.Commit(fixture(name: "commit1").decompressInflate())
         XCTAssertEqual("0cbd117f7fe2ec884168863af047e8c89e71aaf1", commit.parent.first)
         XCTAssertEqual("", commit.gpg)
     }
 
     func testParseCommit2() async throws {
-        let commit = try await Git.Commit(fixture(name: "commit2").decompress())
+        let commit = try await Git.Commit(fixture(name: "commit2").decompressInflate())
         XCTAssertEqual("890be9af6d5a18a1eb999f0ad44c15a83f227af4", commit.parent.first)
         XCTAssertEqual("d27de8c22fb0cfdc7d12f8eaf30bcc5343e7f70a", commit.parent.last)
         XCTAssertEqual("a50257e1731e34b6be3db840155ff86c3b5a26e2", commit.tree)
@@ -1913,12 +1914,12 @@ class TestGitPress: LocalGitTest {
     }
 
     func testParseCommit2BackAndForth() async throws {
-        let commit = try await Git.Commit(fixture(name: "commit2").decompress())
+        let commit = try await Git.Commit(fixture(name: "commit2").decompressInflate())
         XCTAssertEqual("79be52211d61ef2e59134ae6e8aaa0fe121de71f", Git.Hash.commit(commit.serial).1)
     }
 
     func testParseCommit3() async throws {
-        let commit = try await Git.Commit(fixture(name: "commit3").decompress())
+        let commit = try await Git.Commit(fixture(name: "commit3").decompressInflate())
         XCTAssertEqual("8dc0abf0a0b0d70a0a8680daa69a7df74acfce95", commit.parent.first)
         XCTAssertEqual("9177be007bb25b1f12ecc3fd14eb191cd07d69f4", commit.tree)
         XCTAssertEqual("vauxhall", commit.author.name)
@@ -1935,7 +1936,7 @@ class TestGitPress: LocalGitTest {
     }
 
     func testParseCommit3BackAndForth() async throws {
-        let commit = try await Git.Commit(fixture(name: "commit3").decompress())
+        let commit = try await Git.Commit(fixture(name: "commit3").decompressInflate())
         XCTAssertEqual("d27de8c22fb0cfdc7d12f8eaf30bcc5343e7f70a", Git.Hash.commit(commit.serial).1)
     }
 }

@@ -95,7 +95,7 @@ public extension Data {
     func deflate(level: Int? = nil, checksum: Bool = true, wrap: Bool = false) throws -> (crc: CRC32?, data: Data) {
         func headers(_ source: (crc: CRC32?, data: Data)) -> (crc: CRC32?, data: Data) {
             if !wrap { return source }
-            return (source.crc, Data([0x78, level == nil ? 0x9C : (level! <= 5) ? 0x01 : 0xDA]) + source.data + Data.adler32(self))
+            return (source.crc, Data([0x78, level == nil ? 0x9C : (level! <= 5) ? 0x01 : 0xDA]) + source.data + Data.adler32Data(self))
         }
 
         #if canImport(CZLib)
@@ -199,10 +199,10 @@ public extension Data {
 #endif // canImport(CZLib)
 
 
-internal extension Data {
+extension Data {
     @usableFromInline static let prime = UInt32(65521)
 
-    @inlinable func decompress() throws -> Data {
+    @inlinable public func decompressInflate() throws -> Data {
         #if canImport(XXXCompression)
         let decompressed = decompressInternal(self)
         #else
@@ -220,7 +220,7 @@ internal extension Data {
         return decompressed
     }
 
-    @inlinable static func compress(_ source: Data, level: Int) throws -> Data {
+    @inlinable public static func compressDeflate(_ source: Data, level: Int) throws -> Data {
         try source.deflate(level: level, wrap: true).data
     }
 
@@ -238,7 +238,7 @@ internal extension Data {
     }
     #endif
 
-    @inlinable static func adler32(_ data: Data) -> Data {
+    @inlinable public static func adler32Data(_ data: Data) -> Data {
         var s1 = UInt32(1 & 0xffff)
         var s2 = UInt32((1 >> 16) & 0xffff)
         data.forEach {
@@ -252,155 +252,6 @@ internal extension Data {
     }
 }
 
-extension Data {
-    @inlinable static func unpack(_ size: Int, data: Data) throws -> (index: Int, result: Data) {
-        let check1 = try unpackZlib(size, data: data)
-        #if canImport(CompressionXXX)
-        if assertionsEnabled {
-            let check2 = try unpackNonPortable(size, data: data)
-            assert(check1.result == check2.result)
-            assert(check1.index == check2.index)
-        }
-        #endif
-        return check1
-    }
-
-    @inlinable static func unpackZlib(_ size: Int, data: Data) throws -> (index: Int, result: Data) {
-        #if canImport(CompressionXXX)
-        func unpackSegmentLegacy(ptr: UnsafeRawBufferPointer, index: inout Int) throws -> Data {
-            var stream = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
-            let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
-            var status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB)
-            defer { compression_stream_destroy(&stream) }
-
-            var advance = 2
-            var read = index + 1
-            var result = Data()
-            repeat {
-                index += 1
-                dbg("unpackSegmentLegacy index:", index)
-                stream.dst_ptr = buffer
-                stream.dst_size = size
-                stream.src_size = read
-                stream.src_ptr = ptr.baseAddress!.bindMemory(to: UInt8.self, capacity: 1).advanced(by: advance)
-                status = compression_stream_process(&stream, 0)
-                result += Data(bytes: buffer, count: size - stream.dst_size)
-                read = 1
-                advance = 2 + index
-            } while status == COMPRESSION_STATUS_OK
-            buffer.deallocate()
-            guard status == COMPRESSION_STATUS_END else {
-                throw Git.Failure.Pack.read
-            }
-            guard result.count == size else {
-                throw Git.Failure.Pack.size
-            }
-            return result
-        }
-        #endif
-
-        func unpackSegmentZlib(data: Data, index: inout Int, skipCRC32: Bool = false) throws -> Data {
-            // var stream = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
-            //var stream = z_stream(next_in: <#T##UnsafeMutablePointer<Bytef>!#>, avail_in: <#T##uInt#>, total_in: <#T##uLong#>, next_out: <#T##UnsafeMutablePointer<Bytef>!#>, avail_out: <#T##uInt#>, total_out: <#T##uLong#>, msg: <#T##UnsafeMutablePointer<CChar>!#>, state: <#T##OpaquePointer!#>, zalloc: <#T##alloc_func!##alloc_func!##(voidpf?, uInt, uInt) -> voidpf?#>, zfree: <#T##free_func!##free_func!##(voidpf?, voidpf?) -> Void#>, opaque: <#T##voidpf!#>, data_type: <#T##Int32#>, adler: <#T##uLong#>, reserved: <#T##uLong#>)
-            var stream = z_stream()
-
-            let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
-
-            // var status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB)
-            let streamSize = Int32(MemoryLayout<z_stream>.size)
-            var status = inflateInit2_(&stream, -MAX_WBITS, ZLIB_VERSION, streamSize)
-
-            // defer { compression_stream_destroy(&stream) }
-            defer { inflateEnd(&stream) }
-
-            var advance = 2
-            var read = index + 1
-            var result = Data()
-            repeat {
-                index += 1
-                stream.next_out = buffer
-                stream.avail_out = UInt32(size)
-                stream.avail_in = UInt32(read)
-                var chunk = data[(data.startIndex + advance)..<(data.startIndex + advance + read)]
-                result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) in
-                    stream.next_in = ptr.bindMemory(to: UInt8.self).baseAddress
-                    status = zlibInflate(&stream, Z_NO_FLUSH)
-                    guard status != Z_NEED_DICT && status != Z_DATA_ERROR && status != Z_MEM_ERROR else {
-                        throw CompressionError.corruptedData
-                    }
-                    read = 1
-                    advance = 2 + index
-                    return Data(bytes: buffer, count: size - Int(stream.avail_out))
-                }
-
-            } while status == Z_OK
-
-            buffer.deallocate()
-            guard status == Z_STREAM_END else {
-                throw Git.Failure.Pack.read
-            }
-            guard result.count == size else {
-                throw Git.Failure.Pack.size
-            }
-            return result
-        }
-
-        let startIndex = Swift.max(try compress(data.decompress(), level: -1).count - Swift.max(size / 30, 9), 0)
-        #if canImport(CompressionXXX)
-        var resultLegacy: (index: Int, data: Data)
-        do {
-            var index = startIndex
-            let result = try data.withUnsafeBytes({
-                try unpackSegmentLegacy(ptr: $0, index: &index)
-            })
-            resultLegacy = (index, result)
-        }
-        #endif
-
-        var resultZlib: (index: Int, data: Data)
-        do {
-            var index = startIndex
-            let result = try unpackSegmentZlib(data: data, index: &index)
-            resultZlib = (index, result)
-        }
-
-        /// Validate adler
-        func validateAdler(_ source: Data, index: Int) throws {
-            let adler = adler32(source)
-
-            var found = false
-            var drift = 0
-            repeat {
-                if drift > 3 {
-                    throw Git.Failure.Pack.adler
-                }
-                if adler[0] == data[index + drift],
-                   adler[1] == data[index + drift + 1],
-                   adler[2] == data[index + drift + 2],
-                   adler[3] == data[index + drift + 3] {
-                    found = true
-                }
-                drift += 1
-            } while !found
-        }
-
-        try validateAdler(resultZlib.data, index: resultZlib.index)
-        resultZlib.index += 6
-
-        #if canImport(CompressionXXX)
-        try validateAdler(resultLegacy.data, index: resultLegacy.index)
-        resultLegacy.index += 6
-
-        //dbg("compare zlib:", resultZlib, "legacy:", resultLegacy, "indexZlib:", resultZlib.index, "indexLegacy:", resultLegacy.index)
-        assert(resultZlib.index == resultLegacy.index)
-        assert(resultZlib.data == resultLegacy.data)
-        #endif
-
-
-        return (resultZlib.index, resultZlib.data)
-    }
-
-}
 
 #if canImport(CompressionXXX)
 import Compression // TODO: remove Compression and use zlib
@@ -457,189 +308,6 @@ extension Data {
 #endif
 
 
-#if canImport(XXXCompression)
-import XXXCompression
-
-@available(macOS 10.14, iOS 12.0, *)
-public extension Data {
-    /// Compresses the data using the system Compression framework (equivalent to level-5 `zlib` compression).
-    @inlinable func zipLegacy(bufferSize: Int = defaultReadChunkSize, checksum: Bool) throws -> (crc: CRC32?, data: Data) {
-        try feedData(process: { provider, consumer in
-            try Data.process(operation: COMPRESSION_STREAM_ENCODE, size: .init(self.count), bufferSize: bufferSize, skipCRC32: !checksum, provider: provider, consumer: consumer)
-        })
-    }
-
-    @inlinable func unzipLegacy(bufferSize: Int = defaultReadChunkSize, checksum: Bool) throws -> (crc: CRC32?, data: Data) {
-        try feedData(process: { provider, consumer in
-            try Data.process(operation: COMPRESSION_STREAM_DECODE, size: .init(self.count), bufferSize: bufferSize, skipCRC32: !checksum, provider: provider, consumer: consumer)
-        })
-    }
-
-    /// Compresses the data using the gzip deflate algorithm.
-    private func gzip() -> Data? {
-        var header = Data([0x1f, 0x8b, 0x08, 0x00]) // magic, magic, deflate, noflags
-        var unixtime = UInt32(Date().timeIntervalSince1970).littleEndian
-        header.append(Data(bytes: &unixtime, count: MemoryLayout<UInt32>.size))
-
-        header.append(contentsOf: [0x00, 0x03])  // normal compression level, unix file type
-        let deflated = self.withUnsafeBytes { (sourcePtr: UnsafePointer<UInt8>) -> Data? in
-            compressionPerform((operation: COMPRESSION_STREAM_ENCODE, algorithm: COMPRESSION_ZLIB), source: sourcePtr, sourceSize: count, preload: header)
-        }
-
-        guard var result = deflated else { return nil }
-
-        // append checksum
-        var crc32: UInt32 = self.crc32().checksum.littleEndian
-        result.append(Data(bytes: &crc32, count: MemoryLayout<UInt32>.size))
-
-        // append size of original data
-        var isize: UInt32 = UInt32(truncatingIfNeeded: count).littleEndian
-        result.append(Data(bytes: &isize, count: MemoryLayout<UInt32>.size))
-
-        return result
-    }
-
-    /// Decompresses the data with the gunzip inflate algorithm.
-    @available(*, deprecated)
-    private func gunzip() -> Data? {
-        // 10 byte header + data +  8 byte footer. See https://tools.ietf.org/html/rfc1952#section-2
-        let overhead = 10 + 8
-        guard count >= overhead else { return nil }
-
-
-        typealias GZipHeader = (id1: UInt8, id2: UInt8, cm: UInt8, flg: UInt8, xfl: UInt8, os: UInt8)
-        let hdr: GZipHeader = withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> GZipHeader in
-            // +---+---+---+---+---+---+---+---+---+---+
-            // |ID1|ID2|CM |FLG|     MTIME     |XFL|OS |
-            // +---+---+---+---+---+---+---+---+---+---+
-            return (id1: ptr[0], id2: ptr[1], cm: ptr[2], flg: ptr[3], xfl: ptr[8], os: ptr[9])
-        }
-
-        typealias GZipFooter = (crc32: UInt32, isize: UInt32)
-        let ftr: GZipFooter = withUnsafeBytes { (bptr: UnsafePointer<UInt8>) -> GZipFooter in
-            // +---+---+---+---+---+---+---+---+
-            // |     CRC32     |     ISIZE     |
-            // +---+---+---+---+---+---+---+---+
-            return bptr.advanced(by: count - 8).withMemoryRebound(to: UInt32.self, capacity: 2) { ptr in
-                return (ptr[0].littleEndian, ptr[1].littleEndian)
-            }
-        }
-
-        // Wrong gzip magic or unsupported compression method
-        guard hdr.id1 == 0x1f && hdr.id2 == 0x8b && hdr.cm == 0x08 else { return nil }
-
-        let has_crc16: Bool = hdr.flg & 0b00010 != 0
-        let has_extra: Bool = hdr.flg & 0b00100 != 0
-        let has_fname: Bool = hdr.flg & 0b01000 != 0
-        let has_cmmnt: Bool = hdr.flg & 0b10000 != 0
-
-        let cresult: Data? = withUnsafeBytes { (ptr: UnsafePointer<UInt8>) -> Data? in
-            var pos = 10 ; let limit = count - 8
-
-            if has_extra {
-                pos += ptr.advanced(by: pos).withMemoryRebound(to: UInt16.self, capacity: 1) {
-                    return Int($0.pointee.littleEndian) + 2 // +2 for xlen
-                }
-            }
-            if has_fname {
-                while pos < limit && ptr[pos] != 0x0 { pos += 1 }
-                pos += 1 // skip null byte as well
-            }
-            if has_cmmnt {
-                while pos < limit && ptr[pos] != 0x0 { pos += 1 }
-                pos += 1 // skip null byte as well
-            }
-            if has_crc16 {
-                pos += 2 // ignoring header crc16
-            }
-
-            guard pos < limit else { return nil }
-            return compressionPerform((operation: COMPRESSION_STREAM_DECODE, algorithm: COMPRESSION_ZLIB), source: ptr.advanced(by: pos), sourceSize: limit - pos)
-        }
-
-        guard let inflated = cresult else { return nil }
-        guard ftr.isize == UInt32(truncatingIfNeeded: inflated.count) else { return nil }
-        guard ftr.crc32 == inflated.crc32().checksum else { return nil }
-        return inflated
-    }
-}
-
-
-@available(macOS 10.14, iOS 12.0, *)
-fileprivate extension Data.CompressionAlgorithm {
-    var lowLevelType: compression_algorithm {
-        switch self {
-        case .zlib: return COMPRESSION_ZLIB
-        case .lzfse: return COMPRESSION_LZFSE
-        case .lz4: return COMPRESSION_LZ4
-        case .lzma: return COMPRESSION_LZMA
-        }
-    }
-}
-
-@available(macOS 10.14, iOS 12.0, *)
-@usableFromInline typealias Config = (operation: compression_stream_operation, algorithm: compression_algorithm)
-
-
-
-//@available(*, deprecated)
-@available(macOS 10.14, iOS 12.0, *)
-@inlinable func compressionPerform(_ config: Config, source: UnsafePointer<UInt8>, sourceSize: Int, preload: Data = Data()) -> Data? {
-    guard config.operation == COMPRESSION_STREAM_ENCODE || sourceSize > 0 else { return nil }
-
-    let streamBase = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1)
-    defer { streamBase.deallocate() }
-    var stream = streamBase.pointee
-
-    let status = compression_stream_init(&stream, config.operation, config.algorithm)
-    guard status != COMPRESSION_STATUS_ERROR else { return nil }
-    defer { compression_stream_destroy(&stream) }
-
-    var result = preload
-    var flags: Int32 = Int32(COMPRESSION_STREAM_FINALIZE.rawValue)
-    let blockLimit = 64 * 1024
-    var bufferSize = Swift.max(sourceSize, 64)
-
-    if sourceSize > blockLimit {
-        bufferSize = blockLimit
-        if config.algorithm == COMPRESSION_LZFSE && config.operation != COMPRESSION_STREAM_ENCODE   {
-            // This fixes a bug in Apples lzfse decompressor. it will sometimes fail randomly when the input gets
-            // splitted into multiple chunks and the flag is not 0. Even though it should always work with FINALIZE...
-            flags = 0
-        }
-    }
-
-    let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
-    defer { buffer.deallocate() }
-
-    stream.dst_ptr  = buffer
-    stream.dst_size = bufferSize
-    stream.src_ptr  = source
-    stream.src_size = sourceSize
-
-    while true {
-        switch compression_stream_process(&stream, flags) {
-        case COMPRESSION_STATUS_OK:
-            guard stream.dst_size == 0 else { return nil }
-            result.append(buffer, count: stream.dst_ptr - buffer)
-            stream.dst_ptr = buffer
-            stream.dst_size = bufferSize
-
-            if flags == 0 && stream.src_size == 0 { // part of the lzfse bugfix above
-                flags = Int32(COMPRESSION_STREAM_FINALIZE.rawValue)
-            }
-
-        case COMPRESSION_STATUS_END:
-            result.append(buffer, count: stream.dst_ptr - buffer)
-            return result
-
-        default:
-            return nil
-        }
-    }
-}
-
-#endif // canImport(XXXCompression)
 
 fileprivate typealias Archive = ZipArchive
 

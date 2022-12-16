@@ -32,6 +32,7 @@
  exception statement from your version.
  */
 import Swift
+import FairCore
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -278,7 +279,7 @@ public enum Git {
         }
 
         func get(_ id: String, url: URL) async throws -> Data {
-            return try await Data(contentsOf: url.appendingPathComponent(".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompress()
+            return try await Data(contentsOf: url.appendingPathComponent(".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompressInflate()
         }
 
         func objects(_ url: URL) -> [String] {
@@ -294,7 +295,7 @@ public enum Git {
                 if !FileManager.default.fileExists(atPath: folder.path) {
                     try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
                 }
-                try Data.compress(data, level: compressionLevel).write(to: location)
+                try Data.compressDeflate(data, level: compressionLevel).write(to: location)
             }
         }
 
@@ -1289,7 +1290,7 @@ public enum Git {
         }
 
         func decompress(_ amount: Int) throws -> Data {
-            try advance(amount).decompress()
+            try advance(amount).decompressInflate()
         }
 
         func discard(_ bytes: Int) {
@@ -1594,7 +1595,7 @@ public enum Git {
             }.1)
         }
 
-        func compress(_ data: Data) throws { try self.data.append(Data.compress(data, level: compressionLevel)) }
+        func compress(_ data: Data) throws { try self.data.append(Data.compressDeflate(data, level: compressionLevel)) }
         func serial(_ serial: Serial) { data.append(serial.data) }
         func nulled(_ string: String) { self.string(string + "\u{0000}") }
         func string(_ string: String) { data.append(contentsOf: string.utf8) }
@@ -2065,3 +2066,160 @@ fileprivate extension URL {
         return String(self.absoluteString.components(separatedBy: "://").last ?? .init(self.absoluteString))
     }
 }
+
+#if canImport(CZLib)
+import CZLib
+#if canImport(zlib)
+import zlib
+#endif
+
+extension Data {
+    @inlinable public static func unpack(_ size: Int, data: Data) throws -> (index: Int, result: Data) {
+        let check1 = try unpackZlib(size, data: data)
+        #if canImport(CompressionXXX)
+        if assertionsEnabled {
+            let check2 = try unpackNonPortable(size, data: data)
+            assert(check1.result == check2.result)
+            assert(check1.index == check2.index)
+        }
+        #endif
+        return check1
+    }
+
+    @inlinable static func unpackZlib(_ size: Int, data: Data) throws -> (index: Int, result: Data) {
+        #if canImport(CompressionXXX)
+        func unpackSegmentLegacy(ptr: UnsafeRawBufferPointer, index: inout Int) throws -> Data {
+            var stream = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
+            let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
+            var status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB)
+            defer { compression_stream_destroy(&stream) }
+
+            var advance = 2
+            var read = index + 1
+            var result = Data()
+            repeat {
+                index += 1
+                dbg("unpackSegmentLegacy index:", index)
+                stream.dst_ptr = buffer
+                stream.dst_size = size
+                stream.src_size = read
+                stream.src_ptr = ptr.baseAddress!.bindMemory(to: UInt8.self, capacity: 1).advanced(by: advance)
+                status = compression_stream_process(&stream, 0)
+                result += Data(bytes: buffer, count: size - stream.dst_size)
+                read = 1
+                advance = 2 + index
+            } while status == COMPRESSION_STATUS_OK
+            buffer.deallocate()
+            guard status == COMPRESSION_STATUS_END else {
+                throw Git.Failure.Pack.read
+            }
+            guard result.count == size else {
+                throw Git.Failure.Pack.size
+            }
+            return result
+        }
+        #endif
+
+        func unpackSegmentZlib(data: Data, index: inout Int, skipCRC32: Bool = false) throws -> Data {
+            // var stream = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
+            //var stream = z_stream(next_in: <#T##UnsafeMutablePointer<Bytef>!#>, avail_in: <#T##uInt#>, total_in: <#T##uLong#>, next_out: <#T##UnsafeMutablePointer<Bytef>!#>, avail_out: <#T##uInt#>, total_out: <#T##uLong#>, msg: <#T##UnsafeMutablePointer<CChar>!#>, state: <#T##OpaquePointer!#>, zalloc: <#T##alloc_func!##alloc_func!##(voidpf?, uInt, uInt) -> voidpf?#>, zfree: <#T##free_func!##free_func!##(voidpf?, voidpf?) -> Void#>, opaque: <#T##voidpf!#>, data_type: <#T##Int32#>, adler: <#T##uLong#>, reserved: <#T##uLong#>)
+            var stream = z_stream()
+
+            let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: size)
+
+            // var status = compression_stream_init(&stream, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB)
+            let streamSize = Int32(MemoryLayout<z_stream>.size)
+            var status = inflateInit2_(&stream, -MAX_WBITS, ZLIB_VERSION, streamSize)
+
+            // defer { compression_stream_destroy(&stream) }
+            defer { inflateEnd(&stream) }
+
+            var advance = 2
+            var read = index + 1
+            var result = Data()
+            repeat {
+                index += 1
+                stream.next_out = buffer
+                stream.avail_out = UInt32(size)
+                stream.avail_in = UInt32(read)
+                var chunk = data[(data.startIndex + advance)..<(data.startIndex + advance + read)]
+                result += try chunk.withUnsafeMutableBytes { (ptr: UnsafeMutableRawBufferPointer) in
+                    stream.next_in = ptr.bindMemory(to: UInt8.self).baseAddress
+                    status = zlib.inflate(&stream, Z_NO_FLUSH)
+                    guard status != Z_NEED_DICT && status != Z_DATA_ERROR && status != Z_MEM_ERROR else {
+                        throw CompressionError.corruptedData
+                    }
+                    read = 1
+                    advance = 2 + index
+                    return Data(bytes: buffer, count: size - Int(stream.avail_out))
+                }
+
+            } while status == Z_OK
+
+            buffer.deallocate()
+            guard status == Z_STREAM_END else {
+                throw Git.Failure.Pack.read
+            }
+            guard result.count == size else {
+                throw Git.Failure.Pack.size
+            }
+            return result
+        }
+
+        let startIndex = Swift.max(try compressDeflate(data.decompressInflate(), level: -1).count - Swift.max(size / 30, 9), 0)
+        #if canImport(CompressionXXX)
+        var resultLegacy: (index: Int, data: Data)
+        do {
+            var index = startIndex
+            let result = try data.withUnsafeBytes({
+                try unpackSegmentLegacy(ptr: $0, index: &index)
+            })
+            resultLegacy = (index, result)
+        }
+        #endif
+
+        var resultZlib: (index: Int, data: Data)
+        do {
+            var index = startIndex
+            let result = try unpackSegmentZlib(data: data, index: &index)
+            resultZlib = (index, result)
+        }
+
+        /// Validate adler
+        func validateAdler(_ source: Data, index: Int) throws {
+            let adl = Self.adler32Data(source)
+
+            var found = false
+            var drift = 0
+            repeat {
+                if drift > 3 {
+                    throw Git.Failure.Pack.adler
+                }
+                if adl[0] == data[index + drift],
+                   adl[1] == data[index + drift + 1],
+                   adl[2] == data[index + drift + 2],
+                   adl[3] == data[index + drift + 3] {
+                    found = true
+                }
+                drift += 1
+            } while !found
+        }
+
+        try validateAdler(resultZlib.data, index: resultZlib.index)
+        resultZlib.index += 6
+
+        #if canImport(CompressionXXX)
+        try validateAdler(resultLegacy.data, index: resultLegacy.index)
+        resultLegacy.index += 6
+
+        //dbg("compare zlib:", resultZlib, "legacy:", resultLegacy, "indexZlib:", resultZlib.index, "indexLegacy:", resultLegacy.index)
+        assert(resultZlib.index == resultLegacy.index)
+        assert(resultZlib.data == resultLegacy.data)
+        #endif
+
+
+        return (resultZlib.index, resultZlib.data)
+    }
+
+}
+#endif // canImport(CZLib)
