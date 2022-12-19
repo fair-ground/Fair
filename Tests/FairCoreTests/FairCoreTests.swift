@@ -610,6 +610,30 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual("0001-01-01T00:00:00Z", Date.distantPast.ISO8601Format())
         #endif
     }
+
+    #if !os(Linux) || !os(Android) || !os(Windows)
+    func XXXtestDispatchSource() async throws {
+        let url = URL(fileOrScheme: "~/Library/Mobile Documents/com~apple~CloudDocs/testDispatchSource.txt")
+//        let url = URL(fileOrScheme: "~/Desktop/testDispatchSource.txt")
+        try "ABC".write(to: url, atomically: true, encoding: .utf8)
+        guard FileManager.default.fileExists(atPath: url.path) == true else {
+            return XCTFail("no local file for \(url.path)")
+        }
+
+        var changes = 0
+        let obs = FileSystemObserver(URL: url) {
+            dbg("file change: \(url.path)")
+            changes += 1
+        }
+        XCTAssertEqual(changes, 0)
+        try await Task.sleep(interval: 0.5)
+        dbg("writing to URL")
+        try "XYZ".write(to: url, atomically: true, encoding: .utf8)
+        try await Task.sleep(interval: 0.5)
+        XCTAssertEqual(changes, 1)
+        let _ = obs // need to retain
+    }
+    #endif
 }
 
 extension String {
