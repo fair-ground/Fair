@@ -611,10 +611,11 @@ final class FairCoreTests: XCTestCase {
         #endif
     }
 
-    #if !os(Linux) || !os(Android) || !os(Windows)
-    func XXXtestDispatchSource() async throws {
-        let url = URL(fileOrScheme: "~/Library/Mobile Documents/com~apple~CloudDocs/testDispatchSource.txt")
-//        let url = URL(fileOrScheme: "~/Desktop/testDispatchSource.txt")
+    #if !os(Linux) && !os(Android) && !os(Windows)
+    func testDispatchSource() async throws {
+//        let url = URL(fileOrScheme: "~/Library/Mobile Documents/com~apple~CloudDocs/testDispatchSource.txt")
+        //        let url = URL(fileOrScheme: "~/Desktop/testDispatchSource.txt")
+        let url = URL(fileURLWithPath: UUID().uuidString, isDirectory: false, relativeTo: .tmpdir)
         try "ABC".write(to: url, atomically: true, encoding: .utf8)
         guard FileManager.default.fileExists(atPath: url.path) == true else {
             return XCTFail("no local file for \(url.path)")
@@ -626,10 +627,10 @@ final class FairCoreTests: XCTestCase {
             changes += 1
         }
         XCTAssertEqual(changes, 0)
-        try await Task.sleep(interval: 0.5)
+        try await Task.sleep(interval: 0.1)
         dbg("writing to URL")
         try "XYZ".write(to: url, atomically: true, encoding: .utf8)
-        try await Task.sleep(interval: 0.5)
+        try await Task.sleep(interval: 0.1)
         XCTAssertEqual(changes, 1)
         let _ = obs // need to retain
     }
