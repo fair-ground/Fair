@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.7
 import PackageDescription
 
 extension Platform {
@@ -38,7 +38,7 @@ let package = Package(
     ].compactMap({ $0 }),
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.1.3"),
-        .package(url: "https://github.com/tuist/tuist.git", from: "3.0.0"),
+        .package(url: "https://github.com/tuist/tuist.git", branch: "main"),
     ],
     targets: [
         .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
