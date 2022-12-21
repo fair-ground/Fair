@@ -49,8 +49,8 @@ let package = Package(
 
         Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: [
             "FairExpo",
-            "ArgumentParser",
-            //"TuistGenerator",
+            .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            .product(name: "TuistGenerator", package: "tuist"),
         ], resources: [.process("Resources")]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
