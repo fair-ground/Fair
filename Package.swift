@@ -38,7 +38,7 @@ let package = Package(
     ].compactMap({ $0 }),
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.1.3"),
-        .package(url: "https://github.com/tuist/tuist.git", branch: "main"),
+        //.package(url: "https://github.com/tuist/tuist.git", branch: "main"),
     ],
     targets: [
         .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
@@ -50,7 +50,7 @@ let package = Package(
         Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: [
             "FairExpo",
             "ArgumentParser",
-            "TuistGenerator",
+            //"TuistGenerator",
         ], resources: [.process("Resources")]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
