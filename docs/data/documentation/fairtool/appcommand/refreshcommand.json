@@ -1,0 +1,778 @@
+{
+  "abstract" : [
+    {
+      "text" : "An aggregate command that performs the following tasks:",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/fairtool\/documentation\/fairtool",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8fairtool10AppCommandV07RefreshC0V",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "RefreshCommand"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "fairtool"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "RefreshCommand"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "AppCommand.RefreshCommand"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "RefreshCommand"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "create or update the docs\/CNAME file",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "create and update the localized strings file",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "unorderedList"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/14ArgumentParser20AsyncParsableCommandP",
+        "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+        "doc:\/\/fairtool\/14ArgumentParser15ParsableCommandP",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairAppCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectCommand",
+        "doc:\/\/fairtool\/Se"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/init()",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/init(from:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/language",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/msgOptions",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/projectOptions",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/targets"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/run()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/configuration-396rh",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/experimental"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/AsyncParsableCommand-Implementations",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/Decodable-Implementations",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/ParsableArguments-Implementations",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/ParsableCommand-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairtool\/appcommand\/refreshcommand"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://fairtool/14ArgumentParser15ParsableCommandP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser15ParsableCommandP",
+  "title" : "ArgumentParser.ParsableCommand",
+  "type" : "unresolvable"
+},
+"doc://fairtool/14ArgumentParser17ParsableArgumentsP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+  "title" : "ArgumentParser.ParsableArguments",
+  "type" : "unresolvable"
+},
+"doc://fairtool/14ArgumentParser20AsyncParsableCommandP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser20AsyncParsableCommandP",
+  "title" : "ArgumentParser.AsyncParsableCommand",
+  "type" : "unresolvable"
+},
+"doc://fairtool/Se": {
+  "identifier" : "doc:\/\/fairtool\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://fairtool/documentation/fairtool": {
+  "abstract" : [
+    {
+      "text" : "Utility to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "fairtool",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool"
+},
+"doc://fairtool/documentation/fairtool/AppCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand": {
+  "abstract" : [
+    {
+      "text" : "An aggregate command that performs the following tasks:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RefreshCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RefreshCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.RefreshCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/AsyncParsableCommand-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/AsyncParsableCommand-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "AsyncParsableCommand Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/asyncparsablecommand-implementations"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/decodable-implementations"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/ParsableArguments-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/ParsableArguments-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ParsableArguments Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/parsablearguments-implementations"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/ParsableCommand-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/ParsableCommand-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ParsableCommand Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/parsablecommand-implementations"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/configuration-396rh": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:14ArgumentParser20CommandConfigurationV",
+      "text" : "CommandConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/configuration-396rh",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "configuration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/configuration-396rh"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/experimental": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "experimental"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/experimental",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "experimental",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/experimental"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/init()"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/init(from:)"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/language": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "language"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/language",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "language",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/language"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/msgOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "msgOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8fairtool10MsgOptionsV",
+      "text" : "MsgOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/msgOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "msgOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/msgoptions"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/projectOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "projectOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8fairtool14ProjectOptionsV",
+      "text" : "ProjectOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/projectOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "projectOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/projectoptions"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/run()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "run"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/run()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "run()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/run()"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand/targets": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "targets"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand\/targets",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "targets",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand\/targets"
+},
+"doc://fairtool/documentation/fairtool/FairAppCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairAppCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairAppCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairAppCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairAppCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairappcommand"
+},
+"doc://fairtool/documentation/fairtool/FairMsgCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that contains options for how messages will be conveyed to the user",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairMsgCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairMsgCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairMsgCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairmsgcommand"
+},
+"doc://fairtool/documentation/fairtool/FairProjectCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that requires the presence of a project",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairProjectCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairProjectCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairProjectCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairprojectcommand"
+}
+}
+}

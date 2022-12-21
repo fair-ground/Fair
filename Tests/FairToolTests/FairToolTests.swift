@@ -1,4 +1,6 @@
 /**
+ Copyright (c) 2022 Marc Prud'hommeaux
+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU Affero General Public License as
  published by the Free Software Foundation, either version 3 of the
@@ -33,8 +35,7 @@ import Swift
 import XCTest
 import FairExpo
 import FairApp
-
-#if os(macOS)
+import fairtool
 
 final class FairToolTests: XCTestCase {
     func testToolVersion() async throws {
@@ -67,5 +68,3 @@ final class FairToolTests: XCTestCase {
         return Bundle.main.bundleURL
     }
 }
-
-#endif //os(macOS)

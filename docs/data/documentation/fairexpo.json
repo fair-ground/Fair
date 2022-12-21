@@ -40,23 +40,19 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageBuffer"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCatalogAPI"
       ],
       "title" : "Classes"
     },
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/APIRequest",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/CatalogSourceOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIRequest",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CursoredAPIResponse",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/EndpointService",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairMsgCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLAPIRequest",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLEndpointService",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsItemFormat",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeedAdditions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/XMLNodeExpressible"
       ],
@@ -64,41 +60,20 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppMetadata",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactTarget",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskItem",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/CaskStats",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/DelayOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/DownloadOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FDroidEndpoint",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairProjectInfo",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairSeal",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLCursor",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLError",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLErrorList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLPayload",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/GraphQLRequestFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/HomebrewAPI",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/LocalizedStringsFile",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/MsgOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/OutputOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/ProjectOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/RegOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/RetryOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SocialCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/WebFeed"
       ],
       "title" : "Structures"
@@ -117,7 +92,6 @@
     {
       "identifiers" : [
         "doc:\/\/FairExpo\/documentation\/FairExpo\/AppcastFeed",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/MessagePayload"
       ],
       "title" : "Type Aliases"
@@ -227,37 +201,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcatalogapi"
 },
-"doc://FairExpo/documentation/FairExpo/AppCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/AppCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/appcommand"
-},
 "doc://FairExpo/documentation/FairExpo/AppMetadata": {
   "abstract" : [
     {
@@ -365,37 +308,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/appcastwebfeedadditions"
 },
-"doc://FairExpo/documentation/FairExpo/ArtifactCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ArtifactCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/ArtifactCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ArtifactCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ArtifactCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/artifactcommand"
-},
 "doc://FairExpo/documentation/FairExpo/ArtifactTarget": {
   "abstract" : [
 
@@ -426,37 +338,6 @@
   "title" : "ArtifactTarget",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/artifacttarget"
-},
-"doc://FairExpo/documentation/FairExpo/BrewCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "BrewCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/BrewCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "BrewCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "BrewCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/brewcommand"
 },
 "doc://FairExpo/documentation/FairExpo/CaskItem": {
   "abstract" : [
@@ -539,6 +420,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/caskstats"
 },
+"doc://FairExpo/documentation/FairExpo/CatalogSourceOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CatalogSourceOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/CatalogSourceOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CatalogSourceOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CatalogSourceOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/catalogsourceoptions"
+},
 "doc://FairExpo/documentation/FairExpo/CursoredAPIRequest": {
   "abstract" : [
     {
@@ -606,71 +518,6 @@
   "title" : "CursoredAPIResponse",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/cursoredapiresponse"
-},
-"doc://FairExpo/documentation/FairExpo/DelayOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DelayOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/DelayOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DelayOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DelayOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/delayoptions"
-},
-"doc://FairExpo/documentation/FairExpo/DownloadOptions": {
-  "abstract" : [
-    {
-      "text" : "Options for how downloading remote files should work.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "DownloadOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/DownloadOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "DownloadOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DownloadOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/downloadoptions"
 },
 "doc://FairExpo/documentation/FairExpo/EmptyFeedAdditions": {
   "abstract" : [
@@ -744,56 +591,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/endpointservice"
 },
-"doc://FairExpo/documentation/FairExpo/EnvFile": {
-  "abstract" : [
-    {
-      "text" : "A generic configuration file, used to parse ",
-      "type" : "text"
-    },
-    {
-      "code" : "fairground.xcconfig",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and ",
-      "type" : "text"
-    },
-    {
-      "code" : ".git\/config",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EnvFile"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EnvFile"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EnvFile",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/envfile"
-},
 "doc://FairExpo/documentation/FairExpo/FDroidEndpoint": {
   "abstract" : [
     {
@@ -827,68 +624,6 @@
   "title" : "FDroidEndpoint",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fdroidendpoint"
-},
-"doc://FairExpo/documentation/FairExpo/FairCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommand"
-},
-"doc://FairExpo/documentation/FairExpo/FairCommandOutput": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairCommandOutput"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairCommandOutput",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairCommandOutput"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairCommandOutput",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/faircommandoutput"
 },
 "doc://FairExpo/documentation/FairExpo/FairGround": {
   "abstract" : [
@@ -958,105 +693,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub"
 },
-"doc://FairExpo/documentation/FairExpo/FairMsgCommand": {
-  "abstract" : [
-    {
-      "text" : "A command that contains options for how messages will be conveyed to the user",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairMsgCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairMsgCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairMsgCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairMsgCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairmsgcommand"
-},
-"doc://FairExpo/documentation/FairExpo/FairParsableCommand": {
-  "abstract" : [
-    {
-      "text" : "A specific command that can write messages (to stderr) and JSON encodable tool output (to stdout)",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairParsableCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairParsableCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairParsableCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairParsableCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairparsablecommand"
-},
-"doc://FairExpo/documentation/FairExpo/FairProjectInfo": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairProjectInfo"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairProjectInfo",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairProjectInfo"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairProjectInfo",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairprojectinfo"
-},
 "doc://FairExpo/documentation/FairExpo/FairSeal": {
   "abstract" : [
     {
@@ -1098,71 +734,6 @@
   "title" : "FairSeal",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairseal"
-},
-"doc://FairExpo/documentation/FairExpo/FairStructuredCommand": {
-  "abstract" : [
-    {
-      "text" : "A command that will issue an asynchronous stream of output items",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairStructuredCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairStructuredCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairStructuredCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairStructuredCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairstructuredcommand"
-},
-"doc://FairExpo/documentation/FairExpo/FairToolCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "FairToolCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairToolCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "FairToolCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "FairToolCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairtoolcommand"
 },
 "doc://FairExpo/documentation/FairExpo/Git": {
   "abstract" : [
@@ -1496,87 +1067,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/homebrewapi"
 },
-"doc://FairExpo/documentation/FairExpo/HubOptions": {
-  "abstract" : [
-    {
-      "text" : "A Hub is represented by a string “",
-      "type" : "text"
-    },
-    {
-      "code" : "service.host",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "\/",
-      "type" : "text"
-    },
-    {
-      "code" : "organization",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "”.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "HubOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/HubOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "HubOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "HubOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/huboptions"
-},
-"doc://FairExpo/documentation/FairExpo/JSONCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/JSONCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/jsoncommand"
-},
 "doc://FairExpo/documentation/FairExpo/LocalizedStringsFile": {
   "abstract" : [
     {
@@ -1618,37 +1108,6 @@
   "title" : "LocalizedStringsFile",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/localizedstringsfile"
-},
-"doc://FairExpo/documentation/FairExpo/MessageBuffer": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MessageBuffer"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MessageBuffer",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MessageBuffer"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MessageBuffer",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/messagebuffer"
 },
 "doc://FairExpo/documentation/FairExpo/MessageKind": {
   "abstract" : [
@@ -1714,350 +1173,6 @@
   "title" : "MessagePayload",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/messagepayload"
-},
-"doc://FairExpo/documentation/FairExpo/MsgOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MsgOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/MsgOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MsgOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MsgOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/msgoptions"
-},
-"doc://FairExpo/documentation/FairExpo/NewsItemFormat": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "NewsItemFormat"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/NewsItemFormat",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "NewsItemFormat"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "NewsItemFormat",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/newsitemformat"
-},
-"doc://FairExpo/documentation/FairExpo/OutputOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "OutputOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/OutputOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "OutputOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "OutputOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/outputoptions"
-},
-"doc://FairExpo/documentation/FairExpo/ProjectOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ProjectOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/ProjectOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ProjectOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ProjectOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/projectoptions"
-},
-"doc://FairExpo/documentation/FairExpo/RegOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RegOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/RegOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RegOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RegOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/regoptions"
-},
-"doc://FairExpo/documentation/FairExpo/RetryOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RetryOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/RetryOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RetryOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RetryOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/retryoptions"
-},
-"doc://FairExpo/documentation/FairExpo/SocialCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SocialCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SocialCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SocialCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SocialCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/socialcommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SourceCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourcecommand"
-},
-"doc://FairExpo/documentation/FairExpo/SourceOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SourceOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/SourceOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SourceOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SourceOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/sourceoptions"
-},
-"doc://FairExpo/documentation/FairExpo/TranslateCommand": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TranslateCommand"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TranslateCommand",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TranslateCommand"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TranslateCommand",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/translatecommand"
-},
-"doc://FairExpo/documentation/FairExpo/TweetOptions": {
-  "abstract" : [
-    {
-      "text" : "Authentication options for Twitter CLI",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "TweetOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/TweetOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "TweetOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "TweetOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/tweetoptions"
 },
 "doc://FairExpo/documentation/FairExpo/Tweeter": {
   "abstract" : [

@@ -1,0 +1,646 @@
+{
+  "abstract" : [
+    {
+      "text" : "A Hub is represented by a string “",
+      "type" : "text"
+    },
+    {
+      "code" : "service.host",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "\/",
+      "type" : "text"
+    },
+    {
+      "code" : "organization",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "”.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/fairtool\/documentation\/fairtool"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8fairtool10HubOptionsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "HubOptions"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "fairtool"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "HubOptions"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "HubOptions"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "HubOptions"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "E.g., “github.com\/appfair”",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+        "doc:\/\/fairtool\/Se"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/init()",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/init(from:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/baseRepo",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/fairsealIssuer",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/fairsealKey",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/hub",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/organizationName",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/serviceHost",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/token"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/fairHub()"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/Decodable-Implementations",
+        "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/ParsableArguments-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairtool\/huboptions"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://fairtool/14ArgumentParser17ParsableArgumentsP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+  "title" : "ArgumentParser.ParsableArguments",
+  "type" : "unresolvable"
+},
+"doc://fairtool/Se": {
+  "identifier" : "doc:\/\/fairtool\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://fairtool/documentation/fairtool": {
+  "abstract" : [
+    {
+      "text" : "Utility to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "fairtool",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool"
+},
+"doc://fairtool/documentation/fairtool/HubOptions": {
+  "abstract" : [
+    {
+      "text" : "A Hub is represented by a string “",
+      "type" : "text"
+    },
+    {
+      "code" : "service.host",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "\/",
+      "type" : "text"
+    },
+    {
+      "code" : "organization",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "”.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HubOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HubOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HubOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/decodable-implementations"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/ParsableArguments-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/ParsableArguments-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ParsableArguments Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/parsablearguments-implementations"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/baseRepo": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "baseRepo"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/baseRepo",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "baseRepo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/baserepo"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/fairHub()": {
+  "abstract" : [
+    {
+      "text" : "The hub service we should use for this tool",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/fairHub()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fairHub()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/fairhub()"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/fairsealIssuer": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fairsealIssuer"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/fairsealIssuer",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fairsealIssuer",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/fairsealissuer"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/fairsealKey": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "fairsealKey"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/fairsealKey",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "fairsealKey",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/fairsealkey"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/hub": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hub"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/hub",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/hub"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/init()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "()"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/init()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/init()"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/init(from:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "from"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s7DecoderP",
+      "text" : "Decoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/init(from:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(from:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/init(from:)"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/organizationName": {
+  "abstract" : [
+    {
+      "text" : "The name of the organization for this hub.  E.g., the “appfair” part of “github.com\/appfair”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "organizationName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/organizationName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "organizationName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/organizationname"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/serviceHost": {
+  "abstract" : [
+    {
+      "text" : "The host service address. E.g., the “github.com” part of “github.com\/appfair”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "serviceHost"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/serviceHost",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "serviceHost",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/servicehost"
+},
+"doc://fairtool/documentation/fairtool/HubOptions/token": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "token"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions\/token",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "token",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/huboptions\/token"
+}
+}
+}

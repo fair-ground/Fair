@@ -37,6 +37,8 @@ let package = Package(
         Platform.current == .macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
     ].compactMap({ $0 }),
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
+        .package(url: "https://github.com/tuist/XcodeProj.git", .upToNextMajor(from: "8.8.0")),
     ],
     targets: [
         .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
@@ -45,7 +47,11 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
         Platform.current == .android ? nil : .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
 
-        Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: ["FairExpo"]) : nil,
+        Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: [
+            "FairExpo",
+            .product(name: "XcodeProj", package: "XcodeProj"),
+            .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        ], resources: [.process("Resources")]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
 

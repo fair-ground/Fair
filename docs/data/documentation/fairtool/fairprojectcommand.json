@@ -1,0 +1,418 @@
+{
+  "abstract" : [
+    {
+      "text" : "A command that requires the presence of a project",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/fairtool\/documentation\/fairtool"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectCommand"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8fairtool18FairProjectCommandP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "FairProjectCommand"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "fairtool"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "FairProjectCommand"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "FairProjectCommand"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "FairProjectCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8fairtool14FairMsgCommandP",
+              "text" : "FairMsgCommand"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/14ArgumentParser20AsyncParsableCommandP",
+        "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+        "doc:\/\/fairtool\/14ArgumentParser15ParsableCommandP",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+        "doc:\/\/fairtool\/Se"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairAppCommand"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/InfoCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/LocalizeCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectCommand\/projectOptions"
+      ],
+      "title" : "Instance Properties"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairtool\/fairprojectcommand"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://fairtool/14ArgumentParser15ParsableCommandP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser15ParsableCommandP",
+  "title" : "ArgumentParser.ParsableCommand",
+  "type" : "unresolvable"
+},
+"doc://fairtool/14ArgumentParser17ParsableArgumentsP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+  "title" : "ArgumentParser.ParsableArguments",
+  "type" : "unresolvable"
+},
+"doc://fairtool/14ArgumentParser20AsyncParsableCommandP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser20AsyncParsableCommandP",
+  "title" : "ArgumentParser.AsyncParsableCommand",
+  "type" : "unresolvable"
+},
+"doc://fairtool/Se": {
+  "identifier" : "doc:\/\/fairtool\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://fairtool/documentation/fairtool": {
+  "abstract" : [
+    {
+      "text" : "Utility to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "fairtool",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/InfoCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InfoCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/InfoCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InfoCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.InfoCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/infocommand"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/LocalizeCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LocalizeCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/LocalizeCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LocalizeCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.LocalizeCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/localizecommand"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/RefreshCommand": {
+  "abstract" : [
+    {
+      "text" : "An aggregate command that performs the following tasks:",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RefreshCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/RefreshCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RefreshCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.RefreshCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/refreshcommand"
+},
+"doc://fairtool/documentation/fairtool/FairAppCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairAppCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairAppCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairAppCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairAppCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairappcommand"
+},
+"doc://fairtool/documentation/fairtool/FairMsgCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that contains options for how messages will be conveyed to the user",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairMsgCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairMsgCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairMsgCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairmsgcommand"
+},
+"doc://fairtool/documentation/fairtool/FairProjectCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that requires the presence of a project",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairProjectCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairProjectCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairProjectCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairprojectcommand"
+},
+"doc://fairtool/documentation/fairtool/FairProjectCommand/projectOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "projectOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8fairtool14ProjectOptionsV",
+      "text" : "ProjectOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectCommand\/projectOptions",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "projectOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairprojectcommand\/projectoptions"
+}
+}
+}

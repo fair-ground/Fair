@@ -1,0 +1,579 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "FairExpo",
+    "externalID" : "s:8FairExpo0A3HubV20ProjectConfigurationV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ProjectConfiguration"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ProjectConfiguration"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "FairHub.ProjectConfiguration"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ProjectConfiguration"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/init(allowName:denyName:allowFrom:denyFrom:allowLicense:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/allowFrom",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/allowLicense",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/allowName",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/denyFrom",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/denyName"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/validateAppName(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/fairhub\/projectconfiguration"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub": {
+  "abstract" : [
+    {
+      "text" : "A Fair Ground based on an online git service such as GitHub or GitLab.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairHub"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ProjectConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ProjectConfiguration"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.ProjectConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/allowFrom": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of allowed e-mail addresses",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allowFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSRegularExpression",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/allowFrom",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allowFrom",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/allowfrom"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/allowLicense": {
+  "abstract" : [
+    {
+      "text" : "The license (SPDX IDs) of permitted licenses, such as: “AGPL-3.0”",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allowLicense"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/allowLicense",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allowLicense",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/allowlicense"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/allowName": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of allowed app names",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "allowName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSRegularExpression",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/allowName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "allowName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/allowname"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/denyFrom": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of disallowed e-mail addresses",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "denyFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSRegularExpression",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/denyFrom",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "denyFrom",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/denyfrom"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/denyName": {
+  "abstract" : [
+    {
+      "text" : "The regular expression patterns of disallowed app names",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "denyName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSRegularExpression",
+      "text" : "NSRegularExpression"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/denyName",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "denyName",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/denyname"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/init(allowName:denyName:allowFrom:denyFrom:allowLicense:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "denyName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "denyFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "allowLicense"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/init(allowName:denyName:allowFrom:denyFrom:allowLicense:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(allowName:denyName:allowFrom:denyFrom:allowLicense:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/init(allowname:denyname:allowfrom:denyfrom:allowlicense:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration/validateAppName(_:)": {
+  "abstract" : [
+    {
+      "text" : "Validates that the app name is included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "allow-name",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " patterns and not included in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "deny-name",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " list of expressions.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validateAppName"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration\/validateAppName(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validateAppName(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration\/validateappname(_:)"
+}
+}
+}

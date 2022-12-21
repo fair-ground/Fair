@@ -1,0 +1,750 @@
+{
+  "abstract" : [
+    {
+      "text" : "A command that will issue an asynchronous stream of output items",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/fairtool\/documentation\/fairtool"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8fairtool21FairStructuredCommandP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "FairStructuredCommand"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "fairtool"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "FairStructuredCommand"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "FairStructuredCommand"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "FairStructuredCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairParsableCommand",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8fairtool19FairParsableCommandP",
+              "text" : "FairParsableCommand"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Output"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SE",
+              "text" : "Encodable"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/14ArgumentParser20AsyncParsableCommandP",
+        "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+        "doc:\/\/fairtool\/14ArgumentParser15ParsableCommandP",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairParsableCommand",
+        "doc:\/\/fairtool\/Se"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/InfoCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairCommand\/MetadataCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/JSONCommand\/SignCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/JSONCommand\/VerifyCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/SocialCommand\/TweetCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/SourceCommand\/CreateCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/SourceCommand\/VerifyCommand"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/executeCommand()",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/run()",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/writeCommandEnd()-85y",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/writeCommandStart()-2zrza"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairtool\/fairstructuredcommand"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://fairtool/14ArgumentParser15ParsableCommandP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser15ParsableCommandP",
+  "title" : "ArgumentParser.ParsableCommand",
+  "type" : "unresolvable"
+},
+"doc://fairtool/14ArgumentParser17ParsableArgumentsP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser17ParsableArgumentsP",
+  "title" : "ArgumentParser.ParsableArguments",
+  "type" : "unresolvable"
+},
+"doc://fairtool/14ArgumentParser20AsyncParsableCommandP": {
+  "identifier" : "doc:\/\/fairtool\/14ArgumentParser20AsyncParsableCommandP",
+  "title" : "ArgumentParser.AsyncParsableCommand",
+  "type" : "unresolvable"
+},
+"doc://fairtool/Se": {
+  "identifier" : "doc:\/\/fairtool\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://fairtool/documentation/fairtool": {
+  "abstract" : [
+    {
+      "text" : "Utility to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "fairtool",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/InfoCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InfoCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/InfoCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InfoCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.InfoCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/infocommand"
+},
+"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InfoCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InfoCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ArtifactCommand.InfoCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand"
+},
+"doc://fairtool/documentation/fairtool/FairCommand/MetadataCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MetadataCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairCommand\/MetadataCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MetadataCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairCommand.MetadataCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/faircommand\/metadatacommand"
+},
+"doc://fairtool/documentation/fairtool/FairMsgCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that contains options for how messages will be conveyed to the user",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairMsgCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairMsgCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairMsgCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairMsgCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairmsgcommand"
+},
+"doc://fairtool/documentation/fairtool/FairParsableCommand": {
+  "abstract" : [
+    {
+      "text" : "A specific command that can write messages (to stderr) and JSON encodable tool output (to stdout)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairParsableCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairParsableCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairParsableCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairParsableCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairparsablecommand"
+},
+"doc://fairtool/documentation/fairtool/FairStructuredCommand": {
+  "abstract" : [
+    {
+      "text" : "A command that will issue an asynchronous stream of output items",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairStructuredCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairStructuredCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairStructuredCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairstructuredcommand"
+},
+"doc://fairtool/documentation/fairtool/FairStructuredCommand/executeCommand()": {
+  "abstract" : [
+    {
+      "text" : "Executes the command and results a streaming result of command responses",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "executeCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Scs",
+      "text" : "AsyncThrowingStream"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Output"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/executeCommand()",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "executeCommand()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairstructuredcommand\/executecommand()"
+},
+"doc://fairtool/documentation/fairtool/FairStructuredCommand/run()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "run"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/run()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "run()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairstructuredcommand\/run()"
+},
+"doc://fairtool/documentation/fairtool/FairStructuredCommand/writeCommandEnd()-85y": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeCommandEnd"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/writeCommandEnd()-85y",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "writeCommandEnd()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairstructuredcommand\/writecommandend()-85y"
+},
+"doc://fairtool/documentation/fairtool/FairStructuredCommand/writeCommandStart()-2zrza": {
+  "abstract" : [
+
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "writeCommandStart"
+    },
+    {
+      "kind" : "text",
+      "text" : "() "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairStructuredCommand\/writeCommandStart()-2zrza",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "writeCommandStart()",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairstructuredcommand\/writecommandstart()-2zrza"
+},
+"doc://fairtool/documentation/fairtool/JSONCommand/SignCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SignCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/JSONCommand\/SignCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SignCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONCommand.SignCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/jsoncommand\/signcommand"
+},
+"doc://fairtool/documentation/fairtool/JSONCommand/VerifyCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/JSONCommand\/VerifyCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "JSONCommand.VerifyCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/jsoncommand\/verifycommand"
+},
+"doc://fairtool/documentation/fairtool/SocialCommand/TweetCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TweetCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/SocialCommand\/TweetCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TweetCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SocialCommand.TweetCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/socialcommand\/tweetcommand"
+},
+"doc://fairtool/documentation/fairtool/SourceCommand/CreateCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CreateCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/SourceCommand\/CreateCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CreateCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.CreateCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/sourcecommand\/createcommand"
+},
+"doc://fairtool/documentation/fairtool/SourceCommand/VerifyCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/SourceCommand\/VerifyCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "VerifyCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SourceCommand.VerifyCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/sourcecommand\/verifycommand"
+}
+}
+}

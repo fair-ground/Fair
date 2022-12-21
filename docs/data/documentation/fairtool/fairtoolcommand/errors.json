@@ -1,0 +1,1484 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/fairtool\/documentation\/fairtool",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "fairtool",
+    "externalID" : "s:8fairtool15FairToolCommandV6ErrorsO",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "enum"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Errors"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "fairtool"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Errors"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Enumeration",
+    "symbolKind" : "enum",
+    "title" : "FairToolCommand.Errors"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "enum"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Errors"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/10Foundation14LocalizedErrorP",
+        "doc:\/\/fairtool\/s5ErrorP",
+        "doc:\/\/fairtool\/s8SendableP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badApplicationsPath(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badArgument(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badOperation(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badRepository(_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/cannotInitNonEmptyFolder(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/cannotOverwriteAlteredFile(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/downloadMissing(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/dumpPackageError",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/forbiddenEntitlement(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/installAppMissing(_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/installedAppExists(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidAppSourceHeader(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidContents(_:_:_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidData(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidHub(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidIntegrationTitle(_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidPlistValue(_:_:_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/matchFailed(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/mismatchedBundleID(_:_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingAppPath",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingArguments",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingFlag(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingSDK",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingUsageDescription(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/noBundleID(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/processCommandUnavailable(_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/sameOutputAndProjectPath(_:_:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/sandboxRequired",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/unknownCommand(_:)"
+      ],
+      "title" : "Enumeration Cases"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/errorDescription-66bto"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/Error-Implementations",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/LocalizedError-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairtool\/fairtoolcommand\/errors"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://fairtool/10Foundation14LocalizedErrorP": {
+  "identifier" : "doc:\/\/fairtool\/10Foundation14LocalizedErrorP",
+  "title" : "Foundation.LocalizedError",
+  "type" : "unresolvable"
+},
+"doc://fairtool/documentation/fairtool": {
+  "abstract" : [
+    {
+      "text" : "Utility to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "fairtool",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairToolCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairToolCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairToolCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/Error-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/Error-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Error Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/error-implementations"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/LocalizedError-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/LocalizedError-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "LocalizedError Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/localizederror-implementations"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/badApplicationsPath(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "badApplicationsPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badApplicationsPath(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.badApplicationsPath(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/badapplicationspath(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/badArgument(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "badArgument"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badArgument(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.badArgument(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/badargument(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/badOperation(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "badOperation"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badOperation(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.badOperation(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/badoperation(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/badRepository(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "badRepository"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/badRepository(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.badRepository(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/badrepository(_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/cannotInitNonEmptyFolder(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cannotInitNonEmptyFolder"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/cannotInitNonEmptyFolder(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.cannotInitNonEmptyFolder(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/cannotinitnonemptyfolder(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/cannotOverwriteAlteredFile(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cannotOverwriteAlteredFile"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/cannotOverwriteAlteredFile(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.cannotOverwriteAlteredFile(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/cannotoverwritealteredfile(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/downloadMissing(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "downloadMissing"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/downloadMissing(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.downloadMissing(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/downloadmissing(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/dumpPackageError": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "dumpPackageError"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/dumpPackageError",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.dumpPackageError",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/dumppackageerror"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/errorDescription-66bto": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/errorDescription-66bto",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/errordescription-66bto"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/forbiddenEntitlement(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "forbiddenEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/forbiddenEntitlement(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.forbiddenEntitlement(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/forbiddenentitlement(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/installAppMissing(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "installAppMissing"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/installAppMissing(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.installAppMissing(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/installappmissing(_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/installedAppExists(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "installedAppExists"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/installedAppExists(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.installedAppExists(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/installedappexists(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/invalidAppSourceHeader(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidAppSourceHeader"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidAppSourceHeader(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.invalidAppSourceHeader(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/invalidappsourceheader(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/invalidContents(_:_:_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidContents"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidContents(_:_:_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.invalidContents(_:_:_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/invalidcontents(_:_:_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/invalidData(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidData"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidData(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.invalidData(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/invaliddata(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/invalidHub(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidHub(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.invalidHub(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/invalidhub(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/invalidIntegrationTitle(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidIntegrationTitle"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidIntegrationTitle(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.invalidIntegrationTitle(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/invalidintegrationtitle(_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/invalidPlistValue(_:_:_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "invalidPlistValue"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "c:objc(cs)NSObject",
+      "text" : "NSObject"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/invalidPlistValue(_:_:_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.invalidPlistValue(_:_:_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/invalidplistvalue(_:_:_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/matchFailed(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "matchFailed"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/matchFailed(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.matchFailed(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/matchfailed(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/mismatchedBundleID(_:_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "mismatchedBundleID"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/mismatchedBundleID(_:_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.mismatchedBundleID(_:_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/mismatchedbundleid(_:_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/missingAppPath": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingAppPath"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingAppPath",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.missingAppPath",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/missingapppath"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/missingArguments": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingArguments"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingArguments",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.missingArguments",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/missingarguments"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/missingCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingCommand",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.missingCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/missingcommand"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/missingFlag(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingFlag"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingFlag(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.missingFlag(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/missingflag(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/missingSDK": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingSDK"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingSDK",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.missingSDK",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/missingsdk"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/missingUsageDescription(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingUsageDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B11EntitlementV",
+      "text" : "AppEntitlement"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/missingUsageDescription(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.missingUsageDescription(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/missingusagedescription(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/noBundleID(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "noBundleID"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/noBundleID(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.noBundleID(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/nobundleid(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/processCommandUnavailable(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "processCommandUnavailable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/processCommandUnavailable(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.processCommandUnavailable(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/processcommandunavailable(_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/sameOutputAndProjectPath(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sameOutputAndProjectPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/sameOutputAndProjectPath(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.sameOutputAndProjectPath(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/sameoutputandprojectpath(_:_:)"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/sandboxRequired": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "sandboxRequired"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/sandboxRequired",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.sandboxRequired",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/sandboxrequired"
+},
+"doc://fairtool/documentation/fairtool/FairToolCommand/Errors/unknownCommand(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unknownCommand"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand\/Errors\/unknownCommand(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairToolCommand.Errors.unknownCommand(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairtoolcommand\/errors\/unknowncommand(_:)"
+},
+"doc://fairtool/s5ErrorP": {
+  "identifier" : "doc:\/\/fairtool\/s5ErrorP",
+  "title" : "Swift.Error",
+  "type" : "unresolvable"
+},
+"doc://fairtool/s8SendableP": {
+  "identifier" : "doc:\/\/fairtool\/s8SendableP",
+  "title" : "Swift.Sendable",
+  "type" : "unresolvable"
+}
+}
+}

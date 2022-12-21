@@ -104,6 +104,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksForkQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksStarQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppCasksTopicQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppOrgValidationFailure",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CaskRepository",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CatalogForksQuery",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CurrentViewerLoginQuery",
@@ -120,6 +121,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/NodeList",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/OID",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PostCommentQuery",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/PullRequestState",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ReleaseAsset",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/RepositoryOwner",
@@ -149,13 +151,20 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/endpoint(action:_:)"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/authorize(commit:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildAppCasks(owner:catalogName:catalogIdentifier:baseRepository:topicName:starrerName:excludeEmptyCasks:maxApps:mergeCasksURL:caskStatsURL:boostMap:boostFactor:caskQueryCount:releaseQueryCount:assetQueryCount:msg:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildAppCatalog(title:identifier:owner:sourceURL:baseRepository:fairsealCheck:artifactTarget:configuration:requestLimit:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildFundingSources(owner:baseRepository:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/endpoint(action:_:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/postFairseal(_:owner:baseRepository:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/validate(org:configuration:)"
       ],
       "title" : "Instance Methods"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/BaseFork"
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/BaseFork",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CommitInfo"
       ],
       "title" : "Type Aliases"
     },
@@ -164,6 +173,12 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/backoffCodes"
       ],
       "title" : "Type Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors"
+      ],
+      "title" : "Enumerations"
     },
     {
       "generated" : true,
@@ -408,6 +423,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/appcaskstopicquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/AppOrgValidationFailure": {
+  "abstract" : [
+    {
+      "text" : "The varios reasons why an organization or repository might be invalid",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppOrgValidationFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/AppOrgValidationFailure",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppOrgValidationFailure"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.AppOrgValidationFailure",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/apporgvalidationfailure"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/BaseFork": {
   "abstract" : [
 
@@ -516,6 +565,40 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/catalogforksquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/CommitInfo": {
+  "abstract" : [
+    {
+      "text" : "The commit instance",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CommitInfo"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/CommitInfo",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CommitInfo"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.CommitInfo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/commitinfo"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/CurrentViewerLoginQuery": {
   "abstract" : [
     {
@@ -591,6 +674,37 @@
   "title" : "EndpointService Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/endpointservice-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/Errors": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Errors"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.Errors",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/errors"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/FairSealQuery": {
   "abstract" : [
@@ -1010,6 +1124,37 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/postcommentquery"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/ProjectConfiguration": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ProjectConfiguration"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/ProjectConfiguration",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ProjectConfiguration"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairHub.ProjectConfiguration",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/projectconfiguration"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/PullRequestState": {
   "abstract" : [
     {
@@ -1279,6 +1424,68 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/authtoken"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/authorize(commit:)": {
+  "abstract" : [
+    {
+      "text" : "Checks the commit info to ensure that it is verified, and if so, returns the author information",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "authorize"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "commit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV10CommitInfoa",
+      "text" : "CommitInfo"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/authorize(commit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "authorize(commit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/authorize(commit:)"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/backoffCodes": {
   "abstract" : [
     {
@@ -1376,6 +1583,714 @@
   "title" : "baseURL",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/baseurl"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/buildAppCasks(owner:catalogName:catalogIdentifier:baseRepository:topicName:starrerName:excludeEmptyCasks:maxApps:mergeCasksURL:caskStatsURL:boostMap:boostFactor:caskQueryCount:releaseQueryCount:assetQueryCount:msg:)": {
+  "abstract" : [
+    {
+      "text" : "Generates the appcasks enhanced catalog for Homebrew Casks",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildAppCasks"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "catalogName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "catalogIdentifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "baseRepository"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "topicName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "starrerName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "excludeEmptyCasks"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "maxApps"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "mergeCasksURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "caskStatsURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "boostMap"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "boostFactor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5Int64V",
+      "text" : "Int64"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "caskQueryCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "releaseQueryCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "assetQueryCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "msg"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "Any"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) -> ()) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B7CatalogV",
+      "text" : "AppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildAppCasks(owner:catalogName:catalogIdentifier:baseRepository:topicName:starrerName:excludeEmptyCasks:maxApps:mergeCasksURL:caskStatsURL:boostMap:boostFactor:caskQueryCount:releaseQueryCount:assetQueryCount:msg:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buildAppCasks(owner:catalogName:catalogIdentifier:baseRepository:topicName:starrerName:excludeEmptyCasks:maxApps:mergeCasksURL:caskStatsURL:boostMap:boostFactor:caskQueryCount:releaseQueryCount:assetQueryCount:msg:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/buildappcasks(owner:catalogname:catalogidentifier:baserepository:topicname:starrername:excludeemptycasks:maxapps:mergecasksurl:caskstatsurl:boostmap:boostfactor:caskquerycount:releasequerycount:assetquerycount:msg:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/buildAppCatalog(title:identifier:owner:sourceURL:baseRepository:fairsealCheck:artifactTarget:configuration:requestLimit:)": {
+  "abstract" : [
+    {
+      "text" : "Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildAppCatalog"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "title"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "identifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "sourceURL"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "baseRepository"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fairsealCheck"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "artifactTarget"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo14ArtifactTargetV",
+      "text" : "ArtifactTarget"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV20ProjectConfigurationV",
+      "text" : "ProjectConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "requestLimit"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B7CatalogV",
+      "text" : "AppCatalog"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildAppCatalog(title:identifier:owner:sourceURL:baseRepository:fairsealCheck:artifactTarget:configuration:requestLimit:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buildAppCatalog(title:identifier:owner:sourceURL:baseRepository:fairsealCheck:artifactTarget:configuration:requestLimit:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/buildappcatalog(title:identifier:owner:sourceurl:baserepository:fairsealcheck:artifacttarget:configuration:requestlimit:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/buildFundingSources(owner:baseRepository:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "buildFundingSources"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "baseRepository"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp0B13FundingSourceV",
+      "text" : "AppFundingSource"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildFundingSources(owner:baseRepository:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "buildFundingSources(owner:baseRepository:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/buildfundingsources(owner:baserepository:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/endpoint(action:_:)": {
   "abstract" : [
@@ -1661,6 +2576,106 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/org"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/postFairseal(_:owner:baseRepository:)": {
+  "abstract" : [
+    {
+      "text" : "Posts the fairseal to the most recent open PR that matches the download URL’s appOrg",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "postFairseal"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A4SealV",
+      "text" : "FairSeal"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "owner"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "baseRepository"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "async"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/postFairseal(_:owner:baseRepository:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "postFairseal(_:owner:baseRepository:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/postfairseal(_:owner:baserepository:)"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/serviceURL": {
   "abstract" : [
     {
@@ -1697,6 +2712,119 @@
   "title" : "serviceURL",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/serviceurl"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/validate(org:configuration:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "validate"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "org"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV15RepositoryQueryV",
+      "text" : "RepositoryQuery"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV15RepositoryQueryV0E8ResponseV",
+      "text" : "QueryResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV15RepositoryQueryV0E8ResponseV12OrganizationV",
+      "text" : "Organization"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "configuration"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV20ProjectConfigurationV",
+      "text" : "ProjectConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV",
+      "text" : "FairHub"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A3HubV23AppOrgValidationFailureV",
+      "text" : "AppOrgValidationFailure"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/validate(org:configuration:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "validate(org:configuration:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/validate(org:configuration:)"
 },
 "doc://FairExpo/documentation/FairExpo/GraphQLEndpointService": {
   "abstract" : [
