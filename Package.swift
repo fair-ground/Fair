@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.7
 import PackageDescription
 
 extension Platform {
@@ -37,8 +37,8 @@ let package = Package(
         Platform.current == .macOS ? .plugin(name: "FairBuild", targets: ["FairBuild"]) : nil,
     ].compactMap({ $0 }),
 dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
-        .package(url: "https://github.com/tuist/XcodeProj.git", .upToNextMajor(from: "8.8.0")),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.1.3"),
+        //.package(url: "https://github.com/tuist/tuist.git", branch: "main"),
     ],
     targets: [
         .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
@@ -49,8 +49,8 @@ dependencies: [ .package(name: "swift-docc-plugin", url: "https://github.com/app
 
         Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: [
             "FairExpo",
-            .product(name: "XcodeProj", package: "XcodeProj"),
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            //.product(name: "TuistGenerator", package: "tuist"),
         ], resources: [.process("Resources")]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
