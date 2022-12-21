@@ -192,7 +192,7 @@ public enum Git {
         }
 
         init(_ url: URL) async throws {
-            let lines = String(decoding: try await Data(contentsOf: url.appendingPathComponent(".git/config")), as: UTF8.self).components(separatedBy: "\n")
+            let lines = String(decoding: try Data(contentsOf: url.appendingPathComponent(".git/config")), as: UTF8.self).components(separatedBy: "\n")
             var index = 0
             while index < lines.count {
                 if lines[index].prefix(7) == "[remote" {
@@ -279,7 +279,7 @@ public enum Git {
         }
 
         func get(_ id: String, url: URL) async throws -> Data {
-            return try await Data(contentsOf: url.appendingPathComponent(".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompressInflate()
+            return try Data(contentsOf: url.appendingPathComponent(".git/objects/\(id.prefix(2))/\(id.dropFirst(2))")).decompressInflate()
         }
 
         func objects(_ url: URL) -> [String] {
@@ -313,7 +313,7 @@ public enum Git {
                 let repository = self.repository,
                 let id = try await Hub.head.tree(repository.url).list(repository.url).first(where: { $0.url.path == url.path })?.id
             else { return nil }
-            if let current = try? Hash.blob(await Data(contentsOf: url)).1 {
+            if let current = try? Hash.blob(Data(contentsOf: url)).1 {
                 if current == id {
                     throw Failure.Diff.unchanged
                 }
@@ -323,7 +323,7 @@ public enum Git {
 
         func timeline(_ url: URL) async throws -> [(Date, Data)] {
             guard let repository = self.repository else { return [] }
-            return try await History(repository.url).result.reduceAsync(into: { [Hash.blob($0).1: (Date(), $0)] } ((try? await Data(contentsOf: url)) ?? Data()), {
+            return try await History(repository.url).result.reduceAsync(into: { [Hash.blob($0).1: (Date(), $0)] } ((try? Data(contentsOf: url)) ?? Data()), {
                 guard
                     let id = try await Tree($1.tree, url: repository.url).list(repository.url).first(where: { $0.url.path == url.path })?.id,
                     $0[id] == nil
@@ -653,7 +653,7 @@ public enum Git {
         }
 
         func reference(_ url: URL) async throws -> String {
-            return try String(String(decoding: await Data(contentsOf: url.appendingPathComponent(".git/HEAD")), as:
+            return try String(String(decoding: Data(contentsOf: url.appendingPathComponent(".git/HEAD")), as:
                                         UTF8.self).dropFirst(5)).replacingOccurrences(of: "\n", with: "")
         }
 
@@ -666,7 +666,7 @@ public enum Git {
         }
 
         func origin(_ url: URL) async -> String? {
-            if let data = try? await Data(contentsOf: url.appendingPathComponent(".git/refs/remotes/origin/master")) {
+            if let data = try? Data(contentsOf: url.appendingPathComponent(".git/refs/remotes/origin/master")) {
                 return String(decoding: data, as: UTF8.self)
             }
             return nil
@@ -756,7 +756,7 @@ public enum Git {
         private var suffix = ["/.git"]
 
         init(_ url: URL) async {
-            guard let data = try? await Data(contentsOf: url.appendingPathComponent(".gitignore")) else { return }
+            guard let data = try? Data(contentsOf: url.appendingPathComponent(".gitignore")) else { return }
             String(decoding: data, as: UTF8.self).components(separatedBy: "\n").filter({ !$0.isEmpty }).forEach {
                 switch $0.first {
                 case "*":
@@ -828,7 +828,7 @@ public enum Git {
             var entry = Entry()
             entry.id = id
             entry.url = url
-            entry.size = try await Data(contentsOf: url).count
+            entry.size = try Data(contentsOf: url).count
             entries.removeAll(where: { $0.url.path == url.path })
             entries.append(entry)
         }
@@ -1015,7 +1015,7 @@ public enum Git {
         private var offsets = [(Int, data: Data, Int)]()
 
         init(_ url: URL, id: String) async throws {
-            guard let data = try? await Data(contentsOf: url.appendingPathComponent(".git/objects/pack/pack-\(id).pack"))
+            guard let data = try? Data(contentsOf: url.appendingPathComponent(".git/objects/pack/pack-\(id).pack"))
             else { throw Failure.Pack.packNotFound }
             try self.init(data)
         }
@@ -1204,7 +1204,7 @@ public enum Git {
 
         private func references() async throws {
             guard let url = repository?.url, FileManager.default.fileExists(atPath: url.appendingPathComponent(".git/packed-refs").path) else { return }
-            try String(decoding: await Data(contentsOf: url.appendingPathComponent(".git/packed-refs")), as: UTF8.self).components(separatedBy: "\n").forEach {
+            try String(decoding: Data(contentsOf: url.appendingPathComponent(".git/packed-refs")), as: UTF8.self).components(separatedBy: "\n").forEach {
                 if $0.first != "#" {
                     let reference = $0.components(separatedBy: " ")
                     guard reference.count >= 2 else { return }
@@ -1224,7 +1224,7 @@ public enum Git {
         private(set) var index = 0
 
         init(url: URL) async throws {
-            self.data = try await Data(contentsOf: url)
+            self.data = try Data(contentsOf: url)
         }
 
         init(_ data: Data) {
@@ -1810,7 +1810,7 @@ public enum Git {
         }
 
         func handle(changes: [(URL, Git.Status)]) async throws {
-            try await self.repository?.status?(changes)
+            try self.repository?.status?(changes)
         }
 
         var needs: Bool {
@@ -2033,7 +2033,7 @@ public enum Git {
         }
 
         static func file(_ url: URL) async throws -> (data: Data, hash: String) {
-            return blob(try await Data(contentsOf: url))
+            return blob(try Data(contentsOf: url))
         }
 
         static func blob(_ data: Data) -> (data: Data, hash: String) {

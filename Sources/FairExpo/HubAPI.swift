@@ -119,23 +119,23 @@ public struct ArtifactTarget : Codable, Hashable {
 }
 
 extension FairHub {
-    struct ProjectConfiguration {
+    public struct ProjectConfiguration {
         /// The regular expression patterns of allowed app names
-        var allowName: [NSRegularExpression]
+        public var allowName: [NSRegularExpression]
 
         /// The regular expression patterns of disallowed app names
-        var denyName: [NSRegularExpression]
+        public var denyName: [NSRegularExpression]
 
         /// The regular expression patterns of allowed e-mail addresses
-        var allowFrom: [NSRegularExpression]
+        public var allowFrom: [NSRegularExpression]
 
         /// The regular expression patterns of disallowed e-mail addresses
-        var denyFrom: [NSRegularExpression]
+        public var denyFrom: [NSRegularExpression]
 
         /// The license (SPDX IDs) of permitted licenses, such as: "AGPL-3.0"
-        var allowLicense: [String]
+        public var allowLicense: [String]
 
-        init(allowName: [String] = [], denyName: [String] = [], allowFrom: [String] = [], denyFrom: [String] = [], allowLicense: [String] = []) throws {
+        public init(allowName: [String] = [], denyName: [String] = [], allowFrom: [String] = [], denyFrom: [String] = [], allowLicense: [String] = []) throws {
             let regexs = { try NSRegularExpression(pattern: $0, options: [.caseInsensitive]) }
             self.allowFrom = try allowFrom.map(regexs)
             self.denyFrom = try denyFrom.map(regexs)
@@ -146,7 +146,7 @@ extension FairHub {
         }
 
         /// Validates that the app name is included in the `allow-name` patterns and not included in the `deny-name` list of expressions.
-        func validateAppName(_ name: String?) throws {
+        public func validateAppName(_ name: String?) throws {
             guard let name = name, try permitted(value: name, allow: allowName, deny: denyName) == true else {
                 throw FairHub.Errors.invalidName(name)
             }
@@ -184,7 +184,7 @@ extension FairHub {
     }
 
     /// Generates the catalog by fetching all the valid forks of the base fair-ground and associating them with the fairseals published by the fairsealIssuer.
-    func buildAppCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
+    public func buildAppCatalog(title: String, identifier: String, owner: String, sourceURL: URL? = nil, baseRepository: String, fairsealCheck: Bool, artifactTarget: ArtifactTarget?, configuration: ProjectConfiguration, requestLimit: Int?) async throws -> AppCatalog {
         // all the seal hashes we will look up to validate releases
         dbg("fetching fairseals")
 
@@ -542,7 +542,7 @@ extension FairHub {
     }
 
     /// Generates the appcasks enhanced catalog for Homebrew Casks
-    func buildAppCasks(owner: String, catalogName: String, catalogIdentifier: String, baseRepository: String?, topicName: String?, starrerName: String?, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int, releaseQueryCount: Int, assetQueryCount: Int, msg messageHandler: (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> () = { dbg($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) }) async throws -> AppCatalog {
+    public func buildAppCasks(owner: String, catalogName: String, catalogIdentifier: String, baseRepository: String?, topicName: String?, starrerName: String?, excludeEmptyCasks: Bool = true, maxApps: Int? = nil, mergeCasksURL: URL? = nil, caskStatsURL: URL? = nil, boostMap: [String: Int]? = nil, boostFactor: Int64?, caskQueryCount: Int, releaseQueryCount: Int, assetQueryCount: Int, msg messageHandler: (Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> () = { dbg($0, $1, $2, $3, $4, $5, $6, $7, $8, $9) }) async throws -> AppCatalog {
 
         // all the seal hashes we will look up to validate releases
         let boost = boostFactor ?? 10_000
@@ -922,7 +922,7 @@ extension FairHub {
         return appItem
     }
 
-    func buildFundingSources(owner: String, baseRepository: String) async throws -> [AppFundingSource] {
+    public func buildFundingSources(owner: String, baseRepository: String) async throws -> [AppFundingSource] {
         var sources: [AppFundingSource] = []
 
         func createSponsor(from sponsor: FairHub.GetSponsorsQuery.QueryResponse.Repository.SponsorsListing, url: URL) -> AppFundingSource {
@@ -956,7 +956,7 @@ extension FairHub {
         return sources
     }
 
-    internal func validate(org: RepositoryQuery.QueryResponse.Organization, configuration: ProjectConfiguration) -> AppOrgValidationFailure {
+    public func validate(org: RepositoryQuery.QueryResponse.Organization, configuration: ProjectConfiguration) -> AppOrgValidationFailure {
         let repo = org.repository
         let isOrigin = org.login == appfairName
         var invalid: AppOrgValidationFailure = []
@@ -1021,7 +1021,7 @@ extension FairHub {
     }
 
     /// The varios reasons why an organization or repository might be invalid
-    struct AppOrgValidationFailure : OptionSet, CustomStringConvertible {
+    public struct AppOrgValidationFailure : OptionSet, CustomStringConvertible {
         public let rawValue: Int
         public init(rawValue: Int) { self.rawValue = rawValue }
         public static let isPrivate = AppOrgValidationFailure(rawValue: 1 << 0)
@@ -1054,7 +1054,7 @@ extension FairHub {
     }
 
     /// Posts the fairseal to the most recent open PR that matches the download URL's appOrg
-    func postFairseal(_ fairseal: FairSeal, owner: String, baseRepository: String) async throws -> URL? {
+    public func postFairseal(_ fairseal: FairSeal, owner: String, baseRepository: String) async throws -> URL? {
         guard let appOrg = fairseal.appOrg else {
             dbg("no app org for seal:", fairseal)
             return nil
@@ -1093,7 +1093,7 @@ extension FairHub {
     }
 
     /// Checks the commit info to ensure that it is verified, and if so, returns the author information
-    func authorize(commit: CommitInfo) throws {
+    public func authorize(commit: CommitInfo) throws {
         let info = commit.repository.object
         //guard let verification = info.signature else {
             //throw Errors.noVerification(commit)
@@ -1120,7 +1120,7 @@ extension FairHub {
     }
 
 
-    enum Errors : LocalizedError {
+    public enum Errors : LocalizedError {
         case emptyAuthToken
         case badHostOrg(String)
         case emptyOrganization(URL)

@@ -31,7 +31,9 @@
  obligated to do so.  If you do not wish to do so, delete this
  exception statement from your version.
  */
+import FairExpo
 import FairApp
+import ArgumentParser
 
 public struct JSONCommand : AsyncParsableCommand {
     public static let experimental = true

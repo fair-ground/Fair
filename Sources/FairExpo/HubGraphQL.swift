@@ -1869,5 +1869,5 @@ extension FairHub {
     }
 
     /// The commit instance
-    typealias CommitInfo = GetCommitQuery.QueryResponse
+    public typealias CommitInfo = GetCommitQuery.QueryResponse
 }
