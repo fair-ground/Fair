@@ -38,23 +38,23 @@ import FairApp
 import fairtool
 
 final class FairToolTests: XCTestCase {
+    #if os(macOS)
     func testToolVersion() async throws {
         let result = try await invokeTool(["version"])
         XCTAssertEqual(result.stderr.utf8String, "fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")\n")
     }
 
-    #if os(macOS)
     /// Verifies that the "fairtool app info" command will output valid JSON that correctly identifies the app.
     func testToolAppInfo() async throws {
         let infoJSON = try await invokeTool(["artifact", "info", "/System/Applications/TextEdit.app"]).stdout
         let json = try [ArtifactCommand.InfoCommand.Output](json: infoJSON)
         XCTAssertEqual("com.apple.TextEdit", json.first?.info.obj?["CFBundleIdentifier"]?.str)
     }
-    #endif
 
     @discardableResult func invokeTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Int32? = 0) async throws -> CommandResult {
         try await Process.exec(cmd: buildOutputFolder().appendingPathComponent(toolPath).path, args: args).expect(exitCode: expectSuccess)
     }
+    #endif
 
     /// Returns the path to the built products directory.
     func buildOutputFolder() -> URL {
