@@ -952,28 +952,34 @@ public struct GitConfig : RawRepresentable, Hashable {
 }
 
 extension EnvFile {
-    /// Retruns the `PRODUCT_NAME` parsed as a `String`
+    /// The `PRODUCT_NAME` parsed as a `String`
     public var productName: String? {
         get { self["PRODUCT_NAME"] }
         set { self["PRODUCT_NAME"] = newValue }
     }
 
-    /// Retruns the `PRODUCT_BUNDLE_IDENTIFIER` parsed as a `String`
+    /// The `PRODUCT_BUNDLE_IDENTIFIER` parsed as a `String`
     public var bundleIdentifier: String? {
         get { self["PRODUCT_BUNDLE_IDENTIFIER"] }
         set { self["PRODUCT_BUNDLE_IDENTIFIER"] = newValue }
     }
 
-    /// Retruns the `CURRENT_PROJECT_VERSION` parsed as an `Int`
+    /// The `CURRENT_PROJECT_VERSION` parsed as an `Int`
     public var buildNumber: Int? {
         get { self["CURRENT_PROJECT_VERSION"].flatMap({ Int($0) }) }
         set { self["CURRENT_PROJECT_VERSION"] = newValue?.description }
     }
 
-    /// Retruns the `MARKETING_VERSION` parsed as an `AppVersion`
+    /// The `MARKETING_VERSION` parsed as an ``AppVersion``
     public var appVersion: AppVersion? {
         get { self["MARKETING_VERSION"].flatMap({ AppVersion(string: $0) }) }
         set { self["MARKETING_VERSION"] = newValue?.versionString }
+    }
+
+    /// The `SUPPORTED_PLATFORMS` parsed as a `String`
+    public var supportedPlatforms: String? {
+        get { self["SUPPORTED_PLATFORMS"] }
+        set { self["SUPPORTED_PLATFORMS"] = newValue }
     }
 }
 
