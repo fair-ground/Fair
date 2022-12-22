@@ -36,9 +36,10 @@ import FairApp
 import ArgumentParser
 
 public struct FairConfigureOutput : FairCommandOutput, Decodable {
-    public var productName: String
-    public var version: AppVersion
-    public var buildNumber: Int
+    public var productName: String?
+    public var bundleIdentifier: String?
+    public var version: AppVersion?
+    public var buildNumber: Int?
 }
 
 extension AppVersion.Component : ExpressibleByArgument {
@@ -82,6 +83,9 @@ public struct AppCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("Set the app name", valueName: "name"))
         public var name: String?
 
+        @Option(name: [.long], help: ArgumentHelp("Set the bundle identifier"))
+        public var id: String?
+
         @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "bump"))
         public var bump: AppVersion.Component?
 
@@ -105,29 +109,28 @@ public struct AppCommand : AsyncParsableCommand {
             let origSettings = try projectOptions.buildSettings()
             var settings = origSettings
 
-            guard let appVersion = settings.appVersion else {
-                throw AppError(String(format: NSLocalizedString("No app version in build config", bundle: .module, comment: "error message")))
-            }
-            if let bump = self.version ?? self.bump.flatMap(appVersion.bumping) {
-                msg(.info, self.version == nil ? "bumping" : "setting", "version from:", appVersion.versionString, "to:", bump.versionString)
+            let appVersion = settings.appVersion
+            if let bump = self.version ?? self.bump.flatMap({ appVersion?.bumping($0) }) {
+                msg(.info, self.version == nil ? "bumping" : "setting", "version from:", appVersion?.versionString, "to:", bump.versionString)
                 settings.appVersion = bump
             }
 
-
-            guard let productName = settings.productName else {
-                throw AppError(String(format: NSLocalizedString("No app version in build config", bundle: .module, comment: "error message")))
-            }
+            let productName = settings.productName
             if let name = self.name {
                 msg(.info, "setting name from:", productName, "to:", name)
                 settings.productName = name
             }
 
-            guard let buildNumber = settings.buildNumber else {
-                throw AppError(String(format: NSLocalizedString("No build number in build config", bundle: .module, comment: "error message")))
-            }
+            let buildNumber = settings.buildNumber
             if let build = self.buildNumber {
                 msg(.info, "setting build number from:", buildNumber, "to:", build)
                 settings.buildNumber = build
+            }
+
+            let bundleIdentifier = settings.bundleIdentifier
+            if let id = self.id {
+                msg(.info, "setting bundle id from:", bundleIdentifier, "to:", id)
+                settings.bundleIdentifier = id
             }
 
             // when the settings have changed, try to save them
@@ -136,7 +139,7 @@ public struct AppCommand : AsyncParsableCommand {
                 try settings.save(to: projectOptions.settingsPath)
             }
 
-            return FairConfigureOutput(productName: settings.productName ?? productName, version: settings.appVersion ?? appVersion, buildNumber: settings.buildNumber ?? buildNumber)
+            return FairConfigureOutput(productName: settings.productName ?? productName, bundleIdentifier: settings.bundleIdentifier ?? id, version: settings.appVersion ?? appVersion, buildNumber: settings.buildNumber ?? buildNumber)
         }
     }
 
