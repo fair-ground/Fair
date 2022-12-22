@@ -72,16 +72,16 @@ jobs:
         uses: actions/checkout@v2
  
       - name: Test iOS (Debug)
-        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro" -parallel-testing-enabled YES
+        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro"
 
       - name: Test iOS (Release)
-        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro" -parallel-testing-enabled YES
+        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro"
 
       - name: Test macOS (Debug)
-        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx" -parallel-testing-enabled YES
+        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
 
       - name: Test macOS (Release)
-        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx" -parallel-testing-enabled YES
+        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
 
       - name: Test Package
         run: xcrun swift test --parallel
