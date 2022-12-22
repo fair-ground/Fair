@@ -639,28 +639,28 @@ final class FairCommandTests: XCTestCase {
         do {
             let output = try await checkProject()
             XCTAssertEqual("Some App", output.productName)
-            XCTAssertEqual("1.2.3", output.version.versionString)
+            XCTAssertEqual("1.2.3", output.version?.versionString)
             XCTAssertEqual(987, output.buildNumber)
         }
 
         do {
             let output = try await checkProject("--bump", "patch")
-            XCTAssertEqual("1.2.4", output.version.versionString)
+            XCTAssertEqual("1.2.4", output.version?.versionString)
         }
 
         do {
             let output = try await checkProject("--bump", "minor")
-            XCTAssertEqual("1.3.4", output.version.versionString)
+            XCTAssertEqual("1.3.4", output.version?.versionString)
         }
 
         do {
             let output = try await checkProject("--bump", "major")
-            XCTAssertEqual("2.3.4", output.version.versionString)
+            XCTAssertEqual("2.3.4", output.version?.versionString)
         }
 
         do {
             let output = try await checkProject("--version", "1.1.1")
-            XCTAssertEqual("1.1.1", output.version.versionString)
+            XCTAssertEqual("1.1.1", output.version?.versionString)
         }
 
         do {
@@ -673,6 +673,11 @@ final class FairCommandTests: XCTestCase {
             XCTAssertEqual(989, output.buildNumber)
         }
 
+        do {
+            let output = try await checkProject("--id", "app.Another-App")
+            XCTAssertEqual("app.Another-App", output.bundleIdentifier)
+        }
+
         XCTAssertEqual("""
         // This is the name of the app
         PRODUCT_NAME = Another App
@@ -682,6 +687,7 @@ final class FairCommandTests: XCTestCase {
 
         // This is the build number of the app
         CURRENT_PROJECT_VERSION = 989
+        PRODUCT_BUNDLE_IDENTIFIER = app.Another-App
         """, try String(contentsOf: xcconfig, encoding: .utf8), "comments should be preserved when updating env")
     }
 }

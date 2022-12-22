@@ -3,17 +3,18 @@
     "paths" : [
       [
         "doc:\/\/fairtool\/documentation\/fairtool",
-        "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput"
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/ConfigureCommand"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/buildNumber"
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/ConfigureCommand\/id"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8fairtool19FairConfigureOutputV11buildNumberSiSgvp",
+    "externalID" : "s:8fairtool10AppCommandV09ConfigureC0V2idSSSgvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -25,7 +26,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "buildNumber"
+        "text" : "id"
       },
       {
         "kind" : "text",
@@ -33,8 +34,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
       },
       {
         "kind" : "text",
@@ -49,7 +50,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Property",
     "symbolKind" : "property",
-    "title" : "buildNumber"
+    "title" : "id"
   },
   "primaryContentSections" : [
     {
@@ -72,7 +73,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "buildNumber"
+              "text" : "id"
             },
             {
               "kind" : "text",
@@ -80,12 +81,28 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
             },
             {
               "kind" : "text",
-              "text" : "?"
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
             }
           ]
         }
@@ -104,7 +121,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairtool\/fairconfigureoutput\/buildnumber"
+        "\/documentation\/fairtool\/appcommand\/configurecommand\/id"
       ],
       "traits" : [
         {
@@ -129,7 +146,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairtool"
 },
-"doc://fairtool/documentation/fairtool/FairConfigureOutput": {
+"doc://fairtool/documentation/fairtool/AppCommand": {
   "abstract" : [
 
   ],
@@ -144,23 +161,54 @@
     },
     {
       "kind" : "identifier",
-      "text" : "FairConfigureOutput"
+      "text" : "AppCommand"
     }
   ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput",
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "FairConfigureOutput"
+      "text" : "AppCommand"
     }
   ],
   "role" : "symbol",
-  "title" : "FairConfigureOutput",
+  "title" : "AppCommand",
   "type" : "topic",
-  "url" : "\/documentation\/fairtool\/fairconfigureoutput"
+  "url" : "\/documentation\/fairtool\/appcommand"
 },
-"doc://fairtool/documentation/fairtool/FairConfigureOutput/buildNumber": {
+"doc://fairtool/documentation/fairtool/AppCommand/ConfigureCommand": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ConfigureCommand"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/ConfigureCommand",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ConfigureCommand"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppCommand.ConfigureCommand",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/appcommand\/configurecommand"
+},
+"doc://fairtool/documentation/fairtool/AppCommand/ConfigureCommand/id": {
   "abstract" : [
 
   ],
@@ -175,7 +223,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "buildNumber"
+      "text" : "id"
     },
     {
       "kind" : "text",
@@ -183,20 +231,20 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/buildNumber",
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/AppCommand\/ConfigureCommand\/id",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "buildNumber",
+  "title" : "id",
   "type" : "topic",
-  "url" : "\/documentation\/fairtool\/fairconfigureoutput\/buildnumber"
+  "url" : "\/documentation\/fairtool\/appcommand\/configurecommand\/id"
 }
 }
 }
