@@ -45,7 +45,7 @@ import SwiftUI
 public struct FairToolCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "fairtool",
-                                                           abstract: "Manage an ecosystem of apps.",
+                                                           abstract: "Manage an ecosystem of apps",
                                                            shouldDisplay: !experimental,
                                                            subcommands: [
                                                             AppCommand.self,
@@ -61,7 +61,7 @@ public struct FairToolCommand : AsyncParsableCommand {
     )
 
     /// This is needed to handle execution of the tool from as a sandboxed command plugin
-    @Option(name: [.long], help: ArgumentHelp("List of targets to apply.", valueName: "target"))
+    @Option(name: [.long], help: ArgumentHelp("List of targets to apply", valueName: "target"))
     public var target: Array<String> = []
 
     public init() {
@@ -71,7 +71,7 @@ public struct FairToolCommand : AsyncParsableCommand {
         public static let experimental = false
         public typealias Output = Never
         public static var configuration = CommandConfiguration(commandName: "version",
-                                                               abstract: "Show the fairtool version.",
+                                                               abstract: "Show the fairtool version",
                                                                shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
 
@@ -291,13 +291,13 @@ extension FairMsgCommand {
 }
 
 public struct ProjectOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("m")], help: ArgumentHelp("The project metadata to use."))
+    @Option(name: [.long, .customShort("m")], help: ArgumentHelp("The project metadata to use", valueName: "file"))
     public var metadata: String?
 
-    @Option(name: [.long, .customShort("p")], help: ArgumentHelp("The project to use."))
+    @Option(name: [.long, .customShort("p")], help: ArgumentHelp("The project to use", valueName: "path"))
     public var project: String?
 
-    @Option(name: [.long], help: ArgumentHelp("The path to the xcconfig containing metadata.", valueName: "xc"))
+    @Option(name: [.long], help: ArgumentHelp("The path to the xcconfig containing metadata", valueName: "xc"))
     public var fairProperties: String = "appfair.xcconfig"
 
     /// The path to the settings file
@@ -331,7 +331,7 @@ public typealias FairCommandOutput = Encodable // & Decodable
 
 
 public struct OutputOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("o")], help: ArgumentHelp("The output path."))
+    @Option(name: [.long, .customShort("o")], help: ArgumentHelp("The output path"))
     public var output: String = "-"
 
     public init() { }
@@ -359,42 +359,42 @@ extension OutputOptions {
 }
 
 public struct SourceOptions: CatalogSourceOptions, ParsableArguments {
-    @Option(help: ArgumentHelp("The name of the catalog.", valueName: "name"))
+    @Option(help: ArgumentHelp("The name of the catalog", valueName: "name"))
     public var catalogName: String?
 
-    @Option(help: ArgumentHelp("The identifier of the catalog.", valueName: "id"))
+    @Option(help: ArgumentHelp("The identifier of the catalog", valueName: "id"))
     public var catalogIdentifier: String?
 
-    @Option(help: ArgumentHelp("The platform for this catalog.", valueName: "id"))
+    @Option(help: ArgumentHelp("The platform for this catalog", valueName: "id"))
     public var catalogPlatform: String?
 
-    @Option(help: ArgumentHelp("The description for this catalog.", valueName: "desc"))
+    @Option(help: ArgumentHelp("The description for this catalog", valueName: "desc"))
     public var catalogLocalizedDescription: String?
 
-    @Option(help: ArgumentHelp("The source URL of the catalog.", valueName: "url"))
+    @Option(help: ArgumentHelp("The source URL of the catalog", valueName: "url"))
     public var catalogSourceURL: String?
 
-    @Option(help: ArgumentHelp("The icon URL of the catalog.", valueName: "url"))
+    @Option(help: ArgumentHelp("The icon URL of the catalog", valueName: "url"))
     public var catalogIconURL: String?
 
-    @Option(help: ArgumentHelp("The tint color for this catalog.", valueName: "rgbhex"))
+    @Option(help: ArgumentHelp("The tint color for this catalog", valueName: "rgbhex"))
     public var catalogTintColor: String?
 
     // Per-app arguments
 
-    @Option(help: ArgumentHelp("The default description(s) for the app(s).", valueName: "desc"))
+    @Option(help: ArgumentHelp("The default description(s) for the app(s)", valueName: "desc"))
     public var appLocalizedDescription: [String] = []
 
-    @Option(help: ArgumentHelp("The default versionDescription for the app(s).", valueName: "desc"))
+    @Option(help: ArgumentHelp("The default versionDescription for the app(s)", valueName: "desc"))
     public var appVersionDescription: [String] = []
 
-    @Option(help: ArgumentHelp("The default subtitle(s) for the app(s).", valueName: "title"))
+    @Option(help: ArgumentHelp("The default subtitle(s) for the app(s)", valueName: "title"))
     public var appSubtitle: [String] = []
 
-    @Option(help: ArgumentHelp("The default developer name(s) for the app(s).", valueName: "email"))
+    @Option(help: ArgumentHelp("The default developer name(s) for the app(s)", valueName: "email"))
     public var appDeveloperName: [String] = []
 
-    @Option(help: ArgumentHelp("The download URLfor the app(s).", valueName: "URL"))
+    @Option(help: ArgumentHelp("The download URLfor the app(s)", valueName: "URL"))
     public var appDownloadURL: [String] = []
 
     public init() {
@@ -403,13 +403,13 @@ public struct SourceOptions: CatalogSourceOptions, ParsableArguments {
 }
 
 public struct MsgOptions: ParsableArguments {
-    @Flag(name: [.long, .customShort("v")], help: ArgumentHelp("Whether to display verbose messages."))
+    @Flag(name: [.long, .customShort("v")], help: ArgumentHelp("Whether to display verbose messages"))
     public var verbose: Bool = false
 
-    @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("Whether to be suppress output."))
+    @Flag(name: [.long, .customShort("q")], help: ArgumentHelp("Quiet mode: suppress output"))
     public var quiet: Bool = false
 
-    @Flag(name: [.long, .customShort("J")], help: ArgumentHelp("Exclude root JSON array from output."))
+    @Flag(name: [.long, .customShort("J")], help: ArgumentHelp("Exclude root JSON array from output"))
     public var promoteJSON: Bool = false
 
     public var messages: MessageBuffer? = nil
@@ -465,10 +465,10 @@ public struct MsgOptions: ParsableArguments {
 }
 
 public struct RegOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("Allow patterns for integrate PR names.", valueName: "pattern"))
+    @Option(name: [.long], help: ArgumentHelp("Allow patterns for integrate PR names", valueName: "pattern"))
     public var allowName: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("Disallow patterns for integrate PR names.", valueName: "pattern"))
+    @Option(name: [.long], help: ArgumentHelp("Disallow patterns for integrate PR names", valueName: "pattern"))
     public var denyName: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("Allow patterns for integrate PR users", valueName: "pattern"))
@@ -477,7 +477,7 @@ public struct RegOptions: ParsableArguments {
     @Option(name: [.long], help: ArgumentHelp("Disallow patterns for integrate PR users", valueName: "pattern"))
     public var denyFrom: [String] = []
 
-    @Option(name: [.long], help: ArgumentHelp("Permitted license IDs.", valueName: "id"))
+    @Option(name: [.long], help: ArgumentHelp("Permitted license IDs", valueName: "id"))
     public var allowLicense: [String] = []
 
     @Option(name: [.long], help: ArgumentHelp("Permitted license titles"))
@@ -501,19 +501,19 @@ public struct RegOptions: ParsableArguments {
 ///
 /// E.g., "github.com/appfair"
 public struct HubOptions: ParsableArguments {
-    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("The name of the hub to use (e.g., gitub.com/appfair).", valueName: "host/org"))
+    @Option(name: [.long, .customShort("h")], help: ArgumentHelp("The name of the hub to use (e.g., gitub.com/appfair)", valueName: "host/org"))
     public var hub: String
 
-    @Option(name: [.long, .customShort("B")], help: ArgumentHelp("The name of the hub's base repository.", valueName: "repo"))
+    @Option(name: [.long, .customShort("B")], help: ArgumentHelp("The name of the hub's base repository", valueName: "repo"))
     public var baseRepo: String = baseFairgroundRepoName
 
-    @Option(name: [.long, .customShort("k")], help: ArgumentHelp("The token used for the hub's authentication."))
+    @Option(name: [.long, .customShort("k")], help: ArgumentHelp("The token used for the hub's authentication"))
     public var token: String?
 
-    @Option(name: [.long], help: ArgumentHelp("Name of the login that issues the fairseal.", valueName: "usr"))
+    @Option(name: [.long], help: ArgumentHelp("Name of the login that issues the fairseal", valueName: "usr"))
     public var fairsealIssuer: String?
 
-    @Option(name: [.long], help: ArgumentHelp("The base64-encoded signing key for the fairseal issuer.", valueName: "key"))
+    @Option(name: [.long], help: ArgumentHelp("The base64-encoded signing key for the fairseal issuer", valueName: "key"))
     public var fairsealKey: String?
 
     public init() { }
@@ -645,7 +645,7 @@ extension FairToolCommand {
 
 /// Options for how downloading remote files should work.
 public struct DownloadOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("Location of folder for downloaded artifacts.", valueName: "dir"))
+    @Option(name: [.long], help: ArgumentHelp("Location of folder for downloaded artifacts", valueName: "dir"))
     public var cacheFolder: String?
 
     public init() { }
@@ -679,13 +679,13 @@ public struct DownloadOptions: ParsableArguments {
 }
 
 public struct DelayOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("Amount of time to wait between operations.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Amount of time to wait between operations", valueName: "secs"))
     public var delay: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("Min amount of time to wait between operations.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Min amount of time to wait between operations", valueName: "secs"))
     public var delayMin: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("Max amount of time to wait between operations.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Max amount of time to wait between operations", valueName: "secs"))
     public var delayMax: TimeInterval?
 
     public init() { }
@@ -704,10 +704,10 @@ public struct DelayOptions: ParsableArguments {
 }
 
 public struct RetryOptions: ParsableArguments {
-    @Option(name: [.long], help: ArgumentHelp("Amount of time to continue re-trying downloading a resource.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Amount of time to continue re-trying downloading a resource", valueName: "secs"))
     public var retryDuration: TimeInterval?
 
-    @Option(name: [.long], help: ArgumentHelp("Backoff time for waiting to retry.", valueName: "secs"))
+    @Option(name: [.long], help: ArgumentHelp("Backoff time for waiting to retry", valueName: "secs"))
     public var retryWait: TimeInterval = 30
 
     public init() { }

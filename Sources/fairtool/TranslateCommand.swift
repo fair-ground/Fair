@@ -38,7 +38,7 @@ import ArgumentParser
 public struct TranslateCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "translate",
-                                                           abstract: "Commands for handling localizations.",
+                                                           abstract: "Commands for handling localizations",
                                                            shouldDisplay: !experimental, subcommands: Self.subcommands)
     static let subcommands: [ParsableCommand.Type] = [
         ScanCommand.self,
@@ -54,12 +54,12 @@ public struct TranslateCommand : AsyncParsableCommand {
     ///  - create and update the localized strings file
     public struct ScanCommand: FairMsgCommand {
         public static let experimental = true
-        public static var configuration = CommandConfiguration(commandName: "scan", abstract: "Scans translations for the given key(s).", shouldDisplay: !experimental)
+        public static var configuration = CommandConfiguration(commandName: "scan", abstract: "Scans translations for the given key(s)", shouldDisplay: !experimental)
 
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var projectOptions: ProjectOptions
 
-        @Option(name: [.long], help: ArgumentHelp("The translation keys to search for."))
+        @Option(name: [.long], help: ArgumentHelp("The translation keys to search for"))
         public var key: [String] = [".*"]
 
         @Argument(help: ArgumentHelp("Resources folder to scan", valueName: "dir", visibility: .default))

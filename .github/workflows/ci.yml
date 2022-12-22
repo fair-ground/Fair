@@ -78,16 +78,16 @@ jobs:
         run: xcrun swift test --parallel
  
       - name: Test iOS (Debug)
-        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"
+        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro" -parallel-testing-enabled YES
 
       - name: Test iOS (Release)
-        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14"
+        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro" -parallel-testing-enabled YES
 
       - name: Test macOS (Debug)
-        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
+        run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx" -parallel-testing-enabled YES
 
       - name: Test macOS (Release)
-        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx"
+        run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx" -parallel-testing-enabled YES
 
       - name: Check fairtool formula
         run: |

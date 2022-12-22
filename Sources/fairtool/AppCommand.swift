@@ -86,10 +86,10 @@ public struct AppCommand : AsyncParsableCommand {
         @Option(name: [.long], help: ArgumentHelp("Set the bundle identifier"))
         public var id: String?
 
-        @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "bump"))
+        @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "component"))
         public var bump: AppVersion.Component?
 
-        @Option(name: [.long], help: ArgumentHelp("Set the build number"))
+        @Option(name: [.long], help: ArgumentHelp("Set the build number", valueName: "int"))
         public var buildNumber: Int?
 
         @Option(name: [.long], help: ArgumentHelp("Set a specific version", valueName: "semver"))
