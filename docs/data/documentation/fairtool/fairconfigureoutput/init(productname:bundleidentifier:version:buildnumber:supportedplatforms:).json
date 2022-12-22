@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:)"
+    "url" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8fairtool19FairConfigureOutputV11productName16bundleIdentifier7version11buildNumberACSSSg_AH0B4Core10AppVersionVSgSiSgtcfc",
+    "externalID" : "s:8fairtool19FairConfigureOutputV11productName16bundleIdentifier7version11buildNumber18supportedPlatformsACSSSg_AI0B4Core10AppVersionVSgSiSgAItcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -89,6 +89,23 @@
       },
       {
         "kind" : "text",
+        "text" : "?, "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "supportedPlatforms"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:SS",
+        "text" : "String"
+      },
+      {
+        "kind" : "text",
         "text" : "?)"
       }
     ],
@@ -100,7 +117,7 @@
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(productName:bundleIdentifier:version:buildNumber:)"
+    "title" : "init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)"
   },
   "primaryContentSections" : [
     {
@@ -187,6 +204,23 @@
             },
             {
               "kind" : "text",
+              "text" : "? = nil, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "supportedPlatforms"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SS",
+              "text" : "String"
+            },
+            {
+              "kind" : "text",
               "text" : "? = nil)"
             }
           ]
@@ -206,7 +240,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/fairtool\/fairconfigureoutput\/init(productname:bundleidentifier:version:buildnumber:)"
+        "\/documentation\/fairtool\/fairconfigureoutput\/init(productname:bundleidentifier:version:buildnumber:supportedplatforms:)"
       ],
       "traits" : [
         {
@@ -262,7 +296,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/fairconfigureoutput"
 },
-"doc://fairtool/documentation/fairtool/FairConfigureOutput/init(productName:bundleIdentifier:version:buildNumber:)": {
+"doc://fairtool/documentation/fairtool/FairConfigureOutput/init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)": {
   "abstract" : [
 
   ],
@@ -341,15 +375,32 @@
     },
     {
       "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "supportedPlatforms"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:)",
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(productName:bundleIdentifier:version:buildNumber:)",
+  "title" : "init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairtool\/fairconfigureoutput\/init(productname:bundleidentifier:version:buildnumber:)"
+  "url" : "\/documentation\/fairtool\/fairconfigureoutput\/init(productname:bundleidentifier:version:buildnumber:supportedplatforms:)"
 }
 }
 }

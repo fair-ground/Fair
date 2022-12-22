@@ -96,7 +96,7 @@
       "identifiers" : [
         "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init()",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(from:)",
-        "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:)"
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)"
       ],
       "title" : "Initializers"
     },
@@ -105,6 +105,7 @@
         "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/buildNumber",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/bundleIdentifier",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/productName",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/supportedPlatforms",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/version"
       ],
       "title" : "Instance Properties"
@@ -348,7 +349,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/fairconfigureoutput\/init(from:)"
 },
-"doc://fairtool/documentation/fairtool/FairConfigureOutput/init(productName:bundleIdentifier:version:buildNumber:)": {
+"doc://fairtool/documentation/fairtool/FairConfigureOutput/init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)": {
   "abstract" : [
 
   ],
@@ -427,15 +428,32 @@
     },
     {
       "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "supportedPlatforms"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:)",
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(productName:bundleIdentifier:version:buildNumber:)",
+  "title" : "init(productName:bundleIdentifier:version:buildNumber:supportedPlatforms:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairtool\/fairconfigureoutput\/init(productname:bundleidentifier:version:buildnumber:)"
+  "url" : "\/documentation\/fairtool\/fairconfigureoutput\/init(productname:bundleidentifier:version:buildnumber:supportedplatforms:)"
 },
 "doc://fairtool/documentation/fairtool/FairConfigureOutput/productName": {
   "abstract" : [
@@ -474,6 +492,44 @@
   "title" : "productName",
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/fairconfigureoutput\/productname"
+},
+"doc://fairtool/documentation/fairtool/FairConfigureOutput/supportedPlatforms": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "supportedPlatforms"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput\/supportedPlatforms",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "supportedPlatforms",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairconfigureoutput\/supportedplatforms"
 },
 "doc://fairtool/documentation/fairtool/FairConfigureOutput/version": {
   "abstract" : [
