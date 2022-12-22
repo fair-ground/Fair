@@ -530,3 +530,69 @@ public struct AppMetadata : Codable {
     }
 }
 
+
+/// A generic configuration file.
+///
+/// The format is a line-based key/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.
+public struct EnvFile : RawRepresentable, Hashable {
+    public var rawValue: [String?]
+
+    public init(rawValue: [String?]) {
+        self.rawValue = rawValue
+    }
+
+    public init(data: Data) throws {
+        guard let string = String(data: data, encoding: .utf8) else {
+            throw CocoaError(.coderInvalidValue)
+        }
+        self.rawValue = string.components(separatedBy: .newlines)
+    }
+
+    public init(url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+
+    /// The underlying contents of this env file
+    public var contents: String {
+        rawValue.compacted().joined(separator: "\n")
+    }
+
+    /// Saves the contents of this `EnvFile`
+    public func save(to url: URL, atomically atomic: Bool = true) throws {
+        try contents.write(to: url, atomically: atomic, encoding: .utf8)
+    }
+
+    public subscript(path: String) -> String? {
+        get {
+            let token = path + " = "
+            for line in rawValue.compacted() {
+                if line.hasPrefix(token) {
+                    return String(line.dropFirst(token.count))
+                }
+            }
+            return nil
+        }
+
+        set {
+            let token = path + " = "
+            var updated = 0
+            for (index, line) in rawValue.enumerated() {
+                if let line = line {
+                    if line.hasPrefix(token) {
+                        if let newValue = newValue {
+                            rawValue[index] = token + newValue
+                        } else {
+                            rawValue[index] = nil
+                        }
+                        updated += 1
+                    }
+                }
+            }
+            if let newValue = newValue, updated == 0 {
+                // the value did not exist, so update it
+                rawValue += [token + newValue]
+            }
+        }
+    }
+}
+

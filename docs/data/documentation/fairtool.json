@@ -166,10 +166,11 @@
         "doc:\/\/fairtool\/documentation\/fairtool\/BrewCommand",
         "doc:\/\/fairtool\/documentation\/fairtool\/DelayOptions",
         "doc:\/\/fairtool\/documentation\/fairtool\/DownloadOptions",
-        "doc:\/\/fairtool\/documentation\/fairtool\/EnvFile",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairProjectInfo",
         "doc:\/\/fairtool\/documentation\/fairtool\/FairToolCommand",
+        "doc:\/\/fairtool\/documentation\/fairtool\/GitConfig",
         "doc:\/\/fairtool\/documentation\/fairtool\/HubOptions",
         "doc:\/\/fairtool\/documentation\/fairtool\/JSONCommand",
         "doc:\/\/fairtool\/documentation\/fairtool\/MsgOptions",
@@ -396,56 +397,6 @@
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/downloadoptions"
 },
-"doc://fairtool/documentation/fairtool/EnvFile": {
-  "abstract" : [
-    {
-      "text" : "A generic configuration file, used to parse ",
-      "type" : "text"
-    },
-    {
-      "code" : "fairground.xcconfig",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " and ",
-      "type" : "text"
-    },
-    {
-      "code" : ".git\/config",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "EnvFile"
-    }
-  ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/EnvFile",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "EnvFile"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "EnvFile",
-  "type" : "topic",
-  "url" : "\/documentation\/fairtool\/envfile"
-},
 "doc://fairtool/documentation/fairtool/FairAppCommand": {
   "abstract" : [
 
@@ -538,6 +489,37 @@
   "title" : "FairCommandOutput",
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/faircommandoutput"
+},
+"doc://fairtool/documentation/fairtool/FairConfigureOutput": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "FairConfigureOutput"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/FairConfigureOutput",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "FairConfigureOutput"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "FairConfigureOutput",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/fairconfigureoutput"
 },
 "doc://fairtool/documentation/fairtool/FairMsgCommand": {
   "abstract" : [
@@ -736,6 +718,40 @@
   "title" : "FairToolCommand",
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/fairtoolcommand"
+},
+"doc://fairtool/documentation/fairtool/GitConfig": {
+  "abstract" : [
+    {
+      "text" : "A Git config file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "GitConfig"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/GitConfig",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "GitConfig"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GitConfig",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/gitconfig"
 },
 "doc://fairtool/documentation/fairtool/HubOptions": {
   "abstract" : [

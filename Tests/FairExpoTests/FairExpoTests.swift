@@ -35,3 +35,58 @@ import Swift
 import XCTest
 import FairApp
 import FairExpo
+
+public class FairExpoTests : XCTestCase {
+
+    func testEnvFile() throws {
+        do {
+            let env = try EnvFile(data: """
+            """.utf8Data)
+            XCTAssertEqual(nil, env["x"])
+        }
+
+        do {
+            let env = try EnvFile(data: """
+            x = y
+            """.utf8Data)
+            XCTAssertEqual("y", env["x"])
+        }
+
+        do {
+            var env = try EnvFile(data: """
+            // comment
+            ABC = 123
+            """.utf8Data)
+            XCTAssertEqual("123", env["ABC"])
+            XCTAssertEqual("""
+            // comment
+            ABC = 123
+            """, env.contents)
+
+            env["ABC"] = "qrs"
+            XCTAssertEqual("""
+            // comment
+            ABC = qrs
+            """, env.contents)
+
+            env["ABCD"] = "XYZ"
+            XCTAssertEqual("""
+            // comment
+            ABC = qrs
+            ABCD = XYZ
+            """, env.contents)
+
+            env["ABC"] = nil
+            XCTAssertEqual("""
+            // comment
+            ABCD = XYZ
+            """, env.contents)
+
+            env["ABCD"] = nil
+            XCTAssertEqual("""
+            // comment
+            """, env.contents)
+        }
+    }
+
+}

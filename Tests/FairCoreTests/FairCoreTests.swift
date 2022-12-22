@@ -129,7 +129,7 @@ final class FairCoreTests: XCTestCase {
         // TODO: test semantic version sorting
         // https://semver.org/#spec-item-11
 
-        let parse = { AppVersion(string: $0, prerelease: false)?.versionString }
+        let parse = { AppVersion(string: $0)?.versionString }
 
         XCTAssertEqual(nil, parse(""))
         XCTAssertEqual(nil, parse(" "))
@@ -145,11 +145,6 @@ final class FairCoreTests: XCTestCase {
         XCTAssertEqual("1.2.3", parse("1.2.3"))
         XCTAssertEqual("0.2.3", parse("0.2.3"))
         XCTAssertEqual("999.9999.99999", parse("999.9999.99999"))
-
-        XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), "a pre-release should be sorted below a non-pre-release version with the same numbers")
-        XCTAssertLessThan(AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), "a pre-release should be sorted below a non-pre-release version with the same numbers")
-        XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 1, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: false), "a pre-release should be sorted above other non-prerelease lower versions")
-        XCTAssertGreaterThan(AppVersion(major: 1, minor: 0, patch: 1, prerelease: true), AppVersion(major: 1, minor: 0, patch: 0, prerelease: true), "a pre-release should be sorted above other lower versions")
     }
 
     func testParsePlist() throws {
@@ -405,8 +400,8 @@ final class FairCoreTests: XCTestCase {
 
     func testFairCoreVersion() throws {
         let version = try XCTUnwrap(Bundle.fairCoreVersion)
-        dbg("loaded fairCoreVersion:", version.versionStringExtended)
-        XCTAssertGreaterThan(version, AppVersion(major: 0, minor: 1, patch: 0, prerelease: false))
+        dbg("loaded fairCoreVersion:", version.versionString)
+        XCTAssertGreaterThan(version, AppVersion(major: 0, minor: 1, patch: 0))
 
         // shows the difference between the auto-generated bundle's infoDictionary and the FairCore.plist
         // XCTAssertEqual("Fair-FairCore-resources", Bundle.fairCore.infoDictionary?["CFBundleIdentifier"] as? String) // this doesn't seem to happen on CI

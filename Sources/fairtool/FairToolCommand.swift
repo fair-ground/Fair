@@ -81,7 +81,7 @@ public struct FairToolCommand : AsyncParsableCommand {
         public mutating func run() async throws {
             warnExperimental(Self.experimental)
             let version = Bundle.fairCoreVersion
-            msg(.info, NSLocalizedString("fairtool", bundle: .module, comment: "the name of the fairtool"), version?.versionStringExtended)
+            msg(.info, NSLocalizedString("fairtool", bundle: .module, comment: "the name of the fairtool"), version?.versionString)
         }
     }
 }
@@ -298,7 +298,12 @@ public struct ProjectOptions: ParsableArguments {
     public var project: String?
 
     @Option(name: [.long], help: ArgumentHelp("The path to the xcconfig containing metadata.", valueName: "xc"))
-    public var fairProperties: String?
+    public var fairProperties: String = "appfair.xcconfig"
+
+    /// The path to the settings file
+    public var settingsPath: URL {
+        projectPathURL(path: fairProperties)
+    }
 
     public init() { }
 
@@ -313,12 +318,10 @@ public struct ProjectOptions: ParsableArguments {
     }
 
     /// If the `--fair-properties` flag was specified, tries to parse the build settings
-    func buildSettings() throws -> EnvFile? {
-        guard let fairProperties = self.fairProperties else { return nil }
-        return try EnvFile(url: projectPathURL(path: fairProperties))
+    func buildSettings() throws -> EnvFile {
+        try EnvFile(url: settingsPath)
     }
 }
-
 
 extension JSum : SigningContainer {
 }
@@ -891,11 +894,8 @@ end
     }
 }
 
-/// A generic configuration file, used to parse `fairground.xcconfig` and `.git/config`.
-///
-/// The format is a line-based key/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.
-/// Items can optionally be part of a "[section]"
-public struct EnvFile : RawRepresentable, Hashable {
+/// A Git config file.
+public struct GitConfig : RawRepresentable, Hashable {
     public var rawValue: [String?: [String: String]]
 
     public init(rawValue: [String?: [String: String]] = [:]) {
@@ -948,6 +948,32 @@ public struct EnvFile : RawRepresentable, Hashable {
 
     public subscript(path: String, section section: String? = nil) -> String? {
         rawValue[section]?[path]
+    }
+}
+
+extension EnvFile {
+    /// Retruns the `PRODUCT_NAME` parsed as a `String`
+    public var productName: String? {
+        get { self["PRODUCT_NAME"] }
+        set { self["PRODUCT_NAME"] = newValue }
+    }
+
+    /// Retruns the `PRODUCT_BUNDLE_IDENTIFIER` parsed as a `String`
+    public var bundleIdentifier: String? {
+        get { self["PRODUCT_BUNDLE_IDENTIFIER"] }
+        set { self["PRODUCT_BUNDLE_IDENTIFIER"] = newValue }
+    }
+
+    /// Retruns the `CURRENT_PROJECT_VERSION` parsed as an `Int`
+    public var buildNumber: Int? {
+        get { self["CURRENT_PROJECT_VERSION"].flatMap({ Int($0) }) }
+        set { self["CURRENT_PROJECT_VERSION"] = newValue?.description }
+    }
+
+    /// Retruns the `MARKETING_VERSION` parsed as an `AppVersion`
+    public var appVersion: AppVersion? {
+        get { self["MARKETING_VERSION"].flatMap({ AppVersion(string: $0) }) }
+        set { self["MARKETING_VERSION"] = newValue?.versionString }
     }
 }
 

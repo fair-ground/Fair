@@ -104,7 +104,8 @@
         "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/fairProperties",
         "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/metadata",
         "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/project",
-        "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/projectPathFlag"
+        "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/projectPathFlag",
+        "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/settingsPath"
       ],
       "title" : "Instance Properties"
     },
@@ -257,12 +258,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8fairtool7EnvFileV",
+      "preciseIdentifier" : "s:8FairExpo7EnvFileV",
       "text" : "EnvFile"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/buildSettings()",
@@ -297,10 +294,6 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:SS",
       "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
   "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/fairProperties",
@@ -539,6 +532,43 @@
   "title" : "projectPathURL(path:)",
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/projectoptions\/projectpathurl(path:)"
+},
+"doc://fairtool/documentation/fairtool/ProjectOptions/settingsPath": {
+  "abstract" : [
+    {
+      "text" : "The path to the settings file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "settingsPath"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ProjectOptions\/settingsPath",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "settingsPath",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/projectoptions\/settingspath"
 }
 }
 }

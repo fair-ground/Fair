@@ -68,7 +68,7 @@ public extension Bundle {
     var bundleVersionString: String? { self[info: .CFBundleShortVersionString] }
 
     /// The `CFBundleShortVersionString` converted to an AppVersion. Note that these are always considered non-prerelease since the prerelease flag is an ephemeral part of the hub's release, and is not indicated in the app's plist in any way
-    var bundleVersion: AppVersion? { bundleVersionString.flatMap({ AppVersion(string: $0, prerelease: false) }) }
+    var bundleVersion: AppVersion? { bundleVersionString.flatMap({ AppVersion(string: $0) }) }
 
     /// The name of the package's app/org, which is the bundle's name with hyphens for spaces
     var appOrgName: String? {
@@ -89,7 +89,7 @@ extension Bundle {
     public static let fairCoreInfo = Plist(rawValue: Info as NSDictionary) // Info should be generated manually with: plutil -convert swift Info.plist
 
     /// The version of the FairCore library in use
-    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0, prerelease: false) })
+    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0) })
 
     /// Returns all the URLs in the given asset path of the bundle
     public func assetPaths(in folder: String, includeLinks: Bool, includeFolders: Bool) throws -> [URL] {
@@ -249,31 +249,47 @@ public struct PropertyListKey : RawCodable {
 }
 
 /// A semantic version of an app with a `major`, `minor`, and `patch` component.
-public struct AppVersion : Hashable, Codable, Comparable {
+public struct AppVersion : Hashable, Codable, Comparable, RawRepresentable {
     /// The lowest possible version that can exist
-    public static let min = AppVersion(major: .min, minor: .min, patch: .min, prerelease: true)
+    public static let min = AppVersion(major: .min, minor: .min, patch: .min)
     /// The highest possible version that can exist
-    public static let max = AppVersion(major: .max, minor: .max, patch: .max, prerelease: false)
+    public static let max = AppVersion(major: .max, minor: .max, patch: .max)
 
     public let major, minor, patch: UInt
-    public let prerelease: Bool
 
-    public init(major: UInt, minor: UInt, patch: UInt, prerelease: Bool) {
+    public enum Component : String, Codable { case major, minor, patch }
+
+    public var rawValue: String { versionString }
+
+    public init?(rawValue: String) {
+        self.init(string: rawValue)
+    }
+
+    public init(major: UInt, minor: UInt, patch: UInt) {
         self.major = major
         self.minor = minor
         self.patch = patch
-        self.prerelease = prerelease
     }
 
     /// Initialize the version by parsing the string
-    public init?(string versionString: String, prerelease: Bool) {
-        guard let version = Self.parse(string: versionString, prerelease: prerelease) else {
+    public init?(string versionString: String) {
+        guard let version = Self.parse(string: versionString) else {
             return nil
         }
         self = version
     }
 
-    private static func parse(string versionString: String, prerelease: Bool) -> Self? {
+    public func bumping(_ component: Component) -> AppVersion {
+        var (major, minor, patch) = (major, minor, patch)
+        switch component {
+        case .major: major += 1
+        case .minor: minor += 1
+        case .patch: patch += 1
+        }
+        return AppVersion(major: major, minor: minor, patch: patch)
+    }
+
+    private static func parse(string versionString: String) -> Self? {
         let versionElements = versionString.split(separator: ".", omittingEmptySubsequences: false).map({ UInt(String($0)) })
         if versionElements.count != 3 { return nil }
         let versionNumbers = versionElements.compactMap({ $0 })
@@ -283,9 +299,8 @@ public struct AppVersion : Hashable, Codable, Comparable {
         let major = versionNumbers[0]
         let minor = versionNumbers[1]
         let patch = versionNumbers[2]
-        let prerelease = prerelease
 
-        let version = Self(major: major, minor: minor, patch: patch, prerelease: prerelease)
+        let version = Self(major: major, minor: minor, patch: patch)
 
         // this is what prevents us from successfully parsing ".1.2.3"
         if !version.versionString.hasPrefix("\(version.major)") { return nil }
@@ -298,7 +313,7 @@ public struct AppVersion : Hashable, Codable, Comparable {
         lhs.major < rhs.major
             || (lhs.major == rhs.major && lhs.minor < rhs.minor)
             || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch < rhs.patch)
-        || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && (lhs.prerelease ? 0 : 1) < (rhs.prerelease ? 0 : 1))
+            || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch)
 
     }
 
@@ -307,18 +322,13 @@ public struct AppVersion : Hashable, Codable, Comparable {
         "\(major).\(minor).\(patch)"
     }
 
-    /// The version string in the form `major`.`minor`.`patch` with a "β" character appended if this is a pre-release
-    public var versionStringExtended: String {
-        versionString + (prerelease == true ? "β" : "")
-    }
-
     public func encode(to encoder: Encoder) throws {
-        try versionStringExtended.encode(to: encoder)
+        try versionString.encode(to: encoder)
     }
 
     public init(from decoder: Decoder) throws {
         let str = try decoder.singleValueContainer().decode(String.self)
-        let version = Self.init(string: str, prerelease: false)
+        let version = Self.init(string: str)
         guard let version = version else {
             throw Errors.cannotParseVersionString(str)
         }

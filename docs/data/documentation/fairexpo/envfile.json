@@ -1,0 +1,568 @@
+{
+  "abstract" : [
+    {
+      "text" : "A generic configuration file.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairExpo\/documentation\/FairExpo"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairExpo7EnvFileV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "EnvFile"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairExpo"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "EnvFile"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "EnvFile"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "EnvFile"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The format is a line-based key\/value pair separate with an equals. Key and values are always unquoted, and have no terminating character.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/SQ",
+        "doc:\/\/FairExpo\/SH",
+        "doc:\/\/FairExpo\/SY"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/init(data:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/init(rawValue:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/init(url:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/contents",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/rawValue"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/save(to:atomically:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/subscript(_:)"
+      ],
+      "title" : "Subscripts"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/Equatable-Implementations",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/RawRepresentable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/fairexpo\/envfile"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairExpo/SH": {
+  "identifier" : "doc:\/\/FairExpo\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/SQ": {
+  "identifier" : "doc:\/\/FairExpo\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/SY": {
+  "identifier" : "doc:\/\/FairExpo\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairExpo/documentation/FairExpo": {
+  "abstract" : [
+    {
+      "text" : "Library of utilities to manage an ecosystem of apps.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairExpo",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile": {
+  "abstract" : [
+    {
+      "text" : "A generic configuration file.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnvFile"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnvFile"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "EnvFile",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/equatable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/RawRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/rawrepresentable-implementations"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/contents": {
+  "abstract" : [
+    {
+      "text" : "The underlying contents of this env file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "contents"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/contents",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "contents",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/contents"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/init(data:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation4DataV",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/init(data:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(data:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/init(data:)"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?])"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/init(rawValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/init(rawvalue:)"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/init(url:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "url"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/init(url:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(url:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/init(url:)"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/rawvalue"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/save(to:atomically:)": {
+  "abstract" : [
+    {
+      "text" : "Saves the contents of this ",
+      "type" : "text"
+    },
+    {
+      "code" : "EnvFile",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "save"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "atomically"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/save(to:atomically:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "save(to:atomically:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/save(to:atomically:)"
+},
+"doc://FairExpo/documentation/FairExpo/EnvFile/subscript(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "subscript"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/EnvFile\/subscript(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "subscript(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/envfile\/subscript(_:)"
+}
+}
+}

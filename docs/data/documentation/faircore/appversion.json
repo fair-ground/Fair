@@ -109,7 +109,8 @@
         "doc:\/\/FairCore\/Se",
         "doc:\/\/FairCore\/SE",
         "doc:\/\/FairCore\/SQ",
-        "doc:\/\/FairCore\/SH"
+        "doc:\/\/FairCore\/SH",
+        "doc:\/\/FairCore\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -133,9 +134,10 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(from:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(major:minor:patch:prerelease:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(string:prerelease:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(from:)-9tkpx",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(major:minor:patch:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(rawValue:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(string:)"
       ],
       "title" : "Initializers"
     },
@@ -144,14 +146,14 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/major",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/minor",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/patch",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/prerelease",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/versionString",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/versionStringExtended"
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/rawValue",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/versionString"
       ],
       "title" : "Instance Properties"
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/bumping(_:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/encode(to:)"
       ],
       "title" : "Instance Methods"
@@ -165,6 +167,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Component",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Errors"
       ],
       "title" : "Enumerations"
@@ -175,7 +178,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Comparable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Decodable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Encodable-Implementations",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Equatable-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Equatable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -212,6 +216,11 @@
 "doc://FairCore/SQ": {
   "identifier" : "doc:\/\/FairCore\/SQ",
   "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SY": {
+  "identifier" : "doc:\/\/FairCore\/SY",
+  "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
 "doc://FairCore/Se": {
@@ -302,6 +311,37 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/comparable-implementations"
 },
+"doc://FairCore/documentation/FairCore/AppVersion/Component": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/Component",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Component"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppVersion.Component",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/component"
+},
 "doc://FairCore/documentation/FairCore/AppVersion/Decodable-Implementations": {
   "abstract" : [
 
@@ -365,6 +405,17 @@
   "title" : "AppVersion.Errors",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/errors"
+},
+"doc://FairCore/documentation/FairCore/AppVersion/RawRepresentable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/rawrepresentable-implementations"
 },
 "doc://FairCore/documentation/FairCore/AppVersion/_(_:_:)-wl9t": {
   "abstract" : [
@@ -430,6 +481,58 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/_(_:_:)-wl9t"
 },
+"doc://FairCore/documentation/FairCore/AppVersion/bumping(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "bumping"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore10AppVersionV",
+      "text" : "AppVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore10AppVersionV9ComponentO",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore10AppVersionV",
+      "text" : "AppVersion"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/bumping(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "bumping(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/bumping(_:)"
+},
 "doc://FairCore/documentation/FairCore/AppVersion/encode(to:)": {
   "abstract" : [
 
@@ -480,7 +583,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/encode(to:)"
 },
-"doc://FairCore/documentation/FairCore/AppVersion/init(from:)": {
+"doc://FairCore/documentation/FairCore/AppVersion/init(from:)-9tkpx": {
   "abstract" : [
 
   ],
@@ -515,14 +618,14 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(from:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(from:)-9tkpx",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(from:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/appversion\/init(from:)"
+  "url" : "\/documentation\/faircore\/appversion\/init(from:)-9tkpx"
 },
-"doc://FairCore/documentation/FairCore/AppVersion/init(major:minor:patch:prerelease:)": {
+"doc://FairCore/documentation/FairCore/AppVersion/init(major:minor:patch:)": {
   "abstract" : [
 
   ],
@@ -584,11 +687,32 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(major:minor:patch:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(major:minor:patch:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/appversion\/init(major:minor:patch:)"
+},
+"doc://FairCore/documentation/FairCore/AppVersion/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "?("
     },
     {
       "kind" : "externalParam",
-      "text" : "prerelease"
+      "text" : "rawValue"
     },
     {
       "kind" : "text",
@@ -596,22 +720,22 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(major:minor:patch:prerelease:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(rawValue:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(major:minor:patch:prerelease:)",
+  "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/appversion\/init(major:minor:patch:prerelease:)"
+  "url" : "\/documentation\/faircore\/appversion\/init(rawvalue:)"
 },
-"doc://FairCore/documentation/FairCore/AppVersion/init(string:prerelease:)": {
+"doc://FairCore/documentation/FairCore/AppVersion/init(string:)": {
   "abstract" : [
     {
       "text" : "Initialize the version by parsing the string",
@@ -642,32 +766,15 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "prerelease"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    },
-    {
-      "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(string:prerelease:)",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/init(string:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(string:prerelease:)",
+  "title" : "init(string:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/appversion\/init(string:prerelease:)"
+  "url" : "\/documentation\/faircore\/appversion\/init(string:)"
 },
 "doc://FairCore/documentation/FairCore/AppVersion/major": {
   "abstract" : [
@@ -861,14 +968,14 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/patch"
 },
-"doc://FairCore/documentation/FairCore/AppVersion/prerelease": {
+"doc://FairCore/documentation/FairCore/AppVersion/rawValue": {
   "abstract" : [
 
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -876,7 +983,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "prerelease"
+      "text" : "rawValue"
     },
     {
       "kind" : "text",
@@ -884,16 +991,16 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/prerelease",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/rawValue",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "prerelease",
+  "title" : "rawValue",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/appversion\/prerelease"
+  "url" : "\/documentation\/faircore\/appversion\/rawvalue"
 },
 "doc://FairCore/documentation/FairCore/AppVersion/versionString": {
   "abstract" : [
@@ -951,67 +1058,6 @@
   "title" : "versionString",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/appversion\/versionstring"
-},
-"doc://FairCore/documentation/FairCore/AppVersion/versionStringExtended": {
-  "abstract" : [
-    {
-      "text" : "The version string in the form ",
-      "type" : "text"
-    },
-    {
-      "code" : "major",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    },
-    {
-      "code" : "minor",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    },
-    {
-      "code" : "patch",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " with a “β” character appended if this is a pre-release",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "versionStringExtended"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion\/versionStringExtended",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "versionStringExtended",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/appversion\/versionstringextended"
 }
 }
 }
