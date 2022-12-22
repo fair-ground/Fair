@@ -177,7 +177,7 @@ final class FairCommandTests: XCTestCase {
     #endif
 
     /// Runs "fairtool app info <url>" on a remote .ipa file, which it will download and analyze.
-    func testAppInfoCommandiOS() async throws {
+    func testArtifactInfoCommandiOS() async throws {
         let (result, _) = try await runToolOutput(ArtifactCommand.self, cmd: ArtifactCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
@@ -185,7 +185,7 @@ final class FairCommandTests: XCTestCase {
     }
 
     /// Runs "fairtool app info <url>" on a remote .app .zip file, which it will download and analyze.
-    func testAppInfoCommandMacOS() async throws {
+    func testArtifactInfoCommandMacOS() async throws {
         let (result, _) = try await runToolOutput(ArtifactCommand.self, cmd: ArtifactCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .macOS).absoluteString])
 
         XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
@@ -194,7 +194,7 @@ final class FairCommandTests: XCTestCase {
         XCTAssertEqual(false, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
     }
 
-    func testAppInfoCommandMacOSStream() async throws {
+    func testArtifactInfoCommandMacOSStream() async throws {
         var cmd = try ArtifactCommand.InfoCommand.parseAsRoot(["info"]) as! ArtifactCommand.InfoCommand
 
         cmd.apps = []
@@ -297,7 +297,7 @@ final class FairCommandTests: XCTestCase {
     }
 
     /// Runs "fairtool app info <url>" on a homebrew cask .app .zip file
-    func testAppInfoCommandStocks() async throws {
+    func testArtifactInfoCommandStocks() async throws {
         let stocksPath = "/System/Applications/Stocks.app"
 //        if !FileManager.default.itemExists(at: URL(fileURLWithPath: stocksPath)) {
 //            throw XCTSkip("no stocks app") // e.g., Linux
@@ -612,10 +612,78 @@ final class FairCommandTests: XCTestCase {
         } catch {
             // expected
         }
-
     }
 
+    func testAppConfigureCommand() async throws {
+        let projectFolder = URL(fileURLWithPath: #function, isDirectory: true, relativeTo: .tmpdir)
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try FileManager.default.createDirectory(at: projectFolder, withIntermediateDirectories: true, attributes: nil)
+        let xcconfig = projectFolder.appendingPathComponent("appfair.xcconfig", isDirectory: false)
 
+        try """
+        // This is the name of the app
+        PRODUCT_NAME = Some App
+
+        // This is the semantic version for the app
+        MARKETING_VERSION = 1.2.3
+
+        // This is the build number of the app
+        CURRENT_PROJECT_VERSION = 987
+        """.write(to: xcconfig, atomically: true, encoding: .utf8)
+
+        func checkProject(_ args: String...) async throws -> FairConfigureOutput {
+            let results = try await runToolOutput(AppCommand.self, cmd: AppCommand.ConfigureCommand.self, ["--project", projectFolder.path] + args)
+            return try XCTUnwrap(results.output.first)
+        }
+
+        do {
+            let output = try await checkProject()
+            XCTAssertEqual("Some App", output.productName)
+            XCTAssertEqual("1.2.3", output.version.versionString)
+            XCTAssertEqual(987, output.buildNumber)
+        }
+
+        do {
+            let output = try await checkProject("--bump", "patch")
+            XCTAssertEqual("1.2.4", output.version.versionString)
+        }
+
+        do {
+            let output = try await checkProject("--bump", "minor")
+            XCTAssertEqual("1.3.4", output.version.versionString)
+        }
+
+        do {
+            let output = try await checkProject("--bump", "major")
+            XCTAssertEqual("2.3.4", output.version.versionString)
+        }
+
+        do {
+            let output = try await checkProject("--version", "1.1.1")
+            XCTAssertEqual("1.1.1", output.version.versionString)
+        }
+
+        do {
+            let output = try await checkProject("--name", "Another App")
+            XCTAssertEqual("Another App", output.productName)
+        }
+
+        do {
+            let output = try await checkProject("--build-number", "989")
+            XCTAssertEqual(989, output.buildNumber)
+        }
+
+        XCTAssertEqual("""
+        // This is the name of the app
+        PRODUCT_NAME = Another App
+
+        // This is the semantic version for the app
+        MARKETING_VERSION = 1.1.1
+
+        // This is the build number of the app
+        CURRENT_PROJECT_VERSION = 989
+        """, try String(contentsOf: xcconfig, encoding: .utf8), "comments should be preserved when updating env")
+    }
 }
 
 public struct PackageManifest : Hashable, Decodable {

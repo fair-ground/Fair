@@ -400,7 +400,9 @@ extension FairCommand {
                 let appOrgNameSpace = appOrgName.dehyphenated()
                 //let appID = "app." + appOrgName
 
-                guard let appName = try projectOptions.buildSettings()?["PRODUCT_NAME"] else {
+                let settings = try projectOptions.buildSettings()
+
+                guard let appName = settings["PRODUCT_NAME"] else {
                     throw AppError(NSLocalizedString("Missing PRODUCT_NAME in appfair.xcconfig", bundle: .module, comment: "error message"))
                 }
 
@@ -408,11 +410,11 @@ extension FairCommand {
                     throw AppError(String(format: NSLocalizedString("Expected PRODUCT_NAME in appfair.xcconfig (“%@”) to match the organization name (“%@”)", bundle: .module, comment: "error message"), arguments: [appName, appOrgNameSpace]))
                 }
 
-                guard let appVersion = try projectOptions.buildSettings()?["MARKETING_VERSION"] else {
+                guard let appVersion = settings.appVersion else {
                     throw AppError(NSLocalizedString("Missing MARKETING_VERSION in appfair.xcconfig", bundle: .module, comment: "error message"))
                 }
 
-                let expectedIntegrationTitle = appName + " " + appVersion
+                let expectedIntegrationTitle = appName + " " + appVersion.versionString
 
                 if let integrationTitle = self.validateOptions.integrationTitle,
                    integrationTitle != expectedIntegrationTitle {
@@ -851,8 +853,10 @@ extension FairCommand {
         }
 
         func parseTintColor() throws -> String? {
-            // first check the `fairground.xcconfig` file for customization
-            if let tint = try projectOptions.buildSettings()?["ICON_TINT"] {
+            // first check the `appfair.xcconfig` file for customization
+            let settings = try projectOptions.buildSettings()
+
+            if let tint = try settings["ICON_TINT"] {
                 if let hexColor = HexColor(hexString: tint) {
                     return hexColor.colorString(hashPrefix: false)
                 }
@@ -1062,7 +1066,8 @@ extension FairCommand {
             let iconColor = try parseTintIconColor()
 
             var symbolNames = iconOptions.iconSymbol
-            if let symbolName = try projectOptions.buildSettings()?["ICON_SYMBOL"] {
+            let settings = try projectOptions.buildSettings()
+            if let symbolName = settings["ICON_SYMBOL"] {
                 symbolNames.append(symbolName)
             }
 
@@ -1136,7 +1141,9 @@ extension FairCommand {
         }
 
         func parseTintIconColor() throws -> Color? {
-            if let tint = try projectOptions.buildSettings()?["ICON_TINT"] {
+            let settings = try projectOptions.buildSettings()
+
+            if let tint = settings["ICON_TINT"] {
                 if let hexColor = HexColor(hexString: tint) {
                     return hexColor.sRGBColor()
                 }

@@ -41,7 +41,7 @@ final class FairToolTests: XCTestCase {
     #if os(macOS)
     func testToolVersion() async throws {
         let result = try await invokeTool(["version"])
-        XCTAssertEqual(result.stderr.utf8String, "fairtool \(Bundle.fairCoreVersion?.versionStringExtended ?? "")\n")
+        XCTAssertEqual(result.stderr.utf8String, "fairtool \(Bundle.fairCoreVersion?.versionString ?? "")\n")
     }
 
     /// Verifies that the "fairtool app info" command will output valid JSON that correctly identifies the app.

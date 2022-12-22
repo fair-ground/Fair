@@ -35,6 +35,19 @@ import FairExpo
 import FairApp
 import ArgumentParser
 
+public struct FairConfigureOutput : FairCommandOutput, Decodable {
+    public var productName: String
+    public var version: AppVersion
+    public var buildNumber: Int
+}
+
+extension AppVersion.Component : ExpressibleByArgument {
+}
+
+extension AppVersion : ExpressibleByArgument {
+}
+
+
 public struct AppCommand : AsyncParsableCommand {
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "app",
@@ -43,16 +56,88 @@ public struct AppCommand : AsyncParsableCommand {
 #if os(macOS)
     static let subcommands: [ParsableCommand.Type] = [
         InfoCommand.self,
+        ConfigureCommand.self,
         RefreshCommand.self,
         LocalizeCommand.self,
     ]
 #else
     static let subcommands: [ParsableCommand.Type] = [
         InfoCommand.self,
+        ConfigureCommand.self,
     ]
 #endif
 
     public init() {
+    }
+
+    public struct ConfigureCommand: FairProjectCommand, FairStructuredCommand {
+        public static let experimental = false
+        public static var configuration = CommandConfiguration(commandName: "configure", abstract: "Update build appfair.xcconfig settings.", shouldDisplay: !experimental)
+
+        public typealias Output = FairConfigureOutput
+
+        @OptionGroup public var msgOptions: MsgOptions
+        @OptionGroup public var projectOptions: ProjectOptions
+
+        @Option(name: [.long], help: ArgumentHelp("Set the app name", valueName: "name"))
+        public var name: String?
+
+        @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "bump"))
+        public var bump: AppVersion.Component?
+
+        @Option(name: [.long], help: ArgumentHelp("Set the build number"))
+        public var buildNumber: Int?
+
+        @Option(name: [.long], help: ArgumentHelp("Set a specific version", valueName: "semver"))
+        public var version: AppVersion?
+
+        public init() {
+        }
+
+        public func executeCommand() -> AsyncThrowingStream<FairConfigureOutput, Error> {
+            msg(.debug, "getting info from project:", projectOptions.projectPathFlag)
+            warnExperimental(Self.experimental)
+            let projects = [URL(fileURLWithPath: projectOptions.projectPathFlag)]
+            return executeStream(projects, block: configureCommand)
+        }
+
+        public func configureCommand(_ url: URL) throws -> Output {
+            let origSettings = try projectOptions.buildSettings()
+            var settings = origSettings
+
+            guard let appVersion = settings.appVersion else {
+                throw AppError(String(format: NSLocalizedString("No app version in build config", bundle: .module, comment: "error message")))
+            }
+            if let bump = self.version ?? self.bump.flatMap(appVersion.bumping) {
+                msg(.info, self.version == nil ? "bumping" : "setting", "version from:", appVersion.versionString, "to:", bump.versionString)
+                settings.appVersion = bump
+            }
+
+
+            guard let productName = settings.productName else {
+                throw AppError(String(format: NSLocalizedString("No app version in build config", bundle: .module, comment: "error message")))
+            }
+            if let name = self.name {
+                msg(.info, "setting name from:", productName, "to:", name)
+                settings.productName = name
+            }
+
+            guard let buildNumber = settings.buildNumber else {
+                throw AppError(String(format: NSLocalizedString("No build number in build config", bundle: .module, comment: "error message")))
+            }
+            if let build = self.buildNumber {
+                msg(.info, "setting build number from:", buildNumber, "to:", build)
+                settings.buildNumber = build
+            }
+
+            // when the settings have changed, try to save them
+            if settings != origSettings {
+                msg(.info, "saving settings to:", projectOptions.settingsPath.path)
+                try settings.save(to: projectOptions.settingsPath)
+            }
+
+            return FairConfigureOutput(productName: settings.productName ?? productName, version: settings.appVersion ?? appVersion, buildNumber: settings.buildNumber ?? buildNumber)
+        }
     }
 
     public struct InfoCommand: FairProjectCommand, FairStructuredCommand {
@@ -146,7 +231,7 @@ fileprivate extension FairProjectCommand {
             throw AppError(String(format: NSLocalizedString("Project folder expected to be a git repository, but it does not contain a .git/FETCH_HEAD file", bundle: .module, comment: "error message")))
         }
 
-        let config = try EnvFile(url: gitConfigPath)
+        let config = try GitConfig(url: gitConfigPath)
 
         guard let origin = config["url", section: #"remote "origin""#],
               let originURL = URL(string: origin) else {
