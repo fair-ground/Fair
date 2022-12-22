@@ -40,6 +40,7 @@ public struct FairConfigureOutput : FairCommandOutput, Decodable {
     public var bundleIdentifier: String?
     public var version: AppVersion?
     public var buildNumber: Int?
+    public var supportedPlatforms: String?
 }
 
 extension AppVersion.Component : ExpressibleByArgument {
@@ -85,6 +86,9 @@ public struct AppCommand : AsyncParsableCommand {
 
         @Option(name: [.long], help: ArgumentHelp("Set the bundle identifier"))
         public var id: String?
+
+        @Option(name: [.long], help: ArgumentHelp("Set the supported platforms"))
+        public var platforms: String?
 
         @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "component"))
         public var bump: AppVersion.Component?
@@ -133,13 +137,19 @@ public struct AppCommand : AsyncParsableCommand {
                 settings.bundleIdentifier = id
             }
 
+            let supportedPlatforms = settings.supportedPlatforms
+            if let platforms = self.platforms {
+                msg(.info, "setting platforms from:", supportedPlatforms, "to:", platforms)
+                settings.supportedPlatforms = platforms
+            }
+
             // when the settings have changed, try to save them
             if settings != origSettings {
                 msg(.info, "saving settings to:", projectOptions.settingsPath.path)
                 try settings.save(to: projectOptions.settingsPath)
             }
 
-            return FairConfigureOutput(productName: settings.productName ?? productName, bundleIdentifier: settings.bundleIdentifier ?? id, version: settings.appVersion ?? appVersion, buildNumber: settings.buildNumber ?? buildNumber)
+            return FairConfigureOutput(productName: settings.productName ?? productName, bundleIdentifier: settings.bundleIdentifier ?? id, version: settings.appVersion ?? appVersion, buildNumber: settings.buildNumber ?? buildNumber, supportedPlatforms: settings.supportedPlatforms ?? supportedPlatforms)
         }
     }
 

@@ -678,6 +678,11 @@ final class FairCommandTests: XCTestCase {
             XCTAssertEqual("app.Another-App", output.bundleIdentifier)
         }
 
+        do {
+            let output = try await checkProject("--platforms", "macosx iphoneos iphonesimulator")
+            XCTAssertEqual("macosx iphoneos iphonesimulator", output.supportedPlatforms)
+        }
+
         XCTAssertEqual("""
         // This is the name of the app
         PRODUCT_NAME = Another App
@@ -688,6 +693,7 @@ final class FairCommandTests: XCTestCase {
         // This is the build number of the app
         CURRENT_PROJECT_VERSION = 989
         PRODUCT_BUNDLE_IDENTIFIER = app.Another-App
+        SUPPORTED_PLATFORMS = macosx iphoneos iphonesimulator
         """, try String(contentsOf: xcconfig, encoding: .utf8), "comments should be preserved when updating env")
     }
 }
