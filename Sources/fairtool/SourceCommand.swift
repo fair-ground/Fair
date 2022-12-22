@@ -37,7 +37,7 @@ import ArgumentParser
 
 public struct SourceCommand : AsyncParsableCommand {
     public struct IndexingOptions: ParsableArguments {
-        @Option(name: [.long], help: ArgumentHelp("Catalog index markdown file to generate."))
+        @Option(name: [.long], help: ArgumentHelp("Catalog index markdown file to generate"))
         public var markdownIndex: String?
 
         public init() { }
@@ -64,28 +64,28 @@ public struct SourceCommand : AsyncParsableCommand {
     }
 
     public struct NewsOptions: ParsableArguments, NewsItemFormat {
-        @Option(name: [.long], help: ArgumentHelp("The post title format.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The post title format", valueName: "format"))
         public var postTitle: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The post title format for updates.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The post title format for updates", valueName: "format"))
         public var postTitleUpdate: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The post caption format for new releases.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The post caption format for new releases", valueName: "format"))
         public var postCaption: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The post caption format for updates.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The post caption format for updates", valueName: "format"))
         public var postCaptionUpdate: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The post body format.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The post body format", valueName: "format"))
         public var postBody: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The tweet body format.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The tweet body format", valueName: "format"))
         public var tweetBody: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The app id for the post.", valueName: "appid"))
+        @Option(name: [.long], help: ArgumentHelp("The app id for the post", valueName: "appid"))
         public var postAppID: String?
 
-        @Option(name: [.long], help: ArgumentHelp("The post URL format.", valueName: "format"))
+        @Option(name: [.long], help: ArgumentHelp("The post URL format", valueName: "format"))
         public var postURL: String?
 
         public init() { }
@@ -94,7 +94,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
     public static let experimental = false
     public static var configuration = CommandConfiguration(commandName: "source",
-                                                           abstract: "App source catalog management commands.",
+                                                           abstract: "App source catalog management commands",
                                                            shouldDisplay: !experimental,
                                                            subcommands: [
                                                             CreateCommand.self,
@@ -110,7 +110,7 @@ public struct SourceCommand : AsyncParsableCommand {
         public typealias Output = AppCatalogItem
 
         public static var configuration = CommandConfiguration(commandName: "create",
-                                                               abstract: "Create a source from the specified .ipa or .zip.",
+                                                               abstract: "Create a source from the specified .ipa or .zip",
                                                                shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
 
@@ -180,12 +180,12 @@ public struct SourceCommand : AsyncParsableCommand {
         public typealias Output = AppCatalogAPI.AppCatalogVerifyResult
 
         public static var configuration = CommandConfiguration(commandName: "verify",
-                                                               abstract: "Verify the files in the specified catalog JSON.",
+                                                               abstract: "Verify the files in the specified catalog JSON",
                                                                shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var downloadOptions: DownloadOptions
 
-        @Option(name: [.long], help: ArgumentHelp("Verify only the specified bundle ID(s).", valueName: "id"))
+        @Option(name: [.long], help: ArgumentHelp("Verify only the specified bundle ID(s)", valueName: "id"))
         public var bundleID: Array<String> = []
 
         @Argument(help: ArgumentHelp("Path or url for catalog", valueName: "path", visibility: .default))
@@ -219,7 +219,7 @@ public struct SourceCommand : AsyncParsableCommand {
         public typealias Output = AppNewsPost
 
         public static var configuration = CommandConfiguration(commandName: "postrelease",
-                                                               abstract: "Compare sources and post app version changes.",
+                                                               abstract: "Compare sources and post app version changes",
                                                                shouldDisplay: !experimental)
         @OptionGroup public var msgOptions: MsgOptions
         @OptionGroup public var outputOptions: OutputOptions
@@ -227,16 +227,16 @@ public struct SourceCommand : AsyncParsableCommand {
         @OptionGroup public var newsOptions: NewsOptions
         @OptionGroup public var tweetOptions: TweetOptions
 
-        @Option(name: [.long], help: ArgumentHelp("The source catalog.", valueName: "src"))
+        @Option(name: [.long], help: ArgumentHelp("The source catalog", valueName: "src"))
         public var fromCatalog: String
 
-        @Option(name: [.long], help: ArgumentHelp("The destination catalog.", valueName: "dest"))
+        @Option(name: [.long], help: ArgumentHelp("The destination catalog", valueName: "dest"))
         public var toCatalog: String
 
-        @Option(name: [.long], help: ArgumentHelp("Limit number of news items.", valueName: "limit"))
+        @Option(name: [.long], help: ArgumentHelp("Limit number of news items", valueName: "limit"))
         public var newsItems: Int?
 
-        @Flag(name: [.long], help: ArgumentHelp("Update version date for new versions.", valueName: "update"))
+        @Flag(name: [.long], help: ArgumentHelp("Update version date for new versions", valueName: "update"))
         public var updateVersionDate: Bool = false
 
         public init() { }
