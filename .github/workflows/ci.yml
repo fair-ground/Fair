@@ -70,12 +70,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Run fairtool
-        run: xcrun swift run fairtool version
-
-      - name: Fair Tests
-        run: xcrun swift test --parallel
  
       - name: Test iOS (Debug)
         run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro" -parallel-testing-enabled YES
@@ -88,6 +82,12 @@ jobs:
 
       - name: Test macOS (Release)
         run: xcodebuild test -configuration Release -scheme "Fair-Package" -sdk "macosx" -destination "platform=macosx" -parallel-testing-enabled YES
+
+      - name: Test Package
+        run: xcrun swift test --parallel
+
+      - name: Run fairtool
+        run: xcrun swift run fairtool version
 
       - name: Check fairtool formula
         run: |
