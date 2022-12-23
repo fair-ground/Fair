@@ -107,7 +107,9 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/invalidVerification(_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/mismatchedEmail(_:_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/missingFairsealIssuer",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/noAppOrg(_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/noAuthor(_:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/noPRFound(_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/noVerification(_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/notTopLevelURL(_:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/repoInvalid(_:_:_:)",
@@ -661,6 +663,44 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/errors\/missingfairsealissuer"
 },
+"doc://FairExpo/documentation/FairExpo/FairHub/Errors/noAppOrg(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "noAppOrg"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairExpo0A4SealV",
+      "text" : "FairSeal"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/noAppOrg(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairHub.Errors.noAppOrg(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/errors\/noapporg(_:)"
+},
 "doc://FairExpo/documentation/FairExpo/FairHub/Errors/noAuthor(_:)": {
   "abstract" : [
 
@@ -707,6 +747,44 @@
   "title" : "FairHub.Errors.noAuthor(_:)",
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/errors\/noauthor(_:)"
+},
+"doc://FairExpo/documentation/FairExpo/FairHub/Errors/noPRFound(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "noPRFound"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/Errors\/noPRFound(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "FairHub.Errors.noPRFound(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairexpo\/fairhub\/errors\/noprfound(_:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/Errors/noVerification(_:)": {
   "abstract" : [

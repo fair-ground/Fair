@@ -1054,26 +1054,37 @@ extension FairHub {
     }
 
     /// Posts the fairseal to the most recent open PR that matches the download URL's appOrg
-    public func postFairseal(_ fairseal: FairSeal, owner: String, baseRepository: String) async throws -> URL? {
+    public func postFairseal(_ fairseal: FairSeal, owner: String, baseRepository: String, issueNumber: Int?) async throws -> URL {
         guard let appOrg = fairseal.appOrg else {
             dbg("no app org for seal:", fairseal)
-            return nil
+            throw Errors.noAppOrg(fairseal)
         }
 
         let nameWithOwner = appOrg + "/" + baseRepository
 
-        let lookupPRsRequest = FindPullRequests(owner: owner, name: baseRepository, state: .OPEN)
-        let appPR = try await self.requestBatches(lookupPRsRequest) { resultIndex, urlResponse, batch in
-            try batch.result.get().data.repository.pullRequests.nodes.first { edge in
-                edge.state == .OPEN
-                //&& edge.mergeable != "CONFLICTING"
-                && edge.headRepository?.nameWithOwner == (nameWithOwner)
-            }
-        }
+        let prid = try await fetchPRID()
+        func fetchPRID() async throws -> FairHub.OID {
+            if let issueNumber = issueNumber {
+                // the issue number was explicitly specified; look up the PR issue by number
+                return try await self.request(LookupPRNumberQuery(owner: owner, name: baseRepository, prid: issueNumber)).get().data.repository.pullRequest.id
+            } else {
+                // with no issue number specified, search through the open PR requests for the correct issue
+                let lookupPRsRequest = FindPullRequests(owner: owner, name: baseRepository, state: .OPEN)
+                let appPR = try await self.requestBatches(lookupPRsRequest) { resultIndex, urlResponse, batch in
+                    try batch.result.get().data.repository.pullRequests.nodes.first { edge in
+                        edge.state == .OPEN
+                        //&& edge.mergeable != "CONFLICTING"
+                        && edge.headRepository?.nameWithOwner == (nameWithOwner)
+                    }
+                }
 
-        guard let appPR = appPR else {
-            dbg("no PRs found for \(appOrg)")
-            return nil
+                guard let appPR = appPR else {
+                    dbg("no PRs found for \(appOrg)")
+                    throw Errors.noPRFound(appOrg)
+                }
+
+                return appPR.id
+            }
         }
 
         var signedSeal = fairseal
@@ -1084,7 +1095,7 @@ extension FairHub {
 
         let sealJSON = try signedSeal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
         let sealComment = "```\n" + (sealJSON.utf8String ?? "") + "\n```"
-        let postResponse = try await self.request(PostCommentQuery(id: appPR.id, comment: sealComment)).get()
+        let postResponse = try await self.request(PostCommentQuery(id: prid, comment: sealComment)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
 
         dbg("posted fairseal for:", fairseal.assets?.first?.url.absoluteString, "to:", sealCommentURL.absoluteString)
@@ -1123,6 +1134,7 @@ extension FairHub {
     public enum Errors : LocalizedError {
         case emptyAuthToken
         case badHostOrg(String)
+        case noPRFound(String)
         case emptyOrganization(URL)
         case notTopLevelURL(URL)
         case badURLScheme(URL)
@@ -1135,11 +1147,13 @@ extension FairHub {
         case valueDenied(String?)
         case mismatchedEmail(String?, String?)
         case invalidSealHash(String?)
+        case noAppOrg(FairSeal)
         case repoInvalid(_ reasons: AppOrgValidationFailure, _ org: String, _ repo: String)
         case missingFairsealIssuer
 
         public var errorDescription: String? {
             switch self {
+            case .noAppOrg: return "No app organization"
             case .emptyAuthToken: return "No authorization token specified"
             case .badHostOrg(let string): return "Invalid fairground host/org: \(string)"
             case .emptyOrganization(let url): return "Missing organization name in URL: \"\(url.absoluteString)\""
@@ -1156,6 +1170,7 @@ extension FairHub {
             case .invalidSealHash(let hash): return "The fair seal hash has an invalid number of characters: \(hash?.count ?? 0)"
             case .repoInvalid(let reasons, let org, let repo): return "The repository \"\(org)/\(repo)\" is invalid because: \(reasons)"
             case .missingFairsealIssuer: return "Missing fairseal-issuer flag"
+            case .noPRFound(_): return "No PR found"
             }
         }
     }

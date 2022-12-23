@@ -156,7 +156,7 @@
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildAppCatalog(title:identifier:owner:sourceURL:baseRepository:fairsealCheck:artifactTarget:configuration:requestLimit:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/buildFundingSources(owner:baseRepository:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/endpoint(action:_:)",
-        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/postFairseal(_:owner:baseRepository:)",
+        "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/postFairseal(_:owner:baseRepository:issueNumber:)",
         "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/validate(org:configuration:)"
       ],
       "title" : "Instance Methods"
@@ -2576,7 +2576,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairexpo\/fairhub\/org"
 },
-"doc://FairExpo/documentation/FairExpo/FairHub/postFairseal(_:owner:baseRepository:)": {
+"doc://FairExpo/documentation/FairExpo/FairHub/postFairseal(_:owner:baseRepository:issueNumber:)": {
   "abstract" : [
     {
       "text" : "Posts the fairseal to the most recent open PR that matches the download URL’s appOrg",
@@ -2641,7 +2641,24 @@
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "issueNumber"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
     },
     {
       "kind" : "keyword",
@@ -2663,18 +2680,14 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10Foundation3URLV",
       "text" : "URL"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/postFairseal(_:owner:baseRepository:)",
+  "identifier" : "doc:\/\/FairExpo\/documentation\/FairExpo\/FairHub\/postFairseal(_:owner:baseRepository:issueNumber:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "postFairseal(_:owner:baseRepository:)",
+  "title" : "postFairseal(_:owner:baseRepository:issueNumber:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairexpo\/fairhub\/postfairseal(_:owner:baserepository:)"
+  "url" : "\/documentation\/fairexpo\/fairhub\/postfairseal(_:owner:baserepository:issuenumber:)"
 },
 "doc://FairExpo/documentation/FairExpo/FairHub/serviceURL": {
   "abstract" : [
