@@ -520,6 +520,9 @@ extension FairCommand {
             @Option(name: [.long], help: ArgumentHelp("The disassembler to use for comparing binaries.", valueName: "cmd"))
             public var disassembler: String?
 
+            @Option(name: [.long], help: ArgumentHelp("The issue number for posting the fairseal."))
+            public var postIssue: Int?
+
             public init() { }
         }
 
@@ -844,19 +847,15 @@ extension FairCommand {
 
             // if we specify a hub, then attempt to post the fairseal to the first open PR for that project
             msg(.info, "posting fairseal for artifact:", assets.first?.url.absoluteString, "JSON:", try fairseal.debugJSON)
-            if let postURL = try await hubOptions.fairHub().postFairseal(fairseal, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo) {
-                msg(.info, "posted fairseal to:", postURL.absoluteString)
-            } else {
-                msg(.warn, "unable to post fairseal")
-            }
-
+            let postURL = try await hubOptions.fairHub().postFairseal(fairseal, owner: hubOptions.organizationName, baseRepository: hubOptions.baseRepo, issueNumber: sealOptions.postIssue)
+            msg(.info, "posted fairseal to:", postURL.absoluteString)
         }
 
         func parseTintColor() throws -> String? {
             // first check the `appfair.xcconfig` file for customization
             let settings = try projectOptions.buildSettings()
 
-            if let tint = try settings["ICON_TINT"] {
+            if let tint = settings["ICON_TINT"] {
                 if let hexColor = HexColor(hexString: tint) {
                     return hexColor.colorString(hashPrefix: false)
                 }
