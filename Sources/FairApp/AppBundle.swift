@@ -130,7 +130,7 @@ public enum AppBundleLoader {
 }
 
 /// An alias for `Semver`
-public typealias AppVersion = Semver
+public typealias AppVersion = SemVer
 
 extension AppBundle {
     func loadInfo() async throws -> (info: Plist, entitlements: [AppEntitlements]?) {
@@ -205,7 +205,7 @@ extension AppBundle {
         func loadInfoPlist(from node: Source.Path) async throws -> (Plist, parent: Source.Path, node: Source.Path)? {
             //dbg("attempting to load Info.plist from:", node.pathName)
             let contents = try source.nodes(at: node)
-            guard let infoNode = try contents.first(where: { $0.pathComponents.last == "Info.plist" }) else {
+            guard let infoNode = contents.first(where: { $0.pathComponents.last == "Info.plist" }) else {
                 // dbg("missing Info.plist node from:", contents.map(\.pathName))
                 return nil
             }
@@ -227,7 +227,7 @@ extension AppBundle {
             // dbg("contentsNode", contentsNode)
             // check the "Contents/Info.plist" convention (macOS)
             return try await loadInfoPlist(from: contentsNode)
-        } else if let infoNode = try rootNodes.first(where: { $0.pathName == "Info.plist"}) {
+        } else if let infoNode = rootNodes.first(where: { $0.pathName == "Info.plist"}) {
             return try (await loadPlist(from: infoNode), parent: nil, node: infoNode)
         } else {
             for payloadNode in try rootFolders(named: ["Payload", "Wrapper"]) {

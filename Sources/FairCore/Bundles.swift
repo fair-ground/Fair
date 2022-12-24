@@ -68,7 +68,7 @@ public extension Bundle {
     var bundleVersionString: String? { self[info: .CFBundleShortVersionString] }
 
     /// The `CFBundleShortVersionString` converted to an AppVersion. Note that these are always considered non-prerelease since the prerelease flag is an ephemeral part of the hub's release, and is not indicated in the app's plist in any way
-    var bundleVersion: Semver? { bundleVersionString.flatMap({ Semver(string: $0) }) }
+    var bundleVersion: SemVer? { bundleVersionString.flatMap({ SemVer(string: $0) }) }
 
     /// The name of the package's app/org, which is the bundle's name with hyphens for spaces
     var appOrgName: String? {
@@ -89,7 +89,7 @@ extension Bundle {
     public static let fairCoreInfo = Plist(rawValue: Info as NSDictionary) // Info should be generated manually with: plutil -convert swift Info.plist
 
     /// The version of the FairCore library in use
-    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap(Semver.init(string:))
+    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap(SemVer.init(string:))
 
     /// Returns all the URLs in the given asset path of the bundle
     public func assetPaths(in folder: String, includeLinks: Bool, includeFolders: Bool) throws -> [URL] {
@@ -251,11 +251,11 @@ public struct PropertyListKey : RawCodable {
 /// A semantic version of an app with a `major`, `minor`, and `patch` component.
 ///
 /// E.g.: `1.0.0-alpha.beta`
-public struct Semver : Sendable, Hashable, Codable, Comparable, RawRepresentable {
+public struct SemVer : Sendable, Hashable, Codable, Comparable, RawRepresentable {
     /// The lowest possible version that can exist
-    public static let min = Semver(major: .min, minor: .min, patch: .min, prerelease: nil, build: nil)
+    public static let min = SemVer(major: .min, minor: .min, patch: .min, prerelease: nil, build: nil)
     /// The highest possible version that can exist
-    public static let max = Semver(major: .max, minor: .max, patch: .max, prerelease: nil, build: nil)
+    public static let max = SemVer(major: .max, minor: .max, patch: .max, prerelease: nil, build: nil)
 
     public let major, minor, patch: UInt
 
@@ -289,7 +289,7 @@ public struct Semver : Sendable, Hashable, Codable, Comparable, RawRepresentable
     /// Increments the given component of the semantic version by the given amount.
     /// - Parameter component: the `.major`, `.minor`, or `.patch` component to bump
     /// - Returns: the version after bumping the given component
-    public func bumping(_ component: Component) -> Semver {
+    public func bumping(_ component: Component) -> SemVer {
         var (major, minor, patch) = (major, minor, patch)
         switch component {
         case .major:
@@ -302,7 +302,7 @@ public struct Semver : Sendable, Hashable, Codable, Comparable, RawRepresentable
         case .patch:
             patch += 1
         }
-        return Semver(major: major, minor: minor, patch: patch)
+        return SemVer(major: major, minor: minor, patch: patch)
     }
 
     private static let semverRE = try! NSRegularExpression(pattern: #"^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"#, options: [])
@@ -355,10 +355,10 @@ public struct Semver : Sendable, Hashable, Codable, Comparable, RawRepresentable
 
         //dbg("parsing version:", major, minor, patch)
 
-        return Semver(major: major, minor: minor, patch: patch, prerelease: prerelease, build: buildmetadata)
+        return SemVer(major: major, minor: minor, patch: patch, prerelease: prerelease, build: buildmetadata)
     }
 
-    public static func < (lhs: Semver, rhs: Semver) -> Bool {
+    public static func < (lhs: SemVer, rhs: SemVer) -> Bool {
         lhs.major < rhs.major
             || (lhs.major == rhs.major && lhs.minor < rhs.minor)
             || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch < rhs.patch)

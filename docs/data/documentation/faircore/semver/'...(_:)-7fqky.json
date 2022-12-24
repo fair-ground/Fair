@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Comparable.>=(_:_:)",
+      "code" : "Comparable....(_:)",
       "type" : "codeVoice"
     },
     {
@@ -17,19 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Comparable-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Comparable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/_=(_:_:)-99nvx"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/...(_:)-7fqky"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:SLsE2geoiySbx_xtFZ::SYNTHESIZED::s:8FairCore6SemverV",
+    "externalID" : "s:SLsE3zzzopys19PartialRangeThroughVyxGxFZ::SYNTHESIZED::s:8FairCore6SemVerV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,7 +49,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : ">="
+        "text" : "..."
       },
       {
         "kind" : "text",
@@ -65,7 +65,16 @@
       },
       {
         "kind" : "text",
-        "text" : ", "
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s19PartialRangeThroughV",
+        "text" : "PartialRangeThrough"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
       },
       {
         "kind" : "typeIdentifier",
@@ -73,12 +82,7 @@
       },
       {
         "kind" : "text",
-        "text" : ") -> "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Sb",
-        "text" : "Bool"
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -89,7 +93,7 @@
     "role" : "symbol",
     "roleHeading" : "Operator",
     "symbolKind" : "op",
-    "title" : ">=(_:_:)"
+    "title" : "...(_:)"
   },
   "primaryContentSections" : [
     {
@@ -120,7 +124,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : ">="
+              "text" : "..."
             },
             {
               "kind" : "text",
@@ -132,23 +136,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "lhs"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Self"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "internalParam",
-              "text" : "rhs"
+              "text" : "maximum"
             },
             {
               "kind" : "text",
@@ -164,8 +152,20 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Sb",
-              "text" : "Bool"
+              "preciseIdentifier" : "s:s19PartialRangeThroughV",
+              "text" : "PartialRangeThrough"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
             }
           ]
         }
@@ -184,7 +184,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/semver\/_=(_:_:)-99nvx"
+        "\/documentation\/faircore\/semver\/'...(_:)-7fqky"
       ],
       "traits" : [
         {
@@ -209,7 +209,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/Semver": {
+"doc://FairCore/documentation/FairCore/SemVer": {
   "abstract" : [
     {
       "text" : "A semantic version of an app with a ",
@@ -251,34 +251,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Semver"
+      "text" : "SemVer"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Semver"
+      "text" : "SemVer"
     }
   ],
   "role" : "symbol",
-  "title" : "Semver",
+  "title" : "SemVer",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/semver"
 },
-"doc://FairCore/documentation/FairCore/Semver/Comparable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Comparable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Comparable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/comparable-implementations"
-},
-"doc://FairCore/documentation/FairCore/Semver/_=(_:_:)-99nvx": {
+"doc://FairCore/documentation/FairCore/SemVer/...(_:)-7fqky": {
   "abstract" : [
 
   ],
@@ -301,7 +290,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : ">="
+      "text" : "..."
     },
     {
       "kind" : "text",
@@ -317,7 +306,16 @@
     },
     {
       "kind" : "text",
-      "text" : ", "
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s19PartialRangeThroughV",
+      "text" : "PartialRangeThrough"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -325,20 +323,26 @@
     },
     {
       "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/_=(_:_:)-99nvx",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/...(_:)-7fqky",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : ">=(_:_:)",
+  "title" : "...(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/_=(_:_:)-99nvx"
+  "url" : "\/documentation\/faircore\/semver\/'...(_:)-7fqky"
+},
+"doc://FairCore/documentation/FairCore/SemVer/Comparable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Comparable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Comparable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/semver\/comparable-implementations"
 }
 }
 }

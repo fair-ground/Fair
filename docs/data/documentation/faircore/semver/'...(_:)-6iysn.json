@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the canonical form of the JSON.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Comparable....(_:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -10,22 +18,30 @@
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
         "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Encodable-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Comparable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/canonicalJSON"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/...(_:)-6iysn"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE13canonicalJSONSSvp::SYNTHESIZED::s:8FairCore6SemVerV",
+    "externalID" : "s:SLsE3zzzoPys16PartialRangeFromVyxGxFZ::SYNTHESIZED::s:8FairCore6SemVerV",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "func"
       },
       {
         "kind" : "text",
@@ -33,16 +49,40 @@
       },
       {
         "kind" : "identifier",
-        "text" : "canonicalJSON"
+        "text" : "..."
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : " "
+      },
+      {
+        "kind" : "text",
+        "text" : "("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:s16PartialRangeFromV",
+        "text" : "PartialRangeFrom"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : ">"
       }
     ],
     "modules" : [
@@ -51,9 +91,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "canonicalJSON"
+    "roleHeading" : "Operator",
+    "symbolKind" : "op",
+    "title" : "...(_:)"
   },
   "primaryContentSections" : [
     {
@@ -68,7 +108,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "func"
             },
             {
               "kind" : "text",
@@ -76,7 +124,19 @@
             },
             {
               "kind" : "identifier",
-              "text" : "canonicalJSON"
+              "text" : "..."
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "minimum"
             },
             {
               "kind" : "text",
@@ -84,58 +144,33 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
+              "text" : "Self"
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : ") -> "
             },
             {
-              "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s16PartialRangeFromV",
+              "text" : "PartialRangeFrom"
             },
             {
               "kind" : "text",
-              "text" : " }"
+              "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : ">"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The encoder replicates JSON Canonical form ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-              "isActive" : true,
-              "type" : "reference"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -149,7 +184,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/semver\/canonicaljson"
+        "\/documentation\/faircore\/semver\/'...(_:)-6iysn"
       ],
       "traits" : [
         {
@@ -232,28 +267,22 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/semver"
 },
-"doc://FairCore/documentation/FairCore/SemVer/Encodable-Implementations": {
+"doc://FairCore/documentation/FairCore/SemVer/...(_:)-6iysn": {
   "abstract" : [
 
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Encodable-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : "Encodable Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/encodable-implementations"
-},
-"doc://FairCore/documentation/FairCore/SemVer/canonicalJSON": {
-  "abstract" : [
-    {
-      "text" : "Returns the canonical form of the JSON.",
-      "type" : "text"
-    }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -261,36 +290,59 @@
     },
     {
       "kind" : "identifier",
-      "text" : "canonicalJSON"
+      "text" : "..."
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s16PartialRangeFromV",
+      "text" : "PartialRangeFrom"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/canonicalJSON",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/...(_:)-6iysn",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "canonicalJSON",
+  "title" : "...(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/canonicaljson"
+  "url" : "\/documentation\/faircore\/semver\/'...(_:)-6iysn"
 },
-"https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html": {
-  "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-  "title" : "JSON Canonicalization Scheme (JCS)",
-  "titleInlineContent" : [
-    {
-      "text" : "JSON Canonicalization Scheme (JCS)",
-      "type" : "text"
-    }
+"doc://FairCore/documentation/FairCore/SemVer/Comparable-Implementations": {
+  "abstract" : [
+
   ],
-  "type" : "link",
-  "url" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html"
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Comparable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Comparable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/semver\/comparable-implementations"
 }
 }
 }

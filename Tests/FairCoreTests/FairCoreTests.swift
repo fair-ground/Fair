@@ -126,7 +126,7 @@ final class FairCoreTests: XCTestCase {
     }
 
     func testAppVersionParsing() {
-        let versionString = { Semver(string: $0)?.versionString }
+        let versionString = { SemVer(string: $0)?.versionString }
 
         XCTAssertEqual(nil, versionString(""))
         XCTAssertEqual(nil, versionString(" "))
@@ -145,8 +145,8 @@ final class FairCoreTests: XCTestCase {
 
         // test semantic version sorting
         // https://semver.org/#spec-item-11
-        let parse = { try XCTUnwrap(Semver(string: $0)) }
-        let roundtrip = { XCTAssertEqual($0, Semver(string: $0)?.versionString) }
+        let parse = { try XCTUnwrap(SemVer(string: $0)) }
+        let roundtrip = { XCTAssertEqual($0, SemVer(string: $0)?.versionString) }
 
         // 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7, 1.0.0-x.7.z.92, 1.0.0-x-y-z
         roundtrip("1.0.0-alpha")
@@ -433,7 +433,7 @@ final class FairCoreTests: XCTestCase {
     func testFairCoreVersion() throws {
         let version = try XCTUnwrap(Bundle.fairCoreVersion)
         dbg("loaded fairCoreVersion:", version.versionString)
-        XCTAssertGreaterThan(version, Semver(major: 0, minor: 1, patch: 0))
+        XCTAssertGreaterThan(version, SemVer(major: 0, minor: 1, patch: 0))
 
         // shows the difference between the auto-generated bundle's infoDictionary and the FairCore.plist
         // XCTAssertEqual("Fair-FairCore-resources", Bundle.fairCore.infoDictionary?["CFBundleIdentifier"] as? String) // this doesn't seem to happen on CI

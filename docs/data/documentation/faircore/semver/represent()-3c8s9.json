@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "RawInitializable",
+      "code" : "RawRepresentable",
       "type" : "codeVoice"
     },
     {
@@ -17,20 +17,19 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Component",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Component\/Equatable-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Equatable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Component\/represent()-47myj"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/represent()-3c8s9"
   },
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:SQ8FairCoreE9representqd__y8RawValueQyd__RszAA0D13InitializableRd__lF::SYNTHESIZED::s:8FairCore6SemverV9ComponentO",
+    "externalID" : "s:SQ8FairCoreE9representqd__Sgy8RawValueQyd__RszSYRd__lF::SYNTHESIZED::s:8FairCore6SemVerV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -59,6 +58,10 @@
       {
         "kind" : "typeIdentifier",
         "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -112,7 +115,7 @@
             },
             {
               "kind" : "text",
-              "text" : " "
+              "text" : "? "
             },
             {
               "kind" : "keyword",
@@ -155,10 +158,9 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore16RawInitializableP",
-              "text" : "RawInitializable"
+              "preciseIdentifier" : "s:SY",
+              "text" : "RawRepresentable"
             }
           ]
         }
@@ -180,7 +182,7 @@
               "type" : "text"
             },
             {
-              "code" : "RawInitializable",
+              "code" : "RawRepresentable",
               "type" : "codeVoice"
             },
             {
@@ -205,7 +207,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/semver\/component\/represent()-47myj"
+        "\/documentation\/faircore\/semver\/represent()-3c8s9"
       ],
       "traits" : [
         {
@@ -230,41 +232,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/RawInitializable": {
-  "abstract" : [
-    {
-      "text" : "A type that permits items to be initialized non-optionally",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "RawInitializable"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "RawInitializable"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RawInitializable",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/rawinitializable"
-},
-"doc://FairCore/documentation/FairCore/Semver": {
+"doc://FairCore/documentation/FairCore/SemVer": {
   "abstract" : [
     {
       "text" : "A semantic version of an app with a ",
@@ -306,72 +274,41 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Semver"
+      "text" : "SemVer"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Semver"
+      "text" : "SemVer"
     }
   ],
   "role" : "symbol",
-  "title" : "Semver",
+  "title" : "SemVer",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/semver"
 },
-"doc://FairCore/documentation/FairCore/Semver/Component": {
+"doc://FairCore/documentation/FairCore/SemVer/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Component",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Component"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Semver.Component",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/component"
-},
-"doc://FairCore/documentation/FairCore/Semver/Component/Equatable-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Component\/Equatable-Implementations",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/component\/equatable-implementations"
+  "url" : "\/documentation\/faircore\/semver\/equatable-implementations"
 },
-"doc://FairCore/documentation/FairCore/Semver/Component/represent()-47myj": {
+"doc://FairCore/documentation/FairCore/SemVer/represent()-3c8s9": {
   "abstract" : [
     {
       "text" : "Wraps this instance in the ",
       "type" : "text"
     },
     {
-      "code" : "RawInitializable",
+      "code" : "RawRepresentable",
       "type" : "codeVoice"
     },
     {
@@ -407,14 +344,18 @@
     {
       "kind" : "typeIdentifier",
       "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/Component\/represent()-47myj",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/represent()-3c8s9",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "represent()",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/component\/represent()-47myj"
+  "url" : "\/documentation\/faircore\/semver\/represent()-3c8s9"
 }
 }
 }

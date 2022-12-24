@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "Decodable.init(from:)",
+      "code" : "RawRepresentable.init(from:)",
       "type" : "codeVoice"
     },
     {
@@ -17,17 +17,67 @@
     "paths" : [
       [
         "doc:\/\/FairCore\/documentation\/FairCore",
-        "doc:\/\/FairCore\/documentation\/FairCore\/Semver"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/RawRepresentable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/init(from:)-3edup"
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/init(from:)-5s0s9"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore6SemverV4fromACs7Decoder_p_tKcfc",
+    "conformance" : {
+      "availabilityPrefix" : [
+        {
+          "text" : "Available when",
+          "type" : "text"
+        }
+      ],
+      "conformancePrefix" : [
+        {
+          "text" : "Conforms when",
+          "type" : "text"
+        }
+      ],
+      "constraints" : [
+        {
+          "code" : "Self",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " conforms to ",
+          "type" : "text"
+        },
+        {
+          "code" : "Decodable",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " and ",
+          "type" : "text"
+        },
+        {
+          "code" : "RawValue",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : " is ",
+          "type" : "text"
+        },
+        {
+          "code" : "String",
+          "type" : "codeVoice"
+        },
+        {
+          "text" : ".",
+          "type" : "text"
+        }
+      ]
+    },
+    "extendedModule" : "Swift",
+    "externalID" : "s:SYsSeRzSS8RawValueSYRtzrlE4fromxs7Decoder_p_tKcfc::SYNTHESIZED::s:8FairCore6SemVerV",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -134,7 +184,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/faircore\/semver\/init(from:)-3edup"
+        "\/documentation\/faircore\/semver\/init(from:)-5s0s9"
       ],
       "traits" : [
         {
@@ -159,7 +209,7 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore"
 },
-"doc://FairCore/documentation/FairCore/Semver": {
+"doc://FairCore/documentation/FairCore/SemVer": {
   "abstract" : [
     {
       "text" : "A semantic version of an app with a ",
@@ -201,26 +251,85 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Semver"
+      "text" : "SemVer"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Semver"
+      "text" : "SemVer"
     }
   ],
   "role" : "symbol",
-  "title" : "Semver",
+  "title" : "SemVer",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/semver"
 },
-"doc://FairCore/documentation/FairCore/Semver/init(from:)-3edup": {
+"doc://FairCore/documentation/FairCore/SemVer/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/RawRepresentable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawRepresentable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/semver\/rawrepresentable-implementations"
+},
+"doc://FairCore/documentation/FairCore/SemVer/init(from:)-5s0s9": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Self",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Decodable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "RawValue",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "String",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
   "fragments" : [
     {
       "kind" : "identifier",
@@ -252,12 +361,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver\/init(from:)-3edup",
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/init(from:)-5s0s9",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(from:)",
   "type" : "topic",
-  "url" : "\/documentation\/faircore\/semver\/init(from:)-3edup"
+  "url" : "\/documentation\/faircore\/semver\/init(from:)-5s0s9"
 }
 }
 }
