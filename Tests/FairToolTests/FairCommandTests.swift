@@ -650,12 +650,12 @@ final class FairCommandTests: XCTestCase {
 
         do {
             let output = try await checkProject("--bump", "minor")
-            XCTAssertEqual("1.3.4", output.version?.versionString)
+            XCTAssertEqual("1.3.0", output.version?.versionString)
         }
 
         do {
             let output = try await checkProject("--bump", "major")
-            XCTAssertEqual("2.3.4", output.version?.versionString)
+            XCTAssertEqual("2.0.0", output.version?.versionString)
         }
 
         do {
