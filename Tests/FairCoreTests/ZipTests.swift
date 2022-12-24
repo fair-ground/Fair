@@ -96,6 +96,7 @@ final class ZipTests: XCTestCase {
             //dbg(" - ", path.pathName)
             if !path.pathIsDirectory {
                 let d = try archive.seekableData(at: path)
+                let _ = d
             }
         }
     }

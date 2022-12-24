@@ -129,6 +129,9 @@ public enum AppBundleLoader {
     }
 }
 
+/// An alias for `Semver`
+public typealias AppVersion = Semver
+
 extension AppBundle {
     func loadInfo() async throws -> (info: Plist, entitlements: [AppEntitlements]?) {
         return try (infoDictionary, await entitlements())
@@ -187,7 +190,7 @@ extension AppBundle {
         // check first for macOS convention executable "AppName.app/Contents/MacOS/CFBundleExecutable"
         let folder = try self.source.nodes(at: infoParentNode).first(where: { try $0.pathIsDirectory && $0.pathName.lastPathComponent == "MacOS" }) ?? infoParentNode
 
-        guard let execNode = try self.source.nodes(at: folder).first(where: { try $0.pathName.lastPathComponent == executableName }) else {
+        guard let execNode = try self.source.nodes(at: folder).first(where: { $0.pathName.lastPathComponent == executableName }) else {
             return nil
         }
 
@@ -202,7 +205,7 @@ extension AppBundle {
         func loadInfoPlist(from node: Source.Path) async throws -> (Plist, parent: Source.Path, node: Source.Path)? {
             //dbg("attempting to load Info.plist from:", node.pathName)
             let contents = try source.nodes(at: node)
-            guard let infoNode = try contents.first(where: { try $0.pathComponents.last == "Info.plist" }) else {
+            guard let infoNode = try contents.first(where: { $0.pathComponents.last == "Info.plist" }) else {
                 // dbg("missing Info.plist node from:", contents.map(\.pathName))
                 return nil
             }
@@ -224,7 +227,7 @@ extension AppBundle {
             // dbg("contentsNode", contentsNode)
             // check the "Contents/Info.plist" convention (macOS)
             return try await loadInfoPlist(from: contentsNode)
-        } else if let infoNode = try rootNodes.first(where: { try $0.pathName == "Info.plist"}) {
+        } else if let infoNode = try rootNodes.first(where: { $0.pathName == "Info.plist"}) {
             return try (await loadPlist(from: infoNode), parent: nil, node: infoNode)
         } else {
             for payloadNode in try rootFolders(named: ["Payload", "Wrapper"]) {
@@ -248,8 +251,8 @@ extension AppBundle {
             // check the "App Name.app/Info.plist" convention
             let appContents = try source.nodes(at: appNode)
 
-            let contentPaths = try? appContents.map({ try $0.pathName })
-            dbg("appNode:", (try? appNode.pathName), "appContents:", contentPaths)
+            let contentPaths = appContents.map({ $0.pathName })
+            dbg("appNode:", (appNode.pathName), "appContents:", contentPaths)
 
             if let contentsNode = try appContents.first(where: {
                 try $0.pathIsDirectory && $0.pathName.lastPathComponent == "Contents"
