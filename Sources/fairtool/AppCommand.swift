@@ -38,15 +38,15 @@ import ArgumentParser
 public struct FairConfigureOutput : FairCommandOutput, Decodable {
     public var productName: String?
     public var bundleIdentifier: String?
-    public var version: Semver?
+    public var version: SemVer?
     public var buildNumber: Int?
     public var supportedPlatforms: String?
 }
 
-extension Semver.Component : ExpressibleByArgument {
+extension SemVer.Component : ExpressibleByArgument {
 }
 
-extension Semver : ExpressibleByArgument {
+extension SemVer : ExpressibleByArgument {
 }
 
 
@@ -91,13 +91,13 @@ public struct AppCommand : AsyncParsableCommand {
         public var platforms: String?
 
         @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "component"))
-        public var bump: Semver.Component?
+        public var bump: SemVer.Component?
 
         @Option(name: [.long], help: ArgumentHelp("Set the build number", valueName: "int"))
         public var buildNumber: Int?
 
         @Option(name: [.long], help: ArgumentHelp("Set a specific version", valueName: "semver"))
-        public var version: Semver?
+        public var version: SemVer?
 
         public init() {
         }

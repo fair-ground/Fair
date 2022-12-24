@@ -971,8 +971,8 @@ extension EnvFile {
     }
 
     /// The `MARKETING_VERSION` parsed as an ``Semver``
-    public var appVersion: Semver? {
-        get { self["MARKETING_VERSION"].flatMap({ Semver(string: $0) }) }
+    public var appVersion: SemVer? {
+        get { self["MARKETING_VERSION"].flatMap({ SemVer(string: $0) }) }
         set { self["MARKETING_VERSION"] = newValue?.versionString }
     }
 
