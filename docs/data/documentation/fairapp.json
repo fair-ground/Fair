@@ -159,6 +159,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/AppCategory",
         "doc:\/\/FairApp\/documentation\/FairApp\/AppPermission",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppVersion",
         "doc:\/\/FairApp\/documentation\/FairApp\/NID",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXApplication",
         "doc:\/\/FairApp\/documentation\/FairApp\/UXBezierPath",
@@ -1368,6 +1369,44 @@
   "title" : "AppUsagePermission",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appusagepermission"
+},
+"doc://FairApp/documentation/FairApp/AppVersion": {
+  "abstract" : [
+    {
+      "text" : "An alias for ",
+      "type" : "text"
+    },
+    {
+      "code" : "Semver",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "AppVersion"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppVersion",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "AppVersion"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "AppVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appversion"
 },
 "doc://FairApp/documentation/FairApp/AppearanceSetting": {
   "abstract" : [

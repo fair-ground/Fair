@@ -293,7 +293,7 @@ extension FairHub {
             var fairsealFound = false
 
             for release in (fork.releases.nodes ?? []) {
-                guard let appVersion = AppVersion(string: release.tag.name) else {
+                guard let appVersion = Semver(string: release.tag.name) else {
                     dbg("invalid release tag:", release.tag.name)
                     continue
                 }

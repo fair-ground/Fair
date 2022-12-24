@@ -126,25 +126,57 @@ final class FairCoreTests: XCTestCase {
     }
 
     func testAppVersionParsing() {
-        // TODO: test semantic version sorting
+        let versionString = { Semver(string: $0)?.versionString }
+
+        XCTAssertEqual(nil, versionString(""))
+        XCTAssertEqual(nil, versionString(" "))
+        XCTAssertEqual(nil, versionString("1.2. 3"))
+        XCTAssertEqual(nil, versionString("1.2..3"))
+        XCTAssertEqual(nil, versionString(".1.2.3"))
+        XCTAssertEqual(nil, versionString("1.2.3."))
+        XCTAssertEqual(nil, versionString("1_1.2.3."))
+        XCTAssertEqual(nil, versionString("-1.2.3"))
+        XCTAssertEqual(nil, versionString("1.-2.3"))
+        XCTAssertEqual(nil, versionString("1.2.-3"))
+
+        XCTAssertEqual("1.2.3", versionString("1.2.3"))
+        XCTAssertEqual("0.2.3", versionString("0.2.3"))
+        XCTAssertEqual("999.9999.99999", versionString("999.9999.99999"))
+
+        // test semantic version sorting
         // https://semver.org/#spec-item-11
+        let parse = { try XCTUnwrap(Semver(string: $0)) }
+        let roundtrip = { XCTAssertEqual($0, Semver(string: $0)?.versionString) }
 
-        let parse = { AppVersion(string: $0)?.versionString }
+        // 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7, 1.0.0-x.7.z.92, 1.0.0-x-y-z
+        roundtrip("1.0.0-alpha")
+        roundtrip("1.0.0-alpha.1")
+        roundtrip("1.0.0-0.3.7")
+        roundtrip("1.0.0-x.7.z.92")
+        roundtrip("1.0.0-x-y-z")
 
-        XCTAssertEqual(nil, parse(""))
-        XCTAssertEqual(nil, parse(" "))
-        XCTAssertEqual(nil, parse("1.2. 3"))
-        XCTAssertEqual(nil, parse("1.2..3"))
-        XCTAssertEqual(nil, parse(".1.2.3"))
-        XCTAssertEqual(nil, parse("1.2.3."))
-        XCTAssertEqual(nil, parse("1_1.2.3."))
-        XCTAssertEqual(nil, parse("-1.2.3"))
-        XCTAssertEqual(nil, parse("1.-2.3"))
-        XCTAssertEqual(nil, parse("1.2.-3"))
+        // 1.0.0-alpha+001, 1.0.0+20130313144700, 1.0.0-beta+exp.sha.5114f85, 1.0.0+21AF26D3----117B344092BD
+        roundtrip("1.0.0-alpha+001")
+        roundtrip("1.0.0+20130313144700")
+        roundtrip("1.0.0-beta+exp.sha.5114f85")
+        roundtrip("1.0.0+21AF26D3----117B344092BD")
 
-        XCTAssertEqual("1.2.3", parse("1.2.3"))
-        XCTAssertEqual("0.2.3", parse("0.2.3"))
-        XCTAssertEqual("999.9999.99999", parse("999.9999.99999"))
+        // 1.0.0 < 2.0.0 < 2.1.0 < 2.1.1
+        try XCTAssertLessThan(parse("1.0.0"), parse("2.0.0"))
+        try XCTAssertLessThan(parse("2.0.0"), parse("2.1.0"))
+        try XCTAssertLessThan(parse("2.1.0"), parse("2.1.1"))
+
+        // 1.0.0-alpha < 1.0.0
+        try XCTAssertLessThan(parse("1.0.0-alpha"), parse("1.0.0"))
+
+        // 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0
+        try XCTAssertLessThan(parse("1.0.0-alpha"), parse("1.0.0-alpha.1"))
+        try XCTAssertLessThan(parse("1.0.0-alpha.1"), parse("1.0.0-alpha.beta"))
+        try XCTAssertLessThan(parse("1.0.0-alpha.beta"), parse("1.0.0-beta"))
+        try XCTAssertLessThan(parse("1.0.0-beta"), parse("1.0.0-beta.2"))
+        try XCTAssertLessThan(parse("1.0.0-beta.2"), parse("1.0.0-beta.11"))
+        try XCTAssertLessThan(parse("1.0.0-beta.11"), parse("1.0.0-rc.1"))
+        try XCTAssertLessThan(parse("1.0.0-rc.1"), parse("1.0.0"))
     }
 
     func testParsePlist() throws {
@@ -401,7 +433,7 @@ final class FairCoreTests: XCTestCase {
     func testFairCoreVersion() throws {
         let version = try XCTUnwrap(Bundle.fairCoreVersion)
         dbg("loaded fairCoreVersion:", version.versionString)
-        XCTAssertGreaterThan(version, AppVersion(major: 0, minor: 1, patch: 0))
+        XCTAssertGreaterThan(version, Semver(major: 0, minor: 1, patch: 0))
 
         // shows the difference between the auto-generated bundle's infoDictionary and the FairCore.plist
         // XCTAssertEqual("Fair-FairCore-resources", Bundle.fairCore.infoDictionary?["CFBundleIdentifier"] as? String) // this doesn't seem to happen on CI
@@ -522,9 +554,9 @@ final class FairCoreTests: XCTestCase {
             XCTAssertEqual(expectRedirect, redirectReceived, "expected to receive a redirect for: \(url.absoluteString)")
         }
 
-        if let expectChallenge = expectChallenge {
+//        if let expectChallenge = expectChallenge {
             //XCTAssertEqual(expectChallenge, challengeReceived, "expected to receive a challenge: \(url.absoluteString)")
-        }
+//        }
     }
 
     func testTemplating() throws {

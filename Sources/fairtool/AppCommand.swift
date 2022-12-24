@@ -38,15 +38,15 @@ import ArgumentParser
 public struct FairConfigureOutput : FairCommandOutput, Decodable {
     public var productName: String?
     public var bundleIdentifier: String?
-    public var version: AppVersion?
+    public var version: Semver?
     public var buildNumber: Int?
     public var supportedPlatforms: String?
 }
 
-extension AppVersion.Component : ExpressibleByArgument {
+extension Semver.Component : ExpressibleByArgument {
 }
 
-extension AppVersion : ExpressibleByArgument {
+extension Semver : ExpressibleByArgument {
 }
 
 
@@ -91,13 +91,13 @@ public struct AppCommand : AsyncParsableCommand {
         public var platforms: String?
 
         @Option(name: [.long], help: ArgumentHelp("Bump the major/minor/patch version", valueName: "component"))
-        public var bump: AppVersion.Component?
+        public var bump: Semver.Component?
 
         @Option(name: [.long], help: ArgumentHelp("Set the build number", valueName: "int"))
         public var buildNumber: Int?
 
         @Option(name: [.long], help: ArgumentHelp("Set a specific version", valueName: "semver"))
-        public var version: AppVersion?
+        public var version: Semver?
 
         public init() {
         }
@@ -122,7 +122,7 @@ public struct AppCommand : AsyncParsableCommand {
             let productName = settings.productName
             if let name = self.name {
                 msg(.info, "setting name from:", productName, "to:", name)
-                settings.productName = name
+                settings.productName = name.trimmed()
             }
 
             let buildNumber = settings.buildNumber
@@ -134,13 +134,13 @@ public struct AppCommand : AsyncParsableCommand {
             let bundleIdentifier = settings.bundleIdentifier
             if let id = self.id {
                 msg(.info, "setting bundle id from:", bundleIdentifier, "to:", id)
-                settings.bundleIdentifier = id
+                settings.bundleIdentifier = id.trimmed()
             }
 
             let supportedPlatforms = settings.supportedPlatforms
             if let platforms = self.platforms {
                 msg(.info, "setting platforms from:", supportedPlatforms, "to:", platforms)
-                settings.supportedPlatforms = platforms
+                settings.supportedPlatforms = platforms.trimmed()
             }
 
             // when the settings have changed, try to save them

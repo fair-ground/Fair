@@ -102,7 +102,6 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/Adler32",
-        "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion",
         "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferSequence",
         "doc:\/\/FairCore\/documentation\/FairCore\/AsyncBufferedByteIterator",
         "doc:\/\/FairCore\/documentation\/FairCore\/Crc32-swift.struct",
@@ -111,6 +110,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/JSumOptions",
         "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeededRandomNumberGenerator",
+        "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode"
       ],
       "title" : "Structures"
@@ -223,64 +223,6 @@
   "title" : "Adler32",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/adler32"
-},
-"doc://FairCore/documentation/FairCore/AppVersion": {
-  "abstract" : [
-    {
-      "text" : "A semantic version of an app with a ",
-      "type" : "text"
-    },
-    {
-      "code" : "major",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", ",
-      "type" : "text"
-    },
-    {
-      "code" : "minor",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", and ",
-      "type" : "text"
-    },
-    {
-      "code" : "patch",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " component.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "AppVersion"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/AppVersion",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "AppVersion"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "AppVersion",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/appversion"
 },
 "doc://FairCore/documentation/FairCore/AsyncBuffer": {
   "abstract" : [
@@ -2119,6 +2061,64 @@
   "title" : "SeekableFileHandle",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/seekablefilehandle"
+},
+"doc://FairCore/documentation/FairCore/Semver": {
+  "abstract" : [
+    {
+      "text" : "A semantic version of an app with a ",
+      "type" : "text"
+    },
+    {
+      "code" : "major",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", ",
+      "type" : "text"
+    },
+    {
+      "code" : "minor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", and ",
+      "type" : "text"
+    },
+    {
+      "code" : "patch",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " component.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Semver"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/Semver",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Semver"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Semver",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/semver"
 },
 "doc://FairCore/documentation/FairCore/SignableError": {
   "abstract" : [

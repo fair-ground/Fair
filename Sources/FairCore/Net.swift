@@ -415,6 +415,7 @@ extension URLRequest {
                 bytesCount += Int64(d.count)
 
                 let total = Double(progress?.totalUnitCount ?? 0)
+                let _ = total
                 //let percentComplete = total == 0.0 ? 0.0 : Double(progress?.completedUnitCount ?? 0) / total
                 dbg(progress?.completedUnitCount.localizedByteCount(), progress?.totalUnitCount.localizedByteCount())
                 progress?.completedUnitCount = bytesCount

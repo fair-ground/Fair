@@ -970,9 +970,9 @@ extension EnvFile {
         set { self["CURRENT_PROJECT_VERSION"] = newValue?.description }
     }
 
-    /// The `MARKETING_VERSION` parsed as an ``AppVersion``
-    public var appVersion: AppVersion? {
-        get { self["MARKETING_VERSION"].flatMap({ AppVersion(string: $0) }) }
+    /// The `MARKETING_VERSION` parsed as an ``Semver``
+    public var appVersion: Semver? {
+        get { self["MARKETING_VERSION"].flatMap({ Semver(string: $0) }) }
         set { self["MARKETING_VERSION"] = newValue?.versionString }
     }
 

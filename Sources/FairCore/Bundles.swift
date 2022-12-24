@@ -68,7 +68,7 @@ public extension Bundle {
     var bundleVersionString: String? { self[info: .CFBundleShortVersionString] }
 
     /// The `CFBundleShortVersionString` converted to an AppVersion. Note that these are always considered non-prerelease since the prerelease flag is an ephemeral part of the hub's release, and is not indicated in the app's plist in any way
-    var bundleVersion: AppVersion? { bundleVersionString.flatMap({ AppVersion(string: $0) }) }
+    var bundleVersion: Semver? { bundleVersionString.flatMap({ Semver(string: $0) }) }
 
     /// The name of the package's app/org, which is the bundle's name with hyphens for spaces
     var appOrgName: String? {
@@ -89,7 +89,7 @@ extension Bundle {
     public static let fairCoreInfo = Plist(rawValue: Info as NSDictionary) // Info should be generated manually with: plutil -convert swift Info.plist
 
     /// The version of the FairCore library in use
-    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap({ AppVersion.init(string: $0) })
+    public static let fairCoreVersion = fairCoreInfo.CFBundleShortVersionString.flatMap(Semver.init(string:))
 
     /// Returns all the URLs in the given asset path of the bundle
     public func assetPaths(in folder: String, includeLinks: Bool, includeFolders: Bool) throws -> [URL] {
@@ -249,13 +249,18 @@ public struct PropertyListKey : RawCodable {
 }
 
 /// A semantic version of an app with a `major`, `minor`, and `patch` component.
-public struct AppVersion : Hashable, Codable, Comparable, RawRepresentable {
+///
+/// E.g.: `1.0.0-alpha.beta`
+public struct Semver : Sendable, Hashable, Codable, Comparable, RawRepresentable {
     /// The lowest possible version that can exist
-    public static let min = AppVersion(major: .min, minor: .min, patch: .min)
+    public static let min = Semver(major: .min, minor: .min, patch: .min, prerelease: nil, build: nil)
     /// The highest possible version that can exist
-    public static let max = AppVersion(major: .max, minor: .max, patch: .max)
+    public static let max = Semver(major: .max, minor: .max, patch: .max, prerelease: nil, build: nil)
 
     public let major, minor, patch: UInt
+
+    public let prerelease: String?
+    public let build: String?
 
     public enum Component : String, Codable { case major, minor, patch }
 
@@ -265,10 +270,12 @@ public struct AppVersion : Hashable, Codable, Comparable, RawRepresentable {
         self.init(string: rawValue)
     }
 
-    public init(major: UInt, minor: UInt, patch: UInt) {
+    public init(major: UInt, minor: UInt, patch: UInt, prerelease: String? = nil, build: String? = nil) {
         self.major = major
         self.minor = minor
         self.patch = patch
+        self.prerelease = prerelease
+        self.build = build
     }
 
     /// Initialize the version by parsing the string
@@ -279,47 +286,125 @@ public struct AppVersion : Hashable, Codable, Comparable, RawRepresentable {
         self = version
     }
 
-    public func bumping(_ component: Component) -> AppVersion {
+    /// Increments the given component of the semantic version by the given amount.
+    /// - Parameter component: the `.major`, `.minor`, or `.patch` component to bump
+    /// - Returns: the version after bumping the given component
+    public func bumping(_ component: Component) -> Semver {
         var (major, minor, patch) = (major, minor, patch)
         switch component {
-        case .major: major += 1
-        case .minor: minor += 1
-        case .patch: patch += 1
+        case .major:
+            major += 1
+            minor = 0
+            patch = 0
+        case .minor:
+            minor += 1
+            patch = 0
+        case .patch:
+            patch += 1
         }
-        return AppVersion(major: major, minor: minor, patch: patch)
+        return Semver(major: major, minor: minor, patch: patch)
     }
 
+    private static let semverRE = try! NSRegularExpression(pattern: #"^(?<major>0|[1-9]\d*)\.(?<minor>0|[1-9]\d*)\.(?<patch>0|[1-9]\d*)(?:-(?<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"#, options: [])
+
+    /// Parse the semantic version string as per https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+    ///
+    /// Uses the regular expression modified for Cocoa regex conventions (no P before capture group names):
+    ///
+    ///  ```
+    ///  ^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+    ///  ```
     private static func parse(string versionString: String) -> Self? {
-        let versionElements = versionString.split(separator: ".", omittingEmptySubsequences: false).map({ UInt(String($0)) })
-        if versionElements.count != 3 { return nil }
-        let versionNumbers = versionElements.compactMap({ $0 })
-        if versionNumbers.count != 3 { return nil }
+        guard let match = semverRE.matches(in: versionString, options: [], range: versionString.span).first else {
+            return nil // no matchges
+        }
 
+        let majorRange = match.range(withName: "major")
+        guard majorRange.location != NSNotFound,
+            let major = UInt((versionString as NSString).substring(with: majorRange)) else {
+            return nil
+        }
 
-        let major = versionNumbers[0]
-        let minor = versionNumbers[1]
-        let patch = versionNumbers[2]
+        let minorRange = match.range(withName: "minor")
+        guard minorRange.location != NSNotFound,
+            let minor = UInt((versionString as NSString).substring(with: minorRange)) else {
+            return nil
+        }
 
-        let version = Self(major: major, minor: minor, patch: patch)
+        let patchRange = match.range(withName: "patch")
+        guard patchRange.location != NSNotFound,
+            let patch = UInt((versionString as NSString).substring(with: patchRange)) else {
+            return nil
+        }
 
-        // this is what prevents us from successfully parsing ".1.2.3"
-        if !version.versionString.hasPrefix("\(version.major)") { return nil }
-        if !version.versionString.hasSuffix("\(version.patch)") { return nil }
+        let prerelease: String?
+        let prereleaseRange = match.range(withName: "prerelease")
+        if prereleaseRange.location == NSNotFound {
+            prerelease = nil
+        } else {
+            prerelease = ((versionString as NSString).substring(with: prereleaseRange))
+        }
 
-        return version
+        let buildmetadata: String?
+        let buildmetadataRange = match.range(withName: "buildmetadata")
+        if buildmetadataRange.location == NSNotFound {
+            buildmetadata = nil
+        } else {
+            buildmetadata = ((versionString as NSString).substring(with: buildmetadataRange))
+        }
+
+        //dbg("parsing version:", major, minor, patch)
+
+        return Semver(major: major, minor: minor, patch: patch, prerelease: prerelease, build: buildmetadata)
     }
 
-    public static func < (lhs: AppVersion, rhs: AppVersion) -> Bool {
+    public static func < (lhs: Semver, rhs: Semver) -> Bool {
         lhs.major < rhs.major
             || (lhs.major == rhs.major && lhs.minor < rhs.minor)
             || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch < rhs.patch)
-            || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch)
+            || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && suffixLT(lhs.prerelease, rhs.prerelease))
+            || (lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && lhs.prerelease == rhs.prerelease && suffixLT(lhs.build, rhs.build))
 
     }
 
-    /// The version string in the form `major`.`minor`.`patch`
+    private static func suffixLT(_ s1: String?, _ s2: String?) -> Bool {
+        guard let s1 = s1 else {
+            return false
+        }
+        guard let s2 = s2 else {
+            return true
+        }
+
+        let n1 = UInt(s1)
+        let n2 = UInt(s1)
+
+        if let n1 = n1, let n2 = n2, n1 < n2 {
+            return false
+        }
+
+        if n1 == nil {
+            // “Numeric identifiers always have lower precedence than non-numeric identifiers”
+            return true
+        }
+
+        if n2 == nil {
+            // “Numeric identifiers always have lower precedence than non-numeric identifiers”
+            return false
+        }
+
+        return s1 < s2 // “Identifiers with letters or hyphens are compared lexically in ASCII sort order”
+    }
+
+    /// The version string in the form `major`.`minor`.`patch`-`prerelease`+`build`
     public var versionString: String {
-        "\(major).\(minor).\(patch)"
+        var str = "\(major).\(minor).\(patch)"
+        if let prerelease = prerelease {
+            str += "-" + prerelease
+        }
+        if let build = build {
+            str += "+" + build
+        }
+        return str
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -879,9 +964,9 @@ extension DataWrapperPath {
     ///
     /// - TODO: on Windows do we need to use backslash?
     public var pathComponents: [String] {
-        get throws {
+        get {
             // (pathName as NSString).pathComponents // not correct: will return "/" elements when they are at the beginning or else
-            try pathName
+            pathName
                 .split(separator: "/", omittingEmptySubsequences: true)
                 .map(\.description)
         }
@@ -1030,8 +1115,8 @@ public class ZipArchiveDataWrapper : DataWrapper {
                 p.path.deletingLastPathComponent == parentPath.path
             })
         } else {
-            let rootEntries = try paths.filter({ p in
-                try p.pathComponents.count == 1 // all top-level entries
+            let rootEntries = paths.filter({ p in
+                p.pathComponents.count == 1 // all top-level entries
             })
 
             //dbg("root entries:", rootEntries.map(\.path))
