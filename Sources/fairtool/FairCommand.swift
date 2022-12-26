@@ -447,16 +447,17 @@ extension FairCommand {
             // 7. Check Package.resolved if it exists and we've specified the hub to validate
             if let packageResolvedData = try? load(url: projectOptions.projectPathURL(path: "Package.resolved")) {
                 msg(.debug, "validating Package.resolved")
-                let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: packageResolvedData)
+                let packageResolved = try ResolvedPackage.ResolvedPackageV2(json: packageResolvedData)
                 if let httpHost = URL(string: "https://\(hubOptions.hub)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
                     // all dependencies must reside at the same fairground
                     // TODO: add include-hub/exclude-hub flags to permit cross-fairground dependency networks
                     // e.g., permit GitLab apps depending on projects in GitHub repos
                     let host = hubURL.deletingLastPathComponent().deletingLastPathComponent()
                     //dbg("verifying hub host:", host)
-                    for pin in packageResolved.object?.pins ?? [] {
-                        if !pin.repositoryURL.hasPrefix(host.absoluteString) && !pin.repositoryURL.hasPrefix("https://fair-ground.org/") {
-                            throw FairToolCommand.Errors.badRepository(host.absoluteString, pin.repositoryURL)
+                    for pin in packageResolved.pins {
+                        if pin.location.hasPrefix(host.absoluteString) == false
+                            && pin.location.hasPrefix("https://fair-ground.org/") == false {
+                            throw FairToolCommand.Errors.badRepository(host.absoluteString, pin.location)
                         }
                     }
                 }

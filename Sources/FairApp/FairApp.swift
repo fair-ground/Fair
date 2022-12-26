@@ -431,10 +431,10 @@ extension FairContainer {
         #endif
 
         do {
-            let packageResolved = try JSONDecoder().decode(ResolvedPackage.self, from: bundle.loadResource(named: "Package.resolved"))
-            for dep in packageResolved.object?.pins ?? [] {
+            let packageResolved = try ResolvedPackage(json: bundle.loadResource(named: "Package.resolved"))
+            for dep in packageResolved.rawValue.q?.pins ?? [] {
                 let packageVersion = dep.state.version ?? dep.state.branch ?? "none"
-                print("  Dependency: " + dep.package + " " + packageVersion + " " + (dep.state.revision ?? ""), to: &out)
+                print("  Dependency: " + (dep.identity) + " " + packageVersion, to: &out)
             }
         } catch {
             print("  Dependency: " + error.localizedDescription, to: &out)
@@ -972,26 +972,53 @@ public struct AppError : LocalizedError {
     }
 }
 
-/// The contents of a `Package.resolved` file
-public struct ResolvedPackage: Codable, Equatable {
-    public var object: Pins?
-    public var version: Int
+public struct ResolvedPackage : RawCodable, Codable {
+    public var rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>
 
-    public struct Pins: Codable, Equatable {
-        public var pins: [SwiftPackage]
+    public var version: Int { rawValue.map(\.version.rawValue, \.version.rawValue).value }
+
+    public init(rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>) {
+        self.rawValue = rawValue
     }
 
-    public struct SwiftPackage: Codable, Equatable {
-        public var package: String
-        public var repositoryURL: String
-        public var state: State
+    /// The contents of a `Package.resolved` version 1 file
+    public struct ResolvedPackageV1: Codable, Equatable {
+        public enum Version : Int, Codable { case v1 = 1 }
+        public var version: Version
+        public var object: Pins
 
-        public struct State: Codable, Equatable {
-            public var branch: String?
-            public var revision: String?
-            public var version: String?
+        public struct Pins: Codable, Equatable {
+            public var pins: [SwiftPackage]
+        }
+
+        public struct SwiftPackage: Codable, Equatable {
+            public var package: String
+            public var repositoryURL: String
+            public var state: PackageState
         }
     }
+
+    /// The contents of a `Package.resolved` version 2 file
+    public struct ResolvedPackageV2: Codable, Equatable {
+        public enum Version : Int, Codable { case v2 = 2 }
+        public var version: Version
+        public var pins: [SwiftPackage]
+
+        public struct SwiftPackage: Codable, Equatable {
+            public var identity: String
+            public var kind: String
+            public var location: String
+            public var state: PackageState
+
+        }
+    }
+
+    public struct PackageState: Codable, Equatable {
+        public var branch: String?
+        public var revision: String
+        public var version: String?
+    }
+
 }
 
 
