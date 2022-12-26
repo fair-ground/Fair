@@ -597,24 +597,31 @@ private struct SupportSettingsView<Store: FacetManager> : View {
                 SupportCommands(builder: {
                     $0.link(to: $1)
                 })
+                NavigationLink {
+                    Form {
+                        Section {
+                            LicenseSetting<Store>.license.licensesList
+                        } header: {
+                            Text("Software Licenses", bundle: .module, comment: "header text for licenses section")
+                        }
+
+                        Section {
+                            dependenciesSection
+                        } header: {
+                            Text("Software Dependencies", bundle: .module, comment: "header text for software dependencies section")
+                        }
+                    }
+                    .navigation(title: Text(Bundle.main.bundleDisplayNameLocalized ?? Bundle.main.bundleDisplayName ?? Bundle.main.bundleName ?? ""), subtitle: Text(Bundle.main.bundleVersionString ?? ""))
+                } label: {
+                    Text("App Info", bundle: .module, comment: "settings link for software info label")
+                }
+
             } footer: {
                 Text("This section contains links for seeking help or reporting issues with this app.", bundle: .module, comment: "footer text for support setting screen")
             }
 
-            Section {
-                LicenseSetting<Store>.license.licensesList
-            } header: {
-                Text("Software Licenses", bundle: .module, comment: "header text for licenses section")
-            }
-
-            Section {
-                dependenciesSection
-            } header: {
-                Text("Software Dependencies", bundle: .module, comment: "header text for software dependencies section")
-            }
         }
     }
-
 
     var packageResolved: Result<ResolvedPackage.ResolvedPackageV2, Error> {
         Result { try ResolvedPackage.ResolvedPackageV2(json: bundle.loadResource(named: "Package.resolved")) }
@@ -654,7 +661,6 @@ private struct SupportSettingsView<Store: FacetManager> : View {
             .link(to: URL(string: pin.location))
         }
     }
-
 }
 
 
