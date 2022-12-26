@@ -55,8 +55,14 @@ public extension Bundle {
     /// The bundle's `CFBundleName`
     var bundleName: String? { self[info: .CFBundleName] }
 
+    /// The localized bundle's `CFBundleName`
+    var bundleNameLocalized: String? { self[info: .CFBundleName, localized: true] }
+
     /// The bundle's `CFBundleDisplayName`
     var bundleDisplayName: String? { self[info: .CFBundleDisplayName] }
+
+    /// The localized bundle's `CFBundleDisplayName`
+    var bundleDisplayNameLocalized: String? { self[info: .CFBundleDisplayName, localized: true] }
 
     /// The bundle's `CFBundleIdentifier`
     var bundleID: String? { self[info: .CFBundleIdentifier] }

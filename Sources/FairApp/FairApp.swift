@@ -490,41 +490,6 @@ public struct SupportCommands<LinkButton: View> : View {
         if let issues = URL.fairHubURL("issues") {
             builder(Text("Issues", bundle: .module, comment: "command name for opening app issues page"), issues)
         }
-
-        //fundingLinks()
-    }
-
-    @ViewBuilder func fundingLinks() -> some View {
-        if let catalogInfo = try? mainAppCatalogInfo.get(),
-           let fundingLinks = catalogInfo.fundingLinksValidated,
-           !fundingLinks.isEmpty
-        {
-            if fundingLinks.count == 1,
-               let fundingLink = fundingLinks.first {
-                fundingLinkView(fundingLink)
-            } else {
-                Menu {
-                    ForEach(fundingLinks.uniquing(by: \.url).array(), id: \.url, content: fundingLinkView)
-                } label: {
-                    Text.SupportText
-                }
-            }
-        }
-    }
-
-    @ViewBuilder func fundingLinkView(_ fundingLink: AppFundingLink) -> some View {
-        if let platformName = fundingLink.platform.platformName,
-           let url = fundingLink.fundingURL {
-            Group {
-                // if let title = fundingLink.localizedTitle {
-                //     Text("\(title) on \(platformName)", bundle: .module, comment: "pattern for funding link with a declared title and a known platform name, such as “Support our App on Patreon”")
-                // } else {
-                Text("Support on \(platformName)", bundle: .module, comment: "title of the funding link")
-                // }
-            }
-            .link(to: url)
-            .help(fundingLink.localizedDescription ?? fundingLink.localizedTitle ?? "Help fund this app.")
-        }
     }
 }
 
