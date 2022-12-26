@@ -525,36 +525,63 @@ final class FairAppTests: XCTestCase {
     }
 
     func testParsePackageResolved() throws {
-        let resolved = """
-        {
-          "object": {
-            "pins": [
-              {
-                "package": "Clang_C",
-                "repositoryURL": "https://github.com/something/Clang_C.git",
-                "state": {
-                  "branch": null,
-                  "revision": "90a9574276f0fd17f02f58979423c3fd4d73b59e",
-                  "version": "1.0.2",
-                }
+        do { // v1
+            let resolved = """
+            {
+              "object": {
+                "pins": [
+                  {
+                    "package": "Clang_C",
+                    "repositoryURL": "https://github.com/something/Clang_C.git",
+                    "state": {
+                      "branch": null,
+                      "revision": "90a9574276f0fd17f02f58979423c3fd4d73b59e",
+                      "version": "1.0.2",
+                    }
+                  },
+                  {
+                    "package": "Commandant",
+                    "repositoryURL": "https://github.com/something/Commandant.git",
+                    "state": {
+                      "branch": null,
+                      "revision": "c281992c31c3f41c48b5036c5a38185eaec32626",
+                      "version": "0.12.0"
+                    }
+                  }
+                ]
               },
-              {
-                "package": "Commandant",
-                "repositoryURL": "https://github.com/something/Commandant.git",
-                "state": {
-                  "branch": null,
-                  "revision": "c281992c31c3f41c48b5036c5a38185eaec32626",
-                  "version": "0.12.0"
-                }
-              }
-            ]
-          },
-          "version": 1
-        }
-        """
+              "version": 1
+            }
+            """
 
-        let pm = try JSONDecoder().decode(ResolvedPackage.self, from: resolved.utf8Data)
-        XCTAssertEqual(2, pm.object?.pins.count ?? 0)
+            let pm = try ResolvedPackage.ResolvedPackageV1(json: resolved.utf8Data)
+            XCTAssertEqual(2, pm.object.pins.count)
+            _ = try ResolvedPackage(json: resolved.utf8Data)
+        }
+
+        do { // v2
+            let resolved = """
+            {
+              "pins" : [
+                {
+                  "identity" : "fair",
+                  "kind" : "remoteSourceControl",
+                  "location" : "https://github.com/fair-ground/Fair",
+                  "state" : {
+                    "revision" : "89e42a844c8466e8a659f03e1cfa8cbd5044ffb3",
+                    "version" : "0.8.13"
+                  }
+                }
+              ],
+              "version" : 2
+            }
+            """
+
+            let pm = try ResolvedPackage.ResolvedPackageV2(json: resolved.utf8Data)
+            XCTAssertEqual(1, pm.pins.count)
+            _ = try ResolvedPackage(json: resolved.utf8Data)
+        }
+
     }
 
     /// Ensures that a bare-bones minimal catalog can be loaded

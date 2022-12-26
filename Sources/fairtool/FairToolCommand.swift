@@ -589,7 +589,7 @@ extension FairToolCommand {
         case invalidPlistValue(_ key: String, _ expected: [String], _ actual: NSObject?, _ url: URL)
         case invalidContents(_ scaffoldSource: String?, _ projectSource: String?, _ path: String, _ line: Int)
         case invalidHub(_ host: String?)
-        case badRepository(_ expectedHost: String, _ repository: String)
+        case badRepository(_ expectedHost: String, _ repository: String?)
         case missingArguments
         case downloadMissing(_ url: URL)
         case missingAppPath
@@ -622,7 +622,7 @@ extension FairToolCommand {
             case .invalidPlistValue(let key, let expected, let actual, let url): return "The key \"\(key)\" at \(url.path) is invalid: expected one of \"\(expected)\" but found \"\(actual ?? ("nil" as NSString))\"."
             case .invalidContents(_, _, let path, let line): return "The contents at \"\(path)\" does not match the contents of the original source starting at line \(line + 1)."
             case .invalidHub(let host): return "The hub (\"\(host ?? "null")\") specified by the -h/--hub flag is invalid"
-            case .badRepository(let expectedHost, let repository): return "The pinned repository \"\(repository)\" does not match the hub (\"\(expectedHost)\") specified by the -h/--hub flag"
+            case .badRepository(let expectedHost, let repository): return "The pinned repository \"\(repository ?? "")\" does not match the hub (\"\(expectedHost)\") specified by the -h/--hub flag"
             case .missingArguments: return "The operation requires at least one argument"
             case .downloadMissing(let url): return "The download file could not be found: \(url.path)"
             case .missingAppPath: return "The applications install path (-a/--appPath) is required"

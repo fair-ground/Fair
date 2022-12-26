@@ -584,11 +584,13 @@ public enum SupportSetting<Store: FacetManager> : String, FacetView, CaseIterabl
     }
 
     public func facetView(for store: Store) -> some View {
-        SupportSettingsView<Store>()
+        SupportSettingsView<Store>(bundle: store.bundle)
     }
 }
 
 private struct SupportSettingsView<Store: FacetManager> : View {
+    let bundle: Bundle
+
     var body: some View {
         List {
             Section {
@@ -604,11 +606,57 @@ private struct SupportSettingsView<Store: FacetManager> : View {
             } header: {
                 Text("Software Licenses", bundle: .module, comment: "header text for licenses section")
             }
+
+            Section {
+                dependenciesSection
+            } header: {
+                Text("Software Dependencies", bundle: .module, comment: "header text for software dependencies section")
+            }
         }
     }
+
+
+    var packageResolved: Result<ResolvedPackage.ResolvedPackageV2, Error> {
+        Result { try ResolvedPackage.ResolvedPackageV2(json: bundle.loadResource(named: "Package.resolved")) }
+    }
+
+    @ViewBuilder var dependenciesSection: some View {
+        switch packageResolved {
+        case .failure(let error):
+            VStack {
+                // NOTE: in dev mode, need to manually `cp Package.resolved Sources/App/Resources/`
+                Text("Error getting Package.resolved", bundle: .module, comment: "error message when unable to load Package.resolved")
+                //Text(bundle.resourceURL?.path)
+                Text(error.localizedDescription)
+                    .font(.footnote)
+            }
+        case .success(let value):
+            packageResolvedView(value)
+        }
+    }
+
+    func packageResolvedView(_ resolved: ResolvedPackage.ResolvedPackageV2) -> some View {
+        ForEach(resolved.pins.enumerated().array(), id: \.offset) { offset, pin in
+            VStack(alignment: .leading) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(pin.identity)
+                        .font(Font.body.smallCaps())
+                    Text(pin.state.version ?? "")
+                        .font(Font.caption)
+                }
+                HStack {
+                    Text(pin.location)
+                        .font(Font.footnote) // .monospaced())
+                    // Text(pin.state.revision)
+                    // Text(pin.state.branch ?? "")
+                }
+            }
+            .link(to: URL(string: pin.location))
+        }
+    }
+
 }
 
-//    .preferredColorScheme(store.themeStyle.colorScheme)
 
 
 /// A setting that simply displays the support options as a series of link buttons.

@@ -217,7 +217,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/q-swift.property",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/qvalue",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/result",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/swapped"
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/swapped",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/value"
       ],
       "title" : "Instance Properties"
     },
@@ -3008,6 +3009,74 @@
   "title" : "swapped",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/swapped"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/value": {
+  "abstract" : [
+    {
+      "text" : "The underlying read-only value of either p or q\u0007",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "value"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "P"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/value",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "value",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/value"
 },
 "doc://FairCore/documentation/FairCore/XOrType": {
   "abstract" : [

@@ -136,6 +136,16 @@ extension XOr.Or {
 }
 
 extension XOr.Or where P == Q {
+    /// The underlying read-only value of either p or q
+    @inlinable public var value: P {
+        get {
+            switch self {
+            case .p(let p): return p
+            case .q(let q): return q
+            }
+        }
+    }
+
     /// The underlying value of the p or q, when `P == Q`, where mutation always sets `.p`.
     @inlinable public var pvalue: P {
         get {

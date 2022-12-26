@@ -22704,7 +22704,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/init(from:)",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/init(from:)",
                     "title" : "init(from: Decoder) throws",
                     "type" : "init"
                   },
@@ -22713,8 +22713,18 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/pins",
-                    "title" : "var pins: [ResolvedPackage.SwiftPackage]",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/branch",
+                    "title" : "var branch: String?",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/revision",
+                    "title" : "var revision: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/version",
+                    "title" : "var version: String?",
                     "type" : "property"
                   },
                   {
@@ -22728,12 +22738,12 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
                         "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
                         "type" : "init"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/init(jsum:options:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/init(jsum:options:)",
                         "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
                         "type" : "init"
                       },
@@ -22742,12 +22752,12 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/codablecomplete(data:encoder:decoder:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/codablecomplete(data:encoder:decoder:)",
                         "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
                         "type" : "method"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/decodable-implementations",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/decodable-implementations",
                     "title" : "Decodable Implementations",
                     "type" : "symbol"
                   },
@@ -22758,17 +22768,17 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/canonicaljson",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/canonicaljson",
                         "title" : "var canonicalJSON: String",
                         "type" : "property"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/debugjson",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/debugjson",
                         "title" : "var debugJSON: String",
                         "type" : "property"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/prettyjson",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/prettyjson",
                         "title" : "var prettyJSON: String",
                         "type" : "property"
                       },
@@ -22777,17 +22787,17 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
                         "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/jsum(options:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/jsum(options:)",
                         "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
                         "type" : "method"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/encodable-implementations",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/encodable-implementations",
                     "title" : "Encodable Implementations",
                     "type" : "symbol"
                   },
@@ -22798,7 +22808,7 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/!=(_:_:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/!=(_:_:)",
                         "title" : "static func != (Self, Self) -> Bool",
                         "type" : "op"
                       },
@@ -22807,23 +22817,23 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/represent()-6dz3j",
-                        "title" : "func represent<T>() -> T",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/represent()-8ho2q",
+                        "title" : "func represent<T>() -> T?",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/represent()-7hqte",
-                        "title" : "func represent<T>() -> T?",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/represent()-936mj",
+                        "title" : "func represent<T>() -> T",
                         "type" : "method"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/pins\/equatable-implementations",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate\/equatable-implementations",
                     "title" : "Equatable Implementations",
                     "type" : "symbol"
                   }
                 ],
-                "path" : "\/documentation\/fairapp\/resolvedpackage\/pins",
-                "title" : "ResolvedPackage.Pins",
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/packagestate",
+                "title" : "ResolvedPackage.PackageState",
                 "type" : "struct"
               },
               {
@@ -22839,7 +22849,7 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/init(from:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/init(from:)",
                         "title" : "init(from: Decoder) throws",
                         "type" : "init"
                       },
@@ -22848,18 +22858,8 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/branch",
-                        "title" : "var branch: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/revision",
-                        "title" : "var revision: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/version",
-                        "title" : "var version: String?",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/pins",
+                        "title" : "var pins: [ResolvedPackage.ResolvedPackageV1.SwiftPackage]",
                         "type" : "property"
                       },
                       {
@@ -22873,12 +22873,12 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
                             "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
                             "type" : "init"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/init(jsum:options:)",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/init(jsum:options:)",
                             "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
                             "type" : "init"
                           },
@@ -22887,12 +22887,12 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/codablecomplete(data:encoder:decoder:)",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/codablecomplete(data:encoder:decoder:)",
                             "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
                             "type" : "method"
                           }
                         ],
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/decodable-implementations",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/decodable-implementations",
                         "title" : "Decodable Implementations",
                         "type" : "symbol"
                       },
@@ -22903,17 +22903,17 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/canonicaljson",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/canonicaljson",
                             "title" : "var canonicalJSON: String",
                             "type" : "property"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/debugjson",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/debugjson",
                             "title" : "var debugJSON: String",
                             "type" : "property"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/prettyjson",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/prettyjson",
                             "title" : "var prettyJSON: String",
                             "type" : "property"
                           },
@@ -22922,17 +22922,17 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
                             "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/jsum(options:)",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/jsum(options:)",
                             "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
                             "type" : "method"
                           }
                         ],
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/encodable-implementations",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/encodable-implementations",
                         "title" : "Encodable Implementations",
                         "type" : "symbol"
                       },
@@ -22943,7 +22943,7 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/!=(_:_:)",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/!=(_:_:)",
                             "title" : "static func != (Self, Self) -> Bool",
                             "type" : "op"
                           },
@@ -22952,23 +22952,162 @@
                             "type" : "groupMarker"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/represent()-1o5lq",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/represent()-664pg",
                             "title" : "func represent<T>() -> T?",
                             "type" : "method"
                           },
                           {
-                            "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/represent()-40fq2",
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/represent()-gbam",
                             "title" : "func represent<T>() -> T",
                             "type" : "method"
                           }
                         ],
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct\/equatable-implementations",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins\/equatable-implementations",
                         "title" : "Equatable Implementations",
                         "type" : "symbol"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.struct",
-                    "title" : "ResolvedPackage.SwiftPackage.State",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/pins",
+                    "title" : "ResolvedPackage.ResolvedPackageV1.Pins",
+                    "type" : "struct"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/init(from:)",
+                        "title" : "init(from: Decoder) throws",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/package",
+                        "title" : "var package: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/repositoryurl",
+                        "title" : "var repositoryURL: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/state",
+                        "title" : "var state: ResolvedPackage.PackageState",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Default Implementations",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Initializers",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                            "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/init(jsum:options:)",
+                            "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "title" : "Type Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/codablecomplete(data:encoder:decoder:)",
+                            "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/decodable-implementations",
+                        "title" : "Decodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Instance Properties",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/canonicaljson",
+                            "title" : "var canonicalJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/debugjson",
+                            "title" : "var debugJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/prettyjson",
+                            "title" : "var prettyJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                            "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/jsum(options:)",
+                            "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/encodable-implementations",
+                        "title" : "Encodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Operators",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/!=(_:_:)",
+                            "title" : "static func != (Self, Self) -> Bool",
+                            "type" : "op"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/represent()-1o7bi",
+                            "title" : "func represent<T>() -> T",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/represent()-93lmu",
+                            "title" : "func represent<T>() -> T?",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage\/equatable-implementations",
+                        "title" : "Equatable Implementations",
+                        "type" : "symbol"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/swiftpackage",
+                    "title" : "ResolvedPackage.ResolvedPackageV1.SwiftPackage",
                     "type" : "struct"
                   },
                   {
@@ -22976,7 +23115,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/init(from:)",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/init(from:)",
                     "title" : "init(from: Decoder) throws",
                     "type" : "init"
                   },
@@ -22985,19 +23124,186 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/package",
-                    "title" : "var package: String",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/object",
+                    "title" : "var object: ResolvedPackage.ResolvedPackageV1.Pins",
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/repositoryurl",
-                    "title" : "var repositoryURL: String",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.property",
+                    "title" : "var version: ResolvedPackage.ResolvedPackageV1.Version",
                     "type" : "property"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/state-swift.property",
-                    "title" : "var state: ResolvedPackage.SwiftPackage.State",
-                    "type" : "property"
+                    "title" : "Enumerations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Enumeration Cases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/v1",
+                        "title" : "case v1",
+                        "type" : "case"
+                      },
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/init(rawvalue:)",
+                        "title" : "init?(rawValue: Int)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Default Implementations",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Initializers",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                            "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/init(jsum:options:)",
+                            "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "title" : "Type Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/codablecomplete(data:encoder:decoder:)",
+                            "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/decodable-implementations",
+                        "title" : "Decodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Instance Properties",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/canonicaljson",
+                            "title" : "var canonicalJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/debugjson",
+                            "title" : "var debugJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/prettyjson",
+                            "title" : "var prettyJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                            "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/jsum(options:)",
+                            "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/encodable-implementations",
+                        "title" : "Encodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Operators",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/!=(_:_:)",
+                            "title" : "static func != (Self, Self) -> Bool",
+                            "type" : "op"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/represent()-3thu4",
+                            "title" : "func represent<T>() -> T?",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/represent()-5kz5u",
+                            "title" : "func represent<T>() -> T",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/equatable-implementations",
+                        "title" : "Equatable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Initializers",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/init(from:)",
+                            "title" : "init(from: Decoder) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "title" : "Instance Properties",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/hashvalue",
+                            "title" : "var hashValue: Int",
+                            "type" : "property"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/encode(to:)",
+                            "title" : "func encode(to: Encoder) throws",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/hash(into:)",
+                            "title" : "func hash(into: inout Hasher)",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum\/rawrepresentable-implementations",
+                        "title" : "RawRepresentable Implementations",
+                        "type" : "symbol"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/version-swift.enum",
+                    "title" : "ResolvedPackage.ResolvedPackageV1.Version",
+                    "type" : "enum"
                   },
                   {
                     "title" : "Default Implementations",
@@ -23010,12 +23316,12 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
                         "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
                         "type" : "init"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/init(jsum:options:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/init(jsum:options:)",
                         "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
                         "type" : "init"
                       },
@@ -23024,12 +23330,12 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/codablecomplete(data:encoder:decoder:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/codablecomplete(data:encoder:decoder:)",
                         "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
                         "type" : "method"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/decodable-implementations",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/decodable-implementations",
                     "title" : "Decodable Implementations",
                     "type" : "symbol"
                   },
@@ -23040,17 +23346,17 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/canonicaljson",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/canonicaljson",
                         "title" : "var canonicalJSON: String",
                         "type" : "property"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/debugjson",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/debugjson",
                         "title" : "var debugJSON: String",
                         "type" : "property"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/prettyjson",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/prettyjson",
                         "title" : "var prettyJSON: String",
                         "type" : "property"
                       },
@@ -23059,17 +23365,17 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
                         "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/jsum(options:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/jsum(options:)",
                         "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
                         "type" : "method"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/encodable-implementations",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/encodable-implementations",
                     "title" : "Encodable Implementations",
                     "type" : "symbol"
                   },
@@ -23080,7 +23386,7 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/!=(_:_:)",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/!=(_:_:)",
                         "title" : "static func != (Self, Self) -> Bool",
                         "type" : "op"
                       },
@@ -23089,23 +23395,477 @@
                         "type" : "groupMarker"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/represent()-69w9w",
-                        "title" : "func represent<T>() -> T",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/represent()-96kem",
+                        "title" : "func represent<T>() -> T?",
                         "type" : "method"
                       },
                       {
-                        "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/represent()-jtd3",
-                        "title" : "func represent<T>() -> T?",
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/represent()-9ikfm",
+                        "title" : "func represent<T>() -> T",
                         "type" : "method"
                       }
                     ],
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage\/equatable-implementations",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1\/equatable-implementations",
                     "title" : "Equatable Implementations",
                     "type" : "symbol"
                   }
                 ],
-                "path" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage",
-                "title" : "ResolvedPackage.SwiftPackage",
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1",
+                "title" : "ResolvedPackage.ResolvedPackageV1",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Structures",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/init(from:)",
+                        "title" : "init(from: Decoder) throws",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/identity",
+                        "title" : "var identity: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/kind",
+                        "title" : "var kind: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/location",
+                        "title" : "var location: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/state",
+                        "title" : "var state: ResolvedPackage.PackageState",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Default Implementations",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Initializers",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                            "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/init(jsum:options:)",
+                            "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "title" : "Type Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/codablecomplete(data:encoder:decoder:)",
+                            "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/decodable-implementations",
+                        "title" : "Decodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Instance Properties",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/canonicaljson",
+                            "title" : "var canonicalJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/debugjson",
+                            "title" : "var debugJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/prettyjson",
+                            "title" : "var prettyJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                            "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/jsum(options:)",
+                            "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/encodable-implementations",
+                        "title" : "Encodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Operators",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/!=(_:_:)",
+                            "title" : "static func != (Self, Self) -> Bool",
+                            "type" : "op"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/represent()-16j7c",
+                            "title" : "func represent<T>() -> T?",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/represent()-2lin4",
+                            "title" : "func represent<T>() -> T",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage\/equatable-implementations",
+                        "title" : "Equatable Implementations",
+                        "type" : "symbol"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/swiftpackage",
+                    "title" : "ResolvedPackage.ResolvedPackageV2.SwiftPackage",
+                    "type" : "struct"
+                  },
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/init(from:)",
+                    "title" : "init(from: Decoder) throws",
+                    "type" : "init"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/pins",
+                    "title" : "var pins: [ResolvedPackage.ResolvedPackageV2.SwiftPackage]",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.property",
+                    "title" : "var version: ResolvedPackage.ResolvedPackageV2.Version",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Enumerations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Enumeration Cases",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/v2",
+                        "title" : "case v2",
+                        "type" : "case"
+                      },
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/init(rawvalue:)",
+                        "title" : "init?(rawValue: Int)",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Default Implementations",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Initializers",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                            "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/init(jsum:options:)",
+                            "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "title" : "Type Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/codablecomplete(data:encoder:decoder:)",
+                            "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/decodable-implementations",
+                        "title" : "Decodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Instance Properties",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/canonicaljson",
+                            "title" : "var canonicalJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/debugjson",
+                            "title" : "var debugJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/prettyjson",
+                            "title" : "var prettyJSON: String",
+                            "type" : "property"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                            "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/jsum(options:)",
+                            "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/encodable-implementations",
+                        "title" : "Encodable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Operators",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/!=(_:_:)",
+                            "title" : "static func != (Self, Self) -> Bool",
+                            "type" : "op"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/represent()-2v87i",
+                            "title" : "func represent<T>() -> T?",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/represent()-7dt38",
+                            "title" : "func represent<T>() -> T",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/equatable-implementations",
+                        "title" : "Equatable Implementations",
+                        "type" : "symbol"
+                      },
+                      {
+                        "children" : [
+                          {
+                            "title" : "Initializers",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/init(from:)",
+                            "title" : "init(from: Decoder) throws",
+                            "type" : "init"
+                          },
+                          {
+                            "title" : "Instance Properties",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/hashvalue",
+                            "title" : "var hashValue: Int",
+                            "type" : "property"
+                          },
+                          {
+                            "title" : "Instance Methods",
+                            "type" : "groupMarker"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/encode(to:)",
+                            "title" : "func encode(to: Encoder) throws",
+                            "type" : "method"
+                          },
+                          {
+                            "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/hash(into:)",
+                            "title" : "func hash(into: inout Hasher)",
+                            "type" : "method"
+                          }
+                        ],
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum\/rawrepresentable-implementations",
+                        "title" : "RawRepresentable Implementations",
+                        "type" : "symbol"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/version-swift.enum",
+                    "title" : "ResolvedPackage.ResolvedPackageV2.Version",
+                    "type" : "enum"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Initializers",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/init(json:decoder:allowsjson5:datadecodingstrategy:datedecodingstrategy:nonconformingfloatdecodingstrategy:keydecodingstrategy:userinfo:)",
+                        "title" : "init(json: Data, decoder: () -> JSONDecoder, allowsJSON5: Bool, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy?, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy?, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy?, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws",
+                        "type" : "init"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/init(jsum:options:)",
+                        "title" : "init(jsum: JSum, options: JSumDecodingOptions?) throws",
+                        "type" : "init"
+                      },
+                      {
+                        "title" : "Type Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/codablecomplete(data:encoder:decoder:)",
+                        "title" : "static func codableComplete(data: Data, encoder: JSONEncoder?, decoder: JSONDecoder?) throws -> (instance: Self, difference: JSum?)",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/decodable-implementations",
+                    "title" : "Decodable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/canonicaljson",
+                        "title" : "var canonicalJSON: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/debugjson",
+                        "title" : "var debugJSON: String",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/prettyjson",
+                        "title" : "var prettyJSON: String",
+                        "type" : "property"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)",
+                        "title" : "func json(encoder: () -> JSONEncoder, outputFormatting: JSONEncoder.OutputFormatting?, dateEncodingStrategy: JSONEncoder.DateEncodingStrategy?, dataEncodingStrategy: JSONEncoder.DataEncodingStrategy?, nonConformingFloatEncodingStrategy: JSONEncoder.NonConformingFloatEncodingStrategy?, keyEncodingStrategy: JSONEncoder.KeyEncodingStrategy?, userInfo: [CodingUserInfoKey : Any]?) throws -> Data",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/jsum(options:)",
+                        "title" : "func jsum(options: JSumEncodingOptions?) throws -> JSum",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/encodable-implementations",
+                    "title" : "Encodable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      },
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/represent()-96jww",
+                        "title" : "func represent<T>() -> T?",
+                        "type" : "method"
+                      },
+                      {
+                        "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/represent()-9ijb0",
+                        "title" : "func represent<T>() -> T",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2",
+                "title" : "ResolvedPackage.ResolvedPackageV2",
                 "type" : "struct"
               },
               {
@@ -23113,8 +23873,8 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/fairapp\/resolvedpackage\/init(from:)",
-                "title" : "init(from: Decoder) throws",
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/init(rawvalue:)-7l52y",
+                "title" : "init(rawValue: XOr<ResolvedPackage.ResolvedPackageV1>.Or<ResolvedPackage.ResolvedPackageV2>)",
                 "type" : "init"
               },
               {
@@ -23122,8 +23882,8 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/fairapp\/resolvedpackage\/object",
-                "title" : "var object: ResolvedPackage.Pins?",
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/rawvalue",
+                "title" : "var rawValue: XOr<ResolvedPackage.ResolvedPackageV1>.Or<ResolvedPackage.ResolvedPackageV2>",
                 "type" : "property"
               },
               {
@@ -23208,31 +23968,49 @@
               {
                 "children" : [
                   {
-                    "title" : "Operators",
+                    "title" : "Initializers",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/!=(_:_:)",
-                    "title" : "static func != (Self, Self) -> Bool",
-                    "type" : "op"
-                  },
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/init(from:)",
+                    "title" : "init(from: Decoder) throws",
+                    "type" : "init"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/rawdecodable-implementations",
+                "title" : "RawDecodable Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
                   {
                     "title" : "Instance Methods",
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/represent()-5en9f",
-                    "title" : "func represent<T>() -> T?",
-                    "type" : "method"
-                  },
-                  {
-                    "path" : "\/documentation\/fairapp\/resolvedpackage\/represent()-8tj40",
-                    "title" : "func represent<T>() -> T",
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/encode(to:)",
+                    "title" : "func encode(to: Encoder) throws",
                     "type" : "method"
                   }
                 ],
-                "path" : "\/documentation\/fairapp\/resolvedpackage\/equatable-implementations",
-                "title" : "Equatable Implementations",
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/rawencodable-implementations",
+                "title" : "RawEncodable Implementations",
+                "type" : "symbol"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/init(rawvalue:)-7d3rv",
+                    "title" : "init?(rawValue: Self.RawValue)",
+                    "type" : "init"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/rawinitializable-implementations",
+                "title" : "RawInitializable Implementations",
                 "type" : "symbol"
               }
             ],

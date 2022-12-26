@@ -1,18 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "The contents of a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Package.resolved",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " file",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -89,9 +75,12 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+        "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+        "doc:\/\/FairApp\/8FairCore16RawInitializableP",
         "doc:\/\/FairApp\/Se",
         "doc:\/\/FairApp\/SE",
-        "doc:\/\/FairApp\/SQ"
+        "doc:\/\/FairApp\/SY"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -109,20 +98,21 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Pins",
-        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/SwiftPackage"
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/PackageState",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/ResolvedPackageV1",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/ResolvedPackageV2"
       ],
       "title" : "Structures"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/init(from:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/init(rawValue:)-7l52y"
       ],
       "title" : "Initializers"
     },
     {
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/object",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/rawValue",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/version"
       ],
       "title" : "Instance Properties"
@@ -132,7 +122,9 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Decodable-Implementations",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Encodable-Implementations",
-        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Equatable-Implementations"
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/RawDecodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/RawEncodable-Implementations",
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/RawInitializable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -151,14 +143,29 @@
   ]
 , 
 "references": {
+"doc://FairApp/8FairCore12RawDecodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawDecodableP",
+  "title" : "FairCore.RawDecodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore12RawEncodableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore12RawEncodableP",
+  "title" : "FairCore.RawEncodable",
+  "type" : "unresolvable"
+},
+"doc://FairApp/8FairCore16RawInitializableP": {
+  "identifier" : "doc:\/\/FairApp\/8FairCore16RawInitializableP",
+  "title" : "FairCore.RawInitializable",
+  "type" : "unresolvable"
+},
 "doc://FairApp/SE": {
   "identifier" : "doc:\/\/FairApp\/SE",
   "title" : "Swift.Encodable",
   "type" : "unresolvable"
 },
-"doc://FairApp/SQ": {
-  "identifier" : "doc:\/\/FairApp\/SQ",
-  "title" : "Swift.Equatable",
+"doc://FairApp/SY": {
+  "identifier" : "doc:\/\/FairApp\/SY",
+  "title" : "Swift.RawRepresentable",
   "type" : "unresolvable"
 },
 "doc://FairApp/Se": {
@@ -190,18 +197,7 @@
 },
 "doc://FairApp/documentation/FairApp/ResolvedPackage": {
   "abstract" : [
-    {
-      "text" : "The contents of a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Package.resolved",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " file",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -252,20 +248,84 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/resolvedpackage\/encodable-implementations"
 },
-"doc://FairApp/documentation/FairApp/ResolvedPackage/Equatable-Implementations": {
+"doc://FairApp/documentation/FairApp/ResolvedPackage/PackageState": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Equatable-Implementations",
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PackageState"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/PackageState",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PackageState"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.PackageState",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/packagestate"
+},
+"doc://FairApp/documentation/FairApp/ResolvedPackage/RawDecodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/RawDecodable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "Equatable Implementations",
+  "title" : "RawDecodable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/resolvedpackage\/equatable-implementations"
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/rawdecodable-implementations"
 },
-"doc://FairApp/documentation/FairApp/ResolvedPackage/Pins": {
+"doc://FairApp/documentation/FairApp/ResolvedPackage/RawEncodable-Implementations": {
   "abstract" : [
 
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/RawEncodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawEncodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/rawencodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/ResolvedPackage/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/rawinitializable-implementations"
+},
+"doc://FairApp/documentation/FairApp/ResolvedPackage/ResolvedPackageV1": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " version 1 file",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -278,25 +338,36 @@
     },
     {
       "kind" : "identifier",
-      "text" : "Pins"
+      "text" : "ResolvedPackageV1"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Pins",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/ResolvedPackageV1",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "Pins"
+      "text" : "ResolvedPackageV1"
     }
   ],
   "role" : "symbol",
-  "title" : "ResolvedPackage.Pins",
+  "title" : "ResolvedPackage.ResolvedPackageV1",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/resolvedpackage\/pins"
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev1"
 },
-"doc://FairApp/documentation/FairApp/ResolvedPackage/SwiftPackage": {
+"doc://FairApp/documentation/FairApp/ResolvedPackage/ResolvedPackageV2": {
   "abstract" : [
-
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " version 2 file",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -309,23 +380,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "SwiftPackage"
+      "text" : "ResolvedPackageV2"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/SwiftPackage",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/ResolvedPackageV2",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "SwiftPackage"
+      "text" : "ResolvedPackageV2"
     }
   ],
   "role" : "symbol",
-  "title" : "ResolvedPackage.SwiftPackage",
+  "title" : "ResolvedPackage.ResolvedPackageV2",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/resolvedpackage\/swiftpackage"
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/resolvedpackagev2"
 },
-"doc://FairApp/documentation/FairApp/ResolvedPackage/init(from:)": {
+"doc://FairApp/documentation/FairApp/ResolvedPackage/init(rawValue:)-7l52y": {
   "abstract" : [
 
   ],
@@ -340,7 +411,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "from"
+      "text" : "rawValue"
     },
     {
       "kind" : "text",
@@ -348,26 +419,67 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7DecoderP",
-      "text" : "Decoder"
+      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "text" : "XOr"
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : "<"
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV0cD2V1V",
+      "text" : "ResolvedPackageV1"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "text" : "Or"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV0cD2V2V",
+      "text" : "ResolvedPackageV2"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/init(from:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/init(rawValue:)-7l52y",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(from:)",
+  "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/resolvedpackage\/init(from:)"
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/init(rawvalue:)-7l52y"
 },
-"doc://FairApp/documentation/FairApp/ResolvedPackage/object": {
+"doc://FairApp/documentation/FairApp/ResolvedPackage/rawValue": {
   "abstract" : [
 
   ],
@@ -382,11 +494,20 @@
     },
     {
       "kind" : "identifier",
-      "text" : "object"
+      "text" : "rawValue"
     },
     {
       "kind" : "text",
       "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "text" : "XOr"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
@@ -399,20 +520,47 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV4PinsV",
-      "text" : "Pins"
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV0cD2V1V",
+      "text" : "ResolvedPackageV1"
     },
     {
       "kind" : "text",
-      "text" : "?"
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "text" : "Or"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV0cD2V2V",
+      "text" : "ResolvedPackageV2"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/object",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/rawValue",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "object",
+  "title" : "rawValue",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/resolvedpackage\/object"
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/rawvalue"
 },
 "doc://FairApp/documentation/FairApp/ResolvedPackage/version": {
   "abstract" : [
