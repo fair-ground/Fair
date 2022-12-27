@@ -130,19 +130,15 @@ struct FDroidIndex : Codable, Equatable {
 
     /// Flag for potentially undesirable features (e.g., "Ads", "DisabledAlgorithm", "KnownVuln", "NSFW", "NoSourceSince", "NonFreeAdd", "NonFreeAssets", "NonFreeDep", "NonFreeNet", "Tracking", "UpstreamNonFree")
     struct AntiFeature : Codable, Equatable {
-        // icon encoded wrong: https://gitlab.com/fdroid/fdroidclient/-/merge_requests/1139
-        // var icon: File?
         var icon: LocalizedFile?
-        var name: LocalizedText
+        var name: LocalizedText?
         var description: LocalizedText?
     }
 
     /// A categorization of an app (e.g, "Connectivity", "Development", "Games", "Graphics", "Internet", "Money", "Multimedia", "Navigation", "Phone & SMS", "Reading", "Science & Education", "Security", "Sports & Health", "System", "Theming", "Time", "Writing")
     struct Category : Codable, Equatable {
-        // icon encoded wrong: https://gitlab.com/fdroid/fdroidclient/-/merge_requests/1139
-        // var icon: File?
         var icon: LocalizedFile?
-        var name: LocalizedText
+        var name: LocalizedText?
         var description: LocalizedText?
     }
 
