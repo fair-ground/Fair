@@ -148,6 +148,9 @@ public typealias UXPasteboard = NSPasteboard
 
 #if canImport(AppKit)
 @_exported import AppKit
+#endif
+
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 @available(macOS 11, *)
 typealias UXApplicationDelegateAdaptor = NSApplicationDelegateAdaptor
 typealias UXApplicationDelegate = NSApplicationDelegate
@@ -160,7 +163,7 @@ typealias UXApplicationDelegate = UIApplicationDelegate
 
 // MARK: ViewRepresentable
 
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 /// AppKit adapter for `NSViewRepresentable`
 public protocol UXViewRepresentable : NSViewRepresentable {
     associatedtype UXViewType : NSView
@@ -180,7 +183,7 @@ public protocol UXViewRepresentable : UIViewRepresentable {
 
 public extension SwiftUI.Image {
     init(uxImage nativeImage: UXImage) {
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
         self.init(nsImage: nativeImage)
 #elseif canImport(UIKit)
         self.init(uiImage: nativeImage)
@@ -193,7 +196,7 @@ public extension UXApplication {
     ///
     /// - Parameter number: the number to set; 0 will hide the badge
     func setBadge(_ number: Int) {
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
         NSApp.dockTile.badgeLabel = number <= 0 ? nil : "\(number)"
 #endif
 #if canImport(UIKit)
@@ -262,7 +265,7 @@ public extension UXViewRepresentable {
 
 // MARK: ViewControllerRepresentable
 
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 /// AppKit adapter for `NSViewControllerRepresentable`
 public protocol UXViewControllerRepresentable : NSViewControllerRepresentable {
     associatedtype UXViewControllerType : NSViewController

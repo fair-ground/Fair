@@ -589,7 +589,7 @@ private final class AppDelegate: NSObject, UXApplicationDelegate {
     /// The global quick actions installed on the app
     fileprivate static var quickActions: [QuickAction]? = nil
 
-    #if canImport(AppKit)
+    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
     @objc func performQuickAction(_ sender: Any?) {
         dbg(sender)
         if let sender = sender as? NSMenuItem {
@@ -844,7 +844,7 @@ public struct SplitDividerView : View {
 #endif
 
 
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 public extension NSWindow {
     /// Grab a snapshot of the given window
     func takeSnapshot() -> NSImage? {
