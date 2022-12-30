@@ -87,12 +87,11 @@ public struct FairIconView : View, Equatable {
         if let base = base {
             if let cgColor = base.cgColor {
                 if let rgbColor = cgColor.converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil) {
-                    #if canImport(AppKit)
+                    #if canImport(AppKit) && !targetEnvironment(macCatalyst)
                     if let uxColor = (NSColor(cgColor: rgbColor) as NSColor?) {
                         uxColor.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
                     }
-                    #endif
-                    #if canImport(UIKit)
+                    #elseif canImport(UIKit)
                     if let uxColor = (UIColor(cgColor: rgbColor) as UIColor?) {
                         uxColor.getHue(&hue, saturation: nil, brightness: nil, alpha: nil)
                     }
