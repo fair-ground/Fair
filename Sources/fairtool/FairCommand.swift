@@ -216,6 +216,7 @@ extension FairCommand {
 
             // copy up the assets, sources, and other metadata
             try pull("appfair.xcconfig")
+            try pull("project.xcodeproj")
             try pull("App.yml")
             try pull("Info.plist")
             try pull("Assets.xcassets")
