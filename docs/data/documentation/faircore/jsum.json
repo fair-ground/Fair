@@ -352,6 +352,7 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(json:allowsJSON5:dataDecodingStrategy:dateDecodingStrategy:nonConformingFloatDecodingStrategy:keyDecodingStrategy:userInfo:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(plist:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(xml:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yaml:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(yamls:)"
       ],
@@ -1688,6 +1689,85 @@
   "title" : "parse(plist:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsum\/parse(plist:)"
+},
+"doc://FairCore/documentation/FairCore/JSum/parse(xml:)": {
+  "abstract" : [
+    {
+      "text" : "Parses the given XML string into a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parse"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "xml"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum\/parse(xml:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parse(xml:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/jsum\/parse(xml:)"
 },
 "doc://FairCore/documentation/FairCore/JSum/parse(yaml:)": {
   "abstract" : [

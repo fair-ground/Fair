@@ -38,6 +38,16 @@ import Foundation
 import FoundationXML
 #endif // canImport(FoundationXML)
 
+extension JSum {
+    /// Parses the given XML string into a ``JSum``.
+    /// - Parameter xml: the XML string to parse
+    public static func parse(xml: String) throws -> JSum {
+        let node = try XMLNode.parse(data: xml.utf8Data, options: [.processNamespaces], entityResolver: nil)
+        let element = node.elementChildren.first ?? node // get the root element
+        return JSum.obj([element.elementName : element.jsum()])
+    }
+}
+
 /// An XML Element Document, which is an in-memory tree representation
 /// of the contents of an XML source.
 public struct XMLNode : Hashable {
@@ -437,6 +447,56 @@ public extension XMLNode {
         return dict
     }
 }
+
+
+extension XMLNode {
+    /// Convert this node to either an object (if there are any attributes or content children), or a string value
+    public func jsum() -> JSum {
+        if !self.attributes.isEmpty || !self.elementChildren.isEmpty {
+            return .obj(jobj())
+        } else {
+            return self.children.isEmpty ? .nul : .str(self.stringContent)
+        }
+    }
+
+    /// Converts this XML node into a `JSum`.
+    /// - Returns: the converted `JSum`.
+    func jobj() -> JObj {
+        let attrs = self.attributes
+        let childs = self.children
+        var obj = JObj()
+        for (key, value) in attrs {
+            obj[key] = .str(value)
+        }
+        for child in childs {
+            switch child {
+            case .element(let element):
+                if let existing = obj[element.elementName] {
+                    // the element already exists … re-use an existing array, or else wrap it in one
+                    var array = existing.arr ?? [existing]
+                    array.append(element.jsum())
+                    obj[element.elementName] = .arr(array)
+                } else {
+                    // place the element as a single root element
+                    obj[element.elementName] = element.jsum()
+                }
+            case .content(let value):
+                obj["_"] = .str(value)
+            case .comment(_):
+                break
+            case .cdata(_):
+                break
+            case .whitespace(_):
+                break
+            case .processingInstruction:
+                break
+            }
+        }
+
+        return obj
+    }
+}
+
 
 internal extension String {
 

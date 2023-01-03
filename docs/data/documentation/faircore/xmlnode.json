@@ -142,6 +142,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode\/attributeValue(key:namespaceURI:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode\/childElements(named:namespaceURI:)",
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode\/elementDictionary(attributes:childNodes:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode\/jsum()",
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode\/xmlString(declaration:quote:compactCloseTags:escape:commentScriptCDATA:attributeSorter:)"
       ],
       "title" : "Instance Methods"
@@ -1228,6 +1229,43 @@
   "title" : "isDocument",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xmlnode\/isdocument"
+},
+"doc://FairCore/documentation/FairCore/XMLNode/jsum()": {
+  "abstract" : [
+    {
+      "text" : "Convert this node to either an object (if there are any attributes or content children), or a string value",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "jsum"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "text" : "JSum"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode\/jsum()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "jsum()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xmlnode\/jsum()"
 },
 "doc://FairCore/documentation/FairCore/XMLNode/namespaceURI": {
   "abstract" : [
