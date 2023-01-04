@@ -4,6 +4,6 @@ let Info : [String : Any] = [
         "CFBundleIdentifier" : "org.fair-ground.Fair",
         "CFBundleInfoDictionaryVersion" : "6.0",
         "CFBundlePackageType" : "FMWK",
-        "CFBundleShortVersionString" : "0.8.29",
+        "CFBundleShortVersionString" : "0.8.30",
         "NSHumanReadableCopyright" : "GNU Affero General Public License",
     ]
