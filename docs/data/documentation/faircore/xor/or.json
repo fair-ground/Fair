@@ -166,6 +166,7 @@
         "doc:\/\/FairCore\/SE",
         "doc:\/\/FairCore\/SQ",
         "doc:\/\/FairCore\/s5ErrorP",
+        "doc:\/\/FairCore\/s25ExpressibleByArrayLiteralP",
         "doc:\/\/FairCore\/SH",
         "doc:\/\/FairCore\/s8SendableP",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOrType"
@@ -212,6 +213,9 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/collectionMulti",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/collectionSingle",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/count",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/p-swift.property",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/pvalue",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/q-swift.property",
@@ -253,7 +257,8 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/Decodable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/Encodable-Implementations",
         "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/Equatable-Implementations",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/Error-Implementations"
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/Error-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/ExpressibleByArrayLiteral-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -489,6 +494,17 @@
   "title" : "Error Implementations",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/error-implementations"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/ExpressibleByArrayLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/ExpressibleByArrayLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByArrayLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/expressiblebyarrayliteral-implementations"
 },
 "doc://FairCore/documentation/FairCore/XOr/Or/Failure": {
   "abstract" : [
@@ -806,6 +822,355 @@
   "title" : "XOr.Or.XOrDecodingError",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xor\/or\/xordecodingerror"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/collectionMulti": {
+  "abstract" : [
+    {
+      "text" : "The array of instances, whose setter will opt for the multiple option",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.ArrayLiteralElement",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Collection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "ExpressibleByArrayLiteral",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.ArrayLiteralElement",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "collectionMulti"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Q"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/collectionMulti",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "collectionMulti",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/collectionmulti"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/collectionSingle": {
+  "abstract" : [
+    {
+      "text" : "The array of instances, whose setter will opt for the single option",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.ArrayLiteralElement",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Collection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "ExpressibleByArrayLiteral",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.ArrayLiteralElement",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "collectionSingle"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Q"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/collectionSingle",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "collectionSingle",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/collectionsingle"
+},
+"doc://FairCore/documentation/FairCore/XOr/Or/count": {
+  "abstract" : [
+    {
+      "text" : "The number of elements in .q; .p always returns 1",
+      "type" : "text"
+    }
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "P",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.ArrayLiteralElement",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "Collection",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " conforms to ",
+        "type" : "text"
+      },
+      {
+        "code" : "ExpressibleByArrayLiteral",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ", and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.ArrayLiteralElement",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "Q.Element",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "count"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or\/count",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "count",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/xor\/or\/count"
 },
 "doc://FairCore/documentation/FairCore/XOr/Or/get()": {
   "abstract" : [
@@ -3108,6 +3473,11 @@
   "title" : "XOrType",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/xortype"
+},
+"doc://FairCore/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/FairCore\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
 },
 "doc://FairCore/s5ErrorP": {
   "identifier" : "doc:\/\/FairCore\/s5ErrorP",

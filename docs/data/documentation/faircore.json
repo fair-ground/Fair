@@ -139,6 +139,8 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/CRC32-swift.typealias",
         "doc:\/\/FairCore\/documentation\/FairCore\/Consumer",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrArray",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrSequence",
         "doc:\/\/FairCore\/documentation\/FairCore\/FILEPointer",
         "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
         "doc:\/\/FairCore\/documentation\/FairCore\/Provider",
@@ -872,6 +874,82 @@
   "title" : "DynamicBundleError",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/dynamicbundleerror"
+},
+"doc://FairCore/documentation/FairCore/ElementOrArray": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "OneOrMany",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is either a single value or any array of zero or multiple values",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ElementOrArray"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrArray",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ElementOrArray"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ElementOrArray",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/elementorarray"
+},
+"doc://FairCore/documentation/FairCore/ElementOrSequence": {
+  "abstract" : [
+    {
+      "text" : "One or more of a given type",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ElementOrSequence"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrSequence",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ElementOrSequence"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ElementOrSequence",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/elementorsequence"
 },
 "doc://FairCore/documentation/FairCore/FILEPointer": {
   "abstract" : [
