@@ -235,11 +235,12 @@ extension XOr.Or : Error where P : Error, Q : Error { }
 extension XOr : Sendable where P : Sendable { }
 extension XOr.Or : Sendable where P : Sendable, Q : Sendable { }
 
-/// One or more of a given type
-public typealias ElementOrSequence<Element, Seq: Sequence> = XOr<Element>.Or<Seq> where Seq.Element == Element
+
+/// A `OneOrMany` is either a single element or a sequence of elements
+public typealias ElementOrSequence<Seq: Sequence> = XOr<Seq.Element>.Or<Seq>
 
 /// A `OneOrMany` is either a single value or any array of zero or multiple values
-public typealias ElementOrArray<Element> = ElementOrSequence<Element, [Element]>
+public typealias ElementOrArray<Element> = ElementOrSequence<Array<Element>>
 
 extension ElementOrSequence : ExpressibleByArrayLiteral where Q : RangeReplaceableCollection, Q.Element == P {
     /// Initialized this sequence with either a single element or mutiple elements depending on the array contents.
@@ -260,13 +261,13 @@ extension ElementOrSequence where Q : Collection, Q : ExpressibleByArrayLiteral,
 
     /// The array of instances, whose setter will opt for the single option
     public var collectionSingle: Q {
-        get { map({ Q(arrayLiteral: $0) }, { $0 as Q }).value }
+        get { map({ p in Q(arrayLiteral: p) }, { q in q }).value }
         set { self = newValue.count == 1 ? .p(newValue.first!) : .q(newValue) }
     }
 
     /// The array of instances, whose setter will opt for the multiple option
     public var collectionMulti: Q {
-        get { map({ Q(arrayLiteral: $0) }, { $0 as Q }).value }
+        get { map({ p in Q(arrayLiteral: p) }, { q in q }).value }
         set { self = .q(newValue) }
     }
 }

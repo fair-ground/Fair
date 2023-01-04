@@ -450,7 +450,14 @@ public extension XMLNode {
 
 
 extension XMLNode {
-    /// Convert this node to either an object (if there are any attributes or content children), or a string value
+    /// Convert this node to either an object (if there are any attributes or content children), or a string value.
+    ///
+    /// - Note: Multiple XML elements children with the same name will be converted to an array of those objects.
+    ///
+    /// This can cause format issues with decoding from the JSum to a data type with a collection element, since
+    /// instances of the document that contain only a single child for those nodes will deserialize it as a single element
+    /// instead of an array. This should be handled by using the `ElementOrArray<Child>` type, which will
+    /// handle both single-instance as well as multi-instanced types.
     public func jsum() -> JSum {
         if !self.attributes.isEmpty || !self.elementChildren.isEmpty {
             return .obj(jobj())
