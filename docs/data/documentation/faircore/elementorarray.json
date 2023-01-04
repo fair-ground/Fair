@@ -104,11 +104,12 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "Element"
+              "preciseIdentifier" : "s:Sa",
+              "text" : "Array"
             },
             {
               "kind" : "text",
-              "text" : ", ["
+              "text" : "<"
             },
             {
               "kind" : "typeIdentifier",
@@ -116,7 +117,7 @@
             },
             {
               "kind" : "text",
-              "text" : "]>"
+              "text" : ">>"
             }
           ]
         }
@@ -205,7 +206,15 @@
 "doc://FairCore/documentation/FairCore/ElementOrSequence": {
   "abstract" : [
     {
-      "text" : "One or more of a given type",
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "OneOrMany",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is either a single element or a sequence of elements",
       "type" : "text"
     }
   ],

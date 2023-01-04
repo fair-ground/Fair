@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Convert this node to either an object (if there are any attributes or content children), or a string value",
+      "text" : "Convert this node to either an object (if there are any attributes or content children), or a string value.",
       "type" : "text"
     }
   ],
@@ -91,6 +91,74 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Multiple XML elements children with the same name will be converted to an array of those objects.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This can cause format issues with decoding from the JSum to a data type with a collection element, since",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "instances of the document that contain only a single child for those nodes will deserialize it as a single element",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "instead of an array. This should be handled by using the ",
+              "type" : "text"
+            },
+            {
+              "code" : "ElementOrArray<Child>",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " type, which will",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "handle both single-instance as well as multi-instanced types.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -208,7 +276,7 @@
 "doc://FairCore/documentation/FairCore/XMLNode/jsum()": {
   "abstract" : [
     {
-      "text" : "Convert this node to either an object (if there are any attributes or content children), or a string value",
+      "text" : "Convert this node to either an object (if there are any attributes or content children), or a string value.",
       "type" : "text"
     }
   ],

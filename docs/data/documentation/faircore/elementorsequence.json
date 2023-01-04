@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "One or more of a given type",
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "OneOrMany",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is either a single element or a sequence of elements",
       "type" : "text"
     }
   ],
@@ -78,14 +86,6 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "Element"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
-              "kind" : "genericParameter",
               "text" : "Seq"
             },
             {
@@ -101,6 +101,14 @@
             {
               "kind" : "text",
               "text" : "<"
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Seq"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
             },
             {
               "kind" : "typeIdentifier",
@@ -135,30 +143,6 @@
             {
               "kind" : "text",
               "text" : " "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Element"
-            },
-            {
-              "kind" : "text",
-              "text" : " == "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Seq"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "kind" : "typeIdentifier",
-              "text" : "Element"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
             },
             {
               "kind" : "typeIdentifier",
@@ -218,7 +202,15 @@
 "doc://FairCore/documentation/FairCore/ElementOrSequence": {
   "abstract" : [
     {
-      "text" : "One or more of a given type",
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "OneOrMany",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is either a single element or a sequence of elements",
       "type" : "text"
     }
   ],
