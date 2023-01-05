@@ -154,12 +154,12 @@ extension String {
     /// Removes the root path of a string.
     ///
     /// E.g., "x/y/z" -> "y/z"
-    public var trimmingBasePath: String? {
+    public var trimmingBasePath: String {
         let paths = self.split(separator: "/")
         if paths.count > 1, let basePath = paths.first, !basePath.isEmpty {
             return String(self.dropFirst(basePath.count + 1))
         } else {
-            return nil
+            return "" // no slashes; trim the whole root
         }
     }
 }
@@ -1085,7 +1085,7 @@ extension FileManager {
     ///   - skipCRC32: Optional flag to skip calculation of the CRC32 checksum to improve performance.
     ///   - progress: A progress object that can be used to track or cancel the unzip operation.
     ///   - preferredEncoding: Encoding for entry paths. Overrides the encoding specified in the archive.
-    ///   - trimBasePath: if true, trim the first path element, which is useful for unpacking a zip that includes the basename
+    ///   - trimBasePath: if true, trim the first path element, which is useful for unpacking a zip that includes a single root folder
     /// - Throws: Throws an error if the source item does not exist or the destination URL is not writable.
     public func unzipItem(at sourceURL: URL, to destinationURL: URL, skipCRC32: Bool = false,
                           progress: Progress? = nil, preferredEncoding: String.Encoding? = nil, trimBasePath: Bool = false, overwrite: Bool = false) throws {
@@ -1096,6 +1096,7 @@ extension FileManager {
         let archive = try Archive(url: sourceURL, accessMode: .read, preferredEncoding: preferredEncoding)
         // Defer extraction of symlinks until all files & directories have been created.
         // This is necessary because we can't create links to files that haven't been created yet.
+        // FIXME: we need to further sort the symlinks into the order in which they are created; creating a link to a non-existent destination will work, but setting calling setAttributes (below) will throw an error if the destination does noy yet exist. So we need to sort the links such that every link that is created has a destination file/link already created
         let sortedEntries = archive.sorted { (left, right) -> Bool in
             switch (left.type, right.type) {
             case (.directory, .file): return true
@@ -1113,11 +1114,12 @@ extension FileManager {
         for entry in sortedEntries {
             var path = preferredEncoding == nil ? entry.path : entry.path(using: preferredEncoding!)
             if trimBasePath == true {
-                path = path.trimmingBasePath ?? path
-                // dbg("trimmed basePath:", basePath, "from path:", path)
+                path = path.trimmingBasePath
+                //dbg("trimmed basePath:", basePath, "from path:", path)
             }
 
             let destinationEntryURL = destinationURL.appendingPathComponent(path)
+
             guard destinationEntryURL.isContained(in: destinationURL) else {
                 throw CocoaError(.fileReadInvalidFileName,
                                  userInfo: [NSFilePathErrorKey: destinationEntryURL.path])
@@ -2874,7 +2876,7 @@ extension ZipArchive {
             checksum = try self.extract(entry, bufferSize: bufferSize, skipCRC32: skipCRC32,
                                         progress: progress, consumer: consumer)
         case .symlink:
-            dbg("linking:", entry.path)
+            //dbg("linking:", entry.path)
             if fileManager.itemExists(at: url) {
                 if overwrite == true {
                     try fileManager.removeItem(at: url) // otherwise `createSymbolicLink` will fail
@@ -2894,7 +2896,7 @@ extension ZipArchive {
         do {
             try fileManager.setAttributes(attributes, ofItemAtPath: url.path)
         } catch {
-            // symlinks seem to throw errors when setting attributes
+            // TODO: symlinks seem to throw errors when setting attributes for links whose destination does not yet exist, which can happen here because we don't sort symlinks against each other; need to fix this in the sorting (above)
             if entry.type != .symlink {
                 throw error
             }
