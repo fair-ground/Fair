@@ -177,7 +177,7 @@ final class RemoteGitTests : XCTestCase {
             return nil
         }
 
-        for try await diff in fs.diff({ $0.pathName }, against: zip, againstPathKey: \.pathName.trimmingBasePath, differentiator: compare) {
+        for try await diff in fs.diff({ $0.pathName }, against: zip, againstPathKey: { $0.pathName.trimmingBasePath.isEmpty ? nil : $0.pathName.trimmingBasePath }, differentiator: compare) {
             if let diff = diff {
                 dbg("diff:", diff)
                 XCTFail("difference in paths: \(diff)")
