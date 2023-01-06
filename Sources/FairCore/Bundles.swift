@@ -431,6 +431,24 @@ public struct SemVer : Sendable, Hashable, Codable, Comparable, RawRepresentable
     }
 }
 
+extension SemVer {
+    /// True when the major and minor versions are the same as the other version
+    public func minorCompatible(with version: SemVer) -> Bool {
+        compatible(with: version, to: .minor)
+    }
+
+    public func compatible(with version: SemVer, to component: Component) -> Bool {
+        switch component {
+        case .major:
+            return self.major == version.major
+        case .minor:
+            return self.major == version.major && self.minor == version.minor
+        case .patch:
+            return self.major == version.major && self.minor == version.minor && self.patch == version.patch
+        }
+    }
+}
+
 extension FileManager {
     /// Runs ``FileManager.enumerate`` in an async ``Task``, returning an ``AsyncThrowingStream`` with the elements.
     /// - Parameters:
