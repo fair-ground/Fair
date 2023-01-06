@@ -347,7 +347,7 @@ private func checkKeyValueUniqueness(_ acc: [JObj.Key: JSum]) ->(_ context: Cont
 }
 
 private extension JSum {
-    /// This YAML as a key in a dictionary. Technically, YAML keys can be any type, but we corece them to a string to work with `JSum.obj`.
+    /// This YAML as a key in a dictionary. Technically, YAML keys can be any type, but we coerce them to a string to work with `JSum.obj`.
     var yamlKey: JObj.Key? {
         switch self {
         case .nul:

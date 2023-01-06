@@ -181,7 +181,9 @@
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/bumping(_:)",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/encode(to:)"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/compatible(with:to:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/encode(to:)",
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/minorCompatible(with:)"
       ],
       "title" : "Instance Methods"
     },
@@ -600,6 +602,83 @@
   "title" : "bumping(_:)",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/semver\/bumping(_:)"
+},
+"doc://FairCore/documentation/FairCore/SemVer/compatible(with:to:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "compatible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "with"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore6SemVerV",
+      "text" : "SemVer"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore6SemVerV",
+      "text" : "SemVer"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore6SemVerV9ComponentO",
+      "text" : "Component"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/compatible(with:to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "compatible(with:to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/semver\/compatible(with:to:)"
 },
 "doc://FairCore/documentation/FairCore/SemVer/encode(to:)": {
   "abstract" : [
@@ -1035,6 +1114,60 @@
   "title" : "minor",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/semver\/minor"
+},
+"doc://FairCore/documentation/FairCore/SemVer/minorCompatible(with:)": {
+  "abstract" : [
+    {
+      "text" : "True when the major and minor versions are the same as the other version",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "minorCompatible"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "with"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore6SemVerV",
+      "text" : "SemVer"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/SemVer\/minorCompatible(with:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "minorCompatible(with:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/semver\/minorcompatible(with:)"
 },
 "doc://FairCore/documentation/FairCore/SemVer/patch": {
   "abstract" : [
