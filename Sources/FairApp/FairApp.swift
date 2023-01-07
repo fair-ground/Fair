@@ -937,6 +937,13 @@ public struct AppError : LocalizedError {
     }
 }
 
+extension Bundle {
+    /// Returns a result designed to be used in static caches of the packages bundled `Package.resolved` file (which must be copied manually into the bundle's resources)
+    public func resolvedPackages() -> Result<ResolvedPackage, Error> {
+        Result { try ResolvedPackage(json: self.loadResource(named: "Package.resolved")) }
+    }
+}
+
 public struct ResolvedPackage : RawCodable, Codable {
     public var rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>
 
