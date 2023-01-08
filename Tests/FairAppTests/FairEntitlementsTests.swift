@@ -131,7 +131,7 @@ final class FairEntitlementsTests: XCTestCase {
     }
 
     func readEntitlements(_ path: String) async throws -> AppEntitlements {
-        let entitlements = try await extractEntitlements(Data(contentsOf: URL(fileURLWithPath: dump(path, name: "reading file")))).first
+        let entitlements = try await extractEntitlements(Data(contentsOf: URL(fileURLWithPath: path))).first
         return try XCTUnwrap(entitlements, "could not find entitlement for \(path)")
     }
 
