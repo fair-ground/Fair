@@ -953,6 +953,22 @@ public struct ResolvedPackage : RawCodable, Codable {
         self.rawValue = rawValue
     }
 
+    /// A version of the given package, handling both .v1 and .v2 of the packages.
+    public var packages: [Package] {
+        switch rawValue {
+        case .p(let v1):
+            return v1.object.pins.map({ Package(identity: nil, location: $0.repositoryURL, state: $0.state) })
+        case .q(let v2):
+            return v2.pins.map({ Package(identity: $0.identity, location: $0.location, state: $0.state) })
+        }
+    }
+
+    public struct Package {
+        public var identity: String?
+        public var location: String
+        public var state: PackageState
+    }
+
     /// The contents of a `Package.resolved` version 1 file
     public struct ResolvedPackageV1: Codable, Equatable {
         public enum Version : Int, Codable { case v1 = 1 }

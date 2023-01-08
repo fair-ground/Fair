@@ -98,6 +98,7 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Package",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/PackageState",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/ResolvedPackageV1",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/ResolvedPackageV2"
@@ -112,6 +113,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/packages",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/rawValue",
         "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/version"
       ],
@@ -247,6 +249,37 @@
   "title" : "Encodable Implementations",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/resolvedpackage\/encodable-implementations"
+},
+"doc://FairApp/documentation/FairApp/ResolvedPackage/Package": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Package"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/Package",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Package"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.Package",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/package"
 },
 "doc://FairApp/documentation/FairApp/ResolvedPackage/PackageState": {
   "abstract" : [
@@ -478,6 +511,56 @@
   "title" : "init(rawValue:)",
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/resolvedpackage\/init(rawvalue:)-7l52y"
+},
+"doc://FairApp/documentation/FairApp/ResolvedPackage/packages": {
+  "abstract" : [
+    {
+      "text" : "A version of the given package, handling both .v1 and .v2 of the packages.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "packages"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:7FairApp15ResolvedPackageV0D0V",
+      "text" : "Package"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/ResolvedPackage\/packages",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "packages",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/resolvedpackage\/packages"
 },
 "doc://FairApp/documentation/FairApp/ResolvedPackage/rawValue": {
   "abstract" : [

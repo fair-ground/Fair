@@ -22700,6 +22700,32 @@
               {
                 "children" : [
                   {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/package\/identity",
+                    "title" : "var identity: String?",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/package\/location",
+                    "title" : "var location: String",
+                    "type" : "property"
+                  },
+                  {
+                    "path" : "\/documentation\/fairapp\/resolvedpackage\/package\/state",
+                    "title" : "var state: ResolvedPackage.PackageState",
+                    "type" : "property"
+                  }
+                ],
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/package",
+                "title" : "ResolvedPackage.Package",
+                "type" : "struct"
+              },
+              {
+                "children" : [
+                  {
                     "title" : "Initializers",
                     "type" : "groupMarker"
                   },
@@ -23880,6 +23906,11 @@
               {
                 "title" : "Instance Properties",
                 "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/fairapp\/resolvedpackage\/packages",
+                "title" : "var packages: [ResolvedPackage.Package]",
+                "type" : "property"
               },
               {
                 "path" : "\/documentation\/fairapp\/resolvedpackage\/rawvalue",
