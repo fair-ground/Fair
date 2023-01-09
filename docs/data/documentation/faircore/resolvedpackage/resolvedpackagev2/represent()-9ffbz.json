@@ -1,0 +1,388 @@
+{
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2\/Equatable-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2\/represent()-9ffbz"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Swift",
+    "externalID" : "s:SQ8FairCoreE9representqd__Sgy8RawValueQyd__RszSYRd__lF::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "func"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "represent"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : ">() -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "T"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "represent()"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "func"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "represent"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : ">() -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : "? "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "RawValue"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "T"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:SY",
+              "text" : "RawRepresentable"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "a ",
+              "type" : "text"
+            },
+            {
+              "code" : "RawRepresentable",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " wrapper around the type",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/resolvedpackage\/resolvedpackagev2\/represent()-9ffbz"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file, which contains information about the project’s dependencies.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " version 2 file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackageV2"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackageV2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.ResolvedPackageV2",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/resolvedpackagev2"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/resolvedpackagev2\/equatable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2/represent()-9ffbz": {
+  "abstract" : [
+    {
+      "text" : "Wraps this instance in the ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " specified by the type (often expected to be inferred)",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "represent"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2\/represent()-9ffbz",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "represent()",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/resolvedpackagev2\/represent()-9ffbz"
+}
+}
+}

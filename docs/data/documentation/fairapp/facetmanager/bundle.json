@@ -1,8 +1,12 @@
 {
   "abstract" : [
     {
-      "text" : "The bundle associated with this manager",
+      "text" : "The bundle associated with this manager, which should be initialized as ",
       "type" : "text"
+    },
+    {
+      "code" : "public static let bundle = Bundle.module",
+      "type" : "codeVoice"
     }
   ],
   "hierarchy" : {
@@ -19,8 +23,16 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:7FairApp12FacetManagerP6bundleSo8NSBundleCvp",
+    "externalID" : "s:7FairApp12FacetManagerP6bundleSo8NSBundleCvpZ",
     "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "static"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
       {
         "kind" : "keyword",
         "text" : "var"
@@ -50,7 +62,7 @@
     ],
     "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
+    "roleHeading" : "Type Property",
     "symbolKind" : "property",
     "title" : "bundle"
   },
@@ -65,6 +77,22 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "nonisolated"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "static"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "var"
@@ -245,11 +273,23 @@
 "doc://FairApp/documentation/FairApp/FacetManager/bundle": {
   "abstract" : [
     {
-      "text" : "The bundle associated with this manager",
+      "text" : "The bundle associated with this manager, which should be initialized as ",
       "type" : "text"
+    },
+    {
+      "code" : "public static let bundle = Bundle.module",
+      "type" : "codeVoice"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "var"

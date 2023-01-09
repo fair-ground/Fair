@@ -109,6 +109,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection",
         "doc:\/\/FairCore\/documentation\/FairCore\/JSumOptions",
         "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeededRandomNumberGenerator",
         "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
         "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode"
@@ -1918,6 +1919,48 @@
   "title" : "RawInitializable",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/rawinitializable"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file, which contains information about the project’s dependencies.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage"
 },
 "doc://FairCore/documentation/FairCore/SHA256Hasher": {
   "abstract" : [

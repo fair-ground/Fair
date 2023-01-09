@@ -126,7 +126,7 @@
       "identifiers" : [
         "doc:\/\/FairApp\/documentation\/FairApp\/FacetManager\/bundle"
       ],
-      "title" : "Instance Properties"
+      "title" : "Type Properties"
     }
   ],
   "variants" : [
@@ -338,11 +338,23 @@
 "doc://FairApp/documentation/FairApp/FacetManager/bundle": {
   "abstract" : [
     {
-      "text" : "The bundle associated with this manager",
+      "text" : "The bundle associated with this manager, which should be initialized as ",
       "type" : "text"
+    },
+    {
+      "code" : "public static let bundle = Bundle.module",
+      "type" : "codeVoice"
     }
   ],
   "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
     {
       "kind" : "keyword",
       "text" : "var"

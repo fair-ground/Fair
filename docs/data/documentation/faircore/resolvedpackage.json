@@ -1,0 +1,883 @@
+{
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file, which contains information about the project’s dependencies.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/FairCore\/documentation\/FairCore"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8FairCore15ResolvedPackageV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ResolvedPackage"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "FairCore"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ResolvedPackage"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "ResolvedPackage"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ResolvedPackage"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
+        "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
+        "doc:\/\/FairCore\/Se",
+        "doc:\/\/FairCore\/SE",
+        "doc:\/\/FairCore\/SY"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/Package",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/PackageState",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV1",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/init(rawValue:)-2tfdk"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/packages",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/rawValue",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/version"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/Decodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/Encodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/RawDecodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/RawEncodable-Implementations",
+        "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/RawInitializable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/faircore\/resolvedpackage"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://FairCore/SE": {
+  "identifier" : "doc:\/\/FairCore\/SE",
+  "title" : "Swift.Encodable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/SY": {
+  "identifier" : "doc:\/\/FairCore\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/Se": {
+  "identifier" : "doc:\/\/FairCore\/Se",
+  "title" : "Swift.Decodable",
+  "type" : "unresolvable"
+},
+"doc://FairCore/documentation/FairCore": {
+  "abstract" : [
+    {
+      "text" : "The core library for fair-ground apps and tools.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "FairCore",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore"
+},
+"doc://FairCore/documentation/FairCore/RawDecodable": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawDecodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawInitializable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Implementations of this type will decode their ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " payload directly, rather than from an objec with a “rawValue” property.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawDecodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawDecodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawDecodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawDecodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawdecodable"
+},
+"doc://FairCore/documentation/FairCore/RawEncodable": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawDecodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawRepresentable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with an ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "code" : "RawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Implementations of this type will encode their ",
+      "type" : "text"
+    },
+    {
+      "code" : "rawValue",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " payload directly, rather than to an objec with a “rawValue” property.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawEncodable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawEncodable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawEncodable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawEncodable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawencodable"
+},
+"doc://FairCore/documentation/FairCore/RawInitializable": {
+  "abstract" : [
+    {
+      "text" : "A type that permits items to be initialized non-optionally",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RawInitializable"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/RawInitializable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RawInitializable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RawInitializable",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/rawinitializable"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " file, which contains information about the project’s dependencies.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackage"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/Decodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/Decodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Decodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/decodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/Encodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/Encodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Encodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/encodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/Package": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Package"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/Package",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Package"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.Package",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/package"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/PackageState": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PackageState"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/PackageState",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PackageState"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.PackageState",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/packagestate"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/RawDecodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/RawDecodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawDecodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/rawdecodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/RawEncodable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/RawEncodable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawEncodable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/rawencodable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/RawInitializable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/RawInitializable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "RawInitializable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/rawinitializable-implementations"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV1": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " version 1 file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackageV1"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV1",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackageV1"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.ResolvedPackageV1",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/resolvedpackagev1"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2": {
+  "abstract" : [
+    {
+      "text" : "The contents of a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Package.resolved",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " version 2 file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackageV2"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/ResolvedPackageV2",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ResolvedPackageV2"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ResolvedPackage.ResolvedPackageV2",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/resolvedpackagev2"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/init(rawValue:)-2tfdk": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "text" : "XOr"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV0cD2V1V",
+      "text" : "ResolvedPackageV1"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "text" : "Or"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV0cD2V2V",
+      "text" : "ResolvedPackageV2"
+    },
+    {
+      "kind" : "text",
+      "text" : ">)"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/init(rawValue:)-2tfdk",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/init(rawvalue:)-2tfdk"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/packages": {
+  "abstract" : [
+    {
+      "text" : "A version of the given package, handling both .v1 and .v2 of the packages.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "packages"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV0D0V",
+      "text" : "Package"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/packages",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "packages",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/packages"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "text" : "XOr"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV0cD2V1V",
+      "text" : "ResolvedPackageV1"
+    },
+    {
+      "kind" : "text",
+      "text" : ">."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "text" : "Or"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV",
+      "text" : "ResolvedPackage"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8FairCore15ResolvedPackageV0cD2V2V",
+      "text" : "ResolvedPackageV2"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/rawvalue"
+},
+"doc://FairCore/documentation/FairCore/ResolvedPackage/version": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "version"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage\/version",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "version",
+  "type" : "topic",
+  "url" : "\/documentation\/faircore\/resolvedpackage\/version"
+}
+}
+}
