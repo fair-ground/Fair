@@ -170,7 +170,7 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
     /// The locales that have keys defined in the `app.localizations` set of `App.yml`
     public func configuredLocales() throws -> [Locale]? {
-        let config: JSum = try Self.configuration(name: "App", for: self.bundle)
+        let config: JSum = try Self.configuration(name: "App", for: Self.bundle)
         let app = config["app"]
         let locs = app?["localizations"]?.obj
         return locs?.keys.map(Locale.init(identifier:))
@@ -200,7 +200,7 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
         let locales = ([devloc] + (targetloc ?? [])).uniquing(by: \.identifier).array()
         
-        dbg("creating screenshots for class:", Self.self, "bundle:", self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier))
+        dbg("creating screenshots for class:", Self.self, "bundle:", Self.bundle.bundleIdentifier, "in locales:", locales.map(\.identifier))
 
         let devices = targetDevices ?? [DevicePreview.iPhone8Plus, .iPhone14Plus, .iPadPro6]
 
@@ -211,7 +211,7 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         dbg("saving screens to:", folder.path)
 
-        let shots = try self.captureScreenshots(folder: folder, vector: false, bundle: self.bundle, devices: devices, locales: locales, appFacets: appFacets ?? Self.AppFacets.facets(for: self), configFacets: configFacets ?? Self.ConfigFacets.facets(for: self))
+        let shots = try self.captureScreenshots(folder: folder, vector: false, bundle: Self.bundle, devices: devices, locales: locales, appFacets: appFacets ?? Self.AppFacets.facets(for: self), configFacets: configFacets ?? Self.ConfigFacets.facets(for: self))
 
 //        let expectedShotCount = devices.count * locales.count * 10
 //

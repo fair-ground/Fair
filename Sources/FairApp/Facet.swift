@@ -42,8 +42,8 @@ public protocol FacetManager {
     /// The settings-level facets for this app. These will be merged with standard app settings when showing a settings facet.
     associatedtype ConfigFacets : Facet
 
-    /// The bundle associated with this manager
-    var bundle: Bundle { get }
+    /// The bundle associated with this manager, which should be initialized as `public static let bundle = Bundle.module`
+    static nonisolated var bundle: Bundle { get }
 }
 
 /// A facet is a logical section of an app, either a top-level navigation feature (tabs on iOS, outline list items on macOS along with menus),
@@ -584,7 +584,7 @@ public enum SupportSetting<Store: FacetManager> : String, FacetView, CaseIterabl
     }
 
     public func facetView(for store: Store) -> some View {
-        SupportSettingsView<Store>(bundle: store.bundle)
+        SupportSettingsView<Store>(bundle: Store.bundle)
     }
 }
 
@@ -822,7 +822,7 @@ public enum LanguageSetting<Store: FacetManager> : String, FacetView, CaseIterab
     }
 
     public func facetView(for store: Store) -> some View {
-        LocalesList(bundle: store.bundle)
+        LocalesList(bundle: Store.bundle)
     }
 }
 

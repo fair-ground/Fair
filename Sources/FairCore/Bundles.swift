@@ -123,6 +123,79 @@ extension Bundle {
     }
 }
 
+extension Bundle {
+    /// Returns a result designed to be used in static caches of the packages bundled `Package.resolved` file (which must be copied manually into the bundle's resources)
+    public func resolvedPackages() -> Result<ResolvedPackage, Error> {
+        Result { try ResolvedPackage(json: self.loadResource(named: "Package.resolved")) }
+    }
+}
+
+/// The contents of a `Package.resolved` file, which contains information about the project's dependencies.
+public struct ResolvedPackage : RawCodable, Codable {
+    public var rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>
+
+    public var version: Int { rawValue.map(\.version.rawValue, \.version.rawValue).value }
+
+    public init(rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>) {
+        self.rawValue = rawValue
+    }
+
+    /// A version of the given package, handling both .v1 and .v2 of the packages.
+    public var packages: [Package] {
+        switch rawValue {
+        case .p(let v1):
+            return v1.object.pins.map({ Package(identity: nil, location: $0.repositoryURL, state: $0.state) })
+        case .q(let v2):
+            return v2.pins.map({ Package(identity: $0.identity, location: $0.location, state: $0.state) })
+        }
+    }
+
+    public struct Package {
+        public var identity: String?
+        public var location: String
+        public var state: PackageState
+    }
+
+    /// The contents of a `Package.resolved` version 1 file
+    public struct ResolvedPackageV1: Codable, Equatable {
+        public enum Version : Int, Codable { case v1 = 1 }
+        public var version: Version
+        public var object: Pins
+
+        public struct Pins: Codable, Equatable {
+            public var pins: [SwiftPackage]
+        }
+
+        public struct SwiftPackage: Codable, Equatable {
+            public var package: String
+            public var repositoryURL: String
+            public var state: PackageState
+        }
+    }
+
+    /// The contents of a `Package.resolved` version 2 file
+    public struct ResolvedPackageV2: Codable, Equatable {
+        public enum Version : Int, Codable { case v2 = 2 }
+        public var version: Version
+        public var pins: [SwiftPackage]
+
+        public struct SwiftPackage: Codable, Equatable {
+            public var identity: String
+            public var kind: String
+            public var location: String
+            public var state: PackageState
+
+        }
+    }
+
+    public struct PackageState: Codable, Equatable {
+        public var branch: String?
+        public var revision: String
+        public var version: String?
+    }
+
+}
+
 public extension Plist {
     /// Returns the untypes content of the given plist key
     func plistValue(for key: PropertyListKey) -> Any? {
