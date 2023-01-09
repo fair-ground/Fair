@@ -170,7 +170,7 @@ extension SceneManager where AppFacets : FacetView & RawRepresentable, ConfigFac
 
     /// The locales that have keys defined in the `app.localizations` set of `App.yml`
     public func configuredLocales() throws -> [Locale]? {
-        let config: JSum = try Self.configuration(name: "App", for: Self.bundle)
+        let config: JSum = try Self.configuration(name: "App")
         let app = config["app"]
         let locs = app?["localizations"]?.obj
         return locs?.keys.map(Locale.init(identifier:))
