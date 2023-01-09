@@ -267,7 +267,7 @@ public extension SceneManager {
     ///
     /// - Parameter bundle: the bundle from which to load the resource (typically `.module`)
     /// - Returns: the decoded type parsed from the YAML file
-    static func configuration<T: Decodable>(name: String, for bundle: Bundle) throws -> T {
+    static func configuration<T: Decodable>(name: String, for bundle: Bundle = Self.bundle) throws -> T {
         guard let url = bundle.url(forResource: name, withExtension: "yml", subdirectory: nil) else {
             throw AppError(String(format: NSLocalizedString("Unable to load resource named: “%@”", bundle: .module, comment: "error message"), name))
         }
