@@ -38,11 +38,17 @@ let package = Package(
     ].compactMap({ $0 }),
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.1.3"),
-        //.package(url: "https://github.com/tuist/tuist.git", branch: "main"),
+        .package(url: "https://github.com/marcprux/BricBrac.git", from: "4.0.0"),
     ],
     targets: [
         .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
-        .target(name: "FairCore", dependencies: ["CZLib"], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
+        .target(name: "FairCore", dependencies: [
+            .product(name: "YAML", package: "BricBrac"),
+            .product(name: "XML", package: "BricBrac"),
+            .product(name: "JSum", package: "BricBrac"),
+            .product(name: "XOr", package: "BricBrac"),
+            "CZLib",
+        ], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
         Platform.current == .android ? nil : .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairExpo", dependencies: ["FairApp"], resources: [.process("Resources")]),
         Platform.current == .android ? nil : .target(name: "FairKit", dependencies: ["FairApp"], resources: [.process("Resources")]),
@@ -50,7 +56,6 @@ let package = Package(
         Platform.current == .macOS || Platform.current == .linux ? .executableTarget(name: "fairtool", dependencies: [
             "FairExpo",
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
-            //.product(name: "TuistGenerator", package: "tuist"),
         ], resources: [.process("Resources")]) : nil,
 
         Platform.current == .macOS ? .plugin(name: "FairToolPlugin", capability: .command(intent: .custom(verb: "fairtool", description: "Runs fairtool in a sandboxed environment."), permissions: [ .writeToPackageDirectory(reason: "This plugin will update the project source and configuration files. Use `swift package --allow-writing-to-package-directory fairtool` to skip this prompt.") ]), dependencies: ["fairtool"]) : nil,
