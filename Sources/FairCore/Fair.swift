@@ -32,6 +32,10 @@
  exception statement from your version.
  */
 import Foundation
+@_exported import JSum
+@_exported import XOr
+@_exported import YAML
+@_exported import XML
 
 // MARK: Result Extensions
 
@@ -486,11 +490,6 @@ public extension StringProtocol {
     /// The total span of this string expressed as an NSRange
     var span: NSRange {
         NSRange(startIndex..<endIndex, in: self)
-    }
-
-    /// The UTF8-encoded data for this string
-    @inlinable var utf8Data: Data {
-        data(using: .utf8) ?? Data(utf8) // should never fail, but if so, fall back to wrapping the utf8 data bytes
     }
 
     @inlinable func enquote(with char: Character = "\"") -> String {

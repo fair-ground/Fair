@@ -64,10 +64,6 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemDataWrapper",
         "doc:\/\/FairCore\/documentation\/FairCore\/FileSystemObserver",
         "doc:\/\/FairCore\/documentation\/FairCore\/HMAC",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecoder",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecodingOptions",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncoder",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncodingOptions",
         "doc:\/\/FairCore\/documentation\/FairCore\/Plist",
         "doc:\/\/FairCore\/documentation\/FairCore\/SHA256Hasher",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataHandle",
@@ -94,8 +90,7 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOf",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfElements",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeOfSelf",
-        "doc:\/\/FairCore\/documentation\/FairCore\/TreeRoot",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XOrType"
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeRoot"
       ],
       "title" : "Protocols"
     },
@@ -107,12 +102,10 @@
         "doc:\/\/FairCore\/documentation\/FairCore\/Crc32-swift.struct",
         "doc:\/\/FairCore\/documentation\/FairCore\/DynamicBundleError",
         "doc:\/\/FairCore\/documentation\/FairCore\/IndexedCollection",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSumOptions",
         "doc:\/\/FairCore\/documentation\/FairCore\/PropertyListKey",
         "doc:\/\/FairCore\/documentation\/FairCore\/ResolvedPackage",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeededRandomNumberGenerator",
-        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode"
+        "doc:\/\/FairCore\/documentation\/FairCore\/SemVer"
       ],
       "title" : "Structures"
     },
@@ -140,30 +133,24 @@
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/CRC32-swift.typealias",
         "doc:\/\/FairCore\/documentation\/FairCore\/Consumer",
-        "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrArray",
-        "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrSequence",
         "doc:\/\/FairCore\/documentation\/FairCore\/FILEPointer",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
         "doc:\/\/FairCore\/documentation\/FairCore\/Provider",
         "doc:\/\/FairCore\/documentation\/FairCore\/RawCodable",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumeration",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeIndexSequence",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeNodeIterator",
-        "doc:\/\/FairCore\/documentation\/FairCore\/TreeNodeSequence",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XResult"
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeNodeSequence"
       ],
       "title" : "Type Aliases"
     },
     {
       "identifiers" : [
         "doc:\/\/FairCore\/documentation\/FairCore\/CompressionMethod",
-        "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
         "doc:\/\/FairCore\/documentation\/FairCore\/OAuth1",
         "doc:\/\/FairCore\/documentation\/FairCore\/SeekableDataErrors",
         "doc:\/\/FairCore\/documentation\/FairCore\/SignableError",
         "doc:\/\/FairCore\/documentation\/FairCore\/TreeEnumerations",
-        "doc:\/\/FairCore\/documentation\/FairCore\/TreeTraversal",
-        "doc:\/\/FairCore\/documentation\/FairCore\/XOr"
+        "doc:\/\/FairCore\/documentation\/FairCore\/TreeTraversal"
       ],
       "title" : "Enumerations"
     }
@@ -876,90 +863,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/dynamicbundleerror"
 },
-"doc://FairCore/documentation/FairCore/ElementOrArray": {
-  "abstract" : [
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "OneOrMany",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " is either a single value or any array of zero or multiple values",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ElementOrArray"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrArray",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ElementOrArray"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ElementOrArray",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/elementorarray"
-},
-"doc://FairCore/documentation/FairCore/ElementOrSequence": {
-  "abstract" : [
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "OneOrMany",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " is either a single element or a sequence of elements",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ElementOrSequence"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/ElementOrSequence",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ElementOrSequence"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ElementOrSequence",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/elementorsequence"
-},
 "doc://FairCore/documentation/FairCore/FILEPointer": {
   "abstract" : [
 
@@ -1129,56 +1032,6 @@
   "type" : "topic",
   "url" : "\/documentation\/faircore\/indexedcollection"
 },
-"doc://FairCore/documentation/FairCore/JObj": {
-  "abstract" : [
-    {
-      "text" : "A ",
-      "type" : "text"
-    },
-    {
-      "code" : "JObj",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " is the associated dictionary type for a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum.obj",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ", which is equivalent to a JSON “object”.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JObj"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JObj",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JObj"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JObj",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jobj"
-},
 "doc://FairCore/documentation/FairCore/JSONSignable": {
   "abstract" : [
     {
@@ -1236,240 +1089,6 @@
   "title" : "JSONSignable",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/jsonsignable"
-},
-"doc://FairCore/documentation/FairCore/JSum": {
-  "abstract" : [
-    {
-      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSum",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum"
-},
-"doc://FairCore/documentation/FairCore/JSumDecoder": {
-  "abstract" : [
-    {
-      "code" : "JSumDecoder",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " facilitates the decoding of ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " values into ",
-      "type" : "text"
-    },
-    {
-      "code" : "Decodable",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " types.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumDecoder"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecoder",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumDecoder"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumDecoder",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumdecoder"
-},
-"doc://FairCore/documentation/FairCore/JSumDecodingOptions": {
-  "abstract" : [
-    {
-      "text" : "A set of options for decoding an entity from a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " instance.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumDecodingOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecodingOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumDecodingOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumDecodingOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumdecodingoptions"
-},
-"doc://FairCore/documentation/FairCore/JSumEncoder": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumEncoder"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncoder",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumEncoder"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumEncoder",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumencoder"
-},
-"doc://FairCore/documentation/FairCore/JSumEncodingOptions": {
-  "abstract" : [
-    {
-      "text" : "A set of options for encoding an entity from a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " instance.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumEncodingOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncodingOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumEncodingOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumEncodingOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumencodingoptions"
-},
-"doc://FairCore/documentation/FairCore/JSumOptions": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumoptions"
 },
 "doc://FairCore/documentation/FairCore/OAuth1": {
   "abstract" : [
@@ -2693,183 +2312,6 @@
   "title" : "TreeTraversal",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/treetraversal"
-},
-"doc://FairCore/documentation/FairCore/XMLNode": {
-  "abstract" : [
-    {
-      "text" : "An XML Element Document, which is an in-memory tree representation",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "of the contents of an XML source.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "XMLNode"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XMLNode",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "XMLNode"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XMLNode",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xmlnode"
-},
-"doc://FairCore/documentation/FairCore/XOr": {
-  "abstract" : [
-    {
-      "text" : "The basis of one of multiple possible types, equivalent to an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "Either",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " sum type.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "XOr"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "XOr"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XOr",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xor"
-},
-"doc://FairCore/documentation/FairCore/XOrType": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "XOrType"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOrType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "XOrType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XOrType",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xortype"
-},
-"doc://FairCore/documentation/FairCore/XResult": {
-  "abstract" : [
-    {
-      "text" : "An ",
-      "type" : "text"
-    },
-    {
-      "code" : "XResult",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " is similar to a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Foundation.Result",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " except it uses ",
-      "type" : "text"
-    },
-    {
-      "code" : "XOr",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " arity",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "XResult"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XResult",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "XResult"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XResult",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xresult"
 },
 "doc://FairCore/documentation/FairCore/ZipArchive": {
   "abstract" : [

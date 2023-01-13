@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Encode this instance as JSON data",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable.json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -23,7 +31,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE4json7encoder16outputFormatting20dateEncodingStrategy04datahI0018nonConformingFloathI003keyhI08userInfo10Foundation4DataVAJ11JSONEncoderCyXK_AN06OutputF0VSgAN04DatehI0OSgAN0rhI0OSgAN03NonlmhI0OSgAN03KeyhI0OSgSDys010CodingUserpW0VypGSgtKF::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V1V4PinsV",
+    "externalID" : "s:SE4JSumE4json7encoder16outputFormatting20dateEncodingStrategy04datagH0018nonConformingFloatgH003keygH08userInfo10Foundation4DataVAJ11JSONEncoderCyXK_AN06OutputE0VSgAN04DategH0OSgAN0qgH0OSgAN03NonklgH0OSgAN03KeygH0OSgSDys010CodingUseroV0VypGSgtKF::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V1V4PinsV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -313,7 +321,7 @@
             },
             {
               "kind" : "text",
-              "text" : "? = [.sortedKeys, .withoutEscapingSlashes], "
+              "text" : "? = nil, "
             },
             {
               "kind" : "externalParam",
@@ -461,165 +469,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "the JSON-encoded ",
-              "type" : "text"
-            },
-            {
-              "code" : "Data",
-              "type" : "codeVoice"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the encoder to use, defaulting to a stock ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "JSONEncoder",
-                  "type" : "codeVoice"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "encoder"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "formatting options, defaulting to ",
-                  "type" : "text"
-                },
-                {
-                  "code" : ".sortedKeys",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " and ",
-                  "type" : "text"
-                },
-                {
-                  "code" : ".withoutEscapingSlashes",
-                  "type" : "codeVoice"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "outputFormatting"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the strategy for decoding ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "Date",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " instances",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "dateEncodingStrategy"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the strategy for decoding ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "Data",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " instances",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "dataEncodingStrategy"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the strategy for handling non-conforming floats",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "nonConformingFloatEncodingStrategy"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the strategy for encoding keys",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "keyEncodingStrategy"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "additional user info to pass to the encoder",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "userInfo"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -786,10 +635,7 @@
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV1/Pins/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
   "abstract" : [
-    {
-      "text" : "Encode this instance as JSON data",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

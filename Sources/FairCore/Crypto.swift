@@ -866,6 +866,15 @@ public protocol SigningContainer : Encodable {
     static var signatureHash: HMAC.Variant { get }
 }
 
+/// An encoder that replicates JSON Canonical form [JSON Canonicalization Scheme (JCS)](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html)
+private let canonicalJSONEncoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+    encoder.outputFormatting = [.sortedKeys] // must not use .withoutEscapingSlashes
+    encoder.dateEncodingStrategy = .iso8601
+    encoder.dataEncodingStrategy = .base64
+    return encoder
+}()
+
 extension SigningContainer {
     /// The default signature encoder uses the instance's [JSON Canonicalization Scheme (JCS)](https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html)
     public static var signatureEncoder: JSONEncoder {

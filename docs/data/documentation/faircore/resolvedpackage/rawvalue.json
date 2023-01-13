@@ -27,7 +27,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8FairCore15ResolvedPackageV8rawValueAA3XOrO2OrOyAC0cD2V1V_AC0cD2V2VGvp",
+    "externalID" : "s:8FairCore15ResolvedPackageV8rawValue3XOrAEO2OrOyAC0cD2V1V_AC0cD2V2VGvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -47,7 +47,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore3XOrO",
+        "preciseIdentifier" : "s:3XOrAAO",
         "text" : "XOr"
       },
       {
@@ -74,7 +74,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+        "preciseIdentifier" : "s:3XOrAAO2OrO",
         "text" : "Or"
       },
       {
@@ -138,9 +138,8 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore3XOrO",
+              "preciseIdentifier" : "s:3XOrAAO",
               "text" : "XOr"
             },
             {
@@ -168,9 +167,8 @@
               "text" : ">."
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+              "preciseIdentifier" : "s:3XOrAAO2OrO",
               "text" : "Or"
             },
             {
@@ -388,7 +386,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore3XOrO",
+      "preciseIdentifier" : "s:3XOrAAO",
       "text" : "XOr"
     },
     {
@@ -415,7 +413,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore3XOrO2OrO",
+      "preciseIdentifier" : "s:3XOrAAO2OrO",
       "text" : "Or"
     },
     {
@@ -447,146 +445,6 @@
   "title" : "rawValue",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/resolvedpackage\/rawvalue"
-},
-"doc://FairCore/documentation/FairCore/XOr": {
-  "abstract" : [
-    {
-      "text" : "The basis of one of multiple possible types, equivalent to an",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "code" : "Either",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " sum type.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "XOr"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "XOr"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XOr",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xor"
-},
-"doc://FairCore/documentation/FairCore/XOr/Or": {
-  "abstract" : [
-    {
-      "text" : "A sum type: ",
-      "type" : "text"
-    },
-    {
-      "code" : "XOr<P>.Or<Q>",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " can hold either an ",
-      "type" : "text"
-    },
-    {
-      "code" : "P",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " or a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Q",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "E.g., ",
-      "type" : "text"
-    },
-    {
-      "code" : "XOr<Int>.Or<String>.Or<Bool>",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " can hold either an ",
-      "type" : "text"
-    },
-    {
-      "code" : "Int",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " or a ",
-      "type" : "text"
-    },
-    {
-      "code" : "String",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " or a ",
-      "type" : "text"
-    },
-    {
-      "code" : "Bool",
-      "type" : "codeVoice"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "Or"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/XOr\/Or",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Or"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "XOr.Or",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/xor\/or"
 }
 }
 }

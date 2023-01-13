@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Returns the canonical form of the JSON.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable.canonicalJSON",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -21,7 +29,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE13canonicalJSONSSvp::SYNTHESIZED::s:8FairCore15PropertyListKeyV",
+    "externalID" : "s:SE4JSumE13canonicalJSONSSvp::SYNTHESIZED::s:8FairCore15PropertyListKeyV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -111,31 +119,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The encoder replicates JSON Canonical form ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-              "isActive" : true,
-              "type" : "reference"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -280,10 +263,7 @@
 },
 "doc://FairCore/documentation/FairCore/PropertyListKey/canonicalJSON": {
   "abstract" : [
-    {
-      "text" : "Returns the canonical form of the JSON.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -314,18 +294,6 @@
   "title" : "canonicalJSON",
   "type" : "topic",
   "url" : "\/documentation\/faircore\/propertylistkey\/canonicaljson"
-},
-"https://tools.ietf.org/id/draft-rundgren-json-canonicalization-scheme-05.html": {
-  "identifier" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html",
-  "title" : "JSON Canonicalization Scheme (JCS)",
-  "titleInlineContent" : [
-    {
-      "text" : "JSON Canonicalization Scheme (JCS)",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/tools.ietf.org\/id\/draft-rundgren-json-canonicalization-scheme-05.html"
 }
 }
 }

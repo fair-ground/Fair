@@ -1,19 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Parses this codable into the given data structure, along with a raw ",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "code" : "JSum",
+      "code" : "Decodable.codableComplete(data:encoder:decoder:)",
       "type" : "codeVoice"
     },
     {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "that will be used to verify that the codable instance contains all the expected properties.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -67,7 +63,7 @@
       ]
     },
     "extendedModule" : "Swift",
-    "externalID" : "s:Se8FairCoreSERzrlE15codableComplete4data7encoder7decoderx8instance_AA4JSumOSg10differencet10Foundation4DataV_AK11JSONEncoderCSgAK11JSONDecoderCSgtKFZ::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V05SwiftD0V",
+    "externalID" : "s:Se4JSumSERzrlE15codableComplete4data7encoder7decoderx8instance_A2AOSg10differencet10Foundation4DataV_AJ11JSONEncoderCSgAJ11JSONDecoderCSgtKFZ::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V05SwiftD0V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -170,7 +166,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "preciseIdentifier" : "s:4JSumAAO",
         "text" : "JSum"
       },
       {
@@ -299,9 +295,8 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "preciseIdentifier" : "s:4JSumAAO",
               "text" : "JSum"
             },
             {
@@ -312,97 +307,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "a tuple with both the parsed codable instance, as well as an optional ",
-              "type" : "text"
-            },
-            {
-              "code" : "difference",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " JSum that will be nil if the codability was an exact match",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the data to parse by the Codable and the JSum",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "data"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the custom encoder to use, or ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "nil",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " to use the system default",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "encoder"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the custom decoder to use, or ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "nil",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " to use the system default",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "decoder"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -440,40 +344,6 @@
   "title" : "FairCore",
   "type" : "topic",
   "url" : "\/documentation\/faircore"
-},
-"doc://FairCore/documentation/FairCore/JSum": {
-  "abstract" : [
-    {
-      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSum",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum"
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage": {
   "abstract" : [
@@ -603,22 +473,7 @@
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2/SwiftPackage/codableComplete(data:encoder:decoder:)": {
   "abstract" : [
-    {
-      "text" : "Parses this codable into the given data structure, along with a raw ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "that will be used to verify that the codable instance contains all the expected properties.",
-      "type" : "text"
-    }
+
   ],
   "conformance" : {
     "availabilityPrefix" : [
@@ -754,7 +609,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "preciseIdentifier" : "s:4JSumAAO",
       "text" : "JSum"
     },
     {

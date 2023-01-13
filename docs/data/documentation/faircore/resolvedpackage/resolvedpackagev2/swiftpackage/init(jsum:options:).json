@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Creates an instance from an encoded intermediate representation.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Decodable.init(jsum:options:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -23,7 +31,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:Se8FairCoreE4jsum7optionsxAA4JSumO_AA0E15DecodingOptionsCSgtKcfc::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V05SwiftD0V",
+    "externalID" : "s:Se4JSumE4jsum7optionsxA2AO_AA0A15DecodingOptionsCSgtKcfc::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V05SwiftD0V",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -43,7 +51,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "preciseIdentifier" : "s:4JSumAAO",
         "text" : "JSum"
       },
       {
@@ -60,7 +68,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore19JSumDecodingOptionsC",
+        "preciseIdentifier" : "s:4JSum0A15DecodingOptionsC",
         "text" : "JSumDecodingOptions"
       },
       {
@@ -110,9 +118,8 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "preciseIdentifier" : "s:4JSumAAO",
               "text" : "JSum"
             },
             {
@@ -128,9 +135,8 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecodingOptions",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore19JSumDecodingOptionsC",
+              "preciseIdentifier" : "s:4JSum0A15DecodingOptionsC",
               "text" : "JSumDecodingOptions"
             },
             {
@@ -145,83 +151,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the JSum to load the instance from",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "jsum"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the options for deserializing the data such as the decoding strategies for dates and data.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "options"
-        }
-      ]
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "A ",
-              "type" : "text"
-            },
-            {
-              "code" : "JSum",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " can be created from JSON, YAML, Plists, or other similar data formats.",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "This intermediate representation can then be used to instantiate a compatible ",
-              "type" : "text"
-            },
-            {
-              "code" : "Decodable",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " instance.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -259,82 +188,6 @@
   "title" : "FairCore",
   "type" : "topic",
   "url" : "\/documentation\/faircore"
-},
-"doc://FairCore/documentation/FairCore/JSum": {
-  "abstract" : [
-    {
-      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSum",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum"
-},
-"doc://FairCore/documentation/FairCore/JSumDecodingOptions": {
-  "abstract" : [
-    {
-      "text" : "A set of options for decoding an entity from a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " instance.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumDecodingOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumDecodingOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumDecodingOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumDecodingOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumdecodingoptions"
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage": {
   "abstract" : [
@@ -464,10 +317,7 @@
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2/SwiftPackage/init(jsum:options:)": {
   "abstract" : [
-    {
-      "text" : "Creates an instance from an encoded intermediate representation.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -488,7 +338,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "preciseIdentifier" : "s:4JSumAAO",
       "text" : "JSum"
     },
     {
@@ -505,7 +355,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore19JSumDecodingOptionsC",
+      "preciseIdentifier" : "s:4JSum0A15DecodingOptionsC",
       "text" : "JSumDecodingOptions"
     },
     {

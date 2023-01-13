@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Creates an in-memory JSum representation of the instance’s encoding.",
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "Encodable.jsum(options:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -22,7 +30,7 @@
   "kind" : "symbol",
   "metadata" : {
     "extendedModule" : "Swift",
-    "externalID" : "s:SE8FairCoreE4jsum7optionsAA4JSumOAA0E15EncodingOptionsCSg_tKF::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V",
+    "externalID" : "s:SE4JSumE4jsum7optionsA2AOAA0A15EncodingOptionsCSg_tKF::SYNTHESIZED::s:8FairCore15ResolvedPackageV0cD2V2V",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,7 +58,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore19JSumEncodingOptionsC",
+        "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
         "text" : "JSumEncodingOptions"
       },
       {
@@ -67,7 +75,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8FairCore4JSumO",
+        "preciseIdentifier" : "s:4JSumAAO",
         "text" : "JSum"
       }
     ],
@@ -117,9 +125,8 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncodingOptions",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore19JSumEncodingOptionsC",
+              "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
               "text" : "JSumEncodingOptions"
             },
             {
@@ -135,54 +142,14 @@
               "text" : " -> "
             },
             {
-              "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8FairCore4JSumO",
+              "preciseIdentifier" : "s:4JSumAAO",
               "text" : "JSum"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "A JSum containing the structure of the encoded instance",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "the options for serializing the data",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "options"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -220,82 +187,6 @@
   "title" : "FairCore",
   "type" : "topic",
   "url" : "\/documentation\/faircore"
-},
-"doc://FairCore/documentation/FairCore/JSum": {
-  "abstract" : [
-    {
-      "text" : "A JSum is a Joint Sum type, which is an enumeration that can represent one of:",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSum",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSum"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSum",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsum"
-},
-"doc://FairCore/documentation/FairCore/JSumEncodingOptions": {
-  "abstract" : [
-    {
-      "text" : "A set of options for encoding an entity from a ",
-      "type" : "text"
-    },
-    {
-      "code" : "JSum",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " instance.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "class"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSumEncodingOptions"
-    }
-  ],
-  "identifier" : "doc:\/\/FairCore\/documentation\/FairCore\/JSumEncodingOptions",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSumEncodingOptions"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSumEncodingOptions",
-  "type" : "topic",
-  "url" : "\/documentation\/faircore\/jsumencodingoptions"
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage": {
   "abstract" : [
@@ -394,10 +285,7 @@
 },
 "doc://FairCore/documentation/FairCore/ResolvedPackage/ResolvedPackageV2/jsum(options:)": {
   "abstract" : [
-    {
-      "text" : "Creates an in-memory JSum representation of the instance’s encoding.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -426,7 +314,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore19JSumEncodingOptionsC",
+      "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
       "text" : "JSumEncodingOptions"
     },
     {
@@ -443,7 +331,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8FairCore4JSumO",
+      "preciseIdentifier" : "s:4JSumAAO",
       "text" : "JSum"
     }
   ],
