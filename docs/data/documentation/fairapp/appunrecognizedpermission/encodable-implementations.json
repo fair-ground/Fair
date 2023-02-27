@@ -42,8 +42,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/jsum(options:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/json(options:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)"
       ],
       "title" : "Instance Methods"
     }
@@ -195,7 +195,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/debugjson"
 },
-"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/json(options:)": {
   "abstract" : [
 
   ],
@@ -211,6 +211,99 @@
     {
       "kind" : "identifier",
       "text" : "json"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSON19JSONEncodingOptionsC",
+      "text" : "JSONEncodingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSONAAV",
+      "text" : "JSON"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/json(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "json(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/json(options:)"
+},
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/prettyJSON": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prettyJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/prettyJSON",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prettyJSON",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/prettyjson"
+},
+"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toJSON"
     },
     {
       "kind" : "text",
@@ -402,105 +495,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "title" : "toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
-},
-"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/jsum(options:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsum"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "options"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
-      "text" : "JSumEncodingOptions"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSumAAO",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/jsum(options:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsum(options:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/jsum(options:)"
-},
-"doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/prettyJSON": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "prettyJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppUnrecognizedPermission\/prettyJSON",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "prettyJSON",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/prettyjson"
+  "url" : "\/documentation\/fairapp\/appunrecognizedpermission\/tojson(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
 },
 "doc://FairApp/documentation/FairApp/AppUnrecognizedPermission/type": {
   "abstract" : [

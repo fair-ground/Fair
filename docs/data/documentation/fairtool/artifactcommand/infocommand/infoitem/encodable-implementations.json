@@ -44,8 +44,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
-        "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/jsum(options:)"
+        "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/json(options:)",
+        "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)"
       ],
       "title" : "Instance Methods"
     }
@@ -239,7 +239,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/debugjson"
 },
-"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand/InfoItem/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand/InfoItem/json(options:)": {
   "abstract" : [
 
   ],
@@ -255,6 +255,99 @@
     {
       "kind" : "identifier",
       "text" : "json"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSON19JSONEncodingOptionsC",
+      "text" : "JSONEncodingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSONAAV",
+      "text" : "JSON"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/json(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "json(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/json(options:)"
+},
+"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand/InfoItem/prettyJSON": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prettyJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/prettyJSON",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prettyJSON",
+  "type" : "topic",
+  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/prettyjson"
+},
+"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand/InfoItem/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toJSON"
     },
     {
       "kind" : "text",
@@ -446,105 +539,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "title" : "toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
-},
-"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand/InfoItem/jsum(options:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsum"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "options"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
-      "text" : "JSumEncodingOptions"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSumAAO",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/jsum(options:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsum(options:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/jsum(options:)"
-},
-"doc://fairtool/documentation/fairtool/ArtifactCommand/InfoCommand/InfoItem/prettyJSON": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "prettyJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/fairtool\/documentation\/fairtool\/ArtifactCommand\/InfoCommand\/InfoItem\/prettyJSON",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "prettyJSON",
-  "type" : "topic",
-  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/prettyjson"
+  "url" : "\/documentation\/fairtool\/artifactcommand\/infocommand\/infoitem\/tojson(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
 }
 }
 }

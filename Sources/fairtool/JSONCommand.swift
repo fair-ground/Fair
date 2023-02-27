@@ -56,7 +56,7 @@ public struct JSONCommand : AsyncParsableCommand {
     public struct SignCommand: FairStructuredCommand {
         public static let experimental = false
 
-        public typealias Output = JSum
+        public typealias Output = JSON
 
         public static var configuration = CommandConfiguration(commandName: "sign",
                                                                abstract: "Adds a message authentication code to the given JSON.",
@@ -87,15 +87,15 @@ public struct JSONCommand : AsyncParsableCommand {
             throw Errors.invalidBase64Key
         }
 
-        public func executeCommand() -> AsyncThrowingStream<JSum, Error> {
+        public func executeCommand() -> AsyncThrowingStream<JSON, Error> {
             warnExperimental(Self.experimental)
 
             return executeSeries(inputs, initialValue: nil) { input, prev in
                 msg(.info, "signing input:", input)
-                var json = try JSum(json: Data(contentsOf: URL(fileOrScheme: input)))
+                var json = try JSON(fromJSON: Data(contentsOf: URL(fileOrScheme: input)))
                 json[property] = nil // clear the signature if it exists
                 let sig = try json.sign(key: try keyData())
-                json[property] = .str(sig.base64EncodedString()) // embed the signature into the JSON
+                json[property] = .string(sig.base64EncodedString()) // embed the signature into the JSON
                 return json
             }
         }
@@ -104,7 +104,7 @@ public struct JSONCommand : AsyncParsableCommand {
     public struct VerifyCommand: FairStructuredCommand {
         public static let experimental = false
 
-        public typealias Output = [JSum]
+        public typealias Output = [JSON]
 
         public static var configuration = CommandConfiguration(commandName: "verify",
                                                                abstract: "Verifies a message authentication code for the given JSON.",
@@ -135,23 +135,23 @@ public struct JSONCommand : AsyncParsableCommand {
             throw Errors.invalidBase64Key
         }
 
-        public func executeCommand() -> AsyncThrowingStream<[JSum], Error> {
+        public func executeCommand() -> AsyncThrowingStream<[JSON], Error> {
             warnExperimental(Self.experimental)
 
             return executeSeries(inputs, initialValue: nil) { input, prev in
                 msg(.info, "verifying input:", input)
-                let contents = try JSum(json: Data(contentsOf: URL(fileOrScheme: input)))
+                let contents = try JSON(fromJSON: Data(contentsOf: URL(fileOrScheme: input)))
                 // the payload can either be an object or an array of objects
-                let jsons = contents.arr?.compactMap(\.obj) ?? contents.obj.map({ [$0 ]}) ?? []
+                let jsons = contents.array?.compactMap(\.object) ?? contents.object.map({ [$0 ]}) ?? []
                 return try jsons.map {
                     var json = $0
-                    guard let sig = json[property]?.str,
+                    guard let sig = json[property]?.string,
                           let sigData = Data(base64Encoded: sig) else {
                         throw Errors.missingSignatureProperty
                     }
 
                     json[property] = nil
-                    let jobj = JSum.obj(json)
+                    let jobj = JSON.object(json)
                     let resigned = try jobj.sign(key: keyData())
                     if resigned != sigData {
                         throw SignableError.signatureMismatch//(resigned, sigData)

@@ -43,8 +43,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/jsum(options:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/json(options:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)"
       ],
       "title" : "Instance Methods"
     }
@@ -237,7 +237,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/debugjson"
 },
-"doc://FairApp/documentation/FairApp/CodableColor/SystemColor-swift.enum/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+"doc://FairApp/documentation/FairApp/CodableColor/SystemColor-swift.enum/json(options:)": {
   "abstract" : [
 
   ],
@@ -253,6 +253,99 @@
     {
       "kind" : "identifier",
       "text" : "json"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSON19JSONEncodingOptionsC",
+      "text" : "JSONEncodingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSONAAV",
+      "text" : "JSON"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/json(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "json(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/json(options:)"
+},
+"doc://FairApp/documentation/FairApp/CodableColor/SystemColor-swift.enum/prettyJSON": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prettyJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/prettyJSON",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prettyJSON",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/prettyjson"
+},
+"doc://FairApp/documentation/FairApp/CodableColor/SystemColor-swift.enum/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toJSON"
     },
     {
       "kind" : "text",
@@ -444,105 +537,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "title" : "toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
-},
-"doc://FairApp/documentation/FairApp/CodableColor/SystemColor-swift.enum/jsum(options:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsum"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "options"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
-      "text" : "JSumEncodingOptions"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSumAAO",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/jsum(options:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsum(options:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/jsum(options:)"
-},
-"doc://FairApp/documentation/FairApp/CodableColor/SystemColor-swift.enum/prettyJSON": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "prettyJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/CodableColor\/SystemColor-swift.enum\/prettyJSON",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "prettyJSON",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/prettyjson"
+  "url" : "\/documentation\/fairapp\/codablecolor\/systemcolor-swift.enum\/tojson(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
 }
 }
 }

@@ -52,30 +52,30 @@ public extension GraphQLAPIRequest {
 
     /// Creates a GraphQL query with a variable mapping.
     fileprivate func executeGraphQL(_ body: String, includeNulls: Bool = true, variables: [String: GraphQLAPIParameter?] = [:]) throws -> Data {
-        var req = JObj()
-        req["query"] = .str(body)
+        var req = JSON.Object()
+        req["query"] = .string(body)
         if includeNulls {
-            req["variables"] = .obj(variables.mapValues({ $0?.parameterValue ?? JSum.nul }))
+            req["variables"] = .object(variables.mapValues({ $0?.parameterValue ?? JSON.null }))
         } else {
-            req["variables"] = .obj(variables.compactMapValues({ $0?.parameterValue }))
+            req["variables"] = .object(variables.compactMapValues({ $0?.parameterValue }))
         }
-        return try req.json()
+        return try req.toJSON()
     }
 }
 
 private protocol GraphQLAPIParameter {
     /// The encoded parameter in a GraphQL parameter map
-    var parameterValue: JSum { get }
+    var parameterValue: JSON { get }
 }
 
-extension FairHub.GHID : GraphQLAPIParameter { var parameterValue: JSum { .str(self.rawValue) } }
-extension String : GraphQLAPIParameter { var parameterValue: JSum { .str(self) } }
-extension Double : GraphQLAPIParameter { var parameterValue: JSum { .num(self) } }
-extension Int : GraphQLAPIParameter { var parameterValue: JSum { .num(Double(self)) } }
-extension Bool : GraphQLAPIParameter { var parameterValue: JSum { .bol(self) } }
-extension GraphQLCursor : GraphQLAPIParameter { var parameterValue: JSum { .str(self.rawValue) } }
-//extension Data : GraphQLAPIParameter { var parameterValue: JSum { .str(self.base64EncodedString()) } }
-//extension Date : GraphQLAPIParameter { var parameterValue: JSum { .str(self.iso8601String) } }
+extension FairHub.GHID : GraphQLAPIParameter { var parameterValue: JSON { .string(self.rawValue) } }
+extension String : GraphQLAPIParameter { var parameterValue: JSON { .string(self) } }
+extension Double : GraphQLAPIParameter { var parameterValue: JSON { .number(self) } }
+extension Int : GraphQLAPIParameter { var parameterValue: JSON { .number(Double(self)) } }
+extension Bool : GraphQLAPIParameter { var parameterValue: JSON { .boolean(self) } }
+extension GraphQLCursor : GraphQLAPIParameter { var parameterValue: JSON { .string(self.rawValue) } }
+//extension Data : GraphQLAPIParameter { var parameterValue: JSON { .str(self.base64EncodedString()) } }
+//extension Date : GraphQLAPIParameter { var parameterValue: JSON { .str(self.iso8601String) } }
 
 
 private extension String {

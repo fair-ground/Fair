@@ -160,7 +160,7 @@ extension Plist {
         dict["downloadURL"] = downloadURL.absoluteString
 
         // FIXME: this is slow because we are converting the Plist to JSON and then parsing it back into an AppCatalogItem
-        var item = try AppCatalogItem(jsum: Plist(rawValue: NSDictionary(dictionary: dict, copyItems: true)).jsum())
+        var item = try AppCatalogItem(json: Plist(rawValue: NSDictionary(dictionary: dict, copyItems: true)).json())
 
         // clear items that should not be imported from the info plist
         item.sha256 = nil
@@ -263,7 +263,7 @@ extension FairContainer where Self : SceneManager {
 public extension SceneManager {
     /// The shared static configuration for the bundle of this instance, which is stored in the `App.yml` resource.
     ///
-    /// The `config` property can be any `Decodable` type, such as `JSum` or a custom type that can be decoded from the contents of the YAML.
+    /// The `config` property can be any `Decodable` type, such as `JSON` or a custom type that can be decoded from the contents of the YAML.
     ///
     /// - Parameter bundle: the bundle from which to load the resource (typically `.module`)
     /// - Returns: the decoded type parsed from the YAML file
@@ -274,12 +274,12 @@ public extension SceneManager {
         if try url.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink == true {
             dbg("configuration isSymbolicLink for:", name)
         }
-        let source = try String(contentsOf: url, encoding: .utf8)
-        let jsum = try JSum.parse(yaml: source)
-        if T.self == JSum.self {
-            return jsum as! T // optimization: no need to re-parse T if it is just a JSum
+        let source = try Data(contentsOf: url)
+        let json = try YAML.parse(source).json()
+        if T.self == JSON.self {
+            return json as! T // optimization: no need to re-parse T if it is just a JSON
         } else {
-            return try T(jsum: jsum, options: .init(dateDecodingStrategy: .iso8601, dataDecodingStrategy: .base64))
+            return try T(json: json, options: .init(dateDecodingStrategy: .iso8601, dataDecodingStrategy: .base64))
         }
     }
 }
@@ -428,7 +428,7 @@ extension FairContainer {
         #endif
 
         do {
-            let packageResolved = try ResolvedPackage(json: bundle.loadResource(named: "Package.resolved"))
+            let packageResolved = try ResolvedPackage(fromJSON: bundle.loadResource(named: "Package.resolved"))
             for dep in packageResolved.packages {
                 let packageVersion = dep.state.version ?? dep.state.branch ?? "none"
                 print("  Dependency: " + (dep.identity ?? "") + " " + packageVersion, to: &out)
@@ -1245,7 +1245,7 @@ public extension HexColor {
 /// An encodable color, which can use either a system color name (e.g. `accent` or `pink`) or a hex string.
 public struct CodableColor : Codable, Hashable, Sendable {
     public typealias HexString = String
-    public let color: XOr<SystemColor>.Or<HexString>
+    public let color: Either<SystemColor>.Or<HexString>
 
     public init(_ color: SystemColor) {
         self.color = .init(color)
@@ -1254,8 +1254,8 @@ public struct CodableColor : Codable, Hashable, Sendable {
     #if canImport(SwiftUI)
     public var systemColor: SwiftUI.Color? {
         switch color {
-        case .p(let color): return color.systemColor
-        case .q(let hex): return HexColor(hexString: hex)?.sRGBColor()
+        case .a(let color): return color.systemColor
+        case .b(let hex): return HexColor(hexString: hex)?.sRGBColor()
         }
     }
     #endif

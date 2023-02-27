@@ -40,15 +40,15 @@ import FoundationNetworking
 
 final class FairCoreTests: XCTestCase {
     func testXOrOr() throws {
-        typealias StringOrInt = XOr<String>.Or<Int>
-        let str = StringOrInt("ABC")
-        let int = StringOrInt(12)
+        typealias StringOrInt = Either<String>.Or<Int>
+        let str = StringOrInt.a("ABC")
+        let int = StringOrInt.b(12)
         XCTAssertNotEqual(str, int)
         XCTAssertEqual("[\"ABC\"]", try String(data: JSONEncoder().encode([str]), encoding: .utf8))
         XCTAssertEqual("[12]", try String(data: JSONEncoder().encode([int]), encoding: .utf8))
 
         func rt<T: Codable & Equatable>(_ value: T, equal: Bool = true, line: UInt = #line) throws {
-            let roundTripped = try T(json: value.debugJSON.utf8Data)
+            let roundTripped = try T(fromJSON: value.debugJSON.utf8Data)
             if equal {
                 XCTAssertEqual(value, roundTripped, line: line)
             } else {
@@ -56,62 +56,62 @@ final class FairCoreTests: XCTestCase {
             }
         }
 
-        let _: XOr<String>.Or<XOr<Int>.Or<Double>> = XOr<String>.Or<Int>.Or<Double>("")
+        let _: Either<String>.Or<Either<Int>.Or<Double>> = Either<String>.Or<Int>.Or<Double>.a("")
 
         // check that `infer()` works on nested XOrs
-        let nested: XOr<String>.Or<XOr<XOr<Int>.Or<Double>>.Or<Bool>> = XOr<String>.Or<Int>.Or<Double>.Or<Bool>("")
+        let nested: Either<String>.Or<Either<Either<Int>.Or<Double>>.Or<Bool>> = Either<String>.Or<Int>.Or<Double>.Or<Bool>.a("")
         let _: String? = nested.infer()
         let _: Int? = nested.infer()
         let _: Double? = nested.infer()
         let _: Bool? = nested.infer()
         XCTAssertEqual("", nested.infer())
 
-        let _: XOr<String>.Or<XOr<XOr<XOr<Int>.Or<Double>>.Or<Bool>>.Or<Float>> = XOr<String>.Or<Int>.Or<Double>.Or<Bool>.Or<Float>("")
+        let _: Either<String>.Or<Either<Either<Either<Int>.Or<Double>>.Or<Bool>>.Or<Float>> = Either<String>.Or<Int>.Or<Double>.Or<Bool>.Or<Float>.a("")
 
-        //        let _: XOr<String>.Or<XOr<Int>.Or<XOr<Double>.Or<Float>>> = XOr<String>.Or<Int>.Or<Double>.Or<Float>("")
+        //        let _: Either<String>.Or<Either<Int>.Or<Either<Double>.Or<Float>>> = Either<String>.Or<Int>.Or<Double>.Or<Float>("")
 
-        XCTAssertEqual("[123]", try [XOr<Int>(123)].debugJSON)
-        XCTAssertEqual("[false]", try [XOr<String>.Or<Bool>(false)].debugJSON)
-        XCTAssertEqual("[[]]", try [XOr<String>.Or<[String]>([])].debugJSON)
-        XCTAssertEqual("[{}]", try [XOr<String>.Or<[String: String]>([:])].debugJSON)
-        XCTAssertEqual("[{\"X\":1}]", try [XOr<String>.Or<[String: Int]>(["X":1])].debugJSON)
-        XCTAssertEqual("[\"ABC\"]", try [XOr<String>.Or<Bool>("ABC")].debugJSON)
+        XCTAssertEqual("[123]", try [Either<Int>(123)].debugJSON)
+        XCTAssertEqual("[false]", try [Either<String>.Or<Bool>(false)].debugJSON)
+        XCTAssertEqual("[[]]", try [Either<String>.Or<[String]>([])].debugJSON)
+        XCTAssertEqual("[{}]", try [Either<String>.Or<[String: String]>([:])].debugJSON)
+        XCTAssertEqual("[{\"X\":1}]", try [Either<String>.Or<[String: Int]>(["X":1])].debugJSON)
+        XCTAssertEqual("[\"ABC\"]", try [Either<String>.Or<Bool>.a("ABC")].debugJSON)
 
-        try rt(XOr<Int>(123))
-        try rt(XOr<String>("ABC"))
+        try rt(Either<Int>(123))
+        try rt(Either<String>("ABC"))
 
-        try rt(XOr<Int>.Or<String>("ABC"))
-        try rt(XOr<Int>.Or<String>(12))
+        try rt(Either<Int>.Or<String>.b("ABC"))
+        try rt(Either<Int>.Or<String>(12))
 
-        try rt(XOr<Int>.Or<String>.Or<Bool>(12))
-        try rt(XOr<Int>.Or<String>.Or<Bool>(.init("ABC")))
-        try rt(XOr<Int>.Or<String>.Or<Bool>(.init(true)))
-        try rt(XOr<Int>.Or<String>.Or<Bool>(.init(false)))
+        try rt(Either<Int>.Or<String>.Or<Bool>(12))
+        try rt(Either<Int>.Or<String>.Or<Bool>(.init("ABC")))
+        try rt(Either<Int>.Or<String>.Or<Bool>(.init(true)))
+        try rt(Either<Int>.Or<String>.Or<Bool>(.init(false)))
 
-        try rt(XOr<UInt8>.Or<UInt16>(UInt8.max))
-        try rt(XOr<UInt8>.Or<UInt16>(UInt16.max))
-        try rt(XOr<UInt16>.Or<UInt8>(UInt16.max))
+        try rt(Either<UInt8>.Or<UInt16>(UInt8.max))
+        try rt(Either<UInt8>.Or<UInt16>(UInt16.max))
+        try rt(Either<UInt16>.Or<UInt8>(UInt16.max))
         // since UInt8.max can be decoded into UInt16, this test will fail because the UInt8 side is encoded, but the UInt16 side is decoded
-        try rt(XOr<UInt16>.Or<UInt8>(UInt8.max), equal: false)
+        try rt(Either<UInt16>.Or<UInt8>(UInt8.max), equal: false)
 
-        try rt(XOr<Int>.Or<Double>(123.4))
+        try rt(Either<Int>.Or<Double>(123.4))
 
         // should fail because round numbers are indistinguishable beteen Int and Double in JSON, so the Double side will be encoded, but the Int side will be the one that will be decoded (simply because it is first in the list)
-        try rt(XOr<Int>.Or<Double>(123.0), equal: false)
+        try rt(Either<Int>.Or<Double>(123.0), equal: false)
     }
 
     /// Tests modeling JSON types using `XOr.Or`
     func testJSON() throws {
-        typealias JSONPrimitive = XOr<String>.Or<Double>.Or<Bool>?
-        typealias JSON1<T> = XOr<JSONPrimitive>.Or<T>
+        typealias JSONPrimitive = Either<String>.Or<Double>.Or<Bool>?
+        typealias JSON1<T> = Either<JSONPrimitive>.Or<T>
         typealias JSON2<T> = JSON1<JSON1<T>>
         typealias JSON3<T> = JSON2<JSON1<T>>
         typealias JSON = JSON3<JSONPrimitive>
         typealias JSONArray = Array<JSON>
         typealias JSONObject = Dictionary<String, JSON>
-        typealias JSONComplex = XOr<JSONObject>.Or<JSONArray>
+        typealias JSONComplex = Either<JSONObject>.Or<JSONArray>
 
-        // let json1 = try JSON(json: "abc".utf8Data)
+        // let json1 = try JSON(fromJSON: "abc".utf8Data)
     }
 
     func testProjectFormat() throws {

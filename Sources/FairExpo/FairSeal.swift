@@ -65,7 +65,7 @@ public struct FairSeal : Codable, JSONSignable {
     /// The size of the artifact's executable binary
     public var coreSize: Int?
     /// The contents of the `App.yml` metadata
-    public var metadata: JSum?
+    public var metadata: JSON?
     /// The permission for this app
     public var permissions: [AppPermission]?
     /// The signature for this payload, authenticating the fairseal issuer with HMAC-256
@@ -93,7 +93,7 @@ public struct FairSeal : Codable, JSONSignable {
         set { signature = newValue }
     }
 
-    public init(metadata: JSum?, assets: [Asset]? = nil, permissions: [AppPermission]? = nil, appSource: AppCatalogItem? = nil, coreSize: Int? = nil, tint: String? = nil) {
+    public init(metadata: JSON?, assets: [Asset]? = nil, permissions: [AppPermission]? = nil, appSource: AppCatalogItem? = nil, coreSize: Int? = nil, tint: String? = nil) {
         self.metadata = metadata
         self.generatorVersion = Bundle.fairCoreVersion
         //self.fairsealVersion = Version.allCases.last!
@@ -114,7 +114,7 @@ public struct FairSeal : Codable, JSONSignable {
 extension FairSeal {
     /// Tries to parse the "app" property of the metadata as a `AppMetadata`
     func parseAppMetaData() throws -> AppMetadata? {
-        guard let app = self.metadata?["app"]?.obj else {
+        guard let app = self.metadata?["app"]?.object else {
             return nil
         }
 

@@ -66,28 +66,28 @@ extension Facet {
 /// A multi-facet is a composition of multiple facets.
 ///
 /// The implementation of `facets` will go through all the available facets.
-public struct MultiFacet<P : Facet, Q : Facet> : Facet {
-    public typealias Choice = XOr<P>.Or<Q>
+public struct MultiFacet<A : Facet, B : Facet> : Facet {
+    public typealias Choice = Either<A>.Or<B>
     public let choice: Choice
 
-    public init(choice: XOr<P>.Or<Q>) {
+    public init(choice: Either<A>.Or<B>) {
         self.choice = choice
     }
 
     public static func facets<Manager: FacetManager>(for manager: Manager) -> [Self] {
-        (P.facets(for: manager).map(Choice.p) + Q.facets(for: manager).map(Choice.q)).map(MultiFacet.init)
+        (A.facets(for: manager).map(Choice.a) + B.facets(for: manager).map(Choice.b)).map(MultiFacet.init)
     }
 
 }
 
-extension MultiFacet : RawRepresentable where P : RawRepresentable, Q : RawRepresentable, P.RawValue == Q.RawValue {
-    public typealias RawValue = P.RawValue
+extension MultiFacet : RawRepresentable where A : RawRepresentable, B : RawRepresentable, A.RawValue == B.RawValue {
+    public typealias RawValue = A.RawValue
 
     public init?(rawValue: RawValue) {
-        if let p = P(rawValue: rawValue) {
-            self.choice = .init(p)
-        } else if let q = Q(rawValue: rawValue) {
-            self.choice = .init(q)
+        if let a = A(rawValue: rawValue) {
+            self.choice = .init(a)
+        } else if let b = B(rawValue: rawValue) {
+            self.choice = .init(b)
         } else {
             return nil
         }
@@ -95,8 +95,8 @@ extension MultiFacet : RawRepresentable where P : RawRepresentable, Q : RawRepre
 
     public var rawValue: RawValue {
         switch choice {
-        case .p(let p): return p.rawValue
-        case .q(let q): return q.rawValue
+        case .a(let a): return a.rawValue
+        case .b(let b): return b.rawValue
         }
     }
 }
@@ -119,9 +119,9 @@ public protocol FacetUI : Facet {
     var facetInfo: FacetInfo { get }
 }
 
-extension MultiFacet : FacetUI where P : FacetUI, Q : FacetUI {
+extension MultiFacet : FacetUI where A : FacetUI, B : FacetUI {
     public var facetInfo: FacetInfo {
-        choice.map(\.facetInfo, \.facetInfo).pvalue
+        choice.map(\.facetInfo, \.facetInfo).avalue
     }
 }
 
@@ -153,24 +153,24 @@ public protocol FacetView : FacetUI {
 }
 
 /// A union of views is also a view.
-extension XOr.Or : View where P : View, Q : View {
+extension Either.Or : View where A : View, B : View {
     public var body: some View {
         switch self {
-        case .p(let pv): pv
-        case .q(let qv): qv
+        case .a(let pv): pv
+        case .b(let qv): qv
         }
     }
 }
 
-extension MultiFacet : View where P : View, Q : View {
+extension MultiFacet : View where A : View, B : View {
     @ViewBuilder public var body: some View {
         choice
     }
 }
 
-extension MultiFacet : FacetView where P : FacetView, Q : FacetView, P.FacetStore == Q.FacetStore {
+extension MultiFacet : FacetView where A : FacetView, B : FacetView, A.FacetStore == B.FacetStore {
     /// Delegates the `FacetView` implementation to the underlying choice.
-    @ViewBuilder public func facetView(for store: P.FacetStore) -> some View {
+    @ViewBuilder public func facetView(for store: A.FacetStore) -> some View {
         choice.map {
             $0.facetView(for: store)
         } _: {
@@ -179,11 +179,11 @@ extension MultiFacet : FacetView where P : FacetView, Q : FacetView, P.FacetStor
     }
 }
 
-extension MultiFacet : CaseIterable where P : CaseIterable, Q : CaseIterable {
+extension MultiFacet : CaseIterable where A : CaseIterable, B : CaseIterable {
     /// A `MultiFacet` will iterator through all its choice cases.
-    public static var allCases: [MultiFacet<P, Q>] {
-        P.allCases.map(Choice.p).map(MultiFacet.init) +
-        Q.allCases.map(Choice.q).map(MultiFacet.init)
+    public static var allCases: [MultiFacet<A, B>] {
+        A.allCases.map(Choice.a).map(MultiFacet.init) +
+        B.allCases.map(Choice.b).map(MultiFacet.init)
     }
 }
 
@@ -624,7 +624,7 @@ private struct SupportSettingsView<Store: FacetManager> : View {
     }
 
     var packageResolved: Result<ResolvedPackage.ResolvedPackageV2, Error> {
-        Result { try ResolvedPackage.ResolvedPackageV2(json: bundle.loadResource(named: "Package.resolved")) }
+        Result { try ResolvedPackage.ResolvedPackageV2(fromJSON: bundle.loadResource(named: "Package.resolved")) }
     }
 
     @ViewBuilder var dependenciesSection: some View {

@@ -162,6 +162,7 @@ final class FairEntitlementsTests: XCTestCase {
                     if executable.lastPathComponent == "Transmission" { continue }
                     if executable.lastPathComponent == "eDEX-UI" { continue }
                     if executable.lastPathComponent == "MacDown" { continue }
+                    if executable.lastPathComponent == "Android File Transfer" { continue }
 
                     do {
                         let _ = try await readEntitlements(executable.path)

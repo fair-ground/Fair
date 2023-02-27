@@ -50,7 +50,7 @@ final class FairCommandTests: XCTestCase {
         let result = try await runTool(type: type?.configuration.commandName, op: C.configuration.commandName, args)
         let output = result.output.joined()
         //dbg("output:", output)
-        return (try [C.Output](json: output.utf8Data, dateDecodingStrategy: .iso8601), result.messages)
+        return (try [C.Output](fromJSON: output.utf8Data, dateDecodingStrategy: .iso8601), result.messages)
     }
 
     /// Invokes the `FairTool` in-process using the specified arguments
@@ -180,7 +180,7 @@ final class FairCommandTests: XCTestCase {
     func testArtifactInfoCommandiOS() async throws {
         let (result, _) = try await runToolOutput(ArtifactCommand.self, cmd: ArtifactCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .iOS).absoluteString])
 
-        XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.object?["CFBundleIdentifier"]?.string)
         XCTAssertEqual(0, result.first?.entitlements?.count, "no entitlements expected in this ios app")
     }
 
@@ -188,10 +188,10 @@ final class FairCommandTests: XCTestCase {
     func testArtifactInfoCommandMacOS() async throws {
         let (result, _) = try await runToolOutput(ArtifactCommand.self, cmd: ArtifactCommand.InfoCommand.self, [Self.appDownloadURL(for: "Cloud-Cuckoo", version: nil, platform: .macOS).absoluteString])
 
-        XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual("app.Cloud-Cuckoo", result.first?.info.object?["CFBundleIdentifier"]?.string)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
-        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-        XCTAssertEqual(false, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
+        XCTAssertEqual(true, result.first?.entitlements?.first?.object?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(false, result.first?.entitlements?.first?.object?["com.apple.security.network.client"])
     }
 
     func testArtifactInfoCommandMacOSStream() async throws {
@@ -205,12 +205,12 @@ final class FairCommandTests: XCTestCase {
 
         for try await result in cmd.executeCommand() {
             //XCTAssertEqual("app.Cloud-Cuckoo", result.info.obj?["CFBundleIdentifier"]?.str)
-            XCTAssertNotNil(result.info.obj?["CFBundleIdentifier"]?.str)
+            XCTAssertNotNil(result.info.object?["CFBundleIdentifier"]?.string)
 
             if cmd.apps.first?.hasSuffix("macOS.zip") == true {
                 XCTAssertEqual(2, result.entitlements?.count, "expected two entitlements in a fat binary")
-                XCTAssertEqual(true, result.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-                XCTAssertEqual(false, result.entitlements?.first?.obj?["com.apple.security.network.client"])
+                XCTAssertEqual(true, result.entitlements?.first?.object?["com.apple.security.app-sandbox"])
+                XCTAssertEqual(false, result.entitlements?.first?.object?["com.apple.security.network.client"])
             }
             //return
 
@@ -269,8 +269,8 @@ final class FairCommandTests: XCTestCase {
         let result = try await runTool(type: "source", op: SourceCommand.CreateCommand.configuration.commandName, Array(args))
         let output = result.output.joined()
         //dbg("output:", output)
-        let catalog = try AppCatalog(json: output.utf8Data, dateDecodingStrategy: .iso8601)
-        dbg("catalog:", try? catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String)
+        let catalog = try AppCatalog(fromJSON: output.utf8Data, dateDecodingStrategy: .iso8601)
+        dbg("catalog:", try? catalog.toJSON(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String)
     }
 
     func testValidateCommand() async throws {
@@ -304,10 +304,10 @@ final class FairCommandTests: XCTestCase {
 //        }
         let (result, _) = try await runToolOutput(ArtifactCommand.self, cmd: ArtifactCommand.InfoCommand.self, [stocksPath])
 
-        XCTAssertEqual("com.apple.stocks", result.first?.info.obj?["CFBundleIdentifier"]?.str)
+        XCTAssertEqual("com.apple.stocks", result.first?.info.object?["CFBundleIdentifier"]?.string)
         XCTAssertEqual(2, result.first?.entitlements?.count, "expected two entitlements in a fat binary")
-        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.app-sandbox"])
-        XCTAssertEqual(true, result.first?.entitlements?.first?.obj?["com.apple.security.network.client"])
+        XCTAssertEqual(true, result.first?.entitlements?.first?.object?["com.apple.security.app-sandbox"])
+        XCTAssertEqual(true, result.first?.entitlements?.first?.object?["com.apple.security.network.client"])
     }
 
     #endif
@@ -442,7 +442,7 @@ final class FairCommandTests: XCTestCase {
         XCTAssertEqual("app.Cloud-Cuckoo", cat2Post.news?.first?.appID)
     }
 
-    func testSignableJSum() throws {
+    func testSignableJSON() throws {
         let key = "another test key"
 
         struct Demo : Encodable {
@@ -452,7 +452,7 @@ final class FairCommandTests: XCTestCase {
 
         let instance = Demo(name: "Abc", date: Date(timeIntervalSinceReferenceDate: 4321))
 
-        struct SignableJSum<T: Encodable> : SigningContainer {
+        struct SignableJSON<T: Encodable> : SigningContainer {
             let rawValue: T
 
             init(_ rawValue: T) {
@@ -464,12 +464,12 @@ final class FairCommandTests: XCTestCase {
             }
         }
 
-        let signable = SignableJSum(instance)
+        let signable = SignableJSON(instance)
         let sig = try signable.sign(key: key.utf8Data)
         XCTAssertEqual("lahFynjU/GPoeQA2xwqeiNE3i3nLVVvSvNhY0C0Ok1Q=", sig.base64EncodedString())
 
         do {
-            // re-create the SignableJSum as a top-level type;
+            // re-create the SignableJSON as a top-level type;
             // the signatures should match
             struct DemoSignable : Encodable, JSONSignable {
                 let name: String

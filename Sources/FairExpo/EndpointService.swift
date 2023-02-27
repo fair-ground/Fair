@@ -51,7 +51,7 @@ public protocol EndpointService {
 /// can be an `Xor` when multiple response types should be expected, such as:
 ///
 /// ```
-/// typealias Response = XOr<FailureResponse>.Or<SuccessResponse>
+/// typealias Response = Either<FailureResponse>.Or<SuccessResponse>
 /// ```
 public protocol APIRequest {
     associatedtype Response : Decodable
@@ -106,7 +106,7 @@ extension EndpointService {
     func decode<T: Decodable>(data: Data) throws -> T {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        //dbg(wip("### decoding response:"), try! JSum(json: data).prettyJSON) // debugging for failures
+        //dbg(wip("### decoding response:"), try! JSON(fromJSON: data).prettyJSON) // debugging for failures
 
         return try decoder.decode(T.self, from: data)
     }
@@ -224,8 +224,27 @@ public protocol CursoredAPIResponse {
     var elementCount: Int { get }
 }
 
-/// In the common case of a result type that is in `XOr<Error>.Or<Result>`, use the success value as the success
-extension XOr.Or : CursoredAPIResponse where P : Error, Q : CursoredAPIResponse {
+extension Either.Or where A : Error {
+    /// Transforms `Either<Error>.Or<A>` into `Result<A, Error>`
+    public var result: Result<B, A> {
+        map(Result.failure, Result.success).value
+    }
+
+    /// Converts this into a `Result` and attempts to force get the value.
+    public func get() throws -> B {
+        try result.get()
+    }
+}
+
+//extension Either.Or where B : Error {
+//    /// Transforms `Either<Error>.Or<A>` into `Result<A, Error>`
+//    public var result: Result<A, B> {
+//        map({ .success($0) }, { .failure($0) }).value
+//    }
+//}
+
+/// In the common case of a result type that is in `Either<Error>.Or<Result>`, use the success value as the success
+extension Either.Or : CursoredAPIResponse where A : Error, B : CursoredAPIResponse {
     public var elementCount: Int {
         result.successValue?.elementCount ?? 0
     }
@@ -290,7 +309,7 @@ public struct GraphQLErrorList : Decodable, Error {
 /// Either a single error or a list of errors
 
 public struct GraphQLRequestFailure : Error, RawDecodable {
-    public typealias ErrorTypes = XOr<GraphQLError>.Or<GraphQLErrorList>
+    public typealias ErrorTypes = Either<GraphQLError>.Or<GraphQLErrorList>
     public let rawValue: ErrorTypes
     public init(rawValue: ErrorTypes) {
         self.rawValue = rawValue
@@ -322,7 +341,7 @@ public extension GraphQLEndpointService {
     /// A failure can be either a single error (typically for syntax errors), or a list of errors (typically for structural issues)
 
     /// A response can contain either a successful value or an error instance
-    typealias GraphQLResponse<T: Decodable> = XResult<GraphQLPayload<T>, GraphQLRequestFailure>
+    typealias GraphQLResponse<T: Decodable> = Either<GraphQLRequestFailure>.Or<GraphQLPayload<T>>
 
     func buildRequest<A: APIRequest>(for request: A, cache: URLRequest.CachePolicy? = nil) throws -> URLRequest where A.Service == Self {
         let url = request.queryURL(for: self)

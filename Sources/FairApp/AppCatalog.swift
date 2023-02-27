@@ -121,7 +121,7 @@ private func decodeISO8601Date(_ decoder: Decoder) throws -> Date {
 public extension AppCatalog {
     /// Parses the `AppCatalog` with the expected parameters (i.e., date encoding as lenient iso8601).
     static func parse(jsonData: Data) throws -> Self {
-        try AppCatalog(json: jsonData, dateDecodingStrategy: .custom(decodeISO8601Date))
+        try AppCatalog(fromJSON: jsonData, dateDecodingStrategy: .custom(decodeISO8601Date))
     }
 }
 
@@ -733,7 +733,7 @@ public extension AppCatalogItem {
 /// A source of an ``AppCatalog``, which can either be a catalog itslef
 /// or a URL that is expected to resolve to a catalog.
 public struct AppCatalogSource : RawCodable, Equatable {
-    public typealias RawValue = XOr<AppCatalog>.Or<URL>
+    public typealias RawValue = Either<AppCatalog>.Or<URL>
     public let rawValue: RawValue
 
     public init(rawValue: RawValue) {
@@ -751,8 +751,8 @@ public struct AppCatalogSource : RawCodable, Equatable {
     /// Resolves the app catalog.
     public func fetchCatalog(with session: @autoclosure () -> URLSession = URLSession.shared) async throws -> AppCatalog {
         switch rawValue {
-        case .p(let catalog): return catalog
-        case .q(let url): return try AppCatalog.parse(jsonData: await session().fetch(request: URLRequest(url: url)).data)
+        case .a(let catalog): return catalog
+        case .b(let url): return try AppCatalog.parse(jsonData: await session().fetch(request: URLRequest(url: url)).data)
         }
     }
 }

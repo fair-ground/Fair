@@ -42,8 +42,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
-        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/jsum(options:)"
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/json(options:)",
+        "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)"
       ],
       "title" : "Instance Methods"
     }
@@ -194,7 +194,7 @@
   "type" : "topic",
   "url" : "\/documentation\/fairapp\/appcategorytype\/debugjson"
 },
-"doc://FairApp/documentation/FairApp/AppCategoryType/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+"doc://FairApp/documentation/FairApp/AppCategoryType/json(options:)": {
   "abstract" : [
 
   ],
@@ -210,6 +210,99 @@
     {
       "kind" : "identifier",
       "text" : "json"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSON19JSONEncodingOptionsC",
+      "text" : "JSONEncodingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : "?) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:4JSONAAV",
+      "text" : "JSON"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/json(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "json(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategorytype\/json(options:)"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType/prettyJSON": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "prettyJSON"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/prettyJSON",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "prettyJSON",
+  "type" : "topic",
+  "url" : "\/documentation\/fairapp\/appcategorytype\/prettyjson"
+},
+"doc://FairApp/documentation/FairApp/AppCategoryType/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "toJSON"
     },
     {
       "kind" : "text",
@@ -401,105 +494,12 @@
       "text" : "Data"
     }
   ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "json(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
+  "title" : "toJSON(encoder:outputFormatting:dateEncodingStrategy:dataEncodingStrategy:nonConformingFloatEncodingStrategy:keyEncodingStrategy:userInfo:)",
   "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategorytype\/json(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
-},
-"doc://FairApp/documentation/FairApp/AppCategoryType/jsum(options:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "jsum"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "options"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSum0A15EncodingOptionsC",
-      "text" : "JSumEncodingOptions"
-    },
-    {
-      "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:4JSumAAO",
-      "text" : "JSum"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/jsum(options:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "jsum(options:)",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategorytype\/jsum(options:)"
-},
-"doc://FairApp/documentation/FairApp/AppCategoryType/prettyJSON": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "prettyJSON"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/FairApp\/documentation\/FairApp\/AppCategoryType\/prettyJSON",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "prettyJSON",
-  "type" : "topic",
-  "url" : "\/documentation\/fairapp\/appcategorytype\/prettyjson"
+  "url" : "\/documentation\/fairapp\/appcategorytype\/tojson(encoder:outputformatting:dateencodingstrategy:dataencodingstrategy:nonconformingfloatencodingstrategy:keyencodingstrategy:userinfo:)"
 }
 }
 }

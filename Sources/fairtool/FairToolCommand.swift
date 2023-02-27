@@ -323,7 +323,7 @@ public struct ProjectOptions: ParsableArguments {
     }
 }
 
-extension JSum : SigningContainer {
+extension JSON : SigningContainer {
 }
 
 
@@ -352,7 +352,7 @@ public struct OutputOptions: ParsableArguments {
 
 extension OutputOptions {
     func writeCatalog(_ catalog: AppCatalog) throws -> Data {
-        let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+        let json = try catalog.toJSON(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
         try self.write(json)
         return json
     }
@@ -442,7 +442,7 @@ public struct MsgOptions: ParsableArguments {
     }
 
     func writeOutput<T: FairCommandOutput>(_ item: T) throws {
-        try write(item.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String ?? "")
+        try write(item.toJSON(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String ?? "")
     }
 
     /// Iterates over each of the given arguments and executes the block against the arg, outputting the result as it goes.
@@ -789,7 +789,7 @@ extension FairParsableCommand {
 
     /// Parses the `AccentColor.colorset/Contents.json` file and returns the first color item
     func parseColorContents(url: URL) throws -> (r: Double, g: Double, b: Double, a: Double)? {
-        try AccentColorList(json: Data(contentsOf: url)).firstRGBAColor
+        try AccentColorList(fromJSON: Data(contentsOf: url)).firstRGBAColor
     }
 
     @discardableResult func saveCask(_ app: AppCatalogItem, to caskFolderFlag: String, prereleaseSuffix: String?) throws -> Bool {

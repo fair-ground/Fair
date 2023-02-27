@@ -76,18 +76,18 @@ public enum Tweeter {
         if let in_reply_to_tweet_id = in_reply_to_tweet_id {
             post.reply = .init(in_reply_to_tweet_id: in_reply_to_tweet_id, exclude_reply_user_ids: nil)
         }
-        req.httpBody = try post.json()
+        req.httpBody = try post.toJSON()
 
         let (data, response) = try await URLSession.shared.fetch(request: req, validate: nil) // [201]) // 201 Created is the only valid response code
         dbg("received posting response:", response)
         dbg("received posting data:", data.utf8String ?? "")
-        let responseItem = try PostResponse(json: data)
+        let responseItem = try PostResponse(fromJSON: data)
         return responseItem
     }
 
     /// A Twitter ID is a numeric string like "1542958914332934147"
     public struct TweetID : RawCodable {
-        public typealias RawValue = String // XOr<String>.Or<UInt64>
+        public typealias RawValue = String // Either<String>.Or<UInt64>
         public let rawValue: RawValue
 
         public init(rawValue: RawValue) {
@@ -97,7 +97,7 @@ public enum Tweeter {
 
     /// The response to a tweet can be either success or an error
     public struct PostResponse : RawCodable {
-        public typealias RawValue = XOr<TweetPostedResponse>.Or<TweetPostedError>
+        public typealias RawValue = Either<TweetPostedResponse>.Or<TweetPostedError>
         public let rawValue: RawValue
 
         public init(rawValue: RawValue) {

@@ -109,8 +109,8 @@ extension FairCommand {
 
             return executeSeries(yaml, initialValue: nil) { yaml, prev in
                 msg(.info, "parsing metadata:", yaml)
-                let json = try JSum.parse(yaml: String(contentsOf: URL(fileOrScheme: yaml), encoding: .utf8))
-                guard let appJSON = json[key]?.obj else {
+                let json = try YAML.parse(Data(contentsOf: URL(fileOrScheme: yaml))).json()
+                guard let appJSON = json[key]?.object else {
                     throw AppError(String(format: NSLocalizedString("Could not find key in YAML: %@", bundle: .module, comment: "error message"), arguments: [key]))
                 }
 

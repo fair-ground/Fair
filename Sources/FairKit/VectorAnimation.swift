@@ -41,7 +41,7 @@ import Foundation
 import Lottie
 /// When Lottie is independently added to a package, a ``VectorAnimation`` will be
 /// a lottie animation JSON format, which can be included inline in a ``Card``.
-/// On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ``JSum``.
+/// On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ``JSON``.
 ///
 /// Lottie can be added to a project with the project dependency:
 ///
@@ -55,7 +55,7 @@ public typealias VectorAnimation = LottieAnimation
 #else
 /// When Lottie is independently added to a package, a ``VectorAnimation`` will be
 /// a lottie animation JSON format, which can be included inline in a ``Card``.
-/// On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ``JSum``.
+/// On platforms that do not import Lottie, this will be an opaque blob of JSON expressed as a ``JSON``.
 ///
 /// Lottie can be added to a project with the project dependency:
 ///
@@ -65,7 +65,7 @@ public typealias VectorAnimation = LottieAnimation
 ///
 /// `.product(name: "Lottie", package: "lottie-ios")`
 ///
-public typealias VectorAnimation = JSum
+public typealias VectorAnimation = JSON
 #endif
 
 public extension VectorAnimation {

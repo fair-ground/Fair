@@ -220,7 +220,7 @@ final class FairAppTests: XCTestCase {
             contents8BitInteger,
             contents8BitHex
         ] {
-            let colorList = try AccentColorList(json: contents.utf8Data)
+            let colorList = try AccentColorList(fromJSON: contents.utf8Data)
             guard let colorValue = colorList.firstRGBHex else {
                 return XCTFail("could not parse color list")
             }
@@ -440,10 +440,10 @@ final class FairAppTests: XCTestCase {
 }
 """
 
-        let iconSet = try AppIconSet(json: contents.utf8Data)
-        let json = try iconSet.json(outputFormatting: [.prettyPrinted, .sortedKeys]).utf8String
+        let iconSet = try AppIconSet(fromJSON: contents.utf8Data)
+        let json = try iconSet.toJSON(outputFormatting: [.prettyPrinted, .sortedKeys]).utf8String
         XCTAssertEqual(contents, json)
-        try XCTAssertEqual(iconSet.jsum(), JSum(json: json?.utf8Data ?? .init()))
+        try XCTAssertEqual(iconSet.json(), JSON(fromJSON: json?.utf8Data ?? .init()))
 
         XCTAssertEqual("appicon-iphone-60x60@2x.png", iconSet.images(idiom: "iphone", scale: "2x", size: "60x60").first?.filename)
         XCTAssertEqual("appicon-iphone-60x60@3x.png", iconSet.images(idiom: "iphone", scale: "3x", size: "60x60").first?.filename)
@@ -554,9 +554,9 @@ final class FairAppTests: XCTestCase {
             }
             """
 
-            let pm = try ResolvedPackage.ResolvedPackageV1(json: resolved.utf8Data)
+            let pm = try ResolvedPackage.ResolvedPackageV1(fromJSON: resolved.utf8Data)
             XCTAssertEqual(2, pm.object.pins.count)
-            _ = try ResolvedPackage(json: resolved.utf8Data)
+            _ = try ResolvedPackage(fromJSON: resolved.utf8Data)
         }
 
         do { // v2
@@ -577,9 +577,9 @@ final class FairAppTests: XCTestCase {
             }
             """
 
-            let pm = try ResolvedPackage.ResolvedPackageV2(json: resolved.utf8Data)
+            let pm = try ResolvedPackage.ResolvedPackageV2(fromJSON: resolved.utf8Data)
             XCTAssertEqual(1, pm.pins.count)
-            _ = try ResolvedPackage(json: resolved.utf8Data)
+            _ = try ResolvedPackage(fromJSON: resolved.utf8Data)
         }
 
     }
@@ -595,7 +595,7 @@ final class FairAppTests: XCTestCase {
             """.utf8Data)
 
             XCTAssertEqual("My Catalog", catalog.name)
-            XCTAssertEqual(try catalog.jsum().canonicalJSON, """
+            XCTAssertEqual(try catalog.json().canonicalJSON, """
             {"apps":[],"name":"My Catalog"}
             """)
         }
@@ -616,7 +616,7 @@ final class FairAppTests: XCTestCase {
             """.utf8Data)
 
             XCTAssertEqual("My App", catalog.apps.first?.name)
-            XCTAssertEqual(try catalog.jsum().canonicalJSON, """
+            XCTAssertEqual(try catalog.json().canonicalJSON, """
             {"apps":[{"bundleIdentifier":"x.y.z","downloadURL":"https://www.example.com/MyApp.ipa","name":"My App"}],"identifier":"a.b.c","name":"My Catalog"}
             """)
         }
