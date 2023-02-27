@@ -39,7 +39,7 @@ jobs:
         run: swift --version 
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Run fairtool
         run: |
@@ -69,7 +69,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
  
       - name: Test iOS (Debug)
         run: xcodebuild test -configuration Debug -scheme "Fair-Package" -sdk "iphonesimulator" -destination "platform=iOS Simulator,name=iPhone 14 Pro"
@@ -106,7 +106,7 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_14.0.1.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build documentation
         run: |
           swift -version
