@@ -38,15 +38,12 @@ let package = Package(
     ].compactMap({ $0 }),
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.1.3"),
-        .package(url: "https://github.com/marcprux/BricBrac.git", from: "4.0.0"),
+        .package(url: "https://github.com/marcprux/universal.git", from: "5.0.2"),
     ],
     targets: [
         .target(name: "CZLib", linkerSettings: [ .linkedLibrary("z") ]),
         .target(name: "FairCore", dependencies: [
-            .product(name: "YAML", package: "BricBrac"),
-            .product(name: "XML", package: "BricBrac"),
-            .product(name: "JSum", package: "BricBrac"),
-            .product(name: "XOr", package: "BricBrac"),
+            .product(name: "Universal", package: "universal"),
             "CZLib",
         ], resources: [.process("Resources")], cSettings: [.define("_GNU_SOURCE", to: "1")]),
         Platform.current == .android ? nil : .target(name: "FairApp", dependencies: ["FairCore"], resources: [.process("Resources")]),

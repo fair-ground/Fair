@@ -160,7 +160,7 @@ public struct SourceCommand : AsyncParsableCommand {
 
             // trim out the "apps" array and tack it onto the end of the output so we
             // can stream the apps afterwards
-            if let json = try catalog.json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String?.replacingOccurrences(of: #""apps":[],"#, with: "").dropLast() {
+            if let json = try catalog.toJSON(outputFormatting: [.sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601).utf8String?.replacingOccurrences(of: #""apps":[],"#, with: "").dropLast() {
                 // since we want to retain the streaming apps array behavior, we just hardwire the JSON we spit out initially
                 // it will be followed by the async array of apps
                 msgOptions.write(json + #","apps":"#)

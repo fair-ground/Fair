@@ -70,7 +70,7 @@ public extension HomebrewAPI {
         let (data, response) = try await URLSession.shared.fetch(request: request)
 
         dbg("loaded cask JSON", data.count.localizedByteCount(), "from url:", url)
-        let casks = try Array<CaskItem>(json: data)
+        let casks = try Array<CaskItem>(fromJSON: data)
         dbg("loaded", casks.count, "casks")
 
         return (casks, response)
@@ -86,7 +86,7 @@ public extension HomebrewAPI {
         let data = try await URLRequest(url: url).fetch()
 
         dbg("loaded cask stats", data.count.localizedByteCount(), "from url:", url)
-        return try CaskStats(json: data, dateDecodingStrategy: .iso8601)
+        return try CaskStats(fromJSON: data, dateDecodingStrategy: .iso8601)
     }
 }
 
@@ -144,12 +144,12 @@ public struct CaskItem : Equatable, Decodable {
     public var auto_updates: Bool?
 
     // "artifacts":[["Signal.app"],{"trash":["~/Library/Application Support/Signal","~/Library/Preferences/org.whispersystems.signal-desktop.helper.plist","~/Library/Preferences/org.whispersystems.signal-desktop.plist","~/Library/Saved Application State/org.whispersystems.signal-desktop.savedState"],"signal":{}}]
-    public typealias ArtifactItem = XOr<Array<ArtifactNameTarget>>.Or<JSum>
+    public typealias ArtifactItem = Either<Array<ArtifactNameTarget>>.Or<JSON>
 
     public var artifacts: Array<ArtifactItem>?
 
     /// Either the raw name of an app, or the target of the app
-    public typealias ArtifactNameTarget = XOr<ArtifactTarget>.Or<String>
+    public typealias ArtifactNameTarget = Either<ArtifactTarget>.Or<String>
 
     /// A target for the app, typically part of a hetergeneous array when the installed name of the app differs from the canonical name of the app
     /// E.g.: `["Eclipse.app", { "target": "Nodeclipse.app" } ]`
@@ -164,7 +164,7 @@ public struct CaskItem : Equatable, Decodable {
         public var cask: [String]?
 
         /// E.g., `{"macos":{">=":["10.12"]}}`
-        // let macOS: XOr<Array<String>>.Or<String>?
+        // let macOS: Either<Array<String>>.Or<String>?
     }
 
     /// E.g.: `"conflicts_with":{"cask":["homebrew/cask-versions/1password-beta"]}`

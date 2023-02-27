@@ -173,8 +173,8 @@ final class CryptoTests: XCTestCase {
         }
 
         // note that field ordering matters, since the serialized JSON is signed
-        let header = try JWTHeader(alg: "HS256", typ: "JWT").json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes])
-        let payload = try JWTPayload(sub: "1234567890", name: "John Doe", iat: 1516239022).json(outputFormatting: [.sortedKeys, .withoutEscapingSlashes])
+        let header = try JWTHeader(alg: "HS256", typ: "JWT").toJSON(outputFormatting: [.sortedKeys, .withoutEscapingSlashes])
+        let payload = try JWTPayload(sub: "1234567890", name: "John Doe", iat: 1516239022).toJSON(outputFormatting: [.sortedKeys, .withoutEscapingSlashes])
 
         func encode(_ data: Data) -> String {
             data.base64EncodedString()
@@ -256,10 +256,10 @@ final class CryptoTests: XCTestCase {
 
         XCTAssertEqual(expectedResult, correctedJSON)
 
-        func checkCanonical(id: String, _ json: String, line: UInt = #line) throws {
-            let jsum = try JSum.parse(json: json.utf8Data)
-            let canon = try jsum.canonicalJSON
-            XCTAssertEqual(json, canon, line: line)
+        func checkCanonical(id: String, _ jsonString: String, line: UInt = #line) throws {
+            let json = try JSON.parse(jsonString.utf8Data)
+            let canon = try json.canonicalJSON
+            XCTAssertEqual(jsonString, canon, line: line)
         }
 
         // from https://github.com/gibson042/canonicaljson-spec

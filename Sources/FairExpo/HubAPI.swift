@@ -399,7 +399,7 @@ extension FairHub {
                         do {
                             let body = comment.bodyText
                                 .trimmed(CharacterSet(charactersIn: "`").union(.whitespacesAndNewlines))
-                            seal = try FairSeal(json: body.utf8Data, dateDecodingStrategy: .iso8601)
+                            seal = try FairSeal(fromJSON: body.utf8Data, dateDecodingStrategy: .iso8601)
                             for asset in seal?.assets ?? [] {
                                 urlSeals[asset.url, default: []].insert(asset.sha256)
                             }
@@ -1093,7 +1093,7 @@ extension FairHub {
             try signedSeal.embedSignature(key: key)
         }
 
-        let sealJSON = try signedSeal.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
+        let sealJSON = try signedSeal.toJSON(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes])
         let sealComment = "```\n" + (sealJSON.utf8String ?? "") + "\n```"
         let postResponse = try await self.request(PostCommentQuery(id: prid, comment: sealComment)).get()
         let sealCommentURL = postResponse.data.addComment.commentEdge.node.url // e.g.: https://github.com/appfair/App/pull/72#issuecomment-924952591
@@ -1250,7 +1250,7 @@ extension AppCatalogItem {
             json = String(json.dropFirst(prefix.count)) // permit code fence to start with "```json" for syntax highlighting in markdown editor. E.g.:
         }
         json = json.trimmed()
-        var jobj = try JSum(json: json.utf8Data).obj ?? JObj()
+        var jobj = try JSON(fromJSON: json.utf8Data).object ?? JSON.Object()
 
         // inject the mandatory properties
         jobj["name"] = self.name.parameterValue

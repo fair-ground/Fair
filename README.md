@@ -541,11 +541,6 @@ algorithms shared throughout the package.
 It supports macOS 12+, iOS 15+, and Linux (Windows is close,
 but needs a fix for missing zlib; Android is TBD).
 
-Some notable types that are used throughout the `Fair*` modules are
-[JSum](https://fair-ground.github.io/Fair/documentation/faircore/jsum/)
-and
-[XOr](https://fair-ground.github.io/Fair/documentation/faircore/xor/).
-
 FairCore also contains utilities for 
 [zip file handling](https://fair-ground.github.io/Fair/documentation/faircore/ziparchive)
 and 

@@ -366,7 +366,7 @@ final class FairHubTests: XCTestCase {
     func testParseDroidCatalog() async throws {
         // let catalogData = try Data(contentsOf: URL(fileURLWithPath: "f-droid-index-v2.json", relativeTo: baseDir))
         let catalogData = try await URLSession.shared.fetch(request: URLRequest(url: FDroidEndpoint.defaultEndpoint)).data
-        let catalog = try FDroidIndex(json: catalogData)
+        let catalog = try FDroidIndex(fromJSON: catalogData)
         XCTAssertLessThan(3_900, catalog.packages.count, "F-Droid catalog should have contained packages")
 
         let complete = try FDroidIndex.codableComplete(data: catalogData)

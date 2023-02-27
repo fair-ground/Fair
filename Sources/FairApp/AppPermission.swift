@@ -39,7 +39,7 @@ import CoreFoundation
 #endif
 
 /// One of the supported permission types: ``AppEntitlementPermission``, ``AppUsagePermission``, ``AppBackgroundModePermission``, or ``AppUnrecognizedPermission``.
-public typealias AppPermission = XOr<AppEntitlementPermission>
+public typealias AppPermission = Either<AppEntitlementPermission>
     .Or<AppUsagePermission>
     .Or<AppBackgroundModePermission>
     .Or<AppUnrecognizedPermission>
@@ -817,9 +817,9 @@ public struct AppEntitlements {
         values.count
     }
 
-    /// Returns the entitlement values as a codable JSum struct.
-    public func jsum() throws -> JSum {
-        try Plist(rawValue: values as NSDictionary).jsum()
+    /// Returns the entitlement values as a codable JSON struct.
+    public func json() throws -> JSON {
+        try Plist(rawValue: values as NSDictionary).json()
     }
 
     public func value(forKey key: AppEntitlement) -> Any? {

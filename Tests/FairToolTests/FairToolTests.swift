@@ -47,8 +47,8 @@ final class FairToolTests: XCTestCase {
     /// Verifies that the "fairtool app info" command will output valid JSON that correctly identifies the app.
     func testToolAppInfo() async throws {
         let infoJSON = try await invokeTool(["artifact", "info", "/System/Applications/TextEdit.app"]).stdout
-        let json = try [ArtifactCommand.InfoCommand.Output](json: infoJSON)
-        XCTAssertEqual("com.apple.TextEdit", json.first?.info.obj?["CFBundleIdentifier"]?.str)
+        let json = try [ArtifactCommand.InfoCommand.Output](fromJSON: infoJSON)
+        XCTAssertEqual("com.apple.TextEdit", json.first?.info.object?["CFBundleIdentifier"]?.string)
     }
 
     @discardableResult func invokeTool(toolPath: String = "fairtool", _ args: [String], expectSuccess: Int32? = 0) async throws -> CommandResult {

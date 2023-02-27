@@ -58,8 +58,8 @@ public struct ArtifactCommand : AsyncParsableCommand {
 
         public struct InfoItem : FairCommandOutput, Decodable {
             public var url: URL
-            public var info: JSum
-            public var entitlements: [JSum]?
+            public var info: JSON
+            public var entitlements: [JSON]?
         }
 
         @OptionGroup public var msgOptions: MsgOptions
@@ -85,7 +85,7 @@ public struct ArtifactCommand : AsyncParsableCommand {
             msg(.info, "extracting info: \(from.from)")
             let (info, entitlements) = try await AppBundleLoader.loadInfo(fromAppBundle: from.local)
 
-            return try InfoItem(url: from.from, info: info.jsum(), entitlements: entitlements?.map({ try $0.jsum() }))
+            return try InfoItem(url: from.from, info: info.json(), entitlements: entitlements?.map({ try $0.json() }))
         }
     }
 }

@@ -448,7 +448,7 @@ extension FairCommand {
             // 7. Check Package.resolved if it exists and we've specified the hub to validate
             if let packageResolvedData = try? load(url: projectOptions.projectPathURL(path: "Package.resolved")) {
                 msg(.debug, "validating Package.resolved")
-                let packageResolved = try ResolvedPackage.ResolvedPackageV2(json: packageResolvedData)
+                let packageResolved = try ResolvedPackage.ResolvedPackageV2(fromJSON: packageResolvedData)
                 if let httpHost = URL(string: "https://\(hubOptions.hub)")?.host, let hubURL = URL(string: "https://\(httpHost)") {
                     // all dependencies must reside at the same fairground
                     // TODO: add include-hub/exclude-hub flags to permit cross-fairground dependency networks
@@ -840,7 +840,7 @@ extension FairCommand {
 
             // locate the metadata and parse the
             let metadata = try projectOptions.metadata.flatMap { metadataPath in
-                try JSum.parse(yaml: String(contentsOf: projectOptions.projectPathURL(path: metadataPath)))
+                try YAML.parse(Data(contentsOf: projectOptions.projectPathURL(path: metadataPath))).json()
             }
 
             let fairseal = FairSeal(metadata: metadata, assets: assets, permissions: permissions.map(AppPermission.init), appSource: sourceInfo, coreSize: Int(coreSize), tint: tint)
@@ -999,7 +999,7 @@ extension FairCommand {
                 msg(.debug, "  app:", apprel.name) // , "valid:", validate(apprel: apprel))
             }
 
-            let json = try catalog.json(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
+            let json = try catalog.toJSON(outputFormatting: [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes], dateEncodingStrategy: .iso8601, dataEncodingStrategy: .base64)
             try outputOptions.write(json)
             msg(.info, "Wrote catalog size:", json.count)
 
@@ -1061,7 +1061,7 @@ extension FairCommand {
             let appIconURL = projectOptions.projectPathURL(path: appIconPath)
 
             // load the specified `Assets.xcassets/AppIcon.appiconset/Contents.json` and fill in any of the essential missing icons
-            let iconSet = try AppIconSet(json: Data(contentsOf: appIconURL))
+            let iconSet = try AppIconSet(fromJSON: Data(contentsOf: appIconURL))
 
             let appName = try orgOptions.appNameSpace()
             let iconColor = try parseTintIconColor()
@@ -1137,7 +1137,7 @@ extension FairCommand {
             if appIconSet != iconSet {
                 // when we have changed the icon set from the origional, save it back to the asset catalog
                 msg(.info, "saving changed assets to: \(appIconURL.path)")
-                try appIconSet.json(outputFormatting: [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]).write(to: appIconURL)
+                try appIconSet.toJSON(outputFormatting: [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]).write(to: appIconURL)
             }
         }
 

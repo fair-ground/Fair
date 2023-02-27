@@ -126,26 +126,26 @@ extension Bundle {
 extension Bundle {
     /// Returns a result designed to be used in static caches of the packages bundled `Package.resolved` file (which must be copied manually into the bundle's resources)
     public func resolvedPackages() -> Result<ResolvedPackage, Error> {
-        Result { try ResolvedPackage(json: self.loadResource(named: "Package.resolved")) }
+        Result { try ResolvedPackage(fromJSON: self.loadResource(named: "Package.resolved")) }
     }
 }
 
 /// The contents of a `Package.resolved` file, which contains information about the project's dependencies.
 public struct ResolvedPackage : RawCodable, Codable {
-    public var rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>
+    public var rawValue: Either<ResolvedPackageV1>.Or<ResolvedPackageV2>
 
     public var version: Int { rawValue.map(\.version.rawValue, \.version.rawValue).value }
 
-    public init(rawValue: XOr<ResolvedPackageV1>.Or<ResolvedPackageV2>) {
+    public init(rawValue: Either<ResolvedPackageV1>.Or<ResolvedPackageV2>) {
         self.rawValue = rawValue
     }
 
     /// A version of the given package, handling both .v1 and .v2 of the packages.
     public var packages: [Package] {
         switch rawValue {
-        case .p(let v1):
+        case .a(let v1):
             return v1.object.pins.map({ Package(identity: nil, location: $0.repositoryURL, state: $0.state) })
-        case .q(let v2):
+        case .b(let v2):
             return v2.pins.map({ Package(identity: $0.identity, location: $0.location, state: $0.state) })
         }
     }

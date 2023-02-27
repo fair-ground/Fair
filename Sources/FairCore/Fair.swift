@@ -32,8 +32,8 @@
  exception statement from your version.
  */
 import Foundation
-@_exported import JSum
-@_exported import XOr
+@_exported import Either
+@_exported import JSON
 @_exported import YAML
 @_exported import XML
 
@@ -169,13 +169,13 @@ public extension Sequence {
 
 extension Optional where Wrapped : Equatable {
     /// Subscript to default in the specified value if the current value is `.none`
-    @inlinable public subscript(default defaultValue: Wrapped, preserveNil: Bool = false) -> XOr<Wrapped>.Or<Wrapped> {
+    @inlinable public subscript(default defaultValue: Wrapped, preserveNil: Bool = false) -> Either<Wrapped>.Or<Wrapped> {
         get {
-            flatMap(XOr.Or.p) ?? XOr.Or.q(defaultValue)
+            flatMap(Either.Or.a) ?? Either.Or.b(defaultValue)
         }
 
         set {
-            self = preserveNil && newValue.pvalue == defaultValue ? .none : .some(newValue.pvalue)
+            self = preserveNil && newValue.avalue == defaultValue ? .none : .some(newValue.avalue)
         }
     }
 }
@@ -1036,18 +1036,18 @@ public final class Plist : RawRepresentable, Hashable {
         try PropertyListSerialization.data(fromPropertyList: rawValue, format: format, options: 0)
     }
 
-    public func jsum() throws -> JSum {
-        try rawValue.jsum()
+    public func json() throws -> JSON {
+        try rawValue.json()
     }
 }
 
 extension NSDictionary {
-    public func jsum(failure: (Any) throws -> () = { _ in }) rethrows -> JSum {
-        try Self.jsum(dictionary: self, failure: failure)
+    public func json(failure: (Any) throws -> () = { _ in }) rethrows -> JSON {
+        try Self.json(dictionary: self, failure: failure)
     }
 
-    private static func jsum(dictionary: NSDictionary, failure: (Any) throws -> ()) rethrows -> JSum {
-        var obj = JObj()
+    private static func json(dictionary: NSDictionary, failure: (Any) throws -> ()) rethrows -> JSON {
+        var obj = JSON.Object()
 
         for (key, value) in dictionary {
             guard let key = key as? String else {
@@ -1055,51 +1055,51 @@ extension NSDictionary {
                 continue
             }
 
-            try obj[key] = jsum(element: value, failure: failure)
+            try obj[key] = json(element: value, failure: failure)
         }
 
-        return .obj(obj)
+        return .object(obj)
     }
 
-    private static func jsum(array: NSArray, failure: (Any) throws -> ()) rethrows -> JSum {
-        var arr: [JSum] = []
+    private static func json(array: NSArray, failure: (Any) throws -> ()) rethrows -> JSON {
+        var arr: [JSON] = []
 
         for value in array {
-            try arr.append(jsum(element: value, failure: failure))
+            try arr.append(json(element: value, failure: failure))
         }
 
-        return .arr(arr)
+        return .array(arr)
     }
 
-    /// Converts this `NSDictionary` into a `JSum` type, optionally failing on un-translatable elements.
-    private static func jsum(element: Any, failure: (Any) throws -> ()) rethrows -> JSum {
+    /// Converts this `NSDictionary` into a `JSON` type, optionally failing on un-translatable elements.
+    private static func json(element: Any, failure: (Any) throws -> ()) rethrows -> JSON {
         if let obj = element as? NSDictionary {
-            return try jsum(dictionary: obj, failure: failure)
+            return try json(dictionary: obj, failure: failure)
         } else if let arr = element as? NSArray {
-            return try jsum(array: arr, failure: failure)
+            return try json(array: arr, failure: failure)
         } else if let data = element as? Data {
-            return .str(data.base64EncodedString())
+            return .string(data.base64EncodedString())
         } else if let date = element as? Date {
-            return .str(iso8601.string(from: date))
+            return .string(iso8601.string(from: date))
         } else if let _ = element as? NSNull {
-            return .nul
+            return .null
         } else if let str = element as? String {
-            return .str(str)
+            return .string(str)
         } else if let bol = element as? Bool {
-            return .bol(bol)
+            return .boolean(bol)
         } else if let num = element as? NSNumber {
             #if canImport(ObjectiveC)
             if CFNumberGetType(num) == .charType {
-                return .bol(num.boolValue)
+                return .boolean(num.boolValue)
             } else {
-                return .num(num.doubleValue)
+                return .number(num.doubleValue)
             }
             #else
-            return .num(num.doubleValue)
+            return .number(num.doubleValue)
             #endif
         } else {
             try failure(element)
-            return .nul
+            return .null
         }
     }
 }
@@ -1111,18 +1111,10 @@ private let iso8601: ISO8601DateFormatter = {
     return formatter
 }()
 
-
-extension JSum {
-    /// Parses the given JSON data into a JSum structure.
-    public static func parse(json data: Data, allowsJSON5: Bool = true, dataDecodingStrategy: JSONDecoder.DataDecodingStrategy? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy? = nil, nonConformingFloatDecodingStrategy: JSONDecoder.NonConformingFloatDecodingStrategy? = nil, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy? = nil, userInfo: [CodingUserInfoKey : Any]? = nil) throws -> JSum {
-        try JSum(json: data, allowsJSON5: allowsJSON5, dataDecodingStrategy: dataDecodingStrategy, dateDecodingStrategy: dateDecodingStrategy, nonConformingFloatDecodingStrategy: nonConformingFloatDecodingStrategy, keyDecodingStrategy: keyDecodingStrategy, userInfo: userInfo)
-    }
-}
-
-extension JSum {
-    /// Parses the given plist data into a JSum structure.
-    public static func parse(plist data: Data) throws -> JSum {
-        try Plist(data: data).jsum()
+extension JSON {
+    /// Parses the given plist data into a JSON structure.
+    public static func parse(plist data: Data) throws -> JSON {
+        try Plist(data: data).json()
     }
 }
 
