@@ -356,7 +356,7 @@ final class FairCommandTests: XCTestCase {
 
     func testFetchCaskStats() async throws {
         let stats = try await HomebrewAPI(caskAPIEndpoint: HomebrewAPI.defaultEndpoint).fetchAppStats()
-        XCTAssertGreaterThan(stats.total_count, 500_000, "too few casks") // 889272 at last count
+        XCTAssertGreaterThan(stats.total_count, 1000, "too few casks") // 13936 at last count
     }
 
     #if !os(Windows) // async test compile issues: “error: invalid conversion from 'async' function of type '() async throws -> ()' to synchronous function type '() throws -> Void'”

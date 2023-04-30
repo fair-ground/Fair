@@ -146,7 +146,7 @@ public final class MessageBuffer {
     }
 }
 
-// Buffer contents are not really decidable, but the protocol is requires for `ParsableCommand` conformance
+// Buffer contents are not really decodable, but the protocol is requires for `ParsableCommand` conformance
 extension MessageBuffer : Decodable {
     public convenience init(from decoder: Decoder) throws {
         self.init()
